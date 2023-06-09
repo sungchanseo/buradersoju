@@ -27,7 +27,6 @@ public class MemberController {
 	//insert라는 하나의 주소로 get과 post방식 즉 입력과 출력 둘 다 처리 가능
 	
 	//http://localhost:8088/member/login
-	
 	@RequestMapping(value = "/insert", method = RequestMethod.GET)
 	//value="/member/insert"에서 member를 빼도 됨
 	public String insertGET() throws Exception {
@@ -35,6 +34,7 @@ public class MemberController {
 		return "/member/insertMember";
 	}
 	
+	//http://localhost:8088/member/insert
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
 	//value="/member/insertPro"에서 member를 빼도 됨
 	public String insertPOST(MemberVO vo) throws Exception{

@@ -1,4 +1,4 @@
-package com.itwillbs.test;
+package com.itwillbs.controller;
 
 
 import javax.inject.Inject;

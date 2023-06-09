@@ -22,7 +22,7 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.itwillbs.test" />
+	<context:component-scan base-package="com.itwillbs.controller" />
 	
 	
 	

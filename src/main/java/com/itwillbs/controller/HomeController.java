@@ -1,4 +1,4 @@
-package com.itwillbs.test;
+package com.itwillbs.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -19,6 +19,7 @@ public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
+	//http://localhost:8088/main
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public void main(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
@@ -29,6 +30,5 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 		
 		model.addAttribute("serverTime", formattedDate );
-		
 	}
 }

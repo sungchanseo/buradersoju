@@ -32,7 +32,7 @@
           <a class="navbar-brand brand-logo" href="/main">
             <img src="${pageContext.request.contextPath}/resources/images/logo.svg" alt="logo" class="logo-dark" />
           </a>
-          <a class="navbar-brand brand-logo-mini" href="index.html"><img src="${pageContext.request.contextPath}/resourcesimages/logo-mini.svg" alt="logo" /></a>
+          <a class="navbar-brand brand-logo-mini" href="/main"><img src="${pageContext.request.contextPath}/resources/images/logo-mini.svg" alt="logo" /></a>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-center flex-grow-1">
           <h5 class="mb-0 font-weight-medium d-none d-lg-flex">좋은 아침입니다 관리자님! </h5>
@@ -134,8 +134,10 @@
               </a>
               <div class="collapse" id="ui-basic">
                 <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="/member/insert">사원 등록</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="/member/update">사원 수정</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="/member/delete">사원 삭제</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="/member/list">사원 목록</a></li>
                 </ul>
               </div>
             </li>
@@ -431,7 +433,7 @@
           <!-- partial:partials/_footer.html -->
           <footer class="footer">
             <div class="d-sm-flex justify-content-center justify-content-sm-between">
-              <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright Â© SOJU 2020</span>
+              <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © SOJU 2020</span>
               <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> SOJU <a href="/main" target="_blank">SOJU admin</a> from SOJU.com</span>
             </div>
           </footer>
@@ -443,7 +445,7 @@
     </div>
     <!-- container-scroller -->
     <!-- plugins:js -->
-    <script src="${pageContext.request.contextPath}/vendors/js/vendor.bundle.base.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/vendors/js/vendor.bundle.base.js"></script>
     <!-- endinject -->
     <!-- Plugin js for this page -->
     <script src="${pageContext.request.contextPath}/resources/vendors/chart.js/Chart.min.js"></script>

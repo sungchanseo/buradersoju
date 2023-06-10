@@ -82,7 +82,7 @@ public class MemberController {
 			rttr.addFlashAttribute("mvo", returnVO);
 			//l.info("C: 모델값 : "+model);
 			logger.info("@@@@@@@@@@@@@@@로그인 성공!@@@@@@@@@@@@@@@@@@@@@@@");
-			return "redirect:/main";
+			 return "redirect:/main";
 		}else {
 			// 해당 정보 없는 경우 : => login페이지로 이동
 			logger.info("@@@@@@@@@@@@@@@로그인 실패!@@@@@@@@@@@@@@@@@@@@@@@");

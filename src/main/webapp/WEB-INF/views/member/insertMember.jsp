@@ -49,7 +49,7 @@
 		                  <div class="mb-4">
 		                  </div>
 		                  <div class="mt-3">
-		                      <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" type="submit">등록</button>
+		                      <button class="btn btn-block btn-success btn-lg font-weight-medium auth-form-btn" type="submit">등록</button>
 		                  </div>
 	                </form>
               </div>

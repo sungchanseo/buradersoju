@@ -170,7 +170,7 @@
                         <i class="mdi mdi-settings text-primary"></i>
                         Settings
                       </a>
-                      <a href="/logout" class="dropdown-item">
+                      <a href="member/logout" class="dropdown-item">
                         <i class="mdi mdi-logout text-primary"></i>
                         Logout
                       </a>
@@ -388,7 +388,7 @@
 						<div class="col-lg-4 mb-3 mb-lg-0">
 							<div class="card congratulation-bg text-center">
 								<div class="card-body pb-0">
-									<img src="resources/images/dashboard/face29.png" alt="">  
+									<img src="resources/images/dashboard/face29.png" alt="" width="120px">  
 									<h2 class="mt-3 text-white mb-3 font-weight-bold">이 달의 수주왕
 									</h2>
 									<p>You have done 57.6% more sales today. 

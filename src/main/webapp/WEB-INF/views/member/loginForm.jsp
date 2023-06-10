@@ -31,8 +31,8 @@
                 <div class="brand-logo">
                   <img src="${pageContext.request.contextPath}/resources/images/logo.png" alt="logo">
                 </div>
-                <h4>Hello! let's get started</h4>
-                <h6 class="font-weight-light">Sign in to continue.</h6>
+                <h4>환영합니다! </h4>
+                <h6 class="font-weight-light">계속하시려면 로그인을 진행해주세요.</h6>
                 <form class="pt-3" action="" method="post">
                   <div class="form-group">
                     <input type="text" class="form-control form-control-lg"  name="userid" id="userid" placeholder="사번을 입력하세요 :)">
@@ -46,8 +46,8 @@
                         	아이디 기억하기
                       </label>
                     </div>
-                  <div class="mt-3">
-                    <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" type="submit">로그인</button>
+                  <div class="mt-3" style="text-align: center;">
+                    <button class="btn btn-block btn-success btn-lg font-weight-medium auth-form-btn" type="submit">로그인</button>
                   </div>
                   <div class="my-2 d-flex justify-content-between align-items-center">
                   </div>

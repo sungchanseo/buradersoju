@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.itwillbs.mappers.customerMapper">
+<!-- 	customer 리스트 조회  -->
+	<select id="getCustomerList" resultType="com.itwillbs.domain.CustomerVO">
+		select * from customer 
+	</select>
+<!-- 	customer 리스트 조회  -->
+	
+<!-- customer 상세보기  -->
+	<select id="getCustomerInfo" resultType="com.itwillbs.domain.CustomerVO">
+		select * from customer 
+		where cust_id = #{cust_id}
+	</select>
+<!-- customer 상세보기  -->
+	
+<!-- customer 등록하기 	 -->
+	<insert id="insertCustomer">
+		insert into customer (cust_id, cust_name, reg_num, cust_type, cust_class, owner_name, main_phone, cust_address, cust_business, cust_event, cust_fax, cust_homepage, emp_id, emp_email, cust_etc, cust_status) 
+		values(#{cust_id}, #{cust_name}, #{reg_num}, #{cust_type}, #{cust_class}, #{owner_name}, #{main_phone}, #{cust_address}, #{cust_business}, #{cust_event}, #{cust_fax}, #{cust_homepage}, #{emp_id}, #{emp_email}, #{cust_etc}, 0)
+	</insert>
+<!-- customer 등록하기 	 -->
+
+<!-- customer 수정하기 -->
+	<update id="modifyCustomer">
+		update customer set cust_name=#{cust_name}, reg_num=#{reg_num}, cust_type=#{cust_type}, 
+		cust_class=#{cust_class}, owner_name=#{owner_name}, main_phone=#{main_phone}, cust_address=#{cust_address}, cust_business=#{cust_business}, cust_event=#{cust_event}, cust_fax=#{cust_fax}, cust_homepage=#{cust_homepage}, emp_id=#{emp_id}, emp_email=#{emp_email}, cust_etc=#{cust_etc}, cust_status=#{cust_status}
+		where cust_id=#{cust_id}
+	</update>
+<!-- customer 수정하기 -->
+	
+<!-- customer 삭제하기 	 -->
+	<update id="removeCustomer">
+		update customer set cust_status=1
+		where cust_id=#{cust_id}
+	</update>
+<!-- customer 삭제하기 	 -->
+	
+</mapper>

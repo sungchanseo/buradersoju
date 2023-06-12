@@ -1,6 +1,7 @@
 package com.itwillbs.domain;
-
 import java.util.Date;
+
+
 
 public class MaterialVO {
 

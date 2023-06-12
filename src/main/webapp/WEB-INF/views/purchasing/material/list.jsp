@@ -11,7 +11,11 @@
 <h1>material_list.jsp</h1>
 
 <!-- 자재 검색 기능 -->
+
+
+
 <!-- 자재 리스트 출력 -->
+${materialList }
 
 
 

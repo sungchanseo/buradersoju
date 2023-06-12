@@ -9,6 +9,8 @@ target
 pom.properties
 .classpath
 META-INF/*
+*.MF
+MANIFEST.MF
 
 ### Eclipse ###
 .metadata

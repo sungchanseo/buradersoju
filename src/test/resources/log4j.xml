@@ -9,12 +9,13 @@
 			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
 		</layout>
 	</appender>
-	
 	<!-- Application Loggers -->
-	<logger name="com.itwillbs.test">
-		<level value="info" />
+	<logger name="com.itwillbs.controller">
+		<level value="debug" />
 	</logger>
-	
+	<logger name="com.itwillbs.persistence">
+		<level value="debug" />
+	</logger>
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
 		<level value="info" />

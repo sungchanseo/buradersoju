@@ -14,6 +14,11 @@
 <h2>http://localhost:8088/purchasing/material/list</h2>
 
 
+<!-- materialList 객체 저장-->
+<c:set var="materialList" value="${materialList }" />
+
+
+
 <!-- 자재 검색 기능 -->
 <!-- 자재 검색 기능 -->
 

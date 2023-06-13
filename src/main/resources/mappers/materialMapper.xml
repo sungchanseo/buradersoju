@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<mapper namespace="com.itwillbs.mappers.materialMapper">
+
+<!-- 자재 목록 조회  -->
+	<select id="getMaterialList" resultType="com.itwillbs.domain.MaterialVO">
+		select * from material
+	</select>
+<!-- 자재 목록 조회  -->
+
+
+<!-- 자재 등록 -->
+<!-- ma_id는 자동넘버링 기능 추가 -->
+	<insert id="insertMaterial">
+		insert into material (ma_id, ma_name, unit_cost, whs_num, shelt_position, ma_image, ma_regdate, ma_emp, ma_qty)
+		values (#{ma_id}, #{ma_name}, #{unit_cost}, #{whs_num}, #{shelt_position}, #{ma_image}, now(), #{ma_emp}, 0)
+	</insert>
+<!-- 자재 등록 -->
+
+
+<!-- 자재 정보 조회 -->
+	<select id="getMaterial" resultType="com.itwillbs.domain.MaterialVO">
+		select * from material 
+		where ma_id = #{ma_id}
+	</select>
+<!-- 자재 정보 조회 -->
+
+
+
+
+
+
+</mapper>

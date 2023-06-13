@@ -24,14 +24,15 @@ public class MaterialServiceImpl implements MaterialService {
 	// 1. 자재 목록
 	@Override
 	public List<MaterialVO> getMaterialList() {
-		logger.debug("%%%%%Service%%%%% getMaterialList_호출");
+		logger.debug("%%%%% 서비스 %%%%% getMaterialList_호출");
 		return mdao.getMaterialList();
 	}
 
 	// 2. 자재 등록
 	@Override
 	public void insertMaterial(MaterialVO vo) {
-
+		logger.debug("%%%%% 서비스 %%%%% insertMaterial_호출");
+		mdao.insertMaterial(vo);
 	}
 	
 	// 3. 자재 수정

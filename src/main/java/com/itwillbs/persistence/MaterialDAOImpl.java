@@ -37,8 +37,9 @@ public class MaterialDAOImpl implements MaterialDAO {
 	// 2. 자재 등록
 	@Override
 	public void insertMaterial(MaterialVO vo) {
-
-		
+		logger.debug("##### DAO ##### insertMaterial_호출");
+		sqlSession.insert(NAMESPACE + ".insertMaterial", vo);
+		logger.debug("##### DAO ##### 자재 등록 완료");
 	}
 	
 	// 3. 자재 수정

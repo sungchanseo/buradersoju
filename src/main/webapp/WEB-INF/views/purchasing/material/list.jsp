@@ -22,8 +22,8 @@
 <!-- 추가, 수정, 저장, 삭제 버튼 -->
 <input type="button" value="추가" onclick="location.href='/purchasing/material/insert';">
 <input type="button" value="수정" onclick="location.href='/purchasing/material/modify';">
-<input type="button" value="저장" onclick="location.href='/purchasing/material/save';">
 <input type="button" value="삭제" onclick="location.href='/purchasing/material/remove';">
+<input type="button" value="저장" onclick="location.href='/purchasing/material/save';">
 <!-- 추가, 수정, 저장, 삭제 버튼 -->
 
 
@@ -37,6 +37,7 @@
 		<th>창고번호</th>
 		<th>선반위치</th>
 		<th>이미지</th>
+		<th>최근 수정 날짜</th>
 	</tr>
 	
 <c:forEach var="ml" items="${materialList }">
@@ -47,6 +48,7 @@
 		<td>${ml.whs_num }</td>
 		<td>${ml.shelt_position }</td>
 		<td>${ml.ma_image }</td>
+		<td>${ml.ma_regdate }</td>
 	</tr>
 </c:forEach>
 </table>

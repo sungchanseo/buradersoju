@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.itwillbs.domain.CustomerVO;
 import com.itwillbs.domain.MaterialVO;
 import com.itwillbs.service.InventoryService;
 
@@ -35,6 +34,19 @@ public class InventoryController {
 		model.addAttribute("inventoryList",inventoryList);
 	
 	}
+	@RequestMapping(value = "/list", method = RequestMethod.POST)
+	public void listPOST(Model model, MaterialVO mvo){
+		logger.debug("@@@@@listPOST()호출!@@@@@");
+		logger.debug("@@@@@listPOST MA_ID : "+mvo.getMa_id());
+		
+		
+		Integer result = invservice.modifyInventory(mvo);
+		logger.debug("@@@@@list 업데이트 됫니? : "+result);
+		
+		List<MaterialVO> inventoryList = invservice.getInventoryList();
+		model.addAttribute("inventoryList",inventoryList);
+
+	}
 	// http://localhost:8088/purchasing/inventory/modify
 	
 	// 재고 수정 입력하기
@@ -43,11 +55,12 @@ public class InventoryController {
 		logger.debug("@@@@@modifyINVGET()호출!@@@@@");
 		
 		List<MaterialVO> inventoryList = invservice.getInventoryList();
-
+		logger.debug("inventoryList" +model);
 	    model.addAttribute(inventoryList);
+	  
 	}
 	
-	// 재고수정 디비처리
+//	 재고수정 디비처리
 	@RequestMapping(value="/modify", method= RequestMethod.POST)
 	public String modifyInventoryPOST(MaterialVO mvo) {
 	    	

@@ -35,10 +35,10 @@
                 <h6 class="font-weight-light">계속하시려면 로그인을 진행해주세요.</h6>
                 <form class="pt-3" action="" method="post">
                   <div class="form-group">
-                    <input type="text" class="form-control form-control-lg"  name="userid" id="userid" placeholder="사번을 입력하세요 :)">
+                    <input type="text" class="form-control form-control-lg"  name="emp_id" id="emp_id" placeholder="사번을 입력하세요 :)">
                   </div>
                   <div class="form-group">
-                    <input type="password" class="form-control form-control-lg" name="userpw" id="userpw" placeholder="비밀번호를 입력하세요 :)">
+                    <input type="password" class="form-control form-control-lg" name="emp_pw" id="emp_pw" placeholder="비밀번호를 입력하세요 :)">
                   </div>
                    <div class="form-check">
                       <label class="form-check-label text-muted">

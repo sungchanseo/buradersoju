@@ -1,36 +1,33 @@
 package com.itwillbs.service;
 
 import javax.inject.Inject;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import com.itwillbs.domain.MemberVO;
-import com.itwillbs.persistence.MemberDAO;
+
+import com.itwillbs.controller.HomeController;
+import com.itwillbs.domain.LoginVO;
+import com.itwillbs.persistence.LoginDAO;
 
 @Service
-public class MemberServiceImpl implements MemberService {
+public class LoginServiceImpl implements LoginService {
 
+	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	
 	//DB와 연결 (의존주입)
 	@Inject
-	private MemberDAO mdao;
-	
-	//회원가입
-	@Override
-	public void insertMember(MemberVO vo) {
-		//컨트롤러 -> 서비스 호출 -> DAO 호출 -> Mapper -> DB
-		System.out.println("S : 회원가입동작");
-		if(vo == null) {
-			//처리
-			return;
-		}
-		mdao.insertMember(vo);
-	}
+	private LoginDAO mdao;
+
 
 	//로그인기능
 	@Override
-	public MemberVO loginMember(MemberVO vo) {
+	public LoginVO loginMember(LoginVO vo) {
 		System.out.println("S : 컨트롤러에서 호출받으면 필요한 정보를 받아서 DAO로 전달");
-		MemberVO returnVO = null;
+		logger.debug("vo="+ vo);
+		LoginVO returnVO = null;
 		try {
-			returnVO = mdao.readMemberWithIDPW(vo.getUserid(), vo.getUserpw());
+			returnVO = mdao.readMemberWithIDPW(vo.getEmp_id(), vo.getEmp_pw());
 		} catch (Exception e) {
 			e.printStackTrace();
 			returnVO = null; //실행하다 문제가 생겼을때 해당 데이터를 보내지않겠다는 의미 = 예외처리

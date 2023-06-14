@@ -5,7 +5,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 
-<mapper namespace="com.itwillbs.mappers.memberMapper">
+<mapper namespace="com.itwillbs.mappers.loginMapper">
 	<select id="getTime" resultType="string">
 		select now()
 	</select>
@@ -13,20 +13,20 @@
 	<!-- values(?,?,?,?) sql문법 대신에 Mybatis 문법#{}을 사용
 	 get() 또는 set() 마이바티스가 결정해서 메서드실행-->
 	<insert id="insertMember">
-		insert into tbl_member(userid,userpw,username,useremail) 
-      values (#{userid},#{userpw},#{username},#{useremail})
+		insert into employee(emp_id,emp_pw,emp_name,emp_email) 
+      values (#{emp_id},#{emp_pw},#{emp_name},#{emp_email})
 	</insert>
 
-	<select id="readMember" resultType="com.itwillbs.domain.MemberVO">
+	<select id="readMember" resultType="com.itwillbs.domain.LoginVO">
 		select *
-		from tbl_member
-		where userid=#{userid}
+		from employee
+		where emp_id=#{emp_id}
 	</select>
 
-	<select id="readMemberWithIDPW" resultType="com.itwillbs.domain.MemberVO">
+	<select id="readMemberWithIDPW" resultType="com.itwillbs.domain.LoginVO">
 		select *
-		from tbl_member
-		where userid=#{userid} and userpw=#{userpw}
+		from employee
+		where emp_id=#{emp_id} and emp_pw=#{emp_pw}
 	</select>	
 
 </mapper>

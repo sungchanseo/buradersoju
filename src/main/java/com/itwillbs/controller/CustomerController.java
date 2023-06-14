@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.itwillbs.db.NoticeDTO;
 import com.itwillbs.domain.CustomerVO;
 import com.itwillbs.domain.PagingVO;
 import com.itwillbs.service.CustomerService;
@@ -34,39 +35,36 @@ public class CustomerController {
 
 	// 거래처목록 보기
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public void customerListGET(Model model, HttpServletRequest request) {
+	public void customerListGET(Model model, HttpServletRequest request,
+			@ModelAttribute("selector") String selector, @ModelAttribute("search") String search) {
 		logger.debug("@@@@@@@@@Controller : 거래처 리스트 조회!");
 
 		//////////////////////////////////////////////////////////
 		// 페이징처리1/
-		
-		//전체 리스트를 먼저 불러온다. 
+		// 전체 리스트를 먼저 불러온다.
 		int allCount = custService.getCustomerList();
 		logger.debug("@@@@@@@@@@@Serivce : 전체 리스트 : " + allCount);
-		
-		
-		//페이징처리를 위한 페이지 사이즈를 설정한다. 
-		//페이징 도메인 인스턴스 생성
+
+		// 페이징처리를 위한 페이지 사이즈를 설정한다.
+		// 페이징 도메인 인스턴스 생성
 		PagingVO pvo = new PagingVO();
 		int pageSize = pvo.getPageSize();
 		int pageBlcok;
 
-		//페이지 번호를 불러온다. 
-		//만약 페이지 번호가 없으면 1번으로 고정하고, 있다면 그것을 가져다 쓴다. 
+		// 페이지 번호를 불러온다.
+		// 만약 페이지 번호가 없으면 1번으로 고정하고, 있다면 그것을 가져다 쓴다.
 		String pageNum = request.getParameter("pageNum");
 		if (pageNum == null)
 			pageNum = "1";
-		
-		//현재 페이지, 시작페이지 및 끝페이지를 계산한다. 
+
+		// 현재 페이지, 시작페이지 및 끝페이지를 계산한다.
 		int currentPage = Integer.parseInt(pageNum);
 		int startRow = (currentPage - 1) * pageSize + 1;
 		int endRow = currentPage * pageSize;
+		//////////////////////////////////////////////////////////
 
 		//////////////////////////////////////////////////////////
-		
-		//////////////////////////////////////////////////////////
-		// 페이징처리2/
-
+		// 페이징처리2
 		// 페이지 번호 계산하기
 		int pageCount;
 		int pageBlock;
@@ -83,27 +81,38 @@ public class CustomerController {
 			if (endPage > pageCount)
 				endPage = pageCount;
 
-			
 			model.addAttribute("pageCount", pageCount);
 			model.addAttribute("pageBlock", pageBlock);
 			model.addAttribute("startPage", startPage);
 			model.addAttribute("endPage", endPage);
-
 		}
-		
-		//만약 cust_status가 1이면 출력하지 않도록 처리한다. 
-		
 		//////////////////////////////////////////////////////////
 		
+		////////////////////검색어처리 시작///////////////////////////
+		logger.debug("@@@@@@@@@@@@@@@@Controller 검색카테고리는? : "+selector);
+		logger.debug("@@@@@@@@@@@@@@@@Controller 검색어는? : "+search);
+		List<CustomerVO> customerListPaging =null;
+
+		//검색어가 있는 경우와 검색어가 없는 경우를 처리한다. 
+		if(search != null) {
+			//검색어가 있는 경우
+//			customerListPaging = custService.
+			
+		}else {
+			//검색어가 없는 경우 
+			
+			pvo.setPageSize(pageSize);
+			pvo.setStartRow(startRow);
+			
+			logger.debug("@@@@@@@@@@@@@@@페이징PageSize : " + pageSize);
+			logger.debug("@@@@@@@@@@@@@@@페이징startRow : " + startRow);
+			
+			customerListPaging = custService.getCustomerList(pvo);
+		}
 		
-		
-		pvo.setPageSize(pageSize);
-		pvo.setStartRow(startRow);
-		
-		logger.debug("@@@@@@@@@@@@@@@페이징PageSize : "+pageSize);
-		logger.debug("@@@@@@@@@@@@@@@페이징startRow : "+startRow);
+		////////////////////검색어처리 끝///////////////////////////
+		logger.debug("@@@@@@@@@@customerListPaging : "+customerListPaging);
 		// serivce 객체 호출
-		List<CustomerVO> customerListPaging = custService.getCustomerList(pvo);
 
 		// 변수를 가지고 뷰 페이지로 보내기
 		model.addAttribute("customerListPaging", customerListPaging);

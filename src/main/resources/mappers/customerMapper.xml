@@ -13,7 +13,7 @@
 	
 <!-- 	customer 페이징 리스트 조회  -->
 	<select id="getCustomerListPaging" resultType="com.itwillbs.domain.CustomerVO">
-		select * from customer where limit #{startRow}, #{pageSize} 
+		select * from customer where cust_status=0 limit #{startRow}, #{pageSize} 
 	</select>
 <!-- 	customer 페이징 리스트 조회  -->	
 	

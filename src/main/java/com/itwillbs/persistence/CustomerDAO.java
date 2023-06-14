@@ -10,7 +10,6 @@ import com.itwillbs.domain.PagingVO;
 @Repository
 public interface CustomerDAO {
 
-	
 	//거래처 목록보기 
 	public int getCustomerList();
 	
@@ -28,7 +27,4 @@ public interface CustomerDAO {
 	
 	//거래처 삭제하기 
 	public Integer removeCustomer(String cust_id);
-	
-	
-	
 }

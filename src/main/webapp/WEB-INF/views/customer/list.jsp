@@ -9,9 +9,8 @@
 </head>
 <body>
 	<h1>Customer List</h1>
-${customerListPaging }
 	<!-- 검색창기능 -->
-	<form action="/customer/list" method="post">
+	<form action="/customer/list" method="get">
 		<select name="selecter">
 			<option value="cust_id">거래처코드</option>
 			<option value="cust_name">상호</option>
@@ -20,7 +19,6 @@ ${customerListPaging }
 		<input type="image" src="./resources/images/magnifying-glass-g1d4816a37_640.png" width="25px" style="vertical-align:middle; display:inline;">
 	</form>
 	<!-- 검색창기능 -->
-	
 	<input type="button" value="거래처등록"
 		onclick="location.href='/customer/insert';">
 	<input type="button" value="거래처삭제"

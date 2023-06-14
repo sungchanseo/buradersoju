@@ -10,5 +10,9 @@
 
 <h1>save.jsp</h1>
 
+<%
+System.out.println(request.getParameter("hidden"));
+%>
+
 </body>
 </html>

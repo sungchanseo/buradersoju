@@ -1,6 +1,6 @@
 package com.itwillbs.domain;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
 public class EmployeeVO {
 	private int emp_id;
@@ -16,13 +16,13 @@ public class EmployeeVO {
 	private String emp_department;
 	private String emp_position;
 	private String emp_status;
-	private Timestamp join_date;
-	private Timestamp absence_date;
-	private Timestamp rehabi_date;
-	private Timestamp resign_date;
-	
+	private Date join_date;
+	private Date absence_date;
+	private Date rehabi_date;
+	private Date resign_date;
+
 	public EmployeeVO() {
-		
+
 	}
 
 	public int getEmp_id() {
@@ -129,42 +129,42 @@ public class EmployeeVO {
 		this.emp_status = emp_status;
 	}
 
-	public Timestamp getJoin_date() {
+	public Date getJoin_date() {
 		return join_date;
 	}
 
-	public void setJoin_date(Timestamp join_date) {
+	public void setJoin_date(Date join_date) {
 		this.join_date = join_date;
 	}
 
-	public Timestamp getAbsence_date() {
+	public Date getAbsence_date() {
 		return absence_date;
 	}
 
-	public void setAbsence_date(Timestamp absence_date) {
+	public void setAbsence_date(Date absence_date) {
 		this.absence_date = absence_date;
 	}
 
-	public Timestamp getRehabi_date() {
+	public Date getRehabi_date() {
 		return rehabi_date;
 	}
 
-	public void setRehabi_date(Timestamp rehabi_date) {
+	public void setRehabi_date(Date rehabi_date) {
 		this.rehabi_date = rehabi_date;
 	}
 
-	public Timestamp getResign_date() {
+	public Date getResign_date() {
 		return resign_date;
 	}
 
-	public void setResign_date(Timestamp resign_date) {
+	public void setResign_date(Date resign_date) {
 		this.resign_date = resign_date;
 	}
 
 	public EmployeeVO(int emp_id, String emp_pw, String emp_name, String emp_email, String emp_birth, String emp_gender,
 			String emp_phone, String emp_tel, String emp_address, String emp_image, String emp_department,
-			String emp_position, String emp_status, Timestamp join_date, Timestamp absence_date, Timestamp rehabi_date,
-			Timestamp resign_date) {
+			String emp_position, String emp_status, Date join_date, Date absence_date, Date rehabi_date,
+			Date resign_date) {
 		super();
 		this.emp_id = emp_id;
 		this.emp_pw = emp_pw;
@@ -194,7 +194,5 @@ public class EmployeeVO {
 				+ ", join_date=" + join_date + ", absence_date=" + absence_date + ", rehabi_date=" + rehabi_date
 				+ ", resign_date=" + resign_date + "]";
 	}
-	
 
-	
 }

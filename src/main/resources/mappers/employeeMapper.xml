@@ -10,9 +10,31 @@
 
 	<!-- values(?,?,?,?) sql문법 대신에 Mybatis 문법#{}을 사용
 	 get() 또는 set() 마이바티스가 결정해서 메서드실행-->
+	 <!-- 사원등록 -->
 	<insert id="insertEmployee">
 		insert into employee(emp_id, emp_pw, emp_name, emp_email, emp_birth, emp_gender, emp_phone, emp_tel, emp_address, emp_image, emp_department, emp_position, emp_status, join_date) 
       values (#{emp_id},#{emp_pw},#{emp_name},#{emp_email},#{emp_birth},#{emp_gender},#{emp_phone},#{emp_tel},#{emp_address},#{emp_image},#{emp_department},#{emp_position},#{emp_status},#{join_date})
 	</insert> 
+	<!-- 사원등록 -->
+	
+	<!-- 사원리스트 -->
+	<select id="employeeList" resultType="com.itwillbs.domain.EmployeeVO">
+		select * from employee
+	</select>	
+	<!-- 사원리스트 -->
+	
+	<!-- 사원 정보 조회 -->
+	<select id="getEmployee" resultType="com.itwillbs.domain.EmployeeVO">
+		select * from employee
+		where emp_id = #{emp_id}
+	</select>
+	<!-- 사원 정보 조회 -->
+	
+	<!-- 회원정보 수정 -->
+	<update id="updateEmployee">
+		update employee set emp_id=#{emp_id}, emp_pw=#{emp_pw}, emp_name=#{emp_name}, emp_email=#{emp_email}, emp_birth=#{emp_birth}, emp_gender=#{emp_gender}, emp_phone=#{emp_phone}, emp_tel=#{emp_tel}, emp_address=#{emp_address}, emp_image=#{emp_image}, emp_department=#{emp_department}, emp_position=#{emp_position}, emp_status=#{emp_status}, join_date=#{join_date}, 
+		where emp_id=#{emp_id} and emp_pw=#{emp_pw}
+	</update>
+	<!-- 회원정보 수정 -->	
 	
 </mapper> 

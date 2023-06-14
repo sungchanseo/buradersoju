@@ -1,5 +1,7 @@
 package com.itwillbs.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -14,7 +16,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 	@Inject
 	private EmployeeDAO edao;
 	
-	//회원가입
+	// 사원 등록
 	@Override
 	public void insertEmployee(EmployeeVO vo) {
 		//컨트롤러 -> 서비스 호출 -> DAO 호출 -> Mapper -> DB
@@ -25,4 +27,26 @@ public class EmployeeServiceImpl implements EmployeeService{
 		}
 		edao.insertEmployee(vo);
 	}
+	
+	// 사원리스트
+	@Override
+	public List<EmployeeVO> getEmployeeList() {
+		return edao.getEmployeeList();
+	}	
+
+	// 사원 정보 조회
+	@Override
+	public EmployeeVO getEmployee(int emp_id) {
+		return edao.getEmployee(emp_id);
+	}
+
+	// 사원 정보 수정
+	@Override
+	public Integer employeeModify(EmployeeVO uvo) {
+		return edao.updateEmployee(uvo);
+	}
+	
+	
+
+	
 }

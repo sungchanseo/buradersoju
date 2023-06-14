@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.itwillbs.domain.CustomerVO;
+import com.itwillbs.domain.PagingVO;
 
 @Repository
 public class CustomerDAOImpl implements CustomerDAO {
@@ -25,11 +26,18 @@ public class CustomerDAOImpl implements CustomerDAO {
 	
 	//거래처 목록보기 
 	@Override
-	public List<CustomerVO> getCustomerList() {
-		logger.debug("#########DAO : 거래처 목록보기를 합니다. ");
-		return sqlSession.selectList(NAMESPACE+".getCustomerList");
+	public int getCustomerList() {
+		logger.debug("#########DAO : 거래처 목록 갯수조회  합니다. ");
+		return sqlSession.selectOne(NAMESPACE+".getCustomerList");
 	}
-	
+	//거래처 목록 페이징처리 
+	@Override
+	public List<CustomerVO> getCustomerList(PagingVO pvo) {
+		logger.debug("########DAO : 거래처 목록 페이징처리 출력합니다");
+		
+		return sqlSession.selectList(NAMESPACE+".getCustomerListPaging", pvo);
+	}
+
 	//거래처 상세보기 
 	@Override
 	public CustomerVO getCustomerInfo(String cust_id) {
@@ -48,7 +56,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 	@Override
 	public Integer modifyCustomer(CustomerVO mvo) {
 		logger.debug("##########DAO : 거래처 정보 수정합니다~~~~~");
-		return sqlSession.update(NAMESPACE+".modifyCustomeer", mvo);
+		return sqlSession.update(NAMESPACE+".modifyCustomer", mvo);
 	}
 
 	//거래처 삭제 

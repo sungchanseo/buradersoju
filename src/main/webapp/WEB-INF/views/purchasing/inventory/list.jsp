@@ -23,7 +23,8 @@
    <td>${inventory.ma_qty}</td>
    <td>${inventory.whs_num}</td>
    <td><input type="text" ></td>
-   <td>수정</td>
+   <td><input type="button" value="수정"
+		onclick="location.href='/purchasing/inventory/modify';"></td>
    </tr>
   </c:forEach>
   

@@ -7,10 +7,12 @@ log4j.xml
 lecture
 target
 pom.properties
+*.properties
 .classpath
 META-INF/*
 *.MF
 MANIFEST.MF
+
 
 ### Eclipse ###
 .metadata

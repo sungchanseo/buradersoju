@@ -22,7 +22,7 @@ public class EmployeeController {
 
 	private static final Logger logger = LoggerFactory.getLogger(EmployeeController.class);
 	
-	// 서비스정보 필요
+	// 서비스정보 필요 
 	@Inject
 	private EmployeeService eService;
 	

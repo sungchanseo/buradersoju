@@ -12,7 +12,7 @@ pom.properties
 META-INF/*
 *.MF
 MANIFEST.MF
-
+.settings/
 
 ### Eclipse ###
 .metadata

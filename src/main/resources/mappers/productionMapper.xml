@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- DTD지정  -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.itwillbs.mappers.productionMapper">
+	
+<!-- 작업지시 목록 -->
+<!-- 작업지시 목록 -->
+
+<!-- 작업지시 상세 -->
+<!-- 작업지시 상세 -->
+
+<!-- 작업지시 등록 -->
+<!-- 작업지시 등록 -->
+
+<!-- 생산 목록 -->
+<!-- 생산 목록 -->
+
+<!-- 생산 등록 -->
+<!-- 생산 등록 -->
+
+<!-- 품질관리 목록 -->
+<!-- 품질관리 목록 -->
+
+<!-- 검수 상세 -->
+<!-- 검수 상세 -->
+
+<!-- 검수 등록 -->
+<!-- 검수 등록 -->
+
+<!-- 공병 관리 -->
+<!-- 공병 관리 -->
+
+
+</mapper>

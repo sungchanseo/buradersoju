@@ -5,11 +5,17 @@
 
 
 <mapper namespace="com.itwillbs.mappers.customerMapper">
-<!-- 	customer 리스트 조회  -->
-	<select id="getCustomerList" resultType="com.itwillbs.domain.CustomerVO">
-		select * from customer 
+<!-- 	customer 전체 리스트 갯수 조회  -->
+	<select id="getCustomerList" resultType="_int">
+		select count(*) from customer where cust_status=0
 	</select>
-<!-- 	customer 리스트 조회  -->
+<!-- 	customer 전체 리스트 갯수 조회  -->
+	
+<!-- 	customer 페이징 리스트 조회  -->
+	<select id="getCustomerListPaging" resultType="com.itwillbs.domain.CustomerVO">
+		select * from customer where limit #{startRow}, #{pageSize} 
+	</select>
+<!-- 	customer 페이징 리스트 조회  -->	
 	
 <!-- customer 상세보기  -->
 	<select id="getCustomerInfo" resultType="com.itwillbs.domain.CustomerVO">
@@ -27,8 +33,8 @@
 
 <!-- customer 수정하기 -->
 	<update id="modifyCustomer">
-		update customer set cust_name=#{cust_name}, reg_num=#{reg_num}, cust_type=#{cust_type}, 
-		cust_class=#{cust_class}, owner_name=#{owner_name}, main_phone=#{main_phone}, cust_address=#{cust_address}, cust_business=#{cust_business}, cust_event=#{cust_event}, cust_fax=#{cust_fax}, cust_homepage=#{cust_homepage}, emp_id=#{emp_id}, emp_email=#{emp_email}, cust_etc=#{cust_etc}, cust_status=#{cust_status}
+		update customer set cust_name=#{cust_name}, reg_num=#{reg_num}, cust_type=#{cust_type}, cust_class=#{cust_class}, owner_name=#{owner_name}, main_phone=#{main_phone}, cust_address=#{cust_address}, cust_business=#{cust_business}, 
+		cust_event=#{cust_event}, cust_fax=#{cust_fax}, cust_homepage=#{cust_homepage}, emp_id=#{emp_id}, emp_email=#{emp_email}, cust_etc=#{cust_etc}, cust_status=#{cust_status}
 		where cust_id=#{cust_id}
 	</update>
 <!-- customer 수정하기 -->

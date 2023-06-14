@@ -17,6 +17,14 @@ public class CustomerVO {
 	private String emp_id;
 	private String cust_etc;
 	private int cust_status;
+	
+	
+	public int getReg_num() {
+		return reg_num;
+	}
+	public void setReg_num(int reg_num) {
+		this.reg_num = reg_num;
+	}
 	public String getCust_id() {
 		return cust_id;
 	}

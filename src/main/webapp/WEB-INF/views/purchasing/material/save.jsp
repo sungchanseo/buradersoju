@@ -11,7 +11,8 @@
 <h1>save.jsp</h1>
 
 <%
-System.out.println(request.getParameter("hidden"));
+System.out.println(request.getParameter("ma_id"));
+System.out.println(request.getParameter("ma_name"));
 %>
 
 </body>

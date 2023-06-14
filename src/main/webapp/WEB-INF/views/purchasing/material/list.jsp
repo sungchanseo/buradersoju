@@ -7,8 +7,14 @@
 <title>Insert title here</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script type="text/javascript">
+
+
+// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+// + ajax에서 막힘,, 값은 잘 나옴,,
+// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	
-	// 오늘 날짜 출력 메서드
+	
+// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ오늘 날짜 출력 메서드ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	function getToday() {
 		var date = new Date();
 		var year = date.getFullYear();
@@ -18,159 +24,113 @@
 		return year + "-" + month + "-" + day;
 	}
 
-	
-   $(function() {
-      // 글쓰기
-      $('.writeForm').click(function() {
 
-         let regdate = getToday();
-         console.log(regdate);
-         
-         if($(this).hasClass('true')) {
-         
-            let tbl = "<tr>";
-            tbl += " <td>";
-            tbl += " </td>";
-            tbl += " <td>";
-            tbl += bno;
-            tbl += " </td>";
-            tbl += " <td>";
-            tbl += "  <input type='text' name='subject' id='subject'>";
-            tbl += " </td>";
-            tbl += " <td>";
-            tbl += "  <textarea name='content' id='content'></textarea>";
-            tbl += " </td>";
-            tbl += " <td>";
-            tbl += regdate;
-            tbl += " </td>";
-            tbl += " <td>";
-            tbl += 0;
-            tbl += " </td>";
-            tbl += "</tr>";
+// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡjQuery 시작ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+$(function() {
+	
+	// 1. 자재 정보 '추가'
+	$('.writeForm').click(function() {
+    	  
+		// 1-1. 날짜 정보 저장
+		let regdate = getToday();
+		console.log(regdate);
+        
+		// 1-2. 행 추가
+		if($(this).hasClass('true')) {
+			let tbl = "<tr>";
+			tbl += " <td>";
+			tbl += "  <input type='text' name='ma_id' id='ma_id'>";
+	        tbl += " </td>";
+	        tbl += " <td>";
+	        tbl += "  <input type='text' name='ma_name' id='ma_name'>";
+	        tbl += " </td>";
+	        tbl += " <td>";
+	        tbl += "  <input type='text' name='unit_cost' id='unit_cost'>";
+	        tbl += " </td>";
+	        tbl += " <td>";
+	        tbl += "  <input type='text' name='whs_num' id='whs_num'>";
+	        tbl += " </td>";
+	        tbl += " <td>";
+	        tbl += "  <input type='text' name='shelt_position' id='shelt_position'>";
+	        tbl += " </td>";
+	        tbl += " <td>";
+	        tbl += "  <input type='file' name='ma_image' id='ma_image'>";
+	        tbl += " </td>";
+	        tbl += " <td>";
+	        tbl += regdate;
+	        tbl += " </td>";
+	        tbl += "</tr>";
             
-            $('table').append(tbl);
+			$('table').append(tbl);
             
-            
-            $(this).removeClass('writeForm').addClass('write');
-            $(this).removeClass('true');
-            $(this).text("등록");
-         
-         }
+			$(this).removeClass('writeForm').addClass('write');
+			$(this).removeClass('true');
+			$(this).text("등록");
+		}
          
          
-         
-         $('.write').click(function() {
-//             e.stopPropagation();
+		// 1-3. 입력한 데이터 저장 (등록)
+		$('.write').click(function() {
+          
+			let ma_id = $('#ma_id').val();
+			let ma_name = $('#ma_name').val();
+			console.log(ma_id);
+			console.log(ma_name);
             
-            let subject = $('#subject').val();
-            let content = $('#content').val();
-            
-            console.log(subject==="" || content==="");
-            
-            if(subject==="" || content==="") {
-               alert("제목과 내용을 입력하세요");
-//                return false;
-//                continue;
-//                break;
-            } else {
+			if(ma_id==="" || ma_name==="") {
+				alert("품목코드와 품목명을 입력하세요");
+			} else {
                
-               $.ajax({
-                  url: "./BoardWriteAction.bo",
-                  type: "post",
-                  data: {subject:subject, content:content},
-                  success: function() {
-                     alert("등록완료");
-                     location.reload();
-                  },
-                  error: function() {
-                     alert("error");
-                  }
-               }); //ajax
-            } //if-else
+				$.ajax({
+					url: "/save",
+					type: "get",
+					data: {ma_id:ma_id, ma_name:ma_name},
+					success: function() {
+						alert("등록 완료");
+						location.reload();
+					},
+					error: function() {
+						alert("error");
+					}
+				}); //ajax
+			
+			} //if-else
             
-         }); //write click
+		}); //write.click
       
-//          return false;
-      }); //writeForm click
+	}); //writeForm.click
       
-      
-      
-      //// 삭제 ////////////////////////////////////////////////////////////
-      
-      $('#delete').click(function() {
-         
-         var checked = [];
-         
-         $('input[name=selected]:checked').each(function() {
-            checked.push($(this).val());
-         });
-         
-//          alert(checked);
-         console.log(checked.length);
-         
-         if(checked.length > 0) {
-            
-            $.ajax({
-               url: "./BoardCheckedDelete.bo",
-               type: "post",
-               traditional: true,
-               data: {checked:checked},
-               success: function(data) {
-                  var result = Number(data.result);
-                  console.log(typeof result);
-                  console.log(result);
-                  
-                  if(result > 0) {
-                     alert("글 " + result + "개 삭제 완료");
-                     location.reload(); 
-                  } else {
-                     alert("삭제 실패");
-                  }
-               },
-               error: function() {
-                  alert("error");
-               }
-            }); //ajax
-            
-         } //if(checked != null)
-         else {
-            alert("선택된 글이 없습니다.");
-         } //else ( checked == null )
-         
-         
-      }); //delete click
-      
-   }); //jQuery
-   
+});
+//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡjQuery 끝ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 </script>
 
 </head>
 <body>
-   <h1> board_list.jsp </h1>
+   <h1>Material_List</h1>
    <button class="writeForm true">글쓰기</button>
-   <button id="delete">삭제</button>
    
-   <table border="1">
-      <tr>
-         <th> 선택 </th>
-         <th> 글번호 </th>
-         <th> 제목 </th>
-         <th> 내용 </th>
-         <th> 등록일 </th>
-         <th> 조회수 </th>
-      </tr>
+	<table border="1">
+	<tr>
+		<th>품목코드</th>
+		<th>품목명</th>
+		<th>단가(원)</th>
+		<th>창고번호</th>
+		<th>선반위치</th>
+		<th>이미지</th>
+		<th>최근 수정 날짜</th>
+	</tr>
       
-      <c:forEach var="dto" items="${boardList }">
+      <c:forEach var="ml" items="${materialList }">
          <tr>
-            <td><input type="checkbox" name="selected" value="${dto.bno }"></td>
-            <td id="bno"> ${dto.bno } </td>
-            <td><a href="./BoardContent.bo?bno=${dto.bno }"> ${dto.subject } </a></td>
-            <td> ${dto.content } </td>
-            <td> ${dto.date } </td>
-            <td> ${dto.readcount } </td>
+			<td>${ml.ma_id }</td>
+			<td>${ml.ma_name }</td>
+			<td>${ml.unit_cost }</td>
+			<td>${ml.whs_num }</td>
+			<td>${ml.shelt_position }</td>
+			<td>${ml.ma_image }</td>
+			<td>${ml.ma_regdate }</td>
          </tr>
       </c:forEach>
-      
    </table>
    
 

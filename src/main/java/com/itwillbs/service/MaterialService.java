@@ -19,6 +19,6 @@ public interface MaterialService {
 	public Integer modifyMaterial(MaterialVO mvo);
 	
 	// 자재 삭제
-	public Integer removeMaterial(String ma_id);
+	public Integer deleteMaterial(MaterialVO dvo);
 
 }

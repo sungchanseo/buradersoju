@@ -39,6 +39,14 @@
 <!-- 자재 정보 업데이트 -->
 
 
+<!-- 자재 삭제 -->
+	<delete id="deleteMaterial">
+		delete from material
+		where ma_id = #{ma_id}
+	</delete>
+<!-- 자재 삭제 -->
+
+
 
 
 

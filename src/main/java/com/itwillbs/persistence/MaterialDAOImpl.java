@@ -31,7 +31,7 @@ public class MaterialDAOImpl implements MaterialDAO {
 	// 1. 자재 목록 조회
 	@Override
 	public List<MaterialVO> getMaterialList() {
-		logger.debug("##### DAO ##### getMaterialList_호출");
+		logger.debug("########## getMaterialList_호출");
 		return sqlSession.selectList(NAMESPACE+".getMaterialList");
 	}
 	
@@ -39,7 +39,7 @@ public class MaterialDAOImpl implements MaterialDAO {
 	// 2. 자재 정보 조회
 	@Override
 	public MaterialVO getMaterialInfo(String ma_id) {
-		logger.debug("##### DAO ##### getMaterialInfo_호출");
+		logger.debug("########## getMaterialInfo_호출");
 		return sqlSession.selectOne(NAMESPACE+".getMaterialInfo", ma_id);
 	}
 	
@@ -47,16 +47,16 @@ public class MaterialDAOImpl implements MaterialDAO {
 	// 3. 자재 등록
 	@Override
 	public void insertMaterial(MaterialVO vo) {
-		logger.debug("##### DAO ##### insertMaterial_호출");
+		logger.debug("########## insertMaterial_호출");
 		sqlSession.insert(NAMESPACE + ".insertMaterial", vo);
-		logger.debug("##### DAO ##### 자재 등록 완료");
+		logger.debug("########## 자재 등록 완료");
 	}
 	
 	
 	// 4. 자재 수정
 	@Override
 	public Integer modifyMaterial(MaterialVO mvo) {
-		logger.debug("##### DAO ##### modifyMaterial_호출");
+		logger.debug("########## modifyMaterial_호출");
 		
 		// DB에서 수정할 자재 정보 가져오기
 		// DAO -> mapper 호출 -> SQL 실행
@@ -69,8 +69,11 @@ public class MaterialDAOImpl implements MaterialDAO {
 	
 	// 5. 자제 삭제
 	@Override
-	public Integer removeMaterial(String ma_id) {
-		return null;
+	public Integer deleteMaterial(MaterialVO dvo) {
+		logger.debug("########## deleteMaterial_호출");
+		
+		// DB에서 자제 삭제 기능 가져오기
+		return sqlSession.delete(NAMESPACE+".deleteMaterial", dvo);
 	}
 
 

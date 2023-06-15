@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.itwillbs.db.NoticeDTO;
 import com.itwillbs.domain.CustomerVO;
 import com.itwillbs.domain.PagingVO;
 import com.itwillbs.service.CustomerService;

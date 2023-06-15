@@ -16,7 +16,7 @@ public interface EmployeeService {
 	public EmployeeVO getEmployee(int emp_id);
 	
 	// 회원정보 수정
-	public Integer employeeModify(EmployeeVO uvo);
+	public Integer modifiyEmployee(EmployeeVO uvo);
 	
 	
 }

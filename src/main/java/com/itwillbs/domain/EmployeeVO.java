@@ -1,9 +1,7 @@
 package com.itwillbs.domain;
 
-import java.sql.Date;
-
 public class EmployeeVO {
-	private int emp_id;
+	private Integer emp_id;
 	private String emp_pw;
 	private String emp_name;
 	private String emp_email;
@@ -16,20 +14,20 @@ public class EmployeeVO {
 	private String emp_department;
 	private String emp_position;
 	private String emp_status;
-	private Date join_date;
-	private Date absence_date;
-	private Date rehabi_date;
-	private Date resign_date;
+	private String join_date;
+	private String absence_date;
+	private String rehabi_date;
+	private String resign_date;
 
 	public EmployeeVO() {
 
 	}
 
-	public int getEmp_id() {
+	public Integer getEmp_id() {
 		return emp_id;
 	}
 
-	public void setEmp_id(int emp_id) {
+	public void setEmp_id(Integer emp_id) {
 		this.emp_id = emp_id;
 	}
 
@@ -129,42 +127,42 @@ public class EmployeeVO {
 		this.emp_status = emp_status;
 	}
 
-	public Date getJoin_date() {
+	public String getJoin_date() {
 		return join_date;
 	}
 
-	public void setJoin_date(Date join_date) {
+	public void setJoin_date(String join_date) {
 		this.join_date = join_date;
 	}
 
-	public Date getAbsence_date() {
+	public String getAbsence_date() {
 		return absence_date;
 	}
 
-	public void setAbsence_date(Date absence_date) {
+	public void setAbsence_date(String absence_date) {
 		this.absence_date = absence_date;
 	}
 
-	public Date getRehabi_date() {
+	public String getRehabi_date() {
 		return rehabi_date;
 	}
 
-	public void setRehabi_date(Date rehabi_date) {
+	public void setRehabi_date(String rehabi_date) {
 		this.rehabi_date = rehabi_date;
 	}
 
-	public Date getResign_date() {
+	public String getResign_date() {
 		return resign_date;
 	}
 
-	public void setResign_date(Date resign_date) {
+	public void setResign_date(String resign_date) {
 		this.resign_date = resign_date;
 	}
 
-	public EmployeeVO(int emp_id, String emp_pw, String emp_name, String emp_email, String emp_birth, String emp_gender,
+	public EmployeeVO(Integer emp_id, String emp_pw, String emp_name, String emp_email, String emp_birth, String emp_gender,
 			String emp_phone, String emp_tel, String emp_address, String emp_image, String emp_department,
-			String emp_position, String emp_status, Date join_date, Date absence_date, Date rehabi_date,
-			Date resign_date) {
+			String emp_position, String emp_status, String join_date, String absence_date, String rehabi_date,
+			String resign_date) {
 		super();
 		this.emp_id = emp_id;
 		this.emp_pw = emp_pw;

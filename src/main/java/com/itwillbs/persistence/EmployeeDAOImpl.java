@@ -51,13 +51,13 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
 	// 사원 정보 수정
 	@Override
-	public Integer updateEmployee(EmployeeVO uvo) {
+	public Integer modifiyEmployee(EmployeeVO uvo) {
 		
 		logger.debug(" 테스트 -> DAO 호출 : 회원정보 수정 ");
 		// 수정할 정보를 가져옴(uvo)
 		logger.debug(" DAO -> mapper 호출 -> SQL 실행 ");
 		
-		Integer empResult = sqlSession.update(NAMESPACE + ".update", uvo);
+		Integer empResult = sqlSession.update(NAMESPACE + ".modifyEmployee", uvo);
 		
 		logger.debug(" SQL 실행결과를 리턴 ");
 		

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.itwillbs.domain.EmployeeVO;
 import com.itwillbs.service.EmployeeService;
@@ -29,9 +30,9 @@ public class EmployeeController {
 	// http://localhost:8088/employee/insert
 	// 회원가입
 	@RequestMapping(value = "/insert", method = RequestMethod.GET)
-	public String insertGET() throws Exception {
+	public void insertGET() throws Exception {
 		logger.debug("C: 회원가입 입력페이지 GET");
-		return "/employee/insert";
+//		return "/employee/insert";
 	}
 	
 	// 회원가입
@@ -79,6 +80,18 @@ public class EmployeeController {
 		logger.debug(" /employee/info.jsp 페이지로 이동 ");
 	}
 	
+	
+	// http://localhost:8088/employee/modify
+	// 사원 정보 수정
+	@RequestMapping(value = "/modify", method = RequestMethod.GET)
+	public void modifyGET(int emp_id, Model model) {
+		logger.debug(" modifyGET() 호출! ");
+		logger.debug(" emp_id " + emp_id);
+		EmployeeVO resultVO = eService.getEmployee(emp_id);
+		logger.debug(" @@@@@uvo : " + resultVO);
+		model.addAttribute("resultVO", resultVO);
+	}
+	
 	// http://localhost:8088/employee/modify
 	// 사원 정보 수정
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
@@ -89,23 +102,8 @@ public class EmployeeController {
 		logger.debug(" 파라메터 자동수집!!");
 		logger.debug("uvo :" + uvo);
 		
-		// 서비스 -> 회원정보 수정가능한 기능
-		int empResult = eService.employeeModify(uvo);
-		
-		int emp_id = uvo.getEmp_id();
-		
-		logger.debug("@@@emp_id : " + emp_id);
-		
-		logger.debug("empResult : " + empResult);
-		
-		// 페이지 이동
-		if(empResult == 1) {
-			// 수정 성공
-			return "redirect:/employee/info?emp_id="+emp_id;
-		}else {
-			// 수정 실패
-			return "redirect:/employee/modify?emp_id="+emp_id;
-		}
+		eService.modifiyEmployee(uvo);
+		return "redirect:/employee/list";
 		
 	}
 	

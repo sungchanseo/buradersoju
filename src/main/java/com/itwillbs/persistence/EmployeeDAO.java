@@ -21,9 +21,9 @@ public interface EmployeeDAO {
 	// 사원 정보 조회
 	public EmployeeVO getEmployee(int emp_id);
 	
-	// 사원 정보 수정
-	public Integer updateEmployee(EmployeeVO uvo);
+	// 사원 정보 수정(POST)
+	public Integer modifiyEmployee(EmployeeVO uvo);
 	
-	// 
+	
 
 }

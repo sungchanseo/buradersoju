@@ -42,8 +42,8 @@ public class EmployeeServiceImpl implements EmployeeService{
 
 	// 사원 정보 수정
 	@Override
-	public Integer employeeModify(EmployeeVO uvo) {
-		return edao.updateEmployee(uvo);
+	public Integer modifiyEmployee(EmployeeVO uvo) {
+		return edao.modifiyEmployee(uvo);
 	}
 	
 	

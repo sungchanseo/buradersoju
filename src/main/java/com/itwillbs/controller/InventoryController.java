@@ -23,29 +23,20 @@ public class InventoryController {
 	private static final Logger logger = LoggerFactory.getLogger(InventoryController.class);
 	
 	
-	// 리스트 보기 - /inventory/list (GET)
+	// 재고리스트 보기 - /inventory/list (GET)
 	// http://localhost:8088/purchasing/inventory/list
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public void listGET(Model model , MaterialVO mvo){
+	public void listGET(Model model , MaterialVO vo){
 		logger.debug("@@@@@listGET()호출!@@@@@");
 		 
+		// service 객체 호출
 		List<MaterialVO> inventoryList = invservice.getInventoryList();
-		
+		// View페이지 정보 전달
 		model.addAttribute("inventoryList",inventoryList);
 		
 		
 	
 	
-	}
-	@RequestMapping(value = "/list", method = RequestMethod.POST)
-	public void listPOST(Model model, MaterialVO vo){
-		logger.debug("@@@@@listPOST()호출!@@@@@");
-//		logger.debug("@@@@@listPOST MA_ID : "+mvo.getMa_id());
-		
-		List<MaterialVO> inventoryList = invservice.getInventoryList();
-		model.addAttribute("inventoryList",inventoryList);
-
-		
 	}
 	// http://localhost:8088/purchasing/inventory/modify
 	

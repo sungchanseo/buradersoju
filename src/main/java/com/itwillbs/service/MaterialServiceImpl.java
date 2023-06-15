@@ -20,33 +20,51 @@ public class MaterialServiceImpl implements MaterialService {
 	private MaterialDAO mdao;
 	
 	
-	
-	// 1. 자재 목록
+	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ메서드 정의ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+	// 1. 자재 목록 조회
 	@Override
 	public List<MaterialVO> getMaterialList() {
-		logger.debug("%%%%% 서비스 %%%%% getMaterialList_호출");
 		return mdao.getMaterialList();
 	}
+	
+	
+	// 2. 자재 정보 조회
+	@Override
+	public MaterialVO getMaterialInfo(String ma_id) {
+		return mdao.getMaterialInfo(ma_id);
+	}
 
-	// 2. 자재 등록
+	
+	// 3. 자재 등록
 	@Override
 	public void insertMaterial(MaterialVO vo) {
-		logger.debug("%%%%% 서비스 %%%%% insertMaterial_호출");
 		mdao.insertMaterial(vo);
 	}
 	
-	// 3. 자재 수정
+	
+	// 4. 자재 수정
 	@Override
 	public Integer modifyMaterial(MaterialVO mvo) {
-		
+		return mdao.modifyMaterial(mvo);
+	}
+
+	
+	// 5. 자재 삭제
+	@Override
+	public Integer removeMaterial(String ma_id) {
 		return null;
 	}
 
-	// 4. 자재 삭제
-	@Override
-	public Integer removeMaterial(String ma_id) {
-		
-		return null;
-	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

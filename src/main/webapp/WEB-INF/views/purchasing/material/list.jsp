@@ -11,7 +11,9 @@
 
 // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 // + ajax에서 막힘,, 값은 잘 나옴,,
+// + ajax를 컨트롤러로 보내서 그다음에 뷰페이지에 보내보기
 // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+	
 	
 	
 // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ오늘 날짜 출력 메서드ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
@@ -83,7 +85,7 @@ $(function() {
                
 				$.ajax({
 					url: "/save",
-					type: "get",
+					type: "post",
 					data: {ma_id:ma_id, ma_name:ma_name},
 					success: function() {
 						alert("등록 완료");
@@ -107,10 +109,14 @@ $(function() {
 </head>
 <body>
    <h1>Material_List</h1>
-   <button class="writeForm true">글쓰기</button>
+   <h2>http://localhost:8088/purchasing/material/list</h2>
+   
+	<button class="writeForm true">행추가</button>
+	<input type="button" value="등록" onclick="location.href='/purchasing/material/insert';">
    
 	<table border="1">
 	<tr>
+		<th></th>
 		<th>품목코드</th>
 		<th>품목명</th>
 		<th>단가(원)</th>
@@ -118,10 +124,12 @@ $(function() {
 		<th>선반위치</th>
 		<th>이미지</th>
 		<th>최근 수정 날짜</th>
+		<th></th>
 	</tr>
       
       <c:forEach var="ml" items="${materialList }">
          <tr>
+         	<td><input type="checkbox" name="checked"></td>
 			<td>${ml.ma_id }</td>
 			<td>${ml.ma_name }</td>
 			<td>${ml.unit_cost }</td>
@@ -129,6 +137,10 @@ $(function() {
 			<td>${ml.shelt_position }</td>
 			<td>${ml.ma_image }</td>
 			<td>${ml.ma_regdate }</td>
+			<td>
+				<input type="button" value="수정" onclick="location.href='/purchasing/material/modify?ma_id=${ml.ma_id}';">
+				<input type="button" value="삭제" onclick="location.href='/purchasing/material/delete?ma_id=${ml.ma_id}';">
+			</td>
          </tr>
       </c:forEach>
    </table>

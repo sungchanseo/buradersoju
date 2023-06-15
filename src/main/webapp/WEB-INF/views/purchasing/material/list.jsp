@@ -42,6 +42,8 @@ $(function() {
 		if($(this).hasClass('true')) {
 			let tbl = "<tr>";
 			tbl += " <td>";
+			tbl += " </td>";
+			tbl += " <td>";
 			tbl += "  <input type='text' name='ma_id' id='ma_id'>";
 	        tbl += " </td>";
 	        tbl += " <td>";
@@ -85,7 +87,7 @@ $(function() {
 			} else {
                
 				$.ajax({
-					url: "/save",
+					url: "/ajax",
 					type: "post",
 					data: {ma_id:ma_id, ma_name:ma_name},
 					success: function() {

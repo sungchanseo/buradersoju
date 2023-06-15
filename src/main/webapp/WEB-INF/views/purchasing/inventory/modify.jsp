@@ -1,31 +1,27 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>modify</title>
 </head>
 <body>
 
-<table border="1">
-<th>»óÇ°ÄÚµå</th>
-<th>»óÇ°¸í</th>
-<th>ÇöÀç°í</th>
-<th>º¸°üÃ¢°í</th>
-<th>½Ç»ç·®</th>
-<th>¼öÁ¤</th>
 
-  <c:forEach var="inventory" items="${inventoryList}">
-   <tr>
-   <td>${inventory.ma_id}</td>
-   <td>${inventory.ma_name}</td>
-   <td>${inventory.ma_qty}</td>
-   <td>${inventory.whs_num}</td>
-   <td><input type="text" ></td>
-   </tr>
-  </c:forEach>
-  
-</table>
+<!-- <form action="" method="post">
+ <input type="text"
+</form>
+ -->
+ <form action="" method="post">								
+		í’ˆëª©ëª… : <input type="text" name="ma_name"> <br>	
+		ë‹¨ê°€(ì›) : <input type="text" name="unit_cost"> <br>
+		ì°½ê³ ë²ˆí˜¸ : <input type="text" name="whs_num"> <br> 	<!-- dropdown / MWì°½ê³ ë§Œ -->
+		ì„ ë°˜ìœ„ì¹˜ : <input type="text" name="shelt_position"> <br>
+		ì´ë¯¸ì§€ : <input type="file" name="ma_image"> <br>	<!-- default.jpg ì´ë¯¸ì§€ -->
+		ë‹´ë‹¹ì§ì› : <input type="text" name="ma_emp"> <br>	<!-- ì‚¬ì›ê²€ìƒ‰ê¸°ëŠ¥ ì¶”ê°€ -->		
+		<input type="submit" value="ìì¬ ë“±ë¡">
+	</form>
 </body>
 </html>

@@ -5,18 +5,27 @@
   
                      
   <mapper namespace="com.itwillbs.mappers.inventoryMapper">
+       
+  
   
    <!-- 재고목록 조회  -->              
       <select id="getInventoryList" resultType="com.itwillbs.domain.MaterialVO">
         select * from material
       </select>
    <!-- 재고정보 목록 조회  -->
+   <!-- 재고목록 아이디값 가져오기  -->
+       <select id="modifyInventoryID" resultType="com.itwillbs.domain.MaterialVO">
+		select * from material 
+		where ma_id = #{ma_id}
+    	</select>
    
+   <!-- 재고목록 아이디값 가져오기  -->
+
       <!-- 재고정보 목록 수정  -->
 
       <update id="modifyInventory">
-         update material set ma_name=#{ma_name}, ma_qty=#{ma_qty}, unit_cost=#{unit_cost}, whs_num=#{whs_num}, shelt_position=#{shelt_position}, 
-         ma_image=#{ma_image}
+         update material set ma_id=#{ma_id}, ma_name=#{ma_name}, ma_qty=#{ma_qty}, unit_cost=#{unit_cost}, whs_num=#{whs_num}, shelt_position=#{shelt_position}, 
+         ma_image=#{ma_image}, ma_regdate=now(), ma_emp=#{ma_emp}
          where ma_id=#{ma_id}
       
       </update>

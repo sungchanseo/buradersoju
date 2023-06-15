@@ -9,6 +9,7 @@
 </head>
 <body>
 					<%--
+                    <td><a href="/purchasing/inventory/list?ma_qty=${inventory.ma_qty}?ma_id=${inventory.ma_id }">수정</a></td>
 						<td><input type="submit" value="수정"></td> 
 					 <td>${inventory.ma_id}<input type="hidden" name="ma_id" value="${inventoryList[0].ma_id}"></td> --%>
 	 ${inventoryList[0]} 
@@ -29,8 +30,9 @@
 					<td>${inventory.ma_name}</td>
 					<td>${inventory.ma_qty}</td>
 					<td>${inventory.whs_num}</td>
-					<td><input type="text" name="ma_qty"></td>	
-		            <td><input type="hidden" name="ma_id" value="${inventory.ma_id}"><input type="submit" value="수정"></td>
+					<td><input type="text" name="ma_qty"></td>
+					<td><a href="/purchasing/inventory/modify?ma_id=${inventory.ma_id }">수정</a></td>
+						
 				</tr>
 			</c:forEach>
 		</table>

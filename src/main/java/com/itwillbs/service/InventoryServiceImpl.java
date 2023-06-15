@@ -22,9 +22,16 @@ public class InventoryServiceImpl implements InventoryService {
 	}
 
 	@Override
+	public MaterialVO modifyInventoryID(String ma_id) {
+		
+		return idao.modifyInventoryID(ma_id);
+	}
+	
+	@Override
 	public Integer modifyInventory(MaterialVO mvo) {
 		
 		return idao.modifyInventory(mvo);
 	}
 
+	
 }

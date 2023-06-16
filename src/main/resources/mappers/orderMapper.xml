@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.itwillbs.mappers.orderMapper">
+  
+   <!-- 발주목록 조회  -->              
+      <select id="getOrderList" resultType="com.itwillbs.domain.OrderVO">
+        select * from orders
+      </select>
+   <!-- 발주목록 조회  -->
+       <insert id="orderInsert">
+         insert into orders (order_id, ma_id, order_maName, order_qty, order_unitCost, order_sum, order_vat, whs_num, order_emp, order_date,due_date,in_date)
+         values (#{order_id}, #{ma_id}, #{order_maName}, #{order_qty}, #{order_unitCost}, #{order_sum},#{order_vat}, #{whs_num},#{order_emp},now(),now(),now())
+       </insert>
+      </mapper>

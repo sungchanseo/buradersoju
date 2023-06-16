@@ -76,8 +76,7 @@ public class MaterialController {
 	public void modifyMaterialGET(MaterialVO vo) {
 		logger.debug("@@@@@ 컨트롤러 @@@@@ modifyMaterialGET_호출");
 		
-		
-		
+	
 	}
 	
 	

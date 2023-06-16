@@ -24,12 +24,22 @@ public class OrderDAOImpl implements OrderDAO{
 	// mapper식별을 위한 NAMESPACE
 	private static final String NAMESPACE ="com.itwillbs.mappers.orderMapper";
 
+	// 발주목록 보기
 	@Override
 	public List<OrderVO> getOrderList() {
 		logger.debug("@@@@@@@@@DAO 발주 목록을 조회합니다 @@@@@");
 		return sqlSession.selectList(NAMESPACE+".getOrderList");
 	}
+    
+    // 발주등록하기~~
+	@Override
+	public void orderInsert(OrderVO vo) {
 	
-	// 발주목록 보기
+		logger.debug("@@@@@@DAO 발주 등록해봅시다.... ㅠㅠ");
+		sqlSession.insert(NAMESPACE+".orderInsert",vo);
+		
+	}
+   
+	
 
 }

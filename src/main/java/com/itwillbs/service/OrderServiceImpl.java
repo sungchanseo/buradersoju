@@ -24,6 +24,13 @@ public class OrderServiceImpl implements OrderService {
 		return odao.getOrderList();		
 	}
 
+	@Override
+	public void orderInsert(OrderVO vo) {
+		
+		odao.orderInsert(vo);
+		
+	}
+
 
 	
 }

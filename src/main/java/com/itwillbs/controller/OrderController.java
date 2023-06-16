@@ -15,14 +15,15 @@ import com.itwillbs.domain.OrderVO;
 import com.itwillbs.service.OrderService;
 
 @Controller
-@RequestMapping(value="/order/*")
+@RequestMapping(value="/purchasing/order/*")
 public class OrderController {
 	
 	@Inject
 	private OrderService orserivce;
 	
 	private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
-	// http://localhost:8088/order/list
+	
+	// http://localhost:8088/purchasing/order/list
 	@RequestMapping(value="/list", method = RequestMethod.GET)
 	public void orderListGET(Model model , OrderVO vo) {
 		
@@ -34,5 +35,23 @@ public class OrderController {
 	    // View페이지 정보 전달
 		model.addAttribute("orderList", orderList);
 	}
-
+    
+   @RequestMapping(value="/insert", method = RequestMethod.GET)
+   public void orderInsertGET(OrderVO vo) {
+	   
+	   logger.debug("@@@@@발주 등록 가즈아~@@@@");
+	   
+   }
+// http://localhost:8088/purchasing/order/insert
+   @RequestMapping(value ="/insert" , method = RequestMethod.POST)
+   public String orderInserPOST(OrderVO vo) {
+	   logger.debug("@@@@@@발주 등록 POST@@@@@");
+	   logger.debug("@@@@@입력된 정보 : " + vo );
+	   
+	   orserivce.orderInsert(vo);
+	   
+	   return "redirect:/purchasing/order/list";
+	   
+   }
+	
 }

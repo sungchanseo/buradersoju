@@ -28,175 +28,216 @@
 		<div class="container-fluid page-body-wrapper">
 			<div class="main-panel">
 				<div class="content-wrapper">
-					<div class="row">
-						<div class="col-sm-6 mb-4 mb-xl-0">
-							<div class="d-lg-flex align-items-center">
-								<div>
-									<h3 class="text-dark font-weight-bold mb-2">좋은 아침입니다 관리자님!</h3>
-									<h6 class="font-weight-normal mb-2">Last login was 23 hours ago. View details</h6>
-								</div>
-								<div class="ms-lg-5 d-lg-flex d-none">
-										<button type="button" class="btn bg-white btn-icon">
-											<i class="mdi mdi-view-grid text-success"></i>
-										</button>
-
-								</div>
-							</div>
-						</div>
-					</div>
 					<div class="row mt-4">
 						<div class="col-lg-8 grid-margin stretch-card">
-							<div class="card">
-								<div class="card-body">
-									<div class="row">
-										<div class="col-lg-4">
-											<h4 class="card-title">Sales Difference</h4>
-											<canvas id="salesDifference"></canvas>
-											<p class="mt-3 mb-4 mb-lg-0">Lorem ipsum dolor sit amet,
-												consectetur adipisicing elit.
-											</p>
-										</div>
-										<div class="col-lg-5">
-											<h4 class="card-title">Best Sellers</h4>
-											<div class="row">
-												<div class="col-sm-4">
-													<ul class="graphl-legend-rectangle">
-														<li><span class="bg-danger"></span>Automotive</li>
-														<li><span class="bg-warning"></span>Books</li>
-														<li><span class="bg-info"></span>Software</li>
-														<li><span class="bg-success"></span>Video games</li>
-													</ul>
-												</div>
-												<div class="col-sm-8 grid-margin">
-													<canvas id="bestSellers"></canvas>
-												</div>
-											</div>
-											<p class="mt-3 mb-4 mb-lg-0">Lorem ipsum dolor sit amet,
-												consectetur adipisicing elit.
-											</p>
-										</div>
-										<div class="col-lg-3">
-											<h4 class="card-title">Social Media Statistics</h4>
-											<div class="row">
-												<div class="col-sm-12">
-													<div class="progress progress-lg grouped mb-2">
-														<div class="progress-bar  bg-danger" role="progressbar" style="width: 40%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-														<div class="progress-bar bg-info" role="progressbar" style="width: 10%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-														<div class="progress-bar bg-warning" role="progressbar" style="width: 20%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-														<div class="progress-bar bg-success" role="progressbar" style="width: 30%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-													</div>
-												</div>
-												<div class="col-sm-12">
-													<ul class="graphl-legend-rectangle">
-														<li><span class="bg-danger"></span>Instagram (15%)</li>
-														<li><span class="bg-warning"></span>Facebook (20%)</li>
-														<li><span class="bg-info"></span>Website (25%)</li>
-														<li><span class="bg-success"></span>Youtube (40%)</li>
-													</ul>
-												</div>
-											</div>
-											<p class="mb-0 mt-2">Lorem ipsum dolor sit amet,
-												consectetur adipisicing elit.
-											</p>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">수주 차트</h4>
+                  <p class="card-description">
+                    Add class <code>.table-striped</code>
+                  </p>
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+											<thead>
+												<tr>
+													<th>User</th>
+													<th>First name</th>
+													<th>Progress</th>
+													<th>Amount</th>
+													<th>Deadline</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td class="py-1"><img
+														src="resources/images/faces/face1.jpg" alt="image" /></td>
+													<td>John Doe</td>
+													<td>
+														<div class="progress">
+															<div class="progress-bar bg-success" role="progressbar"
+																style="width: 25%" aria-valuenow="25" aria-valuemin="0"
+																aria-valuemax="100"></div>
+														</div>
+													</td>
+													<td>$ 77.99</td>
+													<td>May 15, 2015</td>
+												</tr>
+												<tr>
+													<td class="py-1"><img
+														src="resources/images/faces/face2.jpg" alt="image" /></td>
+													<td>John Doe</td>
+													<td>
+														<div class="progress">
+															<div class="progress-bar bg-danger" role="progressbar"
+																style="width: 75%" aria-valuenow="75" aria-valuemin="0"
+																aria-valuemax="100"></div>
+														</div>
+													</td>
+													<td>$245.30</td>
+													<td>July 1, 2015</td>
+												</tr>
+												<tr>
+													<td class="py-1"><img
+														src="resources/images/faces/face3.jpg" alt="image" /></td>
+													<td>John Doe</td>
+													<td>
+														<div class="progress">
+															<div class="progress-bar bg-warning" role="progressbar"
+																style="width: 90%" aria-valuenow="90" aria-valuemin="0"
+																aria-valuemax="100"></div>
+														</div>
+													</td>
+													<td>$138.00</td>
+													<td>Apr 12, 2015</td>
+												</tr>
+												<tr>
+													<td class="py-1"><img
+														src="resources/images/faces/face4.jpg" alt="image" /></td>
+													<td>John Doe</td>
+													<td>
+														<div class="progress">
+															<div class="progress-bar bg-primary" role="progressbar"
+																style="width: 50%" aria-valuenow="50" aria-valuemin="0"
+																aria-valuemax="100"></div>
+														</div>
+													</td>
+													<td>$ 77.99</td>
+													<td>May 15, 2015</td>
+												</tr>
+												<tr>
+													<td class="py-1"><img
+														src="resources/images/faces/face5.jpg" alt="image" /></td>
+													<td>John Doe</td>
+													<td>
+														<div class="progress">
+															<div class="progress-bar bg-danger" role="progressbar"
+																style="width: 35%" aria-valuenow="35" aria-valuemin="0"
+																aria-valuemax="100"></div>
+														</div>
+													</td>
+													<td>$ 160.25</td>
+													<td>May 03, 2015</td>
+												</tr>
+												<tr>
+													<td class="py-1"><img
+														src="resources/images/faces/face6.jpg" alt="image" /></td>
+													<td>John Doe</td>
+													<td>
+														<div class="progress">
+															<div class="progress-bar bg-info" role="progressbar"
+																style="width: 65%" aria-valuenow="65" aria-valuemin="0"
+																aria-valuemax="100"></div>
+														</div>
+													</td>
+													<td>$ 123.21</td>
+													<td>April 05, 2015</td>
+												</tr>
+												<tr>
+													<td class="py-1"><img
+														src="resources/images/faces/face7.jpg" alt="image" /></td>
+													<td>John Doe</td>
+													<td>
+														<div class="progress">
+															<div class="progress-bar bg-warning" role="progressbar"
+																style="width: 20%" aria-valuenow="20" aria-valuemin="0"
+																aria-valuemax="100"></div>
+														</div>
+													</td>
+													<td>$ 150.00</td>
+													<td>June 16, 2015</td>
+												</tr>
+												<tr>
+													<td class="py-1"><img
+														src="resources/images/faces/face7.jpg" alt="image" /></td>
+													<td>John Doe</td>
+													<td>
+														<div class="progress">
+															<div class="progress-bar bg-warning" role="progressbar"
+																style="width: 20%" aria-valuenow="20" aria-valuemin="0"
+																aria-valuemax="100"></div>
+														</div>
+													</td>
+													<td>$ 150.00</td>
+													<td>June 16, 2015</td>
+												</tr>
+												<tr>
+													<td class="py-1"><img
+														src="resources/images/faces/face7.jpg" alt="image" /></td>
+													<td>John Doe</td>
+													<td>
+														<div class="progress">
+															<div class="progress-bar bg-warning" role="progressbar"
+																style="width: 20%" aria-valuenow="20" aria-valuemin="0"
+																aria-valuemax="100"></div>
+														</div>
+													</td>
+													<td>$ 150.00</td>
+													<td>June 16, 2015</td>
+												</tr>
+												<tr>
+													<td class="py-1"><img
+														src="resources/images/faces/face7.jpg" alt="image" /></td>
+													<td>John Doe</td>
+													<td>
+														<div class="progress">
+															<div class="progress-bar bg-warning" role="progressbar"
+																style="width: 20%" aria-valuenow="20" aria-valuemin="0"
+																aria-valuemax="100"></div>
+														</div>
+													</td>
+													<td>$ 150.00</td>
+													<td>June 16, 2015</td>
+												</tr>
+												<tr>
+													<td class="py-1"><img
+														src="resources/images/faces/face7.jpg" alt="image" /></td>
+													<td>John Doe</td>
+													<td>
+														<div class="progress">
+															<div class="progress-bar bg-warning" role="progressbar"
+																style="width: 20%" aria-valuenow="20" aria-valuemin="0"
+																aria-valuemax="100"></div>
+														</div>
+													</td>
+													<td>$ 150.00</td>
+													<td>June 16, 2015</td>
+												</tr>
+												<tr>
+													<td class="py-1"><img
+														src="resources/images/faces/face7.jpg" alt="image" /></td>
+													<td>John Doe</td>
+													<td>
+														<div class="progress">
+															<div class="progress-bar bg-warning" role="progressbar"
+																style="width: 20%" aria-valuenow="20" aria-valuemin="0"
+																aria-valuemax="100"></div>
+														</div>
+													</td>
+													<td>$ 150.00</td>
+													<td>June 16, 2015</td>
+												</tr>
+												<tr>
+													<td class="py-1"><img
+														src="resources/images/faces/face7.jpg" alt="image" /></td>
+													<td>John Doe</td>
+													<td>
+														<div class="progress">
+															<div class="progress-bar bg-warning" role="progressbar"
+																style="width: 20%" aria-valuenow="20" aria-valuemin="0"
+																aria-valuemax="100"></div>
+														</div>
+													</td>
+													<td>$ 150.00</td>
+													<td>June 16, 2015</td>
+												</tr>
+
+											</tbody>
+										</table>
+                  </div>
+                </div>
+              </div>
+            </div>
 						<div class="col-lg-4 mb-3 mb-lg-0">
-							<div class="card congratulation-bg text-center">
-								<div class="card-body pb-0">
-									<img src="resources/images/dashboard/face29.png" alt="" width="120px">  
-									<h2 class="mt-3 text-white mb-3 font-weight-bold">이 달의 수주왕
-									</h2>
-									<p>You have done 57.6% more sales today. 
-										Check your new badge in your profile.
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-8 flex-column d-flex stretch-card">
-							<div class="row">
-								
-								
-								
-							</div>
-							<div class="row">
-								<div class="col-sm-12 grid-margin d-flex stretch-card">
-									<div class="card">
-										<div class="card-body">
-											<div class="d-flex align-items-center justify-content-between">
-												<h4 class="card-title mb-2">Sales Difference</h4>
-												<div class="dropdown">
-													<a href="#" class="text-success btn btn-link  px-1"><i class="mdi mdi-refresh"></i></a>
-													<a href="#" class="text-success btn btn-link px-1 dropdown-toggle dropdown-arrow-none" data-bs-toggle="dropdown" id="settingsDropdownsales">
-														<i class="mdi mdi-dots-horizontal"></i></a>
-														<div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="settingsDropdownsales">
-															<a class="dropdown-item">
-																<i class="mdi mdi-grease-pencil text-primary"></i>
-																Edit
-															</a>
-															<a class="dropdown-item">
-																<i class="mdi mdi-delete text-primary"></i>
-																Delete
-															</a>
-														</div>
-												</div>
-											</div>
-											<div>
-												<ul class="nav nav-tabs tab-no-active-fill" role="tablist">
-													<li class="nav-item">
-														<a class="nav-link active ps-2 pe-2" id="revenue-for-last-month-tab" data-bs-toggle="tab" href="#revenue-for-last-month" role="tab" aria-controls="revenue-for-last-month" aria-selected="true">Revenue for last month</a>
-													</li>
-													<li class="nav-item">
-														<a class="nav-link ps-2 pe-2" id="server-loading-tab" data-bs-toggle="tab" href="#server-loading" role="tab" aria-controls="server-loading" aria-selected="false">Server loading</a>
-													</li>
-													<li class="nav-item">
-														<a class="nav-link ps-2 pe-2" id="data-managed-tab" data-bs-toggle="tab" href="#data-managed" role="tab" aria-controls="data-managed" aria-selected="false">Data managed</a>
-													</li>
-													<li class="nav-item">
-														<a class="nav-link ps-2 pe-2" id="sales-by-traffic-tab" data-bs-toggle="tab" href="#sales-by-traffic" role="tab" aria-controls="sales-by-traffic" aria-selected="false">Sales by traffic</a>
-													</li>
-												</ul>
-												<div class="tab-content tab-no-active-fill-tab-content">
-													<div class="tab-pane fade show active" id="revenue-for-last-month" role="tabpanel" aria-labelledby="revenue-for-last-month-tab">
-														<div class="d-lg-flex justify-content-between">
-															<p class="mb-4">+5.2% vs last 7 days</p>
-															<div id="revenuechart-legend" class="revenuechart-legend">f</div>
-														</div>
-														<canvas id="revenue-for-last-month-chart"></canvas>
-													</div>
-													<div class="tab-pane fade" id="server-loading" role="tabpanel" aria-labelledby="server-loading-tab">
-														<div class="d-flex justify-content-between">
-															<p class="mb-4">+5.2% vs last 7 days</p>
-															<div id="serveLoading-legend" class="revenuechart-legend">f</div>
-														</div>
-														<canvas id="serveLoading"></canvas>
-													</div>
-													<div class="tab-pane fade" id="data-managed" role="tabpanel" aria-labelledby="data-managed-tab">
-														<div class="d-flex justify-content-between">
-															<p class="mb-4">+5.2% vs last 7 days</p>
-															<div id="dataManaged-legend" class="revenuechart-legend">f</div>
-														</div>
-														<canvas id="dataManaged"></canvas>
-													</div>
-													<div class="tab-pane fade" id="sales-by-traffic" role="tabpanel" aria-labelledby="sales-by-traffic-tab">
-														<div class="d-flex justify-content-between">
-															<p class="mb-4">+5.2% vs last 7 days</p>
-															<div id="salesTrafic-legend" class="revenuechart-legend">f</div>
-														</div>
-														<canvas id="salesTrafic"></canvas>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-4 flex-column d-flex stretch-card">
 							<div class="row flex-grow">
 								<div class="col-sm-12 grid-margin stretch-card">
 									<div class="card">
@@ -218,20 +259,7 @@
 												</div>
 											</div>
 											<div class="row">
-												<div class="col-sm-12 mt-4 mt-lg-0">
-													<div class="bg-primary text-white px-4 py-4 card">
-														<div class="row">
-															<div class="col-sm-6 pl-lg-5">
-																<h2>$1635</h2>
-																<p class="mb-0">Your Iincome</p>
-															</div>
-															<div class="col-sm-6 climate-info-border mt-lg-0 mt-2">
-																<h2>$2650</h2>
-																<p class="mb-0">Your Spending</p>
-															</div>
-														</div>
-													</div>
-												</div>
+												
 											</div>
 											<div class="row pt-3 mt-md-1">
 												<div class="col">
@@ -239,7 +267,7 @@
 														<div id="circleProgress1" class="p-2"></div>
 														<div>
 															<p class="font-weight-medium text-dark text-small">Sessions</p>
-															<h3 class="font-weight-bold text-dark  mb-0">26.80%</h3>
+															<h3 class="font-weight-bold text-dark  mb-0">70.80%</h3>
 														</div>
 													</div>
 												</div>
@@ -262,7 +290,7 @@
 											<div class="row">
 												<div class="col-sm-12">
 													<div class="d-flex align-items-center justify-content-between">
-														<h4 class="card-title mb-0">Visits Today</h4>
+														<h4 class="card-title mb-0">To Do Lists</h4>
 														<div class="dropdown">
 															<a href="#" class="text-success btn btn-link  px-1"><i class="mdi mdi-refresh"></i></a>
 															<a href="#" class="text-success btn btn-link px-1 dropdown-toggle dropdown-arrow-none" data-bs-toggle="dropdown" id="profileDropdownvisittoday"><i class="mdi mdi-dots-horizontal"></i></a>
@@ -301,7 +329,7 @@
 							<div class="card">
 								<div class="card-body">
 									<div class="d-flex align-items-center justify-content-between">
-										<h4 class="card-title">Support Tracker</h4>
+										<h4 class="card-title">Calendar</h4>
 										<h4 class="text-success font-weight-bold">Tickets<span class="text-dark ms-3">163</span></h4>
 									</div>
 									<div id="support-tracker-legend" class="support-tracker-legend"></div>
@@ -313,7 +341,7 @@
 							<div class="card">
 								<div class="card-body">
 									<div class="d-lg-flex align-items-center justify-content-between mb-4">
-										<h4 class="card-title">Product Orders</h4>
+										<h4 class="card-title">Company Notice</h4>
 										<p class="text-dark">+5.2% vs last 7 days</p>
 									</div>
 									<div class="product-order-wrap padding-reduced">

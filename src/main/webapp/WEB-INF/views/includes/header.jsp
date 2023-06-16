@@ -65,8 +65,8 @@
             </div>
             <ul class="navbar-nav navbar-nav-right">
                 <li class="nav-item dropdown d-lg-flex d-none">
-                  <a class="dropdown-toggle show-dropdown-arrow btn btn-inverse-primary btn-sm" id="nreportDropdown" href="#" data-bs-toggle="dropdown">
-                  Reports
+                  <a class="dropdown-toggle show-dropdown-arrow btn btn-inverse-success btn-sm" id="nreportDropdown" href="#" data-bs-toggle="dropdown">
+                  	Good Morning
                   </a>
                   <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="nreportDropdown">
                       <p class="mb-0 font-weight-medium float-left dropdown-header">관리자님</p>
@@ -128,16 +128,16 @@
                 </a>
                 <div class="submenu">
                       <ul class="submenu-item">
-                          <li class="nav-item"><a class="nav-link" href="contract/list">수주 목록</a></li>
-                          <li class="nav-item"><a class="nav-link" href="contract/list">수주 등록</a></li>
-                          <li class="nav-item"><a class="nav-link" href="contract/list">수주 조회</a></li>
-                          <li class="nav-item"><a class="nav-link" href="contract/list">수주 수정</a></li>
-                          <li class="nav-item"><a class="nav-link" href="contract/list">수주 삭제</a></li>
-                          <li class="nav-item"><a class="nav-link" href="contract/list">거래처 목록</a></li>
-                          <li class="nav-item"><a class="nav-link" href="contract/list">거래처 등록</a></li>
-                          <li class="nav-item"><a class="nav-link" href="contract/list">거래처 조회</a></li>
-                          <li class="nav-item"><a class="nav-link" href="contract/list">거래처 수정</a></li>
-                          <li class="nav-item"><a class="nav-link" href="contract/list">QR코드 생성</a></li>
+                          <li class="nav-item"><a class="nav-link" href="">수주 목록</a></li>
+                          <li class="nav-item"><a class="nav-link" href="">수주 등록</a></li>
+                          <li class="nav-item"><a class="nav-link" href="">수주 조회</a></li>
+                          <li class="nav-item"><a class="nav-link" href="">수주 수정</a></li>
+                          <li class="nav-item"><a class="nav-link" href="">수주 삭제</a></li>
+                          <li class="nav-item"><a class="nav-link" href="">거래처 목록</a></li>
+                          <li class="nav-item"><a class="nav-link" href="">거래처 등록</a></li>
+                          <li class="nav-item"><a class="nav-link" href="">거래처 조회</a></li>
+                          <li class="nav-item"><a class="nav-link" href="">거래처 수정</a></li>
+                          <li class="nav-item"><a class="nav-link" href="">QR코드 생성</a></li>
                       </ul>
                   </div>
               </li>
@@ -149,21 +149,21 @@
                   </a>
                   <div class="submenu">
                       <ul>
-                         <li class="nav-item"><a class="nav-link" href="product/insert">자재 등록</a></li>
-                         <li class="nav-item"><a class="nav-link" href="product/insert">자재 수정</a></li>
-                         <li class="nav-item"><a class="nav-link" href="product/insert">자재 삭제</a></li>
-                         <li class="nav-item"><a class="nav-link" href="product/insert">자재 저장</a></li>
-                         <li class="nav-item"><a class="nav-link" href="product/insert">자재 검색</a></li>
-                         <li class="nav-item"><a class="nav-link" href="product/insert">재고 검색</a></li>
-                         <li class="nav-item"><a class="nav-link" href="product/insert">현 재고량</a></li>
-                         <li class="nav-item"><a class="nav-link" href="product/insert">발주 현황</a></li>
-                         <li class="nav-item"><a class="nav-link" href="product/insert">발주 등록</a></li>
-                         <li class="nav-item"><a class="nav-link" href="product/insert">입고 목록</a></li>
-                         <li class="nav-item"><a class="nav-link" href="product/insert">미입고</a></li>
-                         <li class="nav-item"><a class="nav-link" href="product/insert">입고 완료</a></li>
-                         <li class="nav-item"><a class="nav-link" href="product/insert">출고 목록</a></li>
-                         <li class="nav-item"><a class="nav-link" href="product/insert">출고 조회</a></li>
-                         <li class="nav-item"><a class="nav-link" href="product/insert">출고 처리</a></li>
+                         <li class="nav-item"><a class="nav-link" href="">자재 등록</a></li>
+                         <li class="nav-item"><a class="nav-link" href="">자재 수정</a></li>
+                         <li class="nav-item"><a class="nav-link" href="">자재 삭제</a></li>
+                         <li class="nav-item"><a class="nav-link" href="">자재 저장</a></li>
+                         <li class="nav-item"><a class="nav-link" href="">자재 검색</a></li>
+                         <li class="nav-item"><a class="nav-link" href="">재고 검색</a></li>
+                         <li class="nav-item"><a class="nav-link" href="">현 재고량</a></li>
+                         <li class="nav-item"><a class="nav-link" href="">발주 현황</a></li>
+                         <li class="nav-item"><a class="nav-link" href="">발주 등록</a></li>
+                         <li class="nav-item"><a class="nav-link" href="">입고 목록</a></li>
+                         <li class="nav-item"><a class="nav-link" href="">미입고</a></li>
+                         <li class="nav-item"><a class="nav-link" href="">입고 완료</a></li>
+                         <li class="nav-item"><a class="nav-link" href="">출고 목록</a></li>
+                         <li class="nav-item"><a class="nav-link" href="">출고 조회</a></li>
+                         <li class="nav-item"><a class="nav-link" href="">출고 처리</a></li>
                       </ul>
                   </div>
               </li>
@@ -175,13 +175,13 @@
                   </a>
                   <div class="submenu">
                     <ul>
-                          <li class="nav-item"><a class="nav-link" href="process/insert">작업 지시 목록</a></li>
-                          <li class="nav-item"><a class="nav-link" href="process/insert">작업 지시 상세</a></li>
-                          <li class="nav-item"><a class="nav-link" href="process/insert">작업 지시 등록</a></li>
-                          <li class="nav-item"><a class="nav-link" href="process/insert">생산 목록</a></li>
-                          <li class="nav-item"><a class="nav-link" href="process/insert">생산 등록</a></li>
-                          <li class="nav-item"><a class="nav-link" href="process/insert">품질 관리 목록</a></li>
-                          <li class="nav-item"><a class="nav-link" href="process/insert">검수 등록</a></li>
+                          <li class="nav-item"><a class="nav-link" href="">작업 지시 목록</a></li>
+                          <li class="nav-item"><a class="nav-link" href="">작업 지시 상세</a></li>
+                          <li class="nav-item"><a class="nav-link" href="">작업 지시 등록</a></li>
+                          <li class="nav-item"><a class="nav-link" href="">생산 목록</a></li>
+                          <li class="nav-item"><a class="nav-link" href="">생산 등록</a></li>
+                          <li class="nav-item"><a class="nav-link" href="">품질 관리 목록</a></li>
+                          <li class="nav-item"><a class="nav-link" href="">검수 등록</a></li>
                       </ul>
                   </div>
               </li>
@@ -193,10 +193,10 @@
                   </a>
                   <div class="submenu">
                    	<ul>
-                          <li class="nav-item"><a class="nav-link" href="warehouse/insert">창고 관리</a></li>
-                          <li class="nav-item"><a class="nav-link" href="warehouse/insert">창고 등록</a></li>
-                          <li class="nav-item"><a class="nav-link" href="warehouse/insert">창고 수정</a></li>
-                          <li class="nav-item"><a class="nav-link" href="warehouse/insert">창고 삭제</a></li>
+                          <li class="nav-item"><a class="nav-link" href="">창고 관리</a></li>
+                          <li class="nav-item"><a class="nav-link" href="">창고 등록</a></li>
+                          <li class="nav-item"><a class="nav-link" href="">창고 수정</a></li>
+                          <li class="nav-item"><a class="nav-link" href="">창고 삭제</a></li>
                           
                     </ul>
                   </div>

@@ -1,8 +1,15 @@
 package com.itwillbs.persistence;
 
-import org.springframework.stereotype.Repository;
+import java.util.List;
 
-@Repository
+import com.itwillbs.domain.ProductionVO;
+
+
 public interface ProductionDAO {
+	
+	// 작업지시 등록
+	public void insertWorkOrder(ProductionVO vo) throws Exception;
 
+	// 작업지시 목록
+	public List<ProductionVO> getWorkOrderList();
 }

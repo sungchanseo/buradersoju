@@ -1,8 +1,33 @@
 package com.itwillbs.service;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.itwillbs.domain.ProductionVO;
+import com.itwillbs.persistence.ProductionDAO;
 
 @Service
 public class ProductionServiceImpl implements ProductionService {
 
+	// DAO 객체 주입
+	@Autowired
+	private ProductionDAO pdao;
+	
+	@Override
+	public void insertWorkOrder(ProductionVO vo) throws Exception {
+		// DAO - 작업지시 저장(등록)
+		pdao.insertWorkOrder(vo);
+		
+	}
+
+	@Override
+	public List<ProductionVO> getWorkOrderList() {
+		return pdao.getWorkOrderList();
+	}
+	
+	
+
+	
 }

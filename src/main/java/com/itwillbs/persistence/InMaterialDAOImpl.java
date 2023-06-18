@@ -50,6 +50,19 @@ public class InMaterialDAOImpl implements InMaterialDAO {
 	public InMaterialVO getInMaterialInfo(String in_id) {
 		return null;
 	}
+
+
+	// 4. 입고번호 등록하기
+	@Override
+	public void registInId(InMaterialVO vo) {
+		logger.debug("########## resgistInId 호출");
+		logger.debug("########## " + vo.getIn_id());
+		logger.debug("########## " + vo.getOrder_id());
+
+		sqlSession.update(NAMESPACE + ".registInId", vo);
+	}
+	
+	
 	
 
 	

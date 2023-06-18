@@ -40,6 +40,13 @@ public class InMaterialServiceImpl implements InMaterialService {
 	public InMaterialVO getInMaterialInfo(String in_id) {
 		return null;
 	}
+
+	
+	// 4. 입고번호 등록하기
+	@Override
+	public void registInId(InMaterialVO vo) {
+		idao.registInId(vo);
+	}
 	
 	
 	

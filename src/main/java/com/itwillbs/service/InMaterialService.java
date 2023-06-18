@@ -15,4 +15,8 @@ public interface InMaterialService {
 	// 3. 입고 상세보기
 	public InMaterialVO getInMaterialInfo(String in_id);
 	
+	// 4. 입고번호 등록하기
+	public void registInId(InMaterialVO vo);
+	
+	
 }

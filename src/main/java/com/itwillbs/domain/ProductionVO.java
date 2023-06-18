@@ -131,6 +131,7 @@ public class ProductionVO {
 
 	public void setProduction_qty(int production_qty) {
 		this.production_qty = production_qty;
+
 	}
 
 
@@ -182,6 +183,7 @@ public class ProductionVO {
 	public void setComplete_defQty(int complete_defQty) {
 		this.complete_defQty = complete_defQty;
 	}
+
 
 
 	public String getQc_num() {
@@ -273,6 +275,7 @@ public class ProductionVO {
 		this.bt_status = bt_status;
 	}
 
+
 	// toString()
 	@Override
 	public String toString() {
@@ -284,12 +287,13 @@ public class ProductionVO {
 				+ ", qc_num=" + qc_num + ", qc_emp=" + qc_emp + ", qc_date=" + qc_date + ", qc_qty=" + qc_qty
 				+ ", qc_state=" + qc_state + ", def_code=" + def_code + ", def_qty=" + def_qty + ", bt_id=" + bt_id
 				+ ", bt_qty=" + bt_qty + ", bt_status=" + bt_status + "]";
+
 	}
 
 
 	
 
 	
-	
 
 }
+

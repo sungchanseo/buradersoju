@@ -9,6 +9,9 @@ public interface MaterialService {
 	// 자재 목록 조회
 	public List<MaterialVO> getMaterialList();
 	
+	// 자재 정보 조회
+	public MaterialVO getMaterialInfo(String ma_id);
+	
 	// 자재 등록
 	public void insertMaterial(MaterialVO vo);
 	
@@ -16,6 +19,6 @@ public interface MaterialService {
 	public Integer modifyMaterial(MaterialVO mvo);
 	
 	// 자재 삭제
-	public Integer removeMaterial(String ma_id);
+	public Integer deleteMaterial(MaterialVO dvo);
 
 }

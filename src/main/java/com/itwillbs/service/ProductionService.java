@@ -8,6 +8,7 @@ import com.itwillbs.domain.ProductionVO;
 
 public interface ProductionService {
 	
+
 	// 작업지시 등록
 	public void insertWorkOrder(ProductionVO vo) throws Exception;
 	
@@ -39,3 +40,4 @@ public interface ProductionService {
 	
 	
 }
+

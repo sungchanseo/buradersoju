@@ -11,10 +11,36 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+
 import com.itwillbs.domain.ProductionVO;
 
 @Repository
 public class ProductionDAOImpl implements ProductionDAO {
+	
+	// 디비연결정보, mapper접근 => sqlSession 객체
+	@Autowired
+	private SqlSession sqlSession;
+	
+	private static final Logger logger = LoggerFactory.getLogger(ProductionController.class);
+	
+	// mapper의 namespace 정보
+	private static final String NAMESPACE = "com.itwillbs.mapper.productionMapper";
+
+	
+	@Override
+	public void insertWorkOrder(ProductionVO vo) throws Exception {
+		logger.debug(" sqlSession - Mabatis - mapper - DB ");
+		int result = sqlSession.insert(NAMESPACE+".insert", vo);
+		
+		if(result != 0)
+			logger.debug(" 글쓰기 완료! ");
+	}
+
+	@Override
+	public List<ProductionVO> getWorkOrderList() {
+		
+		return sqlSession.selectList(NAMESPACE+".getWorkOrderList");
+	}
 
 	// DB 연결 (의존주입)
 	@Inject
@@ -75,23 +101,6 @@ public class ProductionDAOImpl implements ProductionDAO {
 		public void qualityInsertDB(ProductionVO vo) {
 			logger.info("@@@@검수 등록 등록시작@@@@");
 			
-
-//		    public static synchronized String generateQcNum() {
-//			int sequence = 0;
-//		    int MAX_SEQUENCE = 999;
-//		        // 현재 날짜 가져오기
-//		        SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMdd");
-//		        String date = dateFormat.format(new Date());
-//
-//		        // 시퀀스 증가 및 문자수 처리(ex. 001)
-//		        sequence = (sequence + 1) % (MAX_SEQUENCE + 1);
-//		        String paddedSequence = String.format("%03d", sequence);
-//
-//		        // QC 번호 생성
-//		        String qcNum = "QC" + date + paddedSequence;
-//		        return qcNum;
-//		    }
-		        
 			
 			int result = sqlSession.insert(NAMESPACE+".qInsertDB", vo);
 			sqlSession.insert(NAMESPACE+".qInsertDB2", vo);
@@ -106,6 +115,7 @@ public class ProductionDAOImpl implements ProductionDAO {
 			logger.info("@@@@공병 목록 가져오기@@@@");
 			return sqlSession.selectList(NAMESPACE+".bottleList");
 		}
+
 
 
 

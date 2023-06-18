@@ -2,6 +2,7 @@ package com.itwillbs.persistence;
 
 import java.util.List;
 
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -38,5 +39,18 @@ public class InventoryDAOImpl implements InventoryDAO {
 		logger.debug("#####DAO 호출완료######");
 		return sqlSession.selectList(NAMESPACE + ".getInventoryList");
 	}
+	@Override
+	public MaterialVO modifyInventoryID(String ma_id) {
+		logger.debug("MODIFYID 들고오기~~~@@@@");
+		
+		return sqlSession.selectOne(NAMESPACE+".modifyInventoryID",ma_id);
+				
+	}
+	@Override
+	public Integer modifyInventory(MaterialVO mvo) {
+		 logger.debug("@#@#@##@#@DAO 수정 합니다~~@@@@");
+		return sqlSession.update(NAMESPACE+".modifyInventory",mvo);
+	}
+	
 
 }

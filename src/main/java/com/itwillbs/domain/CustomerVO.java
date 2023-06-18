@@ -3,7 +3,7 @@ package com.itwillbs.domain;
 public class CustomerVO {
 	private String cust_id;
 	private String cust_name;
-	private int reg_num;
+	private Integer reg_num;
 	private String cust_type;
 	private String cust_class;
 	private String owner_name;
@@ -16,13 +16,13 @@ public class CustomerVO {
 	private String emp_email;
 	private String emp_id;
 	private String cust_etc;
-	private int cust_status;
+	private Integer cust_status;
 	
 	
-	public int getReg_num() {
+	public Integer getReg_num() {
 		return reg_num;
 	}
-	public void setReg_num(int reg_num) {
+	public void setReg_num(Integer reg_num) {
 		this.reg_num = reg_num;
 	}
 	public String getCust_id() {
@@ -109,10 +109,10 @@ public class CustomerVO {
 	public void setCust_etc(String cust_etc) {
 		this.cust_etc = cust_etc;
 	}
-	public int getCust_status() {
+	public Integer getCust_status() {
 		return cust_status;
 	}
-	public void setCust_status(int cust_status) {
+	public void setCust_status(Integer cust_status) {
 		this.cust_status = cust_status;
 	}
 	@Override

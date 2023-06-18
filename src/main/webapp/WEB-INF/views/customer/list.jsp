@@ -11,12 +11,12 @@
 	<h1>Customer List</h1>
 	<!-- 검색창기능 -->
 	<form action="/customer/list" method="get">
-		<select name="selecter">
-			<option value="cust_id">거래처코드</option>
+		<select name="selector">
 			<option value="cust_name">상호</option>
+			<option value="cust_id">거래처코드</option>
 		</select>
 		<input type="text" name="search" placeholder="검색어를 입력해주세요">
-		<input type="image" src="./resources/images/magnifying-glass-g1d4816a37_640.png" width="25px" style="vertical-align:middle; display:inline;">
+		<input type="submit" class="btn-danger" value="검색">
 	</form>
 	<!-- 검색창기능 -->
 	<input type="button" value="거래처등록"
@@ -24,7 +24,6 @@
 	<input type="button" value="거래처삭제"
 		onclick="location.href='/customer/remove';">
 	<hr>
-	<c:if test="${customerListPaging[0].cust_status == 0 }">
 		<table border="1">
 			<tr>
 				<th></th>
@@ -39,7 +38,7 @@
 				<th>종목</th>
 				<th>담당자이메일</th>
 			</tr>
-			<c:forEach var="vo" items="${customerListPaging }">
+			<c:forEach var="vo" items="${customerList }">
 				<tr>
 					<td><input type="checkbox">
 					<td><a href="/customer/info?cust_id=${vo.cust_id }">${vo.cust_id }</a></td>
@@ -55,19 +54,17 @@
 				</tr>
 			</c:forEach>
 		</table>
-	</c:if>
-
 	<!-- 	페이징 처리  -->
-	<c:if test="${startPage > pageBlock }">
-		<a href="/customer/list?pageNum=${startPage-pageBlock}">이전</a>
+	<c:if test="${pvo.startPage > pvo.pageBlock }">
+		<a href="/customer/list?pageNum=${pvo.startPage-pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}">이전</a>
 	</c:if>
 
-	<c:forEach var="i" begin="${startPage }" end="${endPage }" step="1">
-		<a href="/customer/list?pageNum=${i }">${i }</a>
+	<c:forEach var="i" begin="${pvo.startPage }" end="${pvo.endPage }" step="1">
+		<a href="/customer/list?pageNum=${i }&selector=${pvo.selector}&search=${pvo.search}">${i }</a>
 	</c:forEach>
 
-	<c:if test="${endPage<pageCount }">
-		<a href="/customer/list?pageNum=${startPage+pageBlock}">다음</a>
+	<c:if test="${pvo.endPage<pvo.pageCount }">
+		<a href="/customer/list?pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}">다음</a>
 	</c:if>
 	<!-- 	페이징 처리  -->
 

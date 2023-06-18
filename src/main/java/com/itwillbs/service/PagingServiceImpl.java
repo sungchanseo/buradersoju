@@ -94,7 +94,6 @@ public class PagingServiceImpl implements PagingService {
 	@Override
 	public int getListAll(PagingVO pvo) throws Exception {
 		logger.debug("@@@@@@@@@@@PagingSerivce : getListAll()메소드 호출!");
-		pvo.setTable("customer");
 		return pdao.getListAll(pvo);
 	}
 	//페이징 목록갯수 가져오기

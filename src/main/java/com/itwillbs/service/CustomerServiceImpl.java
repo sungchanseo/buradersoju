@@ -21,9 +21,6 @@ public class CustomerServiceImpl implements CustomerService {
 	@Inject
 	private PagingService pageService;
 	
-	//PagingDAO사용을 위한 객체 생성
-	PagingVO pvo = new PagingVO();
-	
 	@Override
 	public PagingVO setPageInfoForCustomer(PagingVO pvo) throws Exception{
 		logger.debug("@@@@@@CustomerService : setPageInfoForCustomer호출!");

@@ -2,7 +2,6 @@ package com.itwillbs.service;
 
 import java.util.List;
 
-import javax.inject.Inject;
 
 import com.itwillbs.domain.ProductionVO;
 

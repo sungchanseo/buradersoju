@@ -19,10 +19,8 @@
 		<input type="submit" class="btn-danger" value="검색">
 	</form>
 	<!-- 검색창기능 -->
-	<input type="button" value="거래처등록"
-		onclick="location.href='/customer/insert';">
-	<input type="button" value="거래처삭제"
-		onclick="location.href='/customer/remove';">
+	<input type="button" value="거래처등록" onclick="location.href='/customer/insert';">
+	<input type="button" value="거래처삭제" onclick="location.href='/customer/remove';">
 	<hr>
 		<table border="1">
 			<tr>

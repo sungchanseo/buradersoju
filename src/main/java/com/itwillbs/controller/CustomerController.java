@@ -41,8 +41,7 @@ public class CustomerController {
 			HttpServletRequest request) throws Exception {
 		logger.debug("@@@@@@@@@Controller : 거래처 리스트 조회!");
 		logger.debug("@@@@@@@@@Controller : {}",pvo);
-		//페이징처리를 위한 pageService 호출
-		
+
 		List<Object> customerList=null;
 		
 		//거래처목록을 가져오는 custService 호출
@@ -54,12 +53,10 @@ public class CustomerController {
 			//검색어가 있을 때 
 			logger.debug("@@@@@@@@@Controller : 검색어가 있을 때입니다");
 			customerList = pageService.getListSearchObject(pvo);
-
 		}else {
 			//검색어가 없을 때
 			logger.debug("@@@@@@@@@Controller : 검색어가 없을 때입니다");
 			customerList = pageService.getListPageSizeObject(pvo);
-
 		}
 		logger.debug("@@@@@@@@@Controller : {}",customerList);
 	
@@ -88,7 +85,7 @@ public class CustomerController {
 	@RequestMapping(value = "/insert", method = RequestMethod.GET)
 	public void insertCustomerGET(CustomerVO vo)  throws Exception {
 		logger.debug("@@@@@@@@@@@@Controller : 거래처 등록GET하기!!!!");
-//		return "customer/insert";
+	//	return "customer/insert";
 	}
 
 	// 거래처 등록 디비처리

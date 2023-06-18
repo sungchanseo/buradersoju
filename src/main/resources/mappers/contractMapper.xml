@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.itwillbs.mappers.contractMapper">
+<!-- customer 상세보기  -->
+	<select id="readContractInfo" resultType="ContractVO">
+		SELECT * FROM contract 
+		WHERE cont_id = #{cont_id}
+	</select>
+<!-- customer 상세보기  -->
+	
+<!-- customer 등록하기 	 -->
+	<insert id="insertContract">
+	INSERT INTO contract (cont_id, product_name, product_id, cust_id,
+	cont_date, cont_qty, due_date, production_id, cont_emp, cont_status)
+	VALUES(#{cont_id}, #{product_name}, #{product_id}, #{cust_id},
+	#{cont_date}, #{cont_qty}, #{due_date}, #{production_id}, #{cont_emp},
+	0)
+	</insert>
+<!-- customer 등록하기 	 -->
+
+<!-- customer 수정하기 -->
+	<update id="updateContract">
+	UPDATE contract SET cust_name=#{cust_name},
+	production_id=#{production_id}, product_name=#{product_name},
+	cust_id=#{cust_id}, cont_date=#{cont_date}, cont_qty=#{cont_qty},
+	due_date=#{due_date}, cont_emp=#{cont_emp}
+	WHERE cont_id=#{cont_id}
+	</update>
+<!-- customer 수정하기 -->
+	
+<!-- customer 삭제하기 	 -->
+	<update id="deleteContract">
+		UPDATE contract SET cont_status=1
+		WHERE cont_id=#{cont_id}
+	</update>
+<!-- customer 삭제하기 	 -->
+	
+</mapper>

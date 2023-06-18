@@ -31,6 +31,12 @@ public class OrderServiceImpl implements OrderService {
 		
 	}
 
+	@Override
+	public Integer modifyOrder(OrderVO mvo) {
+		
+		return null;
+	}
+
 
 	
 }

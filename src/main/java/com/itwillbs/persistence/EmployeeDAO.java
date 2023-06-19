@@ -15,15 +15,16 @@ public interface EmployeeDAO {
 	//C: 사원 등록
 	public void insertEmployee(EmployeeVO vo);
 	
+	// 사원 번호 자동 부여
+	public int getNextNumber();
+	
 	// 사원리스트
 	public List<EmployeeVO> getEmployeeList();
 
 	// 사원 정보 조회
-	public EmployeeVO getEmployee(int emp_id);
+	public EmployeeVO getEmployee(String emp_id);
 	
-	// 사원 정보 수정
-	public Integer updateEmployee(EmployeeVO uvo);
+	// 사원 정보 수정(POST)
+	public Integer modifiyEmployee(EmployeeVO uvo);
 	
-	// 
-
 }

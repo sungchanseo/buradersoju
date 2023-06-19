@@ -29,5 +29,19 @@
 			</tr>
 		</c:forEach>
 	</table>
+	<input type="button" value="사원등록" onclick="location.href='/employee/insert';">
+	<!-- 	페이징 처리  -->
+	<c:if test="${startPage > pageBlock }">
+		<a href="/employee/list?pageNum=${startPage-pageBlock}">이전</a>
+	</c:if>
+
+	<c:forEach var="i" begin="${startPage }" end="${endPage }" step="1">
+		<a href="/employee/list?pageNum=${i }">${i }</a>
+	</c:forEach>
+
+	<c:if test="${endPage<pageCount }">
+		<a href="/employee/list?pageNum=${startPage+pageBlock}">다음</a>
+	</c:if>
+	<!-- 	페이징 처리  -->
 </body>
 </html>

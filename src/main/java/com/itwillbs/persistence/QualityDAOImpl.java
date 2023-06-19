@@ -24,7 +24,7 @@ public class QualityDAOImpl implements QualityDAO {
 	private SqlSession sqlSession; //mapper위치까지 접근 가능 but mapper가 여러개일수있음 => mapper구분필요
 	
 	//mapper구분하는 값 namespace
-	private static final String NAMESPACE = "com.itwillbs.mappers.productionMapper";
+	private static final String NAMESPACE = "com.itwillbs.mappers.qualityMapper";
 
 	// 로거 생성
 	private static final Logger logger = LoggerFactory.getLogger(QualityDAOImpl.class);
@@ -63,6 +63,8 @@ public class QualityDAOImpl implements QualityDAO {
 		@Override
 		public void qualityInsertDB(ProductionVO vo) {
 			logger.info("@@@@검수 등록 등록시작@@@@");
+			
+			
 			
 			
 			int result = sqlSession.insert(NAMESPACE+".qInsertDB", vo);

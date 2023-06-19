@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- DTD지정  -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.itwillbs.mappers.qualityMapper">
+
+<!-- 품질관리 목록 -->
+	<select id="qualityList" resultType="com.itwillbs.domain.ProductionVO" >
+	    select *
+		from production a,
+	     	 product b,
+	    	 qc q,
+	    	 defective d
+		where a.product_id = b.product_id
+		and a.production_id = q.production_id
+		and q.qc_num = d.qc_num
+	</select>
+<!-- 품질관리 목록 -->
+
+<!-- 검수 상세 -->
+	<select id="qualityInfo" resultType="com.itwillbs.domain.ProductionVO">
+		select *
+		from production a,
+	     	 product b,
+	    	 qc q,
+	    	 defective d
+		where a.product_id = b.product_id
+		and a.production_id = q.production_id
+		and q.qc_num = d.qc_num
+		and q.qc_num = #{qc_num}
+	</select>
+<!-- 검수 상세 -->
+
+<!--    검수 등록    -->
+	<!-- 작업지시번호 조회 -->
+		<select id="insertSearch" resultType="com.itwillbs.domain.ProductionVO">
+			select *
+			from production a,
+		     	 product b
+			where a.product_id = b.product_id
+			and a.production_id = #{production_id}
+		</select>
+	<!-- 작업지시번호 조회 -->
+	<!-- DB등록 -->
+		<insert id="qInsertDB">
+			insert into qc
+			(qc_num, qc_emp, qc_date, qc_qty, qc_state, production_id)
+			values (#{qc_num}, #{qc_emp}, now(), #{qc_qty}, '완료', #{production_id})
+		</insert>
+		<insert id="qInsertDB2" >
+			insert into defective
+			(qc_num, def_code, def_qty)
+			values (#{qc_num},#{def_code},#{def_qty})
+		</insert>
+	<!-- DB등록 -->
+<!--    검수 등록    -->
+
+<!-- 공병 관리 -->
+	<select id="bottleList" resultType="com.itwillbs.domain.ProductionVO">
+		select *
+			from empty_bottle
+	</select>
+<!-- 공병 관리 -->
+
+
+</mapper>

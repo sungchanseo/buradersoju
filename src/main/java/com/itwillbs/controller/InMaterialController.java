@@ -54,14 +54,28 @@ public class InMaterialController {
 		logger.debug("@@@@@@@@@@ inMaterialListAllPOST()_호출");
 		
 		// Service 객체 호출
+		// 1. 입고번호, 발주번호 DB에 저장
 		InMaterialVO vo = new InMaterialVO();
 		vo.setIn_id(in_id);
 		vo.setOrder_id(order_id);
 		iService.registInId(vo);
 		
-		// view 페이지에 정보 전달
+		// 2. 자동 넘버링
+		int nextNumber = iService.getNextNumber();
+		int maxNumber = iService.getMaxNumber();
+		logger.debug("@@@@@@@@@@@@@@ nextNumber = " + nextNumber);
+		logger.debug("@@@@@@@@@@@@@@ maxNumber = " + maxNumber);
+		model.addAttribute("nextNumber", nextNumber);
+		model.addAttribute("maxNumber", maxNumber);
 		
-
+		
+		
+		// 1-1. 입고리스트
+		// Service 객체 호출
+		List<InMaterialVO> inMaterialList =  iService.getInMaterialListAll();
+		
+		// View 페이지에 정보 전달
+		model.addAttribute("inMaterialList", inMaterialList);
 	}
 	
 	

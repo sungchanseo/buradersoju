@@ -63,6 +63,27 @@ public class InMaterialDAOImpl implements InMaterialDAO {
 	}
 	
 	
+	// 5. 입고번호 자동부여
+	@Override
+	public int getNextNumber() {
+		Integer nextNumber = sqlSession.selectOne(NAMESPACE + ".getNextNumber");
+		logger.debug("############## nextNumber : " + nextNumber);
+//	    return (nextNumber != null) ? nextNumber : 1;
+	    return (nextNumber != null) ? nextNumber : 1;
+	}
+
+
+	// 6. 입고번호 최대값 들고오기
+	@Override
+	public int getMaxNumber() {
+		Integer maxNumber = sqlSession.selectOne(NAMESPACE + ".getMaxNumber");
+		logger.debug("############## maxNumber : " + maxNumber);
+		return maxNumber;
+	}
+	
+	
+	
+	
 	
 
 	
@@ -73,6 +94,5 @@ public class InMaterialDAOImpl implements InMaterialDAO {
 	
 	
 
-	
 	
 }

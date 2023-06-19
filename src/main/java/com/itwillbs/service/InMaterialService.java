@@ -10,13 +10,18 @@ public interface InMaterialService {
 	public List<InMaterialVO> getInMaterialListAll() throws Exception;
 	
 	// 2. 필터 리스트 (미입고 / 입고완료)
-	public List<InMaterialVO> getInMaterialListFilter(String in_progress);
+	public List<InMaterialVO> getInMaterialListFilter(String in_progress) throws Exception;
 	
 	// 3. 입고 상세보기
-	public InMaterialVO getInMaterialInfo(String in_id);
+	public InMaterialVO getInMaterialInfo(String in_id) throws Exception;
 	
 	// 4. 입고번호 등록하기
-	public void registInId(InMaterialVO vo);
+	public void registInId(InMaterialVO vo) throws Exception;
 	
+	// 5. 입고번호 자동부여
+	public int getNextNumber() throws Exception;
+	
+	// 6. 입고번호 최대값 가져오기
+	public int getMaxNumber() throws Exception;
 	
 }

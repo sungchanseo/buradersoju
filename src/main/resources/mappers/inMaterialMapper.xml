@@ -21,7 +21,23 @@
 		where order_id = #{order_id}
  	</insert>
  <!-- in_id 입고번호 저장 -->
- 	
+ 
+ 
+ <!-- 입고번호 자동 부여 -->
+    <select id="getNextNumber" resultType="java.lang.Integer">
+        SELECT MAX(CAST(SUBSTRING(in_id, 3) AS UNSIGNED)) + 1 
+        FROM in_material
+		
+    </select>
+ <!-- 입고번호 자동 부여 -->
+ 
+ 
+ <!-- 입고번호 최대값 가져오기 -->	
+ 	<select id="getMaxNumber" resultType="java.lang.Integer">
+ 		SELECT MAX(CAST(SUBSTRING(in_id, 3, 6) AS UNSIGNED))
+		FROM in_material;
+ 	</select>
+ <!-- 입고번호 최대값 가져오기 -->	
  	
  	
  	

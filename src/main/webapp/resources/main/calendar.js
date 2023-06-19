@@ -22,7 +22,8 @@
     {
           googleCalendarId: 'e53edbf90f8b1b8a49ec273c8fef962ca5763b374fddc15c4194c84ae18e772d@group.calendar.google.com',
           className: 'Alcoholic',
-          color: '#F4797E'
+          color: '#8BC34A'
+        	  //#33c92d, #181824, #1e7a81
         },
      {
         	 googleCalendarId : "ko.south_korea#holiday@group.v.calendar.google.com", 

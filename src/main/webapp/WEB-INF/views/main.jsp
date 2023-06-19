@@ -21,7 +21,6 @@
   </head>
   <body>
     <div class="container-scroller">
-
 		<!-- partial:partials/_horizontal-navbar.html -->
 		<%@ include file="./includes/header.jsp" %>
 
@@ -114,7 +113,7 @@
 									<p class="font-weight-500">이 달의 수주왕으로 뽑힌 사원에게는 보너스를 드립니다 !
 									</p>
 									<div id="sales-legend" class="chartjs-legend mt-4 mb-2"></div>
-									<canvas id="myChart" height="400px" width="600px"></canvas>
+									<canvas id="mainContractChart" height="400px" width="600px"></canvas>
 								</div>
 							</div>
 						</div>
@@ -130,38 +129,19 @@
 								<div class="col-lg-12 grid-margin stretch-card">
 									<div class="card">
 										<div class="card-body">
-											
+
 											<div class="row">
 												<div class="col-12">
 													<div class="table-responsive">
 														<p class="card-title">공지사항</p>
 														<div id="resultContainer"></div>
-														<button class="btn btn-success btn-rounded btn-fw" onclick="location.href='/notice/list'">공지 목록</button>
 														<div id="table_content">
-															<table>
-																
-																<tbody>
-																	<%-- boardList를 반복하여 각 항목 출력 --%>
-																	<c:forEach var="vo" items="${boardList }">
-																		<tr>
-																			<td>${vo.notice_id }</td>
-																			<td><a
-																				href="/notice/info?notice_id=${vo.notice_id }">${vo.notice_title }</a>
-																			</td>
-																			<td>${vo.notice_writer }</td>
-																			<td>${vo.notice_regdate }</td>
-																			<td>${vo.notice_count } </td>
-																		</tr>
-																	</c:forEach>
-																</tbody>
+															<table class="table table-color">
+															<tr><th>번호</th><th>제목</th><th>작성일자</th></tr>
 															</table>
+															<button class="btn btn-success btn-fw" onclick="location.href='/notice/list'">공지 목록</button>
 														</div>
 													</div>
-												</div>
-											</div>
-											</div>
-												</div>
-											</div>
 												</div>
 											</div>
 										</div>
@@ -215,7 +195,8 @@
 	  <script>
 		 let emp_id = ${sessionScope.emp_id };
 	  </script>
-	  
+	  <!-- 수주 -->
+   	  <script src="resources/main/contractchart.js"></script>
 	  <!-- 공지사항 -->
    	  <script src="resources/main/noticeList.js"></script>
     <!-- End custom js for this page-->

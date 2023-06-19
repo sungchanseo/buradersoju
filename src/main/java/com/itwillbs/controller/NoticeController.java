@@ -151,9 +151,10 @@ public class NoticeController {
 	    return "redirect:/notice/list";
 	}
 	
-	@RequestMapping(value = "/mainList", method = RequestMethod.GET)
-	public String mainListGET(HttpSession session, Model model) throws Exception {
-	    logger.debug("mainListGET() 호출");
+	@RequestMapping(value = "/mainNoticeList", method = RequestMethod.GET)
+	@ResponseBody
+	public List<NoticeVO> mainNoticeListGET(HttpSession session) throws Exception {
+	    logger.debug("mainNoticeListGET() 호출");
 
 	    // 서비스 - DB에 저장된 글 정보를 가져오기
 	    List<NoticeVO> boardList = service.getListAll();
@@ -162,9 +163,7 @@ public class NoticeController {
 	    // 조회수 체크 값
 	    session.setAttribute("checkViewCnt", true);
 
-	    // 연결된 뷰 페이지로 전달 (뷰-출력)
-	    model.addAttribute("boardList", boardList);
-	    return "main"; // 메인 페이지로 이동
+	    return boardList;
 	}
-
+	
 }// controller

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <html lang="en">
     <div class="horizontal-menu">
       <nav class="navbar top-navbar col-lg-12 col-12 p-0">
@@ -69,26 +70,26 @@
                   	Good Morning
                   </a>
                   <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="nreportDropdown">
-                      <p class="mb-0 font-weight-medium float-left dropdown-header">관리자님</p>
+                      <p class="mb-0 font-weight-medium float-left dropdown-header">접속 ID : ${sessionScope.emp_id}</p>
                       <a class="dropdown-item">
-                        <i class="mdi mdi-file-pdf text-primary"></i>
+                        <i class="mdi mdi-account text-primary"></i>
                          	Info
                       </a>
                       <a class="dropdown-item">
-                        <i class="mdi mdi-file-excel text-primary"></i>
+                        <i class="mdi mdi-logout text-primary"></i>
                         LogOut
                       </a>
                   </div>
                 </li>
                 <li class="nav-item nav-profile dropdown">
                   <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" id="profileDropdown">
-                    <span class="nav-profile-name">관리자</span>
+                    <span class="nav-profile-name">접속 ID : ${sessionScope.emp_id}</span>
                     <span class="online-status"></span>
                     <img src="resources/images/faces/face28.png" alt="profile"/>
                   </a>
                   <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                       <a class="dropdown-item">
-                        <i class="mdi mdi-settings text-primary"></i>
+                        <i class="mdi mdi-account text-primary"></i>
                         Info
                       </a>
                       <a href="member/logout" class="dropdown-item">

@@ -10,6 +10,7 @@
     <!-- base:css -->
     <link rel="stylesheet" href="resources/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="resources/vendors/base/vendor.bundle.base.css">
+    <link rel="stylesheet" href="resources/main/fullcalendar-5.11.4/lib/main.css">
     <!-- endinject -->
     <!-- plugin css for this page -->
     <!-- End plugin css for this page -->
@@ -24,333 +25,154 @@
 		<!-- partial:partials/_horizontal-navbar.html -->
 		<%@ include file="./includes/header.jsp" %>
 
-    <!-- partial -->
+<!-- 본문시작 -->
 		<div class="container-fluid page-body-wrapper">
 			<div class="main-panel">
 				<div class="content-wrapper">
-					<div class="row mt-4">
-						<div class="col-lg-8 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">수주 차트</h4>
-                  <p class="card-description">
-                    Add class <code>.table-striped</code>
-                  </p>
-                  <div class="table-responsive">
-                    <table class="table table-striped">
-											<thead>
-												<tr>
-													<th>User</th>
-													<th>First name</th>
-													<th>Progress</th>
-													<th>Amount</th>
-													<th>Deadline</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td class="py-1"><img
-														src="resources/images/faces/face1.jpg" alt="image" /></td>
-													<td>John Doe</td>
-													<td>
-														<div class="progress">
-															<div class="progress-bar bg-success" role="progressbar"
-																style="width: 25%" aria-valuenow="25" aria-valuemin="0"
-																aria-valuemax="100"></div>
-														</div>
-													</td>
-													<td>$ 77.99</td>
-													<td>May 15, 2015</td>
-												</tr>
-												<tr>
-													<td class="py-1"><img
-														src="resources/images/faces/face2.jpg" alt="image" /></td>
-													<td>John Doe</td>
-													<td>
-														<div class="progress">
-															<div class="progress-bar bg-danger" role="progressbar"
-																style="width: 75%" aria-valuenow="75" aria-valuemin="0"
-																aria-valuemax="100"></div>
-														</div>
-													</td>
-													<td>$245.30</td>
-													<td>July 1, 2015</td>
-												</tr>
-												<tr>
-													<td class="py-1"><img
-														src="resources/images/faces/face3.jpg" alt="image" /></td>
-													<td>John Doe</td>
-													<td>
-														<div class="progress">
-															<div class="progress-bar bg-warning" role="progressbar"
-																style="width: 90%" aria-valuenow="90" aria-valuemin="0"
-																aria-valuemax="100"></div>
-														</div>
-													</td>
-													<td>$138.00</td>
-													<td>Apr 12, 2015</td>
-												</tr>
-												<tr>
-													<td class="py-1"><img
-														src="resources/images/faces/face4.jpg" alt="image" /></td>
-													<td>John Doe</td>
-													<td>
-														<div class="progress">
-															<div class="progress-bar bg-primary" role="progressbar"
-																style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-																aria-valuemax="100"></div>
-														</div>
-													</td>
-													<td>$ 77.99</td>
-													<td>May 15, 2015</td>
-												</tr>
-												<tr>
-													<td class="py-1"><img
-														src="resources/images/faces/face5.jpg" alt="image" /></td>
-													<td>John Doe</td>
-													<td>
-														<div class="progress">
-															<div class="progress-bar bg-danger" role="progressbar"
-																style="width: 35%" aria-valuenow="35" aria-valuemin="0"
-																aria-valuemax="100"></div>
-														</div>
-													</td>
-													<td>$ 160.25</td>
-													<td>May 03, 2015</td>
-												</tr>
-												<tr>
-													<td class="py-1"><img
-														src="resources/images/faces/face6.jpg" alt="image" /></td>
-													<td>John Doe</td>
-													<td>
-														<div class="progress">
-															<div class="progress-bar bg-info" role="progressbar"
-																style="width: 65%" aria-valuenow="65" aria-valuemin="0"
-																aria-valuemax="100"></div>
-														</div>
-													</td>
-													<td>$ 123.21</td>
-													<td>April 05, 2015</td>
-												</tr>
-												<tr>
-													<td class="py-1"><img
-														src="resources/images/faces/face7.jpg" alt="image" /></td>
-													<td>John Doe</td>
-													<td>
-														<div class="progress">
-															<div class="progress-bar bg-warning" role="progressbar"
-																style="width: 20%" aria-valuenow="20" aria-valuemin="0"
-																aria-valuemax="100"></div>
-														</div>
-													</td>
-													<td>$ 150.00</td>
-													<td>June 16, 2015</td>
-												</tr>
-												<tr>
-													<td class="py-1"><img
-														src="resources/images/faces/face7.jpg" alt="image" /></td>
-													<td>John Doe</td>
-													<td>
-														<div class="progress">
-															<div class="progress-bar bg-warning" role="progressbar"
-																style="width: 20%" aria-valuenow="20" aria-valuemin="0"
-																aria-valuemax="100"></div>
-														</div>
-													</td>
-													<td>$ 150.00</td>
-													<td>June 16, 2015</td>
-												</tr>
-												<tr>
-													<td class="py-1"><img
-														src="resources/images/faces/face7.jpg" alt="image" /></td>
-													<td>John Doe</td>
-													<td>
-														<div class="progress">
-															<div class="progress-bar bg-warning" role="progressbar"
-																style="width: 20%" aria-valuenow="20" aria-valuemin="0"
-																aria-valuemax="100"></div>
-														</div>
-													</td>
-													<td>$ 150.00</td>
-													<td>June 16, 2015</td>
-												</tr>
-												<tr>
-													<td class="py-1"><img
-														src="resources/images/faces/face7.jpg" alt="image" /></td>
-													<td>John Doe</td>
-													<td>
-														<div class="progress">
-															<div class="progress-bar bg-warning" role="progressbar"
-																style="width: 20%" aria-valuenow="20" aria-valuemin="0"
-																aria-valuemax="100"></div>
-														</div>
-													</td>
-													<td>$ 150.00</td>
-													<td>June 16, 2015</td>
-												</tr>
-												<tr>
-													<td class="py-1"><img
-														src="resources/images/faces/face7.jpg" alt="image" /></td>
-													<td>John Doe</td>
-													<td>
-														<div class="progress">
-															<div class="progress-bar bg-warning" role="progressbar"
-																style="width: 20%" aria-valuenow="20" aria-valuemin="0"
-																aria-valuemax="100"></div>
-														</div>
-													</td>
-													<td>$ 150.00</td>
-													<td>June 16, 2015</td>
-												</tr>
-												<tr>
-													<td class="py-1"><img
-														src="resources/images/faces/face7.jpg" alt="image" /></td>
-													<td>John Doe</td>
-													<td>
-														<div class="progress">
-															<div class="progress-bar bg-warning" role="progressbar"
-																style="width: 20%" aria-valuenow="20" aria-valuemin="0"
-																aria-valuemax="100"></div>
-														</div>
-													</td>
-													<td>$ 150.00</td>
-													<td>June 16, 2015</td>
-												</tr>
-												<tr>
-													<td class="py-1"><img
-														src="resources/images/faces/face7.jpg" alt="image" /></td>
-													<td>John Doe</td>
-													<td>
-														<div class="progress">
-															<div class="progress-bar bg-warning" role="progressbar"
-																style="width: 20%" aria-valuenow="20" aria-valuemin="0"
-																aria-valuemax="100"></div>
-														</div>
-													</td>
-													<td>$ 150.00</td>
-													<td>June 16, 2015</td>
-												</tr>
-
-											</tbody>
-										</table>
-                  </div>
-                </div>
-              </div>
-            </div>
-						<div class="col-lg-4 mb-3 mb-lg-0">
+				
+<!-- 1단 -->
+					<div class="row">
+<!-- 날씨시작 -->
+						<div class="col-lg-6 grid-margin stretch-card">
 							<div class="row flex-grow">
-								<div class="col-sm-12 grid-margin stretch-card">
+								<div class="col-lg-12 grid-margin stretch-card">
 									<div class="card">
 										<div class="card-body">
 											<div class="row">
-												<div class="col-lg-8">
-													<h3 class="font-weight-bold text-dark">부산, 부산 진구</h3>
-													<p class="text-dark">월요일 3.00 PM</p>
-													<div class="d-lg-flex align-items-baseline mb-3">
-														<h1 class="text-dark font-weight-bold">23<sup class="font-weight-light"><small>o</small><small class="font-weight-medium">c</small></sup></h1>
-														<p class="text-muted ms-3">맑음</p>
-													</div>
-												</div>
-												<div class="col-lg-4">
-													<div class="position-relative">
-														<img src="resources/images/dashboard/live.png" class="w-100" alt="">
-														<div class="live-info badge badge-success">Live</div>
-													</div>
-												</div>
-											</div>
-											<div class="row">
-												
-											</div>
-											<div class="row pt-3 mt-md-1">
-												<div class="col">
-													<div class="d-flex purchase-detail-legend align-items-center">
-														<div id="circleProgress1" class="p-2"></div>
-														<div>
-															<p class="font-weight-medium text-dark text-small">Sessions</p>
-															<h3 class="font-weight-bold text-dark  mb-0">70.80%</h3>
-														</div>
-													</div>
-												</div>
-												<div class="col">
-													<div class="d-flex purchase-detail-legend align-items-center">
-														<div id="circleProgress2" class="p-2"></div>
-														<div>
-															<p class="font-weight-medium text-dark text-small">Users</p>
-															<h3 class="font-weight-bold text-dark  mb-0">56.80%</h3>
-														</div>
-													</div>
-												</div>
+												<div class="weather-info">
+								                    <div class="d-flex">
+								                      
+								                      
+								                      <div>
+								                        <h1 class="mb-0 font-weight-normal">
+								                        <span id="todaysTemp" style="margin-right: 5px;"></span>
+								                        
+								                        <span class="weather-icon mr-3" id="todaysWeather"></span>
+								                        </h1>
+								                      </div>
+								                      <div class="ml-2">
+								                        <h4 style="margin-bottom: 5px !important; font-weight: 550 !important;">부산시</h4>
+								                        <h6>부산 진구</h6>
+								                      </div>
+								                    </div>
+								                  </div>
 											</div>
 										</div>
 									</div>
 								</div>
-								<div class="col-sm-12 grid-margin stretch-card">
+
+							</div>
+						</div>
+<!-- 날씨 끝 -->
+<!-- 투두리스트 시작-->
+						<div class="col-lg-6 grid-margin stretch-card">
+							<div class="row flex-grow">
+								<div class="col-lg-12 grid-margin stretch-card">
 									<div class="card">
 										<div class="card-body">
-											<div class="row">
-												<div class="col-sm-12">
-													<div class="d-flex align-items-center justify-content-between">
-														<h4 class="card-title mb-0">To Do Lists</h4>
-														<div class="dropdown">
-															<a href="#" class="text-success btn btn-link  px-1"><i class="mdi mdi-refresh"></i></a>
-															<a href="#" class="text-success btn btn-link px-1 dropdown-toggle dropdown-arrow-none" data-bs-toggle="dropdown" id="profileDropdownvisittoday"><i class="mdi mdi-dots-horizontal"></i></a>
-															<div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdownvisittoday">
-																<a class="dropdown-item">
-																	<i class="mdi mdi-grease-pencil text-primary"></i>
-																	Edit
-																</a>
-																<a class="dropdown-item">
-																	<i class="mdi mdi-delete text-primary"></i>
-																	Delete
-																</a>
-															</div>
-														</div>
+											<h4 class="card-title" style="margin-top: 10px;">To Do
+												Lists</h4>
+											<div class="list-wrapper pt-2">
+												<form class="toDoForm">
+													<div class="add-items d-flex mb-0 mt-2">
+														<input type="text" placeholder="할 일을 입력하세요"
+															class="form-control todo-list-input"
+															style="background-color: #ebf1ff; width: 580px; padding-left: 10px;">
 													</div>
-													<p class="mt-1">Calculated in last 30 days</p>
-													<div class="d-lg-flex align-items-center justify-content-between">
-														<h1 class="font-weight-bold text-dark">4332</h1>
-														<div class="mb-3">
-															<button type="button" class="btn btn-outline-light text-dark font-weight-normal">Day</button>
-															<button type="button" class="btn btn-outline-light text-dark font-weight-normal">Month</button>
-														</div>
-													</div>
-													<canvas id="visitorsToday"></canvas>
-												</div>
+												</form>
+												<ul class="toDoList" style="margin-top: 10px; width: 580px;"></ul>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
+<!-- 투두리스트 끝 -->
 					</div>
 					
+<!-- 2단 -->
 					<div class="row">
-						<div class="col-sm-6 grid-margin grid-margin-md-0 stretch-card">
-							<div class="card">
-								<div class="card-body">
-									<div class="d-flex align-items-center justify-content-between">
-										<h4 class="card-title">Calendar</h4>
-										<h4 class="text-success font-weight-bold">Tickets<span class="text-dark ms-3">163</span></h4>
-									</div>
-									<div id="support-tracker-legend" class="support-tracker-legend"></div>
-									<canvas id="supportTracker"></canvas>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-6 grid-margin grid-margin-md-0 stretch-card">
-							<div class="card">
-								<div class="card-body">
-									<div class="d-lg-flex align-items-center justify-content-between mb-4">
-										<h4 class="card-title">Company Notice</h4>
-										<p class="text-dark">+5.2% vs last 7 days</p>
-									</div>
-									<div class="product-order-wrap padding-reduced">
-										<div id="productorder-gage" class="gauge productorder-gage"></div>
+						<!-- 달력 시작 -->
+						<div class="col-lg-6 grid-margin stretch-card">
+							<div class="row flex-grow">
+								<div class="col-lg-12 grid-margin stretch-card">
+									<div class="card">
+										<div id="calendar"
+											style="width: 780px; background-color: white; padding: 20px; border-radius: 25px; margin-left: 15px; height: 630px !important;"></div>
 									</div>
 								</div>
 							</div>
 						</div>
+						<!-- 달력 끝 -->
+						<!-- 수주왕 시작-->
+						<div class="col-lg-6 grid-margin stretch-card">
+							<div class="card">
+								<div class="card-body">
+									<div class="d-flex justify-content-between">
+										<p class="card-title" style="margin-top: 10px;">이 달의 수주왕</p>
+									</div>
+									<p class="font-weight-500">이 달의 수주왕으로 뽑힌 사원에게는 보너스를 드립니다 !
+									</p>
+									<div id="sales-legend" class="chartjs-legend mt-4 mb-2"></div>
+									<canvas id="myChart" height="400px" width="600px"></canvas>
+								</div>
+							</div>
+						</div>
+						<!-- 수주왕 끝-->   
 					</div>
+<!-- 2단 -->
+
+<!-- 3단 -->
+					<div class="row">
+<!--공지 시작 -->
+						<div class="col-lg-12 grid-margin stretch-card">
+							<div class="row flex-grow">
+								<div class="col-lg-12 grid-margin stretch-card">
+									<div class="card">
+										<div class="card-body">
+											
+											<div class="row">
+												<div class="col-12">
+													<div class="table-responsive">
+														<p class="card-title">공지사항</p>
+														<div id="resultContainer"></div>
+														<button class="btn btn-success btn-rounded btn-fw" onclick="location.href='/notice/list'">공지 목록</button>
+														<div id="table_content">
+															<table>
+																
+																<tbody>
+																	<%-- boardList를 반복하여 각 항목 출력 --%>
+																	<c:forEach var="vo" items="${boardList }">
+																		<tr>
+																			<td>${vo.notice_id }</td>
+																			<td><a
+																				href="/notice/info?notice_id=${vo.notice_id }">${vo.notice_title }</a>
+																			</td>
+																			<td>${vo.notice_writer }</td>
+																			<td>${vo.notice_regdate }</td>
+																			<td>${vo.notice_count } </td>
+																		</tr>
+																	</c:forEach>
+																</tbody>
+															</table>
+														</div>
+													</div>
+												</div>
+											</div>
+											</div>
+												</div>
+											</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+<!--공지 끝 -->
+					</div>
+<!-- 3단 -->
+					
 				</div>
 				<!-- content-wrapper ends -->
 				<!-- partial:partials/_footer.html -->
@@ -380,6 +202,24 @@
     <script src="resources/js/jquery.cookie.js" type="text/javascript"></script>
     <!-- Custom js for this page-->
     <script src="resources/js/dashboard.js"></script>
+    
+     <!-- 날씨 -->
+  	 <script src="resources/main/weather.js"></script>
+
+	 <!-- 달력 -->
+	 <script src="resources/main/calendar.js"></script>
+	 <script src="resources/main/fullcalendar-5.11.4/lib/main.js"></script>
+	  
+	  <!-- to do List -->
+	  <script src="resources/main/todoList.js"></script>
+	  <script>
+		 let emp_id = ${sessionScope.emp_id };
+	  </script>
+	  
+	  <!-- 공지사항 -->
+   	  <script src="resources/main/noticeList.js"></script>
     <!-- End custom js for this page-->
   </body>
+  
+
 </html>

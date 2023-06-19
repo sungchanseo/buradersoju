@@ -1,7 +1,7 @@
 package com.itwillbs.domain;
 
 public class EmployeeVO {
-	private Integer emp_id;
+	private String emp_id;
 	private String emp_pw;
 	private String emp_name;
 	private String emp_email;
@@ -23,11 +23,11 @@ public class EmployeeVO {
 
 	}
 
-	public Integer getEmp_id() {
+	public String getEmp_id() {
 		return emp_id;
 	}
 
-	public void setEmp_id(Integer emp_id) {
+	public void setEmp_id(String emp_id) {
 		this.emp_id = emp_id;
 	}
 
@@ -159,7 +159,7 @@ public class EmployeeVO {
 		this.resign_date = resign_date;
 	}
 
-	public EmployeeVO(Integer emp_id, String emp_pw, String emp_name, String emp_email, String emp_birth, String emp_gender,
+	public EmployeeVO(String emp_id, String emp_pw, String emp_name, String emp_email, String emp_birth, String emp_gender,
 			String emp_phone, String emp_tel, String emp_address, String emp_image, String emp_department,
 			String emp_position, String emp_status, String join_date, String absence_date, String rehabi_date,
 			String resign_date) {

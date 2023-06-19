@@ -28,6 +28,13 @@ public class EmployeeServiceImpl implements EmployeeService{
 		edao.insertEmployee(vo);
 	}
 	
+	// 사원 번호 자동 부여
+	@Override
+	public int getNextNumber() throws Exception {
+		return edao.getNextNumber();
+	}
+	
+	
 	// 사원리스트
 	@Override
 	public List<EmployeeVO> getEmployeeList() {
@@ -36,7 +43,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 
 	// 사원 정보 조회
 	@Override
-	public EmployeeVO getEmployee(int emp_id) {
+	public EmployeeVO getEmployee(String emp_id) {
 		return edao.getEmployee(emp_id);
 	}
 

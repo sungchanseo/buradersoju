@@ -6,12 +6,12 @@
 <title>사원 등록</title>
 </head>
 <body>
-	<form action="" method="post" enctype="multipart/form-data">
+	<form action="" method="post" >
 		<table border="1">
 			<tr>
 				<th>사원사진</th>
 				<th>사번</th>
-				<td><input type="text" name="emp_id"></td>
+				<td><input type="text" name="emp_id" readonly value="${generatedNumber}"></td>
 				<th>비밀번호</th>
 				<td><input type="password" name="emp_pw"></td>
 				<th>이름</th>
@@ -68,7 +68,7 @@
 				<th><input type="text" name="join_date"></th>
 			</tr>
 			<tr>
-				<td><input type="file" name="emp_image" accept="image/*" value="이미지등록"></td>
+				<td><input type="file" multiple name="emp_image" accept="image/*" value="이미지등록"></td>
 				<th>휴직일</th>
 				<td><input type="text" name="absence_date"></td>			
 				<th>복직일</th>

@@ -1,10 +1,9 @@
 package com.itwillbs.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.itwillbs.domain.EmployeeVO;
 import com.itwillbs.service.EmployeeService;
@@ -32,16 +31,31 @@ public class EmployeeController {
 	@RequestMapping(value = "/insert", method = RequestMethod.GET)
 	public void insertGET() throws Exception {
 		logger.debug("C: 회원가입 입력페이지 GET");
+		
 //		return "/employee/insert";
 	}
 	
+	// http://localhost:8088/employee/insert
 	// 회원가입
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
-	public String insertPOST(EmployeeVO vo) throws Exception {
+	public String insertPOST(MultipartFile[] file, EmployeeVO vo) throws Exception {
 		logger.debug("insertPOST() 호출!");
-		
-		// 서비스-회원가입 메서드
-		//   => DAO - 회원가입메서드 호출
+		logger.debug("controller : {} ", vo);
+        // 현재 연도 가져오기
+        LocalDateTime now = LocalDateTime.now();
+        String year = String.valueOf(now.getYear());
+
+        // 다음 번호 가져오기
+        int nextNumber = eService.getNextNumber();
+
+        // 3자리 번호로 포맷팅
+        String threeDigitNumber = String.format("%03d", nextNumber);
+
+        // 현재 연도 숫자와 3자리 번호 조합하여 할당
+        String generatedNumber = year + threeDigitNumber;
+        vo.setEmp_id(generatedNumber);
+        
+		// 사원원등록을 위한 Service 메서드 호출
 		eService.insertEmployee(vo);
 		
 		return "redirect:/member/login";
@@ -84,7 +98,7 @@ public class EmployeeController {
 	// http://localhost:8088/employee/modify
 	// 사원 정보 수정
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)
-	public void modifyGET(int emp_id, Model model) {
+	public void modifyGET(String emp_id, Model model) {
 		logger.debug(" modifyGET() 호출! ");
 		logger.debug(" emp_id " + emp_id);
 		EmployeeVO resultVO = eService.getEmployee(emp_id);

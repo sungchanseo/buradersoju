@@ -29,7 +29,7 @@
 			</tr>
 		</c:forEach>
 	</table>
-	
+	<input type="button" value="사원등록" onclick="location.href='/employee/insert';">
 	<!-- 	페이징 처리  -->
 	<c:if test="${startPage > pageBlock }">
 		<a href="/employee/list?pageNum=${startPage-pageBlock}">이전</a>

@@ -11,10 +11,14 @@
 	<!-- values(?,?,?,?) sql문법 대신에 Mybatis 문법#{}을 사용
 	 get() 또는 set() 마이바티스가 결정해서 메서드실행-->
 	 <!-- 사원등록 -->
-	<insert id="insertEmployee">
-		insert into employee(emp_id, emp_pw, emp_name, emp_email, emp_birth, emp_gender, emp_phone, emp_tel, emp_address, emp_image, emp_department, emp_position, emp_status, join_date, absence_date, rehabi_date, resign_date) 
-      values (#{emp_id},#{emp_pw},#{emp_name},#{emp_email},#{emp_birth},#{emp_gender},#{emp_phone},#{emp_tel},#{emp_address},#{emp_image},#{emp_department},#{emp_position},#{emp_status},#{join_date},#{absence_date},#{rehabi_date},#{resign_date})
-	</insert> 
+	<insert id="insertEmployee" parameterType="com.itwillbs.domain.EmployeeVO">
+		INSERT INTO employee (emp_id, emp_pw, emp_name, emp_email, emp_birth, emp_gender, emp_phone, emp_tel, emp_address, emp_image, emp_department, emp_position, emp_status, join_date, absence_date, rehabi_date, resign_date)
+		VALUES (#{emp_id}, #{emp_pw}, #{emp_name}, #{emp_email}, #{emp_birth}, #{emp_gender}, #{emp_phone}, #{emp_tel}, #{emp_address}, #{emp_image}, #{emp_department}, #{emp_position}, #{emp_status}, #{join_date}, #{absence_date}, #{rehabi_date}, #{resign_date})
+	</insert>
+	
+	<select id="getNextNumber" resultType="java.lang.Integer">
+		SELECT MAX(CAST(SUBSTRING(emp_id, 5) AS UNSIGNED)) + 1 FROM employee
+	</select>
 	<!-- 사원등록 -->
 	
 	<!-- 사원리스트 -->

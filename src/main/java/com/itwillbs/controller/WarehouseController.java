@@ -24,7 +24,7 @@ public class WarehouseController {
 	private static final Logger logger = LoggerFactory.getLogger(WarehouseController.class);
 
 	
-	// 창리스트 보기 - /warehouse/list (GET)
+	// 창고리스트 보기 - /warehouse/list (GET)
 	// http://localhost:8088/purchasing/warehouse/list
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public void listGET(Model model) {
@@ -37,4 +37,24 @@ public class WarehouseController {
 		// view페이지 정보 전달
 		model.addAttribute("warehouseList",warehouseList);
 	}
+	
+	// 창고등록 하기
+	@RequestMapping(value = "insert", method = RequestMethod.GET)
+	public void insertGET (WarehouseVO vo) {
+		logger.debug("@@@@@발주 등록 가즈아아~~");
+	   	
+	}
+	// http://localhost:8088/purchasing/warehouse/insert
+	// 창고등록 하기
+	@RequestMapping(value ="insert", method = RequestMethod.POST)
+	public String insertPOST(WarehouseVO vo) {
+		 
+		logger.debug("@@@@ 창고 등록 POST @@@");
+		logger.debug("@@@@ 등록된 정보 @@@" + vo);
+		waservice.warehouseInsert(vo);
+		
+		return "redirect:/purchasing/warehouse/list";
+	}
+	
+	// 
 }

@@ -21,6 +21,12 @@ public class WarehouseServiceImpl implements WarehouseService  {
 		
 		return wdao.getWarehouseList();
 	}
+
+	@Override
+	public void warehouseInsert(WarehouseVO vo) {
+	  
+		wdao.warehouseInsert(vo);
+	}
 	
 }
 

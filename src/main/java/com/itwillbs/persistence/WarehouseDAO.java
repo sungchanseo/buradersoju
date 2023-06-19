@@ -10,5 +10,7 @@ import com.itwillbs.domain.WarehouseVO;
 public interface WarehouseDAO {
 
 	// 창고목록 보기
-	public List<WarehouseVO> getWarehouseList(); 
+	public List<WarehouseVO> getWarehouseList();
+	
+	public void warehouseInsert(WarehouseVO vo );
 }

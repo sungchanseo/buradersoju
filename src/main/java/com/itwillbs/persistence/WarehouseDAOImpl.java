@@ -28,5 +28,12 @@ public class WarehouseDAOImpl implements WarehouseDAO{
 		return sqlSession.selectList(NAMESPACE + ".getWarehouseList");
 	}
 
+	@Override
+	public void warehouseInsert(WarehouseVO vo) {
+		
+		sqlSession.insert(NAMESPACE+".warehouseInsert",vo);
+		
+	}
+
 	
 }

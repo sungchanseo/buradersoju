@@ -9,6 +9,11 @@
       <select id="getWarehouseList" resultType="com.itwillbs.domain.WarehouseVO">
         select * from warehouse
       </select>
-   <!-- 재고정보 목록 조회  -->
+   <!-- 창고 목록 조회  -->
+   
+      <insert id ="warehouseInsert">
+       insert into warehouse (whs_id, whs_type, whs_tel, shelt_position, whs_status, whs_emp)
+       values (#{whs_id} ,#{whs_type} ,#{whs_tel} ,#{shelt_position} ,#{whs_status} ,#{whs_emp})
+      </insert>
    
    </mapper>

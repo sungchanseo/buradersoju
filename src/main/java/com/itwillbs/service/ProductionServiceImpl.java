@@ -28,50 +28,6 @@ public class ProductionServiceImpl implements ProductionService {
 		return pdao.getWorkOrderList();
 	}
 	
-	@Override
-	public List<ProductionVO> getQualityList() throws Exception{
-		return pdao.getQualityList();
-	}
-
-	@Override
-	public ProductionVO getQualityInfo(String qc_num) {
-		// TODO Auto-generated method stub
-		return pdao.getQualityInfo(qc_num);
-	}
-
-	@Override
-	public void insertQuality(ProductionVO vo) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	@Override
-	public ProductionVO getInsertSearch(String production_id) {
-		// TODO Auto-generated method stub
-		return pdao.getInsertSearch(production_id);
-	}
-
-	@Override
-	public Integer updateQuality(ProductionVO pvo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void qualityInsertDB(ProductionVO vo) {
-		pdao.qualityInsertDB(vo);
-		
-	}
-
-	@Override
-	public List<ProductionVO> getBottleList() throws Exception {
-		// TODO Auto-generated method stub
-		return pdao.getBottleList();
-	}
-
-
-	
-	
 
 	
 }

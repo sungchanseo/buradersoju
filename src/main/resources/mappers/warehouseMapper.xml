@@ -8,12 +8,35 @@
       <!--   창고 목록 조회  -->              
       <select id="getWarehouseList" resultType="com.itwillbs.domain.WarehouseVO">
         select * from warehouse
+        where whs_sts = 0
       </select>
    <!-- 창고 목록 조회  -->
    
+   <!-- 창고 등록 하기 -->
       <insert id ="warehouseInsert">
-       insert into warehouse (whs_id, whs_type, whs_tel, shelt_position, whs_status, whs_emp)
-       values (#{whs_id} ,#{whs_type} ,#{whs_tel} ,#{shelt_position} ,#{whs_status} ,#{whs_emp})
+       insert into warehouse (whs_id, whs_type, whs_tel, shelt_position, whs_status, whs_emp, whs_sts)
+       values (#{whs_id} ,#{whs_type} ,#{whs_tel} ,#{shelt_position} ,#{whs_status} ,#{whs_emp}, 0)
       </insert>
-   
+   <!-- 창고 등록 하기 -->
+   <!--창고아이디 가져오기  -->
+       <select id="warehouseID" resultType="com.itwillbs.domain.WarehouseVO">
+       select * from warehouse
+       where whs_id = #{whs_id}
+       </select>
+
+   <!--창고아이디 가져오기  -->
+   <!--창고정보 수정하기-->
+       <update id ="modifyWarehouse">
+        update warehouse set whs_type=#{whs_type} ,whs_tel=#{whs_tel}, shelt_position=#{shelt_position}, whs_status=#{whs_status}, whs_emp=#{whs_emp}
+        where whs_id =#{whs_id}
+       </update>
+        
+   <!--창고정보 수정하기-->
+   <!-- 창고정보 삭제하기  -->
+       <update id="removeWarehouse">
+		update warehouse set whs_sts=1
+		where whs_id =#{whs_id}
+	</update>
+   <!-- 창고정보 삭제하기  -->
+        
    </mapper>

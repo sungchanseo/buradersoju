@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.itwillbs.domain.WarehouseVO;
 import com.itwillbs.service.WarehouseService;
@@ -56,5 +57,33 @@ public class WarehouseController {
 		return "redirect:/purchasing/warehouse/list";
 	}
 	
-	// 
+	// 창고수정하기위해 아이디 가져오고 입력하기
+	@RequestMapping(value = "modify", method = RequestMethod.GET)
+	public void modifyWarehouseGET(WarehouseVO vo) {
+		logger.debug("modify 창고 수정입력하자아");
+		
+		WarehouseVO warehouseModify = waservice.warehouseID(vo.getWhs_id());
+	    logger.debug("warehouseModify" +vo.getWhs_id());
+	    logger.debug("warehouseModify" +warehouseModify);
+	}
+	
+	// 창고정보 수정 디비처리
+	@RequestMapping(value = "modify", method = RequestMethod.POST)
+	public String modifyWarehousePOST(WarehouseVO mvo) {
+		logger.debug("mdify 창고 수정 처리 가즈아~");
+	    
+		waservice.modifyWarehouse(mvo);
+		return "redirect:/purchasing/warehouse/list";
+	}
+	// 창고정보 삭제하기
+    @RequestMapping(value = "remove" ) 	
+	public String removeWarehousePOST( WarehouseVO vo) {
+    	 logger.debug("창고정보삭제에에에에@@");
+    	 
+//    	  waservice.re
+    	 logger.debug("vo" + vo);
+          waservice.removeWarehouse(vo.getWhs_id());
+          logger.debug("삭제완료오오@@@@");
+    	return "redirect:/purchasing/warehouse/list";
+	}
 }

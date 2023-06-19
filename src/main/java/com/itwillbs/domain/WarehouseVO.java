@@ -8,6 +8,7 @@ public class WarehouseVO {
 	private String shelt_position;
 	private String whs_emp;
 	private Boolean whs_status;
+	private int whs_sts;
 	public String getWhs_id() {
 		return whs_id;
 	}
@@ -44,13 +45,17 @@ public class WarehouseVO {
 	public void setWhs_status(Boolean whs_status) {
 		this.whs_status = whs_status;
 	}
-	
+	public int getWhs_sts() {
+		return whs_sts;
+	}
+	public void setWhs_sts(int whs_sts) {
+		this.whs_sts = whs_sts;
+	}
 	@Override
 	public String toString() {
 		return "WarehouseVO [whs_id=" + whs_id + ", whs_type=" + whs_type + ", whs_tel=" + whs_tel + ", shelt_position="
-				+ shelt_position + ", whs_emp=" + whs_emp + ", whs_status=" + whs_status + "]";
+				+ shelt_position + ", whs_emp=" + whs_emp + ", whs_status=" + whs_status + ", whs_sts=" + whs_sts + "]";
 	}
-	
 	
 	
 }

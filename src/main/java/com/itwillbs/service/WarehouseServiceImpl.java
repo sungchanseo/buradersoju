@@ -28,5 +28,25 @@ public class WarehouseServiceImpl implements WarehouseService  {
 		wdao.warehouseInsert(vo);
 	}
 	
+
+	@Override
+	public WarehouseVO warehouseID(String whs_id) {
+	
+		return wdao.warehouseID(whs_id);
+	}
+
+	@Override
+	public Integer modifyWarehouse(WarehouseVO mvo) {
+	    
+	     return  wdao.modifyWarehouse(mvo);
+		
+	}
+
+	@Override
+	public Integer removeWarehouse(String whs_id) {
+		
+		return wdao.removeWarehouse(whs_id);
+	}
+
 }
 

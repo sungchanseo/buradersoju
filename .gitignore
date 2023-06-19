@@ -4,6 +4,7 @@
 mybatis-config.xml
 log4j.xml
 
+#세팅파일
 lecture
 target
 pom.properties
@@ -13,12 +14,10 @@ META-INF/*
 *.MF
 MANIFEST.MF
 .settings/
-
-#세팅파일
 *.prefs
 *.component
 org.eclipse.wst.common.project.facet.core
-
+.classpath
 
 ### Eclipse ###
 .metadata

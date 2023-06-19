@@ -31,13 +31,20 @@ public class OrderDAOImpl implements OrderDAO{
 		return sqlSession.selectList(NAMESPACE+".getOrderList");
 	}
     
-    // 발주등록하기~~
+    // 발주등록하기
 	@Override
 	public void orderInsert(OrderVO vo) {
 	
 		logger.debug("@@@@@@DAO 발주 등록해봅시다.... ㅠㅠ");
 		sqlSession.insert(NAMESPACE+".orderInsert",vo);
 		
+	}
+
+	// 발주수정하기 
+	@Override
+	public Integer modifyOrder(OrderVO vo) {
+	
+		return null;
 	}
    
 	

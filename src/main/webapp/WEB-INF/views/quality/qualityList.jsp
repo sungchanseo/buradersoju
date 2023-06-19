@@ -62,7 +62,7 @@
 	
 	<!-- 관리자에게만 보이는 검수등록 버튼 -->
 	<input type="button" id="qualityInsertBT" value="검수 등록"
-		onclick="window.open('/production/qualityInsert', '_blank', 'width=600, height=500, left=2000');">
+		onclick="window.open('/quality/qualityInsert', '_blank', 'width=600, height=500, left=2000');">
 	
 	<!-- 품질관리현황표 출력 -->
 	<div class="qualityList">
@@ -90,7 +90,7 @@
 				<input type="hidden" id="plan_qty" name="plan_qty" value=" ${vo.plan_qty}">
 				<input type="hidden" id="production_state" name="production_state" value=" ${vo.production_state}">
 			<tr class="qualityListResult">
-				<td><a href="/production/qualityInfo?qc_num=${vo.qc_num }" onclick="window.open(this.href, '_blank', 'width=800, height=500, left=2000'); return false;">${vo.qc_num  }</a></td>
+				<td><a href="/quality/qualityInfo?qc_num=${vo.qc_num }" onclick="window.open(this.href, '_blank', 'width=800, height=500, left=2000'); return false;">${vo.qc_num  }</a></td>
 				<td><a href="/production/info?production_id=${vo.production_id }">${vo.production_id }</a></td>
 				<td>${vo.production_line }</td>
 				<td>${vo.product_id }</td>

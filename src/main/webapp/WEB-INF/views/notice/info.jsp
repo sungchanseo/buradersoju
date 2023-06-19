@@ -24,8 +24,8 @@
 			value="${vo.notice_regdate }">
 	</div>
 	<div class="form-group">
-		<label>내 용</label>
-		<textarea class="form-control" name="content" rows="3" readonly>${vo.notice_content }</textarea>
+		<label>내 용</label><br>
+		<textarea class="form-control" style="width: 300px; height: 150px;" name="content" rows="3" readonly>${vo.notice_content }</textarea>
 	</div>
 </div>
 

@@ -9,7 +9,7 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.itwillbs.persistence.MemberDAO;
+import com.itwillbs.persistence.LoginDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/root-context.xml" })
@@ -24,7 +24,7 @@ public class MybatisTest {
 	// DAO 객체 생성 -> 객체(MemberDAOImpl) 주입
 	// MemberDAO dao = new MemberDAOImpl();
 	@Inject
-	private MemberDAO mdao;
+	private LoginDAO mdao;
 	
 
 	// @Test

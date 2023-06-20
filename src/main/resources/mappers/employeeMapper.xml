@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.itwillbs.mappers.employeeMapper">
+	<select id="getTime" resultType="string">
+		select now()
+	</select>
+
+	<!-- values(?,?,?,?) sql문법 대신에 Mybatis 문법#{}을 사용
+	 get() 또는 set() 마이바티스가 결정해서 메서드실행-->
+	 <!-- 사원등록 -->
+	<insert id="insertEmployee" parameterType="com.itwillbs.domain.EmployeeVO">
+		INSERT INTO employee (emp_id, emp_pw, emp_name, emp_email, emp_birth, emp_gender, emp_phone, emp_tel, emp_address, emp_image, emp_department, emp_position, emp_status, join_date, absence_date, rehabi_date, resign_date)
+		VALUES (#{emp_id}, #{emp_pw}, #{emp_name}, #{emp_email}, #{emp_birth}, #{emp_gender}, #{emp_phone}, #{emp_tel}, #{emp_address}, #{emp_image}, #{emp_department}, #{emp_position}, #{emp_status}, #{join_date}, #{absence_date}, #{rehabi_date}, #{resign_date})
+	</insert>
+	
+	<select id="getNextNumber" resultType="java.lang.Integer">
+		SELECT MAX(CAST(SUBSTRING(emp_id, 5) AS UNSIGNED)) + 1 FROM employee
+	</select>
+	<!-- 사원등록 -->
+	
+	<!-- 사원리스트 -->
+	<select id="employeeList" resultType="com.itwillbs.domain.EmployeeVO">
+		select * from employee
+	</select>	
+	<!-- 사원리스트 -->
+	
+	<!-- 사원 정보 조회 -->
+	<select id="getEmployee" resultType="com.itwillbs.domain.EmployeeVO">
+		select * from employee
+		where emp_id = #{emp_id}
+	</select>
+	<!-- 사원 정보 조회 -->
+	
+	<!-- 회원정보 수정 -->
+	<update id="modifyEmployee">
+		update employee set emp_id=#{emp_id}, emp_pw=#{emp_pw}, emp_name=#{emp_name}, emp_email=#{emp_email}, emp_birth=#{emp_birth}, emp_gender=#{emp_gender}, emp_phone=#{emp_phone}, emp_tel=#{emp_tel}, emp_address=#{emp_address}, emp_image=#{emp_image}, emp_department=#{emp_department}, emp_position=#{emp_position}, emp_status=#{emp_status}, join_date=#{join_date}, absence_date=#{absence_date}, rehabi_date=#{rehabi_date}, resign_date=#{resign_date}  
+		where emp_id=#{emp_id} and emp_pw=#{emp_pw}
+	</update>
+	<!-- 회원정보 수정 -->	
+	
+</mapper> 

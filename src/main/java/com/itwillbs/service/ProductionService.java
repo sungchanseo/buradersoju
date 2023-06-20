@@ -1,5 +1,23 @@
 package com.itwillbs.service;
 
-public interface ProductionService {
+import java.util.List;
 
+
+import com.itwillbs.domain.ProductionVO;
+
+public interface ProductionService {
+	
+
+	// 작업지시 등록
+	public void insertWorkOrder(ProductionVO vo) throws Exception;
+	
+	// 작업지시 목록
+	public List<ProductionVO> getWorkOrderList() throws Exception;
+	
+	// 작업지시 상세
+	public ProductionVO detailWorkOrder(String production_id) throws Exception;
+	
+	
+	
 }
+

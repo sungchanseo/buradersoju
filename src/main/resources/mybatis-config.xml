@@ -2,13 +2,13 @@
 <!DOCTYPE configuration
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
-  
-  <!-- mybatis 관련 설정정보 저장 -->
-  <configuration>
-     
-     <!-- domain 패키지 등록 -->
-  	 <typeAliases>
-  	 	<package name="com.itwillbs.domain" />
-  	 </typeAliases>
-  
-  </configuration>
+
+
+<configuration>
+	<!-- mybatis 관련 설정정보 저장 -->
+	<typeAliases>
+		<package name="com.itwillbs.domain" />
+	</typeAliases>
+
+
+</configuration>

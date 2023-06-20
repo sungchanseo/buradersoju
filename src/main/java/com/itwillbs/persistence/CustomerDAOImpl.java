@@ -1,7 +1,5 @@
 package com.itwillbs.persistence;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -23,13 +21,6 @@ public class CustomerDAOImpl implements CustomerDAO {
 	//mapper식별을 위한 namespace
 	private static final String NAMESPACE = "com.itwillbs.mappers.customerMapper";
 	
-	//거래처 목록보기 
-	@Override
-	public List<CustomerVO> getCustomerList() {
-		logger.debug("#########DAO : 거래처 목록보기를 합니다. ");
-		return sqlSession.selectList(NAMESPACE+".getCustomerList");
-	}
-	
 	//거래처 상세보기 
 	@Override
 	public CustomerVO getCustomerInfo(String cust_id) {
@@ -48,7 +39,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 	@Override
 	public Integer modifyCustomer(CustomerVO mvo) {
 		logger.debug("##########DAO : 거래처 정보 수정합니다~~~~~");
-		return sqlSession.update(NAMESPACE+".modifyCustomeer", mvo);
+		return sqlSession.update(NAMESPACE+".modifyCustomer", mvo);
 	}
 
 	//거래처 삭제 

@@ -3,52 +3,29 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html lang="en">
+	<title>Alcoholic</title>
+    <!-- plugin css, js, etc...-->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/base/vendor.bundle.base.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main/fullcalendar-5.11.4/lib/main.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
+    <script src="${pageContext.request.contextPath}/resources/vendors/base/vendor.bundle.base.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/template.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/vendors/chart.js/Chart.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/vendors/progressbar.js/progressbar.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/vendors/chartjs-plugin-datalabels/chartjs-plugin-datalabels.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/vendors/justgage/raphael-2.1.4.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/vendors/justgage/justgage.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery.cookie.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/dashboard.js"></script>
+    <!-- plugin css, js, etc...-->
+    
     <div class="horizontal-menu">
       <nav class="navbar top-navbar col-lg-12 col-12 p-0">
         <div class="container-fluid">
           <div class="navbar-menu-wrapper d-flex align-items-center justify-content-between">
             <ul class="navbar-nav navbar-nav-left">
-
-              <li class="nav-item dropdown">
-                <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center" id="notificationDropdown" href="#" data-bs-toggle="dropdown">
-                  <i class="mdi mdi-message-reply-text"></i>
-                  <span class="count bg-success"></span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
-                  <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                        <div class="preview-icon bg-success">
-                          <i class="mdi mdi-information mx-0"></i>
-                        </div>
-                    </div>
-                    <div class="preview-item-content">
-                        <h6 class="preview-subject font-weight-normal">Application Error</h6>
-                        <p class="font-weight-light small-text mb-0 text-muted">
-                          Just now
-                        </p>
-                    </div>
-                  </a>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                        <div class="preview-icon bg-warning">
-                          <i class="mdi mdi-settings mx-0"></i>
-                        </div>
-                    </div>
-                    
-                  </a>
-                  <a class="dropdown-item preview-item">
-                    <div class="preview-thumbnail">
-                        <div class="preview-icon bg-info">
-                          <i class="mdi mdi-account-box mx-0"></i>
-                        </div>
-                    </div>
-                   
-                  </a>
-                </div>
-              </li>
-              
-
               <li class="nav-item nav-search d-none d-lg-block ms-3">
                 <div class="input-group">
                     <div class="input-group-prepend">
@@ -61,8 +38,10 @@
               </li>	
             </ul>
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                <a class="navbar-brand brand-logo" href="/main"><img src="resources/images/logo.png" alt="logo"/></a>
-                <a class="navbar-brand brand-logo-mini" href="/main"><img src="resources/images/logo-mini.png" alt="logo" height="100px" width="100px"/></a>
+                <a class="navbar-brand brand-logo" href="/main"><img src="${pageContext.request.contextPath}/resources/images/logo.png" alt="logo" style="width: 400px; height: auto;"/></a>
+                <a class="navbar-brand brand-logo-mini" href="/main">
+    			<img src="${pageContext.request.contextPath}/resources/images/logo-mini.png" alt="logo"/>
+				</a>
             </div>
             <ul class="navbar-nav navbar-nav-right">
                 <li class="nav-item dropdown d-lg-flex d-none">
@@ -85,14 +64,14 @@
                   <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" id="profileDropdown">
                     <span class="nav-profile-name">접속 ID : ${sessionScope.emp_id}</span>
                     <span class="online-status"></span>
-                    <img src="resources/images/faces/face28.png" alt="profile"/>
+                    <img src="${pageContext.request.contextPath}/resources/images/faces/face28.png" alt="profile"/>
                   </a>
                   <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                       <a class="dropdown-item">
                         <i class="mdi mdi-account text-primary"></i>
                         Info
                       </a>
-                      <a href="member/logout" class="dropdown-item">
+                      <a href="/main/logout" class="dropdown-item">
                         <i class="mdi mdi-logout text-primary"></i>
                         Logout
                       </a>
@@ -115,10 +94,10 @@
                 </a>
                 <div class="submenu">
                       <ul class="submenu-item">
-                      	  <li class="nav-item"><a class="nav-link" href="/employee/info">사원 조회</a></li>
-                          <li class="nav-item"><a class="nav-link" href="/employee/insert">사원 등록</a></li>
-                          <li class="nav-item"><a class="nav-link" href="/employee/modify">사원 수정</a></li>
-                          <li class="nav-item"><a class="nav-link" href="/employee/delete">사원 삭제</a></li>
+                      	  <li class="nav-item"><a class="nav-link" href="">사원 조회</a></li>
+                          <li class="nav-item"><a class="nav-link" href="">사원 등록</a></li>
+                          <li class="nav-item"><a class="nav-link" href="">사원 수정</a></li>
+                          <li class="nav-item"><a class="nav-link" href="">사원 삭제</a></li>
                       </ul>
                   </div>
               </li>
@@ -198,7 +177,6 @@
                           <li class="nav-item"><a class="nav-link" href="">창고 등록</a></li>
                           <li class="nav-item"><a class="nav-link" href="">창고 수정</a></li>
                           <li class="nav-item"><a class="nav-link" href="">창고 삭제</a></li>
-                          
                     </ul>
                   </div>
               </li>

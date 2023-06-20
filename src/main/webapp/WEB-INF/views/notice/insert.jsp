@@ -1,25 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+    pageEncoding="UTF-8"%> 
 
-<html>
-<head>
-<meta charset="UTF-8">
-<title>공지 등록</title>
-</head>
-<body>
-<h1>공지 등록</h1>
-<form role="form" method="post">
-    <div class="form-group">
-        <label>제목</label>
-        <input type="text" name="notice_title" placeholder="제목을 입력하세요" required><br>
-        <label>작성자</label>
-        <input type="text" name="notice_writer" value="${sessionScope.emp_id}" disabled required><br>
-        <label>내용</label>
-        <textarea class="form-control" name="notice_content" rows="3" placeholder="내용을 입력하세요" required></textarea>
-    </div>
-    <button type="submit" class="">글쓰기</button>
-</form>
-</body>
-</html>
-
+<%@ include file="../includes/header.jsp" %>
+<div class="container-scroller">
+	<div class="container-fluid page-body-wrapper full-page-wrapper">
+		<div class="main-panel">
+			<div class="content-wrapper d-flex align-items-center auth px-0">
+				<div class="row w-100 mx-0">
+					<div class="col-lg-12 mx-auto">
+						<div class="auth-form-light text-left py-5 px-4 px-sm-5" style="height: 1000px;">
+							<form role="form" method="post">
+								<div class="form-group">
+										제목 <input type="text"
+										class="form-control" name="notice_title" id="notice_title"
+										placeholder="제목을 입력하세요" required style="width: 400px;">
+								
+										작성자 <input type="text"
+										class="form-control" name="notice_writer" id="notice_title"
+										placeholder="관리자" value="관리자" readonly required
+										style="width: 400px;">
+								
+										내용<textarea class="form-control" name="notice_content"
+										id="notice_content" rows="3" placeholder="내용을 입력하세요" required
+										style="width: 600px; height: 300px;"></textarea>
+								</div>
+								<button class="btn btn-success btn-fw" type="submit">공지
+									등록</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<%@ include file="../includes/footer.jsp" %>

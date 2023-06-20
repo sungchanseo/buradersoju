@@ -22,16 +22,9 @@ public class ProductionDAOImpl implements ProductionDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	private static final Logger logger = LoggerFactory.getLogger(ProductionController.class);
+	private static final Logger logger = LoggerFactory.getLogger(ProductionDAOImpl.class);
 	
 	// mapper의 namespace 정보
-	private static final String NAMESPACE = "com.itwillbs.mappers.productionMapper";
-
-	// DB 연결 (의존주입)
-	@Inject
-	private SqlSession sqlSession; //mapper위치까지 접근 가능 but mapper가 여러개일수있음 => mapper구분필요
-	
-	//mapper구분하는 값 namespace
 	private static final String NAMESPACE = "com.itwillbs.mappers.productionMapper";
 
 	@Override
@@ -39,6 +32,12 @@ public class ProductionDAOImpl implements ProductionDAO {
 		logger.debug(" getWorkOrderList() 호출 ");
 		
 		return sqlSession.selectList(NAMESPACE+".getWorkOrderList");
+	}
+
+	@Override
+	public void insertWorkOrder(ProductionVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override

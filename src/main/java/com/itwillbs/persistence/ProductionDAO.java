@@ -11,5 +11,8 @@ public interface ProductionDAO {
 	public void insertWorkOrder(ProductionVO vo) throws Exception;
 
 	// 작업지시 목록
-	public List<ProductionVO> getWorkOrderList();
+	public List<ProductionVO> getWorkOrderList() throws Exception;
+	
+	// 작업지시 상세
+	public ProductionVO detailWorkOrder(String production_id) throws Exception;
 }

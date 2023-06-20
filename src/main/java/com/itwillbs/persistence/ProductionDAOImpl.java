@@ -21,7 +21,7 @@ public class ProductionDAOImpl implements ProductionDAO {
 	private static final Logger logger = LoggerFactory.getLogger(ProductionController.class);
 	
 	// mapper의 namespace 정보
-	private static final String NAMESPACE = "com.itwillbs.mapper.productionMapper";
+	private static final String NAMESPACE = "com.itwillbs.mappers.productionMapper";
 
 	
 	@Override
@@ -35,10 +35,22 @@ public class ProductionDAOImpl implements ProductionDAO {
 
 	@Override
 	public List<ProductionVO> getWorkOrderList() {
+		logger.debug(" getWorkOrderList() 호출 ");
 		
 		return sqlSession.selectList(NAMESPACE+".getWorkOrderList");
 	}
 
+	@Override
+	public ProductionVO detailWorkOrder(String production_id) throws Exception {
+		logger.debug(" detailWorkOrder() 호출 ");
+
+		return sqlSession.selectOne(NAMESPACE+".workOrder", production_id);
+	}
+
+
+
+	
+	
 	
 	
 	

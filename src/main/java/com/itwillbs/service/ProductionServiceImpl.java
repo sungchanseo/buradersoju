@@ -23,9 +23,16 @@ public class ProductionServiceImpl implements ProductionService {
 	}
 
 	@Override
-	public List<ProductionVO> getWorkOrderList() {
+	public List<ProductionVO> getWorkOrderList() throws Exception{
 		return pdao.getWorkOrderList();
 	}
+
+	@Override
+	public ProductionVO detailWorkOrder(String production_id) throws Exception{
+		return pdao.detailWorkOrder(production_id);
+	}
+
+
 	
 	
 

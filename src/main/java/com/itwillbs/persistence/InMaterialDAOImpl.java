@@ -1,12 +1,10 @@
 package com.itwillbs.persistence;
 import java.util.List;
-
 import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
-
 import com.itwillbs.domain.InMaterialVO;
 
 
@@ -56,8 +54,7 @@ public class InMaterialDAOImpl implements InMaterialDAO {
 	@Override
 	public String getMaxNumber() {
 		String maxNumber = sqlSession.selectOne(NAMESPACE + ".getMaxNumber"); // 230620001
-		logger.debug("############## maxNumber : " + maxNumber);	
-//	    return (maxNumber != null) ? maxNumber : 1;
+		logger.debug("############## maxNumber : " + maxNumber);
 		return maxNumber;
 	}
 
@@ -75,25 +72,15 @@ public class InMaterialDAOImpl implements InMaterialDAO {
 	@Override
 	public void registInId(InMaterialVO vo) {
 		logger.debug("########## resgistInId 호출");
-		logger.debug("########## " + vo.getIn_id());	// 2번째값부터 IM + 날짜만들어감
+		logger.debug("########## " + vo.getIn_id());
 		logger.debug("########## " + vo.getOrder_id());
-		
 		sqlSession.update(NAMESPACE + ".registInId", vo);
 	}
 
 	
 	
 	
-	
-	
-	
 
-	
-	
-
-
-
-	
 	
 
 	

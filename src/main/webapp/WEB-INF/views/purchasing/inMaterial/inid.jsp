@@ -9,7 +9,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
 
-
 <script>
 //오늘 날짜 출력 (yy-MM-dd)
 function getToday() {
@@ -38,68 +37,98 @@ function getYesterday(){
 }
 
 
-//DB에 있는 입고번호 최대값 + 1
-//230620004 -> 230620005
-function autoNumber(){
+// DB에 있는 입고번호 최대값 + 1
+function addNumber(){	
 	
-	var maxNumber;
-	alert(maxNumber);
-	
-	if(maxNumber == null){
-		maxNumber = getToday() + "001";
-		console.log("************ (if)전달받은 maxNumber =  " + maxNumber);
-	}else{
+	// maxNumber가 없을 때 (입고번호 첫 등록)
+	var maxNumber = "${maxNumber }";
+	if(maxNumber == ""){
+		maxNumber = getToday() + "000";
+		console.log("************ (if)전달받은 maxNumber =  " + maxNumber); // 230620001
+	}else{	// 있을 때
 		maxNumber = "${maxNumber}";
 		console.log("************ (else)전달받은 maxNumber =  " + maxNumber);
 	}
 	
-	var nextNumber = Number(maxNumber)+1;  			
-	console.log("************ nextNumber =  " + nextNumber);
-	console.log("************ nextNumber 타입 =  " + typeof nextNumber); // number
+	// 다음 번호 생성
+	var nextNumber = Number(maxNumber) + 1;  			
+	console.log("************ nextNumber =  " + nextNumber); // 230620002
+	console.log("************ nextNumber타입 =  " + typeof nextNumber); // number
 	
 	return nextNumber;
 }
 
 
 
-// '입고처리' 버튼 클릭
+// 입고번호 자동넘버링
 $(document).ready(function(){
-	$('.done').click(function(){
 		
-		// order_id 정보 저장         
-        var str = ""
-        var tdArr = new Array();
-        var done = $(this);
-        var tr = done.parent().parent();	// done의 부모는 <td>
-        var td = tr.children();				// <td>의 부모이므로 <tr>
-        var order_id = td.eq(1).text();
-        document.fo.order_id.value = order_id;
-        
-        
-        
-	    
-	    
- 
+		// 날짜 정보 저장
+		var today = getToday();
+		var yesterday = getYesterday();
 		
 		
-        
-		
+		// order_id 정보 저장       
+		var order_id = "${param.order_id }";
+		console.log("************ order_id = " + order_id); // OK
 
+		
+		// maxDate 정보 저장
+		// maxDate가 없을 때 -> 입고번호 첫 등록
+		var maxDate = "${maxDate }";
+		if(maxDate ==  null){
+			maxDate = today;
+			console.log("******************* (if)maxDate = " + maxDate); // 230620
+		}else{	// 있을 때
+	        maxDate = "${maxDate }";
+			console.log("******************* (else)maxDate = " + maxDate);
+		}
 
-	}); // done.click
+		
+		
+		// nextNumber 정보 저장
+		// DB 날짜와 어제 날짜가 같을 때 초기화
+		// 다르면 입고번호 + 1
+		if(maxDate == yesterday){ // 230619 230619
+			var nextNumber = today + "001"; // 230620001
+			console.log("******************* (초기화)nextNumber = " + nextNumber);
+		}else{
+			var nextNumber = addNumber();
+		}
+		
+		
+		// endNumber 정보 저장
+		// 끝에 3자리 출력
+		var endNumber = String(nextNumber).substr(6);			  
+		console.log("******************* endNumber = " + endNumber);	// 002
+		console.log("******************* endNumber 타입 = " + typeof endNumber);  // string
+			
+			
+		// 입고번호 조합 & 생성
+		var in_id = "IM" + today + endNumber;
+		alert(in_id + ", 입고처리가 완료되었습니다.");
+		
+		
+		// ajax 사용 controller에 정보 전달
+		$.ajax({
+				url: "inid",
+				type: 'post',
+				data: {
+					in_id:in_id,
+					order_id:order_id
+				},
+				success: function(data){
+					location.href = "/purchasing/inMaterial/list";
+				},
+				error: function(){
+					alert("error");	
+				}
+		}); // ajax
 	
-	
-});
+}); // JQuery
 
 </script>
-
-
-
 </head>
 <body>
-
-<h1>inid.jsp</h1>
-<h2>입고번호 - 자동넘버링, 입고번호조합</h2>
-
 </body>
 </html>

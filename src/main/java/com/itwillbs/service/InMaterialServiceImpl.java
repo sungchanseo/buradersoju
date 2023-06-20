@@ -1,11 +1,7 @@
 package com.itwillbs.service;
 import java.util.List;
-
 import javax.inject.Inject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-
 import com.itwillbs.domain.InMaterialVO;
 import com.itwillbs.persistence.InMaterialDAO;
 
@@ -48,7 +44,6 @@ public class InMaterialServiceImpl implements InMaterialService {
 		return idao.getMaxNumber();
 	}
 	
-	
 	// 4-2. 입고번호 최대날짜 (maxDate) 230620
 	@Override
 	public String getMaxDate() throws Exception {
@@ -66,7 +61,6 @@ public class InMaterialServiceImpl implements InMaterialService {
 	
 	
 	
-
 
 	
 	

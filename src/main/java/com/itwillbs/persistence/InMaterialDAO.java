@@ -1,7 +1,6 @@
 package com.itwillbs.persistence;
 import java.util.List;
 import org.springframework.stereotype.Repository;
-
 import com.itwillbs.domain.InMaterialVO;
 
 
@@ -18,10 +17,10 @@ public interface InMaterialDAO {
 	// 3. 입고 상세보기
 	public InMaterialVO getInMaterialInfo(String in_id);
 	
-	// 4-1. 입고번호 최대값(maxNumber) 230620004
+	// 4-1. 입고번호 최대값 (maxNumber) 230620004
 	public String getMaxNumber();
 	
-	// 4-2. 입고번호 최대날짜(maxDate) 230620
+	// 4-2. 입고번호 최대날짜 (maxDate) 230620
 	public String getMaxDate();
 	
 	// 4-3. 입고번호 등록하기

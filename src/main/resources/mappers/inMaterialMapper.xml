@@ -15,7 +15,7 @@
  <!-- 입고 리스트 -->	
  
  
- <!-- 입고번호 최대값 (maxNumber) 230620004 -->
+ <!-- 입고번호 최대 값 (maxNumber) 230620004 -->
     <select id="getMaxNumber" resultType="String">
         SELECT MAX((SUBSTRING(in_id, 3)))
 		FROM in_material;

@@ -43,13 +43,13 @@
 			</td>
 			<td>		
 				<c:if test="${empty iml.in_id }">
-					<input type="button" name="inidregist" value="입고처리" onclick="location.href='/purchasing/inMaterial/inid';">
+					<input type="button" class="inidregist" value="입고처리" 
+					                     onclick="location.href='/purchasing/inMaterial/inid?order_id=${iml.order_id }';">
 				</c:if>
 			</td>
          </tr>
       </c:forEach>
 	</table>
-
 
 
 

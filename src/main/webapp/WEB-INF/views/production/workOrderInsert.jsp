@@ -6,6 +6,29 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script type="text/javascript">
+	
+// 	function loadJson(){
+// 		$.ajax({
+// 			uri:"production/workOrderList",
+// 			type:"GET"
+// 			dataType:"json",
+// 			sucess:ajaxHtml,
+// 			error:function(){
+// 				alert("error");
+// 			}
+// 		});
+// 	}
+	
+// 	function ajaxHtml(data){
+// 		$
+// 	}
+	
+</script>
+
 <title>Insert title here</title>
 </head>
 <body>
@@ -35,11 +58,11 @@
 	<br>
 	
 	<form role="form" method="post">
-		작업지시번호 <input type="text" name="production_id"> <br>
+<!-- 		작업지시번호 <input type="text" name="production_id"> <br> -->
 		작업지시자 <input type="text" name="production_emp">
+		
 		생산라인
 		<select name="production_line" id="line">
-		    <option> </option>
 		    <option value="1라인">1라인</option>
 		    <option value="2라인">2라인</option>
 		    <option value="3라인">3라인</option>

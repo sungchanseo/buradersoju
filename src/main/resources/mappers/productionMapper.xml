@@ -14,6 +14,11 @@
 <!-- 작업지시 목록 -->
 
 <!-- 작업지시 상세 -->
+	<select id="workOrder" resultType="com.itwillbs.domain.ProductionVO">
+		select * from production 
+		join product ON production.product_id = product.product_id 
+		where production.production_id = #{production_id};
+	</select>
 <!-- 작업지시 상세 -->
 
 <!-- 작업지시 등록 -->

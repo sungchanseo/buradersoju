@@ -7,6 +7,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+	<style type="text/css">
+	/* 인쇄하기 가로 기본출력 지정 */
+		@page { size: A4 landscape; margin:0; }
+	</style>
+
 </head>
 <body>
 	<h1>작업지시 현황</h1>
@@ -25,8 +31,8 @@
   
 	<input type="button" value="생산 등록" onclick="location.href='./workOrderInsert';">
 	<br>
-	<input type="button" value="엑셀파일">
-	<input type="button" value="인쇄하기">
+	<button>엑셀파일</button>
+	<button class="print-button" onclick="info_print()">인쇄하기</button>
 	
   <table border="1">
     <tr>
@@ -43,8 +49,20 @@
 	</tr>
 	<c:forEach var="workOrderList" items="${workOrderList }">
 	 <tr>  
-	  <td>${workOrderList.production_id}</td>
-	  <td>${workOrderList.cont_id}</td>
+	  <td>
+		<a href="./workOrder?production_id=${workOrderList.production_id}">
+		${workOrderList.production_id}
+		</a>
+	  </td>
+	  
+	  <!-- 나중에 수주번호로 수정해야 함 -->
+	  <td>
+	  	<a href="./workOrder?production_id=${workOrderList.production_id}">
+	  	${workOrderList.production_id}
+	  	</a>
+	  </td>
+	  <!-- 나중에 수주번호로 수정해야 함 -->
+	  
 	  <td>${workOrderList.production_emp}</td>
 	  <td>${workOrderList.production_date}</td>
 	  <td>${workOrderList.production_line}</td>
@@ -56,6 +74,33 @@
 	 </tr>
 	</c:forEach>
   </table>
-	
+
+<script type="text/javascript">
+/* 인쇄하기 버튼 */
+function info_print() {
+  let initBody = document.body;
+  let hiddenBtn = document.querySelector('.print-button'); 
+  let hiddenHeader = document.querySelector('#header');
+  let hiddenNavbar = document.querySelector('.navbar-device');
+  let hiddenClearfix = document.querySelector('.clearfix');
+ 
+  window.onbeforeprint = function () {
+    hiddenBtn.style.display = "none";
+    hiddenHeader.style.display = "none";
+    hiddenNavbar.style.display = "none";
+    hiddenClearfix.style.display = "none";
+    document.body = document.querySelector('.main-container');
+  }
+  window.onafterprint = function () {
+    hiddenBtn.style.display = "block";
+    hiddenHeader.style.display = "block";
+    hiddenNavbar.style.display = "block";
+    hiddenClearfix.style.display = "block";
+    document.body = initBody;
+  }
+  window.print();
+} 
+</script>
+
 </body>
 </html>

@@ -29,8 +29,13 @@ public interface QualityDAO {
 	// 검수등록 - 등록
 	public void qualityInsertDB(ProductionVO vo);
 	
-	// 공병 관리
+	// 공병 관리 - 목록 가져오기
 	public List<ProductionVO> getBottleList() throws Exception;
 	
+	// 공병관리 - 수량 등록
+	public void btInsert(ProductionVO vo);
+	
+	// 공병관리 - 불량 등록
+	public void btUpdate(ProductionVO vo) throws Exception;
 	
 }

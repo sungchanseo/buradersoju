@@ -2,7 +2,8 @@ package com.itwillbs.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
+
 import org.springframework.stereotype.Service;
 
 import com.itwillbs.domain.ProductionVO;
@@ -10,9 +11,9 @@ import com.itwillbs.persistence.ProductionDAO;
 
 @Service
 public class ProductionServiceImpl implements ProductionService {
-
-	// DAO 객체 주입
-	@Autowired
+	
+	// DAO 객체 접근
+	@Inject
 	private ProductionDAO pdao;
 	
 	@Override
@@ -33,7 +34,6 @@ public class ProductionServiceImpl implements ProductionService {
 	}
 
 
-	
 	
 
 	

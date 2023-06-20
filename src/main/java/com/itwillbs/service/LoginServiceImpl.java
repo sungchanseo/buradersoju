@@ -6,14 +6,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.itwillbs.controller.HomeController;
+import com.itwillbs.controller.MainController;
 import com.itwillbs.domain.LoginVO;
 import com.itwillbs.persistence.LoginDAO;
 
 @Service
 public class LoginServiceImpl implements LoginService {
 
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 	
 	//DB와 연결 (의존주입)
 	@Inject

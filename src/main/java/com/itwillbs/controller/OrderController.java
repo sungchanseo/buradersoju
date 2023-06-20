@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.itwillbs.domain.MaterialVO;
 import com.itwillbs.domain.OrderVO;
 import com.itwillbs.service.OrderService;
 
@@ -53,5 +54,19 @@ public class OrderController {
 	   return "redirect:/purchasing/order/list";
 	   
    }
+
+   @RequestMapping(value = "/modify" , method = RequestMethod.GET)
+    public void modifyOrderGET(OrderVO vo) {
+    	logger.debug("@@@@@modifyOrderGET()호출!@@@@@");
+    }
 	
+	
+
+   
+   @RequestMapping(value="/modify", method= RequestMethod.POST)
+   public String ModifyOrderPOST(OrderVO vo) {
+	   logger.debug("@@@@@modifyOrderPOST()호출!@@@@@");
+	   
+	   return "";
+   }
 }

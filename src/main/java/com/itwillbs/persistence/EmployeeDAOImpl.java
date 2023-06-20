@@ -28,11 +28,18 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		return time;
 	}
 
-	// 사원등록구현 -> memberMapper.xml 작성 후 아래 메서드 작성 -> MemberDAOtest.java 이동
+	// 사원등록구현 -> memberMapper.xml 작성 후 아래 메서드 작성
 	@Override
 	public void insertEmployee(EmployeeVO vo) {
 		System.out.println("#####");
 		sqlSession.insert(NAMESPACE + ".insertEmployee", vo); //괄호안은 (쿼리구문, 매개변수)순으로 입력하기
+	}
+	
+	// 사원 번호 자동 부여
+	@Override
+	public int getNextNumber() {
+		Integer nextNumber = sqlSession.selectOne(NAMESPACE + ".getNextNumber");
+		return (nextNumber != null) ? nextNumber : 1;
 	}
 	
 	// 사원리스트
@@ -43,7 +50,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
 	// 사원 정보 조회
 	@Override
-	public EmployeeVO getEmployee(int emp_id) {
+	public EmployeeVO getEmployee(String emp_id) {
 		logger.debug(" 사원상세정보 mapper 호출");
 		logger.debug(" @@@@@emp_id " + emp_id);
 		return sqlSession.selectOne(NAMESPACE + ".getEmployee", emp_id);
@@ -51,23 +58,17 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
 	// 사원 정보 수정
 	@Override
-	public Integer updateEmployee(EmployeeVO uvo) {
+	public Integer modifiyEmployee(EmployeeVO uvo) {
 		
 		logger.debug(" 테스트 -> DAO 호출 : 회원정보 수정 ");
 		// 수정할 정보를 가져옴(uvo)
 		logger.debug(" DAO -> mapper 호출 -> SQL 실행 ");
 		
-		Integer empResult = sqlSession.update(NAMESPACE + ".update", uvo);
+		Integer empResult = sqlSession.update(NAMESPACE + ".modifyEmployee", uvo);
 		
 		logger.debug(" SQL 실행결과를 리턴 ");
 		
 		return empResult;
 	}
 
-
-	
-
-	
-	
-	
 }

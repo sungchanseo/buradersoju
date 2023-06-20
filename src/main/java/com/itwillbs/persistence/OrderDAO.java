@@ -16,4 +16,7 @@ public interface OrderDAO {
 	
 	// 발주 등록하기
 	public void orderInsert(OrderVO vo);
+	
+	// 발주 수정하기
+	public Integer modifyOrder(OrderVO vo);
 }

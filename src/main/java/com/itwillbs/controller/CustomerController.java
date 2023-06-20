@@ -10,14 +10,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.itwillbs.db.NoticeDTO;
 import com.itwillbs.domain.CustomerVO;
 import com.itwillbs.domain.PagingVO;
 import com.itwillbs.service.CustomerService;
+import com.itwillbs.service.PagingService;
 
 @Controller
 @RequestMapping(value = "/customer/*")
@@ -29,98 +28,47 @@ public class CustomerController {
 	// Service 객체 사용을 위한 의존성 주입
 	@Inject
 	private CustomerService custService;
+	@Inject
+	private PagingService pageService;
+	
 
 	// http://localhost:8088/test/customer/list
 	// http://localhost:8088/customer/list
 
 	// 거래처목록 보기
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public void customerListGET(Model model, HttpServletRequest request,
-			@ModelAttribute("selector") String selector, @ModelAttribute("search") String search) {
+	public void customerListGET(Model model, PagingVO pvo, 
+			HttpServletRequest request) throws Exception {
 		logger.debug("@@@@@@@@@Controller : 거래처 리스트 조회!");
+		logger.debug("@@@@@@@@@Controller : {}",pvo);
 
-		//////////////////////////////////////////////////////////
-		// 페이징처리1/
-		// 전체 리스트를 먼저 불러온다.
-		int allCount = custService.getCustomerList();
-		logger.debug("@@@@@@@@@@@Serivce : 전체 리스트 : " + allCount);
-
-		// 페이징처리를 위한 페이지 사이즈를 설정한다.
-		// 페이징 도메인 인스턴스 생성
-		PagingVO pvo = new PagingVO();
-		int pageSize = pvo.getPageSize();
-		int pageBlcok;
-
-		// 페이지 번호를 불러온다.
-		// 만약 페이지 번호가 없으면 1번으로 고정하고, 있다면 그것을 가져다 쓴다.
-		String pageNum = request.getParameter("pageNum");
-		if (pageNum == null)
-			pageNum = "1";
-
-		// 현재 페이지, 시작페이지 및 끝페이지를 계산한다.
-		int currentPage = Integer.parseInt(pageNum);
-		int startRow = (currentPage - 1) * pageSize + 1;
-		int endRow = currentPage * pageSize;
-		//////////////////////////////////////////////////////////
-
-		//////////////////////////////////////////////////////////
-		// 페이징처리2
-		// 페이지 번호 계산하기
-		int pageCount;
-		int pageBlock;
-		int startPage;
-		int endPage;
-
-		if (allCount != 0) {
-			pageCount = allCount / pageSize + (allCount % pageSize == 0 ? 0 : 1);
-			pageBlock = 5;
-
-			startPage = ((currentPage - 1) / pageBlock) * pageBlock + 1;
-
-			endPage = startPage + pageBlock - 1;
-			if (endPage > pageCount)
-				endPage = pageCount;
-
-			model.addAttribute("pageCount", pageCount);
-			model.addAttribute("pageBlock", pageBlock);
-			model.addAttribute("startPage", startPage);
-			model.addAttribute("endPage", endPage);
-		}
-		//////////////////////////////////////////////////////////
+		List<Object> customerList=null;
 		
-		////////////////////검색어처리 시작///////////////////////////
-		logger.debug("@@@@@@@@@@@@@@@@Controller 검색카테고리는? : "+selector);
-		logger.debug("@@@@@@@@@@@@@@@@Controller 검색어는? : "+search);
-		List<CustomerVO> customerListPaging =null;
-
-		//검색어가 있는 경우와 검색어가 없는 경우를 처리한다. 
-		if(search != null) {
-			//검색어가 있는 경우
-//			customerListPaging = custService.
-			
+		//거래처목록을 가져오는 custService 호출
+		pvo = custService.setPageInfoForCustomer(pvo);
+		logger.debug("@@@@@@@@@Controller : {}",pvo);
+		
+		//service객체를 호출
+		if(pvo.getSelector()!=null && pvo.getSelector()!="") {
+			//검색어가 있을 때 
+			logger.debug("@@@@@@@@@Controller : 검색어가 있을 때입니다");
+			customerList = pageService.getListSearchObject(pvo);
 		}else {
-			//검색어가 없는 경우 
-			
-			pvo.setPageSize(pageSize);
-			pvo.setStartRow(startRow);
-			
-			logger.debug("@@@@@@@@@@@@@@@페이징PageSize : " + pageSize);
-			logger.debug("@@@@@@@@@@@@@@@페이징startRow : " + startRow);
-			
-			customerListPaging = custService.getCustomerList(pvo);
+			//검색어가 없을 때
+			logger.debug("@@@@@@@@@Controller : 검색어가 없을 때입니다");
+			customerList = pageService.getListPageSizeObject(pvo);
 		}
+		logger.debug("@@@@@@@@@Controller : {}",customerList);
+	
+		//변수에 담아서 전달
+		model.addAttribute("customerList", customerList);
+		model.addAttribute("pvo",pvo);
 		
-		////////////////////검색어처리 끝///////////////////////////
-		logger.debug("@@@@@@@@@@customerListPaging : "+customerListPaging);
-		// serivce 객체 호출
-
-		// 변수를 가지고 뷰 페이지로 보내기
-		model.addAttribute("customerListPaging", customerListPaging);
 	}
 
 	// 거래처 상세보기
 	@RequestMapping(value = "/info", method = RequestMethod.GET)
-	public void customerInfoGET(CustomerVO vo, Model model) {
+	public void customerInfoGET(CustomerVO vo, Model model) throws Exception {
 		logger.debug("@@@@@@@@@@@@Controller : 거래처 상세보기 !");
 
 		logger.debug(vo.getCust_id() + "");
@@ -135,14 +83,14 @@ public class CustomerController {
 	// http://localhost:8088/customer/insert
 	// 거래처 등록 입력하기
 	@RequestMapping(value = "/insert", method = RequestMethod.GET)
-	public void insertCustomerGET(CustomerVO vo) {
+	public void insertCustomerGET(CustomerVO vo)  throws Exception {
 		logger.debug("@@@@@@@@@@@@Controller : 거래처 등록GET하기!!!!");
-//		return "customer/insert";
+	//	return "customer/insert";
 	}
 
 	// 거래처 등록 디비처리
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
-	public String insertCustomerPOST(CustomerVO vo) {
+	public String insertCustomerPOST(CustomerVO vo)  throws Exception {
 		logger.debug("@@@@@@@@@@@@Controller : 거래처 등록POST하기!!!!");
 		logger.debug("@@@@@@@입력된 정보 : " + vo);
 
@@ -153,7 +101,7 @@ public class CustomerController {
 
 	// 거래처 수정 입력하기
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)
-	public void modifyCustomerGET(CustomerVO vo, Model model) {
+	public void modifyCustomerGET(CustomerVO vo, Model model) throws Exception{
 		logger.debug("@@@@@@@@@@Contorller : 거래처 수정 GET하기 !!!");
 		CustomerVO customerInfo = custService.getCustomerInfo(vo.getCust_id());
 
@@ -162,7 +110,7 @@ public class CustomerController {
 
 	// 거래처 수정 디비처리
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
-	public String modifyCustomerPOST(CustomerVO mvo) {
+	public String modifyCustomerPOST(CustomerVO mvo) throws Exception {
 		logger.debug("@@@@@@@@@@Contorller : 거래처 수정 POST하기 !!!");
 		logger.debug("@@@@@@@@@controller : 수정한 거래처정보 : " + mvo);
 
@@ -173,7 +121,7 @@ public class CustomerController {
 
 	// 거래처 삭제 디비처리
 	@GetMapping(value = "/remove")
-	public String removeCustomerPOST(CustomerVO vo) {
+	public String removeCustomerPOST(CustomerVO vo) throws Exception {
 		logger.debug("@@@@@@@@@@@Controller : 거래처 삭제POST하기 !!!!!");
 
 		String cust_id = vo.getCust_id();

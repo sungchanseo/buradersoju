@@ -2,98 +2,84 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="en">
-
 <head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>사원 등록</title>
-  <!-- base:css -->
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/mdi/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/base/vendor.bundle.base.css">
-  <!-- endinject -->
-  <!-- plugin css for this page -->
-  <!-- End plugin css for this page -->
-  <!-- inject:css -->
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
-  <!-- endinject -->
-  <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
+<title>사원 등록</title>
 </head>
-
 <body>
-  <div class="container-scroller">
-    <div class="container-fluid page-body-wrapper full-page-wrapper">
-      <div class="main-panel">
-        <div class="content-wrapper d-flex align-items-center auth px-0">
-          <div class="row w-100 mx-0">
-            <div class="col-lg-4 mx-auto">
-              <div class="auth-form-light text-left py-5 px-4 px-sm-5">
-                <div class="brand-logo">
-                  <img src="${pageContext.request.contextPath}/resources/images/logo.png" alt="logo">
-                </div>
-                <h4>사원 등록</h4>
-                <h6 class="font-weight-light">사원을 등록해주세요</h6>
-	            	<form class="pt-3" action="" method="post">
-	 				   <div class="form-group" >
-	                    <input type="text" class="form-control form-control-lg" id="emp_id" name="emp_id" placeholder="사번">
-	                   </div>
-	 				   <div class="form-group" >
-	                    <input type="password" class="form-control form-control-lg" id="emp_pw" name="emp_pw" placeholder="비밀번호">
-	                   </div>
-	 				   <div class="form-group" >
-	                    <input type="text" class="form-control form-control-lg" id="emp_name" name="emp_name" placeholder="이름">
-	                   </div>
-	 				   <div class="form-group" >
-	                    <input type="email" class="form-control form-control-lg" id="emp_email" name="emp_email" placeholder="이메일">
-	                   </div>
-	 				   <div class="form-group" >
-	                    <input type="text" class="form-control form-control-lg" id="emp_birth" name="emp_birth" placeholder="생년월일">
-	                   </div>
-	 				   <div class="form-group" >
-	                    <input type="text" class="form-control form-control-lg" id="emp_gender" name="emp_gender" placeholder="성별">
-	                   </div>
-	 				   <div class="form-group" >
-	                    <input type="text" class="form-control form-control-lg" id="emp_phone" name="emp_phone" placeholder="휴대전화">
-	                   </div>
-	 				   <div class="form-group" >
-	                    <input type="text" class="form-control form-control-lg" id="emp_tel" name="emp_tel" placeholder="내선번호">
-	                   </div>
-	 				   <div class="form-group" >
-	                    <input type="text" class="form-control form-control-lg" id="emp_address" name="emp_address" placeholder="주소">
-	                   </div>
-	 				   <div class="form-group" >
-	                    <input type="text" class="form-control form-control-lg" id="emp_image" name="emp_image" placeholder="증명사진">
-	                   </div>
-	 				   <div class="form-group" >
-	                    <input type="text" class="form-control form-control-lg" id="emp_department" name="emp_department" placeholder="부서">
-	                   </div>
-	 				   <div class="form-group" >
-	                    <input type="text" class="form-control form-control-lg" id="emp_position" name="emp_position" placeholder="직위">
-	                   </div>
-	 				   <div class="form-group" >
-	                    <input type="text" class="form-control form-control-lg" id="emp_status" name="emp_status" placeholder="재직구분">
-	                   </div>
-	 				   <div class="form-group" >
-	                    <input type="date" class="form-control form-control-lg" id="join_date" name="join_date" placeholder="입사일">
-	                   </div>
-
-		                  	<input type="submit" value="등록하기">
-	          		</form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- content-wrapper ends -->
-    </div>
-    <!-- page-body-wrapper ends -->
-  </div>
-  <!-- container-scroller -->
-  <!-- base:js -->
-  <script src="${pageContext.request.contextPath}/resources/vendors/base/vendor.bundle.base.js"></script>
-  <!-- endinject -->
-  <!-- inject:js -->
-  <script src="${pageContext.request.contextPath}/resources/js/template.js"></script>
-  <!-- endinject -->
+	<form action="" method="post" >
+		<table border="1">
+			<tr>
+				<th>사원사진</th>
+				<th>사번</th>
+				<td><input type="text" name="emp_id" readonly value="${generatedNumber}"></td>
+				<th>비밀번호</th>
+				<td><input type="password" name="emp_pw"></td>
+				<th>이름</th>
+				<td><input type="text" name="emp_name"></td>
+			</tr>
+			<tr>
+				<td rowspan="4">이미지</td>
+				<th>생년월일</th>
+				<td><input type="text" name="emp_birth"></td>
+				<th>휴대전화</th>
+				<td><input type="text" name="emp_phone"></td>
+				<th>이메일</th>
+				<td><input type="text" name="emp_email"></td>
+			</tr>
+			<tr>
+				<th>주소</th>
+				<td colspan="5"><input type="text" name="emp_address"></td>
+			</tr>
+			<tr>
+				<th>성별</th>
+				<td>
+					<label><input type="radio" name="emp_gender" value="남">남</label>
+					<label><input type="radio" name="emp_gender" value="여">여</label>
+				</td>			
+				<th>부서</th>
+				<td><select name="emp_department">
+						<option value="전산팀">전산팀</option>
+						<option value="인사팀">인사팀</option>
+						<option value="생산팀">생산팀</option>
+						<option value="구매팀">구매팀</option>
+						<option value="영업팀">영업팀</option>
+				</select></td>
+				<th>직급</th>
+				<td><select name="emp_position">
+						<option value="사장">사장</option>
+						<option value="부장">부장</option>
+						<option value="차장">차장</option>
+						<option value="과장">과장</option>
+						<option value="대리">대리</option>
+						<option value="사원">사원</option>
+				</select></td>
+			</tr>
+			<tr>
+				<th>내선번호</th>
+				<td><input type="text" name="emp_tel"></td>			
+				<th>재직구분</th>
+				<td><select name="emp_status">
+						<option value="재직">재직</option>
+						<option value="휴직">휴직</option>
+						<option value="복직">복직</option>
+						<option value="퇴직">퇴직</option>
+				</select></td>
+				<th>입사일</th>
+				<th><input type="text" name="join_date"></th>
+			</tr>
+			<tr>
+				<td><input type="file" multiple name="emp_image" accept="image/*" value="이미지등록"></td>
+				<th>휴직일</th>
+				<td><input type="text" name="absence_date"></td>			
+				<th>복직일</th>
+				<td><input type="text" name="rehabi_date"></td>
+				<th>퇴사일</th>
+				<td><input type="text" name="resign_date"></td>
+			</tr>
+			
+		</table>
+		<input type="submit" value="사원등록">
+	</form>
+	
 </body>
 </html>

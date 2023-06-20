@@ -34,13 +34,10 @@ public class InventoryController {
 		// View페이지 정보 전달
 		model.addAttribute("inventoryList",inventoryList);
 		
-		
-	
-	
 	}
 	// http://localhost:8088/purchasing/inventory/modify
 	
-	// 재고 수정 입력하기
+	// 재고 수정 하기위해 아이디 가져오기
 	@RequestMapping(value = "/modify" , method = RequestMethod.GET)
 	public void modifyInventoryGET(MaterialVO mvo) {
 	 logger.debug("@@@@@modifyINVGET()호출!@@@@@");

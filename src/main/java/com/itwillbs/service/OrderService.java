@@ -12,4 +12,7 @@ public interface OrderService {
 	// 발주등록 하기
 	public void orderInsert(OrderVO vo);
 	
+    // 발주수정하기
+	public Integer modifyOrder(OrderVO mvo);
+	
 }

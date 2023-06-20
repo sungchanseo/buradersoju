@@ -51,35 +51,37 @@ public class InMaterialDAOImpl implements InMaterialDAO {
 		return null;
 	}
 
+	
+	// 4. 입고번호 최대값 (maxNumber) 230620004
+	@Override
+	public String getMaxNumber() {
+		String maxNumber = sqlSession.selectOne(NAMESPACE + ".getMaxNumber"); // 230620001
+		logger.debug("############## maxNumber : " + maxNumber);	
+//	    return (maxNumber != null) ? maxNumber : 1;
+		return maxNumber;
+	}
 
-	// 4. 입고번호 등록하기
+	
+	// 5. 입고번호 최대날짜(maxDate) 230620
+	@Override
+	public String getMaxDate() {
+		String maxDate = sqlSession.selectOne(NAMESPACE + ".getMaxDate"); // 230620
+		logger.debug("############## maxDate : " + maxDate);
+		return maxDate;
+	}
+	
+	
+	// 6. 입고번호 등록하기
 	@Override
 	public void registInId(InMaterialVO vo) {
 		logger.debug("########## resgistInId 호출");
-		logger.debug("########## " + vo.getIn_id());
+		logger.debug("########## " + vo.getIn_id());	// 2번째값부터 IM + 날짜만들어감
 		logger.debug("########## " + vo.getOrder_id());
-
+		
 		sqlSession.update(NAMESPACE + ".registInId", vo);
 	}
-	
-	
-	// 5. 입고번호 자동부여
-	@Override
-	public int getNextNumber() {
-		Integer nextNumber = sqlSession.selectOne(NAMESPACE + ".getNextNumber");
-		logger.debug("############## nextNumber : " + nextNumber);
-//	    return (nextNumber != null) ? nextNumber : 1;
-	    return (nextNumber != null) ? nextNumber : 1;
-	}
 
-
-	// 6. 입고번호 최대값 들고오기
-	@Override
-	public int getMaxNumber() {
-		Integer maxNumber = sqlSession.selectOne(NAMESPACE + ".getMaxNumber");
-		logger.debug("############## maxNumber : " + maxNumber);
-		return maxNumber;
-	}
+	
 	
 	
 	

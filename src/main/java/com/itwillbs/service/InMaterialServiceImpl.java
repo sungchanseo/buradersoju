@@ -42,25 +42,27 @@ public class InMaterialServiceImpl implements InMaterialService {
 	}
 
 	
-	// 4. 입고번호 등록하기
+	// 4-1. 입고번호 최대값 (maxNumber) 230620004
+	@Override
+	public String getMaxNumber() throws Exception {
+		return idao.getMaxNumber();
+	}
+	
+	
+	// 4-2. 입고번호 최대날짜 (maxDate) 230620
+	@Override
+	public String getMaxDate() throws Exception {
+		return idao.getMaxDate();
+	}
+	
+	
+	// 5. 입고번호 등록하기
 	@Override
 	public void registInId(InMaterialVO vo) throws Exception{
 		idao.registInId(vo);
 	}
 
 	
-	// 5. 입고번호 자동부여
-	@Override
-	public int getNextNumber() throws Exception {
-        return idao.getNextNumber();
-	}
-
-	
-	// 6. 입고번호 최대값 가져오기
-	@Override
-	public int getMaxNumber() throws Exception {
-		return idao.getMaxNumber();
-	}
 	
 	
 	

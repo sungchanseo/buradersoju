@@ -15,13 +15,14 @@ public interface InMaterialService {
 	// 3. 입고 상세보기
 	public InMaterialVO getInMaterialInfo(String in_id) throws Exception;
 	
-	// 4. 입고번호 등록하기
+	// 4-1. 입고번호 최대값 (maxNumber) 230620004
+	public String getMaxNumber() throws Exception;
+
+	// 4-2. 입고번호 최대날짜 (maxDate) 230620
+	public String getMaxDate() throws Exception;
+
+	// 5. 입고번호 등록하기
 	public void registInId(InMaterialVO vo) throws Exception;
 	
-	// 5. 입고번호 자동부여
-	public int getNextNumber() throws Exception;
-	
-	// 6. 입고번호 최대값 가져오기
-	public int getMaxNumber() throws Exception;
 	
 }

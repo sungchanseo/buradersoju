@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.domain.InMaterialVO;
 import com.itwillbs.service.InMaterialService;
@@ -35,54 +36,46 @@ public class InMaterialController {
 	
 	
 	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ메서드 정의ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-	// 1-1. 입고 리스트   - 출력
+	// 1-1. 입고 리스트 출력
 	@RequestMapping(value="/list", method=RequestMethod.GET)
 	public void inMaterialListAllGET(Model model) throws Exception{
 		logger.debug("@@@@@@@@@@ inMaterialListAllGET()_호출");
-		
-		// Service 객체 호출
+
 		List<InMaterialVO> inMaterialList =  iService.getInMaterialListAll();
-		
-		// View 페이지에 정보 전달
 		model.addAttribute("inMaterialList", inMaterialList);
 	}
 	
-	// 1-2. 입고 리스트   - 입고처리
-	@RequestMapping(value="/list", method=RequestMethod.POST)
-	public void inMaterialListAllPOST(Model model, @RequestParam("in_id") String in_id,
-			                                       @RequestParam("order_id") String order_id) throws Exception{
-		logger.debug("@@@@@@@@@@ inMaterialListAllPOST()_호출");
+	
+	// 2-1. 입고번호 - 자동넘버링
+	@RequestMapping(value="/inid", method=RequestMethod.GET)
+	public String getInIdGET(Model model) throws Exception {
+		logger.debug("@@@@@@@@@@ getInIdGET() 호출");
 		
-		// Service 객체 호출
-		// 1. 입고번호, 발주번호 DB에 저장
+		String maxNumber = iService.getMaxNumber();
+		String maxDate = iService.getMaxDate();
+		logger.debug("@@@@@@@@@@@@@@ maxNumber = " + maxNumber);	// "230620001"
+		logger.debug("@@@@@@@@@@@@@@ maxDate = " + maxDate);	    // "230620"
+		model.addAttribute("maxNumber", maxNumber);
+		model.addAttribute("maxDate", maxDate);
+		
+		return "redirect:/purchasing/inMaterial/list";
+	}
+	
+	
+	// 2-2. 입고번호 - DB 업데이트
+	@RequestMapping(value="/inid", method=RequestMethod.POST)
+	public void getInIdPOST(Model model, @RequestParam("in_id") String in_id,
+			                               @RequestParam("order_id") String order_id) throws Exception{
+		logger.debug("@@@@@@@@@@ getInIdPOST()_호출");
+
+		// 입고번호, 발주번호 DB에 저장
 		InMaterialVO vo = new InMaterialVO();
 		vo.setIn_id(in_id);
-		vo.setOrder_id(order_id);
+		vo.setOrder_id(order_id);	
+		logger.debug("@@@@@@@@@@ in_id = " + vo.getIn_id());
 		iService.registInId(vo);
-		
-		// 2. 자동 넘버링
-		int nextNumber = iService.getNextNumber();
-		int maxNumber = iService.getMaxNumber();
-		logger.debug("@@@@@@@@@@@@@@ nextNumber = " + nextNumber);
-		logger.debug("@@@@@@@@@@@@@@ maxNumber = " + maxNumber);
-		model.addAttribute("nextNumber", nextNumber);
-		model.addAttribute("maxNumber", maxNumber);
-		
-		
-		
-		// 1-1. 입고리스트
-		// Service 객체 호출
-		List<InMaterialVO> inMaterialList =  iService.getInMaterialListAll();
-		
-		// View 페이지에 정보 전달
-		model.addAttribute("inMaterialList", inMaterialList);
+		logger.debug("@@@@@@@@@@ in_id = " + vo.getIn_id());
 	}
-	
-	
-	
-	
-	
-	
 	
 	
 	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ메서드 정의ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ

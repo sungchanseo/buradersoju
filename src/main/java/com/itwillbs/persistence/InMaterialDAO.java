@@ -18,12 +18,13 @@ public interface InMaterialDAO {
 	// 3. 입고 상세보기
 	public InMaterialVO getInMaterialInfo(String in_id);
 	
-	// 4-1. 입고번호 등록하기
-	public void registInId(InMaterialVO vo);
-
-	// 4-2. 입고번호 자동부여
-	public int getNextNumber();
+	// 4-1. 입고번호 최대값(maxNumber) 230620004
+	public String getMaxNumber();
 	
-	// 4-3. 입고번호 최대값 들고오기
-	public int getMaxNumber();
+	// 4-2. 입고번호 최대날짜(maxDate) 230620
+	public String getMaxDate();
+	
+	// 4-3. 입고번호 등록하기
+	public void registInId(InMaterialVO vo);
+	
 }

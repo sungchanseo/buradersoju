@@ -43,7 +43,7 @@
 			and a.production_id = #{production_id}
 		</select>
 	<!-- 작업지시번호 조회 -->
-	<!-- DB등록 -->
+	<!-- 검수 정보 DB등록 -->
 		<insert id="qInsertDB">
 			insert into qc
 			(qc_num, qc_emp, qc_date, qc_qty, qc_state, production_id)
@@ -54,14 +54,32 @@
 			(qc_num, def_code, def_qty)
 			values (#{qc_num},#{def_code},#{def_qty})
 		</insert>
-	<!-- DB등록 -->
+	<!-- 검수 정보 DB등록 -->
 <!--    검수 등록    -->
 
 <!-- 공병 관리 -->
+	<!-- 공병 목록 가져오기 -->
+	
+	<!-- 공병 목록 가져오기 -->
 	<select id="bottleList" resultType="com.itwillbs.domain.ProductionVO">
 		select *
 			from empty_bottle
 	</select>
+	<!-- 공병 수량 DB등록 -->
+	<insert id="btInsert">
+		insert into empty_bottle
+		(bt_date,bt_qty)
+		values (#{bt_date},#{bt_qty})
+	</insert>
+	<!-- 공병 수량 DB등록 -->
+	<!-- 공병 불량 DB등록 -->
+	<update id="btUpdate">
+		update empty_bottle
+		set bt_defQty = #{bt_defQty}
+		where bt_date = date_format(#{bt_date}, '%Y-%m-%d %H:%i:%s')
+	</update>
+	<!-- 공병 불량 DB등록 -->
+	
 <!-- 공병 관리 -->
 
 

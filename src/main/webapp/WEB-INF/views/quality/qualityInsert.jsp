@@ -68,15 +68,11 @@
         <th>생산량</th>
     </tr>
     </thead>
-    <tbody>
-    
+    <tbody> <!-- 검색 결과 추가되는 공간 -->
+    	
 	</tbody>
 	</table>
 	  <br>
-	  <script>
-// 	  var qc_num1 = "QC";
-// 	  var qc_num2 = "23";
-	  </script>
 	
 		<table>
 				<tr>
@@ -96,20 +92,70 @@
 				 <tr>
 				 <td>불량</td>
 				 <td>
-					<select class="def_select1" name="def_code">
+					<select class="def_select1" id="def_code1" name="def_code1">
 <!-- 						<option value="DE100">DE100</option> -->
 						<option value="DE210">DE210</option>
 						<option value="DE220">DE220</option>
 						<option value="DE230">기타</option>
 					</select> </td>
-				 <td> <input type="text" id="def_qty" name="def_qty"></td> <!-- 입력 제한 넣기 (패턴이 안됨..) -->
+				 <td> <input type="text" id="def_qty1" name="def_qty1" pattern="[0-9]*"></td> <!-- 입력 제한 넣기 (패턴이 안됨..) -->
 				 <td> <input type="button" id="plusBT1" value="추가"></td>
 				 </tr>
 		</table>
-		<input type="submit">
+<!-- 		<input type="submit" > -->
+		<button type="submit" id="submitBT" >등록</button>
+		
+		<!-- 불량 값 컬럼 하나에 담기 -->
+		<script>
+		  $(document).ready(function() {
+			// 불량 값 정리 함수 생성
+			  function setDef(){
+					var def_code;
+					var def_qty;
+					
+					var def_code1 = $("#def_code1").val();
+					var def_code2 = "";
+					def_code2 = $("#def_code2").val();
+					var def_code3 = "";
+					def_code3 =	$("#def_code3").val();
+					
+					var def_qty1 = Number($("#def_qty1").val());
+					var def_qty2 = "";
+					def_qty2 = Number($("#def_qty2").val());
+					var def_qty3 = "";
+					def_qty3 = Number($("#def_qty3").val());
+					
+					if(def_code3 != null){
+						def_code = def_code1+"/"+def_code2+"/"+def_code3;
+						def_qty = (def_qty1+def_qty2+def_qty3);
+					}else if(def_code2 != null){
+						def_code = def_code1+"/"+def_code2;
+						def_qty = (def_qty1+def_qty2);
+					}else{
+						def_code = def_code1;
+						def_qty = def_qty1;
+					}
+// 					alert(def_code+"/"+def_qty);
+					 $("#defInsert").html(
+					 "<input type='hidden' name='def_code' value='"+def_code+"'>"+
+					 "<input type='hidden' name='def_qty' value='"+def_qty+"'>"
+					 );
+					}
+			  
+			  // 버튼 눌렀을때 함수 호출 & 전송 & 팝업창 닫기 & 부모창 새로고침
+		      $("#submitBT").click(function() {
+		    	  setDef();
+		    	  $("#inputInsert").submit();
+		          setTimeout(function() {   
+		       	  opener.parent.location.reload();
+		    	  window.close(); // 팝업 창 닫기
+		          }, 200);
+		      });
+		 });
+		</script>
 	</form>
+
 	  <!-- 불량 입력창 추가 -->
-	  <!-- 수정중 -->
 	  <script>
 	  $(document).ready(function() {
 		    var maxRows = 3; // 최대 행 수
@@ -119,14 +165,14 @@
 		            var newRow = "<tr>" +
 		                         "<td>불량</td>" +
 		                         "<td>" +
-		                         "<select class='def_select' name='def_code" + (1+currentRows) + "'>" +
+		                         "<select class='def_select' id='def_code"+ (1+currentRows) +"' name='def_code" + (1+currentRows) + "'>" +
 // 		                         "<option value='DE100'>DE100</option>" + // 생산시 불량등록 코드라 일단 제외
 		                         "<option value='DE210'>DE210</option>" +
 		                         "<option value='DE220'>DE220</option>" +
 		                         "<option value='DE230'>기타</option>" +
 		                         "</select>" +
 		                         "</td>" +
-		                         "<td><input type='text' id='def_qty' name='def_qty" + (1+currentRows) +"'></td>" +
+		                         "<td><input type='text' id='def_qty"+ (1+currentRows) +"' name='def_qty" + (1+currentRows) +"'></td>" +
 		                         "</tr>";
 	
 		            $("#defInsert").append(newRow);

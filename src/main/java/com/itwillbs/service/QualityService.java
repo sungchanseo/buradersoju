@@ -28,7 +28,11 @@ public interface QualityService {
 	// 공병 관리
 	public List<ProductionVO> getBottleList() throws Exception;
 	
+	// 공병관리 - 수량 등록
+	public void btInsert(ProductionVO vo);
 	
+	// 공병관리 - 불량 등록
+	public void btUpdate(ProductionVO vo) throws Exception;
 	
 	
 }

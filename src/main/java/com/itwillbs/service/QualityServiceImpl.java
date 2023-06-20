@@ -59,6 +59,18 @@ public class QualityServiceImpl implements QualityService {
 		return qdao.getBottleList();
 	}
 
+	@Override
+	public void btInsert(ProductionVO vo) {
+		qdao.btInsert(vo);
+		
+	}
+
+	@Override
+	public void btUpdate(ProductionVO vo) throws Exception {
+		qdao.btUpdate(vo);
+		
+	}
+
 
 	
 	

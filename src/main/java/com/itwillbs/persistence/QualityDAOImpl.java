@@ -63,10 +63,7 @@ public class QualityDAOImpl implements QualityDAO {
 		@Override
 		public void qualityInsertDB(ProductionVO vo) {
 			logger.info("@@@@검수 등록 등록시작@@@@");
-			
-			
-			
-			
+				
 			int result = sqlSession.insert(NAMESPACE+".qInsertDB", vo);
 			sqlSession.insert(NAMESPACE+".qInsertDB2", vo);
 			
@@ -79,6 +76,19 @@ public class QualityDAOImpl implements QualityDAO {
 		public List<ProductionVO> getBottleList() throws Exception {
 			logger.info("@@@@공병 목록 가져오기@@@@");
 			return sqlSession.selectList(NAMESPACE+".bottleList");
+		}
+
+		@Override
+		public void btInsert(ProductionVO vo) {
+			int result = sqlSession.update(NAMESPACE+".btInsert", vo);
+			
+			if(result != 0)
+				logger.debug("저장 완료!");
+		}
+
+		@Override
+		public void btUpdate(ProductionVO vo) throws Exception {
+			sqlSession.update(NAMESPACE+".btUpdate", vo);
 		}
 
 

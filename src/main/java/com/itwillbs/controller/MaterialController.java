@@ -127,18 +127,10 @@ public class MaterialController {
 		// 페이지 이동
 		return "redirect:/purchasing/material/list";
 	} 
+
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	
 	

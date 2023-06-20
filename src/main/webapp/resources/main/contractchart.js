@@ -51,7 +51,7 @@ $(document).ready(function(){
 							yAxes: [{
 								ticks: {
 									fontSize: 20, // Y축 레이블 값의 글자 크기
-									stepSize: 0.25,
+									stepSize: 0.5,
 									min: 0
 								}
 							}]

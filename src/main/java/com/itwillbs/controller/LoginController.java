@@ -15,7 +15,7 @@ import com.itwillbs.domain.LoginVO;
 import com.itwillbs.service.LoginService;
 
 @Controller
-@RequestMapping(value = "/member/*")
+@RequestMapping(value = "/main/*")
 public class LoginController {
 	//3-1. 서비스 처리 객체를 주입(DI)
 	@Inject
@@ -27,7 +27,7 @@ public class LoginController {
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginGET() throws Exception{
 		logger.info("C: 로그인 입력페이지 GET");
-		return "/member/loginForm";
+		return "/main/loginForm";
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -67,7 +67,7 @@ public class LoginController {
 		session.invalidate();
 		
 		//return "redirect:/member/login";
-		return "redirect:/member/login";
+		return "redirect:/main/login";
 	}
 
 }

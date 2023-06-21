@@ -25,6 +25,7 @@ public class InventoryController {
 	
 	// 재고리스트 보기 - /inventory/list (GET)
 	// http://localhost:8088/purchasing/inventory/list
+	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public void listGET(Model model , MaterialVO vo){
 		logger.debug("@@@@@listGET()호출!@@@@@");
@@ -35,6 +36,23 @@ public class InventoryController {
 		model.addAttribute("inventoryList",inventoryList);
 		
 	}
+	
+	// 재고 등록 처리
+
+	@RequestMapping(value = "/list", method = RequestMethod.POST)
+	public String insertPOST(MaterialVO vo){
+		
+		logger.debug("@@@@ 재고등록 행추가@@@@");
+//		logger.debug("@@@@ 재고등록 행추가@@@@" + vo);
+		
+		logger.debug("vo:"+ vo.getMa_id());
+		
+		invservice.insertInventory(vo);
+		
+		return "redirect:/purchasing/inventory/list";
+		
+	}
+	
 	// http://localhost:8088/purchasing/inventory/modify
 	
 	// 재고 수정 하기위해 아이디 가져오기
@@ -59,5 +77,9 @@ public class InventoryController {
 			
 			return "redirect:/purchasing/inventory/list";    	    	
 	}
+	
+	
+	// http://localhost:8088/purchasing/inventory/list
+
    
 }

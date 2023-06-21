@@ -7,6 +7,18 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script>
+
+
+$(document).ready(function(){
+
+	
+
+	
+	
+	
+});
+</script>
 </head>
 <body>
 
@@ -19,6 +31,7 @@
 	<tr>
 		<th>입고번호</th>
 		<th>발주번호</th>
+		<th>상세</th>
 		<th>품명</th>
 		<th>입고수량</th>
 		<th>입고일</th>
@@ -30,7 +43,13 @@
       <c:forEach var="iml" items="${inMaterialList }">
          <tr>
 			<td>${iml.in_id }</td>
-			<td>${iml.order_id }</td>
+			<td>${iml.order_id }</td>			
+			<td>
+				<a href="info?order_id=${iml.order_id }"
+				   onclick="window.open(this.href, '_blank', 'width=900, height=350, left=510, top=365'); return false;">
+						<img class="viewDetail" src="${pageContext.request.contextPath}/resources/images/viewDetail.png" width="25px" height="25px" alt="image" />
+				</a>
+			</td>
 			<td>${iml.in_maName }</td>
 			<td>${iml.in_qty }</td>
 			<td>${iml.in_date }</td>
@@ -50,7 +69,6 @@
          </tr>
       </c:forEach>
 	</table>
-
 
 
 </body>

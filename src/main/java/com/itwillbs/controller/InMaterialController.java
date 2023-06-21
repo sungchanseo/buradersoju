@@ -71,6 +71,18 @@ public class InMaterialController {
 	}
 	
 	
+	// 3. 입고 상세보기
+	@RequestMapping(value = "/info", method=RequestMethod.GET)
+	public void viewInfo() throws Exception{
+		logger.debug("@@@@@@@@@@ viewInfo()_호출");
+		
+		
+		
+		
+		
+	}
+	
+	
 	
 	
 	

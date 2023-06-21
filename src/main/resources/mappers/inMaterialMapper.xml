@@ -37,9 +37,13 @@
 		where order_id = #{order_id}
  	</insert>
  <!-- in_id 입고번호 등록 -->
+
  
- 
- 	
+ <!-- 입고 정보 상세보기 -->	
+	<select id="getInfo" resultType="com.itwillbs.domain.InMaterialVO">
+		
+	</select>	
+ <!-- 입고 정보 상세보기 -->	
  	
  	
  	

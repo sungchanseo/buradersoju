@@ -10,7 +10,10 @@ public interface EmployeeService {
 	public void insertEmployee(EmployeeVO vo);
 	
 	// 사원 번호 자동 부여
-	int getNextNumber() throws Exception;
+	public int getNextNumber() throws Exception;
+	
+    // 마지막으로 생성된 번호 조회
+    String getLastGeneratedNumber() throws Exception;
 	
 	// 사원리스트
 	public List<EmployeeVO> getEmployeeList();

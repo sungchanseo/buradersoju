@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.itwillbs.domain.EmployeeVO;
 import com.itwillbs.service.EmployeeService;
@@ -30,23 +29,33 @@ public class EmployeeController {
 	// 회원가입
 	@RequestMapping(value = "/insert", method = RequestMethod.GET)
 	public void insertGET() throws Exception {
-		logger.debug("C: 회원가입 입력페이지 GET");
-		
-//		return "/employee/insert";
+	    logger.debug("C: 회원가입 입력페이지 GET");
+
+//	    return "/employee/insert";
 	}
 	
 	// http://localhost:8088/employee/insert
 	// 회원가입
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
-	public String insertPOST(MultipartFile[] file, EmployeeVO vo) throws Exception {
+	public String insertPOST(EmployeeVO vo) throws Exception {
 		logger.debug("insertPOST() 호출!");
 		logger.debug("controller : {} ", vo);
+
         // 현재 연도 가져오기
         LocalDateTime now = LocalDateTime.now();
         String year = String.valueOf(now.getYear());
 
         // 다음 번호 가져오기
         int nextNumber = eService.getNextNumber();
+        
+        // 현재 연도와 다음 번호의 년도 비교
+        String lastGeneratedNumber = eService.getLastGeneratedNumber();
+        String lastYear = lastGeneratedNumber.substring(0, 4);
+        
+        if (!year.equals(lastYear)) {
+            // 년도가 변경된 경우
+            nextNumber = 1; // 다음 번호를 1로 초기화
+        }
 
         // 3자리 번호로 포맷팅
         String threeDigitNumber = String.format("%03d", nextNumber);
@@ -58,7 +67,7 @@ public class EmployeeController {
 		// 사원원등록을 위한 Service 메서드 호출
 		eService.insertEmployee(vo);
 		
-		return "redirect:/member/login";
+		return "redirect:/employee/list";
 	}
 	
 	// http://localhost:8088/employee/list

@@ -58,29 +58,47 @@ public class ContractServiceImpl implements ContractService {
 	public void registContract(ContractVO cvo) throws Exception{
 		logger.debug("@@@@@@ContractService : 수주 등록하기 실행합니다.");
 		
-			
-		
 		
 		///////////cont_id 조합하기 시작!///////////
+		//먼저 디비 데이터의 가장 최신 자료를 불러온다. 
+		String lastId = cdao.getLastGeneratedNumber();
+		logger.debug("@@@@@@ContractService : {}", lastId);
+		
+		//cont_id 접두사
 		String prefix = "CO";
-        
-        // 현재 날짜
-        LocalDate currentDate = LocalDate.now();
-        String datePart = currentDate.toString().replace("-", ""); // 년월일 8글자
-        
-        // 카운트 부분
-        String countPart = String.format("%03d", 1); // 001부터 시작
-        
-        
-        // 문자열 조합
-        String result = prefix + datePart + countPart;
-       
-        
-//        if(countPart !="1") {
-//        	int countPartUp = Integer.parseInt(cvo.getCont_id().substring(-3));
-//        	countPartUp +=1;
-//        }
-        cvo.setCont_id(result);
+		
+		// 현재 날짜를 계산한다. 
+		LocalDate currentDate = LocalDate.now();
+		String datePart = currentDate.toString().replace("-", "").substring(2, 8); // 년월일 6글자
+	
+		// 1부터 시작하는 카운트를 생성한다. 
+		String countPart = String.format("%03d", 1);// 001부터 시작
+		    	
+		
+		if(lastId != null) {
+			//가운트 부분을 추려낸다. 
+			String datePartUp = lastId.substring(2,8);
+			Integer countPartUp = Integer.parseInt(lastId.substring(9,11));
+			logger.debug("@@@@@@ContractService : {}", datePartUp);
+			logger.debug("@@@@@@ContractService : {}", countPartUp);
+			
+			
+			
+			//날짜부분이 같고 끝번호가 1이상일 때는 1을 더해서 카운트한다.  
+			if(datePart == datePartUp) {
+				LocalDate nextDay = currentDate.plusDays(1);
+				datePart = nextDay.toString().replace("-", "").substring(2, 8); 
+			}
+			if(countPartUp >= 1) {
+				countPartUp +=1;
+				countPart = String.format("%03d", countPartUp);
+			}
+			// 접두사+날짜+카운트를 조합한다.
+		}
+		String result = prefix + datePart + countPart;
+		logger.debug("@@@@@@ContractService : {}", result);
+
+		cvo.setCont_id(result);
 		///////////cont_id 조합하기 끝!///////////
 
 		cdao.insertContract(cvo);

@@ -9,13 +9,13 @@
 </head>
 <body>
 	<h1>수주 등록하기</h1>
-	<form role="form" id="cInput" action="" method="post">
+	<form role="form" action="" method="post">
 		<table border="1">
 			<tr>
 				<th>수주처이름</th>
-				<td><input type="text" name="cust_name" required="required"></td>
+				<td><input type="text" name="cust_name"></td>
 				<th>상품명</th>
-				<td><input type="text" name="product_name" required="required"></td>
+				<td><input type="text" name="product_name"></td>
 				<th>담당자</th>
 				<td><input type="text" name="cont_emp"></td>
 			</tr>
@@ -45,7 +45,7 @@
 	<script>
 		function sendForm() {
 			//상단의 폼태그를 변수에 저장한다. 
-			var formObject = $("form[role='form']").serialize();
+			var formObject = $("form[role='form']").serializeArray();
 			var status = true;
 
 			alert(formObject);

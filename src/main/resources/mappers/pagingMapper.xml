@@ -44,12 +44,57 @@
 	</select>
 <!-- 검색어+필터처리+페이지갯수 제한 전체 목록 가져오기  -->
 
+<!-- resultMap 맵핑 -->
+<!--
+<resultMap type="ContractVO" id="resultMaping">
+	<id property="cont_id" column="id"/>
+	<result property="contract" column="table"/>
+	<result property="cont_status" column="status_name"/>
+	<result property="startRow" column="startRow"/>
+	<result property="pageSize" column="pageSize"/>
+</resultMap>
+<resultMap type="CustomerVO" id="resultMaping">
+	<id property="cust_id" column="id"/>
+	<result property="customer" column="table"/>
+	<result property="cont_status" column="status_name"/>
+	<result property="startRow" column="startRow"/>
+	<result property="pageSize" column="pageSize"/>
+</resultMap>
+-->
+	<resultMap type="PagingVO" id="BaseResultMap">
+		<!-- 공통 속성과 컬럼 매핑 -->
+		<id property="id" column="id"/>
+		<result property="table" column="table"/>
+		<result property="status_name" column="status_name"/>
+		<result property="startRow" column="startRow"/>
+		<result property="pageSize" column="pageSize"/>
+	</resultMap>
+	
+	<!-- ContractVO resultMap 맵핑 -->
+	<resultMap type="ContractVO" id="ContractResultMap" extends="BaseResultMap">
+		<result property="contract" column="table"/>
+		<result property="cont_id" column="status_name"/>
+		<result property="startRow" column="startRow"/>
+		<result property="pageSize" column="pageSize"/>
+	</resultMap>
+	
+	<!-- CustomerVO resultMap 맵핑 -->
+	<resultMap type="CustomerVO" id="CustomerResultMap" extends="BaseResultMap">
+		<!-- 추가적인 속성과 컬럼 매핑 -->
+		<result property="table" column="table"/>
+		<result property="status_name" column="status_name"/>
+		<result property="startRow" column="startRow"/>
+		<result property="pageSize" column="pageSize"/>
+	</resultMap>
+
+<!-- resultMap 맵핑 -->
+
 
 <!-- 아무조건이 없을 때 목록 배열 가져오기  -->
-	<select id="getListPageSizeObject" resultType="ContractVO">
-		SELECT * FROM ${table} 
-		WHERE ${status_name}=${status_value} 
-		ORDER BY ${id} DESC LIMIT #{startRow}, #{pageSize}
+	<select id="getListPageSizeObject" resultMap="BaseResultMap">
+		SELECT * FROM #{table} 
+		WHERE ${status_name} = ${status_value} 
+		ORDER BY #{id} DESC LIMIT #{startRow}, #{pageSize}
 	</select>
 <!-- 아무조건이 없을 때 목록갯수 가져오기  -->	
 	

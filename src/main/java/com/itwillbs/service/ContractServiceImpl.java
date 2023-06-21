@@ -2,9 +2,12 @@ package com.itwillbs.service;
 
 import java.time.LocalDate;
 
+import javax.inject.Inject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import com.itwillbs.domain.ContractVO;
@@ -49,11 +52,14 @@ public class ContractServiceImpl implements ContractService {
 		logger.debug("@@@@@@ContractService : 수주 상세보기 실행합니다.");
 		return cdao.readContractInfo(cont_id);
 	}
-	
+
 	//수주 등록하기
 	@Override
 	public void registContract(ContractVO cvo) throws Exception{
 		logger.debug("@@@@@@ContractService : 수주 등록하기 실행합니다.");
+		
+			
+		
 		
 		///////////cont_id 조합하기 시작!///////////
 		String prefix = "CO";
@@ -65,8 +71,15 @@ public class ContractServiceImpl implements ContractService {
         // 카운트 부분
         String countPart = String.format("%03d", 1); // 001부터 시작
         
+        
         // 문자열 조합
         String result = prefix + datePart + countPart;
+       
+        
+//        if(countPart !="1") {
+//        	int countPartUp = Integer.parseInt(cvo.getCont_id().substring(-3));
+//        	countPartUp +=1;
+//        }
         cvo.setCont_id(result);
 		///////////cont_id 조합하기 끝!///////////
 

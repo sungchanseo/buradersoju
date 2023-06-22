@@ -56,17 +56,17 @@ public class InventoryController {
 	// http://localhost:8088/purchasing/inventory/modify
 	
 	// 재고 수정 하기위해 아이디 가져오기
-	@RequestMapping(value = "/modify" , method = RequestMethod.GET)
-	public void modifyInventoryGET(MaterialVO mvo) {
-	 logger.debug("@@@@@modifyINVGET()호출!@@@@@");
-		
-	 MaterialVO inventoryModify = invservice.modifyInventoryID(mvo.getMa_id());
-	  
-	 logger.debug("inventoryModify" + mvo.getMa_id());
-	 logger.debug("inventoryModify" + inventoryModify);
-		
-	}
-	
+//	@RequestMapping(value = "/modify" , method = RequestMethod.GET)
+//	public void modifyInventoryGET(MaterialVO mvo) {
+//	 logger.debug("@@@@@modifyINVGET()호출!@@@@@");
+//		
+//	 MaterialVO inventoryModify = invservice.modifyInventoryID(mvo.getMa_id());
+//	  
+//	 logger.debug("inventoryModify" + mvo.getMa_id());
+//	 logger.debug("inventoryModify" + inventoryModify);
+//		
+//	}
+//	
 	// 재고수정 디비처리
 	@RequestMapping(value="/modify", method= RequestMethod.POST)
 	public String modifyInventoryPOST(MaterialVO mvo) {

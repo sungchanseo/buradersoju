@@ -19,6 +19,12 @@ public interface QualityService {
 	// 검수등록 - 조회
 	public ProductionVO getInsertSearch(String production_id);
 	
+	// 4-1. 입고번호 최대값 (maxNumber) 230620004
+	public String getMaxNumber() throws Exception;
+
+	// 4-2. 입고번호 최대날짜 (maxDate) 230620
+	public String getMaxDate() throws Exception;
+	
 	// 검수등록 - 등록
 	public void qualityInsertDB(ProductionVO vo);
 	

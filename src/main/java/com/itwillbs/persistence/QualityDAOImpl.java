@@ -59,6 +59,21 @@ public class QualityDAOImpl implements QualityDAO {
 			// TODO Auto-generated method stub
 			return null;
 		}
+		
+		// 자동넘버링 getMaxNumber
+		@Override
+		public String getMaxNumber() {
+			String maxNumber = sqlSession.selectOne(NAMESPACE + ".getMaxNumber"); // 230620001
+			logger.debug("############## maxNumber : " + maxNumber);
+			return maxNumber;
+		}
+		// 자동넘버링 getMaxDate
+		@Override
+		public String getMaxDate() {
+			String maxDate = sqlSession.selectOne(NAMESPACE + ".getMaxDate"); // 230620
+			logger.debug("############## maxDate : " + maxDate);
+			return maxDate;
+		}
 
 		@Override
 		public void qualityInsertDB(ProductionVO vo) {
@@ -90,6 +105,7 @@ public class QualityDAOImpl implements QualityDAO {
 		public void btUpdate(ProductionVO vo) throws Exception {
 			sqlSession.update(NAMESPACE+".btUpdate", vo);
 		}
+
 
 
 

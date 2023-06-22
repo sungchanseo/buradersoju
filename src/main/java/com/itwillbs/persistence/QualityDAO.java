@@ -23,6 +23,12 @@ public interface QualityDAO {
 	// 검수등록 - 조회
 	public ProductionVO getInsertSearch(String production_id);
 	
+	// 입고번호 최대값 (maxNumber) 230620004
+	public String getMaxNumber();
+	
+	// 입고번호 최대날짜 (maxDate) 230620
+	public String getMaxDate();
+
 	// 품질관리 - 검수 수정
 	public Integer updateQuality(ProductionVO pvo);
 	

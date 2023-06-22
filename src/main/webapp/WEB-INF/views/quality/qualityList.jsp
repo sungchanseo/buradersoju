@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<%@ include file="../includes/header.jsp"%>
 <meta charset="UTF-8">
 <!-- 제이쿼리 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
@@ -47,8 +48,8 @@
 	
 	<!-- 검색 -->
 	<div class="Qusearch">
-	<form name="QuCategory" action="" method="post">
-	<select class="Qusearch_select" name="searchType">
+	<form name="QuCategory" action="/quality/qualityList" method="get">
+	<select class="Qusearch_select" name="selector">
 		<option value="검수번호">검수번호</option>
 		<option value="작업지시번호">작업지시번호</option>
 		<option value="생산라인">생산라인</option>
@@ -63,10 +64,38 @@
 	<!-- 관리자에게만 보이는 검수등록 버튼 -->
 	<input type="button" id="qualityInsertBT" value="검수 등록"
 		onclick="window.open('/quality/qualityInsert', '_blank', 'width=600, height=500, left=2000');">
-	
+	<button class="print-button" onclick="info_print()">인쇄하기</button>
+		<script>
+			/* 인쇄하기 버튼 */
+			function info_print() {
+			  let initBody = document.body;
+			  let hiddenBtn = document.querySelector('.print-button'); 
+			  let hiddenHeader = document.querySelector('#header');
+			  let hiddenNavbar = document.querySelector('.navbar-device');
+			  let hiddenClearfix = document.querySelector('.clearfix');
+			 
+			  window.onbeforeprint = function () {
+			    hiddenBtn.style.display = "none";
+			    hiddenHeader.style.display = "none";
+			    hiddenNavbar.style.display = "none";
+			    hiddenClearfix.style.display = "none";
+			    document.body = document.querySelector('.main-container');
+			  }
+			  window.onafterprint = function () {
+			    hiddenBtn.style.display = "block";
+			    hiddenHeader.style.display = "block";
+			    hiddenNavbar.style.display = "block";
+			    hiddenClearfix.style.display = "block";
+			    document.body = initBody;
+			  }
+			  window.print();
+			} 
+		</script>
 	<!-- 품질관리현황표 출력 -->
 	<div class="qualityList">
+	
 	<table border='1'>
+	
 		<thead>
 			<tr>
 				<th>검수번호</th>
@@ -91,7 +120,7 @@
 				<input type="hidden" id="production_state" name="production_state" value=" ${vo.production_state}">
 			<tr class="qualityListResult">
 				<td><a href="/quality/qualityInfo?qc_num=${vo.qc_num }" onclick="window.open(this.href, '_blank', 'width=800, height=500, left=2000'); return false;">${vo.qc_num  }</a></td>
-				<td><a href="/production/info?production_id=${vo.production_id }">${vo.production_id }</a></td>
+				<td><a href="/production/workOrder?production_id=${vo.production_id }" onclick="window.open(this.href, '_blank', 'width=800, height=500, left=2000'); return false;">${vo.production_id }</a></td>
 				<td>${vo.production_line }</td>
 				<td>${vo.product_id }</td>
 				<td>${vo.product_name }</td>
@@ -107,5 +136,6 @@
 	</tbody>
 	</table>
 	</div>
+	<%@ include file="../includes/footer.jsp" %>
 </body>
 </html>

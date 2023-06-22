@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import com.itwillbs.domain.ProductionVO;
 import com.itwillbs.service.QualityService;
 
@@ -41,11 +40,13 @@ public class QualityController {
 		public void qualityListGET(Model model) throws Exception {
 			logger.debug("@@@@@@@@@@@@Controller : 품질관리 리스트 조회!");
 			
-			// serivce 객체 호출 
-			List<ProductionVO> productionList = quService.getQualityList();
+			// serivce 호출 
+			List<ProductionVO> qualityList = quService.getQualityList();
+		
+			logger.debug("@@@@@@@@@Controller : {}",qualityList);
 			
 			//변수를 가지고 뷰 페이지로 보내기 
-			model.addAttribute("productionList", productionList);
+			model.addAttribute("productionList", qualityList);
 			
 		}
 		////// 품질관리 목록 보기 //////
@@ -93,9 +94,22 @@ public class QualityController {
 			
 			return json;
 		}
+		// 2-1. 입고번호 - 자동넘버링
+		@RequestMapping(value="/qcid", method=RequestMethod.GET)
+		public void getQCNumGET(Model model) throws Exception {
+			logger.debug("@@@@@@@@@@ getQCNumGET() 호출");
+			
+			String maxNumber = quService.getMaxNumber();
+			String maxDate = quService.getMaxDate();
+			logger.debug("@@@@@@@@@@@@@@ maxNumber = " + maxNumber);	
+			logger.debug("@@@@@@@@@@@@@@ maxDate = " + maxDate);	   
+			
+			model.addAttribute("maxNumber", maxNumber);
+			model.addAttribute("maxDate", maxDate);
+		}
 		
 		// 검수 등록 db처리
-		@RequestMapping(value="/qualityInsert", method=RequestMethod.POST)
+		@RequestMapping(value="/qcid", method=RequestMethod.POST)
 		public String qualityInsertDB(ProductionVO vo ) {
 			logger.debug("@@@@@@@@@@@@Controller : 검수 등록 입력페이지");
 			

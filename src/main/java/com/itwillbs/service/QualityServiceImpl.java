@@ -42,9 +42,15 @@ public class QualityServiceImpl implements QualityService {
 	}
 
 	@Override
-	public Integer updateQuality(ProductionVO pvo) {
-		// TODO Auto-generated method stub
-		return null;
+	public String getMaxNumber() throws Exception {
+		// 자동넘버링
+		return qdao.getMaxNumber();
+	}
+	
+	@Override
+	public String getMaxDate() throws Exception {
+		// 자동넘버링
+		return qdao.getMaxDate();
 	}
 
 	@Override
@@ -53,6 +59,12 @@ public class QualityServiceImpl implements QualityService {
 		
 	}
 
+	@Override
+	public Integer updateQuality(ProductionVO pvo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	@Override
 	public List<ProductionVO> getBottleList() throws Exception {
 		// TODO Auto-generated method stub
@@ -70,6 +82,7 @@ public class QualityServiceImpl implements QualityService {
 		qdao.btUpdate(vo);
 		
 	}
+
 
 
 	

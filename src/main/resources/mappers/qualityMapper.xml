@@ -43,6 +43,20 @@
 			and a.production_id = #{production_id}
 		</select>
 	<!-- 작업지시번호 조회 -->
+	<!-- 검수번호 최대 값 (maxNumber) 230620004 -->
+	    <select id="getMaxNumber" resultType="String">
+	        SELECT MAX((SUBSTRING(qc_num, 3)))
+			FROM qc;
+	    </select>
+	 <!-- 검수번호 최대값 (maxNumber) 230620004 -->
+	 
+	 
+	 <!-- DB 검수번호 최대 날짜 (maxDate) == 230620 -->	
+	 	<select id="getMaxDate" resultType="String">
+	 		SELECT MAX((SUBSTRING(qc_num, 3, 6)))
+			FROM qc;
+	 	</select>
+	 <!-- DB 검수번호 최대 날짜 (maxDate) == 230620 -->
 	<!-- 검수 정보 DB등록 -->
 		<insert id="qInsertDB">
 			insert into qc

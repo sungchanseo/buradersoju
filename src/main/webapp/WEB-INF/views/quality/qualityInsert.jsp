@@ -57,7 +57,7 @@
         String production_id = request.getParameter("production_id");
      %>
    	<hr>
-   	<form id="inputInsert"  method="post">
+   	<form id="inputInsert" action="/quality/qcid"  method="get">
 	    <table id="insertTable" border="1">
     <thead>
     <tr>
@@ -76,8 +76,8 @@
 	
 		<table>
 				<tr>
-				 <td>검수번호</td> <!-- 임시로 추가 -->
-				 <td><input type="text" id="qc_num" name="qc_num"><td> 
+<!-- 				 <td>검수번호</td> 임시로 추가 -->
+<!-- 				 <td><input type="text" id="qc_num" name="qc_num"><td>  -->
 				 </tr>
 				 <tr>
 				 <td>검수자</td>
@@ -146,10 +146,11 @@
 		      $("#submitBT").click(function() {
 		    	  setDef();
 		    	  $("#inputInsert").submit();
-		          setTimeout(function() {   
-		       	  opener.parent.location.reload();
-		    	  window.close(); // 팝업 창 닫기
-		          }, 200);
+		    	  
+// 		          setTimeout(function() {   
+// 		       	  opener.parent.location.reload();
+// 		    	  window.close(); // 팝업 창 닫기
+// 		          }, 200);
 		      });
 		 });
 		</script>

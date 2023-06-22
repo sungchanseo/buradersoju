@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  
+  
+ <mapper namespace="com.itwillbs.mappers.inMaterialMapper">
+ 	
+ <!-- 입고 리스트 -->
+ 	<select id="getInMaterialListAll" resultType="com.itwillbs.domain.InMaterialVO">
+ 		select * from in_material
+ 		order by in_progress, in_id desc
+ 	</select>
+ <!-- 입고 리스트 -->	
+ 
+ 
+ <!-- 입고번호 최대 값 (maxNumber) 230620004 -->
+    <select id="getMaxNumber" resultType="String">
+        SELECT MAX((SUBSTRING(in_id, 3)))
+		FROM in_material;
+    </select>
+ <!-- 입고번호 최대값 (maxNumber) 230620004 -->
+ 
+ 
+ <!-- DB 입고번호 최대 날짜 (maxDate) == 230620 -->	
+ 	<select id="getMaxDate" resultType="String">
+ 		SELECT MAX((SUBSTRING(in_id, 3, 6)))
+		FROM in_material;
+ 	</select>
+ <!-- DB 입고번호 최대 날짜 (maxDate) == 230620 -->
+ 
+ 
+ <!-- in_id 입고번호 등록 -->
+ 	<insert id="registInId">
+		update in_material set in_id = #{in_id}, in_progress = "입고완료"
+		where order_id = #{order_id}
+ 	</insert>
+ <!-- in_id 입고번호 등록 -->
+ 
+ 
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 		
+ 
+ </mapper>

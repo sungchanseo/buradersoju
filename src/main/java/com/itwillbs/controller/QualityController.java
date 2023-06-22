@@ -96,7 +96,7 @@ public class QualityController {
 		
 		// 검수 등록 db처리
 		@RequestMapping(value="/qualityInsert", method=RequestMethod.POST)
-		public String qualityInsertDB(ProductionVO vo) {
+		public String qualityInsertDB(ProductionVO vo ) {
 			logger.debug("@@@@@@@@@@@@Controller : 검수 등록 입력페이지");
 			
 			logger.debug(vo+"");
@@ -108,6 +108,7 @@ public class QualityController {
 			
 		/////// 검수 등록 ///////
 		/////// 공병 관리 ///////	
+		// 리스트 출력
 		@RequestMapping(value="/emptyBottle", method=RequestMethod.GET)
 		public void BottleListGET(Model model) throws Exception {
 			logger.debug("@@@@@@@@@@@@Controller : 공병관리 리스트 조회!");
@@ -118,6 +119,30 @@ public class QualityController {
 			model.addAttribute("bottleList", bottleList);
 			
 		}
+		
+		// 공병 수량 등록
+		@RequestMapping(value = "/btInsert", method=RequestMethod.POST)
+		public String BottleInsert(ProductionVO vo) {
+			logger.debug("@@@@@@@@@@@@Controller : 공병 등록");
+			
+			logger.debug(vo+"");
+			//servicer객체 호출
+			quService.btInsert(vo);
+			
+			return "redirect:/quality/emptyBottle";
+		}
+		// 공병 불량 등록(수정)
+		@RequestMapping(value = "/btUpdate", method=RequestMethod.POST)
+		public String BottleUpdate(ProductionVO vo) throws Exception {
+			logger.debug("@@@@@@@@@@@@Controller : 공병 불량 등록(수정)");
+			
+			logger.debug(vo+"");
+			//servicer객체 호출
+			quService.btUpdate(vo);
+			
+			return "redirect:/quality/emptyBottle";
+		}
+		
 		/////// 공병 관리 ///////	
 
 	

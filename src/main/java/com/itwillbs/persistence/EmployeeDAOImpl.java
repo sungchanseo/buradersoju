@@ -36,11 +36,17 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	}
 	
 	// 사원 번호 자동 부여
-	@Override
-	public int getNextNumber() {
-		Integer nextNumber = sqlSession.selectOne(NAMESPACE + ".getNextNumber");
-		return (nextNumber != null) ? nextNumber : 1;
-	}
+    @Override
+    public int getNextNumber() {
+        Integer nextNumber = sqlSession.selectOne(NAMESPACE + ".getNextNumber");
+        return (nextNumber != null) ? nextNumber : 1;
+    }
+    
+    // 마지막으로 생성된 번호 조회
+    @Override
+    public String getLastGeneratedNumber() {
+        return sqlSession.selectOne(NAMESPACE + ".getLastGeneratedNumber");
+    }
 	
 	// 사원리스트
 	@Override

@@ -16,6 +16,9 @@ public class ContractVO {
 	private String cont_emp;
 	private Integer cont_status;
 	
+	private PagingVO pagingVO;
+	
+	
 	public String getCont_id() {
 		return cont_id;
 	}
@@ -82,14 +85,20 @@ public class ContractVO {
 	public void setProduction_id(String production_id) {
 		this.production_id = production_id;
 	}
+	public PagingVO getPagingVO() {
+		return pagingVO;
+	}
+	public void setPagingVO(PagingVO pagingVO) {
+		this.pagingVO = pagingVO;
+	}
 	@Override
 	public String toString() {
 		return "ContractVO [cont_id=" + cont_id + ", product_name=" + product_name + ", product_id=" + product_id
 				+ ", cust_name=" + cust_name + ", cust_id=" + cust_id + ", cont_date=" + cont_date + ", cont_qty="
 				+ cont_qty + ", production_id=" + production_id + ", due_date=" + due_date + ", cont_emp=" + cont_emp
-				+ ", cont_status=" + cont_status + "]";
+				+ ", cont_status=" + cont_status + ", pagingVO=" + pagingVO + "]";
 	}
-	
+	 
 	
 	
 }

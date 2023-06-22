@@ -11,7 +11,7 @@
 
 // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 // + ajax에서 막힘,, 값은 잘 나옴,,
-// + ajax를 컨트롤러로 보내서 그다음에 뷰페이지에 보내보기
+// + ajax를 컨트롤러로 보내서 그다음에 뷰페이지에 보내보기?
 // + 날짜 이상하게 나옴
 // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	
@@ -41,6 +41,8 @@ $(function() {
 		// 1-2. 행 추가
 		if($(this).hasClass('true')) {
 			let tbl = "<tr>";
+			tbl += " <td>";
+			tbl += " </td>";
 			tbl += " <td>";
 			tbl += "  <input type='text' name='ma_id' id='ma_id'>";
 	        tbl += " </td>";
@@ -85,7 +87,7 @@ $(function() {
 			} else {
                
 				$.ajax({
-					url: "/save",
+					url: "/ajax",
 					type: "post",
 					data: {ma_id:ma_id, ma_name:ma_name},
 					success: function() {

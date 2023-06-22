@@ -50,6 +50,18 @@ public class PagingVO {
 	private Integer startPage;
 	private Integer endPage;
 	private Integer currentPage;
+	
+	
+	//출력객체 지정을 위한 객체 변수 선언 
+//	private ContractVO contVO;
+//	private CustomerVO custVO;
+//	private EmployeeVO empVO;
+//	private LoginVO logVO;
+//	private MaterialVO mateVO;
+//	private OrderVO ordVO;
+//	private ProductionVO productionVO;
+	
+	
 	public String getTable() {
 		return table;
 	}
@@ -160,7 +172,5 @@ public class PagingVO {
 				+ pageSize + ", endRow=" + endRow + ", pageCount=" + pageCount + ", pageBlock=" + pageBlock
 				+ ", startPage=" + startPage + ", endPage=" + endPage + ", currentPage=" + currentPage + "]";
 	}
-	
-	
 	
 }

@@ -11,7 +11,7 @@
 			<tr>
 				<th>사원사진</th>
 				<th>사번</th>
-				<td><input type="text" name="emp_id" value="${resultVO.emp_id }"></td>
+				<td><input type="text" value="${resultVO.emp_id }" readonly></td>
 				<th>비밀번호</th>
 				<th><input type="password" name="emp_pw" placeholder="비밀번호를 입력하세요"></th>				
 				<th>이름</th>

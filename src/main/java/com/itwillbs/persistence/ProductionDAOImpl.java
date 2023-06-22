@@ -52,6 +52,12 @@ public class ProductionDAOImpl implements ProductionDAO {
 	}
 
 	@Override
+	public void insertWorkOrder(ProductionVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
 	public ProductionVO detailWorkOrder(String production_id) throws Exception {
 		logger.debug(" detailWorkOrder() 호출 ");
 

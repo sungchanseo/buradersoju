@@ -18,6 +18,9 @@ public interface EmployeeDAO {
 	// 사원 번호 자동 부여
 	public int getNextNumber();
 	
+    // 마지막으로 생성된 번호 조회
+    String getLastGeneratedNumber();
+	
 	// 사원리스트
 	public List<EmployeeVO> getEmployeeList();
 

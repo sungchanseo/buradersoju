@@ -2,9 +2,11 @@ package com.itwillbs.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +15,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.itwillbs.domain.ContractVO;
 import com.itwillbs.domain.ProductionVO;
 import com.itwillbs.service.ProductionService;
 
@@ -35,7 +41,7 @@ public class ProductionController {
 		logger.debug(" insertGET() 호출! ");
 		logger.debug(" /production/workOrderInsert.jsp 페이지 이동 ");
 		
-		// 테이블의 정보를 가져와서 모델에 추가 (이후 작업지시->수주로 수정)
+		// 테이블의 정보를 가져와서 모델에 추가
 		List<ProductionVO> workOrderList = proService.getWorkOrderList();
 		model.addAttribute("workOrderList",workOrderList);
 	}
@@ -64,7 +70,27 @@ public class ProductionController {
 		return "redirect:/production/workOrderList";
 	}
 	
-		// 작업지시번호(production_id) 생성
+		// 수주번호 조회 (작업지시 등록)
+		@RequestMapping(value="/woInsertSearch.do",  produces = "application/text; charset=UTF-8")
+		@ResponseBody
+		public String woSearchGET(String cont_id) throws Exception {
+			
+			//자바에서 JSON 객체로 변환
+			ObjectMapper mapper = new ObjectMapper();
+			HashMap<String, Object> hashMap = new HashMap<String, Object>();
+			logger.info("cont_id : "+cont_id);
+			
+			//servicer객체 호출
+			ContractVO woInsertSearch = proService.getWoInsertSearch(cont_id);
+			hashMap.put("vo", woInsertSearch);
+			
+			String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(hashMap);
+			System.out.println("@@@@@@@ json : "+json);
+			
+			return json;
+		}
+	
+		// 작업지시번호 생성 (작업지시 등록)
 		private String makeProductionId() {
 		    // 오늘 날짜의 형식을 "yyMMdd"로 변환
 		    SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMdd");
@@ -99,8 +125,7 @@ public class ProductionController {
 	// http://localhost:8088/production/workOrder?production_id=PR230615001
 	// 작업지시 상세
 	@RequestMapping(value = "/workOrder",method = RequestMethod.GET)
-	public void workOrderGET(Model model, 
-							 HttpSession session,
+	public void workOrderGET(Model model, HttpSession session,
 							 @RequestParam("production_id") String production_id) throws Exception{
 		logger.debug(" workOrderGET()호출! ");
 		
@@ -108,7 +133,11 @@ public class ProductionController {
 		
 		model.addAttribute("workOrder", proService.detailWorkOrder(production_id));
 		
-		
 	}
+	
+	// http://localhost:8088/production/workOrderModify?production_id=PR230615001
+	// 작업지시 수정
+	
+	
 		
 }

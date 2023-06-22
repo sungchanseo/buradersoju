@@ -6,11 +6,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+	<style type="text/css">
+	/* 인쇄하기 가로 기본출력 지정 */
+		@page { size: A4 landscape; margin:0; }
+	</style>
+
 </head>
 <body>
 	<h1>작업지시 상세</h1>
 	
-	<h2>작업지시번호 : ${workOrder.cont_id} </h2> 
+	<h2>작업지시번호 : ${workOrder.production_id} </h2> 
 	
 	<button>엑셀파일</button>
 	<button class="print-button" onclick="info_print()">인쇄하기</button>
@@ -40,8 +46,8 @@
 	 </tr>
   </table>
   
-  <button type="button">수정</button>
-  <button type="button">삭제</button>  
+  <button type="button" onclick="location.href='/production/workOrderModify';">수정</button>
+  
   
  <script type="text/javascript">
 /* 인쇄하기 버튼 */

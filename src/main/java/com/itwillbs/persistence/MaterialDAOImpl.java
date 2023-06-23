@@ -44,7 +44,14 @@ public class MaterialDAOImpl implements MaterialDAO {
 	}
 	
 	
-	// 3. 자재 등록
+	// 3-1. 자재 품목코드 자동넘버링
+	@Override
+	public String getMaxNumber() throws Exception {
+		logger.debug("########## getMaxNumber_호출");
+		return sqlSession.selectOne(NAMESPACE+".getMaxNumber");
+	}
+
+	// 3-2. 자재 등록
 	@Override
 	public void insertMaterial(MaterialVO vo) {
 		logger.debug("########## insertMaterial_호출");
@@ -53,6 +60,8 @@ public class MaterialDAOImpl implements MaterialDAO {
 	}
 	
 	
+
+	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	// 4. 자재 수정
 	@Override
 	public Integer modifyMaterial(MaterialVO mvo) {

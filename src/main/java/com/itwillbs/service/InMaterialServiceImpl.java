@@ -33,8 +33,8 @@ public class InMaterialServiceImpl implements InMaterialService {
 	
 	// 3. 입고 상세보기
 	@Override
-	public InMaterialVO getInMaterialInfo(String in_id) throws Exception{
-		return null;
+	public InMaterialVO getInMaterialInfo(String order_id) throws Exception{
+		return idao.getInMaterialInfo(order_id);
 	}
 
 	

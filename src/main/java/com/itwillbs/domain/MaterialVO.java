@@ -9,10 +9,9 @@ public class MaterialVO {
 	private String ma_id;
 	private String ma_name;
 	private int ma_qty;
+	private String unit;
 	private int unit_cost;
-	private String whs_num;
 	private String shelt_position;
-	private String ma_image;
 	private Date ma_regdate;
 	private int ma_emp;
 	
@@ -42,24 +41,14 @@ public class MaterialVO {
 	public void setUnit_cost(int unit_cost) {
 		this.unit_cost = unit_cost;
 	}
-	public String getWhs_num() {
-		return whs_num;
-	}
-	public void setWhs_num(String whs_num) {
-		this.whs_num = whs_num;
-	}
+
 	public String getShelt_position() {
 		return shelt_position;
 	}
 	public void setShelt_position(String shelt_position) {
 		this.shelt_position = shelt_position;
 	}
-	public String getMa_image() {
-		return ma_image;
-	}
-	public void setMa_image(String ma_image) {
-		this.ma_image = ma_image;
-	}
+
 	public Date getMa_regdate() {
 		return ma_regdate;
 	}
@@ -73,14 +62,21 @@ public class MaterialVO {
 		this.ma_emp = ma_emp;
 	}
 	
+	public String getUnit() {
+		return unit;
+	}
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+	
+	
 	
 	// toString 메서드
 	@Override
 	public String toString() {
-		return "MaterialVO [ma_id=" + ma_id + ", ma_name=" + ma_name + ", ma_qty=" + ma_qty + ", unit_cost=" + unit_cost
-				+ ", whs_num=" + whs_num + ", shelt_position=" + shelt_position + ", ma_image=" + ma_image
-				+ ", ma_regdate=" + ma_regdate + ", ma_emp=" + ma_emp + "]";
+		return "MaterialVO [ma_id=" + ma_id + ", ma_name=" + ma_name + ", ma_qty=" + ma_qty + ", unit=" + unit
+				+ ", unit_cost=" + unit_cost + ", shelt_position=" + shelt_position + ", ma_regdate=" + ma_regdate
+				+ ", ma_emp=" + ma_emp + "]";
 	}
-	
 	
 }

@@ -22,13 +22,24 @@
 <!-- 자재 정보 조회 -->
 
 
+<!-- 품목코드 최대 값 (maxNumber) 007 -->
+   <select id="getMaxNumber" resultType="String">
+      	SELECT MAX((SUBSTRING(ma_id, 3)))
+		FROM material;
+   </select>
+<!-- 품목코드 최대 값 (maxNumber) 007 -->
+
+
 <!-- 자재 등록 -->
-<!-- ma_id는 자동넘버링 기능 추가 -->
 	<insert id="insertMaterial">
-		insert into material (ma_id, ma_name, unit_cost, whs_num, shelt_position, ma_image, ma_regdate, ma_emp, ma_qty)
-		values (#{ma_id}, #{ma_name}, #{unit_cost}, #{whs_num}, #{shelt_position}, #{ma_image}, now(), #{ma_emp}, 0)
+		insert into material (ma_id, ma_name, ma_qty, unit, unit_cost, shelt_position, ma_regdate, ma_emp)
+		values (#{ma_id}, #{ma_name}, #{ma_qty}, #{unit}, #{unit_cost}, #{shelt_position}, now(), #{ma_emp})
 	</insert>
 <!-- 자재 등록 -->
+
+
+
+
 
 
 <!-- 자재 정보 업데이트 -->

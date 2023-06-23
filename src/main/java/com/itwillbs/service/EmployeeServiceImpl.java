@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.itwillbs.domain.EmployeeVO;
+import com.itwillbs.domain.PagingVO;
 import com.itwillbs.persistence.EmployeeDAO;
 
 @Service
@@ -15,6 +16,25 @@ public class EmployeeServiceImpl implements EmployeeService{
 	//DB와 연결 (의존주입)
 	@Inject
 	private EmployeeDAO edao;
+	@Inject
+	private PagingService pageService;
+	
+	//페이징처리 변수저장을 위한 서비스 구현
+	@Override
+	public PagingVO setPageInfoForEmployee(PagingVO pvo) throws Exception {
+		
+		//contract서비스에 필요한 변수를 저장. 
+		pvo.setTable("employee");
+		pvo.setId("emp_id");
+		pvo.setPageSize(10);
+		pvo.setStartRow(1);
+		pvo.setStatus_name("emp_status");
+		pvo.setStatus_value("0");
+		
+		//페이지 계산을 위해서 pageingSerivce의 메소드 호출 
+		pvo = pageService.pagingAction(pvo);
+		return pvo;
+	}
 	
 	// 사원 등록
 	@Override

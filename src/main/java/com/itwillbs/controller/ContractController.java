@@ -27,7 +27,7 @@ public class ContractController {
 	@Autowired
 	private ContractService contService;
 	@Autowired
-	private PagingService pageSerivce;
+	private PagingService pageService;
 	
 	// http://localhost:8088/contract/list
 	
@@ -46,11 +46,11 @@ public class ContractController {
 		if(pvo.getSelector()!=null && pvo.getSelector()!="") {
 			//검색어가 있을 때 
 			logger.debug("@@@@@@@@@Controller : 검색어가 있을 때입니다");
-			contractList = pageSerivce.getListSearchObjectContractVO(pvo);
+			contractList = pageService.getListSearchObjectContractVO(pvo);
 		}else {
 			//검색어가 없을 때
 			logger.debug("@@@@@@@@@Controller : 검색어가 없을 때입니다");
-			contractList = pageSerivce.getListPageSizeObjectContractVO(pvo);
+			contractList = pageService.getListPageSizeObjectContractVO(pvo);
 		}
 		logger.debug("@@@@@@@@@Controller : {}",contractList);
 	

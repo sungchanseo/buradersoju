@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.domain.EmployeeVO;
+import com.itwillbs.domain.PagingVO;
 import com.itwillbs.service.EmployeeService;
+import com.itwillbs.service.PagingService;
 
 @Controller
 @RequestMapping(value = "/employee/*")
@@ -25,6 +27,8 @@ public class EmployeeController {
 	// 서비스정보 필요 
 	@Inject
 	private EmployeeService eService;
+	@Inject
+	private PagingService pageService;
 	
 	// http://localhost:8088/employee/insert
 	// 회원가입
@@ -75,12 +79,33 @@ public class EmployeeController {
 	// http://localhost:8088/employee/list
 	// 사원리스트
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public void listGET(Model model) {
-		logger.debug(" listGET() 호출! ");
+	public void listGET(Model model, PagingVO pvo) throws Exception{
+//		logger.debug(" listGET() 호출! ");
+//		
+//		List<EmployeeVO> employeeList = eService.getEmployeeList();
+//		
+//		model.addAttribute("employeeList", employeeList);
+		List<Object> employeeList = null;
 		
-		List<EmployeeVO> employeeList = eService.getEmployeeList();
+		//수주 목록을 가져오는 contService 호출
+		pvo = eService.setPageInfoForEmployee(pvo);
+		logger.debug("@@@@@@@@@Controller : {}",pvo);
 		
+		//service객체를 호출
+		if(pvo.getSelector()!=null && pvo.getSelector()!="") {
+			//검색어가 있을 때 
+			logger.debug("@@@@@@@@@Controller : 검색어가 있을 때입니다");
+			employeeList = pageService.getListSearchObjectEmployeeVO(pvo);
+		}else {
+			//검색어가 없을 때
+			logger.debug("@@@@@@@@@Controller : 검색어가 없을 때입니다");
+			employeeList = pageService.getListPageSizeObjectEmployeeVO(pvo);
+		}
+		logger.debug("@@@@@@@@@Controller : {}",employeeList);
+	
+		//변수에 담아서 전달
 		model.addAttribute("employeeList", employeeList);
+		model.addAttribute("pvo",pvo);
 	}
 	
 	// http://localhost:8088/employee/info

@@ -42,7 +42,7 @@ function addNumber(){
 
 $(document).ready(function() {
 	// 1-1. '등록' 클릭
-	$('.writeForm').click(function() {
+	$('.insertForm').click(function() {
     	  
 		// 날짜 정보 저장
 		let regdate = getToday();
@@ -84,14 +84,11 @@ $(document).ready(function() {
 	        tbl += "</tr>";
             
 			$('table').append(tbl);
-            
-// 			$(this).removeClass('writeForm').addClass('write');
 			$(this).removeClass('true');
 			
 			
-			// 1-2. 입력한 데이터 컨트롤러 전달 (저장)
-			$('.regist').click(function(){
-				
+			// 1-2. 입력한 데이터 컨트롤러 전달 (저장) -> 리스트 이동
+			$('.insert').click(function(){
 				// ma_id 정보 저장
 				var nextNumber = addNumber();
 				var ma_id = "MA" + nextNumber;
@@ -127,13 +124,29 @@ $(document).ready(function() {
 						}
 					}); //ajax
 				
-				} //if-else
+				} // if-else
 						
 			}); // regist.click
 			
 		} // 행추가 if
 		
-	}); //writeForm.click
+	}); // insertForm.click
+	
+	
+	
+	// 2-1. '수정' 클릭
+	$('').click(function(){
+		
+	});
+	
+	
+	
+	// 2-2. 입력한 데이터 컨트롤러 전달 (수정) -> 리스트 이동
+	
+	
+	
+	
+	
 	
 	
 
@@ -144,8 +157,10 @@ $(document).ready(function() {
    <h1>Material_List</h1>
    <h2>http://localhost:8088/purchasing/material/list</h2>
    
-	<button class="writeForm true">등록</button>
-	<button class="regist update delete">저장</button>
+	<button class="insertForm true">등록</button>
+	<button class="updateForm">수정</button>
+	<button class="deleteForm">삭제</button>
+	<button class="insert update delete">저장</button>
 
 
    	<fmt:formatDate value=""/>
@@ -160,7 +175,6 @@ $(document).ready(function() {
 		<th>선반위치</th>
 		<th>최근 수정 날짜</th>
 		<th>담당직원</th>
-		<th></th>
 	</tr>
       
       <c:forEach var="ml" items="${materialList }">
@@ -174,10 +188,8 @@ $(document).ready(function() {
 			<td>${ml.shelt_position }</td>
 			<td><fmt:formatDate value="${ml.ma_regdate}" pattern="yyyy-MM-dd"/></td>
 			<td>${ml.ma_emp }</td>
-			<td>
-				<input type="button" value="수정" onclick="location.href='/purchasing/material/modify?ma_id=${ml.ma_id}';">
-				<input type="button" value="삭제" onclick="location.href='/purchasing/material/delete?ma_id=${ml.ma_id}';">
-			</td>
+<%-- 		<input type="button" value="수정" onclick="location.href='/purchasing/material/modify?ma_id=${ml.ma_id}';"> --%>
+<%-- 		<input type="button" value="삭제" onclick="location.href='/purchasing/material/delete?ma_id=${ml.ma_id}';"> --%>
          </tr>
       </c:forEach>
    </table>

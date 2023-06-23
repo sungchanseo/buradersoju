@@ -51,11 +51,7 @@ public class ProductionDAOImpl implements ProductionDAO {
 		return sqlSession.selectList(NAMESPACE+".getWorkOrderList");
 	}
 
-	@Override
-	public void insertWorkOrder(ProductionVO vo) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 	@Override
 	public ProductionVO detailWorkOrder(String production_id) throws Exception {

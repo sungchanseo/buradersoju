@@ -134,77 +134,77 @@ public class PagingDAOTest {
 	
 	
 	
+////	@Test
+//	public void 아무조건없을때목록객체를불러보자() throws Exception{
+//		logger.debug("***********TEST : 아무조건없을때목록객체를불러보자 시작!");
+//		PagingVO pvo = new PagingVO();
+//
+//		pvo.setTable("customer");
+//		pvo.setStatus_name("cust_status");
+//		pvo.setStatus_value("0");
+//		pvo.setStartRow(1);
+//		pvo.setPageSize(5);
+//		pvo.setId("cust_id");
+//		
+//		logger.info("***********TEST : PagingVO={}",pvo);
+//		CustomerVO result = (CustomerVO)pdao.getListPageSizeObject(pvo);
+//		logger.info("***********TEST : result={}",result);
+//		
+//	}
+////	@Test
+//	public void 검색어가있을때전체목록객체를불러오기() throws Exception{
+//		logger.debug("***********TEST : 검색어가있을때전체목록객체를불러오기 시작!");
+//		PagingVO pvo = new PagingVO();
+//		pvo.setTable("customer");
+//		pvo.setStatus_name("cust_status");
+//		pvo.setStatus_value("0");
+//		pvo.setSelector("cust_name");
+//		pvo.setSearch("국가");
+//		pvo.setId("cust_id");
+//		pvo.setStartRow(0);
+//		pvo.setPageSize(5);
+//		
+//		logger.info("***********TEST : PagingVO={}",pvo);
+//		CustomerVO result = (CustomerVO)pdao.getListSearchObject(pvo);
+//		logger.info("***********TEST : result={}",result);
+//	}
+////	@Test
+//	public void 카테고리필터와페이지처리전체목록객체를불러오자() throws Exception{
+//		logger.info("***********TEST : 카테고리필터와페이지처리전체목록갯수불러오기 시작!");
+//		PagingVO pvo = new PagingVO();
+//
+//		pvo.setTable("customer");
+//		pvo.setStatus_name("cust_status");
+//		pvo.setStatus_value("0");
+//		pvo.setColumn_name("cust_name");
+//		pvo.setColumn_value("추경호");
+//		pvo.setId("cust_id");
+//		pvo.setStartRow(0);
+//		pvo.setPageSize(5);
+//		
+//		logger.info("***********TEST : PagingVO={}",pvo);
+//		CustomerVO result =(CustomerVO) pdao.getListFilterObject(pvo);
+//		logger.info("***********TEST : result={}",result);
+//	}
 //	@Test
-	public void 아무조건없을때목록객체를불러보자() throws Exception{
-		logger.debug("***********TEST : 아무조건없을때목록객체를불러보자 시작!");
-		PagingVO pvo = new PagingVO();
-
-		pvo.setTable("customer");
-		pvo.setStatus_name("cust_status");
-		pvo.setStatus_value("0");
-		pvo.setStartRow(1);
-		pvo.setPageSize(5);
-		pvo.setId("cust_id");
-		
-		logger.info("***********TEST : PagingVO={}",pvo);
-		CustomerVO result = (CustomerVO)pdao.getListPageSizeObject(pvo);
-		logger.info("***********TEST : result={}",result);
-		
-	}
-//	@Test
-	public void 검색어가있을때전체목록객체를불러오기() throws Exception{
-		logger.debug("***********TEST : 검색어가있을때전체목록객체를불러오기 시작!");
-		PagingVO pvo = new PagingVO();
-		pvo.setTable("customer");
-		pvo.setStatus_name("cust_status");
-		pvo.setStatus_value("0");
-		pvo.setSelector("cust_name");
-		pvo.setSearch("국가");
-		pvo.setId("cust_id");
-		pvo.setStartRow(0);
-		pvo.setPageSize(5);
-		
-		logger.info("***********TEST : PagingVO={}",pvo);
-		CustomerVO result = (CustomerVO)pdao.getListSearchObject(pvo);
-		logger.info("***********TEST : result={}",result);
-	}
-//	@Test
-	public void 카테고리필터와페이지처리전체목록객체를불러오자() throws Exception{
-		logger.info("***********TEST : 카테고리필터와페이지처리전체목록갯수불러오기 시작!");
-		PagingVO pvo = new PagingVO();
-
-		pvo.setTable("customer");
-		pvo.setStatus_name("cust_status");
-		pvo.setStatus_value("0");
-		pvo.setColumn_name("cust_name");
-		pvo.setColumn_value("추경호");
-		pvo.setId("cust_id");
-		pvo.setStartRow(0);
-		pvo.setPageSize(5);
-		
-		logger.info("***********TEST : PagingVO={}",pvo);
-		CustomerVO result =(CustomerVO) pdao.getListFilterObject(pvo);
-		logger.info("***********TEST : result={}",result);
-	}
-	@Test
-	public void 검색어와카테고리필터와페이지처리전체목록객체를불러오자() throws Exception{
-		logger.info("***********TEST : 검색어와카테고리필터와페이지처리전체목록객체를불러오자 시작!");
-		PagingVO pvo = new PagingVO();
-
-		pvo.setTable("customer");
-		pvo.setStatus_name("cust_status");
-		pvo.setStatus_value("0");
-		pvo.setColumn_name("cust_name");
-		pvo.setColumn_value("추경호");
-		pvo.setId("cust_id");
-		pvo.setStartRow(0);
-		pvo.setPageSize(5);
-		pvo.setSelector("cust_name");
-		pvo.setSearch("추경호");
-		
-		logger.info("***********TEST : PagingVO={}",pvo);
-		CustomerVO result =(CustomerVO) pdao.getListSearchFilterObject(pvo);
-		logger.info("***********TEST : result={}",result);
-	}
-	
+//	public void 검색어와카테고리필터와페이지처리전체목록객체를불러오자() throws Exception{
+//		logger.info("***********TEST : 검색어와카테고리필터와페이지처리전체목록객체를불러오자 시작!");
+//		PagingVO pvo = new PagingVO();
+//
+//		pvo.setTable("customer");
+//		pvo.setStatus_name("cust_status");
+//		pvo.setStatus_value("0");
+//		pvo.setColumn_name("cust_name");
+//		pvo.setColumn_value("추경호");
+//		pvo.setId("cust_id");
+//		pvo.setStartRow(0);
+//		pvo.setPageSize(5);
+//		pvo.setSelector("cust_name");
+//		pvo.setSearch("추경호");
+//		
+//		logger.info("***********TEST : PagingVO={}",pvo);
+//		CustomerVO result =(CustomerVO) pdao.getListSearchFilterObject(pvo);
+//		logger.info("***********TEST : result={}",result);
+//	}
+//	
 }

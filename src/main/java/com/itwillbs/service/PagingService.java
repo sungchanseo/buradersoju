@@ -77,6 +77,20 @@ public interface PagingService {
 	///////////////////////////////////////////////////////////////////////////////
 	
 	
+	/////////////////////////////////InMaterialVO////////////////////////////////////
+	//아무조건이 없을 때 전체 목록 객체 가져오기
+	public List<Object> getListPageSizeObjectInMaterialVO(PagingVO pvo) throws Exception;
+	
+	//검색어 있을 때 전체목록 객체 가져오기 	
+	public List<Object> getListSearchObjectInMaterialVO(PagingVO pvo) throws Exception;
+	
+	//검색어+필터처리 전체 목록 객체 가져오기 	
+	public List<Object> getListFilterObjectInMaterialVO(PagingVO pvo)throws Exception;
+	
+	//검색어와 필터 모두 있을 때 전체 목록 객체 가져오기 
+	public List<Object> getListSearchFilterObjectInMaterialVO(PagingVO pvo) throws Exception;
+	///////////////////////////////////////////////////////////////////////////////
+	
 	/////////////////////////////////MaterialVO////////////////////////////////////
 	//아무조건이 없을 때 전체 목록 객체 가져오기
 	public List<Object> getListPageSizeObjectMaterialVO(PagingVO pvo) throws Exception;
@@ -91,6 +105,19 @@ public interface PagingService {
 	public List<Object> getListSearchFilterObjectMaterialVO(PagingVO pvo) throws Exception;
 	///////////////////////////////////////////////////////////////////////////////
 	
+	/////////////////////////////////NoticeVO////////////////////////////////////
+	//아무조건이 없을 때 전체 목록 객체 가져오기
+	public List<Object> getListPageSizeObjectNoticeVO(PagingVO pvo) throws Exception;
+	
+	//검색어 있을 때 전체목록 객체 가져오기 	
+	public List<Object> getListSearchObjectNoticeVO(PagingVO pvo) throws Exception;
+	
+	//검색어+필터처리 전체 목록 객체 가져오기 	
+	public List<Object> getListFilterObjectNoticeVO(PagingVO pvo)throws Exception;
+	
+	//검색어와 필터 모두 있을 때 전체 목록 객체 가져오기 
+	public List<Object> getListSearchFilterObjectNoticeVO(PagingVO pvo) throws Exception;
+	///////////////////////////////////////////////////////////////////////////////
 	
 	/////////////////////////////////OrderVO////////////////////////////////////
 	//아무조건이 없을 때 전체 목록 객체 가져오기
@@ -106,7 +133,20 @@ public interface PagingService {
 	public List<Object> getListSearchFilterObjectOrderVO(PagingVO pvo) throws Exception;
 	///////////////////////////////////////////////////////////////////////////////
 	
+	/////////////////////////////////OutProductVO////////////////////////////////////
+	//아무조건이 없을 때 전체 목록 객체 가져오기
+	public List<Object> getListPageSizeObjectOutProductVO(PagingVO pvo) throws Exception;
 	
+	//검색어 있을 때 전체목록 객체 가져오기 	
+	public List<Object> getListSearchObjectOutProductVO(PagingVO pvo) throws Exception;
+	
+	//검색어+필터처리 전체 목록 객체 가져오기 	
+	public List<Object> getListFilterObjectOutProductVO(PagingVO pvo)throws Exception;
+	
+	//검색어와 필터 모두 있을 때 전체 목록 객체 가져오기 
+	public List<Object> getListSearchFilterObjectOutProductVO(PagingVO pvo) throws Exception;
+	///////////////////////////////////////////////////////////////////////////////
+		
 	/////////////////////////////////ProductionVO////////////////////////////////////
 	//아무조건이 없을 때 전체 목록 객체 가져오기
 	public List<Object> getListPageSizeObjectProductionVO(PagingVO pvo) throws Exception;
@@ -121,7 +161,19 @@ public interface PagingService {
 	public List<Object> getListSearchFilterObjectProductionVO(PagingVO pvo) throws Exception;
 	///////////////////////////////////////////////////////////////////////////////
 	
+	/////////////////////////////////WarehouseVO////////////////////////////////////
+	//아무조건이 없을 때 전체 목록 객체 가져오기
+	public List<Object> getListPageSizeObjectWarehouseVO(PagingVO pvo) throws Exception;
 	
+	//검색어 있을 때 전체목록 객체 가져오기 	
+	public List<Object> getListSearchObjectWarehouseVO(PagingVO pvo) throws Exception;
+	
+	//검색어+필터처리 전체 목록 객체 가져오기 	
+	public List<Object> getListFilterObjectWarehouseVO(PagingVO pvo)throws Exception;
+	
+	//검색어와 필터 모두 있을 때 전체 목록 객체 가져오기 
+	public List<Object> getListSearchFilterObjectWarehouseVO(PagingVO pvo) throws Exception;
+	///////////////////////////////////////////////////////////////////////////////
 	
 	
 }

@@ -3,6 +3,7 @@ package com.itwillbs.service;
 import java.util.List;
 
 import com.itwillbs.domain.EmployeeVO;
+import com.itwillbs.domain.PagingVO;
 
 public interface EmployeeService {
 
@@ -24,6 +25,8 @@ public interface EmployeeService {
 	// 사원 정보 수정
 	public Integer modifiyEmployee(EmployeeVO uvo);
 
-	
+	//사원 페이징 처리
+	public PagingVO setPageInfoForEmployee(PagingVO pvo) throws Exception;
+
 	
 }

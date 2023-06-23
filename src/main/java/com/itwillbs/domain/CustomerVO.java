@@ -18,6 +18,8 @@ public class CustomerVO {
 	private String cust_etc;
 	private Integer cust_status;
 	
+	private PagingVO pagingVO;
+	
 	
 	public Integer getReg_num() {
 		return reg_num;
@@ -115,14 +117,20 @@ public class CustomerVO {
 	public void setCust_status(Integer cust_status) {
 		this.cust_status = cust_status;
 	}
+	public PagingVO getPagingVO() {
+		return pagingVO;
+	}
+	public void setPagingVO(PagingVO pagingVO) {
+		this.pagingVO = pagingVO;
+	}
 	@Override
 	public String toString() {
 		return "CustomerVO [cust_id=" + cust_id + ", cust_name=" + cust_name + ", reg_num=" + reg_num + ", cust_type="
 				+ cust_type + ", cust_class=" + cust_class + ", owner_name=" + owner_name + ", main_phone=" + main_phone
 				+ ", cust_address=" + cust_address + ", cust_business=" + cust_business + ", cust_event=" + cust_event
 				+ ", cust_fax=" + cust_fax + ", cust_homepage=" + cust_homepage + ", emp_email=" + emp_email
-				+ ", emp_id=" + emp_id + ", cust_etc=" + cust_etc + ", cust_status=" + cust_status + "]";
+				+ ", emp_id=" + emp_id + ", cust_etc=" + cust_etc + ", cust_status=" + cust_status + ", pagingVO="
+				+ pagingVO + "]";
 	}
-	
 	
 }

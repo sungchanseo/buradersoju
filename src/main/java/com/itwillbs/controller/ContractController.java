@@ -8,12 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.itwillbs.domain.ContractVO;
-import com.itwillbs.domain.CustomerVO;
 import com.itwillbs.domain.PagingVO;
 import com.itwillbs.service.ContractService;
 import com.itwillbs.service.PagingService;
@@ -48,11 +46,11 @@ public class ContractController {
 		if(pvo.getSelector()!=null && pvo.getSelector()!="") {
 			//검색어가 있을 때 
 			logger.debug("@@@@@@@@@Controller : 검색어가 있을 때입니다");
-			contractList = pageSerivce.getListSearchObject(pvo);
+			contractList = pageSerivce.getListSearchObjectContractVO(pvo);
 		}else {
 			//검색어가 없을 때
 			logger.debug("@@@@@@@@@Controller : 검색어가 없을 때입니다");
-			contractList = pageSerivce.getListPageSizeObject(pvo);
+			contractList = pageSerivce.getListPageSizeObjectContractVO(pvo);
 		}
 		logger.debug("@@@@@@@@@Controller : {}",contractList);
 	
@@ -80,6 +78,7 @@ public class ContractController {
 	}
 
 	// 수주 등록 디비처리
+//	@PostMapping(value = "/insert")
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
 	public String registContractPOST(ContractVO cvo)  throws Exception {
 		logger.debug("@@@@@@@@@@@@Controller : 수주 등록POST하기!!!!");

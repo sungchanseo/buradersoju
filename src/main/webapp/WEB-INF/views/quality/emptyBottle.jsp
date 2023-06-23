@@ -6,6 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<%@ include file="../includes/header.jsp"%>
 <meta charset="UTF-8">
 <!-- 제이쿼리 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
@@ -83,5 +84,6 @@
 		  });
 		});
 		</script>
+		<%@ include file="../includes/footer.jsp" %>
 </body>
 </html>

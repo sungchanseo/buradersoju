@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<%-- <%@ include file="../includes/header.jsp"%> --%>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
@@ -17,19 +18,20 @@
 <body>
 	<h1>작업지시 현황</h1>
 	
-  <form action="" method="get">   
+<!-- 검색창 기능 -->
+  <form action="/production/workOrderList" method="get">   
     <label>검색</label><br>
-	  <select name="wosearch" id="wosearch">
-	    <option> </option>
+	  <select name="listSelector">
 	    <option value="production_id">작업지시번호</option>
 	    <option value="cont_id">수주번호</option>
 	    <option value="production_date">작업지시일시</option>
 	    <option value="production_line">생산라인</option>
 	  </select>
+	  <input type="text" name="search" placeholder="">
 	  <input type="submit" value="검색">
   </form>
   
-	<input type="button" value="생산 등록" onclick="location.href='./workOrderInsert';">
+	<input type="button" value="생산 등록" onclick="openPopup();">
 	<br>
 	<button>엑셀파일</button>
 	<button class="print-button" onclick="info_print()">인쇄하기</button>
@@ -50,19 +52,17 @@
 	<c:forEach var="workOrderList" items="${workOrderList }">
 	 <tr>  
 	  <td>
-		<a href="./workOrder?production_id=${workOrderList.production_id}">
+		<a href="./workOrder?production_id=${workOrderList.production_id}"
+		onclick="window.open(this.href, '_blank', 'width=800, height=500, left=2000'); return false;">
 		${workOrderList.production_id}
 		</a>
 	  </td>
-	  
-	  <!-- 나중에 수주번호로 수정해야 함 -->
 	  <td>
-	  	<a href="./workOrder?production_id=${workOrderList.production_id}">
-	  	${workOrderList.production_id}
+	  	<a href="/contract/info?cont_id=${workOrderList.cont_id }"
+	  	onclick="window.open(this.href, '_blank', 'width=800, height=500, left=2000'); return false;">
+	  	${workOrderList.cont_id}
 	  	</a>
-	  </td>
-	  <!-- 나중에 수주번호로 수정해야 함 -->
-	  
+	  </td>	  
 	  <td>${workOrderList.production_emp}</td>
 	  <td>${workOrderList.production_date}</td>
 	  <td>${workOrderList.production_line}</td>
@@ -76,7 +76,14 @@
   </table>
 
 <script type="text/javascript">
-/* 인쇄하기 버튼 */
+
+/* 등록 버튼 팝업 */
+function openPopup() {
+	window.open('./workOrderInsert', 'workOrderPopup', 'width=800, height=500, left=2000');
+}
+
+
+/* 인쇄 버튼 기능 */
 function info_print() {
   let initBody = document.body;
   let hiddenBtn = document.querySelector('.print-button'); 
@@ -101,6 +108,6 @@ function info_print() {
   window.print();
 } 
 </script>
-
+<%@ include file="../includes/footer.jsp" %>
 </body>
 </html>

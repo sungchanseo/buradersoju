@@ -24,10 +24,13 @@
       <!-- 재고정보 목록 수정  -->
 
       <update id="modifyInventory">
-         update material set ma_id=#{ma_id}, ma_name=#{ma_name}, ma_qty=#{ma_qty}, unit_cost=#{unit_cost}, whs_num=#{whs_num}, shelt_position=#{shelt_position}, 
-         ma_image=#{ma_image}, ma_regdate=now(), ma_emp=#{ma_emp}
+         update material set ma_qty=#{ma_qty} 
          where ma_id=#{ma_id}
       
       </update>
+      <insert id="insertInventory">
+         insert into material (ma_id, ma_name, unit_cost, whs_num, shelt_position, ma_image, ma_regdate, ma_emp, ma_qty)
+	     values (#{ma_id}, #{ma_name}, #{unit_cost}, #{whs_num}, #{shelt_position}, #{ma_image}, now(), #{ma_emp}, 0) 
+      </insert>
       <!-- 재고정보 목록 수정  -->
       </mapper>

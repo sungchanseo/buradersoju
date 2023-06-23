@@ -8,6 +8,20 @@
 <title>Insert title here</title>
 </head>
 <body>
+<!-- 수주등록 새창열기  -->
+<script type="text/javascript">
+	function openPop(){
+	  var insertPop = window.open('/contract/insert', '수주등록', 'width=700px,height=400px');
+	  
+	  if(insertPop == null){
+		  alert("팝업이 차단되었습니다. 차단을 해제하세요.");
+	  }
+	  openPop.moveBy(100,100);
+	}
+	
+</script>
+<!-- 수주등록 새창열기  -->
+${cInput }
 	<h1>수주 리스트</h1>
 	<!-- 검색창기능 -->
 	<form action="/customer/list" method="get">
@@ -19,7 +33,7 @@
 		<input type="submit" class="btn-danger" value="검색">
 	</form>
 	<!-- 검색창기능 -->
-	<input type="button" style="display:inline;" value="수주등록" onclick="location.href='/contract/insert';">
+	<input type="button" style="display:inline;" value="수주등록" onclick="openPop()">
 	<input type="button" value="엑셀화일" onclick="">
 	<input type="button" value="인쇄하기" onclick="">
 	<hr>

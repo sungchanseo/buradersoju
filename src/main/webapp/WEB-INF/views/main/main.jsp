@@ -152,6 +152,7 @@
 	<script src="resources/main/calendar.js"></script>
 	<script src="resources/main/fullcalendar-5.11.4/lib/main.js"></script>
 	<script src="resources/main/todoList.js"></script>
+	<script>var emp_id = ${sessionScope.emp_id };</script>
 	<script src="resources/main/contractchart.js"></script>
 	<script src="resources/main/noticeList.js"></script>
 	<!-- 날씨 ,달력 ,to do List,수주,공지사항 -->

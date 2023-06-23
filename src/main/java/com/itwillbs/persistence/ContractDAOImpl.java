@@ -34,6 +34,12 @@ public class ContractDAOImpl implements ContractDAO {
 		logger.debug("##########ContractDAO : insertContract 메소드 호출!");
 		sqlSession.insert(NAMESPACE+".insertContract", cvo);
 	}
+	
+	//수주등록 번호 자동 카운트
+	@Override
+	public String getLastGeneratedNumber() throws Exception {
+		return sqlSession.selectOne(NAMESPACE+".getLastGeneratedNumber");
+	}
 
 	//수주 수정하기
 	@Override
@@ -48,5 +54,7 @@ public class ContractDAOImpl implements ContractDAO {
 		logger.debug("##########ContractDAO : deleteContract 메소드 호출!");
 		return sqlSession.update(NAMESPACE+".deleteContract", cont_id);
 	}
+
+	
 
 }

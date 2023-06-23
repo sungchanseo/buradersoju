@@ -50,6 +50,18 @@ public class PagingVO {
 	private Integer startPage;
 	private Integer endPage;
 	private Integer currentPage;
+	
+	
+	//출력객체 지정을 위한 객체 변수 선언 
+	private ContractVO ContractVO;
+	private CustomerVO CustomerVO;
+	private EmployeeVO EmployeeVO;
+	private LoginVO LoginVO;
+	private MaterialVO MaterialVO;
+	private OrderVO OrderVO;
+	private ProductionVO ProductionVO;
+	
+	
 	public String getTable() {
 		return table;
 	}
@@ -152,15 +164,58 @@ public class PagingVO {
 	public void setCurrentPage(Integer currentPage) {
 		this.currentPage = currentPage;
 	}
+	public ContractVO getContractVO() {
+		return ContractVO;
+	}
+	public void setContractVO(ContractVO contractVO) {
+		ContractVO = contractVO;
+	}
+	public CustomerVO getCustomerVO() {
+		return CustomerVO;
+	}
+	public void setCustomerVO(CustomerVO customerVO) {
+		CustomerVO = customerVO;
+	}
+	public EmployeeVO getEmployeeVO() {
+		return EmployeeVO;
+	}
+	public void setEmployeeVO(EmployeeVO employeeVO) {
+		EmployeeVO = employeeVO;
+	}
+	public LoginVO getLoginVO() {
+		return LoginVO;
+	}
+	public void setLoginVO(LoginVO loginVO) {
+		LoginVO = loginVO;
+	}
+	public MaterialVO getMaterialVO() {
+		return MaterialVO;
+	}
+	public void setMaterialVO(MaterialVO materialVO) {
+		MaterialVO = materialVO;
+	}
+	public OrderVO getOrderVO() {
+		return OrderVO;
+	}
+	public void setOrderVO(OrderVO orderVO) {
+		OrderVO = orderVO;
+	}
+	public ProductionVO getProductionVO() {
+		return ProductionVO;
+	}
+	public void setProductionVO(ProductionVO productionVO) {
+		ProductionVO = productionVO;
+	}
 	@Override
 	public String toString() {
 		return "PagingVO [table=" + table + ", status_name=" + status_name + ", status_value=" + status_value
 				+ ", selector=" + selector + ", search=" + search + ", column_name=" + column_name + ", column_value="
 				+ column_value + ", pageNum=" + pageNum + ", id=" + id + ", startRow=" + startRow + ", pageSize="
 				+ pageSize + ", endRow=" + endRow + ", pageCount=" + pageCount + ", pageBlock=" + pageBlock
-				+ ", startPage=" + startPage + ", endPage=" + endPage + ", currentPage=" + currentPage + "]";
+				+ ", startPage=" + startPage + ", endPage=" + endPage + ", currentPage=" + currentPage + ", ContractVO="
+				+ ContractVO + ", CustomerVO=" + CustomerVO + ", EmployeeVO=" + EmployeeVO + ", LoginVO=" + LoginVO
+				+ ", MaterialVO=" + MaterialVO + ", OrderVO=" + OrderVO + ", ProductionVO=" + ProductionVO + "]";
 	}
-	
-	
-	
+
+
 }

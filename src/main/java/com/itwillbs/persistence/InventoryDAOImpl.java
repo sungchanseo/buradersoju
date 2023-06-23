@@ -51,6 +51,11 @@ public class InventoryDAOImpl implements InventoryDAO {
 		 logger.debug("@#@#@##@#@DAO 수정 합니다~~@@@@");
 		return sqlSession.update(NAMESPACE+".modifyInventory",mvo);
 	}
-	
+	@Override
+	public void insertInventory(MaterialVO vo) {
+		logger.debug("@@@@@@제발 에러나오지마라@@@");
+		
+		sqlSession.insert(NAMESPACE+".insertInventory",vo);
+	}
 
 }

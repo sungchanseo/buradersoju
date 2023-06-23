@@ -31,7 +31,15 @@ public class InventoryServiceImpl implements InventoryService {
 	public Integer modifyInventory(MaterialVO mvo) {
 		
 		return idao.modifyInventory(mvo);
+		
 	}
+	
+	@Override
+	public void insertInventory(MaterialVO vo) {
+
+		 idao.insertInventory(vo);
+	}
+
 
 	
 }

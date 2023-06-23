@@ -31,8 +31,26 @@ public class EmployeeServiceImpl implements EmployeeService{
 	// 사원 번호 자동 부여
 	@Override
 	public int getNextNumber() throws Exception {
-		return edao.getNextNumber();
+	    String lastGeneratedNumber = edao.getLastGeneratedNumber();
+	    String lastNumber = lastGeneratedNumber.substring(4); // 마지막 3자리 번호 추출
+	    int nextNumber;
+	    
+	    if (lastGeneratedNumber.isEmpty()) {
+	        // 생성된 번호가 없는 경우
+	        nextNumber = 1;
+	    } else {
+	        // 마지막 생성된 번호에서 1 증가
+	        nextNumber = Integer.parseInt(lastNumber) + 1;
+	    }
+	    
+	    return nextNumber;
 	}
+	
+    // 마지막으로 생성된 번호 조회
+    @Override
+    public String getLastGeneratedNumber() throws Exception {
+        return edao.getLastGeneratedNumber();
+    }
 	
 	
 	// 사원리스트

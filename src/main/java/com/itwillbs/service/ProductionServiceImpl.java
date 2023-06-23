@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.itwillbs.domain.ContractVO;
 import com.itwillbs.domain.ProductionVO;
 import com.itwillbs.persistence.ProductionDAO;
 
@@ -24,6 +25,11 @@ public class ProductionServiceImpl implements ProductionService {
 	}
 
 	@Override
+	public ContractVO getWoInsertSearch(String cont_id) throws Exception{
+		return pdao.getWoInsertSearch(cont_id);
+	}
+	
+	@Override
 	public List<ProductionVO> getWorkOrderList() throws Exception{
 		return pdao.getWorkOrderList();
 	}
@@ -32,6 +38,7 @@ public class ProductionServiceImpl implements ProductionService {
 	public ProductionVO detailWorkOrder(String production_id) throws Exception{
 		return pdao.detailWorkOrder(production_id);
 	}
+
 
 
 	

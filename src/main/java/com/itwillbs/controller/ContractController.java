@@ -46,11 +46,11 @@ public class ContractController {
 		if(pvo.getSelector()!=null && pvo.getSelector()!="") {
 			//검색어가 있을 때 
 			logger.debug("@@@@@@@@@Controller : 검색어가 있을 때입니다");
-			contractList = pageSerivce.getListSearchObject(pvo);
+			contractList = pageSerivce.getListSearchObjectContractVO(pvo);
 		}else {
 			//검색어가 없을 때
 			logger.debug("@@@@@@@@@Controller : 검색어가 없을 때입니다");
-			contractList = pageSerivce.getListPageSizeObject(pvo);
+			contractList = pageSerivce.getListPageSizeObjectContractVO(pvo);
 		}
 		logger.debug("@@@@@@@@@Controller : {}",contractList);
 	

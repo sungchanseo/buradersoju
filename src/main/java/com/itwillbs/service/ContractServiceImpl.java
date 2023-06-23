@@ -2,12 +2,9 @@ package com.itwillbs.service;
 
 import java.time.LocalDate;
 
-import javax.inject.Inject;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import com.itwillbs.domain.ContractVO;
@@ -85,10 +82,6 @@ public class ContractServiceImpl implements ContractService {
 			
 			
 			//날짜부분이 같고 끝번호가 1이상일 때는 1을 더해서 카운트한다.  
-			if(datePart == datePartUp) {
-				LocalDate nextDay = currentDate.plusDays(1);
-				datePart = nextDay.toString().replace("-", "").substring(2, 8); 
-			}
 			if(countPartUp >= 1) {
 				countPartUp +=1;
 				countPart = String.format("%03d", countPartUp);

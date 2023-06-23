@@ -25,8 +25,7 @@
 											<td><a href="/notice/info?notice_id=${vo.notice_id }">${vo.notice_title }</a></td>
 											<td>${vo.notice_writer }</td>
 											<td>${vo.notice_regdate }</td>
-											<td><span class="badge bg-maroon">
-													${vo.notice_count } </span></td>
+											<td>${vo.notice_count }</td>
 										</tr>
 									</c:forEach>
 								</tbody>

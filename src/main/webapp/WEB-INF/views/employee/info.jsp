@@ -3,10 +3,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="en">
 <head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <title>사원 정보</title>
 </head>
 <body>
-	<h1>info.jsp</h1>
+<!-- 사원 수정 새창열기  -->
+<script type="text/javascript">
+// 	function openPop(){
+// 		var insertPop = window.open('/employee/modify?emp_id=${resultVO.emp_id}', '사원수정', 'width=900px,height=500px');
+		
+// 		if(insertPop == null){
+// 		 alert("팝업이 차단되었습니다. 차단을 해제하세요.");
+// 		}
+// 		openPop.moveBy(100,100);
+// 	}
+</script>
+<!-- 사원 수정 새창열기  -->
+	<h1>사원 정보</h1>
 	<table border="1">
 		<tr>
 			<th>사원사진</th>
@@ -33,7 +46,7 @@
 			<td>${resultVO.emp_gender }</td>		
 			<th>부서</th>
 			<td>${resultVO.emp_department }</td>
-			<th>직위</th>
+			<th>직급</th>
 			<td>${resultVO.emp_position }</td>
 		</tr>
 		<tr>
@@ -56,5 +69,6 @@
 	</table>
 	
 	<input type="button" value="수정하기" onclick="location.href='/employee/modify?emp_id=${resultVO.emp_id}';">
+	<input type="button" value="창닫기" onclick="window.close();">
 </body>
 </html>

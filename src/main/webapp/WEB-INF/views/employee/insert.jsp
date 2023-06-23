@@ -1,17 +1,20 @@
 <!DOCTYPE html>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html lang="en">
+<html>
 <head>
+<meta charset="UTF-8">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <title>사원 등록</title>
 </head>
 <body>
-	<form action="" method="post" >
+	<form action="" role="form" method="post" >
 		<table border="1">
 			<tr>
 				<th>사원사진</th>
 				<th>사번</th>
-				<td><input type="text" name="emp_id" readonly value="${vo.emp_id}"></td>
+				<td><input type="text" name="emp_id" readonly value="사번자동생성"></td>
 				<th>비밀번호</th>
 				<td><input type="password" name="emp_pw"></td>
 				<th>이름</th>
@@ -46,11 +49,12 @@
 				</select></td>
 				<th>직급</th>
 				<td><select name="emp_position">
-						<option value="사장">사장</option>
+						<option value="임원">임원</option>
 						<option value="부장">부장</option>
 						<option value="차장">차장</option>
 						<option value="과장">과장</option>
 						<option value="대리">대리</option>
+						<option value="주임">주임</option>
 						<option value="사원">사원</option>
 				</select></td>
 			</tr>
@@ -78,8 +82,39 @@
 			</tr>
 			
 		</table>
-		<input type="submit" value="사원등록">
+		<input type="submit" class="btn btn-success btn-fw" value="사원등록" onclick="sendForm();">
+		<input type="reset" class="btn btn-success btn-fw" value="초기화">
+		<input type="button" class="btn btn-success btn-fw" value="창닫기" onclick="window.close();">
 	</form>
-	
+	<!-- 팝업창 처리 -->
+	<script>
+		function sendForm() {
+			//상단의 폼태그를 변수에 저장한다. 
+			var formObject = $("form[role='form']").serialize();
+			var status = true;
+			
+			for (var i = 0; i < formObject.length; i++) {
+				if (formObject[i].value == "") {
+					alert("정보를 입력하세요!");
+					status = false;
+					break;
+				}
+			}	
+			
+			//작성완료 버튼을 눌렀을 때 ajax를 실행하도록 한다.
+			$.ajax({
+				url : '/employee/insert', 
+				type : 'POST', 
+				data : formObject, 
+				success : function(json) {
+					alert("사원등록이 완료되었습니다.");
+					status = true;
+					window.opener.location.reload();
+					window.close();
+				}
+			});
+		}
+	</script>
+	<!-- 팝업창 처리 -->
 </body>
 </html>

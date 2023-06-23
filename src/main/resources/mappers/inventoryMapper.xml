@@ -25,7 +25,7 @@
 
       <update id="modifyInventory">
          update material set ma_qty=#{ma_qty} 
-         where ma_id=#{ma_id} and ma_qty =""
+         where ma_id=#{ma_id}
       
       </update>
       <insert id="insertInventory">

@@ -13,7 +13,7 @@ public interface InMaterialService {
 	public List<InMaterialVO> getInMaterialListFilter(String in_progress) throws Exception;
 	
 	// 3. 입고 상세보기
-	public InMaterialVO getInMaterialInfo(String in_id) throws Exception;
+	public InMaterialVO getInMaterialInfo(String order_id) throws Exception;
 	
 	// 4-1. 입고번호 최대값 (maxNumber) 230620004
 	public String getMaxNumber() throws Exception;

@@ -15,7 +15,7 @@ public interface InMaterialDAO {
 	public List<InMaterialVO> getInMaterialListFilter(String in_progress);
 	
 	// 3. 입고 상세보기
-	public InMaterialVO getInMaterialInfo(String in_id);
+	public InMaterialVO getInMaterialInfo(String order_id);
 	
 	// 4-1. 입고번호 최대값 (maxNumber) 230620004
 	public String getMaxNumber();
@@ -25,5 +25,6 @@ public interface InMaterialDAO {
 	
 	// 4-3. 입고번호 등록하기
 	public void registInId(InMaterialVO vo);
+	
 	
 }

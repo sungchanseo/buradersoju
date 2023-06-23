@@ -45,14 +45,16 @@ public class InMaterialDAOImpl implements InMaterialDAO {
 	
 	// 3. 입고 상세보기
 	@Override
-	public InMaterialVO getInMaterialInfo(String in_id) {
-		return null;
+	public InMaterialVO getInMaterialInfo(String order_id) {
+		logger.debug("########## getInMaterialInfo 호출");
+		return sqlSession.selectOne(NAMESPACE+".getInMaterialInfo", order_id);
 	}
 
 	
 	// 4. 입고번호 최대값 (maxNumber) 230620004
 	@Override
 	public String getMaxNumber() {
+		logger.debug("########## getMaxNumber 호출");
 		String maxNumber = sqlSession.selectOne(NAMESPACE + ".getMaxNumber"); // 230620001
 		logger.debug("############## maxNumber : " + maxNumber);
 		return maxNumber;
@@ -62,6 +64,7 @@ public class InMaterialDAOImpl implements InMaterialDAO {
 	// 5. 입고번호 최대날짜(maxDate) 230620
 	@Override
 	public String getMaxDate() {
+		logger.debug("########## getMaxDate 호출");
 		String maxDate = sqlSession.selectOne(NAMESPACE + ".getMaxDate"); // 230620
 		logger.debug("############## maxDate : " + maxDate);
 		return maxDate;

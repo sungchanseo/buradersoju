@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.itwillbs.domain.InMaterialVO;
+import com.itwillbs.domain.MaterialVO;
 import com.itwillbs.service.InMaterialService;
 
 
@@ -68,6 +69,18 @@ public class InMaterialController {
 		vo.setOrder_id(order_id);
 		iService.registInId(vo);
 		logger.debug("@@@@@@@@@@ in_id = " + vo.getIn_id());
+	}
+	
+	
+	// 3. 입고 상세보기
+	@RequestMapping(value = "/info", method=RequestMethod.GET)
+	public void getInMaterialInfo(Model model, @RequestParam("order_id") String order_id) throws Exception{
+		logger.debug("@@@@@@@@@@ getInMaterialInfo()_호출");
+		
+		InMaterialVO info = iService.getInMaterialInfo(order_id);
+		logger.debug("@@@@@@@@@@ 입고 상세보기 데이터 : " + info);
+		model.addAttribute("resultVO", info);
+
 	}
 	
 	

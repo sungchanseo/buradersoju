@@ -40,6 +40,10 @@
 <!-- 작업지시 등록 -->
 
 <!-- 생산 목록 -->
+	<select id="getProductionList" resultType="com.itwillbs.domain.ProductionVO">
+		select * from production 
+		join product ON production.product_id = product.product_id;
+	</select>
 <!-- 생산 목록 -->
 
 <!-- 생산 등록 -->

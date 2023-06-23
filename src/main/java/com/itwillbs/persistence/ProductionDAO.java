@@ -23,4 +23,9 @@ public interface ProductionDAO {
 	
 	// 작업지시 상세
 	public ProductionVO detailWorkOrder(String production_id) throws Exception;
+	
+	// 생산목록
+	public List<ProductionVO> getProductionList() throws Exception;
+	
+	
 }

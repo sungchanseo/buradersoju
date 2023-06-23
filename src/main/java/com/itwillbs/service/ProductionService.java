@@ -3,6 +3,7 @@ package com.itwillbs.service;
 import java.util.List;
 
 import com.itwillbs.domain.ContractVO;
+import com.itwillbs.domain.PagingVO;
 import com.itwillbs.domain.ProductionVO;
 
 public interface ProductionService {
@@ -20,6 +21,11 @@ public interface ProductionService {
 	// 작업지시 상세
 	public ProductionVO detailWorkOrder(String production_id) throws Exception;
 
+	// 생산목록
+	public List<ProductionVO> getProductionList() throws Exception;
+	
+//	// 페이징
+//	public PagingVO setPageInfoForProduction(PagingVO pvo) throws Exception;
 	
 	
 }

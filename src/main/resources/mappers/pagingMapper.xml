@@ -164,9 +164,9 @@
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
-<!-- inventory  페이징처리 시작 -->
+<!-- InMaterialVO 페이징처리 시작 -->
 	<!-- 아무조건이 없을 때 목록 배열 가져오기  -->
-		<select id="getListPageSizeObjectInventoryVO" resultType="InventoryVO">
+		<select id="getListPageSizeObjectInMaterialVO" resultType="InMaterialVO">
 			SELECT * FROM ${table} 
 			WHERE ${status_name} = ${status_value} 
 			ORDER BY ${id} DESC LIMIT #{startRow}, #{pageSize}
@@ -174,7 +174,7 @@
 	<!-- 아무조건이 없을 때 목록갯수 가져오기  -->	
 		
 	<!--  	검색어+페이지갯수 제한 전체 목록 배열 가져오기  -->
-		<select id="getListSearchObjectInventoryVO" resultType="InventoryVO">
+		<select id="getListSearchObjectInMaterialVO" resultType="InMaterialVO">
 			SELECT * FROM ${table} 
 			WHERE ${status_name} = ${status_value}
 			AND ${selector} LIKE CONCAT('%', #{search}, '%') 
@@ -183,7 +183,7 @@
 	<!--  	검색어+페이지갯수 제한 전체 목록 배열 가져오기  -->	
 		
 	<!-- 필터처리+페이지갯수 제한 전체 목록 가져오기  -->
-		<select id="getListFilterObjectInventoryVO" resultType="InventoryVO">
+		<select id="getListFilterObjectInMaterialVO" resultType="InMaterialVO">
 			SELECT * FROM ${table} 
 			WHERE ${column_name} = #{column_value} AND ${status_name} = ${status_value} 
 			ORDER BY ${id} DESC LIMIT #{startRow}, #{pageSize}
@@ -191,7 +191,7 @@
 	<!-- 필터처리+페이지갯수 제한 전체 목록 가져오기  -->
 	
 	<!-- 검색어+필터처리+페이지갯수 제한 전체 목록 가져오기  -->
-		<select id="getListSearchFilterObjectInventoryVO" resultType="InventoryVO">
+		<select id="getListSearchFilterObjectInMaterialVO" resultType="InMaterialVO">
 			SELECT * FROM ${table}
 			WHERE ${column_name} = #{column_value} AND ${status_name}=${status_value}  
 			AND ${selector} LIKE CONCAT('%', #{search}, '%') 
@@ -312,8 +312,123 @@
 			ORDER BY ${id} DESC LIMIT #{startRow}, #{pageSize}
 		</select>
 	<!-- 검색어+필터처리+페이지갯수 제한 전체 목록 가져오기  -->
-<!-- OrderVO  페이징처리 시작 -->
+<!-- ProductionVO  페이징처리 시작 -->
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- NoticeVO  페이징처리 시작 -->
+	<!-- 아무조건이 없을 때 목록 배열 가져오기  -->
+		<select id="getListPageSizeObjectNoticeVO" resultType="NoticeVO">
+			SELECT * FROM ${table} 
+			WHERE ${status_name} = ${status_value} 
+			ORDER BY ${id} DESC LIMIT #{startRow}, #{pageSize}
+		</select>
+	<!-- 아무조건이 없을 때 목록갯수 가져오기  -->	
+		
+	<!--  	검색어+페이지갯수 제한 전체 목록 배열 가져오기  -->
+		<select id="getListSearchObjectNoticeVO" resultType="NoticeVO">
+			SELECT * FROM ${table} 
+			WHERE ${status_name} = ${status_value}
+			AND ${selector} LIKE CONCAT('%', #{search}, '%') 
+			ORDER BY ${id} DESC LIMIT #{startRow}, #{pageSize}
+		</select>
+	<!--  	검색어+페이지갯수 제한 전체 목록 배열 가져오기  -->	
+		
+	<!-- 필터처리+페이지갯수 제한 전체 목록 가져오기  -->
+		<select id="getListFilterObjectNoticeVO" resultType="NoticeVO">
+			SELECT * FROM ${table} 
+			WHERE ${column_name} = #{column_value} AND ${status_name} = ${status_value} 
+			ORDER BY ${id} DESC LIMIT #{startRow}, #{pageSize}
+		</select>
+	<!-- 필터처리+페이지갯수 제한 전체 목록 가져오기  -->
+	
+	<!-- 검색어+필터처리+페이지갯수 제한 전체 목록 가져오기  -->
+		<select id="getListSearchFilterObjectNoticeVO" resultType="NoticeVO">
+			SELECT * FROM ${table}
+			WHERE ${column_name} = #{column_value} AND ${status_name}=${status_value}  
+			AND ${selector} LIKE CONCAT('%', #{search}, '%') 
+			ORDER BY ${id} DESC LIMIT #{startRow}, #{pageSize}
+		</select>
+	<!-- 검색어+필터처리+페이지갯수 제한 전체 목록 가져오기  -->
+<!-- NoticeVO  페이징처리 시작 -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- OutProductVO  페이징처리 시작 -->
+	<!-- 아무조건이 없을 때 목록 배열 가져오기  -->
+		<select id="getListPageSizeObjectOutProductVO" resultType="OutProductVO">
+			SELECT * FROM ${table} 
+			WHERE ${status_name} = ${status_value} 
+			ORDER BY ${id} DESC LIMIT #{startRow}, #{pageSize}
+		</select>
+	<!-- 아무조건이 없을 때 목록갯수 가져오기  -->	
+		
+	<!--  	검색어+페이지갯수 제한 전체 목록 배열 가져오기  -->
+		<select id="getListSearchObjectOutProductVO" resultType="OutProductVO">
+			SELECT * FROM ${table} 
+			WHERE ${status_name} = ${status_value}
+			AND ${selector} LIKE CONCAT('%', #{search}, '%') 
+			ORDER BY ${id} DESC LIMIT #{startRow}, #{pageSize}
+		</select>
+	<!--  	검색어+페이지갯수 제한 전체 목록 배열 가져오기  -->	
+		
+	<!-- 필터처리+페이지갯수 제한 전체 목록 가져오기  -->
+		<select id="getListFilterObjectOutProductVO" resultType="OutProductVO">
+			SELECT * FROM ${table} 
+			WHERE ${column_name} = #{column_value} AND ${status_name} = ${status_value} 
+			ORDER BY ${id} DESC LIMIT #{startRow}, #{pageSize}
+		</select>
+	<!-- 필터처리+페이지갯수 제한 전체 목록 가져오기  -->
+	
+	<!-- 검색어+필터처리+페이지갯수 제한 전체 목록 가져오기  -->
+		<select id="getListSearchFilterObjectOutProductVO" resultType="OutProductVO">
+			SELECT * FROM ${table}
+			WHERE ${column_name} = #{column_value} AND ${status_name}=${status_value}  
+			AND ${selector} LIKE CONCAT('%', #{search}, '%') 
+			ORDER BY ${id} DESC LIMIT #{startRow}, #{pageSize}
+		</select>
+	<!-- 검색어+필터처리+페이지갯수 제한 전체 목록 가져오기  -->
+<!-- ProductionVO  페이징처리 시작 -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- WarehouseVO  페이징처리 시작 -->
+	<!-- 아무조건이 없을 때 목록 배열 가져오기  -->
+		<select id="getListPageSizeObjectWarehouseVO" resultType="WarehouseVO">
+			SELECT * FROM ${table} 
+			WHERE ${status_name} = ${status_value} 
+			ORDER BY ${id} DESC LIMIT #{startRow}, #{pageSize}
+		</select>
+	<!-- 아무조건이 없을 때 목록갯수 가져오기  -->	
+		
+	<!--  	검색어+페이지갯수 제한 전체 목록 배열 가져오기  -->
+		<select id="getListSearchObjectWarehouseVO" resultType="WarehouseVO">
+			SELECT * FROM ${table} 
+			WHERE ${status_name} = ${status_value}
+			AND ${selector} LIKE CONCAT('%', #{search}, '%') 
+			ORDER BY ${id} DESC LIMIT #{startRow}, #{pageSize}
+		</select>
+	<!--  	검색어+페이지갯수 제한 전체 목록 배열 가져오기  -->	
+		
+	<!-- 필터처리+페이지갯수 제한 전체 목록 가져오기  -->
+		<select id="getListFilterObjectWarehouseVO" resultType="WarehouseVO">
+			SELECT * FROM ${table} 
+			WHERE ${column_name} = #{column_value} AND ${status_name} = ${status_value} 
+			ORDER BY ${id} DESC LIMIT #{startRow}, #{pageSize}
+		</select>
+	<!-- 필터처리+페이지갯수 제한 전체 목록 가져오기  -->
+	
+	<!-- 검색어+필터처리+페이지갯수 제한 전체 목록 가져오기  -->
+		<select id="getListSearchFilterObjectWarehouseVO" resultType="WarehouseVO">
+			SELECT * FROM ${table}
+			WHERE ${column_name} = #{column_value} AND ${status_name}=${status_value}  
+			AND ${selector} LIKE CONCAT('%', #{search}, '%') 
+			ORDER BY ${id} DESC LIMIT #{startRow}, #{pageSize}
+		</select>
+	<!-- 검색어+필터처리+페이지갯수 제한 전체 목록 가져오기  -->
+<!-- ProductionVO  페이징처리 시작 -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+
 
 
 </mapper>

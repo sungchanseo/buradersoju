@@ -24,10 +24,10 @@
 ${cInput }
 	<h1>수주 리스트</h1>
 	<!-- 검색창기능 -->
-	<form action="/customer/list" method="get">
+	<form action="/contract/list" method="get">
 		<select name="selector">
-			<option value="cust_name">상호</option>
-			<option value="cust_id">거래처코드</option>
+			<option value="product_name">상품명</option>
+			<option value="cust_name">수주처</option>
 		</select>
 		<input type="text" name="search" placeholder="검색어를 입력해주세요">
 		<input type="submit" class="btn-danger" value="검색">

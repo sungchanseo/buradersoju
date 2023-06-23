@@ -90,7 +90,7 @@ public class PagingServiceImpl implements PagingService {
 		return pvo;
 	}
 	
-	//거래처 전체 목록 조회
+	//전체 목록 조회
 	@Override
 	public int getListAll(PagingVO pvo) throws Exception {
 		logger.debug("@@@@@@@@@@@PagingSerivce : getListAll()메소드 호출!");
@@ -211,6 +211,34 @@ public class PagingServiceImpl implements PagingService {
 		return pdao.getListSearchFilterObjectEmployeeVO(pvo);
 	}
 	///////////////////////////////////////////////////////////////////////////////
+
+	/////////////////////////////////InMaterialVO////////////////////////////////////
+	//아무조건이 없을 때 전체 목록 객체 가져오기
+	@Override
+	public List<Object> getListPageSizeObjectInMaterialVO(PagingVO pvo) throws Exception {
+		logger.debug("@@@@@@@@@@@PagingSerivce : getListPageSizeObjectInMaterialVO()메소드 호출!");
+		List<Object> result = pdao.getListPageSizeObjectInMaterialVO(pvo);
+		return result;
+	}
+	//검색어 있을 때 전체목록 객체 가져오기 	
+	@Override
+	public List<Object> getListSearchObjectInMaterialVO(PagingVO pvo) throws Exception {
+		logger.debug("@@@@@@@@@@@PagingSerivce : getListSearchObjectInMaterialVO()메소드 호출!");
+		return pdao.getListSearchObjectInMaterialVO(pvo);
+	}
+	//필터있을 때 전체 목록 객체 가져오기 	
+	@Override
+	public List<Object> getListFilterObjectInMaterialVO(PagingVO pvo) throws Exception {
+		logger.debug("@@@@@@@@@@@PagingSerivce : getListFilterObjectInMaterialVO()메소드 호출!");
+		return pdao.getListFilterObjectInMaterialVO(pvo);
+	}
+	//검색어와 필터 모두 있을 때 전체 객체 가져오기 
+	@Override
+	public List<Object> getListSearchFilterObjectInMaterialVO(PagingVO pvo) throws Exception {
+		logger.debug("@@@@@@@@@@@PagingSerivce : getListSearchFilterObjectInMaterialVO()메소드 호출!");
+		return pdao.getListSearchFilterObjectInMaterialVO(pvo);
+	}
+	///////////////////////////////////////////////////////////////////////////////
 	
 	/////////////////////////////////MaterialVO////////////////////////////////////
 	//아무조건이 없을 때 전체 목록 객체 가져오기
@@ -237,6 +265,34 @@ public class PagingServiceImpl implements PagingService {
 	public List<Object> getListSearchFilterObjectMaterialVO(PagingVO pvo) throws Exception {
 		logger.debug("@@@@@@@@@@@PagingSerivce : getListSearchFilterObjectMaterialVO()메소드 호출!");
 		return pdao.getListSearchFilterObjectMaterialVO(pvo);
+	}
+	///////////////////////////////////////////////////////////////////////////////
+	
+	/////////////////////////////////NoticeVO////////////////////////////////////
+	//아무조건이 없을 때 전체 목록 객체 가져오기
+	@Override
+	public List<Object> getListPageSizeObjectNoticeVO(PagingVO pvo) throws Exception {
+		logger.debug("@@@@@@@@@@@PagingSerivce : getListPageSizeObjectNoticeVO()메소드 호출!");
+		List<Object> result = pdao.getListPageSizeObjectNoticeVO(pvo);
+		return result;
+	}
+	//검색어 있을 때 전체목록 객체 가져오기 	
+	@Override
+	public List<Object> getListSearchObjectNoticeVO(PagingVO pvo) throws Exception {
+		logger.debug("@@@@@@@@@@@PagingSerivce : getListSearchObjectNoticeVO()메소드 호출!");
+		return pdao.getListSearchObjectNoticeVO(pvo);
+	}
+	//필터있을 때 전체 목록 객체 가져오기 	
+	@Override
+	public List<Object> getListFilterObjectNoticeVO(PagingVO pvo) throws Exception {
+		logger.debug("@@@@@@@@@@@PagingSerivce : getListFilterObjectNoticeVO()메소드 호출!");
+		return pdao.getListFilterObjectNoticeVO(pvo);
+	}
+	//검색어와 필터 모두 있을 때 전체 객체 가져오기 
+	@Override
+	public List<Object> getListSearchFilterObjectNoticeVO(PagingVO pvo) throws Exception {
+		logger.debug("@@@@@@@@@@@PagingSerivce : getListSearchFilterObjectNoticeVO()메소드 호출!");
+		return pdao.getListSearchFilterObjectNoticeVO(pvo);
 	}
 	///////////////////////////////////////////////////////////////////////////////
 	
@@ -268,6 +324,34 @@ public class PagingServiceImpl implements PagingService {
 	}
 	///////////////////////////////////////////////////////////////////////////////
 
+	/////////////////////////////////OutProductVO////////////////////////////////////
+	//아무조건이 없을 때 전체 목록 객체 가져오기
+	@Override
+	public List<Object> getListPageSizeObjectOutProductVO(PagingVO pvo) throws Exception {
+		logger.debug("@@@@@@@@@@@PagingSerivce : getListPageSizeObjectOutProductV()메소드 호출!");
+		List<Object> result = pdao.getListPageSizeObjectOutProductVO(pvo);
+		return result;
+	}
+	//검색어 있을 때 전체목록 객체 가져오기 	
+	@Override
+	public List<Object> getListSearchObjectOutProductVO(PagingVO pvo) throws Exception {
+		logger.debug("@@@@@@@@@@@PagingSerivce : getListSearchObjectOutProductVO()메소드 호출!");
+		return pdao.getListSearchObjectOutProductVO(pvo);
+	}
+	//필터있을 때 전체 목록 객체 가져오기 	
+	@Override
+	public List<Object> getListFilterObjectOutProductVO(PagingVO pvo) throws Exception {
+		logger.debug("@@@@@@@@@@@PagingSerivce : getListFilterObjectOutProductV()메소드 호출!");
+		return pdao.getListFilterObjectOutProductVO(pvo);
+	}
+	//검색어와 필터 모두 있을 때 전체 객체 가져오기 
+	@Override
+	public List<Object> getListSearchFilterObjectOutProductVO(PagingVO pvo) throws Exception {
+		logger.debug("@@@@@@@@@@@PagingSerivce : getListSearchFilterObjectOutProductV()메소드 호출!");
+		return pdao.getListSearchFilterObjectOutProductVO(pvo);
+	}
+	///////////////////////////////////////////////////////////////////////////////
+	
 	/////////////////////////////////ProductionVO////////////////////////////////////
 	//아무조건이 없을 때 전체 목록 객체 가져오기
 	@Override
@@ -296,5 +380,32 @@ public class PagingServiceImpl implements PagingService {
 	}
 	///////////////////////////////////////////////////////////////////////////////
 
+	/////////////////////////////////WarehouseVO////////////////////////////////////
+	//아무조건이 없을 때 전체 목록 객체 가져오기
+	@Override
+	public List<Object> getListPageSizeObjectWarehouseVO(PagingVO pvo) throws Exception {
+		logger.debug("@@@@@@@@@@@PagingSerivce : getListPageSizeObjectWarehouseVO()메소드 호출!");
+		List<Object> result = pdao.getListPageSizeObjectWarehouseVO(pvo);
+		return result;
+	}
+	//검색어 있을 때 전체목록 객체 가져오기 	
+	@Override
+	public List<Object> getListSearchObjectWarehouseVO(PagingVO pvo) throws Exception {
+		logger.debug("@@@@@@@@@@@PagingSerivce : getListSearchObjectProductionVO()메소드 호출!");
+		return pdao.getListSearchObjectWarehouseVO(pvo);
+	}
+	//필터있을 때 전체 목록 객체 가져오기 	
+	@Override
+	public List<Object> getListFilterObjectWarehouseVO(PagingVO pvo) throws Exception {
+		logger.debug("@@@@@@@@@@@PagingSerivce : getListFilterObjectProductionVO()메소드 호출!");
+		return pdao.getListFilterObjectWarehouseVO(pvo);
+	}
+	//검색어와 필터 모두 있을 때 전체 객체 가져오기 
+	@Override
+	public List<Object> getListSearchFilterObjectWarehouseVO(PagingVO pvo) throws Exception {
+		logger.debug("@@@@@@@@@@@PagingSerivce : getListSearchFilterObjectWarehouseVO()메소드 호출!");
+		return pdao.getListSearchFilterObjectWarehouseVO(pvo);
+	}
+	///////////////////////////////////////////////////////////////////////////////
 	
 }

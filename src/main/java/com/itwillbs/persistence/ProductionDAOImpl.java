@@ -1,10 +1,6 @@
 package com.itwillbs.persistence;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-
-import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -12,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.itwillbs.controller.ProductionController;
 import com.itwillbs.domain.ContractVO;
 import com.itwillbs.domain.ProductionVO;
 
@@ -52,17 +47,17 @@ public class ProductionDAOImpl implements ProductionDAO {
 	}
 
 	@Override
-	public void insertWorkOrder(ProductionVO vo) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public ProductionVO detailWorkOrder(String production_id) throws Exception {
 		logger.debug(" detailWorkOrder() 호출 ");
 
 		return sqlSession.selectOne(NAMESPACE+".workOrder", production_id);
   }
+
+	@Override
+	public List<ProductionVO> getProductionList() throws Exception {
+		logger.debug(" getProductionList() 호출 ");
+		return sqlSession.selectList(NAMESPACE+".getProductionList");
+	}
 
 	
 	

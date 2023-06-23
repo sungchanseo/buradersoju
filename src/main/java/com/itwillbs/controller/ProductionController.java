@@ -20,7 +20,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itwillbs.domain.ContractVO;
+import com.itwillbs.domain.PagingVO;
 import com.itwillbs.domain.ProductionVO;
+import com.itwillbs.service.PagingService;
 import com.itwillbs.service.ProductionService;
 
 @Controller
@@ -31,6 +33,8 @@ public class ProductionController {
 
 	@Inject
 	private ProductionService proService;
+	@Inject
+	private PagingService pageService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(ProductionController.class);
 	
@@ -138,6 +142,37 @@ public class ProductionController {
 	// http://localhost:8088/production/workOrderModify?production_id=PR230615001
 	// 작업지시 수정
 	
+	
+//	// http://localhost:8088/production/productionList
+//	// 생산목록
+//	@RequestMapping(value = "/productionList", method = RequestMethod.GET)
+//    public String productionListGET(Model model, PagingVO pvo) throws Exception {
+//		logger.debug(" productionListGET()호출! ");
+//		
+//        List<Object> productionList=null;
+//		
+//		//거래처목록을 가져오는 custService 호출
+//		pvo = proService.setPageInfoForProduction(pvo);
+//		logger.debug("@@@@@@@@@Controller : {}",pvo);
+//		
+//		//service객체를 호출
+//		if(pvo.getSelector()!=null && pvo.getSelector()!="") {
+//			//검색어가 있을 때 
+//			logger.debug("@@@@@@@@@Controller : 검색어가 있을 때입니다");
+//			productionList = pageService.getListSearchObjectProductionVO(pvo);
+//		}else {
+//			//검색어가 없을 때
+//			logger.debug("@@@@@@@@@Controller : 검색어가 없을 때입니다");
+//			productionList = pageService.getListPageSizeObjectProductionVO(pvo);
+//		}
+//		logger.debug("@@@@@@@@@Controller : productionList={}",productionList);
+//	
+//		//변수에 담아서 전달
+//		model.addAttribute("pvo",pvo);
+//        model.addAttribute("productionList", productionList);
+//        return "/production/productionList";
+//    }
+//	
 	
 		
 }

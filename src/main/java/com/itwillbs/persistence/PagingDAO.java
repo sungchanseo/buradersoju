@@ -1,6 +1,7 @@
 package com.itwillbs.persistence;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
@@ -26,15 +27,93 @@ public interface PagingDAO {
 		
 		/////////////////////////////////////////////////////////////
 		
+		/////////////////////////////////CustomerVO////////////////////////////////////
 		//아무조건이 없을 때 전체 목록 객체 가져오기
-		public List<Object> getListPageSizeObject(PagingVO pvo) throws Exception;
-		
+		public List<Object> getListPageSizeObjectCustomerVO(PagingVO pvo) throws Exception;
+
 		//검색어 있을 때 목록 객체 가져오기 	
-		public List<Object> getListSearchObject(PagingVO pvo) throws Exception;
+		public List<Object> getListSearchObjectCustomerVO(PagingVO pvo) throws Exception;
 		
 		//검색어+필터처리 전체 목록갯수 가져오기 	
-		public List<Object> getListFilterObject(PagingVO pvo)throws Exception;
+		public List<Object> getListFilterObjectCustomerVO(PagingVO pvo)throws Exception;
 		
 		//검색어와 필터 모두 있을 때 전체 목록 갯수 가져오기 
-		public List<Object> getListSearchFilterObject(PagingVO pvo) throws Exception;
+		public List<Object> getListSearchFilterObjectCustomerVO(PagingVO pvo) throws Exception;
+		///////////////////////////////////////////////////////////////////////////////
+		
+		/////////////////////////////////ContractVO////////////////////////////////////
+		//아무조건이 없을 때 전체 목록 객체 가져오기
+		public List<Object> getListPageSizeObjectContractVO(PagingVO pvo) throws Exception;
+		
+		//검색어 있을 때 목록 객체 가져오기 	
+		public List<Object> getListSearchObjectContractVO(PagingVO pvo) throws Exception;
+		
+		//검색어+필터처리 전체 목록갯수 가져오기 	
+		public List<Object> getListFilterObjectContractVO(PagingVO pvo)throws Exception;
+		
+		//검색어와 필터 모두 있을 때 전체 목록 갯수 가져오기 
+		public List<Object> getListSearchFilterObjectContractVO(PagingVO pvo) throws Exception;
+		///////////////////////////////////////////////////////////////////////////////
+		
+		/////////////////////////////////EmployeeVO////////////////////////////////////
+		//아무조건이 없을 때 전체 목록 객체 가져오기
+		public List<Object> getListPageSizeObjectEmployeeVO(PagingVO pvo) throws Exception;
+		
+		//검색어 있을 때 목록 객체 가져오기 	
+		public List<Object> getListSearchObjectEmployeeVO(PagingVO pvo) throws Exception;
+		
+		//검색어+필터처리 전체 목록갯수 가져오기 	
+		public List<Object> getListFilterObjectEmployeeVO(PagingVO pvo)throws Exception;
+		
+		//검색어와 필터 모두 있을 때 전체 목록 갯수 가져오기 
+		public List<Object> getListSearchFilterObjectEmployeeVO(PagingVO pvo) throws Exception;
+		///////////////////////////////////////////////////////////////////////////////
+		
+		
+		/////////////////////////////////MaterialVO////////////////////////////////////
+		//아무조건이 없을 때 전체 목록 객체 가져오기
+		public List<Object> getListPageSizeObjectMaterialVO(PagingVO pvo) throws Exception;
+		
+		//검색어 있을 때 목록 객체 가져오기 	
+		public List<Object> getListSearchObjectMaterialVO(PagingVO pvo) throws Exception;
+		
+		//검색어+필터처리 전체 목록갯수 가져오기 	
+		public List<Object> getListFilterObjectMaterialVO(PagingVO pvo)throws Exception;
+		
+		//검색어와 필터 모두 있을 때 전체 목록 갯수 가져오기 
+		public List<Object> getListSearchFilterObjectMaterialVO(PagingVO pvo) throws Exception;
+		///////////////////////////////////////////////////////////////////////////////
+		
+		
+		/////////////////////////////////OrderVO////////////////////////////////////
+		//아무조건이 없을 때 전체 목록 객체 가져오기
+		public List<Object> getListPageSizeObjectOrderVO(PagingVO pvo) throws Exception;
+		
+		//검색어 있을 때 목록 객체 가져오기 	
+		public List<Object> getListSearchObjectOrderVO(PagingVO pvo) throws Exception;
+		
+		//검색어+필터처리 전체 목록갯수 가져오기 	
+		public List<Object> getListFilterObjectOrderVO(PagingVO pvo)throws Exception;
+		
+		//검색어와 필터 모두 있을 때 전체 목록 갯수 가져오기 
+		public List<Object> getListSearchFilterObjectOrderVO(PagingVO pvo) throws Exception;
+		///////////////////////////////////////////////////////////////////////////////
+		
+		
+		
+		/////////////////////////////////ProductionVO////////////////////////////////////
+		//아무조건이 없을 때 전체 목록 객체 가져오기
+		public List<Object> getListPageSizeObjectProductionVO(PagingVO pvo) throws Exception;
+		
+		//검색어 있을 때 목록 객체 가져오기 	
+		public List<Object> getListSearchObjectProductionVO(PagingVO pvo) throws Exception;
+		
+		//검색어+필터처리 전체 목록갯수 가져오기 	
+		public List<Object> getListFilterObjectProductionVO(PagingVO pvo)throws Exception;
+		
+		//검색어와 필터 모두 있을 때 전체 목록 갯수 가져오기 
+		public List<Object> getListSearchFilterObjectProductionVO(PagingVO pvo) throws Exception;
+		///////////////////////////////////////////////////////////////////////////////
+		
+		
 }

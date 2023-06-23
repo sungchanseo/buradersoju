@@ -52,13 +52,13 @@ public class CustomerController {
 		if(pvo.getSelector()!=null && pvo.getSelector()!="") {
 			//검색어가 있을 때 
 			logger.debug("@@@@@@@@@Controller : 검색어가 있을 때입니다");
-			customerList = pageService.getListSearchObject(pvo);
+			customerList = pageService.getListSearchObjectCustomerVO(pvo);
 		}else {
 			//검색어가 없을 때
 			logger.debug("@@@@@@@@@Controller : 검색어가 없을 때입니다");
-			customerList = pageService.getListPageSizeObject(pvo);
+			customerList = pageService.getListPageSizeObjectCustomerVO(pvo);
 		}
-		logger.debug("@@@@@@@@@Controller : {}",customerList);
+		logger.debug("@@@@@@@@@Controller : customerList={}",customerList);
 	
 		//변수에 담아서 전달
 		model.addAttribute("customerList", customerList);

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.domain.EmployeeVO;
 import com.itwillbs.service.EmployeeService;
@@ -37,6 +38,7 @@ public class EmployeeController {
 	// http://localhost:8088/employee/insert
 	// 회원가입
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
+	@ResponseBody
 	public String insertPOST(EmployeeVO vo) throws Exception {
 		logger.debug("insertPOST() 호출!");
 		logger.debug("controller : {} ", vo);
@@ -129,9 +131,5 @@ public class EmployeeController {
 		return "redirect:/employee/list";
 		
 	}
-	
-	
-	
-	
 	
 }

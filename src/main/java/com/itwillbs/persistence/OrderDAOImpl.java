@@ -46,6 +46,12 @@ public class OrderDAOImpl implements OrderDAO{
 	
 		return null;
 	}
+
+	@Override
+	public OrderVO getOrderInfo(String ma_id) {
+		logger.debug("@@@@@@DAO 조인 해봅시다.... ㅠㅠ");
+		return sqlSession.selectOne(NAMESPACE+".getOrderInfo",ma_id);
+	}
    
 	
 

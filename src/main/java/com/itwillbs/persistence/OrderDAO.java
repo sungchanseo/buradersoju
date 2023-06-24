@@ -19,4 +19,7 @@ public interface OrderDAO {
 	
 	// 발주 수정하기
 	public Integer modifyOrder(OrderVO vo);
+	
+	// 발주 자재 정보보기 
+	public OrderVO getOrderInfo(String ma_id);
 }

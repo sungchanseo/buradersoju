@@ -15,7 +15,12 @@
          values (#{order_id}, #{ma_id}, #{order_maName}, #{order_qty}, #{order_unitCost}, #{order_sum},#{order_vat}, #{whs_num},#{order_emp},now(),now(),now())
        </insert>
        
-       <update id="modifyOrder">
-       
-       </update>
+        <!-- 입고 정보 상세보기 -->	
+	<select id="getOrderInfo" resultType="com.itwillbs.domain.OrderVO">
+		SELECT o.order_id, o.due_date, o.order_date, o.order_emp, m.ma_name, o.order_qty, m.ma_qty, m.shelt_position
+		FROM material m, orders o
+		WHERE m.ma_id = o.ma_id AND o.order_id = #{order_id}
+	</select>
+ <!-- 입고 정보 상세보기 -->	
+ 	
       </mapper>

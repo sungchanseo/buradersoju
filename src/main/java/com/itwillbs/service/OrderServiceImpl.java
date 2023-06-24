@@ -33,9 +33,16 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public Integer modifyOrder(OrderVO mvo) {
-		
+		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public OrderVO getOrderInfo(String ma_id) {
+		return odao.getOrderInfo(ma_id);
+	}
+
+
 
 
 	

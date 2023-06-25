@@ -9,9 +9,9 @@
 				<div class="row w-100 mx-0">
 					<div class="col-lg-12 mx-auto">
 						<div class="auth-form-light text-left py-5 px-4 px-sm-5"
-							style="height: 1000px;">
+							style="height: 600px;">
 							<table class="table table-color">
-								<tbody>
+								<tbody style="text-align: center;">
 									<tr>
 										<th style="width: 60px">번호</th>
 										<th>제목</th>

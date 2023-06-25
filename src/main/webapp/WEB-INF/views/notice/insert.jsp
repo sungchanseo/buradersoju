@@ -16,8 +16,8 @@
 										placeholder="제목을 입력하세요" required style="width: 400px;">
 								
 										작성자 <input type="text"
-										class="form-control" name="notice_writer" id="notice_title"
-										placeholder="관리자" value="관리자" readonly required
+										class="form-control" name="notice_writer" id="notice_writer"
+										value="${sessionScope.emp_name}" readonly required
 										style="width: 400px;">
 								
 										내용<textarea class="form-control" name="notice_content"

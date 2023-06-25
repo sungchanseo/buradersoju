@@ -7,14 +7,19 @@ $(document).ready(function() {
       if (data && data.length > 0) {
         var boardList = data; // NoticeVO 객체의 리스트
 
-        for (var i = 0; i < boardList.length; i++) {
-          var notice = boardList[i]; // NoticeVO 객체
-          var row = $("<tr>");
-          row.append($("<td>").text(notice.notice_id));
-          row.append($("<td>").html("<a href='/notice/info?notice_id=" + notice.notice_id + "'>" + notice.notice_title + "</a>"));
-          row.append($("<td>").text(formatTimestamp(notice.notice_regdate))); // Timestamp 값을 변환하여 추가
-          $("table.table-color").append(row);
-        }
+        // 데이터를 최신순으로 정렬
+        boardList.sort(function(a, b) {
+          return new Date(b.notice_regdate) - new Date(a.notice_regdate);
+        });
+
+        for (var i = 0; i < Math.min(10, boardList.length); i++) { // 최대 10개까지 출력
+            var notice = boardList[i]; // NoticeVO 객체
+            var row = $("<tr>");
+            row.append($("<td>").text(notice.notice_id));
+            row.append($("<td>").html("<a href='/notice/info?notice_id=" + notice.notice_id + "'>" + notice.notice_title + "</a>"));
+            row.append($("<td>").text(formatTimestamp(notice.notice_regdate))); // Timestamp 값을 변환하여 추가
+            $("table.table-color").append(row);
+          }
       } else {
         console.log("메인 공지 AJAX 에러");
       }

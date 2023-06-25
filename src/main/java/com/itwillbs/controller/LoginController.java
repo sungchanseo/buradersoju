@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -23,7 +24,7 @@ public class LoginController {
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
 	/* 로그인 기능 */
-	// http://localhost:8088/member/login
+	// http://localhost:8088/main/login
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginGET() throws Exception{
 		logger.info("C: 로그인 입력페이지 GET");
@@ -31,12 +32,12 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String loginPOST(LoginVO vo, HttpSession session, RedirectAttributes rttr) throws Exception{
+	public String loginPOST(LoginVO vo, HttpSession session, Model model, RedirectAttributes rttr) throws Exception{
 		logger.info("C: 로그인 처리페이지 POST");
 		logger.info("C: vo" + vo );
 		//1.한글처리 => web.xml에서 처리 완료
 		//2.전달받은 파라미터 저장 => loginPOST()메서드의 파라미터값으로 저장함.
-		logger.info("C: 로그인 처리"+ vo.getEmp_id() + vo.getEmp_pw());
+		logger.info("C: 로그인 처리"+ vo.getEmp_id() +", "+ vo.getEmp_pw());
 		//3.서비스객체생성 =>  의존주입완료
 		//4.서비스 로그인 체크 동작(HttpSession)
 		LoginVO returnVO = service.loginMember(vo);
@@ -47,14 +48,17 @@ public class LoginController {
 		if(returnVO != null) {
 			//5.세션값생성
 			session.setAttribute("emp_id", returnVO.getEmp_id());
+			session.setAttribute("emp_name", returnVO.getEmp_name());
+			session.setAttribute("emp_department", returnVO.getEmp_department());
 			rttr.addFlashAttribute("mvo", returnVO);
 			//l.info("C: 모델값 : "+model);
 			logger.info("로그인 성공!");
 			 return "redirect:/main";
 		}else {
-			// 해당 정보 없는 경우 : => login페이지로 이동
-			logger.info("로그인 실패!");
-			return "redirect:/member/login";
+			 // 해당 정보 없는 경우: 로그인 실패
+		    logger.info("로그인 실패!");
+		    model.addAttribute("loginFailed", true);
+		    return "main/loginError";
 		}
 	}//end of loginPOST()
 	

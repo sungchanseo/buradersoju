@@ -30,10 +30,10 @@
                 <div class="input-group">
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="search">
-                        <i class="mdi mdi-magnify"></i>
+                        
                       </span>
                     </div>
-                    <input type="text" class="form-control" placeholder="search" aria-label="search" aria-describedby="search">
+                    <input type="text" class="form-control" aria-label="search" aria-describedby="search">
                 </div>
               </li>	
             </ul>
@@ -45,42 +45,35 @@
             </div>
             <ul class="navbar-nav navbar-nav-right">
                 <li class="nav-item dropdown d-lg-flex d-none">
-                  <a class="dropdown-toggle show-dropdown-arrow btn btn-inverse-success btn-sm" id="nreportDropdown" href="#" data-bs-toggle="dropdown">
-                  	Good Morning
+                  
+                  <a class="btn btn-outline-danger btn-fw" id="nreportDropdown" href="/main/logout">
+                  	로그아웃
                   </a>
-                  <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="nreportDropdown">
-                      <p class="mb-0 font-weight-medium float-left dropdown-header">접속 ID : ${sessionScope.emp_id}</p>
-                      <a class="dropdown-item">
-                        <i class="mdi mdi-account text-primary"></i>
-                         	Info
-                      </a>
-                      <a class="dropdown-item">
-                        <i class="mdi mdi-logout text-primary"></i>
-                        LogOut
-                      </a>
-                  </div>
                 </li>
                 <li class="nav-item nav-profile dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" id="profileDropdown">
-                    <span class="nav-profile-name">접속 ID : ${sessionScope.emp_id}</span>
+                  <a class="nav-link dropdown-toggle" href="" data-bs-toggle="dropdown" id="profileDropdown">
+                    <span class="nav-profile-name">	${sessionScope.emp_department}팀  ${sessionScope.emp_name}님</span>
                     <span class="online-status"></span>
                     <img src="${pageContext.request.contextPath}/resources/images/faces/face28.png" alt="profile"/>
                   </a>
-                  <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+                  <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="nreportDropdown">
+                      <p class="mb-0 font-weight-medium float-left dropdown-header">${sessionScope.emp_name}님 환영합니다</p>
                       <a class="dropdown-item">
                         <i class="mdi mdi-account text-primary"></i>
-                        Info
+                         	접속 ID : ${sessionScope.emp_id}
                       </a>
-                      <a href="/main/logout" class="dropdown-item">
+                      <a class="dropdown-item">
+                        <i class="mdi mdi-account-card-details text-primary"></i>
+                         	부서 : ${sessionScope.emp_department}팀
+                      </a>
+                       <a href="/main/logout" class="dropdown-item">
                         <i class="mdi mdi-logout text-primary"></i>
-                        Logout
+                        	로그아웃
                       </a>
                   </div>
                 </li>
             </ul>
-            <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="horizontal-menu-toggle">
-              <span class="mdi mdi-menu"></span>
-            </button>
+
           </div>
         </div>
       </nav>
@@ -89,7 +82,7 @@
             <ul class="nav page-navigation">
               <li class="nav-item">
                 <a class="nav-link" href="" >
-                  <i class="mdi mdi-account menu-icon"></i>
+                  <i class="mdi mdi-account menu-icon" style="font-size: 30px; "></i>
                   <span class="menu-title">사원 관리</span>
                 </a>
                 <div class="submenu">
@@ -103,7 +96,7 @@
               </li>
                <li class="nav-item">
                 <a class="nav-link" href="">
-                  <i class="mdi mdi-cube-outline menu-icon"></i>
+                    <i class="mdi mdi-finance menu-icon" style="font-size: 30px;"></i>
                   <span class="menu-title">영업 관리</span>
                 </a>
                 <div class="submenu">
@@ -123,7 +116,7 @@
               </li>
               <li class="nav-item">
                   <a href="" class="nav-link">
-                    <i class="mdi mdi-chart-areaspline menu-icon"></i>
+                    <i class="mdi mdi-chart-areaspline menu-icon" style="font-size: 30px;"></i>
                     <span class="menu-title">구매 관리</span>
                     <i class="menu-arrow"></i>
                   </a>
@@ -149,7 +142,7 @@
               </li>
               <li class="nav-item">
                   <a href="" class="nav-link">
-                    <i class="mdi mdi-finance menu-icon"></i>
+                    <i class="mdi mdi-package-variant-closed menu-icon" style="font-size: 30px;"></i>
                     <span class="menu-title">생산 관리</span>
                     <i class="menu-arrow"></i>
                   </a>
@@ -167,7 +160,7 @@
               </li>
               <li class="nav-item">
                   <a href="" class="nav-link">
-                    <i class="mdi mdi-grid menu-icon"></i>
+                    <i class="mdi mdi-grid menu-icon" style="font-size: 30px;"></i>
                     <span class="menu-title">창고 관리</span>
                     <i class="menu-arrow"></i>
                   </a>

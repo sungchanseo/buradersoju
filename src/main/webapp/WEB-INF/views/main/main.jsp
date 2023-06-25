@@ -15,7 +15,17 @@
 						<div class="col-lg-6 grid-margin stretch-card">
 							<div class="row flex-grow">
 								<div class="col-lg-12 grid-margin stretch-card">
-									<div class="card">
+									<div class="card" style="background-image: url(${pageContext.request.contextPath}/resources/images/dashboard/bb.png);
+									box-shadow: none;
+									-webkit-box-shadow: none;
+									-moz-box-shadow: none;
+									-ms-box-shadow: none;
+									border-radius: 6px 6px 18px 16px;
+									background-size: contain;
+									background-repeat: no-repeat;
+									border: 0;
+									box-shadow: none;
+									padding: 2.112rem 3.25rem;">
 										<div class="card-body">
 											<div class="row">
 												<div class="weather-info">
@@ -23,7 +33,6 @@
 														<div>
 															<h1 class="mb-0 font-weight-normal">
 																<span id="todaysTemp" style="margin-right: 5px;"></span>
-
 																<span class="weather-icon mr-3" id="todaysWeather"></span>
 															</h1>
 														</div>
@@ -42,6 +51,25 @@
 							</div>
 						</div>
 						<!-- 날씨 끝 -->
+						<!-- 달력 시작 -->
+						<div class="col-lg-6 grid-margin stretch-card">
+							<div class="row flex-grow">
+								<div class="col-lg-12 grid-margin stretch-card">
+									<div class="card">
+										<div class="card-body">
+											<div id="calendar"
+												style="width: 780px; background-color: white; padding: 20px; border-radius: 25px; margin-left: 15px; height: 630px !important;"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- 달력 끝 -->
+					</div>
+
+					<!-- 2단 -->
+					<div class="row">
+						
 						<!-- 투두리스트 시작-->
 						<div class="col-lg-6 grid-margin stretch-card">
 							<div class="row flex-grow">
@@ -53,9 +81,14 @@
 											<div class="list-wrapper pt-2">
 												<form class="toDoForm">
 													<div class="add-items d-flex mb-0 mt-2">
-														<input type="text" placeholder="할 일을 입력하세요"
+														<input type="text" placeholder="할 일을 입력하고 엔터를 누르세요"
 															class="form-control todo-list-input"
-															style="background-color: #ebf1ff; width: 580px; padding-left: 10px;">
+															style="background-color: #ebf1ff; width: 700px; padding-left: 10px;">
+														<div style="margin-right: 20px;"></div>
+														<!-- 띄워줄 공백 요소 -->
+														<button id="submitBtn"
+															class="btn btn-inverse-success btn-fw">할 일 추가</button>
+														<!-- 수정된 버튼 -->
 													</div>
 												</form>
 												<ul class="toDoList" style="margin-top: 10px; width: 580px;"></ul>
@@ -66,36 +99,25 @@
 							</div>
 						</div>
 						<!-- 투두리스트 끝 -->
-					</div>
-
-					<!-- 2단 -->
-					<div class="row">
-						<!-- 달력 시작 -->
+						<!-- 수주왕 시작-->
 						<div class="col-lg-6 grid-margin stretch-card">
 							<div class="row flex-grow">
 								<div class="col-lg-12 grid-margin stretch-card">
 									<div class="card">
-										<div id="calendar"
-											style="width: 780px; background-color: white; padding: 20px; border-radius: 25px; margin-left: 15px; height: 630px !important;"></div>
+										<div class="card-body">
+													<p class="card-title" style="margin-top: 10px;">이 달의
+														수주왕</p>
+												
+												<p class="font-weight-500">이 달의 수주왕으로 뽑힌 사원에게는 보너스를 드립니다
+													!</p>
+												<div id="sales-legend" class="chartjs-render-monitor mt-4 mb-2"></div>
+												<canvas id="mainContractChart" height="400px" width="600px"></canvas>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-						<!-- 달력 끝 -->
-						<!-- 수주왕 시작-->
-						<div class="col-lg-6 grid-margin stretch-card">
-							<div class="card">
-								<div class="card-body">
-									<div class="d-flex justify-content-between">
-										<p class="card-title" style="margin-top: 10px;">이 달의 수주왕</p>
-									</div>
-									<p class="font-weight-500">이 달의 수주왕으로 뽑힌 사원에게는 보너스를 드립니다 !
-									</p>
-									<div id="sales-legend" class="chartjs-legend mt-4 mb-2"></div>
-									<canvas id="mainContractChart" height="400px" width="600px"></canvas>
-								</div>
-							</div>
-						</div>
+						
 						<!-- 수주왕 끝-->
 					</div>
 					<!-- 2단 -->
@@ -108,10 +130,9 @@
 								<div class="col-lg-12 grid-margin stretch-card">
 									<div class="card">
 										<div class="card-body">
-
 											<div class="row">
 												<div class="col-12">
-													<div class="table-responsive">
+													 <div class="table-responsive">
 														<p class="card-title">공지사항</p>
 														<div id="resultContainer"></div>
 														<div id="table_content">
@@ -122,7 +143,7 @@
 																	<th>작성일자</th>
 																</tr>
 															</table>
-															<button class="btn btn-success btn-fw"
+															<button class="btn btn-inverse-success btn-fw"
 																onclick="location.href='/notice/list'">공지 목록</button>
 														</div>
 													</div>

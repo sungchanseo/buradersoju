@@ -1,40 +1,53 @@
+<!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
+<%@ include file="../includes/header.jsp" %>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script> <!-- 제이쿼리 -->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> <!-- 우편api -->
 </head>
 <body>
 <script type="text/javascript">
-// 거래처등록 새창열기
+	// 거래처등록 새창열기
 	function insertPop(){
-	  var insertPop = window.open('/customer/insert', '거래처등록', 'width=700px,height=400px');
+	  var insertPop = window.open('/customer/insert', '거래처등록', 'width=1000px,height=400px');
 	  
 	  if(insertPop == null){
 		  alert("팝업이 차단되었습니다. 차단을 해제하세요.");
 	  }
 	  openPop.moveBy(100,100);
 	}
-// 거래처등록 새창열기  
+	// 거래처등록 새창열기  
 
-// 거래처 상세보기 새창열기 
+	// 거래처 상세보기 새창열기 
 	function infoPop(cust_id){
 		var url = "/customer/info?cust_id="+cust_id;
-		var infoPop = window.open(url, '거래처등록', 'width=1400px,height=400px');
+		var infoPop = window.open(url, '거래처등록', 'width=1000px,height=400px');
 	  
 		if(insertPop == null){
 		  alert("팝업이 차단되었습니다. 차단을 해제하세요.");
 	  }
 	}
 // 거래처 상세보기 새창열기 
+
+	//우편번호 자동입력 api 메소드
+	function addr() {
+		new daum.Postcode({
+			    oncomplete : function(data) {
+				document.getElementById("zipcode").value = data.zonecode; // 우편 번호 넣기
+				document.getElementById("address").value = data.address; // 주소 넣기
+			}
+		}).open();
+	};
+	//우편번호 자동입력 api 메소드
 </script>
 
-	<h1>Customer List</h1>
+	<h1>거래처 리스트</h1>
 	<!-- 검색창기능 -->
-	<form action="/customer/list" method="get">
+	<form action="/customer/list" method="get" style="display:inline;">
 		<select name="selector">
 			<option value="cust_name">상호</option>
 			<option value="cust_id">거래처코드</option>
@@ -91,4 +104,4 @@
 	<!-- 	페이징 처리  -->
 
 </body>
-</html>
+<%@ include file="../includes/footer.jsp" %>

@@ -46,8 +46,8 @@
 	</td>
 	<th>사업자등록번호</th>
 	<td>
-		<input type="text" name="reg_num" value="${customerVO.reg_num }">
-		<input type="button" value="중복확인">
+		<input type="text" name="reg_num" id="reg_num" value="${customerVO.reg_num }"><br>
+		<span id="regCheckMsg"></span>
 	</td>
 </tr>
 <tr>
@@ -92,8 +92,10 @@
 	</td>
 	<th>주소</th>
 	<td>
-		<input type="text" name="cust_address" id="zipcode" size="15" onclick="addr();">
-		<input type="button" value="우편번호찾기" onclick="addr();">
+		<input type="text" id="zipcode" onclick="addr();" maxlength="200" size="15">
+		<input type="button" value="우편번호찾기" onclick="addr();"><br>
+		<input type="text" name="address" id="address" size="45" onclick="addr();"><br>
+		<input type="text" name="cust_address" size="45" placeholder="상세주소를 입력해주세요."maxlength="45">
 	</td>
 </tr>
 <tr>

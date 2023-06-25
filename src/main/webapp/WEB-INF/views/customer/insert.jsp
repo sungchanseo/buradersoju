@@ -25,38 +25,38 @@
 			</tr>
 			<tr>
 				<th>거래처이름</th>
-				<td><input type="text" name="cust_name"></td>
+				<td><input type="text" name="cust_name" placeholder="상호를 입력하세요."></td>
 				<th>담당자이름</th>
-				<td><input type="text" name="emp_id"></td>
+				<td><input type="text" name="emp_id" placeholder="담당자이름을 입력하세요."></td>
 			</tr>
 			<tr>
 				<th>대표자명</th>
-				<td><input type="text" name="owner_name"></td>
+				<td><input type="text" name="owner_name" placeholder="대표자명을 입력하세요."></td>
 				<th>담당자전화번호</th>
-				<td><input type="tel" name="emp_tel"></td>
+				<td><input type="tel" name="emp_tel"placeholder="연락처를 입력하세요."></td>
 			</tr>
 			<tr>
 				<th>대표전화</th>
-				<td><input type="tel" name="main_phone"></td>
+				<td><input type="tel" name="main_phone" placeholder="대표번호를 입력하세요."></td>
 				<th>담당자이메일</th>
-				<td><input type="email" name="emp_email"></td>
+				<td><input type="email" name="emp_email" placeholder="이메일을 입력하세요."></td>
 			</tr>
 			<tr>
 				<th>업태</th>
 				<td><select name="cust_business">
-						<option value="wholesale">도매업</option>
+						<option value="wholesale" selected>도매업</option>
 						<option value="retail">소매업</option>
 						<option value="service">서비스업</option>
 						<option value="manufacturing">제조업</option>
 				</select></td>
 				<th>FAX번호</th>
-				<td><input type="tel" name="cust_fax"></td>
+				<td><input type="tel" name="cust_fax" placeholder="팩스번호를 입력하세요(선택)."></td>
 			</tr>
 			<tr>
 				<th>종목</th>
 				<td>
 					<select name="cust_event">
-						<option value="종목1">종목1</option>
+						<option value="종목1" selected>종목1</option>
 						<option value="종목2">종목2</option>
 						<option value="종목3">종목3</option>
 					</select>
@@ -65,7 +65,7 @@
 				<td>
 					<input type="text" id="zipcode" onclick="addr();" maxlength="200" size="15">
 					<input type="button" value="우편번호찾기" onclick="addr();"><br>
-					<input type="text" name="address" id="address" size="45"><br>
+					<input type="text" name="address" id="address" size="45" onclick="addr();"><br>
 					<input type="text" name="cust_address" size="45" placeholder="상세주소를 입력해주세요."maxlength="45">
 				</td>
 			</tr>
@@ -73,7 +73,7 @@
 				<th>기타</th>
 				<td rowspan="2"><textarea name="cust_etc"></textarea></td>
 				<th>홈페이지</th>
-				<td><input type="text" name="cust_homepage"></td>
+				<td><input type="text" name="cust_homepage" placeholder="홈페이지를 입력하세요(선택)."></td>
 			</tr>
 		</table>
 		<input type="button" id="submit" value="작성완료" onclick="sendForm();">
@@ -112,7 +112,7 @@
 				$.ajax({
 					url : '/customer/insert', 
 					type : 'POST', 
-					data : formObject, 
+					data : formObject, //form데이타의 객체형으로 값을 전달한다. 
 					success : function(json) {
 						alert("수주등록이 완료되었습니다.");
 						status = true;
@@ -131,8 +131,8 @@
 				 $.ajax({
 					  url : "/customer/regCheck",
 					  data: {"reg_num": $('#reg_num').val()}, 
-					  dataType : "text", 
-					  success:function(data){
+					  dataType : "text", //String 타입 데이타를 전달하므로 text로 전달한다. 
+					  success:function(data){ //콘츄롤러에 갔다가 온 값을 data에 저장한다. 
 						  const result = $.trim(data);
 							  if(result=="yes" && !$('#reg_num').val() == ""){
 							

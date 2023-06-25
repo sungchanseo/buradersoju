@@ -5,9 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script> <!-- 제이쿼리 -->
 </head>
 <body>
-<h1>거래처 상세 페이지 </h1>
+<h1>${customerInfo.cust_name } </h1>
 <table border="1">
 <tr>
 	<th>거래처유형</th>
@@ -51,9 +52,27 @@
 </tr>
 </table>
 <a href="/customer/modify?cust_id=${customerInfo.cust_id }">거래처수정</a>
-<a href="/customer/remove?cust_id=${customerInfo.cust_id }">거래처삭제</a>
+<input type="button" value="거래처삭제" onclick="deleteAction(${customerInfo.cust_id});">
 <a href="#">QR코드생성</a>
-<a href="/customer/list">목록으로</a>
+<input type="button" value="창닫기" onclick="window.close();">
 
+<script type="text/javascript">
+	function deleteAction(cust_id){
+		if(confirm('삭제하시겠읍니까?')){
+			$.ajax({
+				url : '/customer/remove?cust_id='+cust_id, 
+				type : 'POST', 
+				success : function(json){ //가져올 데이타가 따로 없을 때는 json 타입을 넣는다. 있을 때는 data라고 적는다. 
+					alert("거래처는 사라졌읍니다.");
+					window.opener.location.reload();
+					window.close();
+				}
+			});
+		}else{
+			return false;
+		}
+	}
+
+</script>
 </body>
 </html>

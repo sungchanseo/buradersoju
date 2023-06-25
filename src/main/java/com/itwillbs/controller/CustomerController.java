@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -102,6 +103,8 @@ public class CustomerController {
 		return "redirect:/customer/list";
 	}
 	
+	//view페이지의 ajax에서 정보를 받아서 다시 되돌려줄려면 @ResponseBody 어노테이숀을 반듯이 적어야 한다. 
+	//다만, 콘츄롤러 상단의 @Controller 대신 @RestController 어노테이숀을 추가하면 안 적어도 된다. 
 	//거래처 사업자등록번호 ajax맵핑
 	@ResponseBody
 	@RequestMapping(value="/regCheck")
@@ -143,14 +146,13 @@ public class CustomerController {
 	}
 
 	// 거래처 삭제 디비처리
-	@GetMapping(value = "/remove")
-	public String removeCustomerPOST(CustomerVO vo) throws Exception {
+	@PostMapping(value = "/remove")
+	public String removeCustomerPOST(@RequestParam("cust_id") String cust_id) throws Exception {
 		logger.debug("@@@@@@@@@@@Controller : 거래처 삭제POST하기 !!!!!");
-
-		String cust_id = vo.getCust_id();
 
 		custService.removeCustomer(cust_id);
 
+//		return null;
 		return "redirect:/customer/list";
 	}
 }

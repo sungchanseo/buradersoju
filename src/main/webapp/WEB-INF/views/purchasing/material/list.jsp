@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script type="text/javascript">
-// 품목코드 자동생성 & 행추가에 넣은 값들을 컨트롤러에 전달해서 DB에 데이터처리하여 저장하기	
+
 // 오늘 날짜 출력
 function getToday() {
 	var date = new Date();
@@ -87,7 +87,8 @@ $(document).ready(function() {
 			$(this).removeClass('true');
 			
 			
-			// 1-2. 입력한 데이터 컨트롤러 전달 (저장) -> 리스트 이동
+			// 1-2. '저장' 클릭 
+			// 입력한 데이터 컨트롤러 전달 (저장) -> 리스트 이동
 			$('.insert').click(function(){
 				// ma_id 정보 저장
 				var nextNumber = addNumber();
@@ -135,13 +136,103 @@ $(document).ready(function() {
 	
 	
 	// 2-1. '수정' 클릭
-	$('').click(function(){
+	$("#modify").click(function(){ 
 		
-	});
+		if($('input:checkbox[name="check"]:checked').length > 1){
+			alert("하나의 항목만 수정이 가능합니다.");
+			location.reload();
+		}
+			
+		var rowData = new Array();
+		var tdArr = new Array();
+		var checkbox = $("input[name=check]:checked");
+		
+		// 체크된 체크박스 값을 가져옴
+		checkbox.each(function(i) {
+
+			// checkbox.parent()          : checkbox의 부모는 <td>
+			// checkbox.parent().parent() : <td>의 부모이므로 <tr>
+			var tr = checkbox.parent().parent().eq(i);
+			var td = tr.children();
+			
+			// 체크된 row의 모든 값 배열에 담기
+			rowData.push(tr.text());
+			
+			// td.eq(0)은 체크박스, td.eq(1)이 ma_id
+			var ma_id = td.eq(1).text();
+			tdArr.push(ma_id);	// tdArr[0]
+
+		}); // function(i)
+		
+	
+		// 2-2. '저장' 클릭 
+		// 체크된 데이터 컨트롤러 전달
+		var ma_id = tdArr[0];
+		
+		$.ajax({
+			url: "modify",
+			type: "get",
+			data: { ma_id:ma_id },
+			success: function() {
+				location.href="/purchasing/material/modify?ma_id=" + ma_id;
+// 				location.href="/purchasing/material/list?ma_id=" + ma_id;
+			},
+			error: function() {
+				alert("수정할 항목을 선택해주세요.");
+			}
+		}); //ajax		
+
+	}); // modify.click
 	
 	
 	
-	// 2-2. 입력한 데이터 컨트롤러 전달 (수정) -> 리스트 이동
+	// 3. '삭제' 클릭
+	$('#delete').click(function(){ 
+			
+		var rowData = new Array();
+		var tdArr = new Array();
+		var checkbox = $("input[name=check]:checked");
+		
+		// 체크된 체크박스 값을 가져옴
+		checkbox.each(function(i) {
+
+			// checkbox.parent()          : checkbox의 부모는 <td>
+			// checkbox.parent().parent() : <td>의 부모이므로 <tr>
+			var tr = checkbox.parent().parent().eq(i);
+			var td = tr.children();
+			
+			// 체크된 row의 모든 값 배열에 담기
+			rowData.push(tr.text());
+			
+			// td.eq(0)은 체크박스, td.eq(1)이 ma_id
+			var ma_id = td.eq(1).text();
+			tdArr.push(ma_id);	// tdArr[0]
+
+		}); // function(i)
+		
+	
+		// 2-2. 체크된 데이터 컨트롤러 전달
+		var ma_id = tdArr[0];
+		
+		$.ajax({
+			url: "delete",
+			type: "post",
+			data: { ma_id:ma_id },
+			success: function() {
+				var result = confirm("품목코드 " + ma_id + "를 정말 삭제하시겠습니까?");
+				if(result){
+					alert("삭제가 완료되었습니다.");
+					location.href="/purchasing/material/list";
+				}
+			},
+			error: function() {
+				alert("error");
+			}
+		}); //ajax		
+
+	}); // deleteForm.click
+	
+	
 	
 	
 	
@@ -157,14 +248,15 @@ $(document).ready(function() {
    <h1>Material_List</h1>
    <h2>http://localhost:8088/purchasing/material/list</h2>
    
+	<div class="row">
+	
 	<button class="insertForm true">등록</button>
-	<button class="updateForm">수정</button>
-	<button class="deleteForm">삭제</button>
+	<button class="btn btn-outline btn-primary pull-right" id="modify">수정</button>
+	<button class="btn btn-outline btn-primary pull-right" id="delete">삭제</button>
 	<button class="insert update delete">저장</button>
 
-
-   	<fmt:formatDate value=""/>
-	<table border="1">
+   	<fmt:formatDate value=""/> 	
+	<table border="1" id="example-table-3" class="table table-bordered table-hover text-center">
 	<tr>
 		<th></th>
 		<th>품목코드</th>
@@ -176,11 +268,11 @@ $(document).ready(function() {
 		<th>최근 수정 날짜</th>
 		<th>담당직원</th>
 	</tr>
-      
+	    
       <c:forEach var="ml" items="${materialList }">
          <tr>
-         	<td><input type="checkbox" name="checked"></td>
-			<td>${ml.ma_id }</td>
+         	<td><input type="checkbox" name="check"></td>
+         	<td>${ml.ma_id }</td>
 			<td>${ml.ma_name }</td>
 			<td>${ml.unit }</td>
 			<td>${ml.ma_qty }</td>
@@ -188,11 +280,10 @@ $(document).ready(function() {
 			<td>${ml.shelt_position }</td>
 			<td><fmt:formatDate value="${ml.ma_regdate}" pattern="yyyy-MM-dd"/></td>
 			<td>${ml.ma_emp }</td>
-<%-- 		<input type="button" value="수정" onclick="location.href='/purchasing/material/modify?ma_id=${ml.ma_id}';"> --%>
-<%-- 		<input type="button" value="삭제" onclick="location.href='/purchasing/material/delete?ma_id=${ml.ma_id}';"> --%>
          </tr>
       </c:forEach>
    </table>
+   </div>
    
 
 </body>

@@ -41,7 +41,7 @@
 			<td>${iml.in_maName }</td>
 			<td>${iml.in_qty }</td>
 			<td>${iml.in_date }</td>
-			<td>${iml.in_progress }</td>
+			<td>${iml.in_process }</td>
 			<td>
 				<c:choose>
 					<c:when test="${iml.in_emp == 0}">　</c:when>

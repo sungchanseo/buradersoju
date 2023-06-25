@@ -41,7 +41,7 @@
 			<td>${resultVO.in_id }</td>
 			
 			<th>입고진행현황</th>
-			<td>${resultVO.in_progress }</td>
+			<td>${resultVO.in_process }</td>
 			
 			<th>입고일자</th>
 			<td>${resultVO.in_date }</td>
@@ -53,7 +53,7 @@
 			<th>품명</th>
 			<td>${resultVO.ma_name }</td>
 			
-			<th>발주수</th>
+			<th>발주수량</th>
 			<td>${resultVO.order_qty }</td>
 			
 			<th>재고수량</th>

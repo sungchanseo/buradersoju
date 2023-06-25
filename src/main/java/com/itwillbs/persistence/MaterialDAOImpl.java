@@ -78,11 +78,11 @@ public class MaterialDAOImpl implements MaterialDAO {
 	
 	// 5. 자제 삭제
 	@Override
-	public Integer deleteMaterial(MaterialVO dvo) {
+	public Integer deleteMaterial(String ma_id) {
 		logger.debug("########## deleteMaterial_호출");
 		
 		// DB에서 자제 삭제 기능 가져오기
-		return sqlSession.delete(NAMESPACE+".deleteMaterial", dvo);
+		return sqlSession.update(NAMESPACE+".deleteMaterial", ma_id);
 	}
 
 

@@ -25,6 +25,6 @@ public interface MaterialService {
 	public Integer modifyMaterial(MaterialVO mvo) throws Exception;
 	
 	// 자재 삭제
-	public Integer deleteMaterial(MaterialVO dvo) throws Exception;
+	public Integer deleteMaterial(String ma_id) throws Exception;
 
 }

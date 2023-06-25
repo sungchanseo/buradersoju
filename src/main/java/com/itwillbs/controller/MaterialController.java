@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import com.itwillbs.domain.MaterialVO;
 import com.itwillbs.service.MaterialService;
 
@@ -68,18 +70,22 @@ public class MaterialController {
 	// 3-1. 자재 수정 (조회)
 	// 기존의 정보 출력 & 수정 정보 입력
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)
-	public void modifyMaterialGET(String ma_id, Model model) throws Exception {
-		logger.debug("@@@@@@@@@@ modifyMaterialGET_호출");
-
+	public void modifyMaterialGET(Model model, @RequestParam("ma_id") String ma_id) throws Exception {
+		logger.debug("@@@@@@@@@@ modifyMaterialGET 호출");
+		
 		// 기존의 정보 출력
 		MaterialVO resultVO = mService.getMaterialInfo(ma_id);
 		logger.debug("@@@@@@@@@@ 기존 데이터 : " + resultVO);
-
-		// Model 객체를 사용하여 데이터 저장
+		
+		// 리스트 출력
+		List<MaterialVO> materialList = mService.getMaterialList();
+		
+//		// Model 객체를 사용하여 데이터 저장
 		// -> View페이지 (modify.jsp) 전달하기 위해
 		model.addAttribute("resultVO", resultVO);
+		model.addAttribute("materialList", materialList);
 	}
-
+	
 	// 3-2. 자재 수정 (데이터처리)
 	// 수정된 정보 DB에 저장 후 list.jsp 페이지 이동
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
@@ -100,28 +106,29 @@ public class MaterialController {
 		return "redirect:/purchasing/material/list";
 	}
 
+	
 	// 4-1. 자재 삭제
-	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public void deleteMaterialGET(String ma_id) throws Exception {
-		logger.debug("@@@@@@@@@@ deleteMaterialGET_호출");
-		logger.debug("@@@@@@@@@@ delete.jsp 페이지 이동");
-	}
+//	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+//	public void deleteMaterialGET(String ma_id) throws Exception {
+//		logger.debug("@@@@@@@@@@ deleteMaterialGET_호출");
+//		logger.debug("@@@@@@@@@@ delete.jsp 페이지 이동");
+//	}
 
 	// 4-2. 자재 삭제 (데이터처리)
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public String deleteMaterialPOST(String ma_id) throws Exception {
+	public void deleteMaterialPOST(@RequestParam("ma_id") String ma_id) throws Exception {
 		logger.debug("@@@@@@@@@@ deleteMaterialPOST_호출");
 
-		// 품목코드 데이터 저장
-		MaterialVO dvo = new MaterialVO();
-		dvo.setMa_id(ma_id);
-
 		// 삭제하고자하는 품목코드에 해당하는 데이터 삭제
-		int result = mService.deleteMaterial(dvo);
-		logger.debug("$$$$$$$$$$ 삭제 된 행의 수 : " + result);
-
-		// 페이지 이동
-		return "redirect:/purchasing/material/list";
+		int result = mService.deleteMaterial(ma_id);
+		logger.debug("@@@@@@@@@@ 삭제 된 행의 수 : " + result);
 	}
+	
+	
+	
+	
+	
+	
+	
 
 }

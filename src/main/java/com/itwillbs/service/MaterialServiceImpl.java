@@ -57,8 +57,8 @@ public class MaterialServiceImpl implements MaterialService {
 	
 	// 5. 자재 삭제
 	@Override
-	public Integer deleteMaterial(MaterialVO dvo) throws Exception{
-		return mdao.deleteMaterial(dvo);
+	public Integer deleteMaterial(String ma_id) throws Exception{
+		return mdao.deleteMaterial(ma_id);
 	}
 
 

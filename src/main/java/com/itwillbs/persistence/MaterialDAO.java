@@ -31,6 +31,6 @@ public interface MaterialDAO {
 	public Integer modifyMaterial(MaterialVO mvo);
 	
 	// 자재 삭제
-	public Integer deleteMaterial(MaterialVO dvo);
+	public Integer deleteMaterial(String ma_id);
 
 }

@@ -4,7 +4,10 @@
   var calendar = new FullCalendar.Calendar(calendarEl, {
 
     googleCalendarApiKey: 'AIzaSyAfjV43c6cm20m9ttstcyJrYvVDhoHeVqs',
-    
+	    titleFormat: function (date) {
+	        // YYYY년 MM월
+	        return `${date.date.year}년 ${date.date.month + 1}월`;
+	      },
 
     	dayMaxEventRows: true, // 모든 뷰에서 이벤트의 최대 행 수를 설정
     	views: {

@@ -8,6 +8,20 @@
 <title>Insert title here</title>
 </head>
 <body>
+<!-- 거래처등록 새창열기  -->
+<script type="text/javascript">
+	function openPop(){
+	  var insertPop = window.open('/customer/insert', '거래처등록', 'width=700px,height=400px');
+	  
+	  if(insertPop == null){
+		  alert("팝업이 차단되었습니다. 차단을 해제하세요.");
+	  }
+	  openPop.moveBy(100,100);
+	}
+	
+</script>
+<!-- 거래처등록 새창열기  -->
+
 	<h1>Customer List</h1>
 	<!-- 검색창기능 -->
 	<form action="/customer/list" method="get">
@@ -19,7 +33,7 @@
 		<input type="submit" class="btn-danger" value="검색">
 	</form>
 	<!-- 검색창기능 -->
-	<input type="button" value="거래처등록" onclick="location.href='/customer/insert';">
+	<input type="button" value="거래처등록" onclick="openPop();">
 	<input type="button" value="거래처삭제" onclick="location.href='/customer/remove';">
 	<hr>
 		<table border="1">

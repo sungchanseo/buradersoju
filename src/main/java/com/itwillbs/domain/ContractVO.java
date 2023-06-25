@@ -15,6 +15,7 @@ public class ContractVO {
 	private Date due_date;
 	private String cont_emp;
 	private Integer cont_status;
+	private String emp_tel;
 	
 	private PagingVO pagingVO;
 	
@@ -91,12 +92,18 @@ public class ContractVO {
 	public void setPagingVO(PagingVO pagingVO) {
 		this.pagingVO = pagingVO;
 	}
+	public String getEmp_tel() {
+		return emp_tel;
+	}
+	public void setEmp_tel(String emp_tel) {
+		this.emp_tel = emp_tel;
+	}
 	@Override
 	public String toString() {
 		return "ContractVO [cont_id=" + cont_id + ", product_name=" + product_name + ", product_id=" + product_id
 				+ ", cust_name=" + cust_name + ", cust_id=" + cust_id + ", cont_date=" + cont_date + ", cont_qty="
 				+ cont_qty + ", production_id=" + production_id + ", due_date=" + due_date + ", cont_emp=" + cont_emp
-				+ ", cont_status=" + cont_status + ", pagingVO=" + pagingVO + "]";
+				+ ", cont_status=" + cont_status + ", emp_tel=" + emp_tel + ", pagingVO=" + pagingVO + "]";
 	}
 	 
 	

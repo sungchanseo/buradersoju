@@ -40,10 +40,15 @@ public class WarehouseController {
 	}
 	
 	// 창고등록 하기
+//	@RequestMapping(value = "insert", method = RequestMethod.GET)
+//	public void insertGET (WarehouseVO vo) {
+//		logger.debug("@@@@@발주 등록 가즈아아~~");
+//	   	
+//	}
 	@RequestMapping(value = "insert", method = RequestMethod.GET)
-	public void insertGET (WarehouseVO vo) {
+	public String insertGET (WarehouseVO vo) {
 		logger.debug("@@@@@발주 등록 가즈아아~~");
-	   	
+	   	return "/purchasing/warehouse/insert";
 	}
 	// http://localhost:8088/purchasing/warehouse/insert
 	// 창고등록 하기

@@ -14,6 +14,9 @@ public interface MaterialDAO {
 	// 2. 자재 정보 조회
 	public MaterialVO getMaterialInfo(String ma_id) throws Exception;
 	
+	// 3. 자재 검색
+	public List<MaterialVO> getSearchList(MaterialVO vo) throws Exception;
+	
 	// 3-1. 자재 품목코드 자동넘버링
 	public String getMaxNumber() throws Exception;
 	

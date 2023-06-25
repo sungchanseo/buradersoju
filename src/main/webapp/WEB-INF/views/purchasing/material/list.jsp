@@ -239,7 +239,41 @@ $(document).ready(function() {
 	
 	
 	
-	
+	// '검색' 기능
+	function getSearchList(){
+		$.ajax({
+			type: "get",
+			url : "/getSearchList",
+			data : $("form[name=search-form]").serialize(),
+			success : function(result){
+				
+				//테이블 초기화
+				$('.tbl > tbody').empty();
+				if(result.length>=1){
+					result.forEach(function(item){
+						str = "<tr>";
+						str += "<td>"+ item.ma_id +"</td>";
+						str += "<td>"+ item.ma_name +"</td>";
+						str += "<td>"+ item.unit +"</td>";
+						str += "<td>"+ item.ma_qty +"</td>";
+						str += "<td>"+ item.utni_cost +"</td>";
+						str += "<td>"+ item.whs_id +"</td>";
+						str += "<td>"+ item.shelt_position +"</td>";
+						str += "<td>"+ item.ma_regdate +"</td>";
+						str += "<td>"+ item.ma_emp +"</td>";
+						str += "</tr>"
+						$('.tbl').append(str);
+	        		}) // function(item)	
+	        		
+				} // if
+				
+			}, // seccess
+			error: function(){
+				alert("error");
+			}
+		}) // ajax
+		
+	} // getSearchList()
 	
 	
 	
@@ -253,16 +287,32 @@ $(document).ready(function() {
    <h1>Material_List</h1>
    <h2>http://localhost:8088/purchasing/material/list</h2>
    
+   
+	<!-- 검색 -->
+	<div>
+		<form name="search-form" autocomplete="off">
+			<select name="type">
+				<option value="ma_id">품목코드</option>
+				<option value="ma_name">품명</option>
+			</select>
+			<input type="text" name="keyword" value="">	
+			<input type="button" class="btn btn-outline-primary mr-2" onclick="getSearchList();" value="검색">
+		</form>
+		
+		<!-- 버튼 -->
+		<button class="insertForm true" >등록</button>
+		<button class="btn btn-outline btn-primary pull-right" id="modify">수정</button>
+		<button class="btn btn-outline btn-primary pull-right" id="delete">삭제</button>
+		<button class="insert update delete">저장</button>
+	</div>
+   
+   
+	<!-- 테이블 -->
 	<div class="row">
-	
-	<button class="insertForm true">등록</button>
-	<button class="btn btn-outline btn-primary pull-right" id="modify">수정</button>
-	<button class="btn btn-outline btn-primary pull-right" id="delete">삭제</button>
-	<button class="insert update delete">저장</button>
-
    	<fmt:formatDate value=""/> 	
-	<table border="1" id="example-table-3" class="table table-bordered table-hover text-center">
-	<tr>
+	<table border="1" id="example-table-3" class="table table-bordered table-hover text-center tbl">
+	 <tbody>
+	 <tr>
 		<th></th>
 		<th>품목코드</th>
 		<th>품목명</th>
@@ -273,8 +323,8 @@ $(document).ready(function() {
 		<th>선반위치</th>
 		<th>최근 수정 날짜</th>
 		<th>담당직원</th>
-	</tr>
-	    
+	 </tr>
+	
       <c:forEach var="ml" items="${materialList }">
          <tr>
          	<td><input type="checkbox" name="check"></td>
@@ -296,9 +346,9 @@ $(document).ready(function() {
 			<td>${ml.ma_emp }</td>
          </tr>
       </c:forEach>
+     </tbody>
    </table>
    </div>
    
-
 </body>
 </html>

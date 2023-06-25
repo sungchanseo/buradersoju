@@ -16,6 +16,10 @@ public class MaterialVO {
 	private int ma_emp;
 	private String whs_id;
 	
+	// 검색필터
+	private String type;
+	private String keyword;
+	
 	
 	// getset 메서드
 	public String getMa_id() {
@@ -76,6 +80,23 @@ public class MaterialVO {
 	}
 	public void setWhs_id(String whs_id) {
 		this.whs_id = whs_id;
+	}
+	
+	// 검색필터
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
 	}
 
 	

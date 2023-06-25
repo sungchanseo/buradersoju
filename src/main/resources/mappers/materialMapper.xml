@@ -49,11 +49,31 @@
 
 
 <!-- 자재 삭제 -->
-	<update id="deleteMaterial">
+	<update id="deleteMaterial" >
 		update material SET status = 0
 		where ma_id = #{ma_id};
 	</update>
 <!-- 자재 삭제 -->
+
+
+<!-- 자재 검색 (ma_name) -->
+	<select id="searchMaterial" parameterType="com.itwillbs.domain.MaterialVO" resultType="com.itwillbs.domain.MaterialVO">
+		SELECT ma_id, ma_name, unit, ma_qty, unit_cost, whs_id, shelt_position, ma_regdate, ma_emp
+		FROM material
+		WHERE status = 1
+		<choose>
+			<when test="type != null and type.equals('ma_id')">
+			AND ma_id LIKE CONCAT('%', #{keyword}, '%')
+			</when>
+			<when test="type != null and type.equals('ma_name')">
+			AND ma_name LIKE CONCAT('%', #{keyword}, '%')
+			</when>
+		</choose>
+	</select>
+<!-- 자재 검색 (ma_name) -->
+
+
+
 
 
 

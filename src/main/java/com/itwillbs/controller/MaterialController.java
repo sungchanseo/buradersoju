@@ -5,10 +5,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.domain.MaterialVO;
 import com.itwillbs.service.MaterialService;
@@ -29,7 +31,7 @@ public class MaterialController {
 	private MaterialService mService;
 
 	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ메서드 정의ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-	// 1. 자재 목록 보기 & 자동넘버링
+	// 1-1. 자재 목록 & 자동넘버링
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public void materialListGET(Model model) throws Exception {
 		logger.debug("@@@@@@@@@@ materialListGET_호출");
@@ -45,6 +47,22 @@ public class MaterialController {
 		model.addAttribute("materialList", materialList);
 		model.addAttribute("maxNumber", maxNumber);
 	}
+	
+	// 1-2. 자재 검색
+	@GetMapping("/getSearchList")
+	@ResponseBody
+	public List<MaterialVO> searchMaterialGET(Model model,
+								@RequestParam("type") String type,
+			                    @RequestParam("keyword") String keyword) throws Exception {
+		logger.debug("@@@@@@@@@@ searchMaterialGET() 호출");
+		
+		MaterialVO searchVO = new MaterialVO();		
+		searchVO.setType(type);
+		searchVO.setKeyword(keyword);
+		
+		return mService.getSearchList(searchVO);
+	}
+	
 	
 	
 	// 2. 자재 등록 - 행추가 & 데이터처리

@@ -60,9 +60,15 @@ public class MaterialDAOImpl implements MaterialDAO {
 	}
 	
 	
+	// 4. 자재 검색
+	@Override
+	public List<MaterialVO> getSearchList(MaterialVO vo) throws Exception {
+		logger.debug("########## getSearchList_호출");
+		return sqlSession.selectList(NAMESPACE+".searchMaterial", vo);
+	}
 
-	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-	// 4. 자재 수정
+
+	// 5. 자재 수정
 	@Override
 	public Integer modifyMaterial(MaterialVO mvo) {
 		logger.debug("########## modifyMaterial_호출");
@@ -76,14 +82,17 @@ public class MaterialDAOImpl implements MaterialDAO {
 	}
 	
 	
-	// 5. 자제 삭제
+	// 6. 자제 삭제
 	@Override
 	public Integer deleteMaterial(String ma_id) {
 		logger.debug("########## deleteMaterial_호출");
 		
-		// DB에서 자제 삭제 기능 가져오기
+		// DB에서 자제 삭제 기능 가져오기 (사실상 업데이트)
 		return sqlSession.update(NAMESPACE+".deleteMaterial", ma_id);
 	}
+
+
+
 
 
 

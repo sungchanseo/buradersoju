@@ -8,20 +8,39 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-<script>
-// 
-
-
-
-
-</script>
 </head>
 <body>
 
 <h1>${param.order_id }_info.jsp</h1>
 
 <button>엑셀파일</button>
-<button>인쇄하기</button>
+<button class="print-button" onclick="info_print()">인쇄하기</button>
+	<script>
+		/// 인쇄하기 버튼
+		function info_print() {
+		  let initBody = document.body;
+		  let hiddenBtn = document.querySelector('.print-button'); 
+		  let hiddenHeader = document.querySelector('#header');
+		  let hiddenNavbar = document.querySelector('.navbar-device');
+		  let hiddenClearfix = document.querySelector('.clearfix');
+		 
+		  window.onbeforeprint = function () {
+		    hiddenBtn.style.display = "none";
+		    hiddenHeader.style.display = "none";
+		    hiddenNavbar.style.display = "none";
+		    hiddenClearfix.style.display = "none";
+		    document.body = document.querySelector('.main-container');
+		  }
+		  window.onafterprint = function () {
+		    hiddenBtn.style.display = "block";
+		    hiddenHeader.style.display = "block";
+		    hiddenNavbar.style.display = "block";
+		    hiddenClearfix.style.display = "block";
+		    document.body = initBody;
+		  }
+		  window.print();
+		} 
+	</script>
 
 <fmt:formatDate value=""/> 
 <table border="1">

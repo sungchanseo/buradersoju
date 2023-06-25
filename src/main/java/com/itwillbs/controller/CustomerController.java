@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.itwillbs.domain.CustomerVO;
 import com.itwillbs.domain.PagingVO;
@@ -90,14 +91,33 @@ public class CustomerController {
 
 	// 거래처 등록 디비처리
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
-	public String insertCustomerPOST(CustomerVO vo)  throws Exception {
+	public String insertCustomerPOST(CustomerVO vo, 
+			@RequestParam("zipcode") String zipcode,
+			@RequestParam("address") String address,
+			@RequestParam("address2") String address2)  throws Exception {
 		logger.debug("@@@@@@@@@@@@Controller : 거래처 등록POST하기!!!!");
 		logger.debug("@@@@@@@입력된 정보 : " + vo);
-
+		vo.setCust_address(zipcode+" "+address+" "+address2);
 		custService.insertCustomer(vo);
 
 		return "redirect:/customer/list";
 	}
+	
+	//거래처 사업자등록번호 ajax맵핑
+	@RequestMapping(value="/regCheck")
+	public void regNumCheck(@RequestParam("reg_num") String reg_num) throws Exception{
+		logger.debug("@@@@@@@@@@@@Controller : 사업자번호 체크 AJAX!!!!");
+		logger.debug("@@@@@@@@@@@@Controller : reg_num={}", reg_num);
+		
+		String result=null;
+
+		if (custService.regNumCheck(reg_num) == 1) {
+			result = "no";
+		} else {
+			result = "yes";
+		}
+	}
+	
 
 	// 거래처 수정 입력하기
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)

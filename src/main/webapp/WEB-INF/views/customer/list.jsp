@@ -8,9 +8,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<!-- 거래처등록 새창열기  -->
 <script type="text/javascript">
-	function openPop(){
+// 거래처등록 새창열기
+	function insertPop(){
 	  var insertPop = window.open('/customer/insert', '거래처등록', 'width=700px,height=400px');
 	  
 	  if(insertPop == null){
@@ -18,9 +18,19 @@
 	  }
 	  openPop.moveBy(100,100);
 	}
-	
+// 거래처등록 새창열기  
+
+// 거래처 상세보기 새창열기 
+	function infoPop(cust_id){
+		var url = "/customer/info?cust_id="+cust_id;
+		var infoPop = window.open(url, '거래처등록', 'width=1400px,height=400px');
+	  
+		if(insertPop == null){
+		  alert("팝업이 차단되었습니다. 차단을 해제하세요.");
+	  }
+	}
+// 거래처 상세보기 새창열기 
 </script>
-<!-- 거래처등록 새창열기  -->
 
 	<h1>Customer List</h1>
 	<!-- 검색창기능 -->
@@ -33,7 +43,7 @@
 		<input type="submit" class="btn-danger" value="검색">
 	</form>
 	<!-- 검색창기능 -->
-	<input type="button" value="거래처등록" onclick="openPop();">
+	<input type="button" value="거래처등록" onclick="insertPop();">
 	<input type="button" value="거래처삭제" onclick="location.href='/customer/remove';">
 	<hr>
 		<table border="1">
@@ -53,9 +63,9 @@
 			<c:forEach var="vo" items="${customerList }">
 				<tr>
 					<td><input type="checkbox">
-					<td><a href="/customer/info?cust_id=${vo.cust_id }">${vo.cust_id }</a></td>
-					<td><a href="/customer/info?cust_id=${vo.cust_id }">${vo.reg_num }</a></td>
-					<td><a href="/customer/info?cust_id=${vo.cust_id }">${vo.cust_name }</a></td>
+					<td><a href="#" onclick="infoPop(${vo.cust_id});">${vo.cust_id }</a></td>
+					<td><a href="#" onclick="infoPop(${vo.cust_id});">${vo.reg_num }</a></td>
+					<td><a href="#" onclick="infoPop(${vo.cust_id});">${vo.cust_name }</a></td>
 					<td>${vo.cust_class }</td>
 					<td>${vo.owner_name }</td>
 					<td>${vo.main_phone }</td>

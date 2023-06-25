@@ -67,5 +67,10 @@ public class CustomerServiceImpl implements CustomerService {
 	public Integer removeCustomer(String cust_id) throws Exception {
 		return cdao.removeCustomer(cust_id);
 	}
+	
+	//거래처 중복체크 ajax
+	public Integer regNumCheck(String reg_num) {
+		return cdao.regNumCheck(reg_num);
+	}
 
 }

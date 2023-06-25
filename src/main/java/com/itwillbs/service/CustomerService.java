@@ -20,5 +20,8 @@ public interface CustomerService {
 	//거래처 삭제하기 
 	public Integer removeCustomer(String cust_id) throws Exception;
 	
+	//거래처 사업자번호 중복체크 
+	public Integer regNumCheck(String reg_num);
+
 
 }

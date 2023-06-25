@@ -52,6 +52,7 @@
 </table>
 <a href="/customer/modify?cust_id=${customerInfo.cust_id }">거래처수정</a>
 <a href="/customer/remove?cust_id=${customerInfo.cust_id }">거래처삭제</a>
+<a href="#">QR코드생성</a>
 <a href="/customer/list">목록으로</a>
 
 </body>

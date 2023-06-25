@@ -73,6 +73,9 @@ $(document).ready(function() {
 	        tbl += "<input type='text' name='unit_cost' id='unit_cost'>";
 	        tbl += "</td>";
 	        tbl += "<td>";
+	        tbl += "<input type='text' name='whs_id' id='whs_id'>";
+	        tbl += "</td>";
+	        tbl += "<td>";
 	        tbl += "<input type='text' name='shelt_position' id='shelt_position'>";
 	        tbl += "</td>";
 	        tbl += "<td>";
@@ -90,9 +93,10 @@ $(document).ready(function() {
 			// 1-2. '저장' 클릭 
 			// 입력한 데이터 컨트롤러 전달 (저장) -> 리스트 이동
 			$('.insert').click(function(){
-				// ma_id 정보 저장
+				// ma_id 정보 및 입력된 정보 저장
 				var nextNumber = addNumber();
 				var ma_id = "MA" + nextNumber;
+				var whs_id = $('#whs_id').val();
 				var ma_name = $('#ma_name').val();
 				var unit = $('#unit').val();
 				var ma_qty = $('#ma_qty').val();
@@ -101,14 +105,15 @@ $(document).ready(function() {
 				var ma_regdate = $('#ma_regdate').val();
 				var ma_emp = $('#ma_emp').val();
 				
-				if(ma_name==="" || unit==="" || ma_qty==="" || unit_cost==="" || shelt_position==="" || ma_emp==="") {
+				if(whs_id==="" | ma_name==="" || unit==="" || ma_qty==="" || unit_cost==="" || shelt_position==="" || ma_emp==="") {
 					alert("모든 정보를 입력해주세요.");
 				} else {
 			             
 					$.ajax({
 						url: "maid",
 						type: "get",
-						data: { ma_id:ma_id,
+						data: { whs_id:whs_id,
+					            ma_id:ma_id,
 							    ma_name:ma_name,
 							    unit:unit,
 							    ma_qty:ma_qty,
@@ -264,6 +269,7 @@ $(document).ready(function() {
 		<th>단위</th>
 		<th>재고량</th>
 		<th>단가(WON)</th>
+		<th>창고번호</th>
 		<th>선반위치</th>
 		<th>최근 수정 날짜</th>
 		<th>담당직원</th>
@@ -275,8 +281,16 @@ $(document).ready(function() {
          	<td>${ml.ma_id }</td>
 			<td>${ml.ma_name }</td>
 			<td>${ml.unit }</td>
-			<td>${ml.ma_qty }</td>
+			<td>
+				<c:choose>
+					<c:when test="${ml.ma_qty < 100 }">
+						<span style="color:red">${ml.ma_qty }</span>
+					</c:when>
+					<c:otherwise>${ml.ma_qty }</c:otherwise>
+				</c:choose>
+			</td>			
 			<td>${ml.unit_cost }</td>
+         	<td>${ml.whs_id }</td>
 			<td>${ml.shelt_position }</td>
 			<td><fmt:formatDate value="${ml.ma_regdate}" pattern="yyyy-MM-dd"/></td>
 			<td>${ml.ma_emp }</td>

@@ -9,8 +9,12 @@
  	
  <!-- 입고 리스트 -->
  	<select id="getInMaterialListAll" resultType="com.itwillbs.domain.InMaterialVO">
- 		select * from in_material
- 		order by in_process, in_id desc
+	SELECT i.in_id, o.order_id, m.ma_name, o.order_qty, m.ma_qty, i.in_process, m.whs_id, m.shelt_position, i.in_date, i.in_emp
+	FROM in_material i,
+	     orders o,
+	     material m
+	WHERE i.order_id = o.order_id AND o.ma_id = m.ma_id
+	ORDER BY in_process, in_id desc;
  	</select>
  <!-- 입고 리스트 -->	
  

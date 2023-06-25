@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,11 +18,12 @@
 </head>
 <body>
 
-
 <h1>${param.order_id }_info.jsp</h1>
-<%-- ${resultVO } --%>
 
+<button>엑셀파일</button>
+<button>인쇄하기</button>
 
+<fmt:formatDate value=""/> 
 <table border="1">
 		<tr>
 			<th>발주관리번호</th>
@@ -44,7 +46,7 @@
 			<td>${resultVO.in_process }</td>
 			
 			<th>입고일자</th>
-			<td>${resultVO.in_date }</td>
+			<td><fmt:formatDate value="${resultVO.in_date}" pattern="yyyy-MM-dd"/></td>
 			
 			<th>입고담당직원</th>
 			<td>${resultVO.in_emp }</td>
@@ -57,7 +59,14 @@
 			<td>${resultVO.order_qty }</td>
 			
 			<th>재고수량</th>
-			<td>${resultVO.ma_qty }</td>
+			<td>
+				<c:choose>
+					<c:when test="${resultVO.ma_qty < 100 }">
+						<span style="color:red">${resultVO.ma_qty }</span>
+					</c:when>
+					<c:otherwise>${resultVO.ma_qty }</c:otherwise>
+				</c:choose>
+			</td>
 			
 			<th>위치</th>
 			<td>${resultVO.shelt_position }</td>

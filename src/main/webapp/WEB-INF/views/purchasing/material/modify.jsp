@@ -32,6 +32,9 @@ $(document).ready(function(){
 		let tbl = "<tr>";
 		tbl += "<td>";
 		tbl += "</td>";
+        tbl += "<td>";
+        tbl += "<input type='text' name='whs_id' id='whs_id'>";
+        tbl += "</td>";
 		tbl += "<td>";
 		tbl += ma_id;
 	    tbl += "</td>";
@@ -86,6 +89,7 @@ $(document).ready(function(){
 		<th>단위</th>
 		<th>재고량</th>
 		<th>단가(WON)</th>
+		<th>창고번호</th>
 		<th>선반위치</th>
 		<th>최근 수정 날짜</th>
 		<th>담당직원</th>
@@ -98,6 +102,7 @@ $(document).ready(function(){
 		<td>${ml.unit }</td>
 		<td>${ml.ma_qty }</td>
 		<td>${ml.unit_cost }</td>
+		<td>${ml.whs_id }</td>
 		<td>${ml.shelt_position }</td>
 		<td><fmt:formatDate value="${ml.ma_regdate}" pattern="yyyy-MM-dd"/></td>
 		<td>${ml.ma_emp }</td>

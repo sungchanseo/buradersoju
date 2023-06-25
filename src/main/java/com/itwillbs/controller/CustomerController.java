@@ -92,12 +92,10 @@ public class CustomerController {
 	// 거래처 등록 디비처리
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
 	public String insertCustomerPOST(CustomerVO vo, 
-			@RequestParam("zipcode") String zipcode,
-			@RequestParam("address") String address,
-			@RequestParam("address2") String address2)  throws Exception {
+			@RequestParam("address") String address)  throws Exception {
 		logger.debug("@@@@@@@@@@@@Controller : 거래처 등록POST하기!!!!");
 		logger.debug("@@@@@@@입력된 정보 : " + vo);
-		vo.setCust_address(zipcode+" "+address+" "+address2);
+		vo.setCust_address(address+" "+vo.getCust_address());
 		custService.insertCustomer(vo);
 
 		return "redirect:/customer/list";

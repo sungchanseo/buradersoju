@@ -65,7 +65,7 @@
 					<input type="text" id="zipcode" onclick="addr();" maxlength="200" size="15">
 					<input type="button" value="우편번호찾기" onclick="addr();"><br>
 					<input type="text" name="address" id="address" size="45"><br>
-					<input type="text" id="address2" size="45" placeholder="상세주소를 입력해주세요."maxlength="45">
+					<input type="text" name="cust_address" size="45" placeholder="상세주소를 입력해주세요."maxlength="45">
 				</td>
 			</tr>
 			<tr>

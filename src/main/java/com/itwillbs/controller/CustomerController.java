@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.domain.CustomerVO;
 import com.itwillbs.domain.PagingVO;
@@ -102,18 +103,22 @@ public class CustomerController {
 	}
 	
 	//거래처 사업자등록번호 ajax맵핑
+	@ResponseBody
 	@RequestMapping(value="/regCheck")
-	public void regNumCheck(@RequestParam("reg_num") String reg_num) throws Exception{
+	public String regNumCheck(@RequestParam("reg_num") String reg_num) throws Exception{
 		logger.debug("@@@@@@@@@@@@Controller : 사업자번호 체크 AJAX!!!!");
 		logger.debug("@@@@@@@@@@@@Controller : reg_num={}", reg_num);
 		
 		String result=null;
-
-		if (custService.regNumCheck(reg_num) == 1) {
+		int numCheckResult = custService.regNumCheck(reg_num);
+		logger.debug("@@@@@@@@@@@@Controller : numCheckResult={}", numCheckResult);
+		if (numCheckResult==1) {
 			result = "no";
 		} else {
 			result = "yes";
 		}
+		logger.debug("@@@@@@@@@@@@Controller : result={}", result);
+		return result;
 	}
 	
 

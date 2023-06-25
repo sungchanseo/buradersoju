@@ -55,6 +55,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 	@Override
 	public Integer regNumCheck(String reg_num) {
 		logger.debug("############DAO : 사업자번호 중복체크 합니다.");
+		logger.debug("############DAO : regNumCheck."+sqlSession.selectOne(NAMESPACE+".regNumCheck", reg_num));
 		return sqlSession.selectOne(NAMESPACE+".regNumCheck", reg_num);
 	}
 

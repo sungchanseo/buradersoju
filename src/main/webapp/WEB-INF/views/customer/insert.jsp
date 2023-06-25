@@ -18,7 +18,8 @@
 					<label><input type="radio" name="cust_type" value="사업자(해외)">사업자(해외)</label>
 					<label><input type="radio" name="cust_type" value="개인">개인</label></td>
 				<th>사업자등록번호</th>
-				<td><input type="text" name="reg_num" id="reg_num">
+				<td><input type="text" name="reg_num" id="reg_num" placeholder="사업자번호를 입력하세요">
+				<br>
 				<span id="regCheckMsg"></span>
 				</td>
 			</tr>
@@ -75,11 +76,12 @@
 				<td><input type="text" name="cust_homepage"></td>
 			</tr>
 		</table>
-		<input type="button" value="작성완료" onclick="sendForm();">
+		<input type="button" id="submit" value="작성완료" onclick="sendForm();">
 	</form>
 <!-- 	http://localhost:8088/customer/list -->
 <!-- 	제이쿼리 -->
-	<script>
+	<script type="text/javascript">
+	
 		//우편번호 자동입력 api 메소드
 		function addr() {
 			new daum.Postcode({
@@ -91,7 +93,7 @@
 		};
 		//우편번호 자동입력 api 메소드
 
-		//입력완료 ajax 시작
+		//작성완료를 눌렀을 때 ajax 메소드
 		function sendForm() {
 			//상단의 폼태그를 변수에 저장한다. 
 			var formObject = $("form[role='form']").serializeArray();
@@ -106,7 +108,6 @@
 				}
 			}
 
-			//작성완료 버튼을 눌렀을 때 ajax를 실행하도록 한다.
 			if(status){
 				$.ajax({
 					url : '/customer/insert', 
@@ -121,41 +122,42 @@
 				});
 			}
 		};
-		//입력완료 ajax 끝
+		//작성완료를 눌렀을 때 ajax 메소드
 		
-		//사업자번호 중복확인 ajax 시작
-// 		$(document).ready(function(){
+		//사업자번호 중복확인 ajax 메소드
+		$(document).ready(function(){
 			
-// 			  $('#reg_num').keyup(function(){
-// 				 $.ajax({
-// 					  url : "/customer/regCheck",
-// 					  data: {"reg_num": $('#reg_num').val()},
-// 					  success:function(data){
-// 						  const result = $.trim(data);
-// 							  if(result=="yes" && !$('#reg_num').val() == ""){
+			  $('#reg_num').keyup(function(){
+				 $.ajax({
+					  url : "/customer/regCheck",
+					  data: {"reg_num": $('#reg_num').val()}, 
+					  dataType : "text", 
+					  success:function(data){
+						  const result = $.trim(data);
+							  if(result=="yes" && !$('#reg_num').val() == ""){
 							
-// 							  $('#regCheckMsg').css('color','green');
-// 							  $('#regCheckMsg').text("사용가능한 번호다.");
-// 							  $('#submit').removeAttr('disabled');
-// 							  return;
-// 						  }else if ( result=="no" && !$('#reg_num').val() == ""){
+							  $('#regCheckMsg').css('color','green');
+							  $('#regCheckMsg').text("사용가능한 번호다.");
+							  $('#submit').removeAttr('disabled');
+							  return;
+						  }else if ( result=="no" && !$('#reg_num').val() == ""){
 
-// 							  $('#regCheckMsg').css('color','red');
-// 							  $('#regCheckMsg').text("이 세상 번호가 아닌 것 같다.");  
-// 							  $('#submit').attr('disabled','disabled');
-// 							  return;
-// 						  }
-// 					  }//success 
-// 				  });// ajax
-// 				  if($('#reg_num').val() == ""){
-// 					  $('#regCheckMsg').css('color','red');
-// 					  $('#regCheckMsg').text("사업자번호를 적어라.");  
-// 					  $('#submit').attr('disabled','disabled'); 
-// 					  return;
-// 				  }
-// 			  }); 
-// 		});
-		//사업자번호 중복확인 ajax 끝
+							  $('#regCheckMsg').css('color','red');
+							  $('#regCheckMsg').text("이 세상 번호가 아닌 것 같다.");  
+							  $('#submit').attr('disabled','disabled');
+							  return;
+						  }
+					  }//success 
+				  });// ajax
+				  if($('#reg_num').val() == ""){
+					  $('#regCheckMsg').css('color','red');
+					  $('#regCheckMsg').text("사업자번호를 적어라.");  
+					  $('#submit').attr('disabled','disabled'); 
+					  return;
+				  }
+			  }); 
+		});
+		//사업자번호 중복확인 ajax 메소드
 	</script>	
 		
 

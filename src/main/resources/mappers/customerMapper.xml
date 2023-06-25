@@ -51,7 +51,7 @@
 	
 	<!-- 	사업자번호 중복체크 -->
 	<select id="regNumCheck" resultType="_int">
-		select * from customer where reg_num = #{reg_num}	
+		select count(*) from customer where reg_num = #{reg_num}	
 	</select>
 	<!-- 	사업자번호 중복체크 -->
 

@@ -10,7 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.itwillbs.domain.InMaterialVO;
 import com.itwillbs.domain.MaterialVO;
 import com.itwillbs.domain.OrderVO;
 import com.itwillbs.service.OrderService;
@@ -31,7 +33,7 @@ public class OrderController {
 		logger.debug("@@@@@orderList 호출@@@@@");
 	   
 		// service 객체 호출
-		List<OrderVO> orderList = orserivce.getOrderList();
+		List<OrderVO> orderList = orserivce.getOrderList(vo.getOrder_id());
 	    
 	    // View페이지 정보 전달
 		model.addAttribute("orderList", orderList);
@@ -59,14 +61,15 @@ public class OrderController {
     public void modifyOrderGET(OrderVO vo) {
     	logger.debug("@@@@@modifyOrderGET()호출!@@@@@");
     }
-	
-	
-
    
-   @RequestMapping(value="/modify", method= RequestMethod.POST)
-   public String ModifyOrderPOST(OrderVO vo) {
-	   logger.debug("@@@@@modifyOrderPOST()호출!@@@@@");
+ //  http://localhost:8088/purchasing/order/info
+   @RequestMapping(value="/info" , method = RequestMethod.GET)
+   public void getOrederInfo(Model model,@RequestParam("ma_id") String ma_id) throws Exception {
+	   logger.debug("@@@@@@@@@@ getOrederInfo()_호출");
 	   
-	   return "";
+	   OrderVO info = orserivce.getOrderInfo(ma_id);
+	   logger.debug("@@@@@@@@@@ 입고 상세보기 데이터 : " + info);
+	   model.addAttribute("resultVO", info);
+	   
    }
 }

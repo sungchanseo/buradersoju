@@ -26,9 +26,9 @@ public class OrderDAOImpl implements OrderDAO{
 
 	// 발주목록 보기
 	@Override
-	public List<OrderVO> getOrderList() {
+	public List<OrderVO> getOrderList(String order_id) {
 		logger.debug("@@@@@@@@@DAO 발주 목록을 조회합니다 @@@@@");
-		return sqlSession.selectList(NAMESPACE+".getOrderList");
+		return sqlSession.selectList(NAMESPACE+".getOrderList",order_id);
 	}
     
     // 발주등록하기

@@ -17,6 +17,8 @@ public class OrderVO {
 	private Date in_date;
 	private String whs_num;
 	private int order_emp;
+    private MaterialVO materialVO;	
+
 	public String getOrder_id() {
 		return order_id;
 	}
@@ -90,12 +92,20 @@ public class OrderVO {
 		this.order_emp = order_emp;
 	}
 	
+	
+	public MaterialVO getMaterialVO() {
+		return materialVO;
+	}
+	public void setMaterialVO(MaterialVO materialVO) {
+		this.materialVO = materialVO;
+	}
 	@Override
 	public String toString() {
 		return "OrderVO [order_id=" + order_id + ", ma_id=" + ma_id + ", order_maName=" + order_maName + ", order_qty="
 				+ order_qty + ", order_unitCost=" + order_unitCost + ", order_sum=" + order_sum + ", order_vat="
 				+ order_vat + ", order_date=" + order_date + ", due_date=" + due_date + ", in_date=" + in_date
-				+ ", whs_num=" + whs_num + ", order_emp=" + order_emp + "]";
+				+ ", whs_num=" + whs_num + ", order_emp=" + order_emp + ", materialVO=" + materialVO + "]";
 	}
+
 	
 }

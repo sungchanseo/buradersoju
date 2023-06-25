@@ -15,7 +15,15 @@ public class MaterialVO {
 	private Date ma_regdate;
 	private int ma_emp;
 	
+	private OrderVO orderVO;
 	
+	
+	public OrderVO getOrderVO() {
+		return orderVO;
+	}
+	public void setOrderVO(OrderVO orderVO) {
+		this.orderVO = orderVO;
+	}
 	// getset 메서드
 	public String getMa_id() {
 		return ma_id;
@@ -68,15 +76,15 @@ public class MaterialVO {
 	public void setUnit(String unit) {
 		this.unit = unit;
 	}
-	
-	
-	
-	// toString 메서드
 	@Override
 	public String toString() {
 		return "MaterialVO [ma_id=" + ma_id + ", ma_name=" + ma_name + ", ma_qty=" + ma_qty + ", unit=" + unit
 				+ ", unit_cost=" + unit_cost + ", shelt_position=" + shelt_position + ", ma_regdate=" + ma_regdate
-				+ ", ma_emp=" + ma_emp + "]";
+				+ ", ma_emp=" + ma_emp + ", orderVO=" + orderVO + "]";
 	}
 	
+	
+	
+	// toString 메서드
+
 }

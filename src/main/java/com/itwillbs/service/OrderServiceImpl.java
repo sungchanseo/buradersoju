@@ -19,9 +19,9 @@ public class OrderServiceImpl implements OrderService {
 
 	// 전체 리스트 불러오기
 	@Override
-	public List<OrderVO> getOrderList() {
+	public List<OrderVO> getOrderList(String order_id) {
 
-		return odao.getOrderList();		
+		return odao.getOrderList(order_id);		
 	}
 
 	@Override

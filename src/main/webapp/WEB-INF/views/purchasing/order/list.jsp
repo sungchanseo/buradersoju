@@ -8,7 +8,7 @@
 <title>Order</title>
 </head>
 <body>
-
+${orderList.get(0)}
 <table border="1">
 			<tr>
 				<th>발주번호</th>
@@ -25,10 +25,9 @@
 				<th>담당직원</th>
 			</tr>
 			<c:forEach var="order" items="${orderList}">
-				<tr>
+			<%-- 	<tr>
 				    <td>${order.order_id}</td>
 					<td>${order.ma_id}</td>
-					<td>${order.order_maName}</td>
 					<td>${order.order_qty}</td>
 					<td>${order.order_vat}</td>
 					<td>${order.order_date}</td>
@@ -38,7 +37,7 @@
 					<td>${order.order_unitCost}</td>
 					<td>${order.order_sum}</td>
 					<td>${order.order_emp}</td>
-				</tr>
+				</tr> --%>
 			</c:forEach>
 		</table>
 		<a href="/purchasing/order/insert">발주등록</a>

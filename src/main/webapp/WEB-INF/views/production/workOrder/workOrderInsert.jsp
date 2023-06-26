@@ -1,4 +1,4 @@
-workOrderInsert.jsp<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
     
@@ -19,7 +19,7 @@ workOrderInsert.jsp<%@ page language="java" contentType="text/html; charset=UTF-
 				var product_id = $("#product_id").val();
 				var plan_qty = $("#plan_qty").val();
 			
-				// /(재고량 < 필요수량)인 경우 => 강조 + 등록불가
+				// (재고량 < 필요수량)인 경우 => 강조 + 등록불가
 				// 최대 행 개수 추가하기
 			$.ajax({
 				  url : 'materialSearch',
@@ -56,8 +56,6 @@ workOrderInsert.jsp<%@ page language="java" contentType="text/html; charset=UTF-
 <body>
 	<h1>작업지시 등록</h1>
 	
-       
-	<br>
 	  <table>
 		<tr>
 		 <td>상품코드</td>
@@ -88,6 +86,7 @@ workOrderInsert.jsp<%@ page language="java" contentType="text/html; charset=UTF-
       <!-- 값 공간 -->
     </tbody>
   </table>
+  <br>
 		<table>
 		<tr>
 		 <td>작업지시수량</td>
@@ -107,7 +106,9 @@ workOrderInsert.jsp<%@ page language="java" contentType="text/html; charset=UTF-
       <!-- 값 공간 -->
     </tbody>
   </table>
-  
+  <br>
+  <br>
+  <hr>
   <table>
  	 <tr>
 		 <td>작업지시자</td>

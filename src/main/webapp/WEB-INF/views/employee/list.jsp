@@ -55,7 +55,7 @@
 											</tr>
 										</c:forEach>
 									</table>
-									<!-- 이 곳에 내용 작성하시면 됩니다 -->
+									<!-- 이 곳에 내용 작성하시면 됩니다  -->
 									</div>
 									<c:if test="${emp_department.equals('인사팀') || emp_department.equals('인사') }">
 										<input type="button" class="btn btn-success btn-fw" value="사원등록" onclick="insertPop()">

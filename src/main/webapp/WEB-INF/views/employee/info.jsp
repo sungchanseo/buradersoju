@@ -18,7 +18,7 @@
 // 		openPop.moveBy(100,100);
 // 	}
 </script>
-<!-- 사원 수정 새창열기  -->
+<!-- 사원 수정 새창열기 -->
 	<h1>사원 정보</h1>
 	<c:if test="${emp_department.equals('인사팀') || emp_department.equals('인사') }">
 		<input type="button" value="수정하기" onclick="location.href='/employee/modify?emp_id=${resultVO.emp_id}';">

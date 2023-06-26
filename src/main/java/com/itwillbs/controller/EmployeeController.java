@@ -137,7 +137,7 @@ public class EmployeeController {
 		model.addAttribute("resultVO", resultVO);
 		//model.addAttribute(resultVO);
 		
-		// 인사팀 일때 버튼 활성화
+		// 인사팀 일때 버튼 활성화 
 		model.addAttribute("emp_department", session.getAttribute("emp_department"));
 
 		// 페이지 이동

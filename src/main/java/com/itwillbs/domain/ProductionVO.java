@@ -4,9 +4,24 @@ import java.sql.Timestamp;
 
 public class ProductionVO {
 	
+	// Contract
+	private String cont_id;
+	private Integer cont_qty;
+	
+	// pr_material
+//	private String product_id;
+	private String ma_name;
+	private float use_qty;
+	
+	// material
+//	private String ma_name;
+	private String ma_id;
+	private float ma_qty;
+	private String unit;
+	
 	// production
 	private String production_id;
-	private String cont_id;
+//	private String cont_id;
 	private int production_emp;
 	private Timestamp production_date;
 	private String op_id;
@@ -46,6 +61,66 @@ public class ProductionVO {
 	
 	public String getProduction_id() {
 		return production_id;
+	}
+
+
+	public Integer getCont_qty() {
+		return cont_qty;
+	}
+
+
+	public void setCont_qty(Integer cont_qty) {
+		this.cont_qty = cont_qty;
+	}
+
+
+	public String getMa_name() {
+		return ma_name;
+	}
+
+
+	public float getUse_qty() {
+		return use_qty;
+	}
+
+
+	public String getMa_id() {
+		return ma_id;
+	}
+
+
+	public float getMa_qty() {
+		return ma_qty;
+	}
+
+
+	public String getUnit() {
+		return unit;
+	}
+
+
+	public void setMa_name(String ma_name) {
+		this.ma_name = ma_name;
+	}
+
+
+	public void setUse_qty(float use_qty) {
+		this.use_qty = use_qty;
+	}
+
+
+	public void setMa_id(String ma_id) {
+		this.ma_id = ma_id;
+	}
+
+
+	public void setMa_qty(float ma_qty) {
+		this.ma_qty = ma_qty;
+	}
+
+
+	public void setUnit(String unit) {
+		this.unit = unit;
 	}
 
 
@@ -273,23 +348,21 @@ public class ProductionVO {
 		this.bt_defQty = bt_defQty;
 	}
 
+	
 	// toString()
 	@Override
 	public String toString() {
-		return "ProductionVO [production_id=" + production_id + ", cont_id=" + cont_id + ", production_emp="
-				+ production_emp + ", production_date=" + production_date + ", op_id=" + op_id + ", production_line="
-				+ production_line + ", plan_qty=" + plan_qty + ", production_qty=" + production_qty
-				+ ", production_state=" + production_state + ", product_id=" + product_id + ", product_name="
-				+ product_name + ", complete_date=" + complete_date + ", complete_defQty=" + complete_defQty
-				+ ", qc_num=" + qc_num + ", qc_emp=" + qc_emp + ", qc_date=" + qc_date + ", qc_qty=" + qc_qty
-				+ ", qc_state=" + qc_state + ", def_code=" + def_code + ", def_qty=" + def_qty + ", bt_date=" + bt_date
-				+ ", bt_qty=" + bt_qty + ", bt_defQty=" + bt_defQty + "]";
+		return "ProductionVO [cont_id=" + cont_id + ", cont_qty=" + cont_qty + ", ma_name=" + ma_name + ", use_qty="
+				+ use_qty + ", ma_id=" + ma_id + ", ma_qty=" + ma_qty + ", unit=" + unit + ", production_id="
+				+ production_id + ", production_emp=" + production_emp + ", production_date=" + production_date
+				+ ", op_id=" + op_id + ", production_line=" + production_line + ", plan_qty=" + plan_qty
+				+ ", production_qty=" + production_qty + ", production_state=" + production_state + ", product_id="
+				+ product_id + ", product_name=" + product_name + ", complete_date=" + complete_date
+				+ ", complete_defQty=" + complete_defQty + ", qc_num=" + qc_num + ", qc_emp=" + qc_emp + ", qc_date="
+				+ qc_date + ", qc_qty=" + qc_qty + ", qc_state=" + qc_state + ", def_code=" + def_code + ", def_qty="
+				+ def_qty + ", bt_date=" + bt_date + ", bt_qty=" + bt_qty + ", bt_defQty=" + bt_defQty + "]";
 	}
 
-
-	
-
-	
 
 }
 

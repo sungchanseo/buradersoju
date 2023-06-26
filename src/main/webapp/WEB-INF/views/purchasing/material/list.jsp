@@ -166,7 +166,9 @@ $(document).ready(function() {
 			// td.eq(0)은 체크박스, td.eq(1)이 ma_id
 			var ma_id = td.eq(1).text();
 			tdArr.push(ma_id);	// tdArr[0]
-
+			
+			$().addClass('');
+			
 		}); // function(i)
 		
 	
@@ -191,7 +193,7 @@ $(document).ready(function() {
 	
 	
 	
-	// 3. '삭제' 클릭
+	// 3-1. '삭제' 클릭
 	$('#delete').click(function(){ 
 			
 		var rowData = new Array();
@@ -216,7 +218,7 @@ $(document).ready(function() {
 		}); // function(i)
 		
 	
-		// 2-2. 체크된 데이터 컨트롤러 전달
+		// 3-2. 체크된 데이터 컨트롤러 전달
 		var ma_id = tdArr[0];
 		
 		$.ajax({
@@ -231,7 +233,7 @@ $(document).ready(function() {
 				}
 			},
 			error: function() {
-				alert("error");
+				alert("삭제할 항목을 선택해주세요.");
 			}
 		}); //ajax		
 
@@ -239,47 +241,58 @@ $(document).ready(function() {
 	
 	
 	
-	// '검색' 기능
-	function getSearchList(){
+	// 4. '검색' 클릭
+	// -> 검색 결과에 날짜가 이상하게 나옴ㅠㅠ 
+	$('#btnsearch').click(function(){
+
+		var type = $('#type').val();
+		var keyword = $('#keyword').val();
+		
 		$.ajax({
+			url : "search",
 			type: "get",
-			url : "/getSearchList",
-			data : $("form[name=search-form]").serialize(),
-			success : function(result){
-				
-				//테이블 초기화
-				$('.tbl > tbody').empty();
-				if(result.length>=1){
-					result.forEach(function(item){
-						str = "<tr>";
-						str += "<td>"+ item.ma_id +"</td>";
-						str += "<td>"+ item.ma_name +"</td>";
-						str += "<td>"+ item.unit +"</td>";
-						str += "<td>"+ item.ma_qty +"</td>";
-						str += "<td>"+ item.utni_cost +"</td>";
-						str += "<td>"+ item.whs_id +"</td>";
-						str += "<td>"+ item.shelt_position +"</td>";
-						str += "<td>"+ item.ma_regdate +"</td>";
-						str += "<td>"+ item.ma_emp +"</td>";
-						str += "</tr>"
-						$('.tbl').append(str);
-	        		}) // function(item)	
-	        		
-				} // if
-				
-			}, // seccess
+			data : {
+				type:type,
+				keyword:keyword
+			},
+			success : function(data){
+				if(data.length >= 1){
+					// 테이블 초기화
+					$('#tbody').empty();
+					// 테이블 값 가져오기 (반복문)
+					$(data).each(function(idx, obj){
+						var str = "";
+						str += "<tr>";
+						str += "<td><input type='checkbox' name='check'></td>";
+						str += "<td>"+ obj.ma_id +"</td>";
+						str += "<td>"+ obj.ma_name +"</td>";
+						str += "<td>"+ obj.unit +"</td>";
+						str += "<td>"+ obj.ma_qty +"</td>";
+						str += "<td>"+ obj.unit_cost +"</td>";
+						str += "<td>"+ obj.whs_id +"</td>";
+						str += "<td>"+ obj.shelt_position +"</td>";
+						str += "<td>"+obj.ma_regdate+"</td>";
+						str += "<td>"+ obj.ma_emp +"</td>";
+						str += "</tr>";
+						
+						$('table').append(str);
+					});
+				}else{
+					$('#tbody').empty();
+					$('tbody').text("검색된 결과가 없습니다.");
+				} // if문
+			}, // success
 			error: function(){
 				alert("error");
 			}
-		}) // ajax
+		}); // ajax
 		
-	} // getSearchList()
+		
+		
+		
+		
+	}); // btnsearch.click
 	
-	
-	
-	
-	
-
 }); // jQuery
 </script>
 </head>
@@ -289,29 +302,28 @@ $(document).ready(function() {
    
    
 	<!-- 검색 -->
-	<div>
-		<form name="search-form" autocomplete="off">
-			<select name="type">
-				<option value="ma_id">품목코드</option>
-				<option value="ma_name">품명</option>
-			</select>
-			<input type="text" name="keyword" value="">	
-			<input type="button" class="btn btn-outline-primary mr-2" onclick="getSearchList();" value="검색">
-		</form>
+	<form name="search-form" autocomplete="on">
+		<select id="type" name="type">
+			<option value="ma_id">품목코드</option>
+			<option value="ma_name">품명</option>
+		</select>
+		<input type="text" id="keyword" name="keyword" value="">	
+		<input type="button" id="btnsearch" class="btn btn-outline-primary mr-2" value="검색">
+	</form>
+	
 		
-		<!-- 버튼 -->
-		<button class="insertForm true" >등록</button>
-		<button class="btn btn-outline btn-primary pull-right" id="modify">수정</button>
-		<button class="btn btn-outline btn-primary pull-right" id="delete">삭제</button>
-		<button class="insert update delete">저장</button>
-	</div>
+	<!-- 버튼 -->
+	<button class="insertForm true" >등록</button>
+	<button class="btn btn-outline btn-primary pull-right" id="modify">수정</button>
+	<button class="btn btn-outline btn-primary pull-right" id="delete">삭제</button>
+	<button class="insert update delete">저장</button>
    
    
 	<!-- 테이블 -->
 	<div class="row">
-   	<fmt:formatDate value=""/> 	
+  	<fmt:formatDate value=""/> 	
 	<table border="1" id="example-table-3" class="table table-bordered table-hover text-center tbl">
-	 <tbody>
+	 <thead>
 	 <tr>
 		<th></th>
 		<th>품목코드</th>
@@ -324,7 +336,9 @@ $(document).ready(function() {
 		<th>최근 수정 날짜</th>
 		<th>담당직원</th>
 	 </tr>
+	 </thead>
 	
+	 <tbody id="tbody">
       <c:forEach var="ml" items="${materialList }">
          <tr>
          	<td><input type="checkbox" name="check"></td>
@@ -342,7 +356,7 @@ $(document).ready(function() {
 			<td>${ml.unit_cost }</td>
          	<td>${ml.whs_id }</td>
 			<td>${ml.shelt_position }</td>
-			<td><fmt:formatDate value="${ml.ma_regdate}" pattern="yyyy-MM-dd"/></td>
+			<td><fmt:formatDate pattern="yyyy-MM-dd" value="${ml.ma_regdate}"/></td>
 			<td>${ml.ma_emp }</td>
          </tr>
       </c:forEach>

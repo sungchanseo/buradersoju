@@ -21,7 +21,8 @@ public class MaterialVO {
 	private String keyword;
 	
 	
-	// getset 메서드
+	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ Getter & Setter ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+	// material
 	public String getMa_id() {
 		return ma_id;
 	}
@@ -54,7 +55,6 @@ public class MaterialVO {
 	public void setShelt_position(String shelt_position) {
 		this.shelt_position = shelt_position;
 	}
-
 	public Date getMa_regdate() {
 		return ma_regdate;
 	}

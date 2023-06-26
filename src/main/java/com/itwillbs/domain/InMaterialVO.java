@@ -12,7 +12,7 @@ public class InMaterialVO {
 	private String in_maName;
 	private int in_qty;
 	private String in_process;
-	private Timestamp in_date;
+	private Date in_date;
 	private int in_emp;
 	
 	// material
@@ -109,10 +109,10 @@ public class InMaterialVO {
 	public void setIn_qty(int in_qty) {
 		this.in_qty = in_qty;
 	}
-	public Timestamp getIn_date() {
+	public Date getIn_date() {
 		return in_date;
 	}
-	public void setIn_date(Timestamp in_date) {
+	public void setIn_date(Date in_date) {
 		this.in_date = in_date;
 	}
 	public int getIn_emp() {

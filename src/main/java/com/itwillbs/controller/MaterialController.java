@@ -1,4 +1,5 @@
 package com.itwillbs.controller;
+import java.util.HashMap;
 import java.util.List;
 import javax.inject.Inject;
 import org.slf4j.Logger;
@@ -12,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itwillbs.domain.MaterialVO;
+import com.itwillbs.domain.ProductionVO;
 import com.itwillbs.service.MaterialService;
 
 
@@ -49,21 +52,26 @@ public class MaterialController {
 	}
 	
 	// 1-2. 자재 검색
-	@GetMapping("/getSearchList")
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	@ResponseBody
 	public List<MaterialVO> searchMaterialGET(Model model,
-								@RequestParam("type") String type,
-			                    @RequestParam("keyword") String keyword) throws Exception {
+											  @RequestParam("type") String type,
+							                  @RequestParam("keyword") String keyword) throws Exception {
 		logger.debug("@@@@@@@@@@ searchMaterialGET() 호출");
 		
 		MaterialVO searchVO = new MaterialVO();		
 		searchVO.setType(type);
 		searchVO.setKeyword(keyword);
+		logger.debug("@@@@@@@@@@ type = " + type);
+		logger.debug("@@@@@@@@@@ keyword = " + keyword);
+
+		List<MaterialVO> searchlist = mService.getSearchList(searchVO);
+		model.addAttribute("searchlist", searchlist);
+		logger.debug("@@@@@@@@@@ searchlist = " + searchlist);
 		
-		return mService.getSearchList(searchVO);
+		return searchlist;
 	}
-	
-	
+
 	
 	// 2. 자재 등록 - 행추가 & 데이터처리
 	@RequestMapping(value="/maid", method=RequestMethod.GET)
@@ -79,16 +87,11 @@ public class MaterialController {
 	}
 
 	
-	
-	
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// 체크박스 선택해서 수정누르면 해당 행이 활성화 되어 수정 또는 삭제할 수 있게끔
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
 	// 3-1. 자재 수정 (조회)
 	// 기존의 정보 출력 & 수정 정보 입력
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)
-	public void modifyMaterialGET(Model model, @RequestParam("ma_id") String ma_id) throws Exception {
+	@ResponseBody
+	public List<MaterialVO> modifyMaterialGET(Model model, @RequestParam("ma_id") String ma_id) throws Exception {
 		logger.debug("@@@@@@@@@@ modifyMaterialGET 호출");
 		
 		// 기존의 정보 출력
@@ -102,7 +105,27 @@ public class MaterialController {
 		// -> View페이지 (modify.jsp) 전달하기 위해
 		model.addAttribute("resultVO", resultVO);
 		model.addAttribute("materialList", materialList);
+		
+		return materialList;
 	}
+	
+	
+//	@RequestMapping(value = "/modify", method = RequestMethod.GET)
+//	public void modifyMaterialGET(Model model, @RequestParam("ma_id") String ma_id) throws Exception {
+//		logger.debug("@@@@@@@@@@ modifyMaterialGET 호출");
+//		
+//		// 기존의 정보 출력
+//		MaterialVO resultVO = mService.getMaterialInfo(ma_id);
+//		logger.debug("@@@@@@@@@@ 기존 데이터 : " + resultVO);
+//		
+//		// 리스트 출력
+//		List<MaterialVO> materialList = mService.getMaterialList();
+//		
+////		// Model 객체를 사용하여 데이터 저장
+//		// -> View페이지 (modify.jsp) 전달하기 위해
+//		model.addAttribute("resultVO", resultVO);
+//		model.addAttribute("materialList", materialList);
+//	}
 	
 	// 3-2. 자재 수정 (데이터처리)
 	// 수정된 정보 DB에 저장 후 list.jsp 페이지 이동

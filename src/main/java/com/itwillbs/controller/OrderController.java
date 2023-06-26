@@ -26,14 +26,21 @@ public class OrderController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
 	
+//	@RequestMapping(value="/list" , method = RequestMethod.GET)
+//	public void orderJoinGET(Model model, OrderVO vo) {
+//		logger.debug("JOIN 확인하기@@@@");
+//		
+//	}
+	
+	
 	// http://localhost:8088/purchasing/order/list
 	@RequestMapping(value="/list", method = RequestMethod.GET)
 	public void orderListGET(Model model , OrderVO vo) {
 		
 		logger.debug("@@@@@orderList 호출@@@@@");
-	   
+	    logger.debug("vo.getOrder_id : " + vo.getMa_id());
 		// service 객체 호출
-		List<OrderVO> orderList = orserivce.getOrderList(vo.getOrder_id());
+		List<OrderVO> orderList = orserivce.getOrderList();
 	    
 	    // View페이지 정보 전달
 		model.addAttribute("orderList", orderList);

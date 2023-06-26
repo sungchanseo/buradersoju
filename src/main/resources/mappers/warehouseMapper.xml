@@ -33,10 +33,10 @@
         
    <!--창고정보 수정하기-->
    <!-- 창고정보 삭제하기  -->
-       <!-- <update id="removeWarehouse">
-		update warehouse set whs_sts=0
+        <update id="removeWarehouse">
+		update warehouse set whs_sts=2
 		where whs_id =#{whs_id}
-	</update> -->
+	</update> 
    <!-- 창고정보 삭제하기  -->
         
    </mapper>

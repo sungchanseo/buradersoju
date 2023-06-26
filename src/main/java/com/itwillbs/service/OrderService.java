@@ -15,4 +15,6 @@ public interface OrderService {
     // 발주수정하기
 	public Integer modifyOrder(OrderVO mvo);
 	
+	// 발주조인하기 
+    public OrderVO getOrderInfo(String ma_id);
 }

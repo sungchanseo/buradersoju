@@ -21,4 +21,6 @@ public interface InventoryDAO {
 	
 	// 재고목록 등록하기
 	public void insertInventory(MaterialVO vo);
+
+
 }

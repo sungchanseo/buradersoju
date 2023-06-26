@@ -15,13 +15,13 @@ public class InventoryServiceImpl implements InventoryService {
 	 @Inject
 	 private InventoryDAO idao;
 	 
-	@Override
+
+	 
+	 @Override
 	public List<MaterialVO> getInventoryList() {
-		
 		return idao.getInventoryList();
 	}
 
-	@Override
 	public MaterialVO modifyInventoryID(String ma_id) {
 		
 		return idao.modifyInventoryID(ma_id);

@@ -96,31 +96,8 @@
          }); //write click
       
       }); //writeForm click
-    /*   $('.update').click(function(){
-    	 console.log("실사량 수정하기");
-    	 var ma_qty = $('#ma_qty').val();
-    	 var ma_id = $('#ma_id').val();
-    	 alert(ma_qty);
-    	 alert(ma_id);
-    	 
-    	$.ajax({
-    			 url:"list",
-    			 type:"post",
-    			 data:{ma_qty:ma_qty},
-    			 success:function(){
-    				 location.href="/purchasing/inventory/list"
-    				 alert("수정완료!");
-    			 },
-    			 error:function(){
-    				 alert("error");
-    			 }
-    		 }); //ajax
-    	 // if- else
-    	 
-      }); // 업데이트하기 click
-      */
+   
    }); //jQuery
-   /*  data-bt_date="${in.bt_date}" */
 </script>
 
 </head>
@@ -163,8 +140,6 @@
 	  $(".update").click(function() {
 	    var ma_id = $(this).data("ma_id");
 	    var ma_qty = $(this).closest("tr").find(".ma_qty").val();
-	    alert(ma_id);
-	    alert(ma_qty);
 	    // form 태그 동적 생성
 	    const form = $('<form>', {
 	      method: 'post',

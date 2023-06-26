@@ -7,7 +7,19 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script type="text/javascript">
+
+function click_add(){
+	var url ="insert";
+	var name ="insert";
+	var option = "width = 600, height= 600, left =100, top=50,location=no";
+	window.open(url,name,option);
+}
+
+</script>
 <body>
+
 
 <table border="1">
 			<tr>
@@ -35,6 +47,6 @@
 			</c:forEach>
 		</table>
 
-<a href="/purchasing/warehouse/insert">창고등록</a>
+<button class="add-button" type="button" onclick="click_add();">창고등록</button>
 </body>
 </html>

@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%@ include file="../includes/header.jsp"%>
+<%-- <%@ include file="../includes/header.jsp"%> --%>
 <meta charset="UTF-8">
 <!-- 제이쿼리 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
@@ -93,7 +93,7 @@
 		</script>
 	<!-- 품질관리현황표 출력 -->
 	<div class="qualityList">
-	
+<%-- 	${productionList } --%>
 	<table border='1'>
 	
 		<thead>
@@ -120,7 +120,7 @@
 				<input type="hidden" id="production_state" name="production_state" value=" ${vo.production_state}">
 			<tr class="qualityListResult">
 				<td><a href="/quality/qualityInfo?qc_num=${vo.qc_num }" onclick="window.open(this.href, '_blank', 'width=800, height=500, left=2000'); return false;">${vo.qc_num  }</a></td>
-				<td><a href="/production/workOrder?production_id=${vo.production_id }" onclick="window.open(this.href, '_blank', 'width=800, height=500, left=2000'); return false;">${vo.production_id }</a></td>
+				<td><a href="/production/workOrder/workOrder?production_id=${vo.production_id }" onclick="window.open(this.href, '_blank', 'width=800, height=500, left=2000'); return false;">${vo.production_id }</a></td>
 				<td>${vo.production_line }</td>
 				<td>${vo.product_id }</td>
 				<td>${vo.product_name }</td>
@@ -136,6 +136,19 @@
 	</tbody>
 	</table>
 	</div>
+	<!-- 	페이징 처리  -->
+	<c:if test="${pvo.startPage > pvo.pageBlock }">
+		<a href="/contract/list?pageNum=${pvo.startPage-pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}">이전</a>
+	</c:if>
+
+	<c:forEach var="i" begin="${pvo.startPage }" end="${pvo.endPage }" step="1">
+		<a href="/contract/list?pageNum=${i }&selector=${pvo.selector}&search=${pvo.search}">${i }</a>
+	</c:forEach>
+
+	<c:if test="${pvo.endPage<pvo.pageCount }">
+		<a href="/contract/list?pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}">다음</a>
+	</c:if>
+	<!-- 	페이징 처리  -->
 	<%@ include file="../includes/footer.jsp" %>
 </body>
 </html>

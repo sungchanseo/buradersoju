@@ -24,7 +24,6 @@ import com.itwillbs.service.QualityService;
 public class QualityController {
 	
 	// 서비스 객체 주입
-
 	@Inject
 	private QualityService quService;
 	
@@ -76,7 +75,7 @@ public class QualityController {
 			quService.insertQuality(vo);
 		}
 		// 작업 지시 번호로 조회
-		@RequestMapping(value="/qualityInsertSearch.do",  produces = "application/text; charset=UTF-8")
+		@RequestMapping(value="/qualityInsertSearch",  produces = "application/text; charset=UTF-8")
 		@ResponseBody
 		public String searchListGET(String production_id) throws Exception {
 			

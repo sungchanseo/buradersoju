@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- DTD지정  -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.itwillbs.mappers.workOrderMapper">
+
+<!-- 작업지시 목록 -->
+	<select id="getWorkOrderList" resultType="com.itwillbs.domain.ProductionVO">
+		select * from production 
+		join product ON production.product_id = product.product_id;
+	</select>
+<!-- 작업지시 목록 -->
+
+<!-- 작업지시 상세 -->
+	<select id="workOrder" resultType="com.itwillbs.domain.ProductionVO">
+		select * from production 
+		join product ON production.product_id = product.product_id 
+		where production.production_id = #{production_id};
+	</select>
+<!-- 작업지시 상세 -->
+
+<!-- 작업지시 등록 -->
+<!-- 		<select id="insertSearch" resultType="com.itwillbs.domain.ProductionVO"> -->
+<!-- 			select * -->
+<!-- 			from production a, -->
+<!-- 		     	 product b -->
+<!-- 			where a.product_id = b.product_id -->
+<!-- 			and a.production_id = #{production_id} -->
+<!-- 		</select> -->
+	<!-- 수주번호 조회 -->
+	<select id="woInsertSearch" resultType="com.itwillbs.domain.ProductionVO">
+			select *
+ 			from product p, contract c
+			where p.product_id = c.product_id
+			and c.cont_id = #{cont_id}
+	</select>
+	<!-- 수주번호 조회 -->
+	
+	<!-- 자재 재고 조회 -->
+	<select id="getMaterialList" resultType="com.itwillbs.domain.ProductionVO">
+		select pm.ma_name, pm.use_qty, m.ma_qty, m.unit, pm.product_id 
+		from pr_material pm, material m
+		where pm.ma_name = m.ma_name
+		and pm.product_id = #{product_id}
+	</select>
+	<!-- 자재 재고 조회 -->
+	<!-- DB 등록 -->
+	<insert id="insert">
+		insert into production(production_id,production_emp,production_line,plan_qty) 
+		values(#{production_id},#{production_emp},#{production_line},#{plan_qty})
+	</insert>
+	<!-- DB 등록 -->
+<!-- 작업지시 등록 -->
+
+
+</mapper>

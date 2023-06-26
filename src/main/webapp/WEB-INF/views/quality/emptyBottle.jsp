@@ -15,8 +15,10 @@
 
 </head>
 <body>
+<!-- 전체수량 - 불량수량하기 -->
 	<h1>공병 관리</h1>
 	<!-- 날짜 중복 안되게 수정 예정 -->
+	<!-- 공병 재고 컬럼 생겼으니 연결해서 수정 예정 -->
 	<form action="btInsert" method="POST">
 	<c:set var="today" value="<%=new Date()%>" />
 	<fmt:formatDate var="today2" value="${today }" pattern="yyyy-MM-dd HH:mm:ss"/>

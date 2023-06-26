@@ -35,7 +35,7 @@
 								<form role="form" method="post">
 									<div class="form-group">								
 									<h1>사원리스트</h1>		
-									<table class="table table-color">
+									<table class="table table-hover">
 										<tr>
 											<th style="width: 60px">사번</th>
 											<th>이름</th>
@@ -57,18 +57,20 @@
 									</table>
 									<!-- 이 곳에 내용 작성하시면 됩니다 -->
 									</div>
-									<input type="button" class="btn btn-success btn-fw" value="사원등록" onclick="insertPop()">
+									<c:if test="${employee.emp_department eq '인사팀'}">
+										<input type="button" class="btn btn-success btn-fw" value="사원등록" onclick="insertPop()">
+									</c:if>
 									<!-- 	페이징 처리  -->
-									<c:if test="${startPage > pageBlock }">
-										<a href="/employee/list?pageNum=${startPage-pageBlock}">이전</a>
+									<c:if test="${pvo.startPage > pvo.pageBlock }">
+										<a href="/employee/list?pageNum=${pvo.startPage-pvo.pageBlock}">이전</a>
 									</c:if>
 								
-									<c:forEach var="i" begin="${startPage }" end="${endPage }" step="1">
+									<c:forEach var="i" begin="${pvo.startPage }" end="${pvo.endPage }" step="1">
 										<a href="/employee/list?pageNum=${i }">${i }</a>
 									</c:forEach>
 								
-									<c:if test="${endPage<pageCount }">
-										<a href="/employee/list?pageNum=${startPage+pageBlock}">다음</a>
+									<c:if test="${pvo.endPage < pvo.pageCount }">
+										<a href="/employee/list?pageNum=${pvo.startPage + pvo.pageBlock}">다음</a>
 									</c:if>
 									<!-- 	페이징 처리  -->
 								</form>

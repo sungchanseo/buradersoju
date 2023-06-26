@@ -11,9 +11,9 @@ public class EmployeeVO {
 	private String emp_tel;
 	private String emp_address;
 	private String emp_image;
-	private Integer emp_department;
+	private String emp_department;
 	private String emp_position;
-	private Integer emp_status;
+	private String emp_status;
 	private String join_date;
 	private String absence_date;
 	private String rehabi_date;
@@ -103,11 +103,11 @@ public class EmployeeVO {
 		this.emp_image = emp_image;
 	}
 
-	public Integer getEmp_department() {
+	public String getEmp_department() {
 		return emp_department;
 	}
 
-	public void setEmp_department(Integer emp_department) {
+	public void setEmp_department(String emp_department) {
 		this.emp_department = emp_department;
 	}
 
@@ -119,11 +119,11 @@ public class EmployeeVO {
 		this.emp_position = emp_position;
 	}
 
-	public Integer getEmp_status() {
+	public String getEmp_status() {
 		return emp_status;
 	}
 
-	public void setEmp_status(Integer emp_status) {
+	public void setEmp_status(String emp_status) {
 		this.emp_status = emp_status;
 	}
 
@@ -160,8 +160,8 @@ public class EmployeeVO {
 	}
 
 	public EmployeeVO(String emp_id, String emp_pw, String emp_name, String emp_email, String emp_birth, String emp_gender,
-			String emp_phone, String emp_tel, String emp_address, String emp_image, Integer emp_department,
-			String emp_position, Integer emp_status, String join_date, String absence_date, String rehabi_date,
+			String emp_phone, String emp_tel, String emp_address, String emp_image, String emp_department,
+			String emp_position, String emp_status, String join_date, String absence_date, String rehabi_date,
 			String resign_date) {
 		super();
 		this.emp_id = emp_id;

@@ -23,17 +23,10 @@ public interface MaterialDAO {
 	// 3-2. 자재 등록
 	public void insertMaterial(MaterialVO vo) throws Exception;
 	
-	
-	
-	
-	
-	
-	
-	
-	// 자재 수정
+	// 4. 자재 수정
 	public Integer modifyMaterial(MaterialVO mvo);
 	
-	// 자재 삭제
+	// 5. 자재 삭제
 	public Integer deleteMaterial(String ma_id);
 
 }

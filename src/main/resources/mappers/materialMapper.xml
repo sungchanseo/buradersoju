@@ -42,7 +42,7 @@
 
 <!-- 자재 정보 업데이트 -->
 	<update id="modifyMaterial" >
-		update material set ma_name=#{ma_name}, unit_cost=#{unit_cost}, whs_num=#{whs_num}, shelt_position=#{shelt_position}, ma_image=#{ma_image}, ma_regdate=now(), ma_emp=#{ma_emp}, ma_qty=#{ma_qty}
+		update material set ma_name=#{ma_name}, unit=#{unit}, ma_qty=#{ma_qty}, unit_cost=#{unit_cost}, whs_id=#{whs_id}, shelt_position=#{shelt_position}, ma_regdate=now(), ma_emp=#{ma_emp}
 		where ma_id = #{ma_id}
 	</update>
 <!-- 자재 정보 업데이트 -->

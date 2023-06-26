@@ -45,6 +45,57 @@
 	//우편번호 자동입력 api 메소드
 </script>
 
+<div class="card-body">
+                  <h4 class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">기본 테이블</font></font></h4>
+                  <p class="card-description"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+                    수업 추가</font></font><code>.table</code>
+                  </p>
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">프로필</font></font></th>
+                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">부가가치세 번호</font></font></th>
+                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">만들어진</font></font></th>
+                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">상태</font></font></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">야곱</font></font></td>
+                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">53275531</font></font></td>
+                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">2017년 5월 12일</font></font></td>
+                          <td><label class="badge badge-danger"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">보류 중</font></font></label></td>
+                        </tr>
+                        <tr>
+                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">지저분한</font></font></td>
+                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">53275532</font></font></td>
+                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">2017년 5월 15일</font></font></td>
+                          <td><label class="badge badge-warning"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">진행 중</font></font></label></td>
+                        </tr>
+                        <tr>
+                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">남자</font></font></td>
+                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">53275533</font></font></td>
+                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">2017년 5월 14일</font></font></td>
+                          <td><label class="badge badge-info"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">결정된</font></font></label></td>
+                        </tr>
+                        <tr>
+                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">베드로</font></font></td>
+                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">53275534</font></font></td>
+                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">2017년 5월 16일</font></font></td>
+                          <td><label class="badge badge-success"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">완전한</font></font></label></td>
+                        </tr>
+                        <tr>
+                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">데이브</font></font></td>
+                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">53275535</font></font></td>
+                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">2017년 5월 20일</font></font></td>
+                          <td><label class="badge badge-warning"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">진행 중</font></font></label></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
 	<h1>거래처 리스트</h1>
 	<!-- 검색창기능 -->
 	<form action="/customer/list" method="get" style="display:inline;">

@@ -164,25 +164,62 @@ $(document).ready(function() {
 			rowData.push(tr.text());
 			
 			// td.eq(0)은 체크박스, td.eq(1)이 ma_id
+			// -> 배열 tdArr에 정보를 담음
 			var ma_id = td.eq(1).text();
-			tdArr.push(ma_id);	// tdArr[0]
+			tdArr.push(ma_id);				// tdArr[0] == ma_id
 			
-			$().addClass('');
+			$.ajax({
+				url: "modify",
+				type: "get",
+				data: { ma_id:ma_id },
+				success: function(data) {	// 기존데이터정보(resultVO) 받아옴 
+
+					// 테이블 초기화
+					// 여기서 ma_id를 이용해서 if문걸어가지고 같은 값일때 아래처럼 나오게하면될듯?!
+// 					$('#tbody').empty();
+					
+					// 테이블 값 가져오기 (반복문)
+					$(data).each(function(idx, obj){
+						var str = "";
+						str += "<tr>";
+						str += "<td><input type='checkbox' name='check'></td>";
+						str += "<td>"+ obj.ma_id +"</td>";
+						str += "<td><input type='text' name='ma_name' value="+ obj.ma_name +"></td>";
+						str += "<td><input type='text' name='unit' value="+ obj.unit +"></td>";
+						str += "<td><input type='text' name='ma_qty' value="+ obj.ma_qty +"></td>";
+						str += "<td><input type='text' name='unit_cost' value="+ obj.unit_cost +"></td>";
+						str += "<td><input type='text' name='whs_id' value="+ obj.whs_id +"></td>";
+						str += "<td><input type='text' name='shelt_position' value="+ obj.shelt_position +"></td>";
+						str += "<td>"+ getToday() +"</td>";
+						str += "<td><input type='text' name='ma_emp' value="+ obj.ma_emp +"></td>";	
+						// 담당직원 세션에 저장된 아이디 들고오기
+						str += "</tr>";
+									
+						$('table').append(str);
+					});
+				},
+				error: function() {
+					alert("수정할 항목을 선택해주세요.");
+				}
+			}); //ajax		
 			
 		}); // function(i)
-		
-	
+			
+
+			
 		// 2-2. '저장' 클릭 
-		// 체크된 데이터 컨트롤러 전달
+		$('.update').click(function(){
+				
+		}); // update.click
+		
 		var ma_id = tdArr[0];
 		
 		$.ajax({
 			url: "modify",
 			type: "get",
 			data: { ma_id:ma_id },
-			success: function() {
-				location.href="/purchasing/material/modify?ma_id=" + ma_id;
-// 				location.href="/purchasing/material/list?ma_id=" + ma_id;
+			success: function(data) {
+// 				alert(data);
 			},
 			error: function() {
 				alert("수정할 항목을 선택해주세요.");

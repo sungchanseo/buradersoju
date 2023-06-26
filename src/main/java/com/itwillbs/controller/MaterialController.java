@@ -1,21 +1,15 @@
 package com.itwillbs.controller;
-import java.util.HashMap;
 import java.util.List;
 import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itwillbs.domain.MaterialVO;
-import com.itwillbs.domain.ProductionVO;
 import com.itwillbs.service.MaterialService;
 
 
@@ -91,22 +85,14 @@ public class MaterialController {
 	// 기존의 정보 출력 & 수정 정보 입력
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)
 	@ResponseBody
-	public List<MaterialVO> modifyMaterialGET(Model model, @RequestParam("ma_id") String ma_id) throws Exception {
+	public MaterialVO modifyMaterialGET(Model model, @RequestParam("ma_id") String ma_id) throws Exception {
 		logger.debug("@@@@@@@@@@ modifyMaterialGET 호출");
 		
 		// 기존의 정보 출력
 		MaterialVO resultVO = mService.getMaterialInfo(ma_id);
 		logger.debug("@@@@@@@@@@ 기존 데이터 : " + resultVO);
 		
-		// 리스트 출력
-		List<MaterialVO> materialList = mService.getMaterialList();
-		
-//		// Model 객체를 사용하여 데이터 저장
-		// -> View페이지 (modify.jsp) 전달하기 위해
-		model.addAttribute("resultVO", resultVO);
-		model.addAttribute("materialList", materialList);
-		
-		return materialList;
+		return resultVO;
 	}
 	
 	

@@ -87,10 +87,10 @@
                 </a>
                 <div class="submenu">
                       <ul class="submenu-item">
-                      	  <li class="nav-item"><a class="nav-link" href="">사원 조회</a></li>
-                          <li class="nav-item"><a class="nav-link" href="">사원 등록</a></li>
-                          <li class="nav-item"><a class="nav-link" href="">사원 수정</a></li>
-                          <li class="nav-item"><a class="nav-link" href="">사원 삭제</a></li>
+                      	  <li class="nav-item"><a class="nav-link" href="/employee/list">사원 조회</a></li>
+<!--                           <li class="nav-item"><a class="nav-link" href="">사원 등록</a></li> -->
+<!--                           <li class="nav-item"><a class="nav-link" href="">사원 수정</a></li> -->
+<!--                           <li class="nav-item"><a class="nav-link" href="">사원 삭제</a></li> -->
                       </ul>
                   </div>
               </li>

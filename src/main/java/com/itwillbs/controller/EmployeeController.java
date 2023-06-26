@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -79,15 +80,21 @@ public class EmployeeController {
 	// http://localhost:8088/employee/list
 	// 사원리스트
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public void listGET(Model model, PagingVO pvo) throws Exception{
+	public String listGET(Model model, PagingVO pvo, HttpSession session) throws Exception{
 //		logger.debug(" listGET() 호출! ");
 //		
 //		List<EmployeeVO> employeeList = eService.getEmployeeList();
 //		
 //		model.addAttribute("employeeList", employeeList);
+		
+		// 로그인 세션
+		if(session.getAttribute("emp_id") == null) {
+			return "redirect:/main/login";
+		}
+		
 		List<Object> employeeList = null;
 		
-		//수주 목록을 가져오는 contService 호출
+		//사원 목록을 가져오는 employeeService 호출
 		pvo = eService.setPageInfoForEmployee(pvo);
 		logger.debug("@@@@@@@@@Controller : {}",pvo);
 		
@@ -103,15 +110,19 @@ public class EmployeeController {
 		}
 		logger.debug("@@@@@@@@@Controller : {}",employeeList);
 	
-		//변수에 담아서 전달
+		// 변수에 담아서 전달
 		model.addAttribute("employeeList", employeeList);
 		model.addAttribute("pvo",pvo);
+		// 인사팀 일때 버튼 활성화
+		model.addAttribute("emp_department", session.getAttribute("emp_department"));
+		logger.debug("emp_department 호출", session.getAttribute("emp_department"));
+		return null;
 	}
 	
 	// http://localhost:8088/employee/info
 	// 사원 정보 조회
 	@RequestMapping(value = "/info", method = RequestMethod.GET)
-	public void infoGET(EmployeeVO vo, Model model) {
+	public void infoGET(EmployeeVO vo, Model model, HttpSession session) {
 		logger.debug(" infoGET() 호출 ");
 		
 		// 회원정보 가져오기 - 아이디정보(세션) 디비에 있는 회원정보 모두 조회
@@ -125,6 +136,9 @@ public class EmployeeController {
 		// 연결된 뷰페이지에 전달 => Model 객체
 		model.addAttribute("resultVO", resultVO);
 		//model.addAttribute(resultVO);
+		
+		// 인사팀 일때 버튼 활성화
+		model.addAttribute("emp_department", session.getAttribute("emp_department"));
 
 		// 페이지 이동
 		logger.debug(" /employee/info.jsp 페이지로 이동 ");

@@ -57,9 +57,10 @@
 									</table>
 									<!-- 이 곳에 내용 작성하시면 됩니다 -->
 									</div>
-									<c:if test="${employee.emp_department eq '인사팀'}">
+									<c:if test="${emp_department.equals('인사팀') || emp_department.equals('인사') }">
 										<input type="button" class="btn btn-success btn-fw" value="사원등록" onclick="insertPop()">
 									</c:if>
+									
 									<!-- 	페이징 처리  -->
 									<c:if test="${pvo.startPage > pvo.pageBlock }">
 										<a href="/employee/list?pageNum=${pvo.startPage-pvo.pageBlock}">이전</a>

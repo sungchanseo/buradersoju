@@ -35,7 +35,7 @@ public class CustomerServiceImpl implements CustomerService {
 		//customer서비스에 필요한 변수를 저장. 
 		pvo.setTable("customer");
 		pvo.setId("cust_id");
-		pvo.setPageSize(5);
+		pvo.setPageSize(10);
 		pvo.setStartRow(1);
 		pvo.setStatus_name("cust_status");
 		pvo.setStatus_value("0");
@@ -66,6 +66,11 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public Integer removeCustomer(String cust_id) throws Exception {
 		return cdao.removeCustomer(cust_id);
+	}
+	
+	//거래처 중복체크 ajax
+	public Integer regNumCheck(String reg_num) {
+		return cdao.regNumCheck(reg_num);
 	}
 
 }

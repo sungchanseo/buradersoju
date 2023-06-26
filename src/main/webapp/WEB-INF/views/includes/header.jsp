@@ -101,16 +101,16 @@
                 </a>
                 <div class="submenu">
                       <ul class="submenu-item">
-                          <li class="nav-item"><a class="nav-link" href="">수주 목록</a></li>
-                          <li class="nav-item"><a class="nav-link" href="">수주 등록</a></li>
-                          <li class="nav-item"><a class="nav-link" href="">수주 조회</a></li>
-                          <li class="nav-item"><a class="nav-link" href="">수주 수정</a></li>
-                          <li class="nav-item"><a class="nav-link" href="">수주 삭제</a></li>
-                          <li class="nav-item"><a class="nav-link" href="">거래처 목록</a></li>
-                          <li class="nav-item"><a class="nav-link" href="">거래처 등록</a></li>
-                          <li class="nav-item"><a class="nav-link" href="">거래처 조회</a></li>
-                          <li class="nav-item"><a class="nav-link" href="">거래처 수정</a></li>
-                          <li class="nav-item"><a class="nav-link" href="">QR코드 생성</a></li>
+                          <li class="nav-item"><a class="nav-link" href="/contract/list">수주 목록</a></li>
+<!--                           <li class="nav-item"><a class="nav-link" href="">수주 등록</a></li> -->
+<!--                           <li class="nav-item"><a class="nav-link" href="">수주 조회</a></li> -->
+<!--                           <li class="nav-item"><a class="nav-link" href="">수주 수정</a></li> -->
+<!--                           <li class="nav-item"><a class="nav-link" href="">수주 삭제</a></li> -->
+                          <li class="nav-item"><a class="nav-link" href="/customer/list">거래처 목록</a></li>
+<!--                           <li class="nav-item"><a class="nav-link" href="">거래처 등록</a></li> -->
+<!--                           <li class="nav-item"><a class="nav-link" href="">거래처 조회</a></li> -->
+<!--                           <li class="nav-item"><a class="nav-link" href="">거래처 수정</a></li> -->
+<!--                           <li class="nav-item"><a class="nav-link" href="">QR코드 생성</a></li> -->
                       </ul>
                   </div>
               </li>

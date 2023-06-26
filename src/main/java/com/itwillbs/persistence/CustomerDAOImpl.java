@@ -51,4 +51,16 @@ public class CustomerDAOImpl implements CustomerDAO {
 		return sqlSession.update(NAMESPACE+".removeCustomer", cust_id);
 	}
 
+	//거래처 사업자번호 중복체크
+	@Override
+	public Integer regNumCheck(String reg_num) {
+		logger.debug("############DAO : 사업자번호 중복체크 합니다.");
+		logger.debug("############DAO : regNumCheck."+sqlSession.selectOne(NAMESPACE+".regNumCheck", reg_num));
+		return sqlSession.selectOne(NAMESPACE+".regNumCheck", reg_num);
+	}
+
+	
+	
+	
+
 }

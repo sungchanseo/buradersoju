@@ -1,16 +1,104 @@
+<!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
+<%@ include file="../includes/header.jsp" %>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script> <!-- 제이쿼리 -->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> <!-- 우편api -->
 </head>
 <body>
-	<h1>Customer List</h1>
+<script type="text/javascript">
+	// 거래처등록 새창열기
+	function insertPop(){
+	  var insertPop = window.open('/customer/insert', '거래처등록', 'width=1000px,height=400px');
+	  
+	  if(insertPop == null){
+		  alert("팝업이 차단되었습니다. 차단을 해제하세요.");
+	  }
+	  openPop.moveBy(100,100);
+	}
+	// 거래처등록 새창열기  
+
+	// 거래처 상세보기 새창열기 
+	function infoPop(cust_id){
+		var url = "/customer/info?cust_id="+cust_id;
+		var infoPop = window.open(url, '거래처등록', 'width=1000px,height=400px');
+	  
+		if(insertPop == null){
+		  alert("팝업이 차단되었습니다. 차단을 해제하세요.");
+	  }
+	}
+// 거래처 상세보기 새창열기 
+
+	//우편번호 자동입력 api 메소드
+	function addr() {
+		new daum.Postcode({
+			    oncomplete : function(data) {
+				document.getElementById("zipcode").value = data.zonecode; // 우편 번호 넣기
+				document.getElementById("address").value = data.address; // 주소 넣기
+			}
+		}).open();
+	};
+	//우편번호 자동입력 api 메소드
+</script>
+
+<div class="card-body">
+                  <h4 class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">기본 테이블</font></font></h4>
+                  <p class="card-description"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+                    수업 추가</font></font><code>.table</code>
+                  </p>
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">프로필</font></font></th>
+                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">부가가치세 번호</font></font></th>
+                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">만들어진</font></font></th>
+                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">상태</font></font></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">야곱</font></font></td>
+                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">53275531</font></font></td>
+                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">2017년 5월 12일</font></font></td>
+                          <td><label class="badge badge-danger"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">보류 중</font></font></label></td>
+                        </tr>
+                        <tr>
+                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">지저분한</font></font></td>
+                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">53275532</font></font></td>
+                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">2017년 5월 15일</font></font></td>
+                          <td><label class="badge badge-warning"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">진행 중</font></font></label></td>
+                        </tr>
+                        <tr>
+                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">남자</font></font></td>
+                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">53275533</font></font></td>
+                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">2017년 5월 14일</font></font></td>
+                          <td><label class="badge badge-info"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">결정된</font></font></label></td>
+                        </tr>
+                        <tr>
+                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">베드로</font></font></td>
+                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">53275534</font></font></td>
+                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">2017년 5월 16일</font></font></td>
+                          <td><label class="badge badge-success"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">완전한</font></font></label></td>
+                        </tr>
+                        <tr>
+                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">데이브</font></font></td>
+                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">53275535</font></font></td>
+                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">2017년 5월 20일</font></font></td>
+                          <td><label class="badge badge-warning"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">진행 중</font></font></label></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+	<h1>거래처 리스트</h1>
 	<!-- 검색창기능 -->
-	<form action="/customer/list" method="get">
+	<form action="/customer/list" method="get" style="display:inline;">
 		<select name="selector">
 			<option value="cust_name">상호</option>
 			<option value="cust_id">거래처코드</option>
@@ -19,7 +107,7 @@
 		<input type="submit" class="btn-danger" value="검색">
 	</form>
 	<!-- 검색창기능 -->
-	<input type="button" value="거래처등록" onclick="location.href='/customer/insert';">
+	<input type="button" value="거래처등록" onclick="insertPop();">
 	<input type="button" value="거래처삭제" onclick="location.href='/customer/remove';">
 	<hr>
 		<table border="1">
@@ -39,9 +127,9 @@
 			<c:forEach var="vo" items="${customerList }">
 				<tr>
 					<td><input type="checkbox">
-					<td><a href="/customer/info?cust_id=${vo.cust_id }">${vo.cust_id }</a></td>
-					<td><a href="/customer/info?cust_id=${vo.cust_id }">${vo.reg_num }</a></td>
-					<td><a href="/customer/info?cust_id=${vo.cust_id }">${vo.cust_name }</a></td>
+					<td><a href="#" onclick="infoPop(${vo.cust_id});">${vo.cust_id }</a></td>
+					<td><a href="#" onclick="infoPop(${vo.cust_id});">${vo.reg_num }</a></td>
+					<td><a href="#" onclick="infoPop(${vo.cust_id});">${vo.cust_name }</a></td>
 					<td>${vo.cust_class }</td>
 					<td>${vo.owner_name }</td>
 					<td>${vo.main_phone }</td>
@@ -67,4 +155,4 @@
 	<!-- 	페이징 처리  -->
 
 </body>
-</html>
+<%@ include file="../includes/footer.jsp" %>

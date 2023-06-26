@@ -10,8 +10,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.domain.CustomerVO;
 import com.itwillbs.domain.PagingVO;
@@ -90,14 +93,37 @@ public class CustomerController {
 
 	// 거래처 등록 디비처리
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
-	public String insertCustomerPOST(CustomerVO vo)  throws Exception {
+	public String insertCustomerPOST(CustomerVO vo, 
+			@RequestParam("address") String address)  throws Exception {
 		logger.debug("@@@@@@@@@@@@Controller : 거래처 등록POST하기!!!!");
 		logger.debug("@@@@@@@입력된 정보 : " + vo);
-
+		vo.setCust_address(address+" "+vo.getCust_address());
 		custService.insertCustomer(vo);
 
 		return "redirect:/customer/list";
 	}
+	
+	//view페이지의 ajax에서 정보를 받아서 다시 되돌려줄려면 @ResponseBody 어노테이숀을 반듯이 적어야 한다. 
+	//다만, 콘츄롤러 상단의 @Controller 대신 @RestController 어노테이숀을 추가하면 안 적어도 된다. 
+	//거래처 사업자등록번호 ajax맵핑
+	@ResponseBody
+	@RequestMapping(value="/regCheck")
+	public String regNumCheck(@RequestParam("reg_num") String reg_num) throws Exception{
+		logger.debug("@@@@@@@@@@@@Controller : 사업자번호 체크 AJAX!!!!");
+		logger.debug("@@@@@@@@@@@@Controller : reg_num={}", reg_num);
+		
+		String result=null;
+		int numCheckResult = custService.regNumCheck(reg_num);
+		logger.debug("@@@@@@@@@@@@Controller : numCheckResult={}", numCheckResult);
+		if (numCheckResult==1) {
+			result = "no";
+		} else {
+			result = "yes";
+		}
+		logger.debug("@@@@@@@@@@@@Controller : result={}", result);
+		return result;
+	}
+	
 
 	// 거래처 수정 입력하기
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)
@@ -120,14 +146,13 @@ public class CustomerController {
 	}
 
 	// 거래처 삭제 디비처리
-	@GetMapping(value = "/remove")
-	public String removeCustomerPOST(CustomerVO vo) throws Exception {
+	@PostMapping(value = "/remove")
+	public String removeCustomerPOST(@RequestParam("cust_id") String cust_id) throws Exception {
 		logger.debug("@@@@@@@@@@@Controller : 거래처 삭제POST하기 !!!!!");
-
-		String cust_id = vo.getCust_id();
 
 		custService.removeCustomer(cust_id);
 
+//		return null;
 		return "redirect:/customer/list";
 	}
 }

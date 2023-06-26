@@ -25,133 +25,100 @@
 	// 거래처 상세보기 새창열기 
 	function infoPop(cust_id){
 		var url = "/customer/info?cust_id="+cust_id;
-		var infoPop = window.open(url, '거래처등록', 'width=1000px,height=400px');
+		var infoPop = window.open(url, '거래처 상세보기', 'width=1000px,height=400px');
 	  
-		if(insertPop == null){
+		if(infoPop == null){
 		  alert("팝업이 차단되었습니다. 차단을 해제하세요.");
 	  }
 	}
 // 거래처 상세보기 새창열기 
 
-	//우편번호 자동입력 api 메소드
-	function addr() {
-		new daum.Postcode({
-			    oncomplete : function(data) {
-				document.getElementById("zipcode").value = data.zonecode; // 우편 번호 넣기
-				document.getElementById("address").value = data.address; // 주소 넣기
-			}
-		}).open();
-	};
-	//우편번호 자동입력 api 메소드
 </script>
 
 <div class="card-body">
-                  <h4 class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">기본 테이블</font></font></h4>
-                  <p class="card-description"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
-                    수업 추가</font></font><code>.table</code>
-                  </p>
-                  <div class="table-responsive">
-                    <table class="table">
+		<h4 class="card-title">
+			<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">거래처 리스트</font></font>
+		</h4>
+
+		<!-- 검색창기능 -->
+		<form action="/customer/list" method="get" style="display: inline;">
+			<select name="selector">
+				<option value="cust_name">상호</option>
+				<option value="cust_id">거래처코드</option>
+			</select> <input type="text" name="search" placeholder="검색어를 입력해주세요">
+			<input type="submit" class="btn-danger" value="검색">
+		</form>
+		<!-- 검색창기능 -->
+		
+		<input type="button" value="거래처등록" onclick="insertPop();"> 
+		<input type="button" value="거래처삭제" onclick="location.href='/customer/remove';">
+
+		<!-- 거래처목록 테이블 -->
+		<div class="table-responsive">
+                    <table class="table table-hover">
                       <thead>
                         <tr>
-                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">프로필</font></font></th>
-                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">부가가치세 번호</font></font></th>
-                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">만들어진</font></font></th>
-                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">상태</font></font></th>
+                          <th></th>
+                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">순번</font></font></th>
+                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">사업자등록번호</font></font></th>
+                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">상호</font></font></th>
+                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">거래처구분</font></font></th>
+                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">대표자명</font></font></th>
+                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">대표번호</font></font></th>
+                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">업태</font></font></th>
+                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">종목</font></font></th>
+                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">담당자이메일</font></font></th>
                         </tr>
                       </thead>
-                      <tbody>
-                        <tr>
-                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">야곱</font></font></td>
-                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">53275531</font></font></td>
-                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">2017년 5월 12일</font></font></td>
-                          <td><label class="badge badge-danger"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">보류 중</font></font></label></td>
-                        </tr>
-                        <tr>
-                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">지저분한</font></font></td>
-                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">53275532</font></font></td>
-                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">2017년 5월 15일</font></font></td>
-                          <td><label class="badge badge-warning"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">진행 중</font></font></label></td>
-                        </tr>
-                        <tr>
-                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">남자</font></font></td>
-                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">53275533</font></font></td>
-                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">2017년 5월 14일</font></font></td>
-                          <td><label class="badge badge-info"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">결정된</font></font></label></td>
-                        </tr>
-                        <tr>
-                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">베드로</font></font></td>
-                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">53275534</font></font></td>
-                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">2017년 5월 16일</font></font></td>
-                          <td><label class="badge badge-success"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">완전한</font></font></label></td>
-                        </tr>
-                        <tr>
-                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">데이브</font></font></td>
-                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">53275535</font></font></td>
-                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">2017년 5월 20일</font></font></td>
-                          <td><label class="badge badge-warning"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">진행 중</font></font></label></td>
-                        </tr>
-                      </tbody>
+                      <c:forEach var="vo" items="${customerList }">
+	                      <tbody>
+	                        <tr>
+	                          <td><input type="checkbox"></td>
+	                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" onclick="infoPop(${vo.cust_id});">${vo.cust_id }</font></font></td>
+	                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" onclick="infoPop(${vo.cust_id});">${vo.reg_num }</font></font></td>
+	                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" onclick="infoPop(${vo.cust_id});">${vo.cust_name }</font></font></td>
+	                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.cust_class }</font></font></td>
+	                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.owner_name }</font></font></td>
+	                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.main_phone }</font></font></td>
+	                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.cust_address }</font></font></td>
+	                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.cust_business }</font></font></td>
+	                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.cust_event }</font></font></td>
+	                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.emp_email }</font></font></td>
+	                        </tr>
+	                      </tbody>
+                      	</c:forEach>
                     </table>
                   </div>
                 </div>
-
-	<h1>거래처 리스트</h1>
-	<!-- 검색창기능 -->
-	<form action="/customer/list" method="get" style="display:inline;">
-		<select name="selector">
-			<option value="cust_name">상호</option>
-			<option value="cust_id">거래처코드</option>
-		</select>
-		<input type="text" name="search" placeholder="검색어를 입력해주세요">
-		<input type="submit" class="btn-danger" value="검색">
-	</form>
-	<!-- 검색창기능 -->
-	<input type="button" value="거래처등록" onclick="insertPop();">
-	<input type="button" value="거래처삭제" onclick="location.href='/customer/remove';">
-	<hr>
-		<table border="1">
-			<tr>
-				<th></th>
-				<th>순번</th>
-				<th>거래처코드</th>
-				<th>상호</th>
-				<th>거래처구분</th>
-				<th>대표자명</th>
-				<th>대표번호</th>
-				<th>주소</th>
-				<th>업태</th>
-				<th>종목</th>
-				<th>담당자이메일</th>
-			</tr>
-			<c:forEach var="vo" items="${customerList }">
-				<tr>
-					<td><input type="checkbox">
-					<td><a href="#" onclick="infoPop(${vo.cust_id});">${vo.cust_id }</a></td>
-					<td><a href="#" onclick="infoPop(${vo.cust_id});">${vo.reg_num }</a></td>
-					<td><a href="#" onclick="infoPop(${vo.cust_id});">${vo.cust_name }</a></td>
-					<td>${vo.cust_class }</td>
-					<td>${vo.owner_name }</td>
-					<td>${vo.main_phone }</td>
-					<td>${vo.cust_address }</td>
-					<td>${vo.cust_business }</td>
-					<td>${vo.cust_event }</td>
-					<td>${vo.emp_email }</td>
-				</tr>
-			</c:forEach>
-		</table>
+		<!-- 거래처목록 테이블 -->
+	
 	<!-- 	페이징 처리  -->
-	<c:if test="${pvo.startPage > pvo.pageBlock }">
-		<a href="/customer/list?pageNum=${pvo.startPage-pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}">이전</a>
-	</c:if>
-
-	<c:forEach var="i" begin="${pvo.startPage }" end="${pvo.endPage }" step="1">
-		<a href="/customer/list?pageNum=${i }&selector=${pvo.selector}&search=${pvo.search}">${i }</a>
-	</c:forEach>
-
-	<c:if test="${pvo.endPage<pvo.pageCount }">
-		<a href="/customer/list?pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}">다음</a>
-	</c:if>
+	<div class="template-demo">
+		<div class="btn-group" role="group" aria-label="Basic example">
+			<c:if test="${pvo.startPage > pvo.pageBlock }">
+				<a href="/customer/list?pageNum=${pvo.startPage-pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">이전</a>
+			</c:if>
+			
+			<c:forEach var="i" begin="${pvo.startPage }" end="${pvo.endPage }" step="1">
+				<a href="/customer/list?pageNum=${i }&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">${i }</a>
+			</c:forEach>
+			
+			<c:if test="${pvo.endPage<pvo.pageCount }">
+				<a href="/customer/list?pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">다음</a>
+			</c:if>
+		</div>
+		<!-- 		<div class="btn-group" role="group" aria-label="Basic example"> -->
+		<!-- 			<button type="button" class="btn btn-outline-secondary"> -->
+		<!-- 				<i class="mdi mdi-heart-outline"></i> -->
+		<!-- 			</button> -->
+		<!-- 			<button type="button" class="btn btn-outline-secondary"> -->
+		<!-- 				<i class="mdi mdi-calendar"></i> -->
+		<!-- 			</button> -->
+		<!-- 			<button type="button" class="btn btn-outline-secondary"> -->
+		<!-- 				<i class="mdi mdi-clock"></i> -->
+		<!-- 			</button> -->
+		<!-- 		</div> -->
+	</div>
 	<!-- 	페이징 처리  -->
 
 </body>

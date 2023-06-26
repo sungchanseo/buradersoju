@@ -1,82 +1,124 @@
+<!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../includes/header.jsp" %>
-<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script> <!-- 제이쿼리 -->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> <!-- 우편api -->
 </head>
 <body>
-<!-- 수주등록 새창열기  -->
-<script type="text/javascript">
-	function openPop(){
-	  var insertPop = window.open('/contract/insert', '수주등록', 'width=700px,height=400px');
-	  
-	  if(insertPop == null){
-		  alert("팝업이 차단되었습니다. 차단을 해제하세요.");
-	  }
-	  openPop.moveBy(100,100);
-	}
-	
-</script>
-<!-- 수주등록 새창열기  -->
-${cInput }
-	<h1>수주 리스트</h1>
-	<!-- 검색창기능 -->
-	<form action="/contract/list" method="get">
-		<select name="selector">
-			<option value="product_name">상품명</option>
-			<option value="cust_name">수주처</option>
-		</select>
-		<input type="text" name="search" placeholder="검색어를 입력해주세요">
-		<input type="submit" class="btn-danger" value="검색">
-	</form>
-	<!-- 검색창기능 -->
-	<input type="button" style="display:inline;" value="수주등록" onclick="openPop()">
-	<input type="button" value="엑셀화일" onclick="">
-	<input type="button" value="인쇄하기" onclick="">
-	<hr>
-		<table border="1">
-			<tr>
-				<th>수주번호</th>
-				<th>상품코드</th>
-				<th>상품명</th>
-				<th>수주처</th>
-				<th>수주일</th>
-				<th>수주량</th>
-				<th>납품예정일</th>
-				<th>작업지시번호</th>
-				<th>담당자</th>
-			</tr>
-			<c:forEach var="vo" items="${contractList }">
-				<tr>
-					<td><a href="/contract/info?cont_id=${vo.cont_id }">${vo.cont_id }</a></td>
-					<td><a href="/contract/info?cont_id=${vo.product_id }">${vo.product_id }</a></td>
-					<td><a href="/contract/info?cont_id=${vo.product_name }">${vo.product_name }</a></td>
-					<td>${vo.cust_name }</td>
-					<td>${vo.cont_date }</td>
-					<td>${vo.cont_qty }</td>
-					<td>${vo.due_date }</td>
-					<td>${vo.production_id }</td>
-					<td>${vo.cont_emp }</td>
-				</tr>
+<div class="card-body">
+		<h4 class="card-title">
+			<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">수주 리스트</font></font>
+		</h4>
+
+		<!-- 검색창기능 -->
+		<form action="/customer/list" method="get" style="display: inline;">
+			<select name="selector">
+				<option value="cust_name">상품명</option>
+				<option value="cust_id">수주처</option>
+			</select> <input type="text" name="search" placeholder="검색어를 입력해주세요">
+			<input type="submit" class="btn-danger" value="검색">
+		</form>
+		<!-- 검색창기능 -->
+		
+		<input type="button" value="수주등록" onclick="openPop();"> 
+		<input type="button" value="엑셀다운"> 
+		<input type="button" value="출력하기"> 
+
+		<!-- 수주목록 테이블 -->
+		<div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">수주번호</font></font></th>
+                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">상품코드</font></font></th>
+                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">상품명</font></font></th>
+                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">수주처</font></font></th>
+                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">수주일</font></font></th>
+                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">수주량</font></font></th>
+                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">납기일</font></font></th>
+                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">작업지시번호</font></font></th>
+                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">담당자</font></font></th>
+                        </tr>
+                      </thead>
+                      <c:forEach var="vo" items="${contractList }">
+	                      <tbody>
+	                        <tr>
+	                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" onclick="infoPop(${vo.cont_id});">${vo.cont_id }</font></font></td>
+	                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" onclick="infoPop(${vo.cont_id});">${vo.product_id }</font></font></td>
+	                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" onclick="infoPop(${vo.cont_id});">${vo.product_name }</font></font></td>
+	                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.cust_name }</font></font></td>
+	                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.cont_date }</font></font></td>
+	                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.cont_qty }</font></font></td>
+	                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.due_date }</font></font></td>
+	                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.production_id }</font></font></td>
+	                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.cont_emp }</font></font></td>
+	                        </tr>
+	                      </tbody>
+                      	</c:forEach>
+                    </table>
+                  </div>
+                </div>
+		<!-- 수주목록 테이블 -->
+		
+	<!-- 	페이징 처리  -->
+	<div class="template-demo">
+		<div class="btn-group" role="group" aria-label="Basic example">
+			<c:if test="${pvo.startPage > pvo.pageBlock }">
+				<a href="/contract/list?pageNum=${pvo.startPage-pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">이전</a>
+			</c:if>
+			
+			<c:forEach var="i" begin="${pvo.startPage }" end="${pvo.endPage }" step="1">
+				<a href="/contract/list?pageNum=${i }&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">${i }</a>
 			</c:forEach>
-		</table>
+			
+			<c:if test="${pvo.endPage<pvo.pageCount }">
+				<a href="/contract/list?pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">다음</a>
+			</c:if>
+		</div>
+		<!-- 		<div class="btn-group" role="group" aria-label="Basic example"> -->
+		<!-- 			<button type="button" class="btn btn-outline-secondary"> -->
+		<!-- 				<i class="mdi mdi-heart-outline"></i> -->
+		<!-- 			</button> -->
+		<!-- 			<button type="button" class="btn btn-outline-secondary"> -->
+		<!-- 				<i class="mdi mdi-calendar"></i> -->
+		<!-- 			</button> -->
+		<!-- 			<button type="button" class="btn btn-outline-secondary"> -->
+		<!-- 				<i class="mdi mdi-clock"></i> -->
+		<!-- 			</button> -->
+		<!-- 		</div> -->
+	</div>
 	<!-- 	페이징 처리  -->
-	<c:if test="${pvo.startPage > pvo.pageBlock }">
-		<a href="/contract/list?pageNum=${pvo.startPage-pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}">이전</a>
-	</c:if>
-
-	<c:forEach var="i" begin="${pvo.startPage }" end="${pvo.endPage }" step="1">
-		<a href="/contract/list?pageNum=${i }&selector=${pvo.selector}&search=${pvo.search}">${i }</a>
-	</c:forEach>
-
-	<c:if test="${pvo.endPage<pvo.pageCount }">
-		<a href="/contract/list?pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}">다음</a>
-	</c:if>
-	<!-- 	페이징 처리  -->
+	
 
 </body>
+	<!-- 수주등록 새창열기  -->
+	<script type="text/javascript">
+		//수주등록 새창열기
+		function openPop(){
+		  var insertPop = window.open('/contract/insert', '수주등록', 'width=700px,height=400px');
+		  
+		  if(insertPop == null){
+			  alert("팝업이 차단되었습니다. 차단을 해제하세요.");
+		  }
+		  openPop.moveBy(100,100);
+		}
+		//수주등록 새창열기
+		
+// 		수주상세정보 보기
+		function infoPop(cont_id){
+		  var url = "/contract/info?cont_id="+cont_id;
+		  var infoPop = window.open( url, '수주상세보기', 'width=700px,height=400px');
+		  
+		  if(infoPop == null){
+			  alert("팝업이 차단되었습니다. 차단을 해제하세요.");
+		  }
+		}
+		
+		//수주상세정보 보기
+	</script>
 <%@ include file="../includes/footer.jsp" %>

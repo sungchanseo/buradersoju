@@ -51,9 +51,9 @@
 	<td colspan="7">${customerInfo.cust_etc }</td>
 </tr>
 </table>
-<a href="/customer/modify?cust_id=${customerInfo.cust_id }">거래처수정</a>
+<input type="button" value="거래처수정" onclick="location.href='/customer/modify?cust_id=${customerInfo.cust_id }'">
 <input type="button" value="거래처삭제" onclick="deleteAction(${customerInfo.cust_id});">
-<a href="#">QR코드생성</a>
+<input type="button" value="QR코드생성" onclick="">
 <input type="button" value="창닫기" onclick="window.close();">
 
 <script type="text/javascript">

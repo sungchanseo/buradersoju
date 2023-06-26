@@ -35,8 +35,7 @@
 		cust_address=#{cust_address}, cust_business=#{cust_business},
 		cust_event=#{cust_event}, cust_fax=#{cust_fax},
 		cust_homepage=#{cust_homepage}, emp_id=#{emp_id},
-		emp_email=#{emp_email}, cust_etc=#{cust_etc},
-		cust_status=#{cust_status}
+		emp_email=#{emp_email}, cust_etc=#{cust_etc}
 		where cust_id=#{cust_id}
 	</update>
 	<!-- customer 수정하기 -->

@@ -49,19 +49,6 @@ public class OrderController {
 	 
       return "redirect:/purchasing/order/list";
    }
-	
-	
-// http://localhost:8088/purchasing/order/insert
-//   @RequestMapping(value ="/insert" , method = RequestMethod.POST)
-//   public String orderInserPOST(OrderVO vo) {
-//	   logger.debug("@@@@@@발주 등록 POST@@@@@");
-//	   logger.debug("@@@@@입력된 정보 : " + vo );
-//	   
-//	   orserivce.orderInsert(vo);
-//	   
-//	   return "redirect:/purchasing/order/list";
-//	   
-//   }
 
    @RequestMapping(value = "/modify" , method = RequestMethod.GET)
     public void modifyOrderGET(OrderVO vo) {

@@ -45,7 +45,6 @@ public class InventoryDAOTest {
 //		iService.modifyInventory(mvo);
 		OrderVO vo = new OrderVO();
 		vo.setMa_id("ee");
-		oService.orderInsert(vo);
 	}
 	
 	

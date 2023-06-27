@@ -98,7 +98,7 @@ $(document).ready(function() {
 	        tbl += regdate;
 	        tbl += "</td>";
 	        tbl += "<td>";
-	        tbl += "<input type='text' name='ma_emp' id='ma_emp'>";
+	        tbl += emp_id;
 	        tbl += "</td>";
 	        tbl += "</tr>";
             
@@ -119,8 +119,8 @@ $(document).ready(function() {
 				var unit_cost = $('#unit_cost').val();
 				var shelt_position = $('#shelt_position').val();
 				var ma_regdate = $('#ma_regdate').val();
-				var ma_emp = $('#ma_emp').val();
-
+				var ma_emp = "${sessionScope.emp_id }";
+				
 // 				var obj = {whs_id:whs_id,
 // 				            ma_id:ma_id,
 // 						    ma_name:ma_name,
@@ -136,7 +136,7 @@ $(document).ready(function() {
 			             
 					$.ajax({
 						url: 'maid',
-						type: 'get',
+						type: 'post',
 						data: {
 							whs_id:whs_id,
                             ma_id:ma_id,

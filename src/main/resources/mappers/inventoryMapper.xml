@@ -29,8 +29,8 @@
       
       </update>
       <insert id="insertInventory">
-         insert into material (ma_id, ma_name, unit_cost, whs_num, shelt_position, ma_image, ma_regdate, ma_emp, ma_qty)
-	     values (#{ma_id}, #{ma_name}, #{unit_cost}, #{whs_num}, #{shelt_position}, #{ma_image}, now(), #{ma_emp}, 0) 
+         insert into material (ma_id, ma_name, unit_cost, shelt_position, ma_regdate, ma_qty)
+	     values (#{ma_id}, #{ma_name}, #{unit_cost}, #{shelt_position}, now(), 0) 
       </insert>
       <!-- 재고정보 목록 수정  -->
       </mapper>

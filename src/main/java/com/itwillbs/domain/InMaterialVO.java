@@ -12,6 +12,7 @@ public class InMaterialVO {
 	private String in_maName;
 	private int in_qty;
 	private String in_process;
+
 	private Date in_date;
 	private int in_emp;
 	
@@ -109,11 +110,18 @@ public class InMaterialVO {
 	public void setIn_qty(int in_qty) {
 		this.in_qty = in_qty;
 	}
+
+	public String getIn_process() {
+		return in_process;
+	}
+	public void setIn_progress(String in_process) {
+		this.in_process = in_process;
+
 	public Date getIn_date() {
 		return in_date;
 	}
 	public void setIn_date(Date in_date) {
-		this.in_date = in_date;
+
 	}
 	public int getIn_emp() {
 		return in_emp;
@@ -127,6 +135,7 @@ public class InMaterialVO {
 	@Override
 	public String toString() {
 		return "InMaterialVO [in_id=" + in_id + ", order_id=" + order_id + ", in_maName=" + in_maName + ", in_qty="
+				+ in_qty + ", in_progress=" + in_process + ", in_emp=" + in_emp + "]";
 				+ in_qty + ", in_process=" + in_process + ", in_date=" + in_date + ", in_emp=" + in_emp
 				+ ", shelt_position=" + shelt_position + ", ma_name=" + ma_name + ", ma_qty=" + ma_qty + ", whs_id="
 				+ whs_id + ", order_qty=" + order_qty + ", order_date=" + order_date + ", due_date=" + due_date

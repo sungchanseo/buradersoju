@@ -31,15 +31,6 @@ public class OrderDAOImpl implements OrderDAO{
 		return sqlSession.selectList(NAMESPACE+".getOrderList");
 	}
     
-    // 발주등록하기
-	@Override
-	public void orderInsert(OrderVO vo) {
-	
-		logger.debug("@@@@@@DAO 발주 등록해봅시다.... ㅠㅠ");
-		sqlSession.insert(NAMESPACE+".orderInsert",vo);
-		
-	}
-
 	// 발주수정하기 
 	@Override
 	public Integer modifyOrder(OrderVO vo) {
@@ -47,11 +38,14 @@ public class OrderDAOImpl implements OrderDAO{
 		return null;
 	}
 
+
 	@Override
-	public OrderVO getOrderInfo(String ma_id) {
-		logger.debug("@@@@@@DAO 조인 해봅시다.... ㅠㅠ");
-		return sqlSession.selectOne(NAMESPACE+".getOrderInfo",ma_id);
+	public void insertOrder(OrderVO vo) {		
+		sqlSession.insert(NAMESPACE+".insertOrder",vo);
 	}
+
+	
+	
    
 	
 

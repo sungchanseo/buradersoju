@@ -25,25 +25,15 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public void orderInsert(OrderVO vo) {
-		
-		odao.orderInsert(vo);
-		
-	}
-
-	@Override
 	public Integer modifyOrder(OrderVO mvo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public OrderVO getOrderInfo(String ma_id) {
-		return odao.getOrderInfo(ma_id);
+	public void insertOrder(OrderVO vo) {
+		odao.insertOrder(vo);
+		
 	}
-
-
-
-
 	
 }

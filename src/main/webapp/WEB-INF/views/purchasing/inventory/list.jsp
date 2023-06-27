@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ include file="../../includes/header.jsp" %>
 <!DOCTYPE html>
 <html >
 <head>
@@ -25,7 +26,7 @@
    $(function() {
       
       //// 글쓰기 ////////////////////////////////////////////////////////////
-      
+      var tbl;
       $('.writeForm').click(function() {
     
          console.log("글쓰기 등록함");
@@ -34,21 +35,15 @@
          console.log(regdate);
          if($(this).hasClass('true')) {
         
-            let tbl = "<tr>";
+            tbl = "<tr>";
             tbl += " <td>";
             tbl += "<input type='text' name='ma_name' id='ma_name'>";
-            tbl += "</td>"; 
-            tbl += " <td>";
-            tbl += "<input type='text' name='ma_id' id='ma_id'>";
-            tbl += "</td>";
-            tbl += " <td>";
-            tbl += "<input type='text' name='whs_num' id='whs_num'>";
             tbl += "</td>";
             tbl += " <td>";
             tbl += "<input type='text' name='ma_qty' id='ma_qty'>";
             tbl += "</td>";
             tbl += "<td>";
-            tbl += regdate;
+            tbl += "<input type='text' name='regdate' id='regdate' value="+regdate+">";
             tbl += "</td>";
             tbl += "</tr>";
             
@@ -69,10 +64,11 @@
             
             var ma_id = $('#ma_id').val();
             var ma_name = $('#ma_name').val();
-            var whs_num = $('#whs_num').val();
+            var ma_qty = $('#ma_qty').val();
+            var regdate = $('#regdate').val();
             console.log(ma_id);
             console.log(ma_name);
-            console.log(whs_num);
+            console.log(regdate);
             console.log(ma_id==="" || ma_name==="");
 
             
@@ -82,7 +78,7 @@
                $.ajax({
                   url: "list",
                   type: "post",
-                  data: {ma_id:ma_id, ma_name:ma_name, whs_num:whs_num},
+                  data: {ma_id:ma_id, ma_name:ma_name,ma_qty:ma_qty,regdate:regdate},
                  success: function() {
                 	 location.href="/purchasing/inventory/list"
                      alert("등록완료");
@@ -168,3 +164,4 @@
  </script>
 </body>
 </html>
+<%@ include file="../../includes/footer.jsp" %>

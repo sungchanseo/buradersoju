@@ -31,7 +31,7 @@ public class ContractServiceImpl implements ContractService {
 		//contract서비스에 필요한 변수를 저장. 
 		pvo.setTable("contract");
 		pvo.setId("cont_id");
-		pvo.setPageSize(5);
+		pvo.setPageSize(10);
 		pvo.setStartRow(1);
 		pvo.setStatus_name("cont_status");
 		pvo.setStatus_value("0");
@@ -70,32 +70,43 @@ public class ContractServiceImpl implements ContractService {
 	
 		// 1부터 시작하는 카운트를 생성한다. 
 		String countPart = String.format("%03d", 1);// 001부터 시작
-		
+		logger.debug("@@@@@@ContractService : countPart={}", countPart);
+
 		String result = null;
 		if(lastId != null) {
 			//수주목록에 아무것도 없을 때
-			
+			logger.debug("@@@@@@ContractService : 수주목록이 없읍니다.");
+
 			//접두사+현재날짜+001을 그냥 더한다.
 			result = prefix + datePart + countPart;
-			
+			logger.debug("@@@@@@ContractService : result={}", result);
+
 		}else {
 			//수주목록이 있을 때 
-			
+			logger.debug("@@@@@@ContractService : 수주목록이 있읍니다..");
+
 			//가운데 날짜 8자리를 추출한다. 
 			String datePartUp = lastId.substring(2,8);
-			
-			//데이타베이의 날짜부분과 오늘날짜 추출한 부분이 같으면 1을 더한다. 
+			logger.debug("@@@@@@ContractService : datePartUp={}", datePartUp);
+
+			//데이타베이의 날짜부분과 오늘날짜 추출한 부분이 같으면 카운트에 1을 더한다. 
 			if(datePart.equals(datePartUp)) {
 				//카운트 부분을 추려낸다. 
 				Integer countPartUp = Integer.parseInt(lastId.substring(9,11));
-				
+				logger.debug("@@@@@@ContractService : countPartUp={}", countPartUp);
+
 				//날짜부분이 같고 끝번호가 1이상일 때는 1을 더해서 카운트한다.  
-				if(countPartUp >= 1) {
+				if(countPartUp != 1) {
 					countPartUp +=1;
 					countPart = String.format("%03d", countPartUp);
+					// 접두사+날짜+카운트를 조합한다.
+					result = prefix + datePart + countPart;
+					logger.debug("@@@@@@ContractService : result={}", result);
+
+					
+					
+					
 				}
-				// 접두사+날짜+카운트를 조합한다.
-				result = prefix + datePart + countPart;
 			}
 		}
 //		String result = prefix + datePart + countPart;

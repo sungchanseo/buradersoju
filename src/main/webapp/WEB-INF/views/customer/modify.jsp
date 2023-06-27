@@ -8,6 +8,10 @@
 <title>Insert title here</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> <!-- 우편api -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/mdi/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/base/vendor.bundle.base.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main/fullcalendar-5.11.4/lib/main.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 </head>
 <body>
 	<script type="text/javascript">
@@ -24,23 +28,20 @@
 		
 		//작성완료를 눌렀을 때 ajax 메소드
 		function sendForm() {
-			//상단의 폼태그를 변수에 저장한다. 
+			//폼태그를 변수에 저장한다. 
 			var formObject = $("form[role='form']").serializeArray();
 			alert(formObject.length);
 
-			if(status){
-				$.ajax({
-					url : '/contract/modify', 
-					type : 'POST', 
-					data : formObject, //form데이타의 객체형으로 값을 전달한다. 
-					success : function(json) {
-						alert("거래처 수정을 완료했다.");
-						status = true;
-						window.opener.location.reload();
-						window.close();
-					}
-				});
-			}
+			$.ajax({
+				url : '/contract/modify', 
+				type : 'POST', 
+				data : formObject, //form데이타의 객체형으로 값을 전달한다. 
+				success : function(json) {
+					alert("거래처 수정을 완료했다.");
+					window.opener.location.reload();
+					window.close();
+				}
+			});
 		};
 		//작성완료를 눌렀을 때 ajax 메소드
 	</script>
@@ -107,7 +108,7 @@
 	<th>종목</th>
 	<td>
 		<select name="cust_event">
-			<option value="종목1" checked>종목1</option>
+			<option value="종목1" seleted>종목1</option>
 			<option value="종목2">종목2</option>
 			<option value="종목3">종목3</option>
 		</select>
@@ -128,8 +129,12 @@
 	<th>홈페이지</th>
 	<td><input type="text" name="cust_hompage" value="${customerVO.cust_homepage }"></td>
 </table>
-<input type="submit" value="수정완료" onclick="sendForm();">
-<input type="button" value="목록으로" onclick="location.href='/customer/list';">
+<button type="submit" class="btn btn-success" onclick="sendForm();">수정완료</button>
+<button type="button" class="btn btn-success" onclick="history.back();">뒤로가기</button>
+<button type="button" class="btn btn-success" onclick="window.close();">창닫기</button>
+<!-- <input type="submit" class="btn btn-success" value="수정완료" onclick="sendForm();"> -->
+<!-- <input type="button" class="btn btn-success" value="뒤로가기" onclick="history.back();"> -->
+<!-- <input type="button" value="창닫기" class="btn btn-success" onclick="window.close();"> -->
 </form>
 </body>
 </html>

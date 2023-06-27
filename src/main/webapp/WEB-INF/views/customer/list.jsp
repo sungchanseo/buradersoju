@@ -36,22 +36,23 @@
 </script>
 
 <div class="card-body">
-		<h4 class="card-title">
+		<h1 class="card-title">
 			<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">거래처 리스트</font></font>
-		</h4>
+		</h1>
 
 		<!-- 검색창기능 -->
 		<form action="/customer/list" method="get" style="display: inline;">
+		
 			<select name="selector">
 				<option value="cust_name">상호</option>
 				<option value="cust_id">거래처코드</option>
-			</select> <input type="text" name="search" placeholder="검색어를 입력해주세요">
-			<input type="submit" class="btn-danger" value="검색">
+			</select> <input type="text" class="form-control" style="width:10%; display:inline;" name="search" placeholder="검색어를 입력해주세요">
+			<input type="submit"  class="btn btn-info" value="검색">
 		</form>
 		<!-- 검색창기능 -->
 		
-		<input type="button" value="거래처등록" onclick="insertPop();"> 
-		<input type="button" value="거래처삭제" onclick="location.href='/customer/remove';">
+		<input type="button" value="거래처등록" class="btn btn-success" onclick="insertPop();"> 
+		<input type="button" value="거래처삭제"  class="btn btn-success" onclick="location.href='/customer/remove';">
 
 		<!-- 거래처목록 테이블 -->
 		<div class="table-responsive">
@@ -80,7 +81,6 @@
 	                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.cust_class }</font></font></td>
 	                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.owner_name }</font></font></td>
 	                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.main_phone }</font></font></td>
-	                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.cust_address }</font></font></td>
 	                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.cust_business }</font></font></td>
 	                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.cust_event }</font></font></td>
 	                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.emp_email }</font></font></td>

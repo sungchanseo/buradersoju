@@ -108,7 +108,7 @@ public class EmployeeController {
 			logger.debug("@@@@@@@@@Controller : 검색어가 없을 때입니다");
 			employeeList = pageService.getListPageSizeObjectEmployeeVO(pvo);
 		}
-		logger.debug("@@@@@@@@@Controller : {}",employeeList);
+		logger.debug("@@@@@@@@@Controller : employeeList={}",employeeList);
 	
 		// 변수에 담아서 전달
 		model.addAttribute("employeeList", employeeList);

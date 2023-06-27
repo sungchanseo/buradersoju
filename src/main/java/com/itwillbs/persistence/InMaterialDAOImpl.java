@@ -45,7 +45,7 @@ public class InMaterialDAOImpl implements InMaterialDAO {
 	
 	// 3. 입고 상세보기
 	@Override
-	public InMaterialVO getInMaterialInfo(String order_id) {
+	public InMaterialVO getInMaterialInfo(String order_id) throws Exception{
 		logger.debug("########## getInMaterialInfo 호출");
 		return sqlSession.selectOne(NAMESPACE+".getInMaterialInfo", order_id);
 	}
@@ -53,7 +53,7 @@ public class InMaterialDAOImpl implements InMaterialDAO {
 	
 	// 4. 입고번호 최대값 (maxNumber) 230620004
 	@Override
-	public String getMaxNumber() {
+	public String getMaxNumber() throws Exception{
 		logger.debug("########## getMaxNumber 호출");
 		String maxNumber = sqlSession.selectOne(NAMESPACE + ".getMaxNumber"); // 230620001
 		logger.debug("############## maxNumber : " + maxNumber);
@@ -63,7 +63,7 @@ public class InMaterialDAOImpl implements InMaterialDAO {
 	
 	// 5. 입고번호 최대날짜(maxDate) 230620
 	@Override
-	public String getMaxDate() {
+	public String getMaxDate() throws Exception{
 		logger.debug("########## getMaxDate 호출");
 		String maxDate = sqlSession.selectOne(NAMESPACE + ".getMaxDate"); // 230620
 		logger.debug("############## maxDate : " + maxDate);
@@ -73,13 +73,22 @@ public class InMaterialDAOImpl implements InMaterialDAO {
 	
 	// 6. 입고번호 등록하기
 	@Override
-	public void registInId(InMaterialVO vo) {
+	public void registInId(InMaterialVO vo) throws Exception{
 		logger.debug("########## resgistInId 호출");
 		logger.debug("########## " + vo.getIn_id());
 		logger.debug("########## " + vo.getOrder_id());
 		sqlSession.update(NAMESPACE + ".registInId", vo);
 	}
 
+
+	// 7. 특정 order_id의 기존 재고량 + 발주량 (== 총 재고량)
+	@Override
+	public int getMaCnt(String order_id) throws Exception {
+		logger.debug("########## getMaCnt 호출");
+		return sqlSession.selectOne(NAMESPACE + ".maCnt", order_id);
+	}
+
+	
 	
 	
 	

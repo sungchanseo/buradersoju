@@ -57,6 +57,13 @@ public class InMaterialServiceImpl implements InMaterialService {
 		idao.registInId(vo);
 	}
 
+
+	// 6. 특정 order_id의 기존 재고량 + 발주량 (== 총 재고량)
+	@Override
+	public int getMaCnt(String order_id) throws Exception {
+		return idao.getMaCnt(order_id);
+	}
+
 	
 	
 	

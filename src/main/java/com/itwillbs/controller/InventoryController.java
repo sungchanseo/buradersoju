@@ -62,8 +62,7 @@ public class InventoryController {
 		//변수에 담아서 전달
 		model.addAttribute("inventoryList", customerList);
 		model.addAttribute("pvo",pvo);
-	
-		
+
 		    
 	}
 	

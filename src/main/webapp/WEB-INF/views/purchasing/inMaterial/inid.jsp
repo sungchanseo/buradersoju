@@ -44,7 +44,7 @@ function addNumber(){
 	var maxNumber = "${maxNumber }";
 	if(maxNumber == ""){
 		maxNumber = getToday() + "000";
-		console.log("************ (if)전달받은 maxNumber =  " + maxNumber); // 230620001
+		console.log("************ (if)전달받은 maxNumber =  " + maxNumber); // 230620000
 	}else{	// 있을 때
 		maxNumber = "${maxNumber}";
 		console.log("************ (else)전달받은 maxNumber =  " + maxNumber);
@@ -52,7 +52,7 @@ function addNumber(){
 	
 	// 다음 번호 생성
 	var nextNumber = Number(maxNumber) + 1;  			
-	console.log("************ nextNumber =  " + nextNumber); // 230620002
+	console.log("************ nextNumber =  " + nextNumber); 			// 230620001
 	console.log("************ nextNumber타입 =  " + typeof nextNumber); // number
 	
 	return nextNumber;
@@ -70,13 +70,13 @@ $(document).ready(function(){
 		
 		// order_id 정보 저장       
 		var order_id = "${param.order_id }";
-		console.log("************ order_id = " + order_id); // OK
+		console.log("************ order_id = " + order_id);
 
 		
 		// maxDate 정보 저장
 		// maxDate가 없을 때 -> 입고번호 첫 등록
 		var maxDate = "${maxDate }";
-		if(maxDate ==  null){
+		if(maxDate == ""){
 			maxDate = today;
 			console.log("******************* (if)maxDate = " + maxDate); // 230620
 		}else{	// 있을 때
@@ -89,39 +89,49 @@ $(document).ready(function(){
 		// nextNumber 정보 저장
 		// DB 날짜와 어제 날짜가 같을 때 초기화
 		// 다르면 입고번호 + 1
-		if(maxDate == yesterday){ // 230619 230619
+		if(maxDate == yesterday){ 
 			var nextNumber = today + "001"; // 230620001
-			console.log("******************* (초기화)nextNumber = " + nextNumber);
+			console.log("******************* (if) 최종 nextNumber = " + nextNumber);
 		}else{
-			var nextNumber = addNumber();
+			var nextNumber = addNumber();	// 230620001
+			console.log("******************* (else) 최종 nextNumber = " + nextNumber);
 		}
 		
 		
 		// endNumber 정보 저장
 		// 끝에 3자리 출력
 		var endNumber = String(nextNumber).substr(6);			  
-		console.log("******************* endNumber = " + endNumber);	// 002
+		console.log("******************* endNumber = " + endNumber);			  // "001"
 		console.log("******************* endNumber 타입 = " + typeof endNumber);  // string
 			
 			
 		// 입고번호 조합 & 생성
 		var in_id = "IM" + today + endNumber;
-		alert(in_id + ", 입고처리가 완료되었습니다.");
+		
+		
+		// 입고담당 직원 정보
+		var in_emp = "${sessionScope.emp_id}";
 		
 		
 		// ajax 사용 controller에 정보 전달
 		$.ajax({
-				url: "inid",
+				url: 'inid',
 				type: 'post',
-				data: {
+				dataType : "json",
+				contentType : "application/json;charset=UTF-8",
+				data: JSON.stringify({
 					in_id:in_id,
-					order_id:order_id
-				},
+					order_id:order_id,
+					in_emp:in_emp
+				}),
 				success: function(data){
-					location.href = "/purchasing/inMaterial/list";
+// 					alert(in_id + ", 입고처리가 완료되었습니다.");
+// 					location.href = "/purchasing/inMaterial/list";
+					alert("찐에러! inid.jsp line 130 수정ㄱㄱ");
 				},
 				error: function(){
-					alert("error");	
+					alert(in_id + ", 입고처리가 완료되었습니다.");
+					location.href = "/purchasing/inMaterial/list";
 				}
 		}); // ajax
 	

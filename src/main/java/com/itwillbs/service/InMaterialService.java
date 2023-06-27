@@ -24,5 +24,8 @@ public interface InMaterialService {
 	// 5. 입고번호 등록하기
 	public void registInId(InMaterialVO vo) throws Exception;
 	
+	// 6. 특정 order_id의 기존 재고량 + 발주량 (== 총 재고량)
+	public int getMaCnt(String order_id) throws Exception;
+	
 	
 }

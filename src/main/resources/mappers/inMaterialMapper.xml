@@ -10,11 +10,12 @@
  <!-- 입고 리스트 -->
  	<select id="getInMaterialListAll" resultType="com.itwillbs.domain.InMaterialVO">
 	SELECT i.in_id, o.order_id, m.ma_name, o.order_qty, m.ma_qty, i.in_process, m.whs_id, m.shelt_position, o.in_date, i.in_emp
-	FROM in_material i,
-	     orders o,
-	     material m
-	WHERE i.order_id = o.order_id AND o.ma_id = m.ma_id
-	ORDER BY in_process, in_id desc;
+	FROM orders o
+	LEFT JOIN in_material i
+	ON o.order_id = i.order_id
+	LEFT JOIN material m
+	ON o.ma_id = m.ma_id
+	ORDER BY in_process, in_id desc
  	</select>
  <!-- 입고 리스트 -->	
  
@@ -36,9 +37,12 @@
  
  
  <!-- in_id 입고번호, 담당직원 등록 -->
- 	<insert id="registInId">
-		update in_material set in_id = #{in_id}, in_process = "입고완료", in_emp = #{in_emp}
-		where order_id = #{order_id}
+ 	<insert id="registInId">		
+		UPDATE orders o
+		LEFT JOIN in_material i
+		ON o.order_id = i.order_id
+		SET i.in_id = #{in_id}, i.in_process = "입고완료", i.in_emp = #{in_emp}
+		WHERE o.order_id = #{order_id}
  	</insert>
  <!-- in_id 입고번호, 담당직원 등록 -->
 
@@ -50,6 +54,21 @@
 		WHERE m.ma_id = o.ma_id AND o.order_id = i.order_id AND o.order_id = #{order_id}
 	</select>
  <!-- 입고 정보 상세보기 -->	
+ 
+ 
+ <!-- 특정 order_id의 기존 재고량 + 발주량으로 업데이트 -->
+ 	<update id="maCnt">
+		UPDATE orders o
+		LEFT JOIN material m
+		ON o.ma_id = m.ma_id
+		SET m.ma_qty = m.ma_qty + o.order_qty
+		WHERE o.order_id = #{order_id};
+ 	</update>
+ <!-- 특정 order_id의 기존 재고량 + 발주량으로 업데이트 -->
+ 
+ 
+ <!-- 재고량 수정하기 -->
+ 
  	
  	
  	

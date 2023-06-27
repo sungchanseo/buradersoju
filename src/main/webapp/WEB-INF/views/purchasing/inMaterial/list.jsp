@@ -27,7 +27,12 @@
       
       <c:forEach var="iml" items="${inMaterialList }">
          <tr>
-			<td>${iml.in_id }</td>
+			<td>
+				<c:choose>
+					<c:when test="${iml.in_id == '0' }"> </c:when>
+					<c:otherwise>${iml.in_id }</c:otherwise>
+				</c:choose>
+			</td>
 			<td>${iml.order_id }</td>			
 			<td>
 				<a href="info?order_id=${iml.order_id }"
@@ -45,7 +50,13 @@
 					<c:otherwise>${iml.ma_qty }</c:otherwise>
 				</c:choose>
 			</td>
-			<td>${iml.in_process }</td>
+			<td>
+				<c:choose>
+					<c:when test="${empty iml.in_process }">미입고</c:when>
+<%-- 					<c:when test="${iml.ma_qty == 150 }">입고완료</c:when> --%>
+					<c:otherwise>${iml.in_process }</c:otherwise>
+				</c:choose>
+			</td>
 			<td>${iml.whs_id }</td>
 			<td>${iml.shelt_position }</td>
 			<td><fmt:formatDate value="${iml.in_date}" pattern="yyyy-MM-dd"/></td>
@@ -56,7 +67,7 @@
 				</c:choose>
 			</td>
 			<td>		
-				<c:if test="${empty iml.in_id }">
+				<c:if test="${empty iml.in_id or iml.in_id == '0'}">
 					<input type="button" class="btn-outline-success inidDone" value="입고처리" 
 					                     onclick="location.href='/purchasing/inMaterial/inid?order_id=${iml.order_id }';">
 				</c:if>

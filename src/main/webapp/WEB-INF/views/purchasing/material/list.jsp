@@ -271,6 +271,7 @@ $(document).ready(function() {
 					success: function() {
 // 						alert("자재코드 " + ma_id + ", 수정이 완료되었습니다.");
 // 						location.href="/purchasing/material/list";
+						alert("찐에러! material/list.jsp line 274 수정하긩");
 						},
 					error: function() {
 						alert("자재코드 " + ma_id + ", 수정이 완료되었습니다.");

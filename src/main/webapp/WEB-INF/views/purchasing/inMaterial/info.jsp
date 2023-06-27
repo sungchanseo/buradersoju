@@ -59,7 +59,12 @@
 		</tr>
 		<tr>
 			<th>입고관리번호</th>
-			<td>${resultVO.in_id }</td>
+			<td>
+				<c:choose>
+					<c:when test="${resultVO.in_id == '0'}"> </c:when>
+					<c:otherwise>${resultVO.in_id }</c:otherwise>
+				</c:choose>
+			</td>
 			
 			<th>입고진행현황</th>
 			<td>${resultVO.in_process }</td>
@@ -68,7 +73,12 @@
 			<td><fmt:formatDate value="${resultVO.in_date}" pattern="yyyy-MM-dd"/></td>
 			
 			<th>입고담당직원</th>
-			<td>${resultVO.in_emp }</td>
+			<td>
+				<c:choose>
+					<c:when test="${resultVO.in_emp == 0}"> </c:when>
+					<c:otherwise>${resultVO.in_emp }</c:otherwise>
+				</c:choose>
+			</td>
 		</tr>
 		<tr>
 			<th>품명</th>

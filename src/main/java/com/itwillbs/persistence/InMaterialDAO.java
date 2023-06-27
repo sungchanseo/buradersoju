@@ -15,16 +15,19 @@ public interface InMaterialDAO {
 	public List<InMaterialVO> getInMaterialListFilter(String in_progress);
 	
 	// 3. 입고 상세보기
-	public InMaterialVO getInMaterialInfo(String order_id);
+	public InMaterialVO getInMaterialInfo(String order_id) throws Exception;
 	
 	// 4-1. 입고번호 최대값 (maxNumber) 230620004
-	public String getMaxNumber();
+	public String getMaxNumber() throws Exception;
 	
 	// 4-2. 입고번호 최대날짜 (maxDate) 230620
-	public String getMaxDate();
+	public String getMaxDate() throws Exception;
 	
 	// 4-3. 입고번호 등록하기
-	public void registInId(InMaterialVO vo);
+	public void registInId(InMaterialVO vo) throws Exception;
+	
+	// 5. 특정 order_id의 기존 재고량 + 발주량 (== 총 재고량)
+	public int getMaCnt(String order_id) throws Exception;
 	
 	
 }

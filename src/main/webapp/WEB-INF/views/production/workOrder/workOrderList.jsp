@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%-- <%@ include file="../includes/header.jsp"%> --%>
+<%@ include file="../../includes/header.jsp"%>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
@@ -108,6 +108,6 @@ function info_print() {
   window.print();
 } 
 </script>
-<%@ include file="../includes/footer.jsp" %>
+<%@ include file="../../includes/footer.jsp" %>
 </body>
 </html>

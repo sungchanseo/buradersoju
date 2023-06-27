@@ -6,39 +6,6 @@
   
 <mapper namespace="com.itwillbs.mappers.productionMapper">
 
-<!-- 작업지시 목록 -->
-	<select id="getWorkOrderList" resultType="com.itwillbs.domain.ProductionVO">
-		select * from production 
-		join product ON production.product_id = product.product_id;
-	</select>
-<!-- 작업지시 목록 -->
-
-<!-- 작업지시 상세 -->
-	<select id="workOrder" resultType="com.itwillbs.domain.ProductionVO">
-		select * from production 
-		join product ON production.product_id = product.product_id 
-		where production.production_id = #{production_id};
-	</select>
-<!-- 작업지시 상세 -->
-
-<!-- 작업지시 등록 -->
-	<!-- 수주번호 조회 -->
-	<select id="woInsertSearch" resultType="com.itwillbs.domain.ContractVO">
-			select co.cont_id, co.cust_id, co.cust_name, pr.product_id, p.product_name, co.due_date, co.cont_emp
- 			from production pr, contract co, product p
-			where pr.cont_id = co.cont_id
-            and pr.product_id = p.product_id
-			and co.cont_id = #{cont_id}
-	</select>
-	<!-- 수주번호 조회 -->
-	<!-- DB 등록 -->
-	<insert id="insert">
-		insert into production(production_id,production_emp,production_line,plan_qty) 
-		values(#{production_id},#{production_emp},#{production_line},#{plan_qty})
-	</insert>
-	<!-- DB 등록 -->
-<!-- 작업지시 등록 -->
-
 <!-- 생산 목록 -->
 	<select id="getProductionList" resultType="com.itwillbs.domain.ProductionVO">
 		select * from production 

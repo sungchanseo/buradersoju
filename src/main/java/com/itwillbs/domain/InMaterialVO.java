@@ -12,12 +12,15 @@ public class InMaterialVO {
 	private String in_maName;
 	private int in_qty;
 	private String in_process;
+
+	private Date in_date;
 	private int in_emp;
 	
 	// material
 	private String shelt_position;
 	private String ma_name;
 	private int ma_qty;
+	private String whs_id;
 	
 	// orders
 	private int order_qty;
@@ -29,8 +32,23 @@ public class InMaterialVO {
 	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ getter & setter ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	
 	
+	public String getWhs_id() {
+		return whs_id;
+	}
+	public void setWhs_id(String whs_id) {
+		this.whs_id = whs_id;
+	}
+	public String getIn_process() {
+		return in_process;
+	}
+	public void setIn_process(String in_process) {
+		this.in_process = in_process;
+	}
 	public String getIn_id() {
 		return in_id;
+	}
+	public void setIn_id(String in_id) {
+		this.in_id = in_id;
 	}
 	public String getMa_name() {
 		return ma_name;
@@ -74,9 +92,6 @@ public class InMaterialVO {
 	public void setOrder_emp(int order_emp) {
 		this.order_emp = order_emp;
 	}
-	public void setIn_id(String in_id) {
-		this.in_id = in_id;
-	}
 	public String getOrder_id() {
 		return order_id;
 	}
@@ -95,11 +110,18 @@ public class InMaterialVO {
 	public void setIn_qty(int in_qty) {
 		this.in_qty = in_qty;
 	}
+
 	public String getIn_process() {
 		return in_process;
 	}
 	public void setIn_progress(String in_process) {
 		this.in_process = in_process;
+
+	public Date getIn_date() {
+		return in_date;
+	}
+	public void setIn_date(Date in_date) {
+
 	}
 	public int getIn_emp() {
 		return in_emp;
@@ -109,10 +131,16 @@ public class InMaterialVO {
 	}
 	
 	
+	// toString() 
 	@Override
 	public String toString() {
 		return "InMaterialVO [in_id=" + in_id + ", order_id=" + order_id + ", in_maName=" + in_maName + ", in_qty="
 				+ in_qty + ", in_progress=" + in_process + ", in_emp=" + in_emp + "]";
+				+ in_qty + ", in_process=" + in_process + ", in_date=" + in_date + ", in_emp=" + in_emp
+				+ ", shelt_position=" + shelt_position + ", ma_name=" + ma_name + ", ma_qty=" + ma_qty + ", whs_id="
+				+ whs_id + ", order_qty=" + order_qty + ", order_date=" + order_date + ", due_date=" + due_date
+				+ ", order_emp=" + order_emp + "]";
 	}
+
 	
 }

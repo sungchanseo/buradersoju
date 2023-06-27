@@ -6,7 +6,6 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
-import com.itwillbs.domain.ContractVO;
 import com.itwillbs.domain.PagingVO;
 import com.itwillbs.domain.ProductionVO;
 import com.itwillbs.persistence.PagingDAO;
@@ -22,34 +21,13 @@ public class ProductionServiceImpl implements ProductionService {
 //	@Inject
 //	private PagingService pageService;
 	
-	@Override
-	public void insertWorkOrder(ProductionVO vo) throws Exception {
-		// DAO - 작업지시 저장(등록)
-		pdao.insertWorkOrder(vo);
-		
-	}
-
-	@Override
-	public ContractVO getWoInsertSearch(String cont_id) throws Exception{
-		return pdao.getWoInsertSearch(cont_id);
-	}
-	
-	@Override
-	public List<ProductionVO> getWorkOrderList() throws Exception{
-		return pdao.getWorkOrderList();
-	}
-
-	@Override
-	public ProductionVO detailWorkOrder(String production_id) throws Exception{
-		return pdao.detailWorkOrder(production_id);
-	}
 
 	@Override
 	public List<ProductionVO> getProductionList() throws Exception {
 		return pdao.getProductionList();
 	}
 
-	
+
 //	@Override
 //	public PagingVO setPageInfoForProduction(PagingVO pvo) throws Exception{
 //		

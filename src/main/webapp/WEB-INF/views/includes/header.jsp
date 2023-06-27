@@ -87,10 +87,10 @@
                 </a>
                 <div class="submenu">
                       <ul class="submenu-item">
-                      	  <li class="nav-item"><a class="nav-link" href="">사원 조회</a></li>
-                          <li class="nav-item"><a class="nav-link" href="">사원 등록</a></li>
-                          <li class="nav-item"><a class="nav-link" href="">사원 수정</a></li>
-                          <li class="nav-item"><a class="nav-link" href="">사원 삭제</a></li>
+                      	  <li class="nav-item"><a class="nav-link" href="/employee/list">사원 조회</a></li>
+<!--                           <li class="nav-item"><a class="nav-link" href="">사원 등록</a></li> -->
+<!--                           <li class="nav-item"><a class="nav-link" href="">사원 수정</a></li> -->
+<!--                           <li class="nav-item"><a class="nav-link" href="">사원 삭제</a></li> --> 
                       </ul>
                   </div>
               </li>
@@ -148,13 +148,13 @@
                   </a>
                   <div class="submenu">
                     <ul>
-                          <li class="nav-item"><a class="nav-link" href="">작업 지시 목록</a></li>
-                          <li class="nav-item"><a class="nav-link" href="">작업 지시 상세</a></li>
-                          <li class="nav-item"><a class="nav-link" href="">작업 지시 등록</a></li>
-                          <li class="nav-item"><a class="nav-link" href="">생산 목록</a></li>
-                          <li class="nav-item"><a class="nav-link" href="">생산 등록</a></li>
-                          <li class="nav-item"><a class="nav-link" href="">품질 관리 목록</a></li>
-                          <li class="nav-item"><a class="nav-link" href="">검수 등록</a></li>
+                          <li class="nav-item"><a class="nav-link" href="/production/workOrder/workOrderList">작업 지시 목록</a></li>
+<!--                           <li class="nav-item"><a class="nav-link" href="">작업 지시 상세</a></li> -->
+<!--                           <li class="nav-item"><a class="nav-link" href="">작업 지시 등록</a></li> -->
+                          <li class="nav-item"><a class="nav-link" href="/production/productionList">생산 목록</a></li>
+<!--                           <li class="nav-item"><a class="nav-link" href="">생산 등록</a></li> -->
+                          <li class="nav-item"><a class="nav-link" href="/quality/qualityList">품질 관리 목록</a></li>
+<!--                           <li class="nav-item"><a class="nav-link" href="">검수 등록</a></li> -->
                       </ul>
                   </div>
               </li>

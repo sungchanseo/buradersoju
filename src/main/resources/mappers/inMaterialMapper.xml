@@ -9,8 +9,12 @@
  	
  <!-- 입고 리스트 -->
  	<select id="getInMaterialListAll" resultType="com.itwillbs.domain.InMaterialVO">
- 		select * from in_material
- 		order by in_process, in_id desc
+	SELECT i.in_id, o.order_id, m.ma_name, o.order_qty, m.ma_qty, i.in_process, m.whs_id, m.shelt_position, i.in_date, i.in_emp
+	FROM in_material i,
+	     orders o,
+	     material m
+	WHERE i.order_id = o.order_id AND o.ma_id = m.ma_id
+	ORDER BY in_process, in_id desc;
  	</select>
  <!-- 입고 리스트 -->	
  
@@ -33,7 +37,7 @@
  
  <!-- in_id 입고번호 등록 -->
  	<insert id="registInId">
-		update in_material set in_id = #{in_id}, in_progress = "입고완료"
+		update in_material set in_id = #{in_id}, in_process = "입고완료"
 		where order_id = #{order_id}
  	</insert>
  <!-- in_id 입고번호 등록 -->
@@ -41,7 +45,7 @@
  
  <!-- 입고 정보 상세보기 -->	
 	<select id="getInMaterialInfo" resultType="com.itwillbs.domain.InMaterialVO">
-		SELECT o.order_id, o.due_date, o.order_date, o.order_emp, i.in_id, i.in_progress, i.in_date, i.in_emp, m.ma_name, o.order_qty, m.ma_qty, m.shelt_position
+		SELECT o.order_id, o.due_date, o.order_date, o.order_emp, i.in_id, i.in_process, i.in_date, i.in_emp, m.ma_name, o.order_qty, m.ma_qty, m.shelt_position
 		FROM in_material i, material m, orders o
 		WHERE m.ma_id = o.ma_id AND o.order_id = i.order_id AND o.order_id = #{order_id}
 	</select>

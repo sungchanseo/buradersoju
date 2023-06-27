@@ -17,7 +17,7 @@
     	  var production_id = $("#production_id").val();
     	  
         $.ajax({
-          url : 'qualityInsertSearch.do',
+          url : 'qualityInsertSearch',
           type : 'POST',
           data : { production_id: production_id },
           contentType: "application/x-www-form-urlencoded; charset=UTF-8",

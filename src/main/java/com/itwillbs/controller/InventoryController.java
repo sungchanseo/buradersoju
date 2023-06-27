@@ -44,15 +44,16 @@ public class InventoryController {
 		logger.debug("@@@@@@@@@Controller : {}",pvo);
 		
 	//	service객체를 호출
-//		if(pvo.getSelector()!=null && pvo.getSelector()!="") {
-//			//검색어가 있을 때 
-//			logger.debug("@@@@@@@@@Controller : 검색어가 있을 때입니다");
-//			customerList = pageService.getListSearchObjectMaterialVO(pvo);
-//		}else {
-//			//검색어가 없을 때
-//			logger.debug("@@@@@@@@@Controller : 검색어가 없을 때입니다");
-//			customerList = pageService.getListSearchObjectMaterialVO(pvo);
-//		}
+		if(pvo.getSelector()!=null && pvo.getSelector()!="") {
+			//검색어가 있을 때 
+			logger.debug("@@@@@@@@@Controller : 검색어가 있을 때입니다");
+			customerList = pageService.getListSearchObjectMaterialVO(pvo);
+		}
+		else {
+			//검색어가 없을 때
+			logger.debug("@@@@@@@@@Controller : 검색어가 없을 때입니다");
+			customerList = pageService.getListSearchObjectMaterialVO(pvo);
+		}
 		customerList = pageService.getListPageSizeObjectMaterialVO(pvo);
 		logger.debug("@@@@@@@@@Controller : customerList={}",customerList);
 	
@@ -67,7 +68,7 @@ public class InventoryController {
 	// 재고 등록 처리
     @ResponseBody
 	@RequestMapping(value = "/list", method = RequestMethod.POST)
-	public String insertPOST(MaterialVO vo){
+	public String insertPOST(MaterialVO vo) throws Exception{
 		
 		logger.debug("@@@@ 재고등록 행추가@@@@");
 		
@@ -83,7 +84,7 @@ public class InventoryController {
 	
 	// 재고수정 디비처리
 	@RequestMapping(value="/modify", method= RequestMethod.POST)
-	public String modifyInventoryPOST(MaterialVO mvo) {
+	public String modifyInventoryPOST(MaterialVO mvo) throws Exception {
      		logger.debug("@@@@@modifyINPOST()호출!@@@@@");
 			logger.debug("수정가보자아앙제발라ㅏ앙");
 			logger.debug("@@@@@@Contoroller : 수정한 거래정보" + mvo);

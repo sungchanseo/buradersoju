@@ -22,43 +22,44 @@ public class WorkOrderDAOImpl implements WorkOrderDAO {
 	// mapper의 namespace 정보
 	private static final String NAMESPACE = "com.itwillbs.mappers.workOrderMapper";
 	
+	// 작업지시 목록
 	@Override
-	public void insertWorkOrder(ProductionVO vo) throws Exception {
-		// TODO Auto-generated method stub
-		logger.debug(" insertWorkOrder() 호출 ");
-		int result = sqlSession.insert(NAMESPACE + ".insert", vo);
-		
-		if(result != 0)
-			logger.debug(" 글쓰기 완료! ");
+	public List<ProductionVO> getWorkOrderList() throws Exception {
+		logger.debug(" getWorkOrderList() 호출 ");
+		return sqlSession.selectList(NAMESPACE+".getWorkOrderList");
 	}
-
+	
+	// 작업지시 등록(수주번호 조회)
 	@Override
 	public ProductionVO getWoInsertSearch(String cont_id) throws Exception {
 		logger.debug(" getWoInsertSearch() 호출 ");
 		return sqlSession.selectOne(NAMESPACE+".woInsertSearch", cont_id);
 	}
-	
-	@Override
-	public List<ProductionVO> getWorkOrderList() throws Exception {
-		logger.debug(" getWorkOrderList() 호출 ");
-		
-		return sqlSession.selectList(NAMESPACE+".getWorkOrderList");
-	}
 
-	@Override
-	public ProductionVO detailWorkOrder(String production_id) throws Exception {
-		logger.debug(" detailWorkOrder() 호출 ");
-
-		return sqlSession.selectOne(NAMESPACE+".workOrder", production_id);
-  }
-
-
-	// 자재 재고 조회
+	// 작업지시 등록(자재 재고 조회)
 	@Override
 	public List<ProductionVO> getMaterialList(String product_id) throws Exception {
 		logger.debug(" getMaterialList() 호출 ");
 		logger.debug("@@@@DAOImpl에서 product_id : "+product_id);
 		return sqlSession.selectList(NAMESPACE+".getMaterialList", product_id);
+	}
+	
+	// 작업지시 등록(DB저장)
+	@Override
+	public void insertWorkOrder(ProductionVO vo) throws Exception {
+		logger.debug(" insertWorkOrder() 호출 ");
+		int result = sqlSession.insert(NAMESPACE + ".insertWorkOrder", vo);
+		
+		if(result != 0)
+		logger.debug(" 작업지시 등록 DB저장 완료 ");
+	}
+	
+	// 작업지시 상세
+	@Override
+	public ProductionVO detailWorkOrder(String production_id) throws Exception {
+		logger.debug(" detailWorkOrder() 호출 ");
+		
+		return sqlSession.selectOne(NAMESPACE+".workOrder", production_id);
 	}
 
 //	@Override

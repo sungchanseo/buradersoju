@@ -14,12 +14,12 @@
 	<!-- (수정중) 생산 목록 중 ‘생산량 >= 수주량’ => 작업상태가 완료인 작업지시만 나타남 -->
 	<script>
 	$(function(){
-		var production_state = $('#production_state').val();
+		var production_status = $('#production_status').val();
 		var state0 = "대기";
 		var state1 = "진행중";
-		console.log(production_state);
+		console.log(production_status);
 		
-		if( production_state == state0 || production_state == state1){
+		if( production_status == state0 || production_status == state1){
 			$(".qualityListResult").hide();
 		}
 		});
@@ -117,7 +117,7 @@
 				<!-- 나중에 불필요한거 정리할 예정 -->
 				<input type="hidden" id="production_qty" name="production_qty" value=" ${vo.production_qty}">
 				<input type="hidden" id="plan_qty" name="plan_qty" value=" ${vo.plan_qty}">
-				<input type="hidden" id="production_state" name="production_state" value=" ${vo.production_state}">
+				<input type="hidden" id="production_status" name="production_status" value=" ${vo.production_status}">
 			<tr class="qualityListResult">
 				<td><a href="/quality/qualityInfo?qc_num=${vo.qc_num }" onclick="window.open(this.href, '_blank', 'width=800, height=500, left=2000'); return false;">${vo.qc_num  }</a></td>
 				<td><a href="/production/workOrder/workOrder?production_id=${vo.production_id }" onclick="window.open(this.href, '_blank', 'width=800, height=500, left=2000'); return false;">${vo.production_id }</a></td>

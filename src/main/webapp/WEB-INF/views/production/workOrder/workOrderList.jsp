@@ -70,7 +70,7 @@
 	  <td>${workOrderList.product_name}</td>
 	  <td>${workOrderList.plan_qty}</td>
 	  <td>${workOrderList.production_qty}</td>
-	  <td>${workOrderList.production_state}</td>
+	  <td>${workOrderList.production_status}</td>
 	 </tr>
 	</c:forEach>
   </table>

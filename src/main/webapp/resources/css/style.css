@@ -23848,7 +23848,7 @@ dl li {
   }
   .horizontal-menu .bottom-navbar .page-navigation > .nav-item.show-submenu > .nav-link i,
   .horizontal-menu .bottom-navbar .page-navigation > .nav-item.show-submenu > .nav-link .menu-title {
-    color: #464dee;
+    color: #000000;
     transition: color 1s ease;
   }
   .horizontal-menu .bottom-navbar .page-navigation > .nav-item.show-submenu > .nav-link .menu-arrow {
@@ -23904,17 +23904,17 @@ dl li {
   position: absolute;
   left: 0;
   bottom: 0;
-  border-bottom: 2px solid #0ddbb9;
+/*   border-bottom: 2px solid #0ddbb9; */
 }
 
 .horizontal-menu .bottom-navbar .page-navigation > .nav-item.active > .nav-link .menu-icon {
-  color: #0ddbb9;
+  color: #000000;
 }
 
 .horizontal-menu .bottom-navbar .page-navigation > .nav-item.active > .nav-link .menu-title,
 .horizontal-menu .bottom-navbar .page-navigation > .nav-item.active > .nav-link i,
 .horizontal-menu .bottom-navbar .page-navigation > .nav-item.active > .nav-link .menu-arrow {
-  color: #464dee;
+  color: #000000;
 }
 
 .horizontal-menu .bottom-navbar .page-navigation > .nav-item .submenu {

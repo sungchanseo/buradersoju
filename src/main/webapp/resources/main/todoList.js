@@ -2,6 +2,8 @@ $(document).ready(function(){
     const toDoForm = document.querySelector(".toDoForm");
     const toDoInput = toDoForm.querySelector("input");
     const toDoList = document.querySelector(".toDoList");
+    const maxToDoCount = 10;
+    const maxToDoMessage = "할 일이 너무 많아요!";
     const TODOS_LS = 'toDos';
     let toDos = [];
 
@@ -79,11 +81,27 @@ $(document).ready(function(){
     }
 
     function handleSubmit(event) {
-    	  event.preventDefault();
-    	  const currentValue = toDoInput.value;
-    	  paintToDo(currentValue, false); // 초기 체크 상태는 false로 설정
-    	  toDoInput.value = "";
-    	}
+        event.preventDefault();
+        const currentValue = toDoInput.value;
+        if (toDos.length < maxToDoCount) {
+            paintToDo(currentValue, false);
+            toDoInput.value = "";
+        } else {
+            displayMaxToDoMessage();
+        }
+    }
+
+    function displayMaxToDoMessage() {
+        const messageDiv = document.querySelector("#maxToDoMessage");
+        messageDiv.textContent = maxToDoMessage;
+        messageDiv.style.display = "block";
+        setTimeout(hideMaxToDoMessage, 500); // 0.5초 후에 메시지 숨김
+    }
+
+    function hideMaxToDoMessage() {
+        const messageDiv = document.querySelector("#maxToDoMessage");
+        messageDiv.style.display = "none";
+    }
 
     	// 버튼 클릭 이벤트 리스너 추가
     	const submitButton = document.querySelector("#submitBtn");

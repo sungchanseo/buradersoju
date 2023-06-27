@@ -32,9 +32,19 @@
 					<div class="row w-100 mx-0">
 						<div class="col-lg-12 mx-auto">
 							<div class="auth-form-light text-left py-5 px-4 px-sm-5" style="height: 1000px;">
-								<form role="form" method="post">
+								<form action="/employee/list" method="get" style="display:inline;" role="form">
 									<div class="form-group">								
-									<h1>사원리스트</h1>		
+									<h1>사원리스트</h1>
+									
+									<!-- 검색창기능 -->
+										<select name="selector">
+											<option value="emp_name">이름</option>
+											<option value="emp_department">부서</option>
+										</select>
+										<input type="text" name="search" placeholder="검색어를 입력해주세요">
+										<input type="submit" class="btn-danger" value="검색">
+									<!-- 검색창기능 -->									
+									
 									<table class="table table-hover">
 										<tr>
 											<th style="width: 60px">사번</th>
@@ -46,9 +56,15 @@
 										</tr>
 										<c:forEach var="vo" items="${employeeList }">
 											<tr>
-												<td><input class="btn btn-dark btn-rounded btn-fw" type="button" value="${vo.emp_id }" onclick="infoPop(${vo.emp_id})"></td>
+												<td>
+													<input class="btn btn-dark btn-rounded btn-fw" type="button" value="${vo.emp_id }" 
+														<c:if test="${emp_department.equals('인사팀') || emp_department.equals('인사') }">
+															onclick="infoPop(${vo.emp_id})"
+														</c:if>
+													>
+												</td>
 												<td>${vo.emp_name }</td>
-												<td>${vo.emp_department }</td>
+												<td>${vo.emp_department }팀</td>
 												<td>${vo.emp_position }</td>
 												<td>${vo.join_date }</td>
 												<td>${vo.emp_tel }</td>

@@ -23,13 +23,13 @@ public class EmployeeServiceImpl implements EmployeeService{
 	@Override
 	public PagingVO setPageInfoForEmployee(PagingVO pvo) throws Exception {
 		
-		//contract서비스에 필요한 변수를 저장. 
+		//employee 서비스에 필요한 변수를 저장. 
 		pvo.setTable("employee");
 		pvo.setId("emp_id");
 		pvo.setPageSize(10);
 		pvo.setStartRow(1);
 		pvo.setStatus_name("emp_status");
-		pvo.setStatus_value("0");
+		pvo.setStatus_value("재직");
 		
 		//페이지 계산을 위해서 pageingSerivce의 메소드 호출 
 		pvo = pageService.pagingAction(pvo);

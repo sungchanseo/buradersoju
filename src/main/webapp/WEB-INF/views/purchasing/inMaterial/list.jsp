@@ -1,20 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+
+<%@ include file="../../includes/header.jsp" %>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 </head>
 <body>
 
-
-<h1>In_Material_List.jsp</h1>
-<h2>http://localhost:8088/purchasing/inMaterial/list</h2>
-
+<div>
  	<fmt:formatDate value=""/> 
 	<table border="1">
 	<tr>
@@ -71,7 +64,9 @@
          </tr>
       </c:forEach>
 	</table>
+</div>
 
+<%@ include file="../../includes/footer.jsp" %>
 
 </body>
 </html>

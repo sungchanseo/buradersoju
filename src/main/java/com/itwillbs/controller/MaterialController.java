@@ -69,13 +69,13 @@ public class MaterialController {
 
 	
 	// 2. 자재 등록 - 행추가 & 데이터처리
-	@RequestMapping(value="/maid", method=RequestMethod.GET)
-	public String getMaIdGET(MaterialVO vo) throws Exception {
-		logger.debug("@@@@@@@@@@ getMaIdGET() 호출");
+	@RequestMapping(value="/maid", method=RequestMethod.POST)
+	public String getMaIdPOST(MaterialVO vo) throws Exception {
+		logger.debug("@@@@@@@@@@ getMaIdPOST() 호출");
 		
-		// 파라미터정보 자동 저장
+		// 파라미터 자동 수집 정보 저장하기
+		logger.debug("@@@@@@@@@@@@@@ 등록할 데이터 = " + vo);	
 		mService.insertMaterial(vo);
-		logger.debug("@@@@@@@@@@@@@@ vo = " + vo);	
 		
 		// 페이지 이동
 		return "redirect:/purchasing/material/list";

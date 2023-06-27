@@ -122,21 +122,11 @@
                   </a>
                   <div class="submenu">
                       <ul>
-                         <li class="nav-item"><a class="nav-link" href="">자재 등록</a></li>
-                         <li class="nav-item"><a class="nav-link" href="">자재 수정</a></li>
-                         <li class="nav-item"><a class="nav-link" href="">자재 삭제</a></li>
-                         <li class="nav-item"><a class="nav-link" href="">자재 저장</a></li>
-                         <li class="nav-item"><a class="nav-link" href="">자재 검색</a></li>
-                         <li class="nav-item"><a class="nav-link" href="">재고 검색</a></li>
-                         <li class="nav-item"><a class="nav-link" href="">현 재고량</a></li>
-                         <li class="nav-item"><a class="nav-link" href="">발주 현황</a></li>
-                         <li class="nav-item"><a class="nav-link" href="">발주 등록</a></li>
-                         <li class="nav-item"><a class="nav-link" href="">입고 목록</a></li>
-                         <li class="nav-item"><a class="nav-link" href="">미입고</a></li>
-                         <li class="nav-item"><a class="nav-link" href="">입고 완료</a></li>
-                         <li class="nav-item"><a class="nav-link" href="">출고 목록</a></li>
-                         <li class="nav-item"><a class="nav-link" href="">출고 조회</a></li>
-                         <li class="nav-item"><a class="nav-link" href="">출고 처리</a></li>
+                         <li class="nav-item"><a class="nav-link" href="/purchasing/material/list">자재 관리</a></li>
+                         <li class="nav-item"><a class="nav-link" href="/purchasing/inventory/list">재고 관리</a></li>
+                         <li class="nav-item"><a class="nav-link" href="/purchasing/order/list">발주 관리</a></li>
+                         <li class="nav-item"><a class="nav-link" href="/purchasing/inMaterial/list">입고 관리</a></li>
+                         <li class="nav-item"><a class="nav-link" href="/purchasing/outproduct/list">출고 관리</a></li>
                       </ul>
                   </div>
               </li>
@@ -159,19 +149,19 @@
                   </div>
               </li>
               <li class="nav-item">
-                  <a href="" class="nav-link">
+                  <a href="/purchasing/warehouse/list" class="nav-link">
                     <i class="mdi mdi-grid menu-icon" style="font-size: 30px;"></i>
                     <span class="menu-title">창고 관리</span>
                     <i class="menu-arrow"></i>
                   </a>
-                  <div class="submenu">
-                   	<ul>
-                          <li class="nav-item"><a class="nav-link" href="">창고 관리</a></li>
-                          <li class="nav-item"><a class="nav-link" href="">창고 등록</a></li>
-                          <li class="nav-item"><a class="nav-link" href="">창고 수정</a></li>
-                          <li class="nav-item"><a class="nav-link" href="">창고 삭제</a></li>
-                    </ul>
-                  </div>
+<!--                   <div class="submenu"> -->
+<!--                    	<ul> -->
+<!--                           <li class="nav-item"><a class="nav-link" href="">창고 관리</a></li> -->
+<!--                           <li class="nav-item"><a class="nav-link" href="">창고 등록</a></li> -->
+<!--                           <li class="nav-item"><a class="nav-link" href="">창고 수정</a></li> -->
+<!--                           <li class="nav-item"><a class="nav-link" href="">창고 삭제</a></li> -->
+<!--                     </ul> -->
+<!--                   </div> -->
               </li>
             </ul>
         </div>

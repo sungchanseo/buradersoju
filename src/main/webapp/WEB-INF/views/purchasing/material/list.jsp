@@ -1,13 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+
+<%@ include file="../../includes/header.jsp" %>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script type="text/javascript">
+
+// http://localhost:8088/purchasing/material/list
 
 // 오늘 날짜 출력
 function getToday() {
@@ -65,6 +64,10 @@ $(document).ready(function() {
 		var ma_id = "MA" + nextNumber;
 		console.log("************ 품목코드 = " + ma_id);
 		
+		// 직원 정보 저장
+		var emp_id = "${sessionScope.emp_id }";
+		console.log("************ 로그인 되어 있는 아이디 = " + emp_id);
+		
 		// 행 추가
 		if($(this).hasClass('true')) {
 			let tbl = "<tr>";
@@ -95,11 +98,11 @@ $(document).ready(function() {
 	        tbl += regdate;
 	        tbl += "</td>";
 	        tbl += "<td>";
-	        tbl += "<input type='text' name='ma_emp' id='ma_emp'>";
+	        tbl += emp_id;
 	        tbl += "</td>";
 	        tbl += "</tr>";
             
-			$('table').append(tbl);
+			$('table').prepend(tbl);
 			$(this).removeClass('true');
 			
 			
@@ -116,29 +119,40 @@ $(document).ready(function() {
 				var unit_cost = $('#unit_cost').val();
 				var shelt_position = $('#shelt_position').val();
 				var ma_regdate = $('#ma_regdate').val();
-				var ma_emp = $('#ma_emp').val();
+				var ma_emp = "${sessionScope.emp_id }";
 				
-				if(whs_id==="" | ma_name==="" || unit==="" || ma_qty==="" || unit_cost==="" || shelt_position==="" || ma_emp==="") {
+// 				var obj = {whs_id:whs_id,
+// 				            ma_id:ma_id,
+// 						    ma_name:ma_name,
+// 						    unit:unit,
+// 						    ma_qty:ma_qty,
+// 						    unit_cost:unit_cost,
+// 						    shelt_position:shelt_position,
+// 						    ma_regdate:ma_regdate};
+
+				if(whs_id==="" || ma_name==="" || unit==="" || ma_qty==="" || unit_cost==="" || shelt_position==="") {
 					alert("모든 정보를 입력해주세요.");
 				} else {
 			             
 					$.ajax({
-						url: "maid",
-						type: "get",
-						data: { whs_id:whs_id,
-					            ma_id:ma_id,
-							    ma_name:ma_name,
-							    unit:unit,
-							    ma_qty:ma_qty,
-							    unit_cost:unit_cost,
-							    shelt_position:shelt_position,
-							    ma_regdate:ma_regdate,
-							    ma_emp:ma_emp },
+						url: 'maid',
+						type: 'post',
+						data: {
+							whs_id:whs_id,
+                            ma_id:ma_id,
+                            ma_name:ma_name,
+                            unit:unit,
+                            ma_qty:ma_qty,
+                            unit_cost:unit_cost,
+                            shelt_position:shelt_position,
+                            ma_regdate:ma_regdate,
+                            ma_emp:ma_emp
+						},
 						success: function() {
 							alert("자재코드 " + ma_id + ", 등록 완료되었습니다.");
 							location.href="/purchasing/material/list";
 						},
-						error: function() {
+						error: function(err) {
 							alert("error");
 						}
 					}); //ajax
@@ -195,8 +209,6 @@ $(document).ready(function() {
 		
 						// 여기서 ma_id를 이용해서 if문걸어가지고 같은 값일때 아래처럼 나오게하면될듯?!
 						
-	
-								
 						// resultVO에서 테이블 값 가져오기
 						$(data).each(function(idx, obj){
 							var str = "";
@@ -378,9 +390,6 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-   <h1>Material_List</h1>
-   <h2>http://localhost:8088/purchasing/material/list</h2>
-   
    
 	<!-- 검색 -->
 	<form name="search-form" autocomplete="on">
@@ -442,8 +451,9 @@ $(document).ready(function() {
          </tr>
       </c:forEach>
      </tbody>
-   </table>
-   </div>
-   
+    </table>
+  	</div>
+
+<%@ include file="../../includes/footer.jsp" %>
 </body>
 </html>

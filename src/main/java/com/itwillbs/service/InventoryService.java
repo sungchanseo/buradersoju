@@ -3,9 +3,12 @@ package com.itwillbs.service;
 import java.util.List;
 
 import com.itwillbs.domain.MaterialVO;
+import com.itwillbs.domain.PagingVO;
 
 public interface InventoryService {
-
+    //페이징처리 변수저장을 위한 service생성
+	public PagingVO getListSearchObjectMaterialVO(PagingVO pvo) throws Exception;
+	
 	// 재고목록 보기
 	public List<MaterialVO> getInventoryList();
 	

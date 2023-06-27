@@ -66,7 +66,7 @@ public class WorkOrderController {
 			String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(hashMap);
 			System.out.println("@@@@@@@ json : "+json);
 			
-		return json;
+			return json;
 		}
 		
 		// 작업지시 등록 - 자재 재고 조회
@@ -82,24 +82,35 @@ public class WorkOrderController {
 			model.addAttribute("materialList",materialList);
 			return materialList;
 		}
+		// 검수 등록 db처리
+				@RequestMapping(value="/workOrderInsert", method=RequestMethod.POST)
+				public String insertWorkOrder(ProductionVO vo ) throws Exception {
+					logger.debug("@@@@@@@@@@@@Controller : 검수 등록 입력페이지");
+					
+					logger.debug(vo+"");
+					//servicer객체 호출
+					woService.insertWorkOrder(vo);
+					
+					return "redirect:/production/workOrder/workOrderList";
+				}
 	
-//		// 작업지시번호 생성 (작업지시 등록)
+		// 작업지시번호 생성 (작업지시 등록)
 //		private String makeProductionId() {
-//		    // 오늘 날짜의 형식을 "yyMMdd"로 변환
+		    // 오늘 날짜의 형식을 "yyMMdd"로 변환
 //		    SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMdd");
 //		    String currentDate = dateFormat.format(new Date());
-//	
-//		    // 조회된 마지막 작업지시번호의 순번
+	
+		    // 조회된 마지막 작업지시번호의 순번
 //		    int sequenceNumber = 1; // 예시로 1로 초기화
-//		    
-//		    // 데이터베이스에서 해당 날짜의 마지막 작업지시번호를 조회하는 로직
-//		    // int sequenceNumber = proService.getLastSequenceNumber(currentDate); 
-//		    	//  ProductionService 인터페이스에 getLastSequenceNumber 메서드를 추가 
-//		    	// -> 해당 메서드를 구현하는 클래스에서 실제로 데이터베이스에서 조회하는 로직을 작성 필요함
-//	
-//		    // 작업지시번호 생성
+		    
+		    // 데이터베이스에서 해당 날짜의 마지막 작업지시번호를 조회하는 로직
+		    // int sequenceNumber = proService.getLastSequenceNumber(currentDate); 
+		    	//  ProductionService 인터페이스에 getLastSequenceNumber 메서드를 추가 
+		    	// -> 해당 메서드를 구현하는 클래스에서 실제로 데이터베이스에서 조회하는 로직을 작성 필요함
+	
+		    // 작업지시번호 생성
 //		    String productionId = "PR" + currentDate + String.format("%03d", sequenceNumber);
-//	
+	
 //		    return productionId;
 //		}
 		

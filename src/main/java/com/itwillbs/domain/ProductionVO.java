@@ -27,8 +27,9 @@ public class ProductionVO {
 	private String op_id;
 	private String production_line;
 	private int plan_qty;
-	private int production_qty;
-	private String production_state;
+	private int production_qty;	
+	private String workOrder_status;
+	private String production_status;
 //	private String product_id;
 	
 	// product
@@ -59,18 +60,14 @@ public class ProductionVO {
 	
 	// getter / setter
 	
-	public String getProduction_id() {
-		return production_id;
+
+	public String getCont_id() {
+		return cont_id;
 	}
 
 
 	public Integer getCont_qty() {
 		return cont_qty;
-	}
-
-
-	public void setCont_qty(Integer cont_qty) {
-		this.cont_qty = cont_qty;
 	}
 
 
@@ -99,33 +96,8 @@ public class ProductionVO {
 	}
 
 
-	public void setMa_name(String ma_name) {
-		this.ma_name = ma_name;
-	}
-
-
-	public void setUse_qty(float use_qty) {
-		this.use_qty = use_qty;
-	}
-
-
-	public void setMa_id(String ma_id) {
-		this.ma_id = ma_id;
-	}
-
-
-	public void setMa_qty(float ma_qty) {
-		this.ma_qty = ma_qty;
-	}
-
-
-	public void setUnit(String unit) {
-		this.unit = unit;
-	}
-
-
-	public String getCont_id() {
-		return cont_id;
+	public String getProduction_id() {
+		return production_id;
 	}
 
 
@@ -159,8 +131,13 @@ public class ProductionVO {
 	}
 
 
-	public String getProduction_state() {
-		return production_state;
+	public String getWorkOrder_status() {
+		return workOrder_status;
+	}
+
+
+	public String getProduction_status() {
+		return production_status;
 	}
 
 
@@ -234,13 +211,43 @@ public class ProductionVO {
 	}
 
 
-	public void setProduction_id(String production_id) {
-		this.production_id = production_id;
+	public void setCont_id(String cont_id) {
+		this.cont_id = cont_id;
 	}
 
 
-	public void setCont_id(String cont_id) {
-		this.cont_id = cont_id;
+	public void setCont_qty(Integer cont_qty) {
+		this.cont_qty = cont_qty;
+	}
+
+
+	public void setMa_name(String ma_name) {
+		this.ma_name = ma_name;
+	}
+
+
+	public void setUse_qty(float use_qty) {
+		this.use_qty = use_qty;
+	}
+
+
+	public void setMa_id(String ma_id) {
+		this.ma_id = ma_id;
+	}
+
+
+	public void setMa_qty(float ma_qty) {
+		this.ma_qty = ma_qty;
+	}
+
+
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+
+
+	public void setProduction_id(String production_id) {
+		this.production_id = production_id;
 	}
 
 
@@ -274,8 +281,13 @@ public class ProductionVO {
 	}
 
 
-	public void setProduction_state(String production_state) {
-		this.production_state = production_state;
+	public void setWorkOrder_status(String workOrder_status) {
+		this.workOrder_status = workOrder_status;
+	}
+
+
+	public void setProduction_status(String production_status) {
+		this.production_status = production_status;
 	}
 
 
@@ -356,13 +368,14 @@ public class ProductionVO {
 				+ use_qty + ", ma_id=" + ma_id + ", ma_qty=" + ma_qty + ", unit=" + unit + ", production_id="
 				+ production_id + ", production_emp=" + production_emp + ", production_date=" + production_date
 				+ ", op_id=" + op_id + ", production_line=" + production_line + ", plan_qty=" + plan_qty
-				+ ", production_qty=" + production_qty + ", production_state=" + production_state + ", product_id="
-				+ product_id + ", product_name=" + product_name + ", complete_date=" + complete_date
-				+ ", complete_defQty=" + complete_defQty + ", qc_num=" + qc_num + ", qc_emp=" + qc_emp + ", qc_date="
-				+ qc_date + ", qc_qty=" + qc_qty + ", qc_state=" + qc_state + ", def_code=" + def_code + ", def_qty="
-				+ def_qty + ", bt_date=" + bt_date + ", bt_qty=" + bt_qty + ", bt_defQty=" + bt_defQty + "]";
+				+ ", production_qty=" + production_qty + ", workOrder_status=" + workOrder_status
+				+ ", production_status=" + production_status + ", product_id=" + product_id + ", product_name="
+				+ product_name + ", complete_date=" + complete_date + ", complete_defQty=" + complete_defQty
+				+ ", qc_num=" + qc_num + ", qc_emp=" + qc_emp + ", qc_date=" + qc_date + ", qc_qty=" + qc_qty
+				+ ", qc_state=" + qc_state + ", def_code=" + def_code + ", def_qty=" + def_qty + ", bt_date=" + bt_date
+				+ ", bt_qty=" + bt_qty + ", bt_defQty=" + bt_defQty + "]";
 	}
-
+	
 
 }
 

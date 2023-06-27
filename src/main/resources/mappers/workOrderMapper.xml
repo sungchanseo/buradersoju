@@ -47,9 +47,11 @@
 	</select>
 	<!-- 자재 재고 조회 -->
 	<!-- DB 등록 -->
-	<insert id="insert">
-		insert into production(production_id,production_emp,production_line,plan_qty) 
-		values(#{production_id},#{production_emp},#{production_line},#{plan_qty})
+	<insert id="insertWorkOrder">
+		insert into production(production_id,cont_id,production_emp,production_date,production_line,
+		product_id,plan_qty,workOrder_status) 
+		values(#{production_id},#{cont_id},#{production_emp},now(),#{production_line},
+		#{product_id},#{plan_qty},'대기')
 	</insert>
 	<!-- DB 등록 -->
 <!-- 작업지시 등록 -->

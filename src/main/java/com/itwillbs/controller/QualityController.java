@@ -116,7 +116,7 @@ public class QualityController {
 			//servicer객체 호출
 			quService.qualityInsertDB(vo);
 			
-				return "redirect:/quality/qualityList";
+			return "redirect:/quality/qualityList";
 		}
 			
 		/////// 검수 등록 ///////

@@ -103,6 +103,9 @@ public class ContractServiceImpl implements ContractService {
 					result = prefix + datePart + countPart;
 					logger.debug("@@@@@@ContractService : result={}", result);
 
+					
+					
+					
 				}
 			}
 		}

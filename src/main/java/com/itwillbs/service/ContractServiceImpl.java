@@ -102,10 +102,6 @@ public class ContractServiceImpl implements ContractService {
 					// 접두사+날짜+카운트를 조합한다.
 					result = prefix + datePart + countPart;
 					logger.debug("@@@@@@ContractService : result={}", result);
-
-					
-					
-					
 				}
 			}
 		}

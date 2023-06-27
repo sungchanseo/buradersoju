@@ -35,15 +35,18 @@
 								<form action="/employee/list" method="get" style="display:inline;" role="form">
 									<div class="form-group">								
 									<h1>사원리스트</h1>
-									
 									<!-- 검색창기능 -->
 										<select name="selector">
 											<option value="emp_name">이름</option>
 											<option value="emp_department">부서</option>
 										</select>
 										<input type="text" name="search" placeholder="검색어를 입력해주세요">
-										<input type="submit" class="btn-danger" value="검색">
-									<!-- 검색창기능 -->									
+										<input type="submit" class="btn btn-info" value="검색">
+									<!-- 검색창기능 -->		
+																
+									<c:if test="${emp_department.equals('인사팀') || emp_department.equals('인사') }">
+										<input type="button" class="btn btn-success" value="사원등록" onclick="insertPop()">
+									</c:if>
 									
 									<table class="table table-hover">
 										<tr>
@@ -73,22 +76,23 @@
 									</table>
 									<!-- 이 곳에 내용 작성하시면 됩니다  -->
 									</div>
-									<c:if test="${emp_department.equals('인사팀') || emp_department.equals('인사') }">
-										<input type="button" class="btn btn-success btn-fw" value="사원등록" onclick="insertPop()">
-									</c:if>
-									
+
 									<!-- 	페이징 처리  -->
-									<c:if test="${pvo.startPage > pvo.pageBlock }">
-										<a href="/employee/list?pageNum=${pvo.startPage-pvo.pageBlock}">이전</a>
-									</c:if>
-								
-									<c:forEach var="i" begin="${pvo.startPage }" end="${pvo.endPage }" step="1">
-										<a href="/employee/list?pageNum=${i }">${i }</a>
-									</c:forEach>
-								
-									<c:if test="${pvo.endPage < pvo.pageCount }">
-										<a href="/employee/list?pageNum=${pvo.startPage + pvo.pageBlock}">다음</a>
-									</c:if>
+									<div class="template-demo">
+										<div class="btn-group" role="group" aria-label="Basic example">
+											<c:if test="${pvo.startPage > pvo.pageBlock }">
+												<a href="/employee/list?pageNum=${pvo.startPage-pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">이전</a>
+											</c:if>
+											
+											<c:forEach var="i" begin="${pvo.startPage }" end="${pvo.endPage }" step="1">
+												<a href="/employee/list?pageNum=${i }&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">${i }</a>
+											</c:forEach>
+											
+											<c:if test="${pvo.endPage<pvo.pageCount }">
+												<a href="/employee/list?pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">다음</a>
+											</c:if>
+										</div>
+									</div>
 									<!-- 	페이징 처리  -->
 								</form>
 							</div>

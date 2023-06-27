@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class MaterialVO {
 
-	// 멤버변수
+	// Material
 	private String ma_id;
 	private String ma_name;
 	private int ma_qty;
@@ -14,12 +14,19 @@ public class MaterialVO {
 	private String shelt_position;
 	private Date ma_regdate;
 	private int ma_emp;
+	private String whs_id;
 	
-
-	// getset 메서드
+	// 검색필터
+	private String type;
+	private String keyword;
+	
+	
+	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ Getter & Setter ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+	// material
 	public String getMa_id() {
 		return ma_id;
 	}
+
 	public void setMa_id(String ma_id) {
 		this.ma_id = ma_id;
 	}
@@ -48,7 +55,6 @@ public class MaterialVO {
 	public void setShelt_position(String shelt_position) {
 		this.shelt_position = shelt_position;
 	}
-
 	public Date getMa_regdate() {
 		return ma_regdate;
 	}
@@ -68,15 +74,40 @@ public class MaterialVO {
 	public void setUnit(String unit) {
 		this.unit = unit;
 	}
+	
+	public String getWhs_id() {
+		return whs_id;
+	}
+	public void setWhs_id(String whs_id) {
+		this.whs_id = whs_id;
+	}
+	
+	// 검색필터
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+
+	
+	// toString 메서드
 	@Override
 	public String toString() {
 		return "MaterialVO [ma_id=" + ma_id + ", ma_name=" + ma_name + ", ma_qty=" + ma_qty + ", unit=" + unit
 				+ ", unit_cost=" + unit_cost + ", shelt_position=" + shelt_position + ", ma_regdate=" + ma_regdate
-				+ ", ma_emp=" + ma_emp + ", orderVO=" + "]";
+				+ ", ma_emp=" + ma_emp + ", whs_id=" + whs_id + "]";
 	}
 	
-	
-	
-	// toString 메서드
 
+	
 }

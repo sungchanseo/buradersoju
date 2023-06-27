@@ -9,7 +9,9 @@
 
 <!-- 자재 목록 조회  -->
 	<select id="getMaterialList" resultType="com.itwillbs.domain.MaterialVO">
-		select * from material
+		select ma_id, ma_name, unit, ma_qty, unit_cost, whs_id, shelt_position, ma_regdate, ma_emp
+		from material
+		where status = 1
 	</select>
 <!-- 자재 목록 조회  -->
 
@@ -17,7 +19,7 @@
 <!-- 자재 정보 조회 -->
 	<select id="getMaterialInfo" resultType="com.itwillbs.domain.MaterialVO">
 		select * from material 
-		where ma_id = #{ma_id}
+		where ma_id = #{ma_id} and status = 1
 	</select>
 <!-- 자재 정보 조회 -->
 
@@ -32,30 +34,46 @@
 
 <!-- 자재 등록 -->
 	<insert id="insertMaterial">
-		insert into material (ma_id, ma_name, ma_qty, unit, unit_cost, shelt_position, ma_regdate, ma_emp)
-		values (#{ma_id}, #{ma_name}, #{ma_qty}, #{unit}, #{unit_cost}, #{shelt_position}, now(), #{ma_emp})
+		insert into material (ma_id, ma_name, ma_qty, unit, unit_cost, whs_id, shelt_position, ma_regdate, ma_emp)
+		values (#{ma_id}, #{ma_name}, #{ma_qty}, #{unit}, #{unit_cost}, #{whs_id}, #{shelt_position}, now(), #{ma_emp})
 	</insert>
 <!-- 자재 등록 -->
 
 
-
-
-
-
 <!-- 자재 정보 업데이트 -->
 	<update id="modifyMaterial" >
-		update material set ma_name=#{ma_name}, unit_cost=#{unit_cost}, whs_num=#{whs_num}, shelt_position=#{shelt_position}, ma_image=#{ma_image}, ma_regdate=now(), ma_emp=#{ma_emp}, ma_qty=#{ma_qty}
+		update material set ma_name=#{ma_name}, unit=#{unit}, ma_qty=#{ma_qty}, unit_cost=#{unit_cost}, whs_id=#{whs_id}, shelt_position=#{shelt_position}, ma_regdate=now(), ma_emp=#{ma_emp}
 		where ma_id = #{ma_id}
 	</update>
 <!-- 자재 정보 업데이트 -->
 
 
 <!-- 자재 삭제 -->
-	<delete id="deleteMaterial">
-		delete from material
-		where ma_id = #{ma_id}
-	</delete>
+	<update id="deleteMaterial" >
+		update material SET status = 0
+		where ma_id = #{ma_id};
+	</update>
 <!-- 자재 삭제 -->
+
+
+<!-- 자재 검색 (ma_name) -->
+	<select id="searchMaterial" parameterType="com.itwillbs.domain.MaterialVO" resultType="com.itwillbs.domain.MaterialVO">
+		SELECT ma_id, ma_name, unit, ma_qty, unit_cost, whs_id, shelt_position, ma_regdate, ma_emp
+		FROM material
+		WHERE status = 1
+		<choose>
+			<when test="type != null and type.equals('ma_id')">
+			AND ma_id LIKE CONCAT('%', #{keyword}, '%')
+			</when>
+			<when test="type != null and type.equals('ma_name')">
+			AND ma_name LIKE CONCAT('%', #{keyword}, '%')
+			</when>
+		</choose>
+	</select>
+<!-- 자재 검색 (ma_name) -->
+
+
+
 
 
 

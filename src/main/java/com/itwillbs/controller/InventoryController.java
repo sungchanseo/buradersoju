@@ -37,12 +37,14 @@ public class InventoryController {
 	public void listGET(Model model , PagingVO pvo ,
 			HttpServletRequest request) throws Exception{
 		logger.debug("@@@@@listGET()호출!@@@@@");
+		logger.debug("@@@@@@@@@Controller : {}",pvo);
 		
 		List<Object> customerList = null;
 		
+		//거래처목록을 가져오는 invservice 호출
 		pvo = invservice.getListSearchObjectMaterialVO(pvo);
 		logger.debug("@@@@@@@@@Controller : {}",pvo);
-		
+		logger.debug(pvo.getSelector());
 	//	service객체를 호출
 		if(pvo.getSelector()!=null && pvo.getSelector()!="") {
 			//검색어가 있을 때 
@@ -52,9 +54,9 @@ public class InventoryController {
 		else {
 			//검색어가 없을 때
 			logger.debug("@@@@@@@@@Controller : 검색어가 없을 때입니다");
-			customerList = pageService.getListSearchObjectMaterialVO(pvo);
+			customerList = pageService.getListPageSizeObjectMaterialVO(pvo);
 		}
-		customerList = pageService.getListPageSizeObjectMaterialVO(pvo);
+		
 		logger.debug("@@@@@@@@@Controller : customerList={}",customerList);
 	
 		//변수에 담아서 전달

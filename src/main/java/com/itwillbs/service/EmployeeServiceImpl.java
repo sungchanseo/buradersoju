@@ -26,7 +26,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 		//employee 서비스에 필요한 변수를 저장. 
 		pvo.setTable("employee");
 		pvo.setId("emp_id");
-		pvo.setPageSize(10);
+		pvo.setPageSize(8);
 		pvo.setStartRow(1);
 		pvo.setStatus_name("emp_status");
 		pvo.setStatus_value("재직");

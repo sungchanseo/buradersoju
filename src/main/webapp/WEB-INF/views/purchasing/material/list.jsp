@@ -398,15 +398,15 @@ $(document).ready(function() {
 			<option value="ma_name">품명</option>
 		</select>
 		<input type="text" id="keyword" name="keyword" value="">	
-		<input type="button" id="btnsearch" class="btn btn-outline-primary mr-2" value="검색">
+		<input type="button" id="btnsearch" class="btn btn-success" value="검색">
 	</form>
 	
 		
 	<!-- 버튼 -->
-	<button class="insertForm true" >등록</button>
-	<button class="btn btn-outline btn-primary pull-right modify true">수정</button>
-	<button class="btn btn-outline btn-primary pull-right" id="delete">삭제</button>
-	<button class="insert update delete">저장</button>
+	<button class="btn btn-info insertForm true">등록</button>
+	<button class="btn btn-info modify true">수정</button>
+	<button class="btn btn-info" id="delete">삭제</button>
+	<button class="btn btn-success insert update">저장</button>
    
    
 	<!-- 테이블 -->

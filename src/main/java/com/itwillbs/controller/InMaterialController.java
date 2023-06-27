@@ -60,15 +60,16 @@ public class InMaterialController {
 	// 2-2. 입고번호 - DB 업데이트
 	@RequestMapping(value="/inid", method=RequestMethod.POST)
 	public void getInIdPOST(Model model, @RequestParam("in_id") String in_id,
-			                             @RequestParam("order_id") String order_id) throws Exception{
+			                             @RequestParam("order_id") String order_id,
+			                             @RequestParam("in_emp") int in_emp) throws Exception{
 		logger.debug("@@@@@@@@@@ getInIdPOST()_호출");
 
 		// 입고번호, 발주번호 DB에 저장
 		InMaterialVO vo = new InMaterialVO();
 		vo.setIn_id(in_id);
 		vo.setOrder_id(order_id);
+		vo.setIn_emp(in_emp);
 		iService.registInId(vo);
-		logger.debug("@@@@@@@@@@ in_id = " + vo.getIn_id());
 	}
 	
 	

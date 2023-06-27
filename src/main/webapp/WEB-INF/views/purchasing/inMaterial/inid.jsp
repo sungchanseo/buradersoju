@@ -109,13 +109,18 @@ $(document).ready(function(){
 		alert(in_id + ", 입고처리가 완료되었습니다.");
 		
 		
+		// 입고담당 직원 정보
+		var in_emp = "${sessionScope.emp_id}";
+		
+		
 		// ajax 사용 controller에 정보 전달
 		$.ajax({
-				url: "inid",
+				url: 'inid',
 				type: 'post',
 				data: {
 					in_id:in_id,
-					order_id:order_id
+					order_id:order_id,
+					in_emp:in_emp
 				},
 				success: function(data){
 					location.href = "/purchasing/inMaterial/list";

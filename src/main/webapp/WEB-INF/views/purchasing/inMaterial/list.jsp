@@ -9,7 +9,7 @@
 
 <div>
  	<fmt:formatDate value=""/> 
-	<table border="1">
+	<table border="1" class="table">
 	<tr>
 		<th>입고번호</th>
 		<th>발주번호</th>
@@ -57,7 +57,7 @@
 			</td>
 			<td>		
 				<c:if test="${empty iml.in_id }">
-					<input type="button" class="inidregist" value="입고처리" 
+					<input type="button" class="btn-outline-success inidDone" value="입고처리" 
 					                     onclick="location.href='/purchasing/inMaterial/inid?order_id=${iml.order_id }';">
 				</c:if>
 			</td>

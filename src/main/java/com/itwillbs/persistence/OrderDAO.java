@@ -12,14 +12,22 @@ import com.itwillbs.domain.OrderVO;
 public interface OrderDAO {
 
 	// 발주 목록보기
-	public List<OrderVO> getOrderList();
+	public List<OrderVO> getOrderList() throws Exception;
 	
 	// 발주 수정하기
-	public Integer modifyOrder(OrderVO vo);
+	public Integer modifyOrder(OrderVO vo) throws Exception;
 	
 	// 발주 등록하기 
-	public void insertOrder(OrderVO vo);
+	public void insertOrder(OrderVO vo) throws Exception;
 	
+	//발주번호 최대값 (maxNumber) 230620004
+	public String getMaxNumber() throws Exception;
+		
+    // 발주번호 최대날짜 (maxDate) 230620
+	public String getMaxDate() throws Exception;
+	
+	// 발주번호등록하기 
+    public void regisOrderId(OrderVO vo) throws Exception;
 	
 	
 }

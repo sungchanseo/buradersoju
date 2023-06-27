@@ -44,6 +44,24 @@ public class OrderDAOImpl implements OrderDAO{
 		sqlSession.insert(NAMESPACE+".insertOrder",vo);
 	}
 
+	@Override
+	public String getMaxNumber() {
+		
+		return sqlSession.selectOne(NAMESPACE+".getMaxNumber"); //230620001
+	}
+
+	@Override
+	public String getMaxDate() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(NAMESPACE+".getMaxDate");
+	}
+
+	@Override
+	public void regisOrderId(OrderVO vo) throws Exception {
+	
+		sqlSession.update(NAMESPACE + ".regisOrderId", vo);
+	}
+
 	
 	
    

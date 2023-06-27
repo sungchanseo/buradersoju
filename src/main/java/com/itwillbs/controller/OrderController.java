@@ -28,18 +28,27 @@ public class OrderController {
 	
 	// http://localhost:8088/purchasing/order/list
 	@RequestMapping(value="/list", method = RequestMethod.GET)
-	public void orderListGET(Model model , OrderVO vo) {
+	public void orderListGET(Model model , OrderVO vo)  throws Exception{
 		
 		logger.debug("@@@@@orderList 호출@@@@@");
 		// service 객체 호출
 		List<OrderVO> orderList = orserivce.getOrderList();
+        logger.debug("@@@@@@@@@@ getOrderIdGET() 호출");
+ 		
+ 		String maxNumber = orserivce.getMaxNumber();
+ 		String maxDate = orserivce.getMaxDate();
 	    
 	    // View페이지 정보 전달
+ 		logger.debug("@@@@@@@@@@@@@@ maxNumber = " + maxNumber);	
+ 		logger.debug("@@@@@@@@@@@@@@ maxDate = " + maxDate);	   
+ 		
+ 		model.addAttribute("maxNumber", maxNumber);
+ 		model.addAttribute("maxDate", maxDate);
 		model.addAttribute("orderList", orderList);
 	}
     
     @RequestMapping(value="/list", method = RequestMethod.POST)
-    public String orderInsertGET(OrderVO vo) {
+    public String orderInsertGET(OrderVO vo) throws Exception {
    
      logger.debug("@@@@@발주 등록 행추가 가즈아~@@@@");
    
@@ -49,7 +58,22 @@ public class OrderController {
 	 
       return "redirect:/purchasing/order/list";
    }
-
+ // http://localhost:8088/purchasing/order/orderid
+ // 2-1. 발주번호 - 자동넘버링
+// 	@RequestMapping(value="/orderid", method=RequestMethod.GET)
+// 	public void getInIdGET(Model model) throws Exception {
+// 		logger.debug("@@@@@@@@@@ getOrderIdGET() 호출");
+// 		
+// 		String maxNumber = orserivce.getMaxNumber();
+// 		String maxDate = orserivce.getMaxDate();
+// 		logger.debug("@@@@@@@@@@@@@@ maxNumber = " + maxNumber);	
+// 		logger.debug("@@@@@@@@@@@@@@ maxDate = " + maxDate);	   
+// 		
+// 		model.addAttribute("maxNumber", maxNumber);
+// 		model.addAttribute("maxDate", maxDate);
+// 	}
+ 	
+ 	
    @RequestMapping(value = "/modify" , method = RequestMethod.GET)
     public void modifyOrderGET(OrderVO vo) {
     	logger.debug("@@@@@modifyOrderGET()호출!@@@@@");

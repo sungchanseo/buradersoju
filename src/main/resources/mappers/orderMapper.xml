@@ -16,4 +16,21 @@
          insert into orders (order_id, ma_id, order_qty, order_sum, order_vat, order_emp, order_date,due_date,in_date)
          values (#{order_id}, #{ma_id}, #{order_qty}, #{order_sum},#{order_vat}, #{order_emp},#{order_date},#{due_date},#{in_date})
        </insert>
+       
+        <!--발주번호 최대 값 (maxNumber) 230620004 -->
+    <select id="getMaxNumber" resultType="String">
+        SELECT MAX((SUBSTRING(order_id, 3)))
+		FROM orders;
+    </select>
+ <!-- 발주번호 최대값 (maxNumber) 230620004 -->
+ 
+ 
+ <!-- DB 발주번호 최대 날짜 (maxDate) == 230620 -->	
+ 	<select id="getMaxDate" resultType="String">
+ 		SELECT MAX((SUBSTRING(order_id, 3, 6)))
+		FROM orders;
+ 	</select>
+ <!-- DB 발주번호 최대 날짜 (maxDate) == 230620 -->
+ 
+ 
       </mapper>

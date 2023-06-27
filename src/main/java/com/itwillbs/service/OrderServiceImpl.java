@@ -19,7 +19,7 @@ public class OrderServiceImpl implements OrderService {
 
 	// 전체 리스트 불러오기
 	@Override
-	public List<OrderVO> getOrderList() {
+	public List<OrderVO> getOrderList() throws Exception {
 
 		return odao.getOrderList();		
 	}
@@ -31,9 +31,27 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public void insertOrder(OrderVO vo) {
+	public void insertOrder(OrderVO vo) throws Exception {
 		odao.insertOrder(vo);
 		
 	}
+
+	@Override
+	public String getMaxNumber() throws Exception {
+		
+		return odao.getMaxNumber();
+	}
+
+	@Override
+	public String getMaxDate() throws Exception {
+		
+		return odao.getMaxDate();
+	}
+
+	@Override
+	public void registOrderId(OrderVO vo) throws Exception {
+		odao.regisOrderId(vo);
+	}
+	
 	
 }

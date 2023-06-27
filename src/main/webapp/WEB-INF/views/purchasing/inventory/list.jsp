@@ -98,15 +98,24 @@
 
 </head>
 <body>
-
-    <button class="writeForm true">행추가</button>
+<!-- 검색창기능 -->
+		<form action="/purchasing/inventory/list" method="get" style="display: inline;">
+		
+			<select name="selector">
+				<option value="ma_name">자재명</option>
+				<option value="ma_id">자재코드</option>
+			</select> <input type="text" class="form-control" style="width:10%; display:inline;" name="search" placeholder="검색어를 입력해주세요">
+			<input type="submit"  class="btn btn-info" value="검색">
+		</form>
+		<!-- 검색창기능 -->
+ 
    <fmt:formatDate value=""/>
-   <div class="inventory" > 
+
    <table border="1" id="#bodyContents">
    <thead>
       <tr>
-         <th>품목명</th>
-         <th>품목코드</th>
+         <th>자재명</th>
+         <th>자재코드</th>
          <th>현재고</th>
          <th>단위?</th>
          <th>날짜</th>
@@ -129,7 +138,36 @@
       </c:forEach>
       </tbody>
    </table>
-   </div>
+ 
+   
+   	<!-- 	페이징 처리  -->
+	<div class="template-demo">
+		<div class="btn-group" role="group" aria-label="Basic example">
+			<c:if test="${pvo.startPage > pvo.pageBlock }">
+				<a href="/purchasing/inventory/list?pageNum=${pvo.startPage-pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">이전</a>
+			</c:if>
+			
+			<c:forEach var="i" begin="${pvo.startPage }" end="${pvo.endPage }" step="1">
+				<a href="/purchasing/inventory/list?pageNum=${i }&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">${i }</a>
+			</c:forEach>
+			
+			<c:if test="${pvo.endPage<pvo.pageCount }">
+				<a href="/purchasing/inventory/list?pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">다음</a>
+			</c:if>
+		</div>
+		<!-- 		<div class="btn-group" role="group" aria-label="Basic example"> -->
+		<!-- 			<button type="button" class="btn btn-outline-secondary"> -->
+		<!-- 				<i class="mdi mdi-heart-outline"></i> -->
+		<!-- 			</button> -->
+		<!-- 			<button type="button" class="btn btn-outline-secondary"> -->
+		<!-- 				<i class="mdi mdi-calendar"></i> -->
+		<!-- 			</button> -->
+		<!-- 			<button type="button" class="btn btn-outline-secondary"> -->
+		<!-- 				<i class="mdi mdi-clock"></i> -->
+		<!-- 			</button> -->
+		<!-- 		</div> -->
+	</div>
+	<!-- 	페이징 처리  -->
  <script>
     /*실사량 수정 버튼 동작  */
  $(document).ready(function() {

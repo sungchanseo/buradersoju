@@ -7,9 +7,9 @@
  
    <!-- 발주목록 조회  -->              
       <select id="getOrderList" resultType="com.itwillbs.domain.OrderVO">
-        SELECT o.order_id, m.ma_id, m.ma_name, m.ma_qty, o.order_vat,o.order_sum ,o.order_date, o.due_date, o.order_emp, o.order_qty, m.shelt_position, i.in_date,m.unit_cost
-		FROM material m, orders o, in_material i
-		WHERE m.ma_id = o.ma_id AND o.order_id = i.order_id
+        SELECT o.order_id, m.ma_id, m.ma_name, m.ma_qty, o.order_vat,o.order_sum ,o.order_date, o.due_date, o.order_emp, o.order_qty, m.shelt_position,m.unit_cost
+		FROM material m, orders o
+		WHERE m.ma_id = o.ma_id 
       </select>
    <!-- 발주목록 조회  -->
        <insert id="insertOrder" >

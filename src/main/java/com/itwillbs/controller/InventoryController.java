@@ -37,23 +37,26 @@ public class InventoryController {
 	public void listGET(Model model , PagingVO pvo ,
 			HttpServletRequest request) throws Exception{
 		logger.debug("@@@@@listGET()호출!@@@@@");
+		logger.debug("@@@@@@@@@Controller : {}",pvo);
 		
 		List<Object> customerList = null;
 		
+		//거래처목록을 가져오는 invservice 호출
 		pvo = invservice.getListSearchObjectMaterialVO(pvo);
 		logger.debug("@@@@@@@@@Controller : {}",pvo);
-		
+		logger.debug(pvo.getSelector());
 	//	service객체를 호출
-//		if(pvo.getSelector()!=null && pvo.getSelector()!="") {
-//			//검색어가 있을 때 
-//			logger.debug("@@@@@@@@@Controller : 검색어가 있을 때입니다");
-//			customerList = pageService.getListSearchObjectMaterialVO(pvo);
-//		}else {
-//			//검색어가 없을 때
-//			logger.debug("@@@@@@@@@Controller : 검색어가 없을 때입니다");
-//			customerList = pageService.getListSearchObjectMaterialVO(pvo);
-//		}
-		customerList = pageService.getListPageSizeObjectMaterialVO(pvo);
+		if(pvo.getSelector()!=null && pvo.getSelector()!="") {
+			//검색어가 있을 때 
+			logger.debug("@@@@@@@@@Controller : 검색어가 있을 때입니다");
+			customerList = pageService.getListSearchObjectMaterialVO(pvo);
+		}
+		else {
+			//검색어가 없을 때
+			logger.debug("@@@@@@@@@Controller : 검색어가 없을 때입니다");
+			customerList = pageService.getListPageSizeObjectMaterialVO(pvo);
+		}
+		
 		logger.debug("@@@@@@@@@Controller : customerList={}",customerList);
 	
 		//변수에 담아서 전달
@@ -67,7 +70,7 @@ public class InventoryController {
 	// 재고 등록 처리
     @ResponseBody
 	@RequestMapping(value = "/list", method = RequestMethod.POST)
-	public String insertPOST(MaterialVO vo){
+	public String insertPOST(MaterialVO vo) throws Exception{
 		
 		logger.debug("@@@@ 재고등록 행추가@@@@");
 		
@@ -83,7 +86,7 @@ public class InventoryController {
 	
 	// 재고수정 디비처리
 	@RequestMapping(value="/modify", method= RequestMethod.POST)
-	public String modifyInventoryPOST(MaterialVO mvo) {
+	public String modifyInventoryPOST(MaterialVO mvo) throws Exception {
      		logger.debug("@@@@@modifyINPOST()호출!@@@@@");
 			logger.debug("수정가보자아앙제발라ㅏ앙");
 			logger.debug("@@@@@@Contoroller : 수정한 거래정보" + mvo);

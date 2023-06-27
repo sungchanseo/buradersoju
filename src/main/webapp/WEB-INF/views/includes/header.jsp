@@ -81,17 +81,17 @@
         <div class="container">
             <ul class="nav page-navigation">
               <li class="nav-item">
-                <a class="nav-link" href="" >
+                <a class="nav-link" href="/employee/list" >
                   <i class="mdi mdi-account menu-icon" style="font-size: 30px; "></i>
                   <span class="menu-title">사원 관리</span>
                 </a>
                 <div class="submenu">
-                      <ul class="submenu-item">
-                      	  <li class="nav-item"><a class="nav-link" href="/employee/list">사원 조회</a></li>
+<!--                       <ul class="submenu-item"> -->
+<!--                       	  <li class="nav-item"><a class="nav-link" href="/employee/list">사원 조회</a></li> -->
 <!--                           <li class="nav-item"><a class="nav-link" href="">사원 등록</a></li> -->
 <!--                           <li class="nav-item"><a class="nav-link" href="">사원 수정</a></li> -->
 <!--                           <li class="nav-item"><a class="nav-link" href="">사원 삭제</a></li> --> 
-                      </ul>
+<!--                       </ul> -->
                   </div>
               </li>
                <li class="nav-item">

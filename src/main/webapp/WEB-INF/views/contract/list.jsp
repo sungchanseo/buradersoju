@@ -21,13 +21,16 @@
 				<option value="cust_name">상품명</option>
 				<option value="cust_id">수주처</option>
 			</select> <input type="text" name="search" placeholder="검색어를 입력해주세요">
-			<input type="submit" class="btn-danger" value="검색">
+			<input type="submit" class="btn btn-info" value="검색">
 		</form>
 		<!-- 검색창기능 -->
 		
-		<input type="button" value="수주등록" onclick="openPop();"> 
-		<input type="button" value="엑셀다운"> 
-		<input type="button" value="출력하기"> 
+<!-- 		<input type="button" value="수주등록" onclick="openPop();">  -->
+<!-- 		<input type="button" value="엑셀다운">  -->
+<!-- 		<input type="button" value="출력하기">  -->
+		<button type="button" class="btn btn-success" onclick="openPop();">수주등록</button>
+		<button type="button" class="btn btn-success">엑셀다운</button>
+		<button type="button" class="btn btn-success">출력하기</button>
 
 		<!-- 수주목록 테이블 -->
 		<div class="table-responsive">

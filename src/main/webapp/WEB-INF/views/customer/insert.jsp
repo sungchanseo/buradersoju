@@ -8,155 +8,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> <!-- 우편api -->
 <title>거래처 등록하기</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/mdi/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/base/vendor.bundle.base.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main/fullcalendar-5.11.4/lib/main.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 </head>
 <body>
-<div class="card-body">
-                  <h4 class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">가로 2열</font></font></h4>
-                  <form class="form-sample">
-                    <p class="card-description"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
-                      개인적인 정보
-                    </font></font></p>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">이름</font></font></label>
-                          <div class="col-sm-9">
-                            <input type="text" class="form-control">
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">성</font></font></label>
-                          <div class="col-sm-9">
-                            <input type="text" class="form-control">
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">성별</font></font></label>
-                          <div class="col-sm-9">
-                            <select class="form-control">
-                              <option><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">남성</font></font></option>
-                              <option><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">여성</font></font></option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">생일</font></font></label>
-                          <div class="col-sm-9">
-                            <input class="form-control" placeholder="dd/mm/yyyy">
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">범주</font></font></label>
-                          <div class="col-sm-9">
-                            <select class="form-control">
-                              <option><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">카테고리1</font></font></option>
-                              <option><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">카테고리2</font></font></option>
-                              <option><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">카테고리3</font></font></option>
-                              <option><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">카테고리4</font></font></option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">멤버십</font></font></label>
-                          <div class="col-sm-4">
-                            <div class="form-check">
-                              <label class="form-check-label">
-                                <input type="radio" class="form-check-input" name="membershipRadios" id="membershipRadios1" value="" checked=""><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
-                                무료
-                              </font></font><i class="input-helper"></i></label>
-                            </div>
-                          </div>
-                          <div class="col-sm-5">
-                            <div class="form-check">
-                              <label class="form-check-label">
-                                <input type="radio" class="form-check-input" name="membershipRadios" id="membershipRadios2" value="option2"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
-                                전문적인
-                              </font></font><i class="input-helper"></i></label>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <p class="card-description"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
-                      주소
-                    </font></font></p>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">주소 1</font></font></label>
-                          <div class="col-sm-9">
-                            <input type="text" class="form-control">
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">상태</font></font></label>
-                          <div class="col-sm-9">
-                            <input type="text" class="form-control">
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">주소 2</font></font></label>
-                          <div class="col-sm-9">
-                            <input type="text" class="form-control">
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">우편번호</font></font></label>
-                          <div class="col-sm-9">
-                            <input type="text" class="form-control">
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">도시</font></font></label>
-                          <div class="col-sm-9">
-                            <input type="text" class="form-control">
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">국가</font></font></label>
-                          <div class="col-sm-9">
-                            <select class="form-control">
-                              <option><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">미국</font></font></option>
-                              <option><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">이탈리아</font></font></option>
-                              <option><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">러시아</font></font></option>
-                              <option><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">영국</font></font></option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-
-	<h1>거래처 등록하기</h1>
+	<h1 class="">거래처 등록</h1>
 	<form action="" role="form" method="post">
 		<table border="1">
 			<tr>
@@ -223,7 +81,8 @@
 				<td><input type="text" name="cust_homepage" placeholder="홈페이지를 입력하세요(선택)."></td>
 			</tr>
 		</table>
-		<input type="button" id="submit" value="작성완료" onclick="sendForm();">
+		<button type="button" class="btn btn-success" id="submit" onclick="sendForm();">작성완료</button>
+		<button type="button" class="btn btn-success" onclick="window.close();">창닫기</button>
 	</form>
 <!-- 	http://localhost:8088/customer/list -->
 <!-- 	제이쿼리 -->

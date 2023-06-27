@@ -10,7 +10,6 @@
 	<select id="getCustomerInfo"
 		resultType="com.itwillbs.domain.CustomerVO">
 		select * from customer
-		where cust_id = #{cust_id}
 	</select>
 	<!-- customer 상세보기 -->
 

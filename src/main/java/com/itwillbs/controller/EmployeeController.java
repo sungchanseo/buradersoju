@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.domain.EmployeeVO;
@@ -44,9 +45,12 @@ public class EmployeeController {
 	// 회원가입
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
 	@ResponseBody
-	public String insertPOST(EmployeeVO vo) throws Exception {
+	public String insertPOST(EmployeeVO vo, @RequestParam("address") String address) throws Exception {
 		logger.debug("insertPOST() 호출!");
 		logger.debug("controller : {} ", vo);
+		
+		// 주소 하나로 만들기
+		vo.setEmp_address(address+" "+vo.getEmp_address());
 
         // 현재 연도 가져오기
         LocalDateTime now = LocalDateTime.now();

@@ -45,7 +45,7 @@
 			<tr>
 				<th>성별</th>
 				<td>
-					<label><input type="radio" name="emp_gender" value="남">남</label>
+					<label><input type="radio" name="emp_gender" value="남" checked>남</label>
 					<label><input type="radio" name="emp_gender" value="여">여</label>
 				</td>			
 				<th>부서</th>
@@ -58,13 +58,13 @@
 				</select></td>
 				<th>직급</th>
 				<td><select name="emp_position">
-						<option value="임원">임원</option>
-						<option value="부장">부장</option>
-						<option value="차장">차장</option>
-						<option value="과장">과장</option>
-						<option value="대리">대리</option>
-						<option value="주임">주임</option>
 						<option value="사원">사원</option>
+						<option value="주임">주임</option>
+						<option value="대리">대리</option>
+						<option value="과장">과장</option>
+						<option value="차장">차장</option>
+						<option value="부장">부장</option>
+						<option value="임원">임원</option>
 				</select></td>
 			</tr>
 			<tr>
@@ -90,9 +90,9 @@
 			</tr>
 			
 		</table>
-		<input type="submit" class="btn btn-success btn-fw" value="사원등록" onclick="sendForm();">
-		<input type="reset" class="btn btn-success btn-fw" value="초기화">
-		<input type="button" class="btn btn-success btn-fw" value="창닫기" onclick="window.close();">
+		<input type="submit" class="btn btn-info" value="사원등록" onclick="sendForm();">
+		<input type="reset" class="btn btn-success" value="초기화">
+		<input type="button" class="btn btn-success" value="창닫기" onclick="window.close();">
 	</form>
 	
 	<script>
@@ -108,92 +108,90 @@
 		// 주소 자동입력 api 메소드	
 	
 		// 중복체크와 입력값 확인
-// 		$(document).ready(function () { 
-			
-// 			$('#fr').submit(function() {				
-// 				if($('#emp_pw').val() == ""){
-// 					alert('비밀번호를 입력하세요.');
-// 					$('#emp_pw').focus();
-// 					return false;
-// 				}//비밀번호 입력 제어
-				
-// 				if($('#emp_name').val() == ""){
-// 					alert('이름을 입력하세요.');
-// 					$('#emp_name').focus();
-// 					return false;
-// 				}//이름 입력 제어
-				
-// 				if($('#emp_birth').val() == ""){
-// 					alert('생년월일을 입력하세요.');
-// 					$('#emp_birth').focus();
-// 					return false;
-// 				}//생년월일 입력 제어
-							
-// 				if($('#emp_phone').val() == ""){
-// 					alert('연락처를 입력하세요.');
-// 					$('#emp_phone').focus();
-// 					return false;
-// 				}//연락처 입력 제어
-				
-// 				if($('#emp_email').val() == ""){
-// 					alert('이메일를 입력하세요.');
-// 					$('#emp_email').focus();
-// 					return false;
-// 				}//이메일 입력 제어
-				
-// 				if($('#address').val() == ""){
-// 					alert('주소를 입력하세요.');
-// 					$('#address').focus();
-// 					return false;
-// 				}//주소 입력 제어
-				
-// 				if($('#emp_tel').val() == ""){
-// 					alert('내선번호를 입력하세요.');
-// 					$('#emp_tel').focus();
-// 					return false;
-// 				}//내선번호 입력 제어
-
-// 				if($('#join_date').val() == ""){
-// 					alert('입사일을 입력하세요.');
-// 					$('#join_date').focus();
-// 					return false;
-// 				}//입사일 입력 제어
-				
-// 			});//정보 입력안하면 submit기능 제어 끝			  
-			  
-// 		}); // (document).ready(function)
-		// 중복체크와 입력값 확인
-	
-		// 팝업창 처리
-		function sendForm() {
-			//상단의 폼태그를 변수에 저장한다. 
-			var formObject = $("form[role='form']").serialize();
-			var status = true;
-			
-			for (var i = 0; i < formObject.length; i++) {
-				if (formObject[i].value == "") {
-					alert("정보를 입력하세요!");
+		$(document).ready(function () {
+		
+			$('#fr').submit(function() {
+				var formObject = $("form[role='form']").serialize();
+				var status = true;
+		
+				if ($('#emp_pw').val() == ""){
+					alert('비밀번호를 입력하세요.');
+					$('#emp_pw').focus();
 					status = false;
-					break;
+					return false;
+				}//비밀번호 입력 제어
+		
+				if ($('#emp_name').val() == ""){
+					alert('이름을 입력하세요.');
+					$('#emp_name').focus();
+					status = false;
+					return false;
+				}//이름 입력 제어
+		
+				if ($('#emp_birth').val() == ""){
+					alert('생년월일을 입력하세요.');
+					$('#emp_birth').focus();
+					status = false;
+					return false;
+				}//생년월일 입력 제어
+		
+				if ($('#emp_phone').val() == ""){
+					alert('연락처를 입력하세요.');
+					$('#emp_phone').focus();
+					status = false;
+					return false;
+				}//연락처 입력 제어
+		
+				if ($('#emp_email').val() == ""){
+					alert('이메일를 입력하세요.');
+					$('#emp_email').focus();
+					status = false;
+					return false;
+				}//이메일 입력 제어
+				
+				if ($('#address').val() == ""){
+					alert('주소를 입력하세요.');
+					$('#address').focus();
+					status = false;
+					return false;
+				}//주소 입력 제어
+				
+				if ($('#emp_tel').val() == ""){
+					alert('내선번호를 입력하세요.');
+					$('#emp_tel').focus();
+					status = false;
+					return false;
+				}//내선번호 입력 제어
+		
+				if ($('#join_date').val() == ""){
+					alert('입사일을 입력하세요.');
+					$('#join_date').focus();
+					status = false;
+					return false;
+				}//입사일 입력 제어
+				
+				if (status) {
+					sendForm();
 				}
-			}	
-			
-			if (status) {
-				//작성완료 버튼을 눌렀을 때 ajax를 실행하도록 한다.
+		
+				return false; // 폼 제출 막기
+			});
+		
+			function sendForm() {
+				var formObject = $("form[role='form']").serialize();
+		
 				$.ajax({
-					url : '/employee/insert', 
-					type : 'POST', 
-					data : formObject, 
-					success : function(json) {
+					url: '/employee/insert',
+					type: 'POST',
+					data: formObject,
+					success: function(json) {
 						alert("사원등록이 완료되었습니다.");
-						status = true;
 						window.opener.location.reload();
 						window.close();
 					}
 				});
 			}
-		};
-		// 팝업창 처리
+		});
 	</script>
 </body>
 </html>

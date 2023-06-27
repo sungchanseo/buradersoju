@@ -73,7 +73,6 @@
                   </div>
                 </li>
             </ul>
-
           </div>
         </div>
       </nav>
@@ -86,12 +85,6 @@
                   <span class="menu-title">사원 관리</span>
                 </a>
                 <div class="submenu">
-<!--                       <ul class="submenu-item"> -->
-<!--                       	  <li class="nav-item"><a class="nav-link" href="/employee/list">사원 조회</a></li> -->
-<!--                           <li class="nav-item"><a class="nav-link" href="">사원 등록</a></li> -->
-<!--                           <li class="nav-item"><a class="nav-link" href="">사원 수정</a></li> -->
-<!--                           <li class="nav-item"><a class="nav-link" href="">사원 삭제</a></li> --> 
-<!--                       </ul> -->
                   </div>
               </li>
                <li class="nav-item">
@@ -100,17 +93,9 @@
                   <span class="menu-title">영업 관리</span>
                 </a>
                 <div class="submenu">
-                      <ul class="submenu-item">
+                      <ul>
                           <li class="nav-item"><a class="nav-link" href="/contract/list">수주 목록</a></li>
-<!--                           <li class="nav-item"><a class="nav-link" href="">수주 등록</a></li> -->
-<!--                           <li class="nav-item"><a class="nav-link" href="">수주 조회</a></li> -->
-<!--                           <li class="nav-item"><a class="nav-link" href="">수주 수정</a></li> -->
-<!--                           <li class="nav-item"><a class="nav-link" href="">수주 삭제</a></li> -->
                           <li class="nav-item"><a class="nav-link" href="/customer/list">거래처 목록</a></li>
-<!--                           <li class="nav-item"><a class="nav-link" href="">거래처 등록</a></li> -->
-<!--                           <li class="nav-item"><a class="nav-link" href="">거래처 조회</a></li> -->
-<!--                           <li class="nav-item"><a class="nav-link" href="">거래처 수정</a></li> -->
-<!--                           <li class="nav-item"><a class="nav-link" href="">QR코드 생성</a></li> -->
                       </ul>
                   </div>
               </li>
@@ -122,7 +107,7 @@
                   </a>
                   <div class="submenu">
                       <ul>
-                         <li class="nav-item"><a class="nav-link" href="/purchasing/material/list">자재 관리</a></li>
+                         <li class="nav-item"><a class="nav-link"  href="/purchasing/material/list">자재 관리</a></li>
                          <li class="nav-item"><a class="nav-link" href="/purchasing/inventory/list">재고 관리</a></li>
                          <li class="nav-item"><a class="nav-link" href="/purchasing/order/list">발주 관리</a></li>
                          <li class="nav-item"><a class="nav-link" href="/purchasing/inMaterial/list">입고 관리</a></li>
@@ -130,7 +115,7 @@
                       </ul>
                   </div>
               </li>
-              <li class="nav-item">
+              <li class="nav-item production">
                   <a href="" class="nav-link">
                     <i class="mdi mdi-package-variant-closed menu-icon" style="font-size: 30px;"></i>
                     <span class="menu-title">생산 관리</span>
@@ -139,29 +124,17 @@
                   <div class="submenu">
                     <ul>
                           <li class="nav-item"><a class="nav-link" href="/production/workOrder/workOrderList">작업 지시 목록</a></li>
-<!--                           <li class="nav-item"><a class="nav-link" href="">작업 지시 상세</a></li> -->
-<!--                           <li class="nav-item"><a class="nav-link" href="">작업 지시 등록</a></li> -->
                           <li class="nav-item"><a class="nav-link" href="/production/productionList">생산 목록</a></li>
-<!--                           <li class="nav-item"><a class="nav-link" href="">생산 등록</a></li> -->
                           <li class="nav-item"><a class="nav-link" href="/quality/qualityList">품질 관리 목록</a></li>
-<!--                           <li class="nav-item"><a class="nav-link" href="">검수 등록</a></li> -->
                       </ul>
                   </div>
               </li>
-              <li class="nav-item">
+              <li class="nav-item warehouse">
                   <a href="/purchasing/warehouse/list" class="nav-link">
                     <i class="mdi mdi-grid menu-icon" style="font-size: 30px;"></i>
                     <span class="menu-title">창고 관리</span>
                     <i class="menu-arrow"></i>
                   </a>
-<!--                   <div class="submenu"> -->
-<!--                    	<ul> -->
-<!--                           <li class="nav-item"><a class="nav-link" href="">창고 관리</a></li> -->
-<!--                           <li class="nav-item"><a class="nav-link" href="">창고 등록</a></li> -->
-<!--                           <li class="nav-item"><a class="nav-link" href="">창고 수정</a></li> -->
-<!--                           <li class="nav-item"><a class="nav-link" href="">창고 삭제</a></li> -->
-<!--                     </ul> -->
-<!--                   </div> -->
               </li>
             </ul>
         </div>

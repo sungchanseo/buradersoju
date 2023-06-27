@@ -5,11 +5,11 @@
 <div class="container-scroller">
 	<div class="container-fluid page-body-wrapper full-page-wrapper">
 		<div class="main-panel">
-			<div class="content-wrapper d-flex align-items-center auth px-0">
+			<div class="content-wrapper d-flex align-items-center auth px-0" >
 				<div class="row w-100 mx-0">
 					<div class="col-lg-12 mx-auto">
 						<div class="auth-form-light text-left py-5 px-4 px-sm-5"
-							style="height: 600px;">
+							style="height: 1000px;">
 							<table class="table table-color">
 								<tbody style="text-align: center;">
 									<tr>

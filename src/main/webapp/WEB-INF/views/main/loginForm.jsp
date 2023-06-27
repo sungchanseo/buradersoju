@@ -30,7 +30,7 @@
                <img src="${pageContext.request.contextPath}/resources/images/logo.png" alt="로고" style="width: 500px; ">
               <form class="pt-5" action="" method="post" onsubmit="saveId()">
                   <div class="form-group">
-                    <input type="text" class="form-control form-control-lg"  name="emp_id" id="emp_id" placeholder="사번을 입력하세요 :)" value="${cookie.emp_id}">
+                    <input type="text" class="form-control form-control-lg" name="emp_id" id="emp_id" placeholder="사번을 입력하세요 :)" value="${cookie.emp_id}" style="color: #D8D8D8;">
                   </div>
                   <div class="form-group">
                     <input type="password" class="form-control form-control-lg" name="emp_pw" id="emp_pw" placeholder="비밀번호를 입력하세요 :)">

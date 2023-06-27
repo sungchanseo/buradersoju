@@ -12,7 +12,7 @@
     	dayMaxEventRows: true, // 모든 뷰에서 이벤트의 최대 행 수를 설정
     	views: {
     	timeGrid: {
-    	dayMaxEventRows: 4 // adjust to 6 only for timeGridWeek/timeGridDay
+    	dayMaxEventRows: 3 // adjust to 6 only for timeGridWeek/timeGridDay
     	}
     	},
     

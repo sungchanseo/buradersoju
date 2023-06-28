@@ -12,8 +12,8 @@
 	 get() 또는 set() 마이바티스가 결정해서 메서드실행-->
 	 <!-- 사원등록 -->
 	<insert id="insertEmployee" parameterType="com.itwillbs.domain.EmployeeVO">
-		INSERT INTO employee (emp_id, emp_pw, emp_name, emp_email, emp_birth, emp_gender, emp_phone, emp_tel, emp_address, emp_image, emp_department, emp_position, emp_status, join_date, absence_date, rehabi_date, resign_date)
-		VALUES (#{emp_id}, #{emp_pw}, #{emp_name}, #{emp_email}, #{emp_birth}, #{emp_gender}, #{emp_phone}, #{emp_tel}, #{emp_address}, #{emp_image}, #{emp_department}, #{emp_position}, '재직', #{join_date}, #{absence_date}, #{rehabi_date}, #{resign_date})
+		INSERT INTO employee (emp_id, emp_pw, emp_name, emp_email, emp_birth, emp_gender, emp_phone, emp_tel, emp_address, emp_address_detail, emp_image, emp_department, emp_position, emp_status, join_date, absence_date, rehabi_date, resign_date)
+		VALUES (#{emp_id}, #{emp_pw}, #{emp_name}, #{emp_email}, #{emp_birth}, #{emp_gender}, #{emp_phone}, #{emp_tel}, #{emp_address}, #{emp_address_detail}, #{emp_image}, #{emp_department}, #{emp_position}, '재직', #{join_date}, #{absence_date}, #{rehabi_date}, #{resign_date})
 	</insert>
 	
     <select id="getNextNumber" resultType="java.lang.Integer">
@@ -41,7 +41,7 @@
 	
 	<!-- 회원정보 수정 -->
 	<update id="modifyEmployee">
-		update employee set emp_pw=#{emp_pw}, emp_name=#{emp_name}, emp_email=#{emp_email}, emp_birth=#{emp_birth}, emp_gender=#{emp_gender}, emp_phone=#{emp_phone}, emp_tel=#{emp_tel}, emp_address=#{emp_address}, emp_image=#{emp_image}, emp_department=#{emp_department}, emp_position=#{emp_position}, emp_status=#{emp_status}, join_date=#{join_date}, absence_date=#{absence_date}, rehabi_date=#{rehabi_date}, resign_date=#{resign_date}  
+		update employee set emp_pw=#{emp_pw}, emp_name=#{emp_name}, emp_email=#{emp_email}, emp_birth=#{emp_birth}, emp_gender=#{emp_gender}, emp_phone=#{emp_phone}, emp_tel=#{emp_tel}, emp_address=#{emp_address}, emp_address_detail=#{emp_address_detail}, emp_image=#{emp_image}, emp_department=#{emp_department}, emp_position=#{emp_position}, emp_status=#{emp_status}, join_date=#{join_date}, absence_date=#{absence_date}, rehabi_date=#{rehabi_date}, resign_date=#{resign_date}  
 		where emp_id=#{emp_id} and emp_pw=#{emp_pw}
 	</update>
 	<!-- 회원정보 수정 -->	

@@ -31,35 +31,6 @@
 			//폼태그를 변수에 저장한다. 
 			var cust_address = $('#address1').val()+" "+$('#address2').val();
 				
-// 			var formObject = {
-// 					cust_type : cust_type,
-// 					reg_num : reg_num,
-// 					cust_name:cust_name,
-// 					emp_id:emp_id,
-// 					owner_name:owner_name,
-// 					emp_tel:emp_tel,
-// 					main_phone:main_phone,
-// 					emp_email:emp_email,
-// 					main_phone:main_phone,
-// 					emp_email:emp_email,
-// 					cust_business:cust_business,
-// 					cust_fax:cust_fax,
-// 					cust_event:cust_event,
-// 					cust_address:cust_address, 
-// 					cust_etc:cust_etc
-// 			};
-
-// 			$.ajax({
-// 				url : '/contract/modify', 
-// 				type : 'POST',
-// 				contentType : 'application/json', 
-// 				data : formObject, //form데이타의 객체형으로 값을 전달한다. 
-// 				success : function(json) {
-// 					alert("거래처 수정을 완료했다.");
-// 					window.opener.location.reload();
-// 					window.close();
-// 				}
-// 			});
 
 			//폼태그를 변수에 저장한다. 
 			var formObject = $("form[role='form']").serializeArray();
@@ -171,10 +142,7 @@
 </table>
 <button type="submit" class="btn btn-success" onclick="sendForm();">수정완료</button>
 <button type="button" class="btn btn-success" onclick="history.back();">뒤로가기</button>
-<button type="button" class="btn btn-success" onclick="window.close();">창닫기</button>
-<!-- <input type="submit" class="btn btn-success" value="수정완료" onclick="sendForm();"> -->
-<!-- <input type="button" class="btn btn-success" value="뒤로가기" onclick="history.back();"> -->
-<!-- <input type="button" value="창닫기" class="btn btn-success" onclick="window.close();"> -->
+<button type="button" class="btn btn-light" onclick="window.close();">창닫기</button>
 </form>
 </body>
 </html>

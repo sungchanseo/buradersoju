@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,11 +41,17 @@ public class CustomerController {
 
 	// 거래처목록 보기
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public void customerListGET(Model model, PagingVO pvo, 
-			HttpServletRequest request) throws Exception {
+	public String customerListGET(Model model, PagingVO pvo, 
+			HttpServletRequest request, HttpSession session) throws Exception {
 		logger.debug("@@@@@@@@@Controller : 거래처 리스트 조회!");
 		logger.debug("@@@@@@@@@Controller : {}",pvo);
 
+		
+		//로그인 세션이 없을 때 로그인 페이지로 이동한다. 
+		if(session.getAttribute("emp_id") == null) {
+			return "redirect:/main/login";
+		}
+		
 		List<Object> customerList=null;
 		
 		//거래처목록을 가져오는 custService 호출
@@ -62,11 +69,13 @@ public class CustomerController {
 			customerList = pageService.getListPageSizeObjectCustomerVO(pvo);
 		}
 		logger.debug("@@@@@@@@@Controller : customerList={}",customerList);
-	
+		logger.debug("@@@@@@@@@Controller : emp_department={}",session.getAttribute("emp_department"));
 		//변수에 담아서 전달
 		model.addAttribute("customerList", customerList);
+		model.addAttribute("emp_department", session.getAttribute("emp_department"));
 		model.addAttribute("pvo",pvo);
 		
+		return null;		
 	}
 
 	// 거래처 상세보기

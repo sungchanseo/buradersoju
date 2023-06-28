@@ -7,9 +7,8 @@
 <mapper namespace="com.itwillbs.mappers.customerMapper">
 
 	<!-- customer 상세보기 -->
-	<select id="getCustomerInfo"
-		resultType="com.itwillbs.domain.CustomerVO">
-		select * from customer
+	<select id="getCustomerInfo" resultType="com.itwillbs.domain.CustomerVO">
+		select * from customer where cust_id = #{cust_id}
 	</select>
 	<!-- customer 상세보기 -->
 

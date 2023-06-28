@@ -11,9 +11,9 @@
 </head>
 <body>
 <div class="card-body">
-		<h4 class="card-title">
+		<h1 class="card-title">
 			<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">수주 리스트</font></font>
-		</h4>
+		</h1>
 
 		<!-- 검색창기능 -->
 		<form action="/customer/list" method="get" style="display: inline;">
@@ -29,8 +29,8 @@
 <!-- 		<input type="button" value="엑셀다운">  -->
 <!-- 		<input type="button" value="출력하기">  -->
 		<button type="button" class="btn btn-success" onclick="openPop();">수주등록</button>
-		<button type="button" class="btn btn-success">엑셀다운</button>
-		<button type="button" class="btn btn-success">출력하기</button>
+		<button type="button" class="btn btn-light">엑셀다운</button>
+		<button type="button" class="btn btn-light">출력하기</button>
 
 		<!-- 수주목록 테이블 -->
 		<div class="table-responsive">
@@ -51,15 +51,15 @@
                       <c:forEach var="vo" items="${contractList }">
 	                      <tbody>
 	                        <tr>
-	                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" onclick="infoPop(${vo.cont_id});">${vo.cont_id }</font></font></td>
-	                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" onclick="infoPop(${vo.cont_id});">${vo.product_id }</font></font></td>
-	                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" onclick="infoPop(${vo.cont_id});">${vo.product_name }</font></font></td>
-	                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.cust_name }</font></font></td>
-	                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.cont_date }</font></font></td>
-	                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.cont_qty }</font></font></td>
-	                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.due_date }</font></font></td>
-	                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.production_id }</font></font></td>
-	                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.cont_emp }</font></font></td>
+ 								<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" onclick="infoPop('${vo.cont_id}');">${vo.cont_id }</font></font></td>
+								<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" onclick="infoPop('${vo.cont_id}');">${vo.product_id }</font></font></td>
+								<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" onclick="infoPop('${vo.cont_id}');">${vo.product_name }</font></font></td>
+								<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.cust_name }</font></font></td>
+								<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.cont_date }</font></font></td>								
+								<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.cont_qty }</font></font></td>
+								<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.due_date }</font></font></td>
+								<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.production_id }</font></font></td>
+								<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.cont_emp }</font></font></td>
 	                        </tr>
 	                      </tbody>
                       	</c:forEach>
@@ -83,27 +83,30 @@
 				<a href="/contract/list?pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">다음</a>
 			</c:if>
 		</div>
-		<!-- 		<div class="btn-group" role="group" aria-label="Basic example"> -->
-		<!-- 			<button type="button" class="btn btn-outline-secondary"> -->
-		<!-- 				<i class="mdi mdi-heart-outline"></i> -->
-		<!-- 			</button> -->
-		<!-- 			<button type="button" class="btn btn-outline-secondary"> -->
-		<!-- 				<i class="mdi mdi-calendar"></i> -->
-		<!-- 			</button> -->
-		<!-- 			<button type="button" class="btn btn-outline-secondary"> -->
-		<!-- 				<i class="mdi mdi-clock"></i> -->
-		<!-- 			</button> -->
-		<!-- 		</div> -->
 	</div>
 	<!-- 	페이징 처리  -->
 	
 
 </body>
 	<!-- 수주등록 새창열기  -->
-	<script type="text/javascript">
+	<script>
+		
+// 		수주상세정보 보기
+		function infoPop(contId){
+// 			var contId = document.getElementById("cont_id").value;
+			console.log("들어온값 = "+contId);
+			var url = '/contract/info?cont_id='+contId;
+			var infoPop = window.open(url, '수주상세보기', 'width=1000px,height=400px');
+		  
+		  if(infoPop == null){
+			  alert("팝업이 차단되었습니다. 차단을 해제하세요.");
+		  }
+		}//수주상세정보 보기
+		
+		
 		//수주등록 새창열기
 		function openPop(){
-		  var insertPop = window.open('/contract/insert', '수주등록', 'width=700px,height=400px');
+		  var insertPop = window.open('/contract/insert', '수주등록', 'width=1000px,height=400px');
 		  
 		  if(insertPop == null){
 			  alert("팝업이 차단되었습니다. 차단을 해제하세요.");
@@ -111,17 +114,5 @@
 		  openPop.moveBy(100,100);
 		}
 		//수주등록 새창열기
-		
-// 		수주상세정보 보기
-		function infoPop(cont_id){
-		  var url = "/contract/info?cont_id="+cont_id;
-		  var infoPop = window.open( url, '수주상세보기', 'width=700px,height=400px');
-		  
-		  if(infoPop == null){
-			  alert("팝업이 차단되었습니다. 차단을 해제하세요.");
-		  }
-		}
-		
-		//수주상세정보 보기
 	</script>
 <%@ include file="../includes/footer.jsp" %>

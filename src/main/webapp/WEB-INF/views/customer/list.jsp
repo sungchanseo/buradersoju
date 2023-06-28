@@ -49,11 +49,12 @@
 			</select> <input type="text" class="form-control" style="width:10%; display:inline;" name="search" placeholder="검색어를 입력해주세요">
 			<input type="submit"  class="btn btn-info" value="검색">
 		</form>
-		<!-- 검색창기능 -->
 		
-		<input type="button" value="거래처등록" class="btn btn-success" onclick="insertPop();"> 
-		<input type="button" value="거래처삭제"  class="btn btn-success" onclick="location.href='/customer/remove';">
-
+		<!-- 검색창기능 -->
+		<c:if test="${emp_department.equals('인사')}">
+			<input type="button" value="거래처등록" class="btn btn-success" onclick="insertPop();"> 
+			<input type="button" value="거래처삭제"  class="btn btn-success" onclick="location.href='/customer/remove';">
+		</c:if>
 		<!-- 거래처목록 테이블 -->
 		<div class="table-responsive">
                     <table class="table table-hover">
@@ -107,17 +108,6 @@
 				<a href="/customer/list?pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">다음</a>
 			</c:if>
 		</div>
-		<!-- 		<div class="btn-group" role="group" aria-label="Basic example"> -->
-		<!-- 			<button type="button" class="btn btn-outline-secondary"> -->
-		<!-- 				<i class="mdi mdi-heart-outline"></i> -->
-		<!-- 			</button> -->
-		<!-- 			<button type="button" class="btn btn-outline-secondary"> -->
-		<!-- 				<i class="mdi mdi-calendar"></i> -->
-		<!-- 			</button> -->
-		<!-- 			<button type="button" class="btn btn-outline-secondary"> -->
-		<!-- 				<i class="mdi mdi-clock"></i> -->
-		<!-- 			</button> -->
-		<!-- 		</div> -->
 	</div>
 	<!-- 	페이징 처리  -->
 

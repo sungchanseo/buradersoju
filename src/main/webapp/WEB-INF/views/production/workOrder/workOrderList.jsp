@@ -16,6 +16,15 @@
 
 </head>
 <body>
+<div class="container-scroller">
+	<div class="container-fluid page-body-wrapper full-page-wrapper">
+		<div class="main-panel">
+			<div class="content-wrapper d-flex align-items-center auth px-0">
+				<div class="row w-100 mx-0">
+					<div class="col-lg-12 mx-auto">
+						<div class="auth-form-light text-left py-5 px-4 px-sm-5" style="height: 1000px;">
+							
+								<div class="form-group">
 	<h1>작업지시 현황</h1>
 	
 <!-- 검색창 기능 -->
@@ -28,15 +37,15 @@
 	    <option value="production_line">생산라인</option>
 	  </select>
 	  <input type="text" name="search" placeholder="">
-	  <input type="submit" value="검색">
+	  <input type="submit" class="btn btn-success btn-fw" value="검색">
   </form>
   
-	<input type="button" value="생산 등록" onclick="openPopup();">
+	<input type="button" class="btn btn-success btn-fw" value="생산 등록" onclick="openPopup();">
 	<br>
-	<button>엑셀파일</button>
+	<button class="btn btn-success btn-fw">엑셀파일</button>
 	<button class="print-button" onclick="info_print()">인쇄하기</button>
 	
-  <table border="1">
+  <table class="table table-color">
     <tr>
 	  <th>작업지시번호</th>
 	  <th>수주번호</th>
@@ -108,6 +117,16 @@ function info_print() {
   window.print();
 } 
 </script>
+									</div>
+								<button class="btn btn-success btn-fw" type="submit">
+									등록</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 <%@ include file="../../includes/footer.jsp" %>
 </body>
 </html>

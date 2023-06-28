@@ -84,14 +84,14 @@ public class WorkOrderController {
 		}
 		// 검수 등록 db처리
 				@RequestMapping(value="/workOrderInsert", method=RequestMethod.POST)
-				public String insertWorkOrder(ProductionVO vo ) throws Exception {
-					logger.debug("@@@@@@@@@@@@Controller : 검수 등록 입력페이지");
+				public void insertWorkOrder(ProductionVO vo ) throws Exception {
+					logger.debug("@@@@@@@@@@@@Controller : 검수 등록 DB저장 시작");
 					
 					logger.debug(vo+"");
 					//servicer객체 호출
 					woService.insertWorkOrder(vo);
 					
-					return "redirect:/production/workOrder/workOrderList";
+//					return "redirect:/production/workOrder/workOrderList";
 				}
 	
 		// 작업지시번호 생성 (작업지시 등록)

@@ -49,6 +49,7 @@ public class WorkOrderDAOImpl implements WorkOrderDAO {
 	public void insertWorkOrder(ProductionVO vo) throws Exception {
 		logger.debug(" insertWorkOrder() 호출 ");
 		int result = sqlSession.insert(NAMESPACE + ".insertWorkOrder", vo);
+//		sqlSession.update(NAMESPACE + ".maQtyUpdate", vo);
 		
 		if(result != 0)
 		logger.debug(" 작업지시 등록 DB저장 완료 ");

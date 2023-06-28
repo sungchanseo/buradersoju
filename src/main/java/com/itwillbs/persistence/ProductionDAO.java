@@ -15,7 +15,12 @@ import com.itwillbs.domain.ProductionVO;
 public interface ProductionDAO {
 	
 	// 생산목록
-	public List<ProductionVO> getProductionList() throws Exception;
-	
+		public List<ProductionVO> getProductionList() throws Exception;
+		
+	// 작업지시 등록
+	public void insertProducion(ProductionVO vo) throws Exception;
+		
+	// 작업지시 등록-수주번호 조회
+	public ProductionVO getInsertSearch(String production_id) throws Exception;
 	
 }

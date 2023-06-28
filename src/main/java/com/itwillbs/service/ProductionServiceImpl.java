@@ -16,44 +16,23 @@ public class ProductionServiceImpl implements ProductionService {
 	
 	// DAO 객체 접근
 	@Inject
-	private ProductionDAO pdao;
-	
-//	@Inject
-//	private PagingService pageService;
-	
+	private ProductionDAO pdao;	
 
 	@Override
 	public List<ProductionVO> getProductionList() throws Exception {
 		return pdao.getProductionList();
 	}
 
+	@Override
+	public void insertProducion(ProductionVO vo) throws Exception {
+		pdao.insertProducion(vo);
+		
+	}
 
-//	@Override
-//	public PagingVO setPageInfoForProduction(PagingVO pvo) throws Exception{
-//		
-//		/*
-//		 * CustomerService
-//		 * - 페이징처리를 위해서는 도메인별로 다른 변수를 저장해야 한다. 
-//		 * => 해당 변수를 CustomerService에서 저장!
-//		 * - 페이징처리 계산은 공통이므로 PagingService에서 처리한다.
-//		 * => PagingSeriv의 메소드를 호출! 
-//		 */
-//		
-//		//customer서비스에 필요한 변수를 저장. 
-//		pvo.setTable("production");
-//		pvo.setId("production_id");
-//		pvo.setPageSize(5);
-//		pvo.setStartRow(1);
-////		pvo.setStatus_name("cust_status");
-////		pvo.setStatus_value("0");
-//		
-//
-//		
-//		//페이지 계산을 위해서 pageingSerivce의 메소드 호출 
-//		pvo = pageService.pagingAction(pvo);
-////		logger.debug("@@@@@@CustomerService : {}",pvo);
-//		return pvo;
-//	}
+	@Override
+	public ProductionVO getInsertSearch(String production_id) throws Exception {
+		return pdao.getInsertSearch(production_id);
+	}
 
 	
 

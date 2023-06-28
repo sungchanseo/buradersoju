@@ -5,7 +5,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%@ include file="../includes/header.jsp"%>
 <meta charset="UTF-8">
 <!-- 제이쿼리 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
@@ -41,7 +40,17 @@
 <title>품질 관리 목록</title>
 </head>
 <body>
-	<h2>품질 관리 현황</h2>
+<%@ include file="../includes/header.jsp"%>
+<div class="container-scroller">
+	<div class="container-fluid page-body-wrapper full-page-wrapper">
+		<div class="main-panel">
+			<div class="content-wrapper d-flex align-items-center auth px-0">
+				<div class="row w-100 mx-0">
+					<div class="col-lg-12 mx-auto">
+						<div class="auth-form-light text-left py-5 px-4 px-sm-5" style="height: 1000px;">
+							<form role="form" method="post">
+								<div class="form-group">
+	<h1>품질 관리 현황</h1>
 	<input type="hidden" id="emp_id" name="emp_id" value=" ${sessionScope.emp_id}">
 	
 <%-- 	${productionList } --%>
@@ -94,7 +103,7 @@
 	<!-- 품질관리현황표 출력 -->
 	<div class="qualityList">
 <%-- 	${productionList } --%>
-	<table border='1'>
+	<table class="table table-color">
 	
 		<thead>
 			<tr>
@@ -149,6 +158,17 @@
 		<a href="/contract/list?pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}">다음</a>
 	</c:if>
 	<!-- 	페이징 처리  -->
-	<%@ include file="../includes/footer.jsp" %>
+	</div>
+								<button class="btn btn-success btn-fw" type="submit">
+									등록</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<%@ include file="../includes/footer.jsp" %>
 </body>
 </html>

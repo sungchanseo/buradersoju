@@ -53,6 +53,11 @@
 		values(#{production_id},#{cont_id},#{production_emp},now(),#{production_line},
 		#{product_id},#{plan_qty},'대기')
 	</insert>
+	<!-- 자재 update -->
+<!-- 	<update id="maQtyUpdate"> -->
+<!-- 		update material set ma_qty = #{ma_qty} -->
+<!-- 		where ma_name = #{ma_name} -->
+<!-- 	</update> -->
 	<!-- DB 등록 -->
 <!-- 작업지시 등록 -->
 

@@ -1,5 +1,7 @@
 package com.itwillbs.controller;
 import java.util.List;
+import java.util.Map;
+
 import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,12 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.itwillbs.domain.InMaterialVO;
-import com.itwillbs.domain.MaterialVO;
 import com.itwillbs.service.InMaterialService;
-
-
 
 @Controller
 @RequestMapping(value = "/purchasing/inMaterial/*")
@@ -65,32 +63,18 @@ public class InMaterialController {
 	@ResponseBody
 	public void getInIdPOST(Model model, @RequestBody InMaterialVO vo) throws Exception{
 		logger.debug("@@@@@@@@@@ getInIdPOST()_호출");
-
+		
 		// 입고번호, 발주번호 DB에 저장
 		iService.registInId(vo);
 		
-		// 재고테이블에 해당 자재 수량 증가
-		// orders의 ma_id와 material의 ma_id로 join해서 orders의 order_qty만큼 수량 더하기
-		// 파라미터로 전달되는 order_id값을 받아와서 총 재고량을 구한 뒤 ma_qty를 업데이트
-		iService.getMaCnt(vo.getOrder_id());
-		logger.debug("@@@@@@@@@@ 재고테이블 자재 수량 증가 완료");
+		// 현 재고량 + 입고량 = 총재고량 DB에 저장 (add_ma)
+		iService.getAddMa(vo.getOrder_id());
+		logger.debug("@@@@@@@@@@ 입고된 수 만큼 더하여 총 재고량 구하기 완료");
+		
+		// ma_qty 구하기
+		List<InMaterialVO> maqtyList = iService.getMaQty(vo.getMa_id());
+		maqtyList.get(0); // 이 안에 내가 원하는 최신 in_id 값과 ma_qty값(add_ma)이 있당
 	}
-	
-//	@RequestMapping(value="/inid", method=RequestMethod.POST)
-//	@ResponseBody
-//	public void getInIdPOST(Model model, @RequestParam("in_id") String in_id,
-//			                             @RequestParam("order_id") String order_id,
-//			                             @RequestParam("in_emp") int in_emp) throws Exception{
-//		logger.debug("@@@@@@@@@@ getInIdPOST()_호출");
-//
-//		// 입고번호, 발주번호 DB에 저장
-//		InMaterialVO vo = new InMaterialVO();
-//		vo.setIn_id(in_id);
-//		vo.setOrder_id(order_id);
-//		vo.setIn_emp(in_emp);
-//		iService.registInId(vo);
-//		
-//	}
 	
 	
 	// 3. 입고 상세보기
@@ -103,12 +87,9 @@ public class InMaterialController {
 		model.addAttribute("resultVO", info);
 
 	}
-	
-	
-	
-	
-	
-	
-	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ메서드 정의ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
+
+	
+	
+	
 }

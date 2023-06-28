@@ -1,5 +1,7 @@
 package com.itwillbs.persistence;
 import java.util.List;
+import java.util.Map;
+
 import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -35,23 +37,14 @@ public class InMaterialDAOImpl implements InMaterialDAO {
 		return sqlSession.selectList(NAMESPACE+".getInMaterialListAll");
 	}
 
-	
-	// 2. 필터 리스트 (미입고 / 입고완료)
-	@Override
-	public List<InMaterialVO> getInMaterialListFilter(String in_progress) {
-		return null;
-	}
-
-	
-	// 3. 입고 상세보기
+	// 2. 입고 상세보기
 	@Override
 	public InMaterialVO getInMaterialInfo(String order_id) throws Exception{
 		logger.debug("########## getInMaterialInfo 호출");
 		return sqlSession.selectOne(NAMESPACE+".getInMaterialInfo", order_id);
 	}
 
-	
-	// 4. 입고번호 최대값 (maxNumber) 230620004
+	// 3-1. 입고번호 최대값 (maxNumber) 230620004
 	@Override
 	public String getMaxNumber() throws Exception{
 		logger.debug("########## getMaxNumber 호출");
@@ -60,8 +53,7 @@ public class InMaterialDAOImpl implements InMaterialDAO {
 		return maxNumber;
 	}
 
-	
-	// 5. 입고번호 최대날짜(maxDate) 230620
+	// 3-2. 입고번호 최대날짜(maxDate) 230620
 	@Override
 	public String getMaxDate() throws Exception{
 		logger.debug("########## getMaxDate 호출");
@@ -70,8 +62,7 @@ public class InMaterialDAOImpl implements InMaterialDAO {
 		return maxDate;
 	}
 	
-	
-	// 6. 입고번호 등록하기
+	// 3-3. 입고번호 등록하기
 	@Override
 	public void registInId(InMaterialVO vo) throws Exception{
 		logger.debug("########## resgistInId 호출");
@@ -80,20 +71,25 @@ public class InMaterialDAOImpl implements InMaterialDAO {
 		sqlSession.update(NAMESPACE + ".registInId", vo);
 	}
 
-
-	// 7. 특정 order_id의 기존 재고량 + 발주량 (== 총 재고량)
+	// 4. 특정 order_id의 기존 재고량 + 발주량 (== 총 재고량)
 	@Override
-	public int getMaCnt(String order_id) throws Exception {
-		logger.debug("########## getMaCnt 호출");
-		return sqlSession.selectOne(NAMESPACE + ".maCnt", order_id);
+	public void getAddMa(String order_id) throws Exception {
+		logger.debug("########## getAddMa 호출");
+		sqlSession.selectOne(NAMESPACE + ".addMa", order_id);
 	}
 
-	
-	
+	// 5. ma_qty 값 구하기
+	@Override
+	public List<InMaterialVO> getMaQty(String ma_id) throws Exception {
+		logger.debug("########## getMaQty 호출");
+		return sqlSession.selectList(NAMESPACE+".maQty", ma_id);
+	}
 	
 	
 
 	
+	
+
 
 	
 }

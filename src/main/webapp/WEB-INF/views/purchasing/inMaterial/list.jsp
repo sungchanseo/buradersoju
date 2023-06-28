@@ -17,6 +17,7 @@
 		<th>품명</th>
 		<th>입고수량</th>
 		<th>재고수량</th>
+		<th>총재고량</th>
 		<th>진행현황</th>
 		<th>창고번호</th>
 		<th>선반위치</th>
@@ -33,7 +34,7 @@
 					<c:otherwise>${iml.in_id }</c:otherwise>
 				</c:choose>
 			</td>
-			<td>${iml.order_id }</td>			
+			<td>${iml.order_id }</td>		
 			<td>
 				<a href="info?order_id=${iml.order_id }"
 				   onclick="window.open(this.href, '_blank', 'width=900, height=350, left=510, top=365'); return false;">
@@ -50,13 +51,8 @@
 					<c:otherwise>${iml.ma_qty }</c:otherwise>
 				</c:choose>
 			</td>
-			<td>
-				<c:choose>
-					<c:when test="${empty iml.in_process }">미입고</c:when>
-<%-- 					<c:when test="${iml.ma_qty == 150 }">입고완료</c:when> --%>
-					<c:otherwise>${iml.in_process }</c:otherwise>
-				</c:choose>
-			</td>
+			<td>${iml.add_ma }</td>
+			<td>${iml.in_process }</td>			
 			<td>${iml.whs_id }</td>
 			<td>${iml.shelt_position }</td>
 			<td><fmt:formatDate value="${iml.in_date}" pattern="yyyy-MM-dd"/></td>
@@ -68,8 +64,8 @@
 			</td>
 			<td>		
 				<c:if test="${empty iml.in_id or iml.in_id == '0'}">
-					<input type="button" class="btn-outline-success inidDone" value="입고처리" 
-					                     onclick="location.href='/purchasing/inMaterial/inid?order_id=${iml.order_id }';">
+					<input type="button" class="btn-outline-success" value="입고처리" 
+					                     onclick="location.href='/purchasing/inMaterial/inid?order_id=${iml.order_id }&ma_id=${iml.ma_id }';">
 				</c:if>
 			</td>
          </tr>

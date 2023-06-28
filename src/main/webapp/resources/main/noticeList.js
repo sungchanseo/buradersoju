@@ -18,6 +18,7 @@ $(document).ready(function() {
             row.append($("<td>").text(notice.notice_id));
             row.append($("<td>").html("<a href='/notice/info?notice_id=" + notice.notice_id + "'>" + notice.notice_title + "</a>"));
             row.append($("<td>").text(formatTimestamp(notice.notice_regdate))); // Timestamp 값을 변환하여 추가
+            row.append($("<td>").text(notice.notice_count));
             $("table.table-color").append(row);
           }
       } else {

@@ -2,16 +2,17 @@ package com.itwillbs.service;
 
 import java.util.List;
 
+import com.itwillbs.domain.InMaterialVO;
 import com.itwillbs.domain.OrderVO;
+import com.itwillbs.domain.PagingVO;
 
 public interface OrderService {
 
 	// 발주목록 보기
-	public List<OrderVO> getOrderList() throws Exception;
-	
+	public List<OrderVO> getOrderList() throws Exception;	
 	
     // 발주수정하기
-	public Integer modifyOrder(OrderVO mvo);
+	public Integer modifyOrder(OrderVO ovo) throws Exception;
    
     // 발주 등록하기
     public void insertOrder(OrderVO vo) throws Exception;
@@ -24,7 +25,11 @@ public interface OrderService {
  	
     // 발주번호 등록하기
  	public void registOrderId(OrderVO vo) throws Exception;
-    
-  
+ 	
+ 	// 발주 페이징 처리 및 탭기능 및 검색기능하기
+ 	public PagingVO setPageOrder(PagingVO pvo) throws Exception;
+ 	
+ 	// 발주 목록 조회하기 
+ 	public OrderVO getOrderInfo(String order_id) throws Exception;
     
 }

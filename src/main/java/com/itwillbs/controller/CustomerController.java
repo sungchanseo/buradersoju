@@ -136,10 +136,12 @@ public class CustomerController {
 
 	// 거래처 수정 디비처리
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
-	public String modifyCustomerPOST(CustomerVO mvo) throws Exception {
+	public String modifyCustomerPOST(CustomerVO mvo,
+			@RequestParam("address1") String address1,
+			@RequestParam("address2") String address2) throws Exception {
 		logger.debug("@@@@@@@@@@Contorller : 거래처 수정 POST하기 !!!");
 		logger.debug("@@@@@@@@@controller : 수정한 거래처정보 : " + mvo);
-
+		mvo.setCust_address(address1+" "+address2);
 		custService.modifyCustomer(mvo);
 		return "redirect:/customer/list";
 

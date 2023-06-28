@@ -15,7 +15,7 @@
 </head>
 <body>
 	<h1 class="">거래처 등록</h1>
-	<form action="" role="form" method="post">
+	<form action="" role="form" id="fr" method="post">
 		<table border="1">
 			<tr>
 				<th>거래처유형</th>
@@ -24,31 +24,30 @@
 					<label><input type="radio" name="cust_type" value="개인">개인</label></td>
 				<th>사업자등록번호</th>
 				<td><input type="text" name="reg_num" id="reg_num" placeholder="사업자번호를 입력하세요">
-				<br>
 				<span id="regCheckMsg"></span>
 				</td>
 			</tr>
 			<tr>
 				<th>거래처이름</th>
-				<td><input type="text" name="cust_name" placeholder="상호를 입력하세요."></td>
+				<td><input type="text" name="cust_name" id="cust_name" placeholder="상호를 입력하세요."></td>
 				<th>담당자이름</th>
-				<td><input type="text" name="emp_id" placeholder="담당자이름을 입력하세요."></td>
+				<td><input type="text" name="emp_id" id="" placeholder="담당자이름을 입력하세요."></td>
 			</tr>
 			<tr>
 				<th>대표자명</th>
-				<td><input type="text" name="owner_name" placeholder="대표자명을 입력하세요."></td>
+				<td><input type="text" name="owner_name" id="" placeholder="대표자명을 입력하세요."></td>
 				<th>담당자전화번호</th>
-				<td><input type="tel" name="emp_tel"placeholder="연락처를 입력하세요."></td>
+				<td><input type="tel" name="emp_tel" id="" placeholder="연락처를 입력하세요."></td>
 			</tr>
 			<tr>
 				<th>대표전화</th>
-				<td><input type="tel" name="main_phone" placeholder="대표번호를 입력하세요."></td>
+				<td><input type="tel" name="main_phone" id="" placeholder="대표번호를 입력하세요."></td>
 				<th>담당자이메일</th>
-				<td><input type="email" name="emp_email" placeholder="이메일을 입력하세요."></td>
+				<td><input type="email" name="emp_email" id="" placeholder="이메일을 입력하세요."></td>
 			</tr>
 			<tr>
 				<th>업태</th>
-				<td><select name="cust_business">
+				<td><select name="cust_business"">
 						<option value="wholesale" selected>도매업</option>
 						<option value="retail">소매업</option>
 						<option value="service">서비스업</option>
@@ -81,8 +80,9 @@
 				<td><input type="text" name="cust_homepage" placeholder="홈페이지를 입력하세요(선택)."></td>
 			</tr>
 		</table>
-		<button type="button" class="btn btn-success" id="submit" onclick="sendForm();">작성완료</button>
-		<button type="button" class="btn btn-success" onclick="window.close();">창닫기</button>
+		<button type="submit" class="btn btn-success" id="submit" onclick="sendForm();">작성완료</button>
+		<button type="reset" class="btn btn-success" id="submit">초기화</button>
+		<button type="button" class="btn btn-light" onclick="window.close();">창닫기</button>
 	</form>
 <!-- 	http://localhost:8088/customer/list -->
 <!-- 	제이쿼리 -->
@@ -103,36 +103,31 @@
 		function sendForm() {
 			//상단의 폼태그를 변수에 저장한다. 
 			var formObject = $("form[role='form']").serializeArray();
-			var status = true;
-			alert(formObject.length);
 
-			for (var i = 0; i < formObject.length; i++) {
-				if (formObject[i].value=="") {
-					alert("정보를 입력하세요!"+formObject[i].value);
-					status = false;
-					break;
+			$.ajax({
+				url : '/customer/insert', 
+				type : 'POST', 
+				data : formObject, //form데이타의 객체형으로 값을 전달한다. 
+				success : function() {
+					alert("수주등록이 완료되었습니다.");
+					window.opener.location.reload();
+					window.close();
+				},
+				error : function(){
+					alert("수주등록이 완료되었습니다.");
+					window.opener.location.reload();
+					window.close();
 				}
-			}
-
-			if(status){
-				$.ajax({
-					url : '/customer/insert', 
-					type : 'POST', 
-					data : formObject, //form데이타의 객체형으로 값을 전달한다. 
-					success : function(json) {
-						alert("수주등록이 완료되었습니다.");
-						status = true;
-						window.opener.location.reload();
-						window.close();
-					}
-				});
-			}
-		};
-		//작성완료를 눌렀을 때 ajax 메소드
+			});
+		}; //작성완료를 눌렀을 때 ajax 메소드 완료...
 		
-		//사업자번호 중복확인 ajax 메소드
-		$(document).ready(function(){
+		
+		
+		
+		$(document).ready(function(){ 
 			
+			
+			//사업자번호 중복확인 ajax 메소드
 			  $('#reg_num').keyup(function(){
 				 $.ajax({
 					  url : "/customer/regCheck",
@@ -143,13 +138,13 @@
 							  if(result=="yes" && !$('#reg_num').val() == ""){
 							
 							  $('#regCheckMsg').css('color','green');
-							  $('#regCheckMsg').text("사용가능한 번호다.");
+							  $('#regCheckMsg').text("사용가능한 사업자번호입니다.");
 							  $('#submit').removeAttr('disabled');
 							  return;
 						  }else if ( result=="no" && !$('#reg_num').val() == ""){
 
 							  $('#regCheckMsg').css('color','red');
-							  $('#regCheckMsg').text("이 세상 번호가 아닌 것 같다.");  
+							  $('#regCheckMsg').text("중복된 사업자번호입니다.");  
 							  $('#submit').attr('disabled','disabled');
 							  return;
 						  }
@@ -161,9 +156,23 @@
 					  $('#submit').attr('disabled','disabled'); 
 					  return;
 				  }
-			  }); 
-		});
-		//사업자번호 중복확인 ajax 메소드
+			  }); //사업자 중복체크 ajax끝
+			  
+			  
+			  //빈칸이 있을때 submit 제어 
+			  $('#fr').submit(function(envet) {
+					if($('#cust_name').val() == ""){
+						alert('거래처이름이 없다.');
+						$('#cust_name').focus();
+						return false;
+					}//cust_name 제어 
+					
+				});//정보 입력안하면 submit기능 제어 끝
+			  
+		});//dom 객체 끝 
+		
+		
+		
 	</script>	
 		
 

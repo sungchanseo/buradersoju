@@ -6,6 +6,10 @@
 <meta charset="UTF-8">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <title>Insert title here</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/mdi/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/base/vendor.bundle.base.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main/fullcalendar-5.11.4/lib/main.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 </head>
 <body>
 	<h1>수주 등록하기</h1>
@@ -36,9 +40,9 @@
 				<td><input type="date" name="due_date"></td>
 			</tr>
 		</table>
-		<input type="button" value="작성완료" onclick="sendForm();">
-		<input type="reset" value="초기화">
-		<input type="button" value="창닫기" onclick="window.close();">
+		<input type="button" class="btn btn-success" value="작성완료" onclick="sendForm();">
+		<input type="reset" class="btn btn-success" value="초기화">
+		<input type="button" class="btn btn-light" value="창닫기" onclick="window.close();">
 	</form>
 <!-- 	http://localhost:8088/contract/list -->
 <!-- 	제이쿼리 -->

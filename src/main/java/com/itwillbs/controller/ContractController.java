@@ -2,6 +2,8 @@ package com.itwillbs.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.domain.ContractVO;
 import com.itwillbs.domain.PagingVO;
@@ -35,7 +38,7 @@ public class ContractController {
 
 	// 수주 목록 불러오기
 	@GetMapping(value = "/list")
-	public void contractListGET(PagingVO pvo, Model model) throws Exception {
+	public void contractListGET(PagingVO pvo, Model model, HttpSession session) throws Exception {
 		logger.debug("%%%%%%%%%%ContractController : 수주 리스트 조회!");
 
 		List<Object> contractList = null;
@@ -58,6 +61,7 @@ public class ContractController {
 
 		// 변수에 담아서 전달
 		model.addAttribute("contractList", contractList);
+		model.addAttribute("emp_department", session.getAttribute("emp_department"));
 		model.addAttribute("pvo", pvo);
 	}
 
@@ -96,11 +100,13 @@ public class ContractController {
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)
 	public void modifyContractGET(ContractVO cvo, Model model) throws Exception {
 		logger.debug("@@@@@@@@@@Contorller : 수주 수정 GET하기 !!!");
-		cvo = contService.getContractInfo(cvo.getCont_id());
-		model.addAttribute("contractInfo", cvo);
+		ContractVO contractInfo = contService.getContractInfo(cvo.getCont_id());
+		
+		model.addAttribute("contractInfo", contractInfo);
 	}
 
 	// 수주 수정 디비처리
+	@ResponseBody
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
 	public String modifyCustomerPOST(@RequestBody ContractVO cvo) throws Exception {
 		logger.debug("@@@@@@@@@@Contorller : 수주 수정 POST하기 !!!");

@@ -6,11 +6,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/mdi/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/base/vendor.bundle.base.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main/fullcalendar-5.11.4/lib/main.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 </head>
 <body>
-	<h1>수주 상세 페이지</h1>
-	<input type="button" value="엑셀화일">
-	<input type="button" value="출력하기">
+	<h1>수주번호 : ${contractInfo.cont_id }</h1>
 	<table border="1">
 		<tr>
 			<th>수주번호</th>
@@ -37,9 +39,8 @@
 			<td>${contractInfo.cont_emp }</td>
 		</tr>
 	</table>
-	<a href="/contract/modify?cont_id=${contractInfo.cont_id }">수정</a>
-	<a href="/contract/remove?cont_id=${contractInfo.cont_id }">삭제</a>
-	<a href="/contract/list">목록으로</a>
-
+	<input type="button" class="btn btn-success" value="수주수정" onclick="location.href='/contract/modify?cont_id=${contractInfo.cont_id }'">
+	<input type="button" class="btn btn-success" value="수주삭제" onclick="deleteAction(${contractInfo.cont_id});">
+	<input type="button" class="btn btn-light" value="창닫기" onclick="window.close();">
 </body>
 </html>

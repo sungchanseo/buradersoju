@@ -8,6 +8,20 @@
 	<style type="text/css">
 	/* 인쇄하기 가로 기본출력 지정 */
 		@page { size: A4 landscape; margin:0; }
+		
+	/* 엑셀, 인쇄 버튼 배치 */
+	.button-group {
+	  width: 170px;
+	  height: 35px;
+	  display: flex;
+	  gap: 5px; /* 버튼 사이의 간격 */
+	}
+	.button-group button {
+	  flex: 1; /* 버튼들을 동일한 너비로 설정 */
+	}
+	
+	
+
 	</style>
 
 </head>
@@ -23,8 +37,9 @@
 							<div class="form-group">
 
 								<!-- 이 곳에 내용 작성하시면 됩니다 -->
+							
 								
-									<h1>생산 현황</h1>
+								<h1>생산 현황</h1>
 								
 								<!-- 검색창기능 -->
 								<form action="/production/productionList" method="get">
@@ -41,8 +56,16 @@
 										
 								<button type="button" onclick="openPopup();" class="btn btn-success">생산 등록</button>
 
-								<button id="excel">엑셀파일</button>
-								<button class="print-button" onclick="info_print()">인쇄하기</button>
+								<div class="button-group">
+								  <button id="excel" 
+								  		  class="btn btn-Light" style="padding-left: 1px; padding-right: 1px;">
+								  엑셀파일
+								  </button>
+								  <button id="print-button" onclick="info_print()"
+								  		  class="btn btn-Light" style="padding-left: 1px; padding-right: 1px;">
+								  인쇄하기
+								  </button>
+								</div>
 										
 								<table class="table table-color">
 								  <tbody>
@@ -79,10 +102,10 @@
 							            value="${(productionList.plan_qty * 100) / productionList.production_qty}" />
 							            ${defectRate}%
 							          </td>
-									  <td>${productionList.production_emp}</td>
+									  <td>${productionList.emp_name}</td>
 									  <td>${productionList.production_status}</td>
 									  <td>${productionList.production_date}</td>
-									 </tr>
+									 </tr>									 
 									</c:forEach>
 									
 								  </tbody>
@@ -102,6 +125,8 @@
 								</c:if>
 								<!-- 	페이징 처리  -->
 							
+							
+							
 							<script type="text/javascript">
 
 							/* 등록 버튼 팝업 */
@@ -111,29 +136,10 @@
 
 							/* 인쇄 버튼 기능 */
 							function info_print() {
-							  let initBody = document.body;
-							  let hiddenBtn = document.querySelector('.print-button'); 
-							  let hiddenHeader = document.querySelector('#header');
-							  let hiddenNavbar = document.querySelector('.navbar-device');
-							  let hiddenClearfix = document.querySelector('.clearfix');
-							 
-							  window.onbeforeprint = function () {
-							    hiddenBtn.style.display = "none";
-							    hiddenHeader.style.display = "none";
-							    hiddenNavbar.style.display = "none";
-							    hiddenClearfix.style.display = "none";
-							    document.body = document.querySelector('.main-container');
-							  }
-							  window.onafterprint = function () {
-							    hiddenBtn.style.display = "block";
-							    hiddenHeader.style.display = "block";
-							    hiddenNavbar.style.display = "block";
-							    hiddenClearfix.style.display = "block";
-							    document.body = initBody;
-							  }
-							  window.print();
+								window.print();
 							} 
 							</script>
+							
 							
 							
 								<!-- 이 곳에 내용 작성하시면 됩니다 -->

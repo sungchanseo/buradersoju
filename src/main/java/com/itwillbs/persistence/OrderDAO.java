@@ -34,5 +34,8 @@ public interface OrderDAO {
 	
     // 발주 정보 조회하기
  	public OrderVO getOrderInfo(String order_id) throws Exception;
+ 	
+ 	// 발주 정보 삭제하기
+ 	public Integer deleteOrder(String order_id) throws Exception;
     
 }

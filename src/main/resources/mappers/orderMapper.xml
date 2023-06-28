@@ -50,7 +50,13 @@
 		where order_id = #{order_id}
 	</update>
  <!-- 발주 정보 수정 -->
- 
+
+   <!-- 발주 정보 삭제  -->
+     <delete id="deleteOrder" >
+        update orders SET status = 0
+        where order_id = #{order_id}
+     </delete>
+   <!-- 발주 정보 삭제  -->
  
  
       </mapper>

@@ -58,6 +58,7 @@ public class OrderController {
 	 orserivce.insertOrder(vo);
       return "redirect:/purchasing/order/list";
    }
+    // 발주 수정 (조회)
  // http://localhost:8088/purchasing/order/list
    @RequestMapping(value = "/modify" , method = RequestMethod.GET)
    @ResponseBody
@@ -70,8 +71,8 @@ public class OrderController {
     	
     	return orderVo;
     }
-// http://localhost:8088/purchasing/order/list
-// 3-2. 자재 수정 (데이터처리)
+//   http://localhost:8088/purchasing/order/list
+//  발주 수정 (데이터처리)
 	@RequestMapping(value = "/modify", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String modifyMaterialPOST(@RequestBody OrderVO ovo) throws Exception {
@@ -85,6 +86,16 @@ public class OrderController {
 		logger.debug("@@@@@@@@@@ 업데이트 된 행의 수  : " + result);
 
 		return "redirect:/purchasing/order/list";
+	}
+	
+	// 발주 정보 삭제
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	public void deleteOrderPOST(@RequestParam("order_id") String order_id) throws Exception{
+		
+		logger.debug("deletePOST 호출@@@@@@");
+	
+		int result = orserivce.deleteOrder(order_id);	
+		logger.debug("@@@@@@@@@@ 삭제 된 행의 수 : " + result);
 	}
 
 	

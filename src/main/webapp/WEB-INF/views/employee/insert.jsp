@@ -36,10 +36,9 @@
 			<tr>
 				<th>주소</th>
 				<td colspan="5">
-					<input type="text" id="zipcode" onclick="addr();" maxlength="200" size="15">
-					<input type="button" value="우편번호찾기" onclick="addr();"><br>
-					<input type="text" name="address" id="address" size="45" onclick="addr();"><br>
-					<input type="text" name="emp_address" placeholder="상세주소를 입력하세요." size="45" maxlength="45">
+					<input type="text" name="emp_address" id="emp_address" size="45" onclick="addr();">
+					<input type="button" value="주소찾기" onclick="addr();"><br>
+					<input type="text" name="emp_address_detail" id="emp_address_detail" placeholder="상세주소를 입력하세요." size="55" maxlength="55">
 				</td>
 			</tr>
 			<tr>
@@ -100,8 +99,7 @@
 		function addr() {
 			new daum.Postcode({
 				    oncomplete : function(data) {
-					document.getElementById("zipcode").value = data.zonecode; // 우편 번호 넣기
-					document.getElementById("address").value = data.address; // 주소 넣기
+					document.getElementById("emp_address").value = data.address; // 주소 넣기
 				}
 			}).open();
 		};
@@ -111,7 +109,6 @@
 		$(document).ready(function () {
 		
 			$('#fr').submit(function() {
-				var formObject = $("form[role='form']").serialize();
 				var status = true;
 		
 				if ($('#emp_pw').val() == ""){
@@ -149,12 +146,19 @@
 					return false;
 				}//이메일 입력 제어
 				
-				if ($('#address').val() == ""){
+				if ($('#emp_address').val() == ""){
 					alert('주소를 입력하세요.');
-					$('#address').focus();
+					$('#emp_address').focus();
 					status = false;
 					return false;
 				}//주소 입력 제어
+				
+				if ($('#emp_address_detail').val() == ""){
+					alert('상세주소를 입력하세요.');
+					$('#emp_address_detail').focus();
+					status = false;
+					return false;
+				}//상세주소 입력 제어
 				
 				if ($('#emp_tel').val() == ""){
 					alert('내선번호를 입력하세요.');

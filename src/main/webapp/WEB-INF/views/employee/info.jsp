@@ -7,18 +7,6 @@
 <title>사원 정보</title>
 </head>
 <body>
-<!-- 사원 수정 새창열기  -->
-<script type="text/javascript">
-// 	function openPop(){
-// 		var insertPop = window.open('/employee/modify?emp_id=${resultVO.emp_id}', '사원수정', 'width=900px,height=500px');
-		
-// 		if(insertPop == null){
-// 		 alert("팝업이 차단되었습니다. 차단을 해제하세요.");
-// 		}
-// 		openPop.moveBy(100,100);
-// 	}
-</script>
-<!-- 사원 수정 새창열기 -->
 	<h1>사원 정보</h1>
 	<c:if test="${emp_department.equals('인사팀') || emp_department.equals('인사') }">
 		<input type="button" value="수정하기" onclick="location.href='/employee/modify?emp_id=${resultVO.emp_id}';">
@@ -43,7 +31,7 @@
 		</tr>
 		<tr>
 			<th>주소</th>
-			<td colspan="5">${resultVO.emp_address }</td>
+			<td colspan="5">${resultVO.emp_address }<br> ${resultVO.emp_address_detail }</td>
 		</tr>
 		<tr>
 			<th>성별</th>

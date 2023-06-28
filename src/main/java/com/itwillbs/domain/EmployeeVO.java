@@ -10,6 +10,7 @@ public class EmployeeVO {
 	private String emp_phone;
 	private String emp_tel;
 	private String emp_address;
+	private String emp_address_detail;
 	private String emp_image;
 	private String emp_department;
 	private String emp_position;
@@ -95,6 +96,14 @@ public class EmployeeVO {
 		this.emp_address = emp_address;
 	}
 
+	public String getEmp_address_detail() {
+		return emp_address_detail;
+	}
+
+	public void setEmp_address_detail(String emp_address_detail) {
+		this.emp_address_detail = emp_address_detail;
+	}
+
 	public String getEmp_image() {
 		return emp_image;
 	}
@@ -159,10 +168,10 @@ public class EmployeeVO {
 		this.resign_date = resign_date;
 	}
 
-	public EmployeeVO(String emp_id, String emp_pw, String emp_name, String emp_email, String emp_birth, String emp_gender,
-			String emp_phone, String emp_tel, String emp_address, String emp_image, String emp_department,
-			String emp_position, String emp_status, String join_date, String absence_date, String rehabi_date,
-			String resign_date) {
+	public EmployeeVO(String emp_id, String emp_pw, String emp_name, String emp_email, String emp_birth,
+			String emp_gender, String emp_phone, String emp_tel, String emp_address, String emp_address_detail,
+			String emp_image, String emp_department, String emp_position, String emp_status, String join_date,
+			String absence_date, String rehabi_date, String resign_date) {
 		super();
 		this.emp_id = emp_id;
 		this.emp_pw = emp_pw;
@@ -173,6 +182,7 @@ public class EmployeeVO {
 		this.emp_phone = emp_phone;
 		this.emp_tel = emp_tel;
 		this.emp_address = emp_address;
+		this.emp_address_detail = emp_address_detail;
 		this.emp_image = emp_image;
 		this.emp_department = emp_department;
 		this.emp_position = emp_position;
@@ -187,10 +197,10 @@ public class EmployeeVO {
 	public String toString() {
 		return "EmployeeVO [emp_id=" + emp_id + ", emp_pw=" + emp_pw + ", emp_name=" + emp_name + ", emp_email="
 				+ emp_email + ", emp_birth=" + emp_birth + ", emp_gender=" + emp_gender + ", emp_phone=" + emp_phone
-				+ ", emp_tel=" + emp_tel + ", emp_address=" + emp_address + ", emp_image=" + emp_image
-				+ ", emp_department=" + emp_department + ", emp_position=" + emp_position + ", emp_status=" + emp_status
-				+ ", join_date=" + join_date + ", absence_date=" + absence_date + ", rehabi_date=" + rehabi_date
-				+ ", resign_date=" + resign_date + "]";
+				+ ", emp_tel=" + emp_tel + ", emp_address=" + emp_address + ", emp_address_detail=" + emp_address_detail
+				+ ", emp_image=" + emp_image + ", emp_department=" + emp_department + ", emp_position=" + emp_position
+				+ ", emp_status=" + emp_status + ", join_date=" + join_date + ", absence_date=" + absence_date
+				+ ", rehabi_date=" + rehabi_date + ", resign_date=" + resign_date + "]";
 	}
-
+	
 }

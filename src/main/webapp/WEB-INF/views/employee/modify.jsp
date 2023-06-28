@@ -7,29 +7,33 @@
 <title>사원 정보 수정</title>
 </head>
 <body>
-	<form action="" role="form" method="post">
+	<form action="" role="form" id="fr" method="post">
 		<table border="1">
 			<tr>
 				<th>사원사진</th>
 				<th>사번</th>
-				<td><input type="text" value="${resultVO.emp_id }" readonly></td>
+				<td><input type="text" name="emp_id" value="${resultVO.emp_id }" readonly></td>
 				<th>비밀번호</th>
-				<th><input type="password" name="emp_pw" placeholder="비밀번호를 입력하세요"></th>				
+				<th><input type="password" name="emp_pw" id="emp_pw" placeholder="비밀번호를 입력하세요"></th>				
 				<th>이름</th>
-				<td><input type="text" name="emp_name" value="${resultVO.emp_name }"></td>
+				<td><input type="text" name="emp_name" id="emp_name" value="${resultVO.emp_name }"></td>
 			</tr>
 			<tr>
 				<td rowspan="4">이미지</td>
 				<th>생년월일</th>
-				<td><input type="text" name="emp_birth" value="${resultVO.emp_birth }"></td>
+				<td><input type="text" name="emp_birth" id="emp_birth" value="${resultVO.emp_birth }"></td>
 				<th>휴대전화</th>
-				<td><input type="text" name="emp_phone" value="${resultVO.emp_phone }"></td>
+				<td><input type="text" name="emp_phone" id="emp_phone" value="${resultVO.emp_phone }"></td>
 				<th>이메일</th>
-				<td><input type="text" name="emp_email" value="${resultVO.emp_email }"></td>
+				<td><input type="text" name="emp_email" id="emp_email" value="${resultVO.emp_email }"></td>
 			</tr>
 			<tr>
 				<th>주소</th>
-				<td colspan="5"><input type="text" name="emp_address" value="${resultVO.emp_address }"></td>
+				<td colspan="5">
+					<input type="text" name="emp_address" id="emp_address" size="45" value="${resultVO.emp_address }" onclick="addr();">
+					<input type="button" value="주소찾기" onclick="addr();"><br>
+					<input type="text" name="emp_address_detail" id="emp_address_detail" size="55" maxlength="55" value="${resultVO.emp_address_detail }">
+				</td>
 			</tr>
 			<tr>
 				<th>성별</th>
@@ -58,7 +62,7 @@
 			</tr>
 			<tr>
 				<th>내선번호</th>
-				<td><input type="text" name="emp_tel" value="${resultVO.emp_tel }"></td>			
+				<td><input type="text" name="emp_tel" id="emp_tel" value="${resultVO.emp_tel }"></td>			
 				<th>재직구분</th>
 				<td><select name="emp_status">
 						<option value="재직" ${resultVO.emp_status == '재직' ? 'selected' : ''}>재직</option>
@@ -67,10 +71,10 @@
 						<option value="퇴직" ${resultVO.emp_status == '퇴직' ? 'selected' : ''}>퇴직</option>
 				</select></td>
 				<th>입사일</th>
-				<th><input type="text" name="join_date" value="${resultVO.join_date }"></th>
+				<th><input type="text" name="join_date" id="join_date" value="${resultVO.join_date }"></th>
 			</tr>
 			<tr>
-				<td><input type="file" name="emp_image" accept="image/*" value="이미지등록"></td>
+				<td><input type="file" multiple name="emp_image" accept="image/*" value="이미지등록"></td>
 				<th>휴직일</th>
 				<th><input type="text" name="absence_date" value="${resultVO.absence_date }"></th>			
 				<th>복직일</th>
@@ -80,40 +84,95 @@
 			</tr>
 			
 		</table>
-		<input type="submit" value="사원수정" onclick="sendForm();">
-		<input type="reset" value="초기화">
-		<input type="button" value="창닫기" onclick="window.close();">
+		<input type="submit" class="btn btn-info" value="사원수정" onclick="sendForm();">
+		<input type="reset" class="btn btn-success" value="초기화">
+		<input type="button" class="btn btn-success" value="창닫기" onclick="window.close();">
 	</form>
 	<!-- 팝업창 처리 -->
 	<script>
-		function sendForm() {
-			//상단의 폼태그를 변수에 저장한다. 
-			var formObject = $("form[role='form']").serialize();
-			var status = true;
-
-			for (var i = 0; i < formObject.length; i++) {
-				if (formObject[i].value == "") {
-					alert("정보를 입력하세요!");
+		// 중복체크와 입력값 확인
+		$(document).ready(function () {
+		
+			$('#fr').submit(function() {
+				var status = true;
+		
+				if ($('#emp_pw').val() == ""){
+					alert('비밀번호를 입력하세요.');
+					$('#emp_pw').focus();
 					status = false;
-					break;
+					return false;
+				}//비밀번호 입력 제어
+		
+				if ($('#emp_name').val() == ""){
+					alert('이름을 입력하세요.');
+					$('#emp_name').focus();
+					status = false;
+					return false;
+				}//이름 입력 제어
+		
+				if ($('#emp_birth').val() == ""){
+					alert('생년월일을 입력하세요.');
+					$('#emp_birth').focus();
+					status = false;
+					return false;
+				}//생년월일 입력 제어
+		
+				if ($('#emp_phone').val() == ""){
+					alert('연락처를 입력하세요.');
+					$('#emp_phone').focus();
+					status = false;
+					return false;
+				}//연락처 입력 제어
+		
+				if ($('#emp_email').val() == ""){
+					alert('이메일를 입력하세요.');
+					$('#emp_email').focus();
+					status = false;
+					return false;
+				}//이메일 입력 제어
+				
+				if ($('#emp_address').val() == ""){
+					alert('주소를 입력하세요.');
+					$('#emp_address').focus();
+					status = false;
+					return false;
+				}//주소 입력 제어
+				
+				if ($('#emp_tel').val() == ""){
+					alert('내선번호를 입력하세요.');
+					$('#emp_tel').focus();
+					status = false;
+					return false;
+				}//내선번호 입력 제어
+		
+				if ($('#join_date').val() == ""){
+					alert('입사일을 입력하세요.');
+					$('#join_date').focus();
+					status = false;
+					return false;
+				}//입사일 입력 제어
+				
+				if (status) {
+					sendForm();
 				}
-			}	
-			
-			//수정하기 버튼을 눌렀을 때 ajax를 실행하도록 한다.
-			$.ajax({
-				url : '/employee/modify', 
-				type : 'POST', 
-				data : formObject, 
-				success : function(json) {
-					alert("사원수정이 완료되었습니다.");
-					status = true;
-					window.opener.location.reload();
-					window.close();
-				},  
+		
+				return false; // 폼 제출 막기
 			});
-		}
 		
-		
+			function sendForm() {
+				var formObject = $("form[role='form']").serialize();
+				$.ajax({
+					url: '/employee/modify', 
+					type: 'post', 
+					data : formObject, 
+					success: function(json) {
+						alert("사원수정이 완료되었습니다.");
+						window.opener.location.reload();
+						window.close();
+					}
+				});
+			}
+		});
 	</script>
 	<!-- 팝업창 처리 -->
 </body>

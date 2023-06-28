@@ -396,6 +396,7 @@ $(function() {
 			}); // update.click
 			
 	}); // modify.click
+	
 	// 3-1. '삭제' 클릭
 	$('#delete').click(function(){ 
 			
@@ -416,13 +417,13 @@ $(function() {
 			
 			// td.eq(0)은 체크박스, td.eq(1)이 ma_id
 			var order_id = td.eq(1).text();
-			tdArr.push(ma_id);	// tdArr[0]
-
+			tdArr.push(order_id);	// tdArr[0]
+          console.log(order_id);
 		}); // function(i)
 		
 	
 		// 3-2. 체크된 데이터 컨트롤러 전달
-		var ma_id = tdArr[0];
+		var order_id = tdArr[0];
 		
 		$.ajax({
 			url: "delete",
@@ -438,9 +439,9 @@ $(function() {
 			error: function() {
 				alert("삭제할 항목을 선택해주세요.");
 			}
-	    	}); //ajax		
+	    }); //ajax		
 	
-	}); // btnsearch.click
+	}); // deleteForm.click
 	
  }); // jQuery
 </script>
@@ -448,13 +449,14 @@ $(function() {
 <body>
 <button class="writeForm true">행추가</button>
 <!-- 버튼 -->
-	<button class="insertForm true" >등록</button>
-	<button class="btn btn-outline btn-primary pull-right modify true">수정</button>
-	<button class="btn btn-outline btn-primary pull-right" id="delete">삭제</button>
-	<button class="insert update delete">저장</button>
+<button class="btn btn-info insertForm true">등록</button>
+	<button class="btn btn-info modify true">수정</button>
+	<button class="btn btn-info" id="delete">삭제</button>
+	<button class="btn btn-success insert update">저장</button>
  <fmt:formatDate value=""/>
  <div class="row" > 
 <table border="1" id="example-table-3" class="table table-bordered table-hover text-center tbl">
+		    <thead>
 			<tr>
 			    <th></th>
 				<th>발주번호</th>
@@ -471,6 +473,7 @@ $(function() {
 				<th>입고창고</th>
 				<th>담당직원</th>
 			</tr>
+			</thead>
 			<tbody id="tbody">
 			<c:forEach var="order" items="${orderList}">
 			 	<tr>
@@ -494,6 +497,6 @@ $(function() {
 		</table>
 		
  </div>
+ <%@ include file="../../includes/footer.jsp" %>
 </body>
 </html>
-<%@ include file="../../includes/footer.jsp" %>

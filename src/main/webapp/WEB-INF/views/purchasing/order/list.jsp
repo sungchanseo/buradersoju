@@ -250,7 +250,7 @@ $(function() {
           console.log(in_date);
           console.log(order_emp);
        
-          if(ma_id==="" || ma_name==="" || whs_num ==="" ) {
+          if(ma_id==="" || ma_name==="") {
              alert("빈칸을 입력하세요");
           } else {
              $.ajax({
@@ -415,7 +415,7 @@ $(function() {
 			rowData.push(tr.text());
 			
 			// td.eq(0)은 체크박스, td.eq(1)이 ma_id
-			var ma_id = td.eq(1).text();
+			var order_id = td.eq(1).text();
 			tdArr.push(ma_id);	// tdArr[0]
 
 		}); // function(i)
@@ -427,12 +427,12 @@ $(function() {
 		$.ajax({
 			url: "delete",
 			type: "post",
-			data: { ma_id:ma_id },
+			data: { order_id:order_id },
 			success: function() {
-				var result = confirm("품목코드 " + ma_id + "를 정말 삭제하시겠습니까?");
+				var result = confirm("품목코드 " + order_id + "를 정말 삭제하시겠습니까?");
 				if(result){
 					alert("삭제가 완료되었습니다.");
-					location.href="/purchasing/material/list";
+					location.href="/purchasing/order/list";
 				}
 			},
 			error: function() {

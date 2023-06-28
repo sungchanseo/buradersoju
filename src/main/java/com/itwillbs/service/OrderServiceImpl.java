@@ -79,5 +79,11 @@ public class OrderServiceImpl implements OrderService {
 		
 		return odao.getOrderInfo(order_id);
 	}
+
+	@Override
+	public Integer deleteOrder(String order_id) throws Exception {
 		
+		return odao.deleteOrder(order_id);	
+	}	
+	
 }

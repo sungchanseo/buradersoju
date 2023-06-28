@@ -71,4 +71,13 @@ public class OrderDAOImpl implements OrderDAO{
 		return sqlSession.selectOne(NAMESPACE+".getOrderInfo",order_id);
 	}
 
+	@Override
+	public Integer deleteOrder(String order_id) throws Exception {
+	
+		return sqlSession.delete(NAMESPACE+".deleteOrder", order_id);
+	}
+
+	
+	
+	
 }

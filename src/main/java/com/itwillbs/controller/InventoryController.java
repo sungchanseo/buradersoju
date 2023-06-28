@@ -94,8 +94,5 @@ public class InventoryController {
 			return "redirect:/purchasing/inventory/list";    	    	
 	}
 	
-	
-	// http://localhost:8088/purchasing/inventory/list
 
-   
 }

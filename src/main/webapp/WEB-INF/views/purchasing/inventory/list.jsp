@@ -128,7 +128,16 @@
          <tr>
             <td>${in.ma_name}</td>
             <td>${in.ma_id}<input type="hidden" name="ma_id" value="${in.ma_id}"></td>
-            <td>${in.ma_qty}</td>
+            <td><c:choose>
+					<c:when test="${in.ma_qty < 100 }">
+					<span style="color:red">
+					${in.ma_qty}
+					</span>
+					</c:when>
+					<c:otherwise>
+					${in.ma_qty}
+					</c:otherwise>
+			 	    </c:choose></td>
             <td>${in.unit}</td>	
             <td><fmt:formatDate value="${in.ma_regdate}" pattern="yyyy-MM-dd"/></td>
             <td><input type="text" class="ma_qty" ></td>

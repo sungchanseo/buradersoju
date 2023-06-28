@@ -8,11 +8,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.itwillbs.domain.InMaterialVO;
 import com.itwillbs.domain.MaterialVO;
 import com.itwillbs.domain.OrderVO;
 import com.itwillbs.service.OrderService;
@@ -28,32 +29,64 @@ public class OrderController {
 	
 	// http://localhost:8088/purchasing/order/list
 	@RequestMapping(value="/list", method = RequestMethod.GET)
-	public void orderListGET(Model model , OrderVO vo) {
+	public void orderListGET(Model model , OrderVO vo)  throws Exception{
 		
 		logger.debug("@@@@@orderList 호출@@@@@");
 		// service 객체 호출
 		List<OrderVO> orderList = orserivce.getOrderList();
+        logger.debug("@@@@@@@@@@ getOrderIdGET() 호출");
+ 		
+ 		String maxNumber = orserivce.getMaxNumber();
+ 		String maxDate = orserivce.getMaxDate();
 	    
 	    // View페이지 정보 전달
+ 		logger.debug("@@@@@@@@@@@@@@ maxNumber = " + maxNumber);	
+ 		logger.debug("@@@@@@@@@@@@@@ maxDate = " + maxDate);	   
+ 		
+ 		model.addAttribute("maxNumber", maxNumber);
+ 		model.addAttribute("maxDate", maxDate);
 		model.addAttribute("orderList", orderList);
 	}
-    
+	// http://localhost:8088/purchasing/order/list
     @RequestMapping(value="/list", method = RequestMethod.POST)
-    public String orderInsertGET(OrderVO vo) {
+    public String orderInsertGET(OrderVO vo ) throws Exception {
    
      logger.debug("@@@@@발주 등록 행추가 가즈아~@@@@");
    
 	 logger.debug("vo :" + vo);
 	
 	 orserivce.insertOrder(vo);
-	 
       return "redirect:/purchasing/order/list";
    }
-
+ // http://localhost:8088/purchasing/order/list
    @RequestMapping(value = "/modify" , method = RequestMethod.GET)
-    public void modifyOrderGET(OrderVO vo) {
+   @ResponseBody
+    public OrderVO modifyOrderGET(Model model, @RequestParam("order_id") String order_id) throws Exception {
     	logger.debug("@@@@@modifyOrderGET()호출!@@@@@");
+    	
+    	// 기존의 정보 출력
+    	
+    	OrderVO orderVo = orserivce.getOrderInfo(order_id);
+    	
+    	return orderVo;
     }
+// http://localhost:8088/purchasing/order/list
+// 3-2. 자재 수정 (데이터처리)
+	@RequestMapping(value = "/modify", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String modifyMaterialPOST(@RequestBody OrderVO ovo) throws Exception {
+		logger.debug("@@@@@@@@@@ modifyMaterialPOST_호출");
 
- 
+		// 전달된 정보 저장
+		logger.debug("@@@@@@@@@@ 수정된 데이터 : " + ovo);
+
+		// 서비스 객체 사용으로 데이터 처리
+		Integer result = orserivce.modifyOrder(ovo);
+		logger.debug("@@@@@@@@@@ 업데이트 된 행의 수  : " + result);
+
+		return "redirect:/purchasing/order/list";
+	}
+
+	
+
 }

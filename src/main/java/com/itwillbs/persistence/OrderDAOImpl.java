@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import com.itwillbs.domain.InMaterialVO;
 import com.itwillbs.domain.OrderVO;
 
 @Repository
@@ -33,20 +34,41 @@ public class OrderDAOImpl implements OrderDAO{
     
 	// 발주수정하기 
 	@Override
-	public Integer modifyOrder(OrderVO vo) {
+	public Integer modifyOrder(OrderVO ovo) {
 	
-		return null;
+		return sqlSession.update(NAMESPACE+".modifyOrder",ovo);
 	}
 
 
 	@Override
 	public void insertOrder(OrderVO vo) {		
 		sqlSession.insert(NAMESPACE+".insertOrder",vo);
+		sqlSession.insert(NAMESPACE+".insertOrders",vo);
 	}
 
+	@Override
+	public String getMaxNumber() {
+		
+		return sqlSession.selectOne(NAMESPACE+".getMaxNumber"); //230620001
+	}
+
+	@Override
+	public String getMaxDate() {
 	
+		return sqlSession.selectOne(NAMESPACE+".getMaxDate");
+	}
+
+	@Override
+	public void regisOrderId(OrderVO vo) throws Exception {
 	
-   
-	
+		sqlSession.update(NAMESPACE + ".regisOrderId", vo);
+	}
+
+	@Override
+	public OrderVO getOrderInfo(String order_id) throws Exception {
+		
+		
+		return sqlSession.selectOne(NAMESPACE+".getOrderInfo",order_id);
+	}
 
 }

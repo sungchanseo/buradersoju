@@ -4,9 +4,48 @@
 
 <%@ include file="../../includes/header.jsp" %>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+	
+	// '입고처리' 버튼 클릭
+	$('.inidDone').click(function(){
+		alert("입고처리 버튼 클릭함!");		
+		var btn = $(this);
+		var tr = btn.parent().parent();		// btn.parent()          : btn의 부모는 <td>
+		var td = tr.children();				// btn.parent().parent() : <td>의 부모는 <tr>		
+	
+		var order_id = td.eq(1).text();
+		var ma_id = td.eq(3).text();
+		
+		alert(order_id);
+		alert(ma_id);
+		
+		$.ajax({
+			url: "list",
+			type: "post",
+			data: {
+				order_id:order_id,
+				ma_id:ma_id
+			},
+			success: function(){
+				alert("성공");
+				location.href="/purchasing/inMaterial/inid?order_id="+order_id+"&ma_id="+ma_id;
+			},
+			error: function(){
+				alert("error");
+			}
+		});
+
+	}); // inidDone.click
+	
+	var a = "${maqtyList }"; 
+	console.log(a);
+	
+}); // JQuery
+</script>
 </head>
 <body>
-
+<br><br>
 <div>
  	<fmt:formatDate value=""/> 
 	<table border="1" class="table">
@@ -14,7 +53,8 @@
 		<th>입고번호</th>
 		<th>발주번호</th>
 		<th>상세</th>
-		<th>품명</th>
+		<th>자재코드</th>
+		<th>품명</th>		
 		<th>입고수량</th>
 		<th>재고수량</th>
 		<th>총재고량</th>
@@ -41,6 +81,7 @@
 						<img class="viewDetail" src="${pageContext.request.contextPath}/resources/images/viewDetail.png" width="25px" height="25px" alt="image" />
 				</a>
 			</td>
+			<td>${iml.ma_id }</td>
 			<td>${iml.ma_name }</td>
 			<td>${iml.order_qty }</td>
 			<td>
@@ -64,8 +105,7 @@
 			</td>
 			<td>		
 				<c:if test="${empty iml.in_id or iml.in_id == '0'}">
-					<input type="button" class="btn-outline-success" value="입고처리" 
-					                     onclick="location.href='/purchasing/inMaterial/inid?order_id=${iml.order_id }&ma_id=${iml.ma_id }';">
+					<input type="button" class="btn-outline-success inidDone" value="입고처리">
 				</c:if>
 			</td>
          </tr>

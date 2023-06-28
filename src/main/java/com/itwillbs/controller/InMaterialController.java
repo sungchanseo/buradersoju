@@ -1,7 +1,5 @@
 package com.itwillbs.controller;
 import java.util.List;
-import java.util.Map;
-
 import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,6 +41,23 @@ public class InMaterialController {
 		model.addAttribute("inMaterialList", inMaterialList);
 	}
 	
+	// 1-2. 리스트와 정보 주고 받기
+	@RequestMapping(value="/list", method=RequestMethod.POST)
+//	@ResponseBody
+	public void inMaterialListAllPOST(Model model, 
+			                          @RequestParam("order_id") String order_id,
+			                          @RequestParam("ma_id") String ma_id) throws Exception{
+		logger.debug("@@@@@@@@@@ inMaterialListAllPOST()_호출");
+
+		// 현 재고량 + 입고량 = 총재고량 DB에 저장 (add_ma)
+		iService.getAddMa(order_id);
+		logger.debug("@@@@@@@@@@ 입고된 수 만큼 더하여 총 재고량 구하기 완료");
+		
+		// ma_qty 구하기
+		List<InMaterialVO> maqtyList = iService.getMaQty(ma_id);
+		model.addAttribute("maqtyList", maqtyList);
+	}
+	
 	
 	// 2-1. 입고번호 - 자동넘버링
 	@RequestMapping(value="/inid", method=RequestMethod.GET)
@@ -66,14 +81,6 @@ public class InMaterialController {
 		
 		// 입고번호, 발주번호 DB에 저장
 		iService.registInId(vo);
-		
-		// 현 재고량 + 입고량 = 총재고량 DB에 저장 (add_ma)
-		iService.getAddMa(vo.getOrder_id());
-		logger.debug("@@@@@@@@@@ 입고된 수 만큼 더하여 총 재고량 구하기 완료");
-		
-		// ma_qty 구하기
-		List<InMaterialVO> maqtyList = iService.getMaQty(vo.getMa_id());
-		maqtyList.get(0); // 이 안에 내가 원하는 최신 in_id 값과 ma_qty값(add_ma)이 있당
 	}
 	
 	

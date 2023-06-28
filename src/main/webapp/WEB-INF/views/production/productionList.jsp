@@ -1,7 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%> 
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<head>
 <%@ include file="../includes/header.jsp" %>
+
+	<style type="text/css">
+	/* 인쇄하기 가로 기본출력 지정 */
+		@page { size: A4 landscape; margin:0; }
+	</style>
+
+</head>
+
+<body>
 <div class="container-scroller">
 	<div class="container-fluid page-body-wrapper full-page-wrapper">
 		<div class="main-panel">
@@ -9,119 +20,125 @@
 				<div class="row w-100 mx-0">
 					<div class="col-lg-12 mx-auto">
 						<div class="auth-form-light text-left py-5 px-4 px-sm-5" style="height: 1000px;">
-							<form role="form" method="post">
-								<div class="form-group">
+							<div class="form-group">
 
 								<!-- 이 곳에 내용 작성하시면 됩니다 -->
 								
-									<style type="text/css">
-									/* 인쇄하기 가로 기본출력 지정 */
-										@page { size: A4 landscape; margin:0; }
-									</style>
+									<h1>생산 현황</h1>
 								
-								<h1>생산목록</h1>
-										제목 <input type="text"
-										class="form-control" name="" id=""
-										placeholder="샘플을 입력하세요" required style="width: 400px;">
-
-										내용<textarea class="form-control" name="notice_content"
-										id="notice_content" rows="3" placeholder="샘플을 입력하세요" required
-										style="width: 600px; height: 300px;"></textarea>
+								<!-- 검색창기능 -->
+								<form action="/production/productionList" method="get">
+									<select name="selector">
+										<option value="production_id">작업지시번호</option>
+										<option value="production_line">생산라인</option>
+										<option value="production_emp">생산담당자</option>
+										<option value="production_date">작업완료일시</option>
+									</select>
+									<input type="text" name="search" placeholder="검색어를 입력해주세요">
+									<input type="submit" class="btn-info" value="검색">
+								</form>
+								<!-- 검색창기능 -->
 										
-								<input type="button" value="등록" onclick="openPopup();">
+								<button type="button" onclick="openPopup();" class="btn btn-success">생산 등록</button>
 
-								<button>엑셀파일</button>
+								<button id="excel">엑셀파일</button>
 								<button class="print-button" onclick="info_print()">인쇄하기</button>
 										
-								<h1>샘플 테이블</h1>		
 								<table class="table table-color">
-								<tbody>
+								  <tbody>
 									<tr>
-										<th style="width: 60px">번호</th>
-										<th>작업지시번호</th>
-										<th>생산라인</th>
-										<th>상품코드</th>
-										  <th>상품명</th>
-										  <th>수주량</th>
-										  <th>생산수량</th>
-										  <th>불량수량</th>
-										  <th>불량률</th>
-										  <th>생산담당자</th>
-										  <th>생산단계</th>
-										  <th>작업완료일시</th>
+									  <th>작업지시번호</th>
+									  <th>생산라인</th>
+									  <th>상품코드</th>
+									  <th>상품명</th>
+									  <th>작업지시수량</th>                                           
+									  <th>생산수량</th>
+									  <th>불량수량</th>
+									  <th>불량률</th>
+									  <th>생산담당자</th>
+									  <th>생산단계</th>
+									  <th>작업완료일시</th>
 									</tr>
-										<c:forEach var="productionList" items="${productionList }">
-	 <tr>  
-	  <td>
-		<a href="./workOrder?production_id=${productionList.production_id}"
-		onclick="window.open(this.href, '_blank', 'width=800, height=500, left=2000'); return false;">
-		${productionList.production_id}
-		</a>
-	  </td>
-	  <td>
-	  	<a href="/contract/info?cont_id=${productionList.cont_id }"
-	  	onclick="window.open(this.href, '_blank', 'width=800, height=500, left=2000'); return false;">
-	  	${productionList.cont_id}
-	  	</a>
-	  </td>	  
-	  <td>${productionList.production_emp}</td>
-	  <td>${productionList.production_date}</td>
-	  <td>${productionList.production_line}</td>
-	  <td>${productionList.product_id}</td>
-	  <td>${productionList.product_name}</td>
-	  <td>${productionList.plan_qty}</td>
-	  <td>${productionList.production_qty}</td>
-	  <td>${productionList.production_state}</td>
-	  <td>${productionList.production_state}</td>
-	  <td>${productionList.production_state}</td>
-	  <td>${productionList.production_state}</td>
-	 </tr>
-	</c:forEach>
+									<c:forEach var="productionList" items="${productionList }">
+									 <tr>  
+									  <td>
+										<a href="/workOrder/workOrder?production_id=${productionList.production_id}"
+										onclick="window.open(this.href, '_blank', 'width=800, height=500, left=2000'); return false;">
+										${productionList.production_id}
+										</a>
+									  </td>
+									  <td>${productionList.production_line}</td>
+									  <td>${productionList.product_id}</td>
+									  <td>${productionList.product_name}</td>
+									  <td>${productionList.plan_qty}</td>
+									  <td>${productionList.production_qty}</td>
+									  <td>${productionList.production_qty}</td>
+									  <td>
+									   	<%-- 불량률 계산 --%>
+							            <c:set var="defectRate" 
+							            value="${(productionList.plan_qty * 100) / productionList.production_qty}" />
+							            ${defectRate}%
+							          </td>
+									  <td>${productionList.production_emp}</td>
+									  <td>${productionList.production_status}</td>
+									  <td>${productionList.production_date}</td>
+									 </tr>
+									</c:forEach>
 									
-								</tbody>
-							</table>
+								  </tbody>
+								</table>
+							
+								<!-- 	페이징 처리  -->
+								<c:if test="${pvo.startPage > pvo.pageBlock }">
+									<a href="/production/productionList?pageNum=${pvo.startPage-pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}">이전</a>
+								</c:if>
+							
+								<c:forEach var="i" begin="${pvo.startPage }" end="${pvo.endPage }" step="1">
+									<a href="/production/productionList?pageNum=${i }&selector=${pvo.selector}&search=${pvo.search}">${i }</a>
+								</c:forEach>
+							
+								<c:if test="${pvo.endPage<pvo.pageCount }">
+									<a href="/production/productionList?pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}">다음</a>
+								</c:if>
+								<!-- 	페이징 처리  -->
 							
 							<script type="text/javascript">
 
-/* 등록 버튼 팝업 */
-function openPopup() {
-	window.open('./workOrderInsert', 'workOrderPopup', 'width=800, height=500, left=2000');
-}
+							/* 등록 버튼 팝업 */
+							function openPopup() {
+								window.open('./productionInsert', 'productionPopup', 'width=800, height=500, left=2000');
+							}
 
-
-/* 인쇄 버튼 기능 */
-function info_print() {
-  let initBody = document.body;
-  let hiddenBtn = document.querySelector('.print-button'); 
-  let hiddenHeader = document.querySelector('#header');
-  let hiddenNavbar = document.querySelector('.navbar-device');
-  let hiddenClearfix = document.querySelector('.clearfix');
- 
-  window.onbeforeprint = function () {
-    hiddenBtn.style.display = "none";
-    hiddenHeader.style.display = "none";
-    hiddenNavbar.style.display = "none";
-    hiddenClearfix.style.display = "none";
-    document.body = document.querySelector('.main-container');
-  }
-  window.onafterprint = function () {
-    hiddenBtn.style.display = "block";
-    hiddenHeader.style.display = "block";
-    hiddenNavbar.style.display = "block";
-    hiddenClearfix.style.display = "block";
-    document.body = initBody;
-  }
-  window.print();
-} 
-</script>
+							/* 인쇄 버튼 기능 */
+							function info_print() {
+							  let initBody = document.body;
+							  let hiddenBtn = document.querySelector('.print-button'); 
+							  let hiddenHeader = document.querySelector('#header');
+							  let hiddenNavbar = document.querySelector('.navbar-device');
+							  let hiddenClearfix = document.querySelector('.clearfix');
+							 
+							  window.onbeforeprint = function () {
+							    hiddenBtn.style.display = "none";
+							    hiddenHeader.style.display = "none";
+							    hiddenNavbar.style.display = "none";
+							    hiddenClearfix.style.display = "none";
+							    document.body = document.querySelector('.main-container');
+							  }
+							  window.onafterprint = function () {
+							    hiddenBtn.style.display = "block";
+							    hiddenHeader.style.display = "block";
+							    hiddenNavbar.style.display = "block";
+							    hiddenClearfix.style.display = "block";
+							    document.body = initBody;
+							  }
+							  window.print();
+							} 
+							</script>
 							
 							
 								<!-- 이 곳에 내용 작성하시면 됩니다 -->
 
-								</div>
-								<button class="btn btn-success btn-fw" type="submit">
-									등록</button>
-							</form>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -130,3 +147,4 @@ function info_print() {
 	</div>
 </div>
 <%@ include file="../includes/footer.jsp" %>
+</body>

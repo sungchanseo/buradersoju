@@ -28,6 +28,21 @@ public class ProductionDAOImpl implements ProductionDAO {
 		return sqlSession.selectList(NAMESPACE+".getProductionList");
 	}
 
+	@Override
+	public void insertProducion(ProductionVO vo) throws Exception {
+		logger.debug(" insertProducion() 호출 ");
+		int result = sqlSession.insert(NAMESPACE + ".insert", vo);
+		
+		if(result != 0)
+			logger.debug(" 생산등록 완료! ");
+	}
+
+	@Override
+	public ProductionVO getInsertSearch(String production_id) throws Exception {
+		logger.debug(" getInsertSearch() 호출 ");
+		return sqlSession.selectOne(NAMESPACE+".insertSearch", production_id);
+	}
+
 	
 	
 	

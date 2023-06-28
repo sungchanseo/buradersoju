@@ -8,6 +8,9 @@ public class ProductionVO {
 	private String cont_id;
 	private Integer cont_qty;
 	
+	// employee
+	private String emp_name;
+	
 	// pr_material
 //	private String product_id;
 	private String ma_name;
@@ -209,6 +212,10 @@ public class ProductionVO {
 	public int getBt_defQty() {
 		return bt_defQty;
 	}
+	
+	public String getEmp_name() {
+		return emp_name;
+	}
 
 
 	public void setCont_id(String cont_id) {
@@ -360,15 +367,19 @@ public class ProductionVO {
 		this.bt_defQty = bt_defQty;
 	}
 
-	
+	public void setEmp_name(String emp_name) {
+		this.emp_name = emp_name;
+	}
+
+
 	// toString()
 	@Override
 	public String toString() {
-		return "ProductionVO [cont_id=" + cont_id + ", cont_qty=" + cont_qty + ", ma_name=" + ma_name + ", use_qty="
-				+ use_qty + ", ma_id=" + ma_id + ", ma_qty=" + ma_qty + ", unit=" + unit + ", production_id="
-				+ production_id + ", production_emp=" + production_emp + ", production_date=" + production_date
-				+ ", op_id=" + op_id + ", production_line=" + production_line + ", plan_qty=" + plan_qty
-				+ ", production_qty=" + production_qty + ", workOrder_status=" + workOrder_status
+		return "ProductionVO [cont_id=" + cont_id + ", cont_qty=" + cont_qty + ", emp_name=" + emp_name + ", ma_name="
+				+ ma_name + ", use_qty=" + use_qty + ", ma_id=" + ma_id + ", ma_qty=" + ma_qty + ", unit=" + unit
+				+ ", production_id=" + production_id + ", production_emp=" + production_emp + ", production_date="
+				+ production_date + ", op_id=" + op_id + ", production_line=" + production_line + ", plan_qty="
+				+ plan_qty + ", production_qty=" + production_qty + ", workOrder_status=" + workOrder_status
 				+ ", production_status=" + production_status + ", product_id=" + product_id + ", product_name="
 				+ product_name + ", complete_date=" + complete_date + ", complete_defQty=" + complete_defQty
 				+ ", qc_num=" + qc_num + ", qc_emp=" + qc_emp + ", qc_date=" + qc_date + ", qc_qty=" + qc_qty

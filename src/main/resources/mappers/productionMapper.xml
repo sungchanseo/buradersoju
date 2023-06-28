@@ -14,7 +14,29 @@
 <!-- 생산 목록 -->
 
 <!-- 생산 등록 -->
+	<!-- 작업지시번호 조회 -->
+	<select id="insertSearch" resultType="com.itwillbs.domain.ProductionVO">
+<!-- 			select pd.production_id, pd.production_emp, pd.production_date, pd.production_line, pd.product_id, p.product_name, pd.plan_qty, pd.production_status -->
+<!--  			from production pd, product p -->
+<!-- 			where pd.product_id = p.product_id -->
+<!-- 			and pd.production_id = #{production_id} -->
+			SELECT pd.production_id, pd.production_emp, pd.production_date, pd.production_line, pd.product_id, p.product_name, pd.plan_qty, pd.production_status, e.emp_name
+			FROM production pd
+			JOIN product p ON pd.product_id = p.product_id
+			JOIN employee e ON pd.production_emp = e.emp_id
+			WHERE pd.production_id = #{production_id}
+			
+	</select>
+	<!-- 작업지시번호 조회 -->
+	<!-- DB 등록 -->
+	<update id="insert">
+		UPDATE production
+		SET production_status = #{production_status}, production_qty = #{production_qty}
+		WHERE production_id = #{production_id}
+	</update>
+	<!-- DB 등록 -->
 <!-- 생산 등록 -->
+
 
 
 </mapper>

@@ -52,7 +52,7 @@
                 </li>
                 <li class="nav-item nav-profile dropdown">
                   <a class="nav-link dropdown-toggle" href="" data-bs-toggle="dropdown" id="profileDropdown">
-                    <span class="nav-profile-name">	${sessionScope.emp_department}팀  ${sessionScope.emp_name}님</span>
+                    <span class="nav-profile-name">	${sessionScope.emp_department}  ${sessionScope.emp_name}님</span>
                     <span class="online-status"></span>
                     <img src="${pageContext.request.contextPath}/resources/images/faces/face28.png" alt="profile"/>
                   </a>

@@ -53,7 +53,7 @@
 
    <!-- 발주 정보 삭제  -->
      <delete id="deleteOrder" >
-        update orders SET status = 0
+        update orders SET order_status = 0
         where order_id = #{order_id}
      </delete>
    <!-- 발주 정보 삭제  -->

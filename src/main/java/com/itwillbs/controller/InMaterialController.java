@@ -36,26 +36,31 @@ public class InMaterialController {
 	@RequestMapping(value="/list", method=RequestMethod.GET)
 	public void inMaterialListAllGET(Model model) throws Exception{
 		logger.debug("@@@@@@@@@@ inMaterialListAllGET()_호출");
-
+		
 		List<InMaterialVO> inMaterialList =  iService.getInMaterialListAll();
 		model.addAttribute("inMaterialList", inMaterialList);
 	}
 	
 	// 1-2. 리스트와 정보 주고 받기
 	@RequestMapping(value="/list", method=RequestMethod.POST)
-//	@ResponseBody
+	@ResponseBody
 	public void inMaterialListAllPOST(Model model, 
 			                          @RequestParam("order_id") String order_id,
 			                          @RequestParam("ma_id") String ma_id) throws Exception{
 		logger.debug("@@@@@@@@@@ inMaterialListAllPOST()_호출");
 
-		// 현 재고량 + 입고량 = 총재고량 DB에 저장 (add_ma)
-		iService.getAddMa(order_id);
-		logger.debug("@@@@@@@@@@ 입고된 수 만큼 더하여 총 재고량 구하기 완료");
+//		// 현 재고량 + 입고량 = 총재고량 DB에 저장 (add_ma)
+//		iService.getAddMa(order_id);
+//		logger.debug("@@@@@@@@@@ 입고된 수 만큼 더하여 총 재고량 구하기 완료");
 		
-		// ma_qty 구하기
-		List<InMaterialVO> maqtyList = iService.getMaQty(ma_id);
-		model.addAttribute("maqtyList", maqtyList);
+		// 입고처리된 ma_id의 재고량을 add_ma로 바꾸기
+		
+		
+		// ma_qty 구하기 (굳이?)
+//		List<InMaterialVO> maqtyList = iService.getMaQty(ma_id);
+//		model.addAttribute("maqtyList", maqtyList);
+//		logger.debug("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + maqtyList);
+//		return "redirect:/purchasing/inMaterial/list";
 	}
 	
 	
@@ -73,7 +78,7 @@ public class InMaterialController {
 		model.addAttribute("maxDate", maxDate);
 	}
 	
-	// 2-2. 입고번호 - DB 업데이트
+	// 2-2. 입고번호 & 재고량 증가 - DB 업데이트
 	@RequestMapping(value="/inid", method=RequestMethod.POST)
 	@ResponseBody
 	public void getInIdPOST(Model model, @RequestBody InMaterialVO vo) throws Exception{
@@ -81,6 +86,12 @@ public class InMaterialController {
 		
 		// 입고번호, 발주번호 DB에 저장
 		iService.registInId(vo);
+		
+//		// 현 재고량 + 입고량 = 총재고량 (add_ma)
+		iService.getAddMa(vo.getOrder_id());
+		
+		// 입고된 자재 재고량 증가
+		iService.getplusMa(vo);
 	}
 	
 	

@@ -28,8 +28,8 @@ public interface InMaterialDAO {
 	// 4. 특정 order_id의 기존 재고량 + 발주량 (== 총 재고량)
 	public void getAddMa(String order_id) throws Exception;
 	
-	// 5. ma_qty 값 구하기
-	public List<InMaterialVO> getMaQty(String ma_id) throws Exception;
+	// 5. 입고처리시 해당 자재 재고량 증가
+	public void getPlusMa(InMaterialVO vo) throws Exception;
 	
 	
 }

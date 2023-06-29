@@ -5,47 +5,48 @@
 <%@ include file="../../includes/header.jsp" %>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
-$(document).ready(function(){
+// $(document).ready(function(){
 	
-	// '입고처리' 버튼 클릭
-	$('.inidDone').click(function(){
-		alert("입고처리 버튼 클릭함!");		
-		var btn = $(this);
-		var tr = btn.parent().parent();		// btn.parent()          : btn의 부모는 <td>
-		var td = tr.children();				// btn.parent().parent() : <td>의 부모는 <tr>		
+// 	// '입고처리' 버튼 클릭
+// 	$('.inidDone').click(function(){
+// 		var btn = $(this);
+// 		var tr = btn.parent().parent();		// btn.parent()          : btn의 부모는 <td>
+// 		var td = tr.children();				// btn.parent().parent() : <td>의 부모는 <tr>		
 	
-		var order_id = td.eq(1).text();
-		var ma_id = td.eq(3).text();
+// 		var order_id = td.eq(1).text();
+// 		var ma_id = td.eq(3).text();
 		
-		alert(order_id);
-		alert(ma_id);
-		
-		$.ajax({
-			url: "list",
-			type: "post",
-			data: {
-				order_id:order_id,
-				ma_id:ma_id
-			},
-			success: function(){
-				alert("성공");
-				location.href="/purchasing/inMaterial/inid?order_id="+order_id+"&ma_id="+ma_id;
-			},
-			error: function(){
-				alert("error");
-			}
-		});
+// 		$.ajax({
+// 			url: "list",
+// 			type: "post",
+// 			data: {
+// 				order_id:order_id,
+// 				ma_id:ma_id
+// 			},
+// 			success: function(data){
+// 				alert("maqtyList 가져오기 성공");
+// 				var re_inId = data[0].in_id;	// 최신 입고번호
+// 				var re_inId = data[0].add_ma;	// 최신 입고번호의 총재고량
+				
+// 				// 입고처리
+// 				// 입고번호 및 총재고량 적용
+// 				alert("입고처리 (입고번호+총재고량 적용) 시작");
+// 				location.href="/purchasing/inMaterial/inid?order_id="+order_id+"&ma_id="+ma_id;
+// 			},
+// 			error: function(){
+// 				alert("error");
+// 			}
+// 		});
 
-	}); // inidDone.click
+// 	}); // inidDone.click
 	
-	var a = "${maqtyList }"; 
-	console.log(a);
-	
-}); // JQuery
+// }); // JQuery
 </script>
 </head>
 <body>
-<br><br>
+<br>
+${maqtyList }
+<br>
 <div>
  	<fmt:formatDate value=""/> 
 	<table border="1" class="table">
@@ -56,7 +57,7 @@ $(document).ready(function(){
 		<th>자재코드</th>
 		<th>품명</th>		
 		<th>입고수량</th>
-		<th>재고수량</th>
+		<th>현재고량</th>
 		<th>총재고량</th>
 		<th>진행현황</th>
 		<th>창고번호</th>
@@ -89,7 +90,12 @@ $(document).ready(function(){
 					<c:when test="${iml.ma_qty < 100 }">
 						<span style="color:red">${iml.ma_qty }</span>
 					</c:when>
-					<c:otherwise>${iml.ma_qty }</c:otherwise>
+					<c:when test="${empty iml.in_id }">
+						${iml.ma_qty }
+					</c:when>
+					<c:when test="${!empty iml.in_id }">
+						${iml.add_ma - iml.order_qty }
+					</c:when>
 				</c:choose>
 			</td>
 			<td>${iml.add_ma }</td>
@@ -105,7 +111,8 @@ $(document).ready(function(){
 			</td>
 			<td>		
 				<c:if test="${empty iml.in_id or iml.in_id == '0'}">
-					<input type="button" class="btn-outline-success inidDone" value="입고처리">
+					<input type="button" class="btn-outline-success inidDone" value="입고처리"
+					       onclick="location.href='/purchasing/inMaterial/inid?order_id=${iml.order_id }&ma_id=${iml.ma_id }';">
 				</c:if>
 			</td>
          </tr>

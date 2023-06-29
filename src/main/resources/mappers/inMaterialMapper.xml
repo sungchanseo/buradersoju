@@ -15,7 +15,7 @@
 	ON o.order_id = i.order_id
 	LEFT JOIN material m
 	ON o.ma_id = m.ma_id
-	ORDER BY in_process, in_id desc
+	ORDER BY in_process, order_id DESC
  	</select>
  <!-- 입고 리스트 -->	
  
@@ -57,32 +57,27 @@
  
  
  <!-- 특정 order_id의 기존 재고량+발주량 (add_ma) -->
- 	<update id="addMa">
+	<update id="addMa">
 		UPDATE orders o
 		LEFT JOIN material m
 		ON o.ma_id = m.ma_id
 		SET o.add_ma = o.order_qty + m.ma_qty
-		WHERE order_id = #{order_id}
- 	</update>
+	</update>
  <!-- 특정 order_id의 기존 재고량 + 발주량 (add_ma) -->
  
  
- <!-- 다음 ma_qty 구하기 -->
-<select id="maQty" resultType="com.itwillbs.domain.InMaterialVO">
-	SELECT i.in_id, o.add_ma
-	FROM orders o
-	LEFT JOIN in_material i
-	ON o.order_id = i.order_id
-	LEFT JOIN material m
-	ON o.ma_id = m.ma_id
-	WHERE i.in_process = "입고완료" 
-	AND o.ma_id = #{ma_id}
-	ORDER BY in_id desc
-</select>
- <!-- 다음 ma_qty 구하기 -->
+<!-- 입고처리 시 해당 자재 재고량 증가 -->
+	<update id="plusMa">
+		UPDATE material m
+		LEFT JOIN orders o
+		ON m.ma_id = o.ma_id
+		SET m.ma_qty = m.ma_qty + o.order_qty 
+		WHERE o.order_id = #{order_id} AND m.ma_id = #{ma_id}
+	</update>
+<!-- 입고처리 시 해당 자재 재고량 증가 -->
 
  
- 	
+ 
  	
  	
  	

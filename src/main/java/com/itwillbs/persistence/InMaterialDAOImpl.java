@@ -78,12 +78,14 @@ public class InMaterialDAOImpl implements InMaterialDAO {
 		sqlSession.selectOne(NAMESPACE + ".addMa", order_id);
 	}
 
-	// 5. ma_qty 값 구하기
+	// 5. 입고처리시 해당 자재 재고량 증가
 	@Override
-	public List<InMaterialVO> getMaQty(String ma_id) throws Exception {
-		logger.debug("########## getMaQty 호출");
-		return sqlSession.selectList(NAMESPACE+".maQty", ma_id);
+	public void getPlusMa(InMaterialVO vo) throws Exception {
+		logger.debug("########## getPlusMa 호출");
+		sqlSession.update(NAMESPACE + ".plusMa", vo);
 	}
+
+	
 	
 	
 

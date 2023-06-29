@@ -55,11 +55,13 @@ public class InMaterialServiceImpl implements InMaterialService {
 		idao.getAddMa(order_id);
 	}
 
-	// 5. ma_qty 값 구하기
+	// 5. 입고처리시 해당 자재 재고량 증가
 	@Override
-	public List<InMaterialVO> getMaQty(String ma_id) throws Exception {
-		return idao.getMaQty(ma_id);
+	public void getplusMa(InMaterialVO vo) throws Exception {
+		idao.getPlusMa(vo);
 	}
+
+	
 	
 	
 

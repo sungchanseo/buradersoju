@@ -112,16 +112,10 @@ public class MaterialController {
 		return "redirect:/purchasing/material/list";
 	}
 
-	
-	// 4-1. 자재 삭제
-//	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-//	public void deleteMaterialGET(String ma_id) throws Exception {
-//		logger.debug("@@@@@@@@@@ deleteMaterialGET_호출");
-//		logger.debug("@@@@@@@@@@ delete.jsp 페이지 이동");
-//	}
 
-	// 4-2. 자재 삭제 (데이터처리)
+	// 4. 자재 삭제 (데이터처리)
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	@ResponseBody
 	public void deleteMaterialPOST(@RequestParam("ma_id") String ma_id) throws Exception {
 		logger.debug("@@@@@@@@@@ deleteMaterialPOST_호출");
 

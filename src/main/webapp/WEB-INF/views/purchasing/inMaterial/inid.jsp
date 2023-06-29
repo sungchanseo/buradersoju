@@ -135,6 +135,7 @@ $(document).ready(function(){
 					alert("찐에러! inid.jsp line 130 수정ㄱㄱ");
 				},
 				error: function(){
+					alert("ma_id가 ajax에서 잘 넘어가는지안넘악마는지" + ma_id)
 					alert(in_id + ", 입고처리가 완료되었습니다.");
 					location.href = "/purchasing/inMaterial/list";
 				}

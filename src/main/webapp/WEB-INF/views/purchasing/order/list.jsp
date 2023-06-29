@@ -148,74 +148,95 @@ $(function() {
 	 var order_id = "OR" + today + endNumber;
     //// 행추가 ////////////////////////////////////////////////////////////
 
-
+  
     $('.writeForm').click(function() {
      var emp_id =  "${sessionScope.emp_id }";
        console.log(nextNumber);
        console.log("행추가 등록함");
        console.log(emp_id);
- 
        let regdate = getToday();
        let intodays = inToday();
        let orderTodays = orderToday();
-  /*      console.log(regdate);
-       console.log(intodays);
-       console.log(orderTodays); */
-       if($(this).hasClass('true')) {
-          
-          let tbl = "<tr>";
-          tbl += " <td>";
-          tbl += "<input type='checkbox' name='check'>";
-          tbl += "</td>";
-          tbl += " <td>";
-          tbl += "<input type='text' name='order_id' id='order_id' value="+order_id+">";
-          tbl += "</td>";
-          tbl += " <td>";
-          tbl += "<input type='text' name='ma_id' id='ma_id'>" ;
-          tbl += "</td>";
-          tbl += " <td>";
-          tbl += "<input type='text' name='ma_name' id='ma_name'>";
-          tbl += "</td>";
-          tbl += " <td>";
-          tbl += "<input type='text' name='unit_cost' id='unit_cost'>";
-          tbl += "</td>";
-          tbl += " <td>";
-          tbl += "<input type='text' name='ma_qty' id='ma_qty'>";
-          tbl += "</td>";
-          tbl += " <td>";
-          tbl += "<input type='text' name='order_qty' id='order_qty'>";
-          tbl += "</td>";
-          tbl += " <td>";
-          tbl += "<input type='text' name='order_sum' id='order_sum'>";
-          tbl += "</td>";
-          tbl += " <td>";
-          tbl += "<input type='text' name='order_vat' id='order_vat'>";
-          tbl += "</td>";
-          tbl += " <td>";
-          tbl += "<input type='text' name='order_date' id='order_date' value="+regdate+">";
-          tbl += "</td>";
-          tbl += " <td>";
-          tbl += "<input type='text' name='due_date' id='due_date' value="+orderTodays+">";
-          tbl += "</td>";
-          tbl += "<td>";
-          tbl += "<input type='text' name='in_date' id='in_date' value="+intodays+">";
-          tbl += "</td>"; 
-          tbl += "<td>";
-          tbl += "<input type='text' name='whs_id' id='whs_id'>";
-          tbl += "</td>";
-          tbl += "<td>";
-          tbl += "<input type='text' name='order_emp' id='order_emp' value="+emp_id+">";
-          tbl += "</td>";
-          tbl += "</tr>";
-          
-          $('table').append(tbl);
-          
-          
-          $(this).removeClass('writeForm').addClass('write');
-          $(this).removeClass('true');
-      
        
-       }
+       if($(this).hasClass('true')) {
+           
+           let tbl = "<tr id='key_id'>";
+           tbl += " <td>";
+           tbl += "<input type='checkbox' name='check'>";
+           tbl += "</td>";
+           tbl += " <td>";
+           tbl += "<input type='text' name='order_id' id='order_id' value="+order_id+">";
+           tbl += "</td>";
+           tbl += " <td>";
+           tbl += "<input type='text' name='ma_id' id='ma_id'>" ;
+           tbl += "</td>";
+           tbl += " <td>";
+           tbl += "<input type='text' name='ma_name' id='ma_name'>";
+           tbl += "</td>";
+           tbl += " <td>";
+           tbl += "<input type='text' name='unit_cost' id='unit_cost'>";
+           tbl += "</td>";
+           tbl += " <td>";
+           tbl += "<input type='text' name='ma_qty' id='ma_qty'>";
+           tbl += "</td>";
+           tbl += " <td>";
+           tbl += "<input type='text' name='order_qty' id='order_qty'>";
+           tbl += "</td>";
+           tbl += " <td>";
+           tbl += "<input type='text' name='order_qty' id='order_sum'>";
+           tbl += "</td>";
+           tbl += " <td>";
+           tbl += "<input type='text' name='order_vat' id='order_vat'>";
+           tbl += "</td>";
+           tbl += " <td>";
+           tbl += "<input type='text' name='order_date' id='order_date' value="+regdate+">";
+           tbl += "</td>";
+           tbl += " <td>";
+           tbl += "<input type='text' name='due_date' id='due_date' value="+orderTodays+">";
+           tbl += "</td>";
+           tbl += "<td>";
+           tbl += "<input type='text' name='in_date' id='in_date' value="+intodays+">";
+           tbl += "</td>"; 
+           tbl += "<td>";
+           tbl += "<input type='text' name='whs_id' id='whs_id'>";
+           tbl += "</td>";
+           tbl += "<td>";
+           tbl += "<input type='text' name='order_emp' id='order_emp' value="+emp_id+">";
+           tbl += "</td>";
+           tbl += "</tr>";
+           
+           $('table').prepend(tbl);
+           
+           
+           $(this).removeClass('writeForm').addClass('write');
+           $(this).removeClass('true');
+       
+        }
+        
+       $("#key_id").keyup(function() {
+			var ma_id = $("#ma_id").val();
+			var order_qty = $("#order_qty").val();
+       
+        $ajax({
+        	url : 'lists',
+            type :'POST',
+            data : { ma_id:ma_id},
+            dataType: 'json',
+            success:function(response){
+             
+            	alert(response);
+            	// 등록버튼을 누르면 기존의 데이터가 초기화
+            
+            	
+          // 행추가되는 table
+      
+     }, //success
+       error : function(error){
+    	   alert(error);
+       }  //error
+    }); //ajax
+ }); // keyup
+     
        
        
        

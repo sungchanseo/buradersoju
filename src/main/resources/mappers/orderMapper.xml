@@ -37,6 +37,15 @@
 		WHERE order_id = #{order_id} and o.order_status = 1 and m.ma_id = o.ma_id
 	</select>
  <!-- 발주목록 조회하기 -->
+
+ <!-- 자동들록 위한 조회 -->
+      <select id="getMaterialList" resultType="com.itwillbs.domain.OrderVO">
+		SELECT o.order_id, o.order_status, m.ma_id, m.ma_name, m.ma_qty, o.order_vat,o.order_sum ,o.order_date, o.due_date, o.order_emp, o.order_qty, o.whs_id ,m.unit_cost,o.in_date
+		FROM material m, orders o
+		where o.ma_id = m.ma_id and m.ma_id = #{ma_id}
+	</select>
+ <!-- 자동들록 위한 조회 -->
+
  
  <!-- DB 발주번호 최대 날짜 (maxDate) == 230620 -->	
  	<select id="getMaxDate" resultType="String">

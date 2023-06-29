@@ -77,6 +77,14 @@ public class OrderDAOImpl implements OrderDAO{
 		return sqlSession.delete(NAMESPACE+".deleteOrder", order_id);
 	}
 
+	@Override
+	public List<OrderVO> getMaterialList(String ma_id) throws Exception {
+		  
+		return sqlSession.selectOne(NAMESPACE+".getMaterialList", ma_id);
+	}
+
+	
+	
 	
 	
 	

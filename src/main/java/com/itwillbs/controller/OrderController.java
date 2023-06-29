@@ -47,6 +47,7 @@ public class OrderController {
  		model.addAttribute("maxDate", maxDate);
 		model.addAttribute("orderList", orderList);
 	}
+	
 	// http://localhost:8088/purchasing/order/list
     @RequestMapping(value="/list", method = RequestMethod.POST)
     public String orderInsertGET(OrderVO vo ) throws Exception {
@@ -70,6 +71,19 @@ public class OrderController {
     	OrderVO orderVo = orserivce.getOrderInfo(order_id);
     	
     	return orderVo;
+    }
+// http://localhost:8088/purchasing/order/list
+   @RequestMapping(value = "/lists" , method = RequestMethod.GET)
+   @ResponseBody
+    public List<OrderVO> modifyOrderGET2(Model model, String ma_id) throws Exception {
+    	logger.debug("@@@@@modifyOrderGET()호출!@@@@@");
+    	logger.debug("ma_id" + ma_id);
+    	
+    	// 테이블의 정보를 가져와서 모엘에 추가 
+        List<OrderVO> orderList = orserivce.getMaterialList(ma_id);
+        model.addAttribute("orderList",orderList);
+    	
+    	return orderList;
     }
 //   http://localhost:8088/purchasing/order/list
 //  발주 수정 (데이터처리)
@@ -98,5 +112,6 @@ public class OrderController {
 		int result = orserivce.deleteOrder(order_id);	
 		logger.debug("@@@@@@@@@@ 삭제 된 행의 수 : " + result);
 	}
-
+  
+	
 }

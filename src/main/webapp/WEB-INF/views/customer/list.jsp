@@ -51,10 +51,14 @@
 		</form>
 		
 		<!-- 검색창기능 -->
-		<c:if test="${emp_department.equals('인사')}">
+		
+		<!-- 영업팀이 아닐때 버튼 감추기 -->
+		<c:if test="${emp_department.equals('영업') || emp_department.equals('영업팀')}">
 			<input type="button" value="거래처등록" class="btn btn-success" onclick="insertPop();"> 
 			<input type="button" value="거래처삭제"  class="btn btn-success" onclick="location.href='/customer/remove';">
 		</c:if>
+		<!-- 영업팀이 아닐때 버튼 감추기 -->
+
 		<!-- 거래처목록 테이블 -->
 		<div class="table-responsive">
                     <table class="table table-hover">

@@ -90,6 +90,7 @@ public class OrderController {
 	
 	// 발주 정보 삭제
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	@ResponseBody
 	public void deleteOrderPOST(@RequestParam("order_id") String order_id) throws Exception{
 		
 		logger.debug("deletePOST 호출@@@@@@");

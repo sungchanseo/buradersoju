@@ -213,7 +213,7 @@ $(function() {
           
           $(this).removeClass('writeForm').addClass('write');
           $(this).removeClass('true');
-          $(this).text("등록");
+      
        
        }
        
@@ -447,12 +447,11 @@ $(function() {
 </script>
 </head>
 <body>
-<button class="writeForm true">행추가</button>
 <!-- 버튼 -->
-<button class="btn btn-info insertForm true">등록</button>
+    <button class="btn btn-info writeForm true" >등록</button>
 	<button class="btn btn-info modify true">수정</button>
 	<button class="btn btn-info" id="delete">삭제</button>
-	<button class="btn btn-success insert update">저장</button>
+	<button class="btn btn-success insert update write">저장</button>
  <fmt:formatDate value=""/>
  <div class="row" > 
 <table border="1" id="example-table-3" class="table table-bordered table-hover text-center tbl">

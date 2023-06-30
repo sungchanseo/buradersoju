@@ -65,10 +65,26 @@
 		<th>업태</th>
 		<td>
 			<select name="cust_business" id="cust_business">
-				<option value="도매업">도매업</option>
-				<option value="소매업">소매업</option>
-				<option value="서비스업">서비스업</option>
-				<option value="제조업">제조업</option>
+				<option value="도매업"
+					<c:if test="${customerVO.equals('도매업') }">
+						selected
+					</c:if>
+				>도매업</option>
+				<option value="소매업"
+					<c:if test="${customerVO.equals('소매업') }">
+						selected
+					</c:if>
+				>소매업</option>
+				<option value="서비스업"
+					<c:if test="${customerVO.equals('서비스업') }">
+						selected
+					</c:if>
+				>서비스업</option>
+				<option value="제조업"
+					<c:if test="${customerVO.equals('제조업') }">
+						selected
+					</c:if>
+				>제조업</option>
 			</select>
 		</td>
 		<th>거래처구분</th>
@@ -96,9 +112,21 @@
 		<th>종목</th>
 		<td>
 			<select name="cust_event" id="cust_event">
-				<option value="종목1" selected>종목1</option>
-				<option value="종목2">종목2</option>
-				<option value="종목3">종목3</option>
+				<option value="종목1"
+					<c:if test="${customerVO.cust_event.equals('종목1') }">
+						selected
+					</c:if>
+				>종목1</option>
+				<option value="종목2"
+					<c:if test="${customerVO.cust_event.equals('종목2') }">
+						selected
+					</c:if>
+				>종목2</option>
+				<option value="종목3"
+					<c:if test="${customerVO.cust_event.equals('종목3') }">
+						selected
+					</c:if>
+				>종목3</option>
 			</select>
 		</td>
 		<th>주소</th>

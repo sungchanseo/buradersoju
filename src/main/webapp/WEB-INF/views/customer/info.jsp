@@ -57,7 +57,7 @@
 		</tr>
 	</table>
 	<input type="button" class="btn btn-success" value="거래처수정" onclick="location.href='/customer/modify?cust_id=${customerInfo.cust_id }'">
-	<input type="button" class="btn btn-success" value="거래처삭제" onclick="deleteAction(${customerInfo.cust_id});">
+	<input type="button" class="btn btn-success" value="거래처삭제" onclick="deleteAction('${customerInfo.cust_id}');">
 	<input type="button" class="btn btn-light" value="QR코드생성" onclick="">
 	<input type="button" class="btn btn-light" value="창닫기" onclick="window.close();">
 
@@ -67,17 +67,14 @@
 			$.ajax({
 				url : '/customer/remove?cust_id='+cust_id, 
 				type : 'POST', 
-				success : function(json){ //가져올 데이타가 따로 없을 때는 json 타입을 넣는다. 있을 때는 data라고 적는다. 
+				success : function(){ 
 					alert("거래처가 삭제되었읍니다.");
 					window.opener.location.reload();
 					window.close();
 				}
 			});
-		}else{
-			return false;
 		}
 	}
-
 </script>
 </body>
 </html>

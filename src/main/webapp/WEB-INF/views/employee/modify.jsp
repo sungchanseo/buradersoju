@@ -5,6 +5,51 @@
 <head>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <title>사원 정보 수정</title>
+<style type="text/css">
+table {margin-bottom: 1em;}
+
+table, th {border: none;}
+
+th {background-color: #04AA6D;
+color: #fff;
+text-align: center;
+padding: 10px 8px;}
+
+td {border:1px solid #04AA6D;
+padding: 10px 6px;}
+
+#tb-btns {margin-left: 0.5em;}
+
+.btn{
+display: inline-block;
+font-weight: 600;
+line-height: 1;
+color: #6c7293;
+text-align: center;
+text-decoration: none;
+vertical-align: middle;
+cursor: pointer;
+user-select: none;
+background-color: transparent;
+border: 1px solid transparent;
+padding: 0.625rem 1.125rem;
+font-size: 0.875rem;
+border-radius: 0.25rem;
+transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;}
+    
+.btn-success {
+color: #000;
+background-color: #0ddbb9;
+border-color: #0ddbb9;}
+
+.btn-info {
+color: #000;
+background-color: #2fddf8;
+border-color: #23dbf8;}
+/* .btn {background-color: #048; */
+/* padding:8px 10px; */
+/* color: #fff;} */
+</style>
 </head>
 <body>
 	<form action="" role="form" id="fr" method="post">
@@ -14,7 +59,7 @@
 				<th>사번</th>
 				<td><input type="text" name="emp_id" value="${resultVO.emp_id }" readonly></td>
 				<th>비밀번호</th>
-				<th><input type="password" name="emp_pw" id="emp_pw" placeholder="비밀번호를 입력하세요"></th>				
+				<td><input type="password" name="emp_pw" id="emp_pw" placeholder="비밀번호를 입력하세요"></td>				
 				<th>이름</th>
 				<td><input type="text" name="emp_name" id="emp_name" value="${resultVO.emp_name }"></td>
 			</tr>
@@ -71,16 +116,16 @@
 						<option value="퇴직" ${resultVO.emp_status == '퇴직' ? 'selected' : ''}>퇴직</option>
 				</select></td>
 				<th>입사일</th>
-				<th><input type="text" name="join_date" id="join_date" value="${resultVO.join_date }"></th>
+				<td><input type="text" name="join_date" id="join_date" value="${resultVO.join_date }"></td>
 			</tr>
 			<tr>
 				<td><input type="file" multiple name="emp_image" accept="image/*" value="이미지등록"></td>
 				<th>휴직일</th>
-				<th><input type="text" name="absence_date" value="${resultVO.absence_date }"></th>			
+				<td><input type="text" name="absence_date" value="${resultVO.absence_date }"></td>			
 				<th>복직일</th>
-				<th><input type="text" name="rehabi_date" value="${resultVO.rehabi_date }"></th>
+				<td><input type="text" name="rehabi_date" value="${resultVO.rehabi_date }"></td>
 				<th>퇴사일</th>
-				<th><input type="text" name="resign_date" value="${resultVO.resign_date }"></th>
+				<td><input type="text" name="resign_date" value="${resultVO.resign_date }"></td>
 			</tr>
 			
 		</table>

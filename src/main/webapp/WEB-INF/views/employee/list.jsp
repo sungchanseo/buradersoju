@@ -7,7 +7,7 @@
 	<!-- 사원등록 새창열기  -->
 	<script type="text/javascript">
 		function insertPop(){
-			var insertPop = window.open('/employee/insert', '사원등록', 'width=900px,height=500px');
+			var insertPop = window.open('/employee/insert', '사원등록', 'width=1110px,height=425px');
 			
 			if(insertPop == null){
 			 alert("팝업이 차단되었습니다. 차단을 해제하세요.");
@@ -16,7 +16,7 @@
 		}
 		
 		function infoPop(empId){
-			var insertPop = window.open('/employee/info?emp_id=' + empId, '사원정보', 'width=900px,height=500px');
+			var insertPop = window.open('/employee/info?emp_id=' + empId, '사원정보', 'width=1110px,height=425px');
 			
 			if(insertPop == null){
 			 alert("팝업이 차단되었습니다. 차단을 해제하세요.");
@@ -48,10 +48,10 @@
                                     <!-- 카테고리 기능 -->
                                     <p id="category_search">
 									    <label>
-									        <input type="checkbox" name="category" value="퇴직" onchange="this.form.submit()" 
-									            <c:if test="${param.category == '퇴직'}">checked</c:if>
+									        <input type="checkbox" name="" value="" onchange="this.form.submit()" 
+									            <c:if test="">checked</c:if>
 									        >
-									        퇴직자 포함
+									        현재재직자
 									    </label>
 									</p>
                                     <!-- 카테고리 기능 -->

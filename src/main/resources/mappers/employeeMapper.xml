@@ -8,8 +8,6 @@
 		select now()
 	</select>
 
-	<!-- values(?,?,?,?) sql문법 대신에 Mybatis 문법#{}을 사용
-	 get() 또는 set() 마이바티스가 결정해서 메서드실행-->
 	 <!-- 사원등록 -->
 	<insert id="insertEmployee" parameterType="com.itwillbs.domain.EmployeeVO">
 		INSERT INTO employee (emp_id, emp_pw, emp_name, emp_email, emp_birth, emp_gender, emp_phone, emp_tel, emp_address, emp_address_detail, emp_image, emp_department, emp_position, emp_status, join_date, absence_date, rehabi_date, resign_date)
@@ -45,5 +43,47 @@
 		where emp_id=#{emp_id} and emp_pw=#{emp_pw}
 	</update>
 	<!-- 회원정보 수정 -->	
+	
+<!-- /////////////////////// 리스트 /////////////////////// -->	
+	
+<!--  	전체 리스트 갯수 조회  -->
+<select id="getListAll" resultType="_int">
+    SELECT COUNT(*) FROM ${table}
+</select>
+<!-- 	전체 리스트 갯수 조회  -->
+
+
+<!-- 아무조건이 없을 때 목록갯수 가져오기  -->
+<select id="getListPageSizeAll" resultType="_int">
+    SELECT COUNT(*) FROM ${table}
+    LIMIT #{startRow}, #{pageSize}
+</select>
+<!-- 아무조건이 없을 때 목록갯수 가져오기  -->
+
+<!--  	검색어+페이지갯수 제한 전체 목록 갯수 가져오기  -->
+<select id="getListSearchAll" resultType="_int">
+    SELECT COUNT(*) FROM ${table}
+    WHERE ${selector} LIKE CONCAT('%', #{search}, '%')
+</select>
+<!--  	검색어+페이지갯수 제한 전체 목록 갯수 가져오기  -->
+
+<!-- 필터처리+페이지갯수 제한 전체 목록 가져오기  -->
+<select id="getListFilterAll" resultType="_int">
+    SELECT COUNT(*) FROM ${table}
+    WHERE ${column_name} = #{column_value}
+    LIMIT #{startRow}, #{pageSize}
+</select>
+<!-- 필터처리+페이지갯수 제한 전체 목록 가져오기  -->
+
+<!-- 검색어+필터처리+페이지갯수 제한 전체 목록 가져오기  -->
+<select id="getListSearchAndFilterAll" resultType="_int">
+    SELECT COUNT(*) FROM ${table}
+    WHERE ${column_name} = #{column_value}
+    AND ${selector} LIKE CONCAT('%', #{search}, '%')
+    LIMIT #{startRow}, #{pageSize}
+</select>
+<!-- 검색어+필터처리+페이지갯수 제한 전체 목록 가져오기  -->	
+
+<!-- /////////////////////// 리스트 /////////////////////// -->	
 	
 </mapper> 

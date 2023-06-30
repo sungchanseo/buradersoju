@@ -128,7 +128,7 @@ public class OrderController {
 		OrderVO ordervo = new OrderVO();
 
 		ordervo = orserivce.getMaterial(ma_id);
-
+ 
 		return ordervo;
 	}
 }

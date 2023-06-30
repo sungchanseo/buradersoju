@@ -15,7 +15,7 @@
 	ON o.order_id = i.order_id
 	LEFT JOIN material m
 	ON o.ma_id = m.ma_id
-	ORDER BY in_process, order_id DESC
+	ORDER BY in_process, in_id desc, order_id DESC
  	</select>
  <!-- 입고 리스트 -->	
  
@@ -49,9 +49,10 @@
  
  <!-- 입고 정보 상세보기 -->	
 	<select id="getInMaterialInfo" resultType="com.itwillbs.domain.InMaterialVO">
-		SELECT o.order_id, o.due_date, o.order_date, o.order_emp, i.in_id, i.in_process, o.in_date, i.in_emp, m.ma_name, o.order_qty, m.ma_qty, m.shelt_position
+		SELECT o.order_id, o.due_date, o.order_date, o.order_emp, i.in_id, i.in_process, o.in_date, i.in_emp, m.ma_name, o.order_qty, o.add_ma, m.ma_qty, m.shelt_position
 		FROM in_material i, material m, orders o
-		WHERE m.ma_id = o.ma_id AND o.order_id = i.order_id AND o.order_id = #{order_id}
+		WHERE m.ma_id = o.ma_id AND o.order_id = i.order_id 
+		AND o.order_id = #{order_id}
 	</select>
  <!-- 입고 정보 상세보기 -->	
  
@@ -62,6 +63,7 @@
 		LEFT JOIN material m
 		ON o.ma_id = m.ma_id
 		SET o.add_ma = o.order_qty + m.ma_qty
+		WHERE order_id = #{order_id}
 	</update>
  <!-- 특정 order_id의 기존 재고량 + 발주량 (add_ma) -->
  

@@ -54,11 +54,11 @@ ${maqtyList }
 		<th>입고번호</th>
 		<th>발주번호</th>
 		<th>상세</th>
-		<th>자재코드</th>
+<!-- 		<th>자재코드</th> -->
 		<th>품명</th>		
 		<th>입고수량</th>
 		<th>현재고량</th>
-		<th>총재고량</th>
+<!-- 		<th>입고후재고량</th> -->
 		<th>진행현황</th>
 		<th>창고번호</th>
 		<th>선반위치</th>
@@ -82,30 +82,43 @@ ${maqtyList }
 						<img class="viewDetail" src="${pageContext.request.contextPath}/resources/images/viewDetail.png" width="25px" height="25px" alt="image" />
 				</a>
 			</td>
-			<td>${iml.ma_id }</td>
+<%-- 			<td>${iml.ma_id }</td> --%>
 			<td>${iml.ma_name }</td>
 			<td>${iml.order_qty }</td>
 			<td>
 				<c:choose>
-					<c:when test="${iml.ma_qty < 100 }">
-						<span style="color:red">${iml.ma_qty }</span>
+					<c:when test="${empty iml.in_id || iml.in_id == '0' || iml.in_id == null }">
+						<c:if test="${iml.ma_qty <= 100 }">
+							<span style="color:red">${iml.ma_qty }</span>
+						</c:if>
+						<c:if test="${iml.ma_qty > 100 }">
+							${iml.ma_qty }
+						</c:if>
 					</c:when>
-					<c:when test="${empty iml.in_id }">
-						${iml.ma_qty }
-					</c:when>
+					
 					<c:when test="${!empty iml.in_id }">
-						${iml.add_ma - iml.order_qty }
+						<c:if test="${iml.add_ma - iml.order_qty <= 100}">
+							<span style="color:red">${iml.add_ma - iml.order_qty }</span>
+						</c:if>
+						<c:if test="${iml.add_ma - iml.order_qty > 100}">
+							${iml.add_ma - iml.order_qty }
+						</c:if>
 					</c:when>
 				</c:choose>
 			</td>
-			<td>${iml.add_ma }</td>
+<!-- 			<td> -->
+<%-- 				<c:choose>				 --%>
+<%-- 					<c:when test="${iml.add_ma == 0}"> </c:when> --%>
+<%-- 					<c:when test="${!empty iml.add_ma }">${iml.add_ma }</c:when> --%>
+<%-- 				</c:choose> --%>
+<!-- 			</td> -->
 			<td>${iml.in_process }</td>			
 			<td>${iml.whs_id }</td>
 			<td>${iml.shelt_position }</td>
 			<td><fmt:formatDate value="${iml.in_date}" pattern="yyyy-MM-dd"/></td>
 			<td>
 				<c:choose>
-					<c:when test="${iml.in_emp == 0}">　</c:when>
+					<c:when test="${iml.in_emp == 0}"></c:when>
 					<c:otherwise>${iml.in_emp }</c:otherwise>
 				</c:choose>
 			</td>

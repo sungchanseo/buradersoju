@@ -32,7 +32,10 @@ public class InMaterialController {
 	
 	
 	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ메서드 정의ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-	// 1-1. 입고 리스트 출력
+	
+	
+	
+	// 1. 입고 리스트 출력
 	@RequestMapping(value="/list", method=RequestMethod.GET)
 	public void inMaterialListAllGET(Model model) throws Exception{
 		logger.debug("@@@@@@@@@@ inMaterialListAllGET()_호출");
@@ -41,29 +44,7 @@ public class InMaterialController {
 		model.addAttribute("inMaterialList", inMaterialList);
 	}
 	
-	// 1-2. 리스트와 정보 주고 받기
-	@RequestMapping(value="/list", method=RequestMethod.POST)
-	@ResponseBody
-	public void inMaterialListAllPOST(Model model, 
-			                          @RequestParam("order_id") String order_id,
-			                          @RequestParam("ma_id") String ma_id) throws Exception{
-		logger.debug("@@@@@@@@@@ inMaterialListAllPOST()_호출");
 
-//		// 현 재고량 + 입고량 = 총재고량 DB에 저장 (add_ma)
-//		iService.getAddMa(order_id);
-//		logger.debug("@@@@@@@@@@ 입고된 수 만큼 더하여 총 재고량 구하기 완료");
-		
-		// 입고처리된 ma_id의 재고량을 add_ma로 바꾸기
-		
-		
-		// ma_qty 구하기 (굳이?)
-//		List<InMaterialVO> maqtyList = iService.getMaQty(ma_id);
-//		model.addAttribute("maqtyList", maqtyList);
-//		logger.debug("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + maqtyList);
-//		return "redirect:/purchasing/inMaterial/list";
-	}
-	
-	
 	// 2-1. 입고번호 - 자동넘버링
 	@RequestMapping(value="/inid", method=RequestMethod.GET)
 	public void getInIdGET(Model model) throws Exception {
@@ -103,7 +84,6 @@ public class InMaterialController {
 		InMaterialVO info = iService.getInMaterialInfo(order_id);
 		logger.debug("@@@@@@@@@@ 입고 상세보기 데이터 : " + info);
 		model.addAttribute("resultVO", info);
-
 	}
 
 

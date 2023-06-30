@@ -67,7 +67,14 @@
 			</td>
 			
 			<th>입고진행현황</th>
-			<td>${resultVO.in_process }</td>
+			<td>
+				<c:choose>
+					<c:when test="${resultVO.in_process.equals('미입고') }">
+						<span style="color:red">미입고</span>
+					</c:when>
+					<c:otherwise>${resultVO.in_process }</c:otherwise>
+				</c:choose>
+			</td>
 			
 			<th>입고일자</th>
 			<td><fmt:formatDate value="${resultVO.in_date}" pattern="yyyy-MM-dd"/></td>
@@ -87,13 +94,20 @@
 			<th>발주수량</th>
 			<td>${resultVO.order_qty }</td>
 			
-			<th>재고수량</th>
+			<th>입고후재고수량</th>
 			<td>
 				<c:choose>
-					<c:when test="${resultVO.ma_qty < 100 }">
-						<span style="color:red">${resultVO.ma_qty }</span>
+					<c:when test="${resultVO.add_ma == 0}">
+						${resultVO.order_qty + resultVO.ma_qty }
 					</c:when>
-					<c:otherwise>${resultVO.ma_qty }</c:otherwise>
+					<c:when test="${!empty resultVO.add_ma }">
+						<c:if test="${resultVO.add_ma <= 100 }">
+							<span style="color:red">${resultVO.add_ma }</span>
+						</c:if>
+						<c:if test="${resultVO.add_ma > 100 }">
+							${resultVO.add_ma }
+						</c:if>
+					</c:when>
 				</c:choose>
 			</td>
 			

@@ -381,10 +381,6 @@ $(document).ready(function() {
 			}
 		}); // ajax
 		
-		
-		
-		
-		
 	}); // btnsearch.click
 	
 }); // jQuery

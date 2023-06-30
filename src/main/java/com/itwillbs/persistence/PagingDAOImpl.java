@@ -123,29 +123,7 @@ public class PagingDAOImpl implements PagingDAO {
 	}
 	///////////////////////////////////////////////////////////////////////////////
 	
-	/////////////////////////////////InMaterialVO////////////////////////////////////
-	//아무조건이 없을 때 전체 목록 객체 가져오기
-	@Override
-	public List<Object> getListPageSizeObjectInMaterialVO(PagingVO pvo) throws Exception {
-	return sqlSession.selectList(NAMESPACE+".getListPageSizeObjectInMaterialVO", pvo);
-	}
-	//검색어 있을 때 목록 객체 가져오기 	
-	@Override
-	public List<Object> getListSearchObjectInMaterialVO(PagingVO pvo) throws Exception {
-	logger.debug("****************PagingDAO : getListSearchObject()메소드 호출!");
-	return sqlSession.selectList(NAMESPACE+".getListSearchObjectInMaterialVO", pvo);
-	}
-	//필터있을 때 전체 목록 객체 가져오기 	
-	@Override
-	public List<Object> getListFilterObjectInMaterialVO(PagingVO pvo) throws Exception {
-	return sqlSession.selectList(NAMESPACE+".getListFilterObjecInMaterialVO",pvo);
-	}
-	//검색어와 필터 모두 있을 때 전체 목록 갯수 가져오기 
-	@Override
-	public List<Object> getListSearchFilterObjectInMaterialVO(PagingVO pvo) throws Exception {
-	return sqlSession.selectList(NAMESPACE+".getListSearchFilterObjectInMaterialVO", pvo);
-	}
-	///////////////////////////////////////////////////////////////////////////////
+	
 	
 	/////////////////////////////////NoticeVO////////////////////////////////////
 	//아무조건이 없을 때 전체 목록 객체 가져오기

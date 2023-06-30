@@ -58,10 +58,24 @@ public class PagingVO {
 	private EmployeeVO EmployeeVO;
 	private LoginVO LoginVO;
 	private MaterialVO MaterialVO;
+	private InMaterialVO InMaterialVO;
 	private OrderVO OrderVO;
 	private ProductionVO ProductionVO;
+	private OutProductVO OutProductVO;
 	
 	
+	public OutProductVO getOutProductVO() {
+		return OutProductVO;
+	}
+	public void setOutProductVO(OutProductVO outProductVO) {
+		OutProductVO = outProductVO;
+	}
+	public InMaterialVO getInMaterialVO() {
+		return InMaterialVO;
+	}
+	public void setInMaterialVO(InMaterialVO inMaterialVO) {
+		InMaterialVO = inMaterialVO;
+	}
 	public String getTable() {
 		return table;
 	}
@@ -206,6 +220,7 @@ public class PagingVO {
 	public void setProductionVO(ProductionVO productionVO) {
 		ProductionVO = productionVO;
 	}
+	
 	@Override
 	public String toString() {
 		return "PagingVO [table=" + table + ", status_name=" + status_name + ", status_value=" + status_value
@@ -214,8 +229,15 @@ public class PagingVO {
 				+ pageSize + ", endRow=" + endRow + ", pageCount=" + pageCount + ", pageBlock=" + pageBlock
 				+ ", startPage=" + startPage + ", endPage=" + endPage + ", currentPage=" + currentPage + ", ContractVO="
 				+ ContractVO + ", CustomerVO=" + CustomerVO + ", EmployeeVO=" + EmployeeVO + ", LoginVO=" + LoginVO
-				+ ", MaterialVO=" + MaterialVO + ", OrderVO=" + OrderVO + ", ProductionVO=" + ProductionVO + "]";
+				+ ", MaterialVO=" + MaterialVO + ", InMaterialVO=" + InMaterialVO + ", OrderVO=" + OrderVO
+				+ ", ProductionVO=" + ProductionVO + ", OutProductVO=" + OutProductVO + "]";
 	}
+	
+	
+
+
+	
+	
 
 
 }

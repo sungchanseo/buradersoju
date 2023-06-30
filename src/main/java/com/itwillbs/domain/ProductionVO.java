@@ -30,19 +30,20 @@ public class ProductionVO {
 	private String op_id;
 	private String production_line;
 	private int plan_qty;
-	private int production_qty;	
 	private String workOrder_status;
-	private String production_status;
 //	private String product_id;
 	
 	// product
 	private String product_id;
 	private String product_name;
 	
-	// complete
+	// pr_complete
 	private Timestamp complete_date;
 	private int complete_defQty;
 //	private String def_code;
+	private String production_status;
+	private String complete_id;
+	private int production_qty;	
 	
 	// qc
 	private String qc_num;
@@ -371,6 +372,15 @@ public class ProductionVO {
 		this.emp_name = emp_name;
 	}
 
+	// 추가된 컬럼
+	public String getComplete_id() {
+		return complete_id;
+	}
+
+	public void setComplete_id(String complete_id) {
+		this.complete_id = complete_id;
+	}
+
 
 	// toString()
 	@Override
@@ -379,13 +389,16 @@ public class ProductionVO {
 				+ ma_name + ", use_qty=" + use_qty + ", ma_id=" + ma_id + ", ma_qty=" + ma_qty + ", unit=" + unit
 				+ ", production_id=" + production_id + ", production_emp=" + production_emp + ", production_date="
 				+ production_date + ", op_id=" + op_id + ", production_line=" + production_line + ", plan_qty="
-				+ plan_qty + ", production_qty=" + production_qty + ", workOrder_status=" + workOrder_status
-				+ ", production_status=" + production_status + ", product_id=" + product_id + ", product_name="
+				+ plan_qty + ", workOrder_status=" + workOrder_status + ", product_id=" + product_id + ", product_name="
 				+ product_name + ", complete_date=" + complete_date + ", complete_defQty=" + complete_defQty
-				+ ", qc_num=" + qc_num + ", qc_emp=" + qc_emp + ", qc_date=" + qc_date + ", qc_qty=" + qc_qty
-				+ ", qc_state=" + qc_state + ", def_code=" + def_code + ", def_qty=" + def_qty + ", bt_date=" + bt_date
-				+ ", bt_qty=" + bt_qty + ", bt_defQty=" + bt_defQty + "]";
+				+ ", production_status=" + production_status + ", complete_id=" + complete_id + ", production_qty="
+				+ production_qty + ", qc_num=" + qc_num + ", qc_emp=" + qc_emp + ", qc_date=" + qc_date + ", qc_qty="
+				+ qc_qty + ", qc_state=" + qc_state + ", def_code=" + def_code + ", def_qty=" + def_qty + ", bt_date="
+				+ bt_date + ", bt_qty=" + bt_qty + ", bt_defQty=" + bt_defQty + "]";
 	}
+
+
+
 	
 
 }

@@ -106,7 +106,7 @@ public class CustomerController {
 			@RequestParam("address") String address)  throws Exception {
 		logger.debug("@@@@@@@@@@@@Controller : 거래처 등록POST하기!!!!");
 		logger.debug("@@@@@@@입력된 정보 : " + vo);
-		vo.setCust_address(address+" "+vo.getCust_address());
+		vo.setCust_address(address+", "+vo.getCust_address());
 		custService.insertCustomer(vo);
 
 		return "redirect:/customer/list";
@@ -146,16 +146,16 @@ public class CustomerController {
 	// 거래처 수정 디비처리
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
 	public String modifyCustomerPOST(CustomerVO mvo,
-			@RequestParam("address1") String address1,
-			@RequestParam("address2") String address2) throws Exception {
+			@RequestParam("address") String address) throws Exception {
 		logger.debug("@@@@@@@@@@Contorller : 거래처 수정 POST하기 !!!");
 		logger.debug("@@@@@@@@@controller : 수정한 거래처정보 : " + mvo);
-		mvo.setCust_address(address1+" "+address2);
+		mvo.setCust_address(address+", "+mvo.getCust_address());
+		
 		custService.modifyCustomer(mvo);
 		return "redirect:/customer/list";
 
 	}
-
+    
 	// 거래처 삭제 디비처리
 	@PostMapping(value = "/remove")
 	public String removeCustomerPOST(@RequestParam("cust_id") String cust_id) throws Exception {

@@ -51,10 +51,14 @@
 		</form>
 		
 		<!-- 검색창기능 -->
-		<c:if test="${emp_department.equals('인사')}">
+		
+		<!-- 영업팀이 아닐때 버튼 감추기 -->
+		<c:if test="${emp_department.equals('영업') || emp_department.equals('영업팀')}">
 			<input type="button" value="거래처등록" class="btn btn-success" onclick="insertPop();"> 
 			<input type="button" value="거래처삭제"  class="btn btn-success" onclick="location.href='/customer/remove';">
 		</c:if>
+		<!-- 영업팀이 아닐때 버튼 감추기 -->
+
 		<!-- 거래처목록 테이블 -->
 		<div class="table-responsive">
                     <table class="table table-hover">
@@ -76,9 +80,9 @@
 	                      <tbody>
 	                        <tr>
 	                          <td><input type="checkbox"></td>
-	                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" onclick="infoPop(${vo.cust_id});">${vo.cust_id }</font></font></td>
-	                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" onclick="infoPop(${vo.cust_id});">${vo.reg_num }</font></font></td>
-	                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" onclick="infoPop(${vo.cust_id});">${vo.cust_name }</font></font></td>
+	                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" onclick="infoPop('${vo.cust_id}');">${vo.cust_id }</font></font></td>
+	                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" onclick="infoPop('${vo.cust_id}');">${vo.reg_num }</font></font></td>
+	                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" onclick="infoPop('${vo.cust_id}');">${vo.cust_name }</font></font></td>
 	                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.cust_class }</font></font></td>
 	                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.owner_name }</font></font></td>
 	                          <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.main_phone }</font></font></td>

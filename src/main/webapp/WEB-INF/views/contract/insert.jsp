@@ -37,7 +37,7 @@
 				<th></th>
 				<td></td>
 				<th>납품일자</th>
-				<td><input type="date" name="due_date"></td>
+				<td><input type="date" name="due_date" onchange="limitDate();"></td>
 			</tr>
 		</table>
 		<input type="button" class="btn btn-success" value="작성완료" onclick="sendForm();">
@@ -51,16 +51,9 @@
 			//상단의 폼태그를 변수에 저장한다. 
 			var formObject = $("form[role='form']").serializeArray();
 			var status = true;
+			consol.log(formObject);
 
-			alert(formObject);
-			for (var i = 0; i < formObject.length; i++) {
-				if (formObject[i].value == "") {
-					alert("정보를 입력하세요!");
-					status = false;
-					break;
-				}
-			}
-
+			
 			//작성완료 버튼을 눌렀을 때 ajax를 실행하도록 한다.
 			$.ajax({
 				url : '/contract/insert',
@@ -73,7 +66,24 @@
 					window.close();
 				}
 			});
-		}
+		}// sendForm()메소드 끝
+		
+		
+		//납품날짜가 수주날짜보다 늦게 설정하는 메소드 
+		function limitDate(){
+			
+			var contDateInput = document.querySelector('input[name="cont_date"]');
+			var dueDateInput = document.querySelector('input[name="due_date"]');
+			var contDate = new Date(contDateInput.value);
+			var dueDate = new Date(dueDateInput.value);
+
+			if (dueDate > contDate) {
+				dueDateInput.value = contDateInput.value;
+			}else {
+			    contDateInput.value = dueDateInput.value;
+		  }
+
+		}//limitDate(); 메소드 끝
 	</script>	
 </body>
 </html>

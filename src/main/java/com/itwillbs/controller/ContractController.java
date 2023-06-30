@@ -38,9 +38,14 @@ public class ContractController {
 
 	// 수주 목록 불러오기
 	@GetMapping(value = "/list")
-	public void contractListGET(PagingVO pvo, Model model, HttpSession session) throws Exception {
+	public String contractListGET(PagingVO pvo, Model model, HttpSession session) throws Exception {
 		logger.debug("%%%%%%%%%%ContractController : 수주 리스트 조회!");
 
+		//로그인 세션이 없을 때 로그인 페이지로 이동한다. 
+		if(session.getAttribute("emp_id") == null) {
+			return "redirect:/main/login";
+		}
+		
 		List<Object> contractList = null;
 
 		// 수주 목록을 가져오는 contService 호출
@@ -63,6 +68,8 @@ public class ContractController {
 		model.addAttribute("contractList", contractList);
 		model.addAttribute("emp_department", session.getAttribute("emp_department"));
 		model.addAttribute("pvo", pvo);
+		
+		return null;
 	}
 
 	// 수주내용 자세히보기

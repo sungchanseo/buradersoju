@@ -42,7 +42,7 @@
       <select id="getMaterialList" resultType="com.itwillbs.domain.OrderVO">
 		SELECT o.order_id, o.order_status, m.ma_id, m.ma_name, m.ma_qty, o.order_vat,o.order_sum ,o.order_date, o.due_date, o.order_emp, o.order_qty, o.whs_id ,m.unit_cost,o.in_date
 		FROM material m, orders o
-		where o.ma_id = m.ma_id and m.ma_id = #{ma_id}
+		where o.ma_id = m.ma_id 
 	</select>
  <!-- 자동들록 위한 조회 -->
 

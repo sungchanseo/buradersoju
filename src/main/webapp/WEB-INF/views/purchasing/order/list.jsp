@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -162,7 +162,7 @@ $(function() {
            
            let tbl = "<tr id='key_id'>";
            tbl += " <td>";
-           tbl += "<input type='checkbox' name='check'>";
+           tbl += "<input size='15' type='checkbox' name='check'>";
            tbl += "</td>";
            tbl += " <td>";
            tbl += "<input type='text' name='order_id' id='order_id' value="+order_id+">";
@@ -214,25 +214,22 @@ $(function() {
         }
         
        $("#key_id").keyup(function() {
-			var ma_id = $("#ma_id").val();
-			var order_qty = $("#order_qty").val();
-       
-        $ajax({
-        	url : 'lists',
-            type :'POST',
-            data : { ma_id:ma_id},
-            dataType: 'json',
-            success:function(response){
-             
-            	alert(response);
+			 var obj = {
+						 in_ma_id : $("#ma_id").val(),
+						 in_order_qty : $("#order_qty").val()
+                 };
+           // console.log(obj);
+        $.ajax({
+        	url :"lists",
+            type :"get",
+            success:function(data){
+                  console.log(data);
+                 
             	// 등록버튼을 누르면 기존의 데이터가 초기화
-            
-            	
-          // 행추가되는 table
       
-     }, //success
-       error : function(error){
-    	   alert(error);
+          }, //success
+           error : function(error){
+        	  
        }  //error
     }); //ajax
  }); // keyup
@@ -466,6 +463,21 @@ $(function() {
 	
  }); // jQuery
 </script>
+<style type="text/css">
+table {width: 100%;
+/* table-layout:fixed;  */}
+
+
+ 
+/* table tr>th:nth-of-type(1) {width:50px !important;
+}
+  */
+table tr>td:nth-of-type(1) {width:50px !important;
+}
+
+ table input {width:7em;}
+ table input[type:checkbox] {width:1em;}
+</style>
 </head>
 <body>
 <!-- 버튼 -->
@@ -475,7 +487,7 @@ $(function() {
 	<button class="btn btn-success insert update write">저장</button>
  <fmt:formatDate value=""/>
  <div class="row" > 
-<table border="1" id="example-table-3" class="table table-bordered table-hover text-center tbl">
+<table border="1" id="example-table-3" class="table table-bordered table-hover text-center tbl" style="width: 100%;">
 		    <thead>
 			<tr>
 			    <th></th>

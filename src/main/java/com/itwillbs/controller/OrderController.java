@@ -59,32 +59,36 @@ public class OrderController {
 	 orserivce.insertOrder(vo);
       return "redirect:/purchasing/order/list";
    }
-    // 발주 수정 (조회)
- // http://localhost:8088/purchasing/order/list
-   @RequestMapping(value = "/modify" , method = RequestMethod.GET)
-   @ResponseBody
-    public OrderVO modifyOrderGET(Model model, @RequestParam("order_id") String order_id) throws Exception {
-    	logger.debug("@@@@@modifyOrderGET()호출!@@@@@");
-    	
-    	// 기존의 정보 출력
-    	
-    	OrderVO orderVo = orserivce.getOrderInfo(order_id);
-    	
-    	return orderVo;
-    }
 // http://localhost:8088/purchasing/order/list
    @RequestMapping(value = "/lists" , method = RequestMethod.GET)
    @ResponseBody
-    public List<OrderVO> modifyOrderGET2(Model model, String ma_id) throws Exception {
-    	logger.debug("@@@@@modifyOrderGET()호출!@@@@@");
-    	logger.debug("ma_id" + ma_id);
+    public List<OrderVO> modifyOrderGET2(Model model ,String ma_id) throws Exception {
+    
+	   logger.debug("ma_id" + ma_id);
     	
-    	// 테이블의 정보를 가져와서 모엘에 추가 
-        List<OrderVO> orderList = orserivce.getMaterialList(ma_id);
-        model.addAttribute("orderList",orderList);
+    	// 테이블의 정보를 가져와서 모델에 추가 
+        List<OrderVO> orderLists = orserivce.getMaterialList(ma_id);
+        
+        model.addAttribute("orderLists", orderLists);
+       logger.debug("orderLISTssssssssss가져와지나???");
+        
     	
-    	return orderList;
+    	return orderLists;
     }
+
+   // 발주 수정 (조회)
+   // http://localhost:8088/purchasing/order/list
+   @RequestMapping(value = "/modify" , method = RequestMethod.GET)
+   @ResponseBody
+   public OrderVO modifyOrderGET(Model model, @RequestParam("order_id") String order_id) throws Exception {
+	   logger.debug("@@@@@modifyOrderGET()호출!@@@@@");
+	   
+	   // 기존의 정보 출력
+	   
+	   OrderVO orderVo = orserivce.getOrderInfo(order_id);
+	   
+	   return orderVo;
+   }
 //   http://localhost:8088/purchasing/order/list
 //  발주 수정 (데이터처리)
 	@RequestMapping(value = "/modify", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")

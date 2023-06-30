@@ -8,32 +8,57 @@
 
 <!-- 생산 목록 -->
 	<select id="getProductionList" resultType="com.itwillbs.domain.ProductionVO">
-		select * from production 
-		join product ON production.product_id = product.product_id;
+<!-- 		SELECT * FROM production  -->
+<!-- 		JOIN product ON production.product_id = product.product_id -->
+<!-- 		LEFT JOIN pr_complete ON production.production_id = pr_complete.production_id -->
+		SELECT production.*, product.*, pr_complete.*, employee.emp_name
+		FROM production
+		JOIN product ON production.product_id = product.product_id
+		JOIN employee ON production.production_emp = employee.emp_id
+		LEFT JOIN pr_complete ON production.production_id = pr_complete.production_id
 	</select>
 <!-- 생산 목록 -->
 
 <!-- 생산 등록 -->
 	<!-- 작업지시번호 조회 -->
 	<select id="insertSearch" resultType="com.itwillbs.domain.ProductionVO">
-<!-- 			select pd.production_id, pd.production_emp, pd.production_date, pd.production_line, pd.product_id, p.product_name, pd.plan_qty, pd.production_status -->
-<!--  			from production pd, product p -->
-<!-- 			where pd.product_id = p.product_id -->
-<!-- 			and pd.production_id = #{production_id} -->
-			SELECT pd.production_id, pd.production_emp, pd.production_date, pd.production_line, pd.product_id, p.product_name, pd.plan_qty, pd.production_status, e.emp_name
-			FROM production pd
-			JOIN product p ON pd.product_id = p.product_id
-			JOIN employee e ON pd.production_emp = e.emp_id
-			WHERE pd.production_id = #{production_id}
-			
+<!-- 		SELECT pd.production_id, pd.production_emp, pd.production_date, pd.production_line, pd.product_id, p.product_name, pd.plan_qty, e.emp_name, pc.production_status -->
+<!-- 		FROM production pd -->
+<!-- 		JOIN product p ON pd.product_id = p.product_id -->
+<!-- 		JOIN employee e ON pd.production_emp = e.emp_id -->
+<!-- 		LEFT JOIN pr_complete pc ON pd.production_id = pc.production_id -->
+<!-- 		WHERE pd.production_id = #{production_id} -->
+		SELECT pd.production_id, pd.production_emp, pd.production_date, pd.production_line, pd.product_id, p.product_name, pd.plan_qty, e.emp_name, pc.production_status
+		FROM production pd
+		JOIN product p ON pd.product_id = p.product_id
+		JOIN employee e ON pd.production_emp = e.emp_id
+		LEFT JOIN (
+		    SELECT production_id, production_status
+		    FROM pr_complete
+		    ORDER BY CASE production_status
+		        WHEN '포장' THEN 1
+		        WHEN '주입' THEN 2
+		        WHEN '혼합' THEN 3
+		        ELSE 4
+		    END
+		    LIMIT 1
+		) pc ON pd.production_id = pc.production_id
+		WHERE pd.production_id = #{production_id}
 	</select>
 	<!-- 작업지시번호 조회 -->
 	<!-- DB 등록 -->
-	<update id="insert">
-		UPDATE production
-		SET production_status = #{production_status}, production_qty = #{production_qty}
-		WHERE production_id = #{production_id}
-	</update>
+<!-- 	<update id="insert"> -->
+<!-- 		UPDATE production -->
+<!-- 		SET production_status = #{production_status}, production_qty = #{production_qty} -->
+<!-- 		WHERE production_id = #{production_id} -->
+<!-- 	</update> -->
+		<insert id="insert">
+		INSERT INTO pr_complete 
+		(complete_id, production_id, complete_date, production_status, def_code, complete_defQty)
+		VALUES
+	    (#{complete_id}, #{production_id}, #{complete_date}, #{production_status}, #{def_code}, #{complete_defQty})
+		</insert>
+	
 	<!-- DB 등록 -->
 <!-- 생산 등록 -->
 

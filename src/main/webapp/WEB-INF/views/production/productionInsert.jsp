@@ -10,7 +10,8 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-<!-- 수주번호 조회(페이지 이동x) -->
+
+  /* 수주번호 조회(페이지 이동x) */
   $(document).ready(function() {
     $("#btn_idSearch").click(function() {
   	  var production_id = $("#production_id").val();
@@ -30,13 +31,14 @@
               "<td><input type='hidden' name='production_id' value='"+vo.production_id+"'>" 
               + vo.production_id + "</td>" +
               "<td>" + vo.emp_name + "</td>" +
-              "<td>" + vo.production_date + "</td>" +
+              "<td>" + new Date(vo.production_date).toISOString().replace(/T/, ' ').replace(/\..+/, '') + "</td>" +
               "<td>" + vo.production_line + "</td>" +
               "<td>" + vo.product_id + "</td>" +
               "<td>" + vo.product_name + "</td>" +
               "<td>" + vo.plan_qty + "</td>" +
               "</tr>"
             );
+            
             // 생산단계 값 설정
 			  if (!vo.production_status) {
 	            $("#production_status").val('혼합');
@@ -47,6 +49,15 @@
 	          } else {
 	            $("#production_status").val(vo.production_status);
 	          }
+            
+            // 불량코드 값 설정
+              if (!vo.production_status) {
+	            $("#def_code").val('DE110');
+	          } else if (vo.production_status === '혼합') {
+	            $("#def_code").val('DE120');
+	          } else if (vo.production_status === '주입') {
+	            $("#def_code").val('DE130');
+	          }
         
         },
         error : function(error) {
@@ -56,6 +67,14 @@
     });
   });	
   
+  /* 불량수량 입력값에 숫자가 아닌 문자 제거 */
+  $(document).ready(function() {
+    $("input[name='complete_defQty']").on("input", function() {
+      $(this).val($(this).val().replace(/[^0-9]/g, ""));
+    });
+  });
+  
+  /* 팝업창(수정중) */
   var popupWindow; // 팝업 창 객체를 참조하기 위한 변수
 
   function closePopup() {
@@ -73,7 +92,7 @@
 	
 </script>
 
-<title>Insert title here</title>
+
 
 </head>
 <body>
@@ -115,14 +134,20 @@
 			<input type="text" name="production_status" id="production_status" readonly>
          </td>
 		</tr>
-		<tr>
-		 <td>생산수량</td>
-		 <td><input type="text" name="production_qty"><td> 
-		</tr>
 <!-- 		<tr> -->
-<!-- 		 <td>불량수량</td> -->
-<!-- 		 <td><input type="text" name="plan_qty"><td>  -->
+<!-- 		 <td>생산수량</td> -->
+<!-- 		 <td><input type="text" name="production_qty"><td>  -->
 <!-- 		</tr> -->
+		<tr>
+		 <td>불량코드</td>
+		 <td>
+			<input type="text" name="def_code" id="def_code" readonly>
+         </td>
+		</tr>
+		<tr>
+		 <td>불량수량</td>
+		 <td><input type="text" name="complete_defQty"><td> 
+		</tr>
 	  </table>
 	<button type="button" onclick="submitForm();" class="btn btn-success">등록</button>
 	</form>

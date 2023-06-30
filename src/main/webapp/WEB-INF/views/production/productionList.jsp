@@ -111,19 +111,19 @@
 								  </tbody>
 								</table>
 							
-								<!-- 	페이징 처리  -->
-								<c:if test="${pvo.startPage > pvo.pageBlock }">
-									<a href="/production/productionList?pageNum=${pvo.startPage-pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}">이전</a>
-								</c:if>
+<!-- 									페이징 처리  -->
+<%-- 								<c:if test="${pvo.startPage > pvo.pageBlock }"> --%>
+<%-- 									<a href="/production/productionList?pageNum=${pvo.startPage-pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}">이전</a> --%>
+<%-- 								</c:if> --%>
 							
-								<c:forEach var="i" begin="${pvo.startPage }" end="${pvo.endPage }" step="1">
-									<a href="/production/productionList?pageNum=${i }&selector=${pvo.selector}&search=${pvo.search}">${i }</a>
-								</c:forEach>
+<%-- 								<c:forEach var="i" begin="${pvo.startPage }" end="${pvo.endPage }" step="1"> --%>
+<%-- 									<a href="/production/productionList?pageNum=${i }&selector=${pvo.selector}&search=${pvo.search}">${i }</a> --%>
+<%-- 								</c:forEach> --%>
 							
-								<c:if test="${pvo.endPage<pvo.pageCount }">
-									<a href="/production/productionList?pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}">다음</a>
-								</c:if>
-								<!-- 	페이징 처리  -->
+<%-- 								<c:if test="${pvo.endPage<pvo.pageCount }"> --%>
+<%-- 									<a href="/production/productionList?pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}">다음</a> --%>
+<%-- 								</c:if> --%>
+<!-- 									페이징 처리  -->
 							
 							
 							

@@ -17,6 +17,7 @@ public class OrderVO {
 	private int order_emp;
 	private Date in_date;
 	private String order_status;
+	private int add_ma;
 	
 	// material
 	private String shelt_position;
@@ -153,18 +154,25 @@ public class OrderVO {
 	public void setInmaterialvo(InMaterialVO inmaterialvo) {
 		this.inmaterialvo = inmaterialvo;
 	}
+	
+	public int getAdd_ma() {
+		return add_ma;
+	}
+
+	public void setAdd_ma(int add_ma) {
+		this.add_ma = add_ma;
+	}
 
 	@Override
 	public String toString() {
 		return "OrderVO [order_id=" + order_id + ", ma_id=" + ma_id + ", order_qty=" + order_qty + ", order_sum="
 				+ order_sum + ", order_vat=" + order_vat + ", order_date=" + order_date + ", due_date=" + due_date
 				+ ", whs_id=" + whs_id + ", order_emp=" + order_emp + ", in_date=" + in_date + ", order_status="
-				+ order_status + ", shelt_position=" + shelt_position + ", ma_name=" + ma_name + ", ma_qty=" + ma_qty
-				+ ", unit_cost=" + unit_cost + ", inmaterialvo=" + inmaterialvo + "]";
+				+ order_status + ", add_ma=" + add_ma + ", shelt_position=" + shelt_position + ", ma_name=" + ma_name
+				+ ", ma_qty=" + ma_qty + ", unit_cost=" + unit_cost + ", inmaterialvo=" + inmaterialvo + "]";
 	}
 
 	
-	
-	
+
 	
 }

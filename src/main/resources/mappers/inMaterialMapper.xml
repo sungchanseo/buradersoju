@@ -9,13 +9,13 @@
  	
  <!-- 입고 리스트 -->
  	<select id="getInMaterialListAll" resultType="com.itwillbs.domain.InMaterialVO">
-	SELECT i.in_id, o.order_id, m.ma_name, o.order_qty, m.ma_qty, i.in_process, m.whs_id, m.shelt_position, o.in_date, i.in_emp
+	SELECT m.ma_id, i.in_id, o.order_id, m.ma_name, o.order_qty, m.ma_qty, o.add_ma, i.in_process, m.whs_id, m.shelt_position, o.in_date, i.in_emp
 	FROM orders o
 	LEFT JOIN in_material i
 	ON o.order_id = i.order_id
 	LEFT JOIN material m
 	ON o.ma_id = m.ma_id
-	ORDER BY in_process, in_id desc
+	ORDER BY in_process, in_id desc, order_id DESC
  	</select>
  <!-- 입고 리스트 -->	
  
@@ -49,27 +49,37 @@
  
  <!-- 입고 정보 상세보기 -->	
 	<select id="getInMaterialInfo" resultType="com.itwillbs.domain.InMaterialVO">
-		SELECT o.order_id, o.due_date, o.order_date, o.order_emp, i.in_id, i.in_process, o.in_date, i.in_emp, m.ma_name, o.order_qty, m.ma_qty, m.shelt_position
+		SELECT o.order_id, o.due_date, o.order_date, o.order_emp, i.in_id, i.in_process, o.in_date, i.in_emp, m.ma_name, o.order_qty, o.add_ma, m.ma_qty, m.shelt_position
 		FROM in_material i, material m, orders o
-		WHERE m.ma_id = o.ma_id AND o.order_id = i.order_id AND o.order_id = #{order_id}
+		WHERE m.ma_id = o.ma_id AND o.order_id = i.order_id 
+		AND o.order_id = #{order_id}
 	</select>
  <!-- 입고 정보 상세보기 -->	
  
  
- <!-- 특정 order_id의 기존 재고량 + 발주량으로 업데이트 -->
- 	<update id="maCnt">
+ <!-- 특정 order_id의 기존 재고량+발주량 (add_ma) -->
+	<update id="addMa">
 		UPDATE orders o
 		LEFT JOIN material m
 		ON o.ma_id = m.ma_id
-		SET m.ma_qty = m.ma_qty + o.order_qty
-		WHERE o.order_id = #{order_id};
- 	</update>
- <!-- 특정 order_id의 기존 재고량 + 발주량으로 업데이트 -->
+		SET o.add_ma = o.order_qty + m.ma_qty
+		WHERE order_id = #{order_id}
+	</update>
+ <!-- 특정 order_id의 기존 재고량 + 발주량 (add_ma) -->
  
  
- <!-- 재고량 수정하기 -->
+<!-- 입고처리 시 해당 자재 재고량 증가 -->
+	<update id="plusMa">
+		UPDATE material m
+		LEFT JOIN orders o
+		ON m.ma_id = o.ma_id
+		SET m.ma_qty = m.ma_qty + o.order_qty 
+		WHERE o.order_id = #{order_id} AND m.ma_id = #{ma_id}
+	</update>
+<!-- 입고처리 시 해당 자재 재고량 증가 -->
+
  
- 	
+ 
  	
  	
  	

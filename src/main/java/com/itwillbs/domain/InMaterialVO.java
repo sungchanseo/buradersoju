@@ -17,6 +17,7 @@ public class InMaterialVO {
 	private String ma_name;
 	private int ma_qty;
 	private String whs_id;
+	private String ma_id;
 	
 	// orders
 	private int order_qty;
@@ -24,6 +25,7 @@ public class InMaterialVO {
 	private Date due_date;
 	private int order_emp;
 	private Date in_date;
+	private int add_ma;
 	
 	
 	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ getter & setter ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
@@ -107,15 +109,31 @@ public class InMaterialVO {
 	public void setIn_date(Date in_date) {
 		this.in_date = in_date;
 	}
-	
+	public int getAdd_ma() {
+		return add_ma;
+	}
+	public void setAdd_ma(int add_ma) {
+		this.add_ma = add_ma;
+	}
+	public String getMa_id() {
+		return ma_id;
+	}
+	public void setMa_id(String ma_id) {
+		this.ma_id = ma_id;
+	}
 	
 	@Override
 	public String toString() {
 		return "InMaterialVO [in_id=" + in_id + ", order_id=" + order_id + ", in_process=" + in_process + ", in_emp="
 				+ in_emp + ", shelt_position=" + shelt_position + ", ma_name=" + ma_name + ", ma_qty=" + ma_qty
-				+ ", whs_id=" + whs_id + ", order_qty=" + order_qty + ", order_date=" + order_date + ", due_date="
-				+ due_date + ", order_emp=" + order_emp + ", in_date=" + in_date + "]";
+				+ ", whs_id=" + whs_id + ", ma_id=" + ma_id + ", order_qty=" + order_qty + ", order_date=" + order_date
+				+ ", due_date=" + due_date + ", order_emp=" + order_emp + ", in_date=" + in_date + ", add_ma=" + add_ma
+				+ "]";
 	}
+
+	
+
+	
 
 
 }

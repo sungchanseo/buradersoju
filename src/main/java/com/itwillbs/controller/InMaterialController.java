@@ -10,12 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.itwillbs.domain.InMaterialVO;
-import com.itwillbs.domain.MaterialVO;
 import com.itwillbs.service.InMaterialService;
-
-
 
 @Controller
 @RequestMapping(value = "/purchasing/inMaterial/*")
@@ -36,16 +32,19 @@ public class InMaterialController {
 	
 	
 	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ메서드 정의ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-	// 1-1. 입고 리스트 출력
+	
+	
+	
+	// 1. 입고 리스트 출력
 	@RequestMapping(value="/list", method=RequestMethod.GET)
 	public void inMaterialListAllGET(Model model) throws Exception{
 		logger.debug("@@@@@@@@@@ inMaterialListAllGET()_호출");
-
+		
 		List<InMaterialVO> inMaterialList =  iService.getInMaterialListAll();
 		model.addAttribute("inMaterialList", inMaterialList);
 	}
 	
-	
+
 	// 2-1. 입고번호 - 자동넘버링
 	@RequestMapping(value="/inid", method=RequestMethod.GET)
 	public void getInIdGET(Model model) throws Exception {
@@ -60,37 +59,21 @@ public class InMaterialController {
 		model.addAttribute("maxDate", maxDate);
 	}
 	
-	// 2-2. 입고번호 - DB 업데이트
+	// 2-2. 입고번호 & 재고량 증가 - DB 업데이트
 	@RequestMapping(value="/inid", method=RequestMethod.POST)
 	@ResponseBody
 	public void getInIdPOST(Model model, @RequestBody InMaterialVO vo) throws Exception{
 		logger.debug("@@@@@@@@@@ getInIdPOST()_호출");
-
+		
 		// 입고번호, 발주번호 DB에 저장
 		iService.registInId(vo);
 		
-		// 재고테이블에 해당 자재 수량 증가
-		// orders의 ma_id와 material의 ma_id로 join해서 orders의 order_qty만큼 수량 더하기
-		// 파라미터로 전달되는 order_id값을 받아와서 총 재고량을 구한 뒤 ma_qty를 업데이트
-		iService.getMaCnt(vo.getOrder_id());
-		logger.debug("@@@@@@@@@@ 재고테이블 자재 수량 증가 완료");
+//		// 현 재고량 + 입고량 = 총재고량 (add_ma)
+		iService.getAddMa(vo.getOrder_id());
+		
+		// 입고된 자재 재고량 증가
+		iService.getplusMa(vo);
 	}
-	
-//	@RequestMapping(value="/inid", method=RequestMethod.POST)
-//	@ResponseBody
-//	public void getInIdPOST(Model model, @RequestParam("in_id") String in_id,
-//			                             @RequestParam("order_id") String order_id,
-//			                             @RequestParam("in_emp") int in_emp) throws Exception{
-//		logger.debug("@@@@@@@@@@ getInIdPOST()_호출");
-//
-//		// 입고번호, 발주번호 DB에 저장
-//		InMaterialVO vo = new InMaterialVO();
-//		vo.setIn_id(in_id);
-//		vo.setOrder_id(order_id);
-//		vo.setIn_emp(in_emp);
-//		iService.registInId(vo);
-//		
-//	}
 	
 	
 	// 3. 입고 상세보기
@@ -101,14 +84,10 @@ public class InMaterialController {
 		InMaterialVO info = iService.getInMaterialInfo(order_id);
 		logger.debug("@@@@@@@@@@ 입고 상세보기 데이터 : " + info);
 		model.addAttribute("resultVO", info);
-
 	}
-	
-	
-	
-	
-	
-	
-	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ메서드 정의ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
+
+	
+	
+	
 }

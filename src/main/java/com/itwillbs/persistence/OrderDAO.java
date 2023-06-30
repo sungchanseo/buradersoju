@@ -7,6 +7,7 @@ import java.util.List;
 
 
 
+
 import org.springframework.stereotype.Repository;
 
 
@@ -41,4 +42,7 @@ public interface OrderDAO {
     
  	// 자재 발주 정보 조회하기 
  	public List<OrderVO> getMaterialList(String ma_id) throws Exception;
+ 	
+ 	public OrderVO getMaterial(String ma_id) throws Exception;
+ 	
 }

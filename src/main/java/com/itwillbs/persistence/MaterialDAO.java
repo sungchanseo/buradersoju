@@ -28,5 +28,7 @@ public interface MaterialDAO {
 	
 	// 5. 자재 삭제
 	public Integer deleteMaterial(String ma_id);
+	
+
 
 }

@@ -91,6 +91,12 @@ public class OrderServiceImpl implements OrderService {
 	
 		return odao.getMaterialList(ma_id);
 	}
+
+	@Override
+	public OrderVO getMaterial(String ma_id) throws Exception {
+		
+		return odao.getMaterial(ma_id);
+	}
     
 	
 	

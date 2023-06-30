@@ -177,7 +177,7 @@ $(function() {
            tbl += "<input type='text' name='unit_cost' id='unit_cost'>";
            tbl += "</td>";
            tbl += " <td>";
-           tbl += "<input type='text' name='ma_qty' id='ma_qty'>";
+           tbl += "<input type='text' name='ma_qty' id='ma_qty'value="++">";
            tbl += "</td>";
            tbl += " <td>";
            tbl += "<input type='text' name='order_qty' id='order_qty'>";
@@ -218,13 +218,16 @@ $(function() {
 						 in_ma_id : $("#ma_id").val(),
 						 in_order_qty : $("#order_qty").val()
                  };
-           // console.log(obj);
+            console.log(obj.in_ma_id);
         $.ajax({
-        	url :"lists",
+        	url :obj,
             type :"get",
             success:function(data){
-                  console.log(data);
-                 
+            	
+                console.log(ma_id);
+                 ordervo.getMa_id.equals(in_ma_id){
+                	 ordervo.get자
+                 }
             	// 등록버튼을 누르면 기존의 데이터가 초기화
       
           }, //success

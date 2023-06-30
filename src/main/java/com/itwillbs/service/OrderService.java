@@ -37,4 +37,6 @@ public interface OrderService {
  
  	// 자재 발주 정보가져오기
  	public List<OrderVO> getMaterialList(String ma_id) throws Exception;
+
+    public OrderVO getMaterial(String ma_id) throws Exception;
 }

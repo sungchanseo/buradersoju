@@ -44,6 +44,7 @@ public class OrderDAOImpl implements OrderDAO{
 	public void insertOrder(OrderVO vo) {		
 		sqlSession.insert(NAMESPACE+".insertOrder",vo);
 		sqlSession.insert(NAMESPACE+".insertOrders",vo);
+	//	sqlSession.selectOne(NAMESPACE+"getMaterialList",vo);
 	}
 
 	@Override
@@ -77,6 +78,14 @@ public class OrderDAOImpl implements OrderDAO{
 		return sqlSession.delete(NAMESPACE+".deleteOrder", order_id);
 	}
 
+	@Override
+	public List<OrderVO> getMaterialList(String ma_id ) throws Exception {
+		  
+		return sqlSession.selectOne(NAMESPACE+".getMaterialList", ma_id);
+	}
+
+	
+	
 	
 	
 	

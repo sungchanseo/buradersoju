@@ -6,6 +6,7 @@ import java.util.List;
 
 
 
+
 import org.springframework.stereotype.Repository;
 
 
@@ -38,4 +39,6 @@ public interface OrderDAO {
  	// 발주 정보 삭제하기
  	public Integer deleteOrder(String order_id) throws Exception;
     
+ 	// 자재 발주 정보 조회하기 
+ 	public List<OrderVO> getMaterialList(String ma_id) throws Exception;
 }

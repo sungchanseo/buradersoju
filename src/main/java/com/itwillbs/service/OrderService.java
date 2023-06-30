@@ -34,5 +34,7 @@ public interface OrderService {
  	
  	// 발주 정보 삭제하기
  	public Integer deleteOrder(String order_id) throws Exception;
-    
+ 
+ 	// 자재 발주 정보가져오기
+ 	public List<OrderVO> getMaterialList(String ma_id) throws Exception;
 }

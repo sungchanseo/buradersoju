@@ -5,6 +5,52 @@
 <head>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <title>사원 정보</title>
+<style type="text/css">
+table {margin-bottom: 1em;}
+
+table, th {border: none;}
+
+th {background-color: #04AA6D;
+color: #fff;
+text-align: center;
+padding: 10px 8px;}
+
+td {border:1px solid #04AA6D;
+text-align: center;
+padding: 10px 6px;}
+
+#tb-btns {margin-left: 0.5em;}
+
+.btn{
+display: inline-block;
+font-weight: 600;
+line-height: 1;
+color: #6c7293;
+text-align: center;
+text-decoration: none;
+vertical-align: middle;
+cursor: pointer;
+user-select: none;
+background-color: transparent;
+border: 1px solid transparent;
+padding: 0.625rem 1.125rem;
+font-size: 0.875rem;
+border-radius: 0.25rem;
+transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;}
+    
+.btn-success {
+color: #000;
+background-color: #0ddbb9;
+border-color: #0ddbb9;}
+
+.btn-info {
+color: #000;
+background-color: #2fddf8;
+border-color: #23dbf8;}
+/* .btn {background-color: #048; */
+/* padding:8px 10px; */
+/* color: #fff;} */
+</style>
 </head>
 <body>
 	<h1>사원 정보</h1>
@@ -47,16 +93,16 @@
 			<th>재직구분</th>
 			<td>${resultVO.emp_status }</td>
 			<th>입사일</th>
-			<th>${resultVO.join_date }</th>
+			<td>${resultVO.join_date }</td>
 		</tr>
 		<tr>
 			<td></td>
 			<th>휴직일</th>
-			<th>${resultVO.absence_date }</th>		
+			<td>${resultVO.absence_date }</td>		
 			<th>복직일</th>
-			<th>${resultVO.rehabi_date }</th>
+			<td>${resultVO.rehabi_date }</td>
 			<th>퇴사일</th>
-			<th>${resultVO.resign_date }</th>
+			<td>${resultVO.resign_date }</td>
 		</tr>
 	</table>
 	

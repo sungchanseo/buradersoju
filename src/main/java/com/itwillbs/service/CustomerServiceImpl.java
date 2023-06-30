@@ -52,9 +52,38 @@ public class CustomerServiceImpl implements CustomerService {
 	public CustomerVO getCustomerInfo(String cust_id) throws Exception{
 		return cdao.getCustomerInfo(cust_id);
 	}
-
+	
 	@Override
 	public void insertCustomer(CustomerVO vo) throws Exception{
+		
+		//디비에서 가장 최신 거래처를 불러온다. 
+		String lastId = cdao.getLastGeneratedNumber();
+		logger.debug("@@@@@@CustomerService : {}", lastId);
+		
+		//가져온 데이타의 끝 번호만 잘라낸다. CU001
+		int countPartUp = Integer.parseInt(lastId.substring(3,5));
+		logger.debug("@@@@@@CustomerService : countPartup = {}", countPartUp);
+		
+		//cust_id 접두사
+		String prefix = "CU";
+		
+		//1부터 시작하는 카운트 생성
+		String countPart = String.format("%03d", 1);
+		
+		//거래처 데이타가 아무것도 없을 때 result
+		String result = prefix + countPart;
+		
+		//잘라낸 끝번호가 1이상일 때는 1을 더해서 카운트한다.  
+		if(countPartUp != 1) {
+			countPartUp +=1;
+			countPart = String.format("%03d", countPartUp);
+			// 접두사+날짜+카운트를 조합한다.
+			result = prefix + countPart;
+		}
+		logger.debug("@@@@@@ContractService : result={}", result);
+		
+		vo.setCust_id(result);
+		
 		cdao.insertCustomer(vo);
 	}
 
@@ -69,7 +98,7 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 	
 	//거래처 중복체크 ajax
-	public Integer regNumCheck(String reg_num) {
+	public Integer regNumCheck(String reg_num) throws Exception{
 		return cdao.regNumCheck(reg_num);
 	}
 

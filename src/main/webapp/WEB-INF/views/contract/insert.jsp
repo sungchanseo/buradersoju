@@ -53,14 +53,7 @@
 			var status = true;
 			consol.log(formObject);
 
-			for (var i = 0; i < formObject.length; i++) {
-				if (formObject[i].value == "") {
-					alert("정보를 입력하세요!");
-					status = false;
-					break;
-				}
-			}
-
+			
 			//작성완료 버튼을 눌렀을 때 ajax를 실행하도록 한다.
 			$.ajax({
 				url : '/contract/insert',

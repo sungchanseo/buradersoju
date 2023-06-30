@@ -30,8 +30,8 @@
 			<td>${customerInfo.cust_class }</td>
 			<th>대표전화</th>
 			<td>${customerInfo.main_phone }</td>
-			<th>담당자이메일</th>
-			<td>${customerInfo.emp_email }</td>
+			<th>담당자전화번호</th>
+			<td>${customerInfo.emp_tel }</td>
 		</tr>
 		<tr>
 			<th>거래처이름</th>
@@ -68,7 +68,7 @@
 				url : '/customer/remove?cust_id='+cust_id, 
 				type : 'POST', 
 				success : function(json){ //가져올 데이타가 따로 없을 때는 json 타입을 넣는다. 있을 때는 data라고 적는다. 
-					alert("거래처는 사라졌읍니다.");
+					alert("거래처가 삭제되었읍니다.");
 					window.opener.location.reload();
 					window.close();
 				}

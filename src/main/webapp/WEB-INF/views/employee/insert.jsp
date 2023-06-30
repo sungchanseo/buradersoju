@@ -44,16 +44,16 @@
 			<tr>
 				<th>성별</th>
 				<td>
-					<label><input type="radio" name="emp_gender" value="남" checked>남</label>
+					<label><input type="radio" name="emp_gender" value="남">남</label>
 					<label><input type="radio" name="emp_gender" value="여">여</label>
 				</td>			
 				<th>부서</th>
 				<td><select name="emp_department">
-						<option value="전산">전산팀</option>
-						<option value="인사">인사팀</option>
-						<option value="생산">생산팀</option>
-						<option value="구매">구매팀</option>
-						<option value="영업">영업팀</option>
+						<option value="전산팀">전산팀</option>
+						<option value="인사팀">인사팀</option>
+						<option value="생산팀">생산팀</option>
+						<option value="구매팀">구매팀</option>
+						<option value="영업팀">영업팀</option>
 				</select></td>
 				<th>직급</th>
 				<td><select name="emp_position">
@@ -159,6 +159,12 @@
 					status = false;
 					return false;
 				}//상세주소 입력 제어
+				
+				if($('input[name="emp_gender"]:checked').length === 0){
+				    alert('성별을 선택해주세요.');
+				    $('input[name="emp_gender"]').eq(0).focus(); // 첫 번째 라디오 버튼에 포커스를 줌
+				    return false;
+				}//성병 입력 제어
 				
 				if ($('#emp_tel').val() == ""){
 					alert('내선번호를 입력하세요.');

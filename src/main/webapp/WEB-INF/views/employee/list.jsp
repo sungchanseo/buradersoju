@@ -24,6 +24,7 @@
 			openPop.moveBy(100,100);
 		}
 	</script>
+	
 	<!-- 사원등록 새창열기  -->
 	<div class="container-scroller">
 		<div class="container-fluid page-body-wrapper full-page-wrapper">
@@ -42,7 +43,18 @@
 										</select>
 										<input type="text" name="search" placeholder="검색어를 입력해주세요">
 										<input type="submit" class="btn btn-info" value="검색">
-									<!-- 검색창기능 -->		
+									<!-- 검색창기능 -->
+									
+                                    <!-- 카테고리 기능 -->
+                                    <p id="category_search">
+									    <label>
+									        <input type="checkbox" name="category" value="퇴직" onchange="this.form.submit()" 
+									            <c:if test="${param.category == '퇴직'}">checked</c:if>
+									        >
+									        퇴직자 포함
+									    </label>
+									</p>
+                                    <!-- 카테고리 기능 -->
 																
 									<c:if test="${emp_department.equals('인사팀') || emp_department.equals('인사') }">
 										<input type="button" class="btn btn-success" value="사원등록" onclick="insertPop()">
@@ -67,7 +79,7 @@
 													>
 												</td>
 												<td>${vo.emp_name }</td>
-												<td>${vo.emp_department }팀</td>
+												<td>${vo.emp_department }</td>
 												<td>${vo.emp_position }</td>
 												<td>${vo.join_date }</td>
 												<td>${vo.emp_tel }</td>

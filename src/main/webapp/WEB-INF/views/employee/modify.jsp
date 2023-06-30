@@ -39,15 +39,15 @@
 				<th>성별</th>
 				<td>
 					<label><input type="radio" name="emp_gender" value="남" ${resultVO.emp_gender == '남' ? 'checked' : ''}>남</label>
-					<label><input type="radio" name="emp_gender" value="남" ${resultVO.emp_gender == '여' ? 'checked' : ''}>여</label>
+					<label><input type="radio" name="emp_gender" value="여" ${resultVO.emp_gender == '여' ? 'checked' : ''}>여</label>
 				</td>			
 				<th>부서</th>
 				<td><select name="emp_department">
-						<option value="전산" ${resultVO.emp_department == '전산' ? 'selected' : ''}>전산팀</option>
-						<option value="인사" ${resultVO.emp_department == '인사' ? 'selected' : ''}>인사팀</option>
-						<option value="생산" ${resultVO.emp_department == '생산' ? 'selected' : ''}>생산팀</option>
-						<option value="구매" ${resultVO.emp_department == '구매' ? 'selected' : ''}>구매팀</option>
-						<option value="영업" ${resultVO.emp_department == '영업' ? 'selected' : ''}>영업팀</option>
+						<option value="전산팀" ${resultVO.emp_department == '전산팀' ? 'selected' : ''}>전산팀</option>
+						<option value="인사팀" ${resultVO.emp_department == '인사팀' ? 'selected' : ''}>인사팀</option>
+						<option value="생산팀" ${resultVO.emp_department == '생산팀' ? 'selected' : ''}>생산팀</option>
+						<option value="구매팀" ${resultVO.emp_department == '구매팀' ? 'selected' : ''}>구매팀</option>
+						<option value="영업팀" ${resultVO.emp_department == '영업팀' ? 'selected' : ''}>영업팀</option>
 				</select></td>
 				<th>직급</th>
 				<td><select name="emp_position">

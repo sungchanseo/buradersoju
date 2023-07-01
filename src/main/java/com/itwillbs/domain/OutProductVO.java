@@ -1,8 +1,11 @@
 package com.itwillbs.domain;
-
 import java.sql.Date;
 
+
+
 public class OutProductVO {
+	
+	// out_product
     private String op_id;
     private String product_id;
     private String product_name;
@@ -11,7 +14,12 @@ public class OutProductVO {
     private int op_qty;
     private String customer_name;
     private int op_empNum;
-	public String getOp_id() {
+    
+    
+    // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ getter & setter ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+	
+    // out_product
+    public String getOp_id() {
 		return op_id;
 	}
 	public void setOp_id(String op_id) {
@@ -60,12 +68,19 @@ public class OutProductVO {
 		this.op_empNum = op_empNum;
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ toString ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	@Override
 	public String toString() {
 		return "OutProduct [op_id=" + op_id + ", product_id=" + product_id + ", product_name=" + product_name
 				+ ", op_date=" + op_date + ", op_progress=" + op_progress + ", op_qty=" + op_qty + ", customer_name="
 				+ customer_name + ", op_empNum=" + op_empNum + "]";
 	}
-    
     
 }

@@ -4,44 +4,6 @@
 
 <%@ include file="../../includes/header.jsp" %>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-<script>
-// $(document).ready(function(){
-	
-// 	// '입고처리' 버튼 클릭
-// 	$('.inidDone').click(function(){
-// 		var btn = $(this);
-// 		var tr = btn.parent().parent();		// btn.parent()          : btn의 부모는 <td>
-// 		var td = tr.children();				// btn.parent().parent() : <td>의 부모는 <tr>		
-	
-// 		var order_id = td.eq(1).text();
-// 		var ma_id = td.eq(3).text();
-		
-// 		$.ajax({
-// 			url: "list",
-// 			type: "post",
-// 			data: {
-// 				order_id:order_id,
-// 				ma_id:ma_id
-// 			},
-// 			success: function(data){
-// 				alert("maqtyList 가져오기 성공");
-// 				var re_inId = data[0].in_id;	// 최신 입고번호
-// 				var re_inId = data[0].add_ma;	// 최신 입고번호의 총재고량
-				
-// 				// 입고처리
-// 				// 입고번호 및 총재고량 적용
-// 				alert("입고처리 (입고번호+총재고량 적용) 시작");
-// 				location.href="/purchasing/inMaterial/inid?order_id="+order_id+"&ma_id="+ma_id;
-// 			},
-// 			error: function(){
-// 				alert("error");
-// 			}
-// 		});
-
-// 	}); // inidDone.click
-	
-// }); // JQuery
-</script>
 </head>
 <body>
 <br>

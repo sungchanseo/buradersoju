@@ -75,6 +75,7 @@
 		ON m.ma_id = o.ma_id
 		SET m.ma_qty = m.ma_qty + o.order_qty 
 		WHERE o.order_id = #{order_id} AND m.ma_id = #{ma_id}
+		AND in_status = 1
 	</update>
 <!-- 입고처리 시 해당 자재 재고량 증가 -->
 
@@ -146,7 +147,6 @@
 		AND ${selector} LIKE CONCAT('%', #{search}, '%') LIMIT #{startRow}, #{pageSize}
 	</select>
 <!-- 검색어+필터처리+페이지갯수 제한 전체 목록 -->
-
 
 
 <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 목록 가져오기 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->

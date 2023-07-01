@@ -48,10 +48,10 @@ public class InMaterialController {
 									   HttpServletRequest request, HttpSession session) throws Exception{
 		logger.debug("@@@@@@@@@@ inMaterialListAllGET()_호출");
 		
+		// 리스트 출력 (페이징처리 X)
 //		List<InMaterialVO> inMaterialList =  iService.getInMaterialListAll();
 //		model.addAttribute("inMaterialList", inMaterialList);
-		logger.debug("@@@@@@@@@@ selector : {}", pvo.getSelector());
-		
+
 		// 로그인 세션 제어
 		if(session.getAttribute("emp_id") == null) {
 			return "redirect:/main/login";
@@ -59,8 +59,9 @@ public class InMaterialController {
 		
 		
 		// 리스트 출력 (페이징처리)
-		List<Object> inMaterialList=null;
+		List<Object> inMaterialList = null;
 		pvo = iService.pagingAction(pvo);
+		logger.debug("여기까지는 되나요? 66 -- 얘가 안되서 에러발생");
 		logger.debug("@@@@@@@@@@ pvo : {}", pvo);
 		
 		

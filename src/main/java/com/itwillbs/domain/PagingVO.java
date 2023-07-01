@@ -1,5 +1,7 @@
 package com.itwillbs.domain;
 
+import java.sql.Date;
+
 /**
  * 페이징+검색기능+필터처리를 하기 위한 변수를 저장하는 도메인
  * 
@@ -51,7 +53,6 @@ public class PagingVO {
 	private Integer endPage;
 	private Integer currentPage;
 	
-	
 	//출력객체 지정을 위한 객체 변수 선언 
 	private ContractVO ContractVO;
 	private CustomerVO CustomerVO;
@@ -62,6 +63,11 @@ public class PagingVO {
 	private OrderVO OrderVO;
 	private ProductionVO ProductionVO;
 	private OutProductVO OutProductVO;
+	
+	// Join문을 위한 [in_material] 테이블 변수 선언 
+	private String ma_name;
+	private Date in_date;
+	private int in_emp;
 	
 	
 	public OutProductVO getOutProductVO() {
@@ -221,6 +227,29 @@ public class PagingVO {
 		ProductionVO = productionVO;
 	}
 	
+	
+	// Join문을 위한 in_material get & set
+	public String getMa_name() {
+		return ma_name;
+	}
+	public void setMa_name(String ma_name) {
+		this.ma_name = ma_name;
+	}
+	public Date getIn_date() {
+		return in_date;
+	}
+	public void setIn_date(Date in_date) {
+		this.in_date = in_date;
+	}
+	public int getIn_emp() {
+		return in_emp;
+	}
+	public void setIn_emp(int in_emp) {
+		this.in_emp = in_emp;
+	}
+	
+	
+	
 	@Override
 	public String toString() {
 		return "PagingVO [table=" + table + ", status_name=" + status_name + ", status_value=" + status_value
@@ -230,14 +259,12 @@ public class PagingVO {
 				+ ", startPage=" + startPage + ", endPage=" + endPage + ", currentPage=" + currentPage + ", ContractVO="
 				+ ContractVO + ", CustomerVO=" + CustomerVO + ", EmployeeVO=" + EmployeeVO + ", LoginVO=" + LoginVO
 				+ ", MaterialVO=" + MaterialVO + ", InMaterialVO=" + InMaterialVO + ", OrderVO=" + OrderVO
-				+ ", ProductionVO=" + ProductionVO + ", OutProductVO=" + OutProductVO + "]";
+				+ ", ProductionVO=" + ProductionVO + ", OutProductVO=" + OutProductVO + ", ma_name=" + ma_name
+				+ ", in_date=" + in_date + ", in_emp=" + in_emp + "]";
 	}
 	
 	
 
-
-	
-	
 
 
 }

@@ -60,7 +60,7 @@
 <br>
 <div>
  	<fmt:formatDate value=""/> 
-	<table border="1" class="table">
+	<table border="1" class="table table-hover table-bordered text-center">
 	<tr>
 		<th>입고번호</th>
 		<th>발주번호</th>

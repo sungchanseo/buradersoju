@@ -8,10 +8,12 @@
 <body>
 <br>
 
+
 <div class="card-body">
 		<h1 class="card-title">
 			<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">입고 리스트</font></font>
 		</h1>
+
 
 <!-- 검색 기능 -->
 <form action="/purchasing/inMaterial/list" method="get" style="display: inline;">
@@ -24,6 +26,9 @@
 </form>
 
 <br>
+
+
+<!-- 테이블 -->
 	<div>
  	<fmt:formatDate value=""/> 
 	<table border="1" class="table table-hover table-bordered text-center">
@@ -31,7 +36,6 @@
 		<th>입고번호</th>
 		<th>발주번호</th>
 		<th>상세</th>
-<!-- 		<th>자재코드</th> -->
 		<th>품명</th>		
 		<th>입고수량</th>
 		<th>현재고량</th>
@@ -59,7 +63,6 @@
 						<img class="viewDetail" src="${pageContext.request.contextPath}/resources/images/viewDetail.png" width="10px" height="10px" alt="image" />
 				</a>
 			</td>
-<%-- 			<td>${iml.ma_id }</td> --%>
 			<td>${iml.ma_name }</td>
 			<td>${iml.order_qty }</td>
 			<td>
@@ -129,7 +132,7 @@
 			</c:if>
 		</div>
 	</div>
-	<!-- 	페이징 처리  -->
+<!-- 	페이징 처리  -->
 
 
 

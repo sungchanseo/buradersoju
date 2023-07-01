@@ -33,8 +33,6 @@ public class InMaterialController {
 	// Service 객체 주입
 	@Inject
 	private InMaterialService iService;
-	@Inject
-	private PagingService pageService;
 	
 	
 	

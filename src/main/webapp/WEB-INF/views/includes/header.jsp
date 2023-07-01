@@ -111,7 +111,7 @@
                          <li class="nav-item"><a class="nav-link" href="/purchasing/inventory/list">재고 관리</a></li>
                          <li class="nav-item"><a class="nav-link" href="/purchasing/order/list">발주 관리</a></li>
                          <li class="nav-item"><a class="nav-link" href="/purchasing/inMaterial/list">입고 관리</a></li>
-                         <li class="nav-item"><a class="nav-link" href="/purchasing/outproduct/list">출고 관리</a></li>
+                         <li class="nav-item"><a class="nav-link" href="/purchasing/outProduct/list">출고 관리</a></li>
                       </ul>
                   </div>
               </li>

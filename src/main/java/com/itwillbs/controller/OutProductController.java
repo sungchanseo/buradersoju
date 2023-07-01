@@ -1,8 +1,9 @@
 package com.itwillbs.controller;
-
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,35 +13,64 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.itwillbs.domain.OutProductVO;
-import com.itwillbs.service.OutproductService;
+import com.itwillbs.service.OutProductService;
+
+
 
 @Controller
-@RequestMapping(value= "/purchasing/outproduct/*")
+@RequestMapping(value= "/purchasing/outProduct/*")
 public class OutProductController {
 	
-	// 로그기록을 위한 로거 생성
 	
-
+	// http://localhost:8088/purchasing/outProduct/list
+	
+	
+	// 로거 생성
 	private static final Logger logger = LoggerFactory.getLogger(OutProductController.class);
 
-	// Service 객체 사용을 위한 의존성 주입
 	
+	// 객체 주입
 	@Inject
-	private OutproductService outService;
+	private OutProductService oService;
 	
 	
-	// http://localhost:8088/purchasing/outproduct/list
+	
+	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ메서드 정의ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+	
+	
+	
+	// 1. 출고 리스트 출력
 	@RequestMapping(value ="/list", method = RequestMethod.GET)
-	public void listGET(Model model) {
+	public String outProductListGET(Model model,
+								  HttpServletRequest request, HttpSession session) throws Exception{
 		
-		logger.debug("@@@@@list GET 호출 젭라@@@@");
+		logger.debug("@@@@@@@@@@@@@@@ outProductListGET 호출");
+		
+		// 로그인 세션 제어
+		if(session.getAttribute("emp_id") == null) {
+			return "redirect:/main/login";
+		}
 	
-	    // service 객체 호출
-		List<OutProductVO> outproductList = outService.getOutproductList();
+	    // 리스트 출력 (페이징처리 X)
+		List<OutProductVO> outproductList = oService.getOutProductList();
 		
-		model.addAttribute("outproductList",outproductList);
-	  
+		// View 페이지 전달
+		model.addAttribute("outproductList", outproductList);
+		
+		return null;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }

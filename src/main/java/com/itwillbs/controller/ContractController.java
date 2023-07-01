@@ -113,9 +113,8 @@ public class ContractController {
 	}
 
 	// 수주 수정 디비처리
-	@ResponseBody
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
-	public String modifyCustomerPOST(@RequestBody ContractVO cvo) throws Exception {
+	public String modifyCustomerPOST(ContractVO cvo) throws Exception {
 		logger.debug("@@@@@@@@@@Contorller : 수주 수정 POST하기 !!!");
 		logger.debug("@@@@@@@@@controller : 수정한 수주정보 : " + cvo);
 

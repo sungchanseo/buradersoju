@@ -45,11 +45,22 @@
 </head>
 <body>
 <br>
-${maqtyList }
+
+<!-- 검색 기능 -->
+<form action="/purchasing/inMaterial/list" method="get" style="display: inline;">
+
+	<select name="selector">
+		<option value="ma_name">자재명</option>
+		<option value="in_date">입고일자</option>
+		<option value="in_emp">담당직원</option>
+	</select> <input type="text" class="form-control" style="width:10%; display:inline;" name="search" placeholder="검색어를 입력해주세요">
+	<input type="submit"  class="btn btn-info" value="검색">
+</form>
+
 <br>
 <div>
  	<fmt:formatDate value=""/> 
-	<table border="1" class="table">
+	<table border="1" class="table table-hover table-bordered text-center">
 	<tr>
 		<th>입고번호</th>
 		<th>발주번호</th>
@@ -67,7 +78,7 @@ ${maqtyList }
 		<th>입고처리</th>
 	</tr>
       
-      <c:forEach var="iml" items="${inMaterialList }">
+      <c:forEach var="iml" items="${inMaterialList }" >
          <tr>
 			<td>
 				<c:choose>
@@ -132,6 +143,28 @@ ${maqtyList }
       </c:forEach>
 	</table>
 </div>
+
+
+
+<!-- 	페이징 처리  -->
+	<div class="template-demo">
+		<div class="btn-group" role="group" aria-label="Basic example">
+			<c:if test="${pvo.startPage > pvo.pageBlock }">
+				<a href="/purchasing/inMaterial/list?pageNum=${pvo.startPage-pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">이전</a>
+			</c:if>
+			
+			<c:forEach var="i" begin="${pvo.startPage }" end="${pvo.endPage }" step="1">
+				<a href="/purchasing/inMaterial/list?pageNum=${i }&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">${i }</a>
+			</c:forEach>
+			
+			<c:if test="${pvo.endPage<pvo.pageCount }">
+				<a href="/purchasing/inMaterial/list?pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">다음</a>
+			</c:if>
+		</div>
+	</div>
+	<!-- 	페이징 처리  -->
+
+
 
 <%@ include file="../../includes/footer.jsp" %>
 

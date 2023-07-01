@@ -70,19 +70,7 @@ public interface PagingDAO {
 		///////////////////////////////////////////////////////////////////////////////
 		
 		
-		/////////////////////////////////InMaterialVO////////////////////////////////////
-		//아무조건이 없을 때 전체 목록 객체 가져오기
-		public List<Object> getListPageSizeObjectInMaterialVO(PagingVO pvo) throws Exception;
 		
-		//검색어 있을 때 목록 객체 가져오기 	
-		public List<Object> getListSearchObjectInMaterialVO(PagingVO pvo) throws Exception;
-		
-		//검색어+필터처리 전체 목록갯수 가져오기 	
-		public List<Object> getListFilterObjectInMaterialVO(PagingVO pvo)throws Exception;
-		
-		//검색어와 필터 모두 있을 때 전체 목록 갯수 가져오기 
-		public List<Object> getListSearchFilterObjectInMaterialVO(PagingVO pvo) throws Exception;
-		///////////////////////////////////////////////////////////////////////////////
 		
 		/////////////////////////////////MaterialVO////////////////////////////////////
 		//아무조건이 없을 때 전체 목록 객체 가져오기

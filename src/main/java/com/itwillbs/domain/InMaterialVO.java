@@ -11,6 +11,7 @@ public class InMaterialVO {
 	private String order_id;
 	private String in_process;
 	private int in_emp;
+	private int in_status;
 	
 	// material
 	private String shelt_position;
@@ -121,17 +122,23 @@ public class InMaterialVO {
 	public void setMa_id(String ma_id) {
 		this.ma_id = ma_id;
 	}
+	public int getIn_status() {
+		return in_status;
+	}
+	public void setIn_status(int in_status) {
+		this.in_status = in_status;
+	}
+	
 	
 	@Override
 	public String toString() {
 		return "InMaterialVO [in_id=" + in_id + ", order_id=" + order_id + ", in_process=" + in_process + ", in_emp="
-				+ in_emp + ", shelt_position=" + shelt_position + ", ma_name=" + ma_name + ", ma_qty=" + ma_qty
-				+ ", whs_id=" + whs_id + ", ma_id=" + ma_id + ", order_qty=" + order_qty + ", order_date=" + order_date
-				+ ", due_date=" + due_date + ", order_emp=" + order_emp + ", in_date=" + in_date + ", add_ma=" + add_ma
-				+ "]";
+				+ in_emp + ", in_status=" + in_status + ", shelt_position=" + shelt_position + ", ma_name=" + ma_name
+				+ ", ma_qty=" + ma_qty + ", whs_id=" + whs_id + ", ma_id=" + ma_id + ", order_qty=" + order_qty
+				+ ", order_date=" + order_date + ", due_date=" + due_date + ", order_emp=" + order_emp + ", in_date="
+				+ in_date + ", add_ma=" + add_ma + "]";
 	}
 
-	
 
 	
 

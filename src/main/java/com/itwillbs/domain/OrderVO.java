@@ -26,6 +26,17 @@ public class OrderVO {
 	private String unit_cost;
 	
 	private InMaterialVO inmaterialvo;
+	
+	// in_material
+	private int in_status;
+	
+	public int getIn_status() {
+		return in_status;
+	}
+
+	public void setIn_status(int in_status) {
+		this.in_status = in_status;
+	}
 
 	public String getOrder_id() {
 		return order_id;

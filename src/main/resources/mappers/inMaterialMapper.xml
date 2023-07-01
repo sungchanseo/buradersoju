@@ -15,7 +15,7 @@
 	ON o.order_id = i.order_id
 	LEFT JOIN material m
 	ON o.ma_id = m.ma_id
-	ORDER BY in_process, in_id desc, order_id DESC
+	ORDER BY in_id DESC, order_id DESC
  	</select>
  <!-- 입고 리스트 -->	
  
@@ -78,12 +78,129 @@
 	</update>
 <!-- 입고처리 시 해당 자재 재고량 증가 -->
 
- 
- 
- 	
- 	
- 	
- 	
- 		
- 
+
+
+
+
+<!-- **************************** 페이징 처리 *************************** -->
+
+<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 갯수 조회 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+<!--  	전체 리스트 개수 조회  -->
+	<select id="getListAll" resultType="_int">
+		SELECT COUNT(*) 
+		FROM orders o
+		LEFT JOIN in_material i
+		ON o.order_id = i.order_id
+		LEFT JOIN material m
+		ON o.ma_id = m.ma_id
+		WHERE in_status = 1
+		ORDER BY in_process, in_id DESC
+	</select>
+<!-- 	전체 리스트 갯수 조회  -->
+
+
+<!-- 아무조건이 없을 때 목록 개수  -->
+	<select id="getListPageSizeAll" resultType="_int">
+		SELECT COUNT(*) 
+		FROM orders o
+		LEFT JOIN in_material i
+		ON o.order_id = i.order_id
+		LEFT JOIN material m
+		ON o.ma_id = m.ma_id
+		WHERE in_status = 1
+		ORDER BY in_process, in_id DESC
+		limit 0, 10
+	</select>
+<!-- 아무조건이 없을 때 목록 개수 -->
+
+
+<!-- 검색어 + 페이지갯수 제한 전체 목록 개수 -->
+	<select id="getListSearchAll" resultType="_int">
+		SELECT COUNT(*) 
+		FROM orders o
+		LEFT JOIN in_material i
+		ON o.order_id = i.order_id
+		LEFT JOIN material m
+		ON o.ma_id = m.ma_id
+		WHERE in_status = 1
+		AND ${selector} LIKE CONCAT('%', #{search}, '%')
+		ORDER BY in_process, in_id DESC
+		limit 0, 10
+	</select>
+<!-- 검색어 + 페이지갯수 제한 전체 목록 개수 -->
+
+
+<!-- 필터처리 + 페이지갯수 제한 전체 목록 -->
+	<select id="getListFilterAll" resultType="_int">
+		SELECT COUNT(*) FROM ${table}
+		WHERE ${column_name} = #{column_value} AND ${status_name}=#{status_value} 
+		LIMIT #{startRow}, #{pageSize}
+	</select>
+<!-- 필터처리 + 페이지갯수 제한 전체 목록 -->
+
+
+<!-- 검색어+필터처리+페이지갯수 제한 전체 목록 -->
+	<select id="getListSearchAndFilterAll" resultType="_int">
+		SELECT COUNT(*) FROM ${table}
+		WHERE ${column_name} = #{column_value} AND ${status_name}=#{status_value}  
+		AND ${selector} LIKE CONCAT('%', #{search}, '%') LIMIT #{startRow}, #{pageSize}
+	</select>
+<!-- 검색어+필터처리+페이지갯수 제한 전체 목록 -->
+
+
+
+<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 목록 가져오기 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+<!-- InMaterialVO 페이징처리 시작 -->
+<!-- 아무조건이 없을 때 목록 배열 -->
+	<select id="getListPageSizeObjectInMaterialVO" resultType="InMaterialVO">
+		SELECT * FROM orders o
+		LEFT JOIN in_material i
+		ON o.order_id = i.order_id
+		LEFT JOIN material m
+		ON o.ma_id = m.ma_id
+		WHERE in_status = 1
+		ORDER BY in_process, in_id DESC, o.order_id DESC
+		LIMIT #{startRow}, #{pageSize}
+	</select>
+<!-- 아무조건이 없을 때 목록 배열 -->
+		
+		
+<!-- 검색어 + 페이지갯수 제한 전체 목록 배열 -->
+	<select id="getListSearchObjectInMaterialVO" resultType="InMaterialVO">
+		SELECT * FROM orders o
+		LEFT JOIN in_material i
+		ON o.order_id = i.order_id
+		LEFT JOIN material m
+		ON o.ma_id = m.ma_id
+		WHERE in_status = 1
+		AND ${selector} LIKE CONCAT('%', #{search}, '%')
+		ORDER BY in_process, in_id DESC, o.order_id DESC
+		LIMIT #{startRow}, #{pageSize}
+	</select>
+<!-- 검색어 + 페이지갯수 제한 전체 목록 배열 -->
+	
+	
+<!-- 필터처리 + 페이지갯수 제한 전체 목록 -->
+	<select id="getListFilterObjectInMaterialVO" resultType="InMaterialVO">
+		SELECT * FROM ${table} 
+		WHERE ${column_name} = #{column_value} AND ${status_name} = #{status_value} 
+		ORDER BY ${id} DESC LIMIT #{startRow}, #{pageSize}
+	</select>
+<!-- 필터처리 + 페이지갯수 제한 전체 목록 -->
+
+
+<!-- 검색어 + 필터처리 + 페이지갯수 제한 전체 목록 -->
+	<select id="getListSearchFilterObjectInMaterialVO" resultType="InMaterialVO">
+		SELECT * FROM ${table}
+		WHERE ${column_name} = #{column_value} AND ${status_name}=#{status_value}   
+		AND ${selector} LIKE CONCAT('%', #{search}, '%') 
+		ORDER BY ${id} DESC LIMIT #{startRow}, #{pageSize}
+	</select>
+<!-- 검색어 + 필터처리 + 페이지갯수 제한 전체 목록 -->
+
+
+<!-- **************************** 페이징 처리 **************************** -->
+
+
+
  </mapper>

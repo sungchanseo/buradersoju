@@ -20,22 +20,23 @@
 			<td>${contractInfo.cont_id }</td>
 			<th>수주처</th>
 			<td>${contractInfo.cust_name }</td>
-			<th>납품예정일</th>
-			<td>${contractInfo.due_date }</td>
+			<th>수주일</th>
+			<td>${contractInfo.cont_date }</td>
 		</tr>
 		<tr>
 			<th>상품코드</th>
 			<td>${contractInfo.product_id }</td>
-			<th>수주일</th>
-			<td>${contractInfo.cont_date }</td>
-			<th>작업지시번호</th>
-			<td>${contractInfo.production_id }</td>
+			<th>수주량</th>
+			<td>${contractInfo.cont_qty }</td>
+			
+			<th>납기일</th>
+			<td>${contractInfo.due_date }</td>
 		</tr>
 		<tr>
 			<th>상품명</th>
 			<td>${contractInfo.product_name }</td>
-			<th>수주량</th>
-			<td>${contractInfo.cont_qty }</td>
+			<th>작업지시번호</th>
+			<td>${contractInfo.production_id }</td>
 			<th>담당자</th>
 			<td>${contractInfo.cont_emp }</td>
 		</tr>

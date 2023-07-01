@@ -33,10 +33,10 @@
 				<td><input type="date" name="cont_date" id="cont_date" value="${contractInfo.cont_date }"></td>
 			</tr>
 			<tr>
-				<th></th>
-				<td></td>
-				<th></th>
-				<td></td>
+				<th>수주량</th>
+				<td><input type="text" name="cont_qty" id="cont_qty"></td>
+				<th>작업지시번호</th>
+				<td><input type="text" name="production_id" id="production_id"></td>
 				<th>납품일자</th>
 				<td><input type="date" name="due_date" id="due_date" value="${contractInfo.due_date }"></td>
 			</tr>
@@ -77,6 +77,16 @@
 					$('#product_id').focus();
 					return false;
 				}//product_id 제어 
+				if($('#cont_qty').val() == ""){
+					alert('수주량을 입력하세요.');
+					$('#cont_qty').focus();
+					return false;
+				}//cont_qty 제어 
+				if($('#production_id').val() == ""){
+					alert('작업지시번호를 입력하세요.');
+					$('#production_id').focus();
+					return false;
+				}//production_id 제어 
 				if($('#cont_date').val() == ""){
 					alert('수주일을 입력하세요.');
 					$('#cont_date').focus();

@@ -10,32 +10,7 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> <!-- 우편api -->
 </head>
 <body>
-<script type="text/javascript">
-	// 거래처등록 새창열기
-	function insertPop(){
-	  var insertPop = window.open('/customer/insert', '거래처등록', 'width=1000px,height=400px');
-	  
-	  if(insertPop == null){
-		  alert("팝업이 차단되었습니다. 차단을 해제하세요.");
-	  }
-	  openPop.moveBy(100,100);
-	}
-	// 거래처등록 새창열기  
-
-	// 거래처 상세보기 새창열기 
-	function infoPop(cust_id){
-		var url = "/customer/info?cust_id="+cust_id;
-		var infoPop = window.open(url, '거래처 상세보기', 'width=1000px,height=400px');
-	  
-		if(infoPop == null){
-		  alert("팝업이 차단되었습니다. 차단을 해제하세요.");
-	  }
-	}
-// 거래처 상세보기 새창열기 
-
-</script>
-
-<div class="card-body">
+	<div class="card-body">
 		<h1 class="card-title">
 			<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">거래처 리스트</font></font>
 		</h1>
@@ -46,7 +21,7 @@
 			<select name="selector">
 				<option value="cust_name">상호</option>
 				<option value="cust_id">거래처코드</option>
-			</select> <input type="text" class="form-control" style="width:10%; display:inline;" name="search" placeholder="검색어를 입력해주세요">
+			</select> <input type="text" style="display:inline;" name="search" placeholder="검색어를 입력해주세요">
 			<input type="submit"  class="btn btn-info" value="검색">
 		</form>
 		
@@ -114,6 +89,33 @@
 		</div>
 	</div>
 	<!-- 	페이징 처리  -->
+	
+	
+	<script type="text/javascript">
+		// 거래처등록 새창열기
+		function insertPop(){
+		  var insertPop = window.open('/customer/insert', '거래처등록', 'width=1000px,height=400px');
+		  
+		  if(insertPop == null){
+			  alert("팝업이 차단되었습니다. 차단을 해제하세요.");
+		  }
+		  openPop.moveBy(100,100);
+		}
+		// 거래처등록 새창열기  
+	
+		// 거래처 상세보기 새창열기 
+		function infoPop(cust_id){
+			var url = "/customer/info?cust_id="+cust_id;
+			var infoPop = window.open(url, '거래처 상세보기', 'width=1000px,height=400px');
+		  
+			if(infoPop == null){
+			  alert("팝업이 차단되었습니다. 차단을 해제하세요.");
+		  }
+		}
+	// 거래처 상세보기 새창열기 
+	
+	</script>
+
 
 </body>
 <%@ include file="../includes/footer.jsp" %>

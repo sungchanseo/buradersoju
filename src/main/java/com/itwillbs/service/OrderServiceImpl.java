@@ -93,10 +93,12 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public OrderVO getMaterial(String ma_id) throws Exception {
+	public OrderVO getOrderInfoauto(String order_id) throws Exception {
 		
-		return odao.getMaterial(ma_id);
+		return odao.getOrderInfoauto(order_id);
 	}
+
+	
     
 	
 	

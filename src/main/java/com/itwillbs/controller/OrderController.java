@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.domain.MaterialVO;
 import com.itwillbs.domain.OrderVO;
+import com.itwillbs.service.MaterialService;
 import com.itwillbs.service.OrderService;
 
 @Controller
@@ -25,6 +26,9 @@ public class OrderController {
 
 	@Inject
 	private OrderService orserivce;
+	
+	@Inject
+	private MaterialService maService;
 
 	private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
 
@@ -120,15 +124,22 @@ public class OrderController {
 		logger.debug("@@@@@@@@@@ 삭제 된 행의 수 : " + result);
 	}
 
-	@RequestMapping(value = "/{maid}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{ma_id}", method = RequestMethod.GET)
 	@ResponseBody
-	public OrderVO getMaterialInfoByMaid(@PathVariable String ma_id) throws Exception {
+	public MaterialVO getMaterialInfoByMaid(@PathVariable String ma_id) throws Exception {
 
 		logger.debug("@@@@@@@@@@ getMaterialGET_호출");
-		OrderVO ordervo = new OrderVO();
+		MaterialVO materialvo = maService.getMaterialInfo(ma_id);
 
-		ordervo = orserivce.getMaterial(ma_id);
- 
-		return ordervo;
+		return  materialvo;
 	}
+	//	@RequestMapping(value = "/{order_qty}", method = RequestMethod.GET)
+	//	@ResponseBody
+	//	public OrderVO getOrderInfoByMaid(@PathVariable String order_qty) throws Exception {
+	//
+	//		logger.debug("@@@@@@@@@@ getMaterialGET_호출");
+	//	//	MaterialVO OrderVO = orserivce;
+	//
+	//		return  null;
+	//	}
 }

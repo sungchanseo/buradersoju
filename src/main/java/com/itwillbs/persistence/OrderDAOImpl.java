@@ -85,14 +85,9 @@ public class OrderDAOImpl implements OrderDAO{
 	}
 
 	@Override
-	public OrderVO getMaterial(String ma_id) throws Exception {
+	public OrderVO getOrderInfoauto(String order_id) throws Exception {
 		
-		return sqlSession.selectOne(NAMESPACE+"getMaterial",ma_id);
+		return sqlSession.selectOne(NAMESPACE+".getOrderInfoauto",order_id);
 	}
-
-	
-	
-	
-	
 	
 }

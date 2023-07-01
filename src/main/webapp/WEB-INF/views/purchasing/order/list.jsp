@@ -177,13 +177,13 @@ $(function() {
            tbl += "<input type='text' name='unit_cost' id='unit_cost'>";
            tbl += "</td>";
            tbl += " <td>";
-           tbl += "<input type='text' name='ma_qty' id='ma_qty'value="++">";
+           tbl += "<input type='text' name='ma_qty' id='ma_qty'>";
            tbl += "</td>";
            tbl += " <td>";
            tbl += "<input type='text' name='order_qty' id='order_qty'>";
            tbl += "</td>";
            tbl += " <td>";
-           tbl += "<input type='text' name='order_qty' id='order_sum'>";
+           tbl += "<input type='text' name='order_sum' id='order_sum'>";
            tbl += "</td>";
            tbl += " <td>";
            tbl += "<input type='text' name='order_vat' id='order_vat'>";
@@ -212,22 +212,26 @@ $(function() {
            $(this).removeClass('true');
        
         }
-        
        $("#key_id").keyup(function() {
-			 var obj = {
-						 in_ma_id : $("#ma_id").val(),
-						 in_order_qty : $("#order_qty").val()
-                 };
-            console.log(obj.in_ma_id);
-        $.ajax({
-        	url :obj,
-            type :"get",
-            success:function(data){
-            	
-                console.log(ma_id);
-                 ordervo.getMa_id.equals(in_ma_id){
-                	 ordervo.get자
-                 }
+           var obj = {
+                       in_ma_id : $("#ma_id").val(),
+                       in_order_qty : $("#order_qty").val()
+               };
+          console.log(obj.in_ma_id);
+      $.ajax({
+          url :"/purchasing/order/"+obj.in_ma_id,
+          type :"get",
+          success:function(data){
+        	  console.log(obj.in_order_qty);
+        	  console.log(data);
+        	  $("#ma_qty").val(data.ma_qty)
+        	  $("#unit_cost").val(data.unit_cost)
+        	  $("#ma_name").val(data.ma_name)
+        	  $("#order_sum").val(data.ma_qty*obj.in_order_qty)
+        	  $("#order_vat").val(data.ma_qty*obj.in_order_qty/100)
+        	 // $("#ma_name").val(data.ma_name)
+        	 
+              
             	// 등록버튼을 누르면 기존의 데이터가 초기화
       
           }, //success
@@ -235,6 +239,7 @@ $(function() {
         	  
        }  //error
     }); //ajax
+    
  }); // keyup
      
        

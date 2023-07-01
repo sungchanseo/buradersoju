@@ -10,7 +10,10 @@ public class NoticeVO {
 	private int notice_count;
 	private String notice_content;
 	private String notice_file;
+	private int notice_status;
 	
+	private PagingVO pagingVO;
+
 	
 	public Integer getNotice_id() {
 		return notice_id;
@@ -80,13 +83,31 @@ public class NoticeVO {
 	public void setNotice_file(String notice_file) {
 		this.notice_file = notice_file;
 	}
+	
+	public PagingVO getPagingVO() {
+		return pagingVO;
+	}
+
+	public void setPagingVO(PagingVO pagingVO) {
+		this.pagingVO = pagingVO;
+	}
+
+	public int getNotice_status() {
+		return notice_status;
+	}
+
+	public void setNotice_status(int notice_status) {
+		this.notice_status = notice_status;
+	}
 
 
 	@Override
 	public String toString() {
 		return "NoticeVO [notice_id=" + notice_id + ", notice_title=" + notice_title + ", notice_writer="
 				+ notice_writer + ", notice_regdate=" + notice_regdate + ", notice_count=" + notice_count
-				+ ", notice_content=" + notice_content + ", notice_file=" + notice_file + "]";
+				+ ", notice_content=" + notice_content + ", notice_file=" + notice_file + ", notice_status="
+				+ notice_status + ", pagingVO=" + pagingVO + "]";
 	}
-	
+
+
 }

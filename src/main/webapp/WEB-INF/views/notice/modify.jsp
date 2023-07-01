@@ -11,24 +11,27 @@
 					<div class="col-lg-12 mx-auto">
 						<div class="auth-form-light text-left py-5 px-4 px-sm-5"
 							style="height: 1000px;">
+							<h2>공지 수정</h2>
+							<hr width="800px">
+							<br>
 							<form action="" method="post">
-								No. <input type="text" class="form-control" style="width: 60px;" name="notice_id" value="${vo.notice_id }"
-									readonly> 
-								작성자 <input type="text" name="notice_writer"
-									value="${sessionScope.emp_id}" class="form-control" style="width: 60px;" disabled required><br>
-								<br> 제목 <input type="text"
-									name="notice_title" class="form-control" style="width: 400px;" value="${vo.notice_title }"> <br>
-								내용 <br>
-								<textarea name="notice_content"
-									class="form-control" 
-									style="width: 800px; height: 400px;"
-									placeholder="내용을 입력하세요"
-									required>${vo.notice_content }</textarea>
-								<br> <button class="btn btn-success btn-fw" type="submit">공지 수정</button>
+							<div class="form-group">
+							     제목 <input type="text" name="notice_title" class="form-control" style="width: 400px;" value="${vo.notice_title}"> <br>
+							     작성자 <input type="text"
+										class="form-control" name="notice_writer" id="notice_writer"
+										value="${sessionScope.emp_name}" readonly required
+										style="width: 800px;">
+							  <br> 
+							    내용 <br>
+							  <textarea name="notice_content" class="form-control" style="width: 800px; height: 400px;" placeholder="내용을 입력하세요" required>${vo.notice_content}</textarea>
+							  </div>
+							  <br>
+							  <button class="btn btn-success btn-fw" onclick="location.href='/notice/list'">공지 목록</button>
+								<div style="text-align: right; margin-right: 975px;">
+									<button class="btn btn-light btn-fw" type="reset">초기화</button>
+									<button class="btn btn-success btn-fw" type="submit">수정 완료</button>
+								</div>
 							</form>
-							<br> 
-							<button class="btn btn-success btn-fw"
-								onclick="location.href='/notice/list'">공지 목록</button>
 						</div>
 					</div>
 				</div>

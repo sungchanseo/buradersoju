@@ -5,15 +5,15 @@ $(document).ready(function() {
     dataType: "json",
     success: function(data) {
       if (data && data.length > 0) {
-        var boardList = data; // NoticeVO 객체의 리스트
+        var noticeList = data; // NoticeVO 객체의 리스트
 
         // 데이터를 최신순으로 정렬
-        boardList.sort(function(a, b) {
+        noticeList.sort(function(a, b) {
           return new Date(b.notice_regdate) - new Date(a.notice_regdate);
         });
 
-        for (var i = 0; i < Math.min(10, boardList.length); i++) { // 최대 10개까지 출력
-            var notice = boardList[i]; // NoticeVO 객체
+        for (var i = 0; i < Math.min(10, noticeList.length); i++) { // 최대 10개까지 출력
+            var notice = noticeList[i]; // NoticeVO 객체
             var row = $("<tr>");
             row.append($("<td>").text(notice.notice_id));
             row.append($("<td>").html("<a href='/notice/info?notice_id=" + notice.notice_id + "'>" + notice.notice_title + "</a>"));

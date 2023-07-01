@@ -3,6 +3,22 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%@ include file="../../includes/header.jsp" %>
+
+<style type="text/css">
+table {width: 100%;
+/* table-layout:fixed;  */}
+
+/* table tr>th:nth-of-type(1) {width:50px !important;
+}
+  */
+table tr>td:nth-of-type(1) {width:50px !important;
+}
+
+table input {width:7em;}
+table input[type:checkbox] {width:1em;}
+
+</style>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script type="text/javascript">
 
@@ -70,7 +86,7 @@ $(document).ready(function() {
 		
 		// 행 추가
 		if($(this).hasClass('true')) {
-			let tbl = "<tr>";
+			var tbl = "<tr>";
 			tbl += "<td>";
 			tbl += "</td>";
 			tbl += "<td>";
@@ -333,83 +349,42 @@ $(document).ready(function() {
 
 	}); // deleteForm.click
 	
-	
-	
-	// 4. '검색' 클릭
-	// -> 검색 결과에 날짜가 이상하게 나옴ㅠㅠ 
-	$('#btnsearch').click(function(){
-
-		var type = $('#type').val();
-		var keyword = $('#keyword').val();
-		
-		$.ajax({
-			url : "search",
-			type: "get",
-			data : {
-				type:type,
-				keyword:keyword
-			},
-			success : function(data){
-				if(data.length >= 1){
-					// 테이블 초기화
-					$('#tbody').empty();
-					// 테이블 값 가져오기 (반복문)
-					$(data).each(function(idx, obj){
-						var str = "";
-						str += "<tr>";
-						str += "<td><input type='checkbox' name='check'></td>";
-						str += "<td>"+ obj.ma_id +"</td>";
-						str += "<td>"+ obj.ma_name +"</td>";
-						str += "<td>"+ obj.unit +"</td>";
-						str += "<td>"+ obj.ma_qty +"</td>";
-						str += "<td>"+ obj.unit_cost +"</td>";
-						str += "<td>"+ obj.whs_id +"</td>";
-						str += "<td>"+ obj.shelt_position +"</td>";
-						str += "<td>"+obj.ma_regdate+"</td>";
-						str += "<td>"+ obj.ma_emp +"</td>";
-						str += "</tr>";
-						
-						$('table').append(str);
-					});
-				}else{
-					$('#tbody').empty();
-					$('tbody').text("검색된 결과가 없습니다.");
-				} // if문
-			}, // success
-			error: function(){
-				alert("error");
-			}
-		}); // ajax
-		
-	}); // btnsearch.click
-	
 }); // jQuery
 </script>
 </head>
 <body>
-   
-	<!-- 검색 -->
-	<form name="search-form" autocomplete="on">
-		<select id="type" name="type">
-			<option value="ma_id">품목코드</option>
-			<option value="ma_name">품명</option>
-		</select>
-		<input type="text" id="keyword" name="keyword" value="">	
-		<input type="button" id="btnsearch" class="btn btn-success" value="검색">
-	</form>
+
+<div class="card-body">
+
+	<h1 class="card-title">
+		<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">자재 리스트</font></font>
+	</h1>
+
+	<!-- 검색창기능 -->
+<!-- 	<div style="margin: auto;"> -->
+		<form action="/purchasing/material/list" method="get" style="display: inline;">
+			<select name="selector">
+				<option value="ma_id">자재코드</option>
+				<option value="ma_name">자재명</option>
+			</select> <input type="text" class="form-control" style="width:10%; display:inline;" name="search" placeholder="검색어를 입력해주세요">
+			<input type="submit"  class="btn btn-info" value="검색">
+		</form>
+<!-- 	</div> -->
 	
-		
-	<!-- 버튼 -->
-	<button class="btn btn-info insertForm true">등록</button>
-	<button class="btn btn-info modify true">수정</button>
-	<button class="btn btn-info" id="delete">삭제</button>
-	<button class="btn btn-success insert update">저장</button>
-   
-   
+	<!-- 구매팀일때만 버튼 활성화 -->
+	<c:if test="${emp_department.equals('구매') || emp_department.equals('구매팀')}">
+		<div style=float:right;>
+			<button class="btn btn-success insertForm true">등록</button>
+			<button class="btn btn-success modify true">수정</button>
+			<button class="btn btn-success" id="delete">삭제</button>
+			<button class="btn btn-info insert update">저장</button>
+		</div>
+	</c:if>
+
 	<!-- 테이블 -->
 	<div class="row">
   	<fmt:formatDate value=""/> 	
-	<table border="1" id="example-table-3" class="table table-bordered table-hover text-center tbl">
+	<table border="1" class="table table-bordered table-hover text-center">
 	 <thead>
 	 <tr>
 		<th></th>
@@ -417,7 +392,7 @@ $(document).ready(function() {
 		<th>품목명</th>
 		<th>단위</th>
 		<th>재고량</th>
-		<th>단가(WON)</th>
+		<th>단가 (WON)</th>
 		<th>창고번호</th>
 		<th>선반위치</th>
 		<th>최근 수정 날짜</th>
@@ -434,7 +409,7 @@ $(document).ready(function() {
 			<td>${ml.unit }</td>
 			<td>
 				<c:choose>
-					<c:when test="${ml.ma_qty < 100 }">
+					<c:when test="${ml.ma_qty <= 100 }">
 						<span style="color:red">${ml.ma_qty }</span>
 					</c:when>
 					<c:otherwise>${ml.ma_qty }</c:otherwise>
@@ -450,6 +425,26 @@ $(document).ready(function() {
      </tbody>
     </table>
   	</div>
+ </div>
+ 
+ 
+<!-- 페이징 처리 -->
+<div class="template-demo">
+	<div class="btn-group" role="group" aria-label="Basic example">
+		<c:if test="${pvo.startPage > pvo.pageBlock }">
+			<a href="/purchasing/material/list?pageNum=${pvo.startPage-pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">이전</a>
+		</c:if>
+		
+		<c:forEach var="i" begin="${pvo.startPage }" end="${pvo.endPage }" step="1">
+			<a href="/purchasing/material/list?pageNum=${i }&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">${i }</a>
+		</c:forEach>
+		
+		<c:if test="${pvo.endPage<pvo.pageCount }">
+			<a href="/purchasing/material/list?pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">다음</a>
+		</c:if>
+	</div>
+</div>
+<!-- 페이징 처리 -->
 
 <%@ include file="../../includes/footer.jsp" %>
 </body>

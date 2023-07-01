@@ -1,6 +1,9 @@
 package com.itwillbs.controller;
 import java.util.List;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -12,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.itwillbs.domain.MaterialVO;
+import com.itwillbs.domain.PagingVO;
 import com.itwillbs.service.MaterialService;
+import com.itwillbs.service.PagingService;
 
 
 
@@ -28,15 +33,34 @@ public class MaterialController {
 	// 객체 주입 (DI)
 	@Inject
 	private MaterialService mService;
+	@Inject
+	private PagingService pageService;
 
 	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ메서드 정의ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	// 1-1. 자재 목록 & 자동넘버링
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public void materialListGET(Model model) throws Exception {
+	public String materialListGET(Model model, PagingVO pvo,
+								HttpServletRequest request, HttpSession session) throws Exception {
 		logger.debug("@@@@@@@@@@ materialListGET_호출");
 
-		// serivce 객체 호출
-		List<MaterialVO> materialList = mService.getMaterialList();
+		// 로그인 세션 제어
+		if(session.getAttribute("emp_id") == null) {
+			return "redirect:/main/login";
+		}
+		
+		// 페이징 처리 service 호출
+		pvo = mService.setPageInfoForMaterial(pvo);
+		
+		// 리스트 출력 (페이징처리)
+		List<Object> materialList = null;
+		if(pvo.getSelector()!=null && pvo.getSelector()!="") {
+			// 검색어가 있을 때 
+			materialList = pageService.getListSearchObjectMaterialVO(pvo);
+		}else {
+			// 검색어가 없을 때
+			logger.debug("@@@@@@@@@Controller : 검색어가 없을 때입니다");
+			materialList = pageService.getListPageSizeObjectMaterialVO(pvo);
+		}
 		
 		// 자동넘버링
 		String maxNumber = mService.getMaxNumber();
@@ -44,7 +68,11 @@ public class MaterialController {
 
 		// View 페이지 정보 전달
 		model.addAttribute("materialList", materialList);
+		model.addAttribute("emp_department", session.getAttribute("emp_department"));
 		model.addAttribute("maxNumber", maxNumber);
+		model.addAttribute("pvo",pvo);
+		
+		return null;
 	}
 	
 	// 1-2. 자재 검색

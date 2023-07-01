@@ -46,5 +46,6 @@ public interface OrderDAO {
  	 // 발주 정보 조회하기 (자동완성기능구현 )
  	public OrderVO getOrderInfoauto(String order_id) throws Exception;
  
+
  	
 }

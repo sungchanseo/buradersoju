@@ -64,7 +64,7 @@
                       </a>
                       <a class="dropdown-item">
                         <i class="mdi mdi-account-card-details text-primary"></i>
-                         	부서 : ${sessionScope.emp_department}팀
+                         	부서 : ${sessionScope.emp_department}
                       </a>
                        <a href="/main/logout" class="dropdown-item">
                         <i class="mdi mdi-logout text-primary"></i>

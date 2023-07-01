@@ -3,6 +3,7 @@ package com.itwillbs.service;
 import java.util.List;
 
 import com.itwillbs.domain.NoticeVO;
+import com.itwillbs.domain.PagingVO;
 
 public interface NoticeService {
 	// Board에서 수행하는 동작 선언
@@ -24,4 +25,7 @@ public interface NoticeService {
 		
 		// 공지 삭제
 		public Integer boardDelete(Integer notice_id) throws Exception;
+		
+		//페이징처리 변수저장을 위한 serivce생성
+		public PagingVO setPageInfoForNotice(PagingVO pvo) throws Exception;
 }

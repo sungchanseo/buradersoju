@@ -63,6 +63,7 @@ public class PagingVO {
 	private OrderVO OrderVO;
 	private ProductionVO ProductionVO;
 	private OutProductVO OutProductVO;
+	private NoticeVO NoticeVO;
 	
 	// Join문을 위한 [in_material] 테이블 변수 선언 
 	private String ma_name;
@@ -225,6 +226,12 @@ public class PagingVO {
 	}
 	public void setProductionVO(ProductionVO productionVO) {
 		ProductionVO = productionVO;
+	}
+	public NoticeVO getNoticeVO() {
+		return NoticeVO;
+	}
+	public void setNoticeVO(NoticeVO noticeVO) {
+		NoticeVO = noticeVO;
 	}
 	
 	

@@ -8,7 +8,7 @@ public class MaterialVO {
 	// Material
 	private String ma_id;
 	private String ma_name;
-	private int ma_qty;
+	private float ma_qty;
 	private String unit;
 	private int unit_cost;
 	private String shelt_position;
@@ -36,10 +36,10 @@ public class MaterialVO {
 	public void setMa_name(String ma_name) {
 		this.ma_name = ma_name;
 	}
-	public int getMa_qty() {
+	public float getMa_qty() {
 		return ma_qty;
 	}
-	public void setMa_qty(int ma_qty) {
+	public void setMa_qty(float ma_qty) {
 		this.ma_qty = ma_qty;
 	}
 	public int getUnit_cost() {

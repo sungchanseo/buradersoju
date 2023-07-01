@@ -11,7 +11,7 @@
 	<select id="getMaterialList" resultType="com.itwillbs.domain.MaterialVO">
 		select ma_id, ma_name, unit, ma_qty, unit_cost, whs_id, shelt_position, ma_regdate, ma_emp
 		from material
-		where status = 1
+		where ma_status = 1
 	</select>
 <!-- 자재 목록 조회  -->
 
@@ -19,7 +19,7 @@
 <!-- 자재 정보 조회 -->
 	<select id="getMaterialInfo" resultType="com.itwillbs.domain.MaterialVO">
 		select * from material 
-		where ma_id = #{ma_id} and status = 1
+		where ma_id = #{ma_id} and ma_status = 1
 	</select>
 <!-- 자재 정보 조회 -->
 
@@ -50,7 +50,7 @@
 
 <!-- 자재 삭제 -->
 	<update id="deleteMaterial" >
-		update material SET status = 0
+		update material SET ma_status = 0
 		where ma_id = #{ma_id};
 	</update>
 <!-- 자재 삭제 -->
@@ -60,7 +60,7 @@
 	<select id="searchMaterial" parameterType="com.itwillbs.domain.MaterialVO" resultType="com.itwillbs.domain.MaterialVO">
 		SELECT ma_id, ma_name, unit, ma_qty, unit_cost, whs_id, shelt_position, ma_regdate, ma_emp
 		FROM material
-		WHERE status = 1
+		WHERE ma_status = 1
 		<choose>
 			<when test="type != null and type.equals('ma_id')">
 			AND ma_id LIKE CONCAT('%', #{keyword}, '%')

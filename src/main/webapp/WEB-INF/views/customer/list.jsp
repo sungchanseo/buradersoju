@@ -30,7 +30,7 @@
 		<!-- 영업팀이 아닐때 버튼 감추기 -->
 		<c:if test="${emp_department.equals('영업') || emp_department.equals('영업팀')}">
 			<input type="button" value="거래처등록" class="btn btn-success" onclick="insertPop();"> 
-			<input type="button" value="거래처삭제"  class="btn btn-success" onclick="location.href='/customer/remove';">
+			<input type="button" value="거래처삭제"  class="btn btn-success" onclick="removeChecked();">
 		</c:if>
 		<!-- 영업팀이 아닐때 버튼 감추기 -->
 
@@ -39,7 +39,7 @@
             <table class="table table-hover" style="text-align :center;">
               <thead>
                 <tr>
-                  <th><input type="checkbox" id="allCheckBox" onclick="allCheckBox();"></th>
+                  <th><input type="checkbox" id="checkAll" onclick="allCheckBox();"></th>
                   <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">거래처코드</font></font></th>
                   <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">사업자등록번호</font></font></th>
                   <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">상호</font></font></th>
@@ -54,7 +54,7 @@
               <c:forEach var="vo" items="${customerList }">
                <tbody>
                  <tr>
-                   <td><input type="checkbox" name="chk" class="chk" value="${vo.cust_id}"></td>
+                   <td><input type="checkbox" name="checkRow" class="checkRow" value="${vo.cust_id}"></td>
                    <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" onclick="infoPop('${vo.cust_id}');">${vo.cust_id }</font></font></td>
                    <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" onclick="infoPop('${vo.cust_id}');">${vo.reg_num }</font></font></td>
                    <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" onclick="infoPop('${vo.cust_id}');">${vo.cust_name }</font></font></td>
@@ -113,90 +113,50 @@
 		  }
 		}//거래처 상세보기 새창열기 
 		
-		//헤드의 체크버튼을 누르면 전체 체크박스 선택하기 
-		function allCheckBox(target){
-			//전체체크박스 선택
-			const checkBox = document.getElementById('allCheckBox');
-			
-			//전체 체크박스 여부를 저장한 변수
-			const isChecked = checkBox.checekd;
-			
-			//전체 체크박스를 제외한 모든 체크박스 체크하기 
-			if(isChecked){
-				chkAllChecked();
+		//체크박스 전체 선택, 전체 해제
+		function allCheckBox(){
+			if($('#checkAll').is(':checked')){
+				$("input[name=checkRow]").prop("checked", true);
 			}else{
-				chkAllUnChecked();
-			}
+				$("input[name=checkRow]").prop("checked", false);	
+			}// else END
 		}// allCheckBox END
 		
-		//자식 체크박스 클릭하기 
-		function chkChicked(){
+		//체크박스 선택한 것만 삭제하기 메소드
+		function removeChecked(){
+			var checkRow = "";
 			
-			//체크박스의 전체 갯수
-			const allCount = document.querySelectorAll(".chk").length;
-			
-			//체크한 체크박스의 전체 갯수
-			const query = "input[name='chk']:checked";
-			const selectedElements = document.querySelectorAll(query);
-			const selectedElementsCnt = selectedElements.length;
-			
-			//체크박스 전체갯수와 체크한 전체갯수가 같으면 전체 체크박스를 선택한다. 
-			if(allCount == selectedElementsCnt){
-				document.getElementById('allCheckBox').checked = true;
-			}else{
-				//만약 같지 않으면 전체 체크박스의 선택상태를 해제한다. 
-				document.getElementById('allCheckBox').checked = false;
-			}
-		}// chkChicked END
-		
-		
-		//체크박스를 전체 선택하는 메소드
-		function chkAllChecked(){
-			document.querySelectorAll(".chk").forEach(function(v,i){
-				v.checked = true;
-			});// querySelectorAll END
-		}//chkAllChecked END
-		
-		//체크박스 전체체크 해제 매소드
-		function chkAllUnChecked(){
-			document.querySelectorAll(".chk").forEach(function(v, i){
-				v.checked = false;
+			$("input[name='checkRow']:checked").each(function(){
+				checkRow = checkRow + $(this).val() + ", ";
 			});
-		} // chkAllUnChecked END
-		
-		
-		//체크박스로 글 삭제하기 메소드
-		function checkedRemove(){
-			
-			//체크박스 중 체크한 항목들
-			const query = "input[name='chk']:checked";
-			const selectorElements = document.querySelectedAll(query);
-			
-			//체크박스 체크한 항복의 갯수
-			const selectedElementsCnt = selectedElements.length;
-			
-			if(selectedElementsCnt == 0){
-				//만약 체크한 항목이 없다면?
-				alert("선택한 항목이 없읍니다.");
+			console.log("checkRow : {}", checkRow);
+			console.log(checkRow);
+			if(checkRow == ""){
+				alert("삭제할 목록이 없읍니다.");
 				return false;
 			}else{
-				//체크한 항목이 있다면? -> 물어보고 삭제한다. 
-				if(confirm("정말로 삭제하시겠읍니까?")){
-					//삭제할 배열 생성
-					const arr = new Array(selectedElementsCnt);
-					
-					document.querySelectorAll("input[name='chk']:checked").forEach(function(v,i){
-						arr[i] = v.value();
-					});
-					
-					const form = document.createElement("form");
-					form.setAttribute('method', 'post');
-					form.setAttribute('action', '/remove');
-					
-					form.submit();
-				}// confirm_if END
-			}
-		}//checkedRemove END
+	 			if(confirm("정말로 삭제하시겠읍니까?")){
+	 				
+	 				$.ajax({
+	 					
+	 					url : '/customer/remove',
+	 					type : 'POST',
+// 	 					data : checkRow,
+  						data: { rows: checkRow },
+	 					success : function(){
+	 						alert('성공!');
+	 						window.location.reload();
+	 					},
+	 					error : function(){
+	 						alert('실패!');
+	 					}//error
+ 					});//ajax END
+	 			}// confirm END
+
+				
+			}// else END
+			
+		}// removeChecked END
 		
 	
 	</script>

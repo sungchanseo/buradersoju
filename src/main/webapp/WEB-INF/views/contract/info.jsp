@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script> <!-- 제이쿼리 -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/mdi/css/materialdesignicons.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/base/vendor.bundle.base.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main/fullcalendar-5.11.4/lib/main.css">
@@ -40,7 +41,25 @@
 		</tr>
 	</table>
 	<input type="button" class="btn btn-success" value="수주수정" onclick="location.href='/contract/modify?cont_id=${contractInfo.cont_id }'">
-	<input type="button" class="btn btn-success" value="수주삭제" onclick="deleteAction(${contractInfo.cont_id});">
+	<input type="button" class="btn btn-success" value="수주삭제" onclick="deleteAction('${contractInfo.cont_id}');">
 	<input type="button" class="btn btn-light" value="창닫기" onclick="window.close();">
+	
+	<script type="text/javascript">
+	
+	function deleteAction(cont_id){
+		if(confirm('삭제하시겠읍니까?')){
+			$.ajax({
+				url : '/contract/remove?cont_id='+cont_id, 
+				type : 'POST', 
+				success : function(){ 
+					alert("거래처가 삭제되었읍니다.");
+					window.opener.location.reload();
+					window.close();
+				}
+			});
+		}
+	}// deleteAction() END
+</script>
+	
 </body>
 </html>

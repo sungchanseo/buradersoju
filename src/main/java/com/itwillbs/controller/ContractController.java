@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -124,7 +125,7 @@ public class ContractController {
 	}
 
 	// 수주 삭제 디비처리
-	@GetMapping(value = "/remove")
+	@PostMapping(value = "/remove")
 	public String removeContractPOST(ContractVO cvo) throws Exception {
 		logger.debug("@@@@@@@@@@@Controller : 수주 삭제POST하기 !!!!!");
 

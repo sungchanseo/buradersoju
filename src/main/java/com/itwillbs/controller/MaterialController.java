@@ -74,27 +74,6 @@ public class MaterialController {
 		
 		return null;
 	}
-	
-	// 1-2. 자재 검색
-	@RequestMapping(value = "/search", method = RequestMethod.GET)
-	@ResponseBody
-	public List<MaterialVO> searchMaterialGET(Model model,
-											  @RequestParam("type") String type,
-							                  @RequestParam("keyword") String keyword) throws Exception {
-		logger.debug("@@@@@@@@@@ searchMaterialGET() 호출");
-		
-		MaterialVO searchVO = new MaterialVO();		
-		searchVO.setType(type);
-		searchVO.setKeyword(keyword);
-		logger.debug("@@@@@@@@@@ type = " + type);
-		logger.debug("@@@@@@@@@@ keyword = " + keyword);
-
-		List<MaterialVO> searchlist = mService.getSearchList(searchVO);
-		model.addAttribute("searchlist", searchlist);
-		logger.debug("@@@@@@@@@@ searchlist = " + searchlist);
-		
-		return searchlist;
-	}
 
 	
 	// 2. 자재 등록 - 행추가 & 데이터처리

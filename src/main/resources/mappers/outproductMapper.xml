@@ -19,7 +19,7 @@
 		LEFT JOIN contract co
 		ON o.cont_id = co.cont_id
 		LEFT JOIN customer cu
-		ON co.cust_id = cu.cust_id
+		ON co.cust_id = cu.cust_id;
 	</select>
 
 

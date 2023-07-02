@@ -89,5 +89,10 @@ public class OrderDAOImpl implements OrderDAO{
 		
 		return sqlSession.selectOne(NAMESPACE+".getOrderInfoauto",order_id);
 	}
+
+	@Override
+	public void getAddMa(String order_id) throws Exception {
+		sqlSession.selectOne(order_id);
+	}
 	
 }

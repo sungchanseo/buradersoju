@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.config.annotation.CorsRegistration;
 
 import com.itwillbs.domain.MaterialVO;
 import com.itwillbs.domain.OrderVO;
@@ -56,13 +57,14 @@ public class OrderController {
 
 	// http://localhost:8088/purchasing/order/list
 	@RequestMapping(value = "/list", method = RequestMethod.POST)
-	public String orderInsertGET(OrderVO vo) throws Exception {
+	public String orderInsertGET(OrderVO vo,String order_id) throws Exception {
 
 		logger.debug("@@@@@발주 등록 행추가 가즈아~@@@@");
 
 		logger.debug("vo :" + vo);
 
 		orserivce.insertOrder(vo);
+	//	orserivce.getAddMa(order_id);
 		return "redirect:/purchasing/order/list";
 	}
 

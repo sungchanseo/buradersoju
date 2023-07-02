@@ -94,7 +94,7 @@
 	<script type="text/javascript">
 		// 거래처등록 새창열기
 		function insertPop(){
-		  var insertPop = window.open('/customer/insert', '거래처등록', 'width=1000px,height=400px');
+		  var insertPop = window.open('/customer/insert', '거래처등록', 'width=1000px,height=550px');
 		  
 		  if(insertPop == null){
 			  alert("팝업이 차단되었습니다. 차단을 해제하세요.");

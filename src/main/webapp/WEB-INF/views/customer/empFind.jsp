@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/mdi/css/materialdesignicons.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/base/vendor.bundle.base.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main/fullcalendar-5.11.4/lib/main.css">
@@ -34,9 +35,10 @@
 				<th>입사일</th>
 				<th>내선번호</th>
 			</tr>
+			
 			<c:forEach var="vo" items="${employeeList }">
-				<tr>
-					<td></td>
+				<tr onclick="sendEmpInfoValue('${vo.emp_id}');">
+					<td>${vo.emp_id }</td>
 					<td>${vo.emp_name }</td>
 					<td>${vo.emp_department }</td>
 					<td>${vo.emp_position }</td>
@@ -45,5 +47,53 @@
 				</tr>
 			</c:forEach>
 		</table>
+		<!--	페이징처리  -->
+		<c:if test="${pvo.startPage > pvo.pageBlock }">
+			<a href="/customer/empFind?pageNum=${pvo.startPage-pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">이전</a>
+		</c:if>
+		
+		<c:forEach var="i" begin="${pvo.startPage }" end="${pvo.endPage }" step="1">
+			<a href="/customer/empFind?pageNum=${i }&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">${i }</a>
+		</c:forEach>
+		
+		<c:if test="${pvo.endPage<pvo.pageCount }">
+			<a href="/customer/empFind?pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">다음</a>
+		</c:if>
+		<!--	페이징처리  -->
+		
 	</div>
+	
+	<script>
+	
+	function selectRow(emp_id){
+		
+	}
+	
+	//부모창으로 값 보내기 
+	function sendEmpInfoValue(id){
+		alert('성공!'+id);
+		console.log("emp_id : "+id);
+		console.log(typeof id);
+		var data=null;
+		$.ajax({
+			url : '/customer/empInfo',
+			type : 'get',
+			data : {
+				emp_id : id
+			},
+			success : function(data){
+				window.opener.document.getElementById("emp_name").value = data.emp_name;
+				window.opener.document.getElementById("emp_tel").value = data.emp_phone;
+				window.opener.document.getElementById("emp_email").value = data.emp_email;
+				window.close();
+			},
+			error : function(){
+				alert('실패!');
+			}
+		});//ajax END
+		console.log("가져온 데이타 : "+data);
+		
+	}//sendEmpInfoValue END
+	
+	</script>
 </body>

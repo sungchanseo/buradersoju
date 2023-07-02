@@ -8,16 +8,29 @@ public class OutProductVO {
 	// out_product
     private String op_id;
     private String product_id;
-    private String product_name;
+    private String op_process;
     private Date op_date;
-    private String op_progress;
-    private int op_qty;
-    private String customer_name;
-    private int op_empNum;
+    private int op_emp;
+    
+    // production
+    private String production_id;
+    private String production_date;
+    
+    // product
+    private String product_name;
+    private String product_qty;
+    
+    // contract
+    private Date due_date;
+    private int cont_qty;
+    
+    // customer
+    private String cust_name;
     
     
     // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ getter & setter ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	
+    
     // out_product
     public String getOp_id() {
 		return op_id;
@@ -43,44 +56,76 @@ public class OutProductVO {
 	public void setOp_date(Date op_date) {
 		this.op_date = op_date;
 	}
-	public String getOp_progress() {
-		return op_progress;
+	public String getOp_process() {
+		return op_process;
 	}
-	public void setOp_progress(String op_progress) {
-		this.op_progress = op_progress;
+	public void setOp_process(String op_process) {
+		this.op_process = op_process;
 	}
-	public int getOp_qty() {
-		return op_qty;
+	public int getOp_emp() {
+		return op_emp;
 	}
-	public void setOp_qty(int op_qty) {
-		this.op_qty = op_qty;
+	public void setOp_emp(int op_emp) {
+		this.op_emp = op_emp;
 	}
-	public String getCustomer_name() {
-		return customer_name;
+	
+
+	// production
+	public String getProduction_id() {
+		return production_id;
 	}
-	public void setCustomer_name(String customer_name) {
-		this.customer_name = customer_name;
+	public void setProduction_id(String production_id) {
+		this.production_id = production_id;
 	}
-	public int getOp_empNum() {
-		return op_empNum;
+	public String getProduction_date() {
+		return production_date;
 	}
-	public void setOp_empNum(int op_empNum) {
-		this.op_empNum = op_empNum;
+	public void setProduction_date(String production_date) {
+		this.production_date = production_date;
+	}
+	
+
+	// product
+	public String getProduct_qty() {
+		return product_qty;
+	}
+	public void setProduct_qty(String product_qty) {
+		this.product_qty = product_qty;
+	}
+	
+
+	// contract
+	public Date getDue_date() {
+		return due_date;
+	}
+	public void setDue_date(Date due_date) {
+		this.due_date = due_date;
+	}
+	public int getCont_qty() {
+		return cont_qty;
+	}
+	public void setCont_qty(int cont_qty) {
+		this.cont_qty = cont_qty;
+	}
+	
+
+	// customer
+	public String getCust_name() {
+		return cust_name;
+	}
+	public void setCust_name(String cust_name) {
+		this.cust_name = cust_name;
 	}
 	
 	
 	
-	
-	
-	
-	
-	
-	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ toString ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+	// toString
 	@Override
 	public String toString() {
-		return "OutProduct [op_id=" + op_id + ", product_id=" + product_id + ", product_name=" + product_name
-				+ ", op_date=" + op_date + ", op_progress=" + op_progress + ", op_qty=" + op_qty + ", customer_name="
-				+ customer_name + ", op_empNum=" + op_empNum + "]";
+		return "OutProductVO [op_id=" + op_id + ", product_id=" + product_id + ", op_process=" + op_process
+				+ ", op_date=" + op_date + ", op_emp=" + op_emp + ", production_id=" + production_id
+				+ ", production_date=" + production_date + ", product_name=" + product_name + ", product_qty="
+				+ product_qty + ", due_date=" + due_date + ", cont_qty=" + cont_qty + ", cust_name=" + cust_name + "]";
 	}
-    
+
 }

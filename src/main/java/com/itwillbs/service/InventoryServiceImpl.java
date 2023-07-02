@@ -33,7 +33,7 @@ public class InventoryServiceImpl implements InventoryService {
 		 pvo.setId("ma_id");
 		 pvo.setPageSize(10);
 		 pvo.setStartRow(1);
-		 pvo.setStatus_name("status");
+		 pvo.setStatus_name("ma_status");
 		 pvo.setStatus_value("1");
 		 logger.debug("@@@@@@CustomerService : {}",pvo);
 		 

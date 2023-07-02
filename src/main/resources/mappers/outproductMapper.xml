@@ -21,7 +21,34 @@
 		LEFT JOIN customer cu
 		ON co.cust_id = cu.cust_id;
 	</select>
+<!-- 출고 리스트 -->
 
+
+ <!-- 출고번호 최대 값 (maxNumber) 230620004 -->
+    <select id="getMaxNumber" resultType="String">
+        SELECT MAX((SUBSTRING(op_id, 3)))
+		FROM out_product;
+    </select>
+ <!-- 출고번호 최대값 (maxNumber) 230620004 -->
+ 
+ 
+ <!-- DB 출고번호 최대 날짜 (maxDate) == 230620 -->	
+ 	<select id="getMaxDate" resultType="String">
+ 		SELECT MAX((SUBSTRING(op_id, 3, 6)))
+		FROM out_product;
+ 	</select>
+ <!-- DB 출고번호 최대 날짜 (maxDate) == 230620 -->
+ 
+ 
+ <!-- op_id 출고번호, 담당직원 등록 -->
+ 	<insert id="registOpId">		
+		UPDATE production pr
+		LEFT JOIN out_product o
+		ON pr.production_id = o.production_id
+		SET o.op_id = #{op_id}, o.op_process = "출고완료", o.op_emp = #{op_emp}
+		WHERE pr.production_id = #{production_id}
+ 	</insert>
+ <!-- op_id 출고번호, 담당직원 등록 -->
 
 
 

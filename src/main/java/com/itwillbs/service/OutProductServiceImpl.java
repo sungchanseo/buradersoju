@@ -4,6 +4,8 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import com.itwillbs.domain.InMaterialVO;
 import com.itwillbs.domain.OutProductVO;
 import com.itwillbs.domain.PagingVO;
 import com.itwillbs.persistence.OutProductDAO;
@@ -38,7 +40,29 @@ public class OutProductServiceImpl implements OutProductService{
 		return odao.getOutProductList();
 	}
 
+	// 2. 출고 상세보기
+	@Override
+	public OutProductVO getOutProductInfo(String production_id) throws Exception{
+		return odao.getOutProductInfo(production_id);
+	}
+
+	// 3-1. 출고번호 최대값 (maxNumber) 230620004
+	@Override
+	public String getMaxNumber() throws Exception {
+		return odao.getMaxNumber();
+	}
 	
+	// 3-2. 출고번호 최대날짜 (maxDate) 230620
+	@Override
+	public String getMaxDate() throws Exception {
+		return odao.getMaxDate();
+	}
+	
+	// 3-3. 출고번호 등록하기
+	@Override
+	public void registOpId(OutProductVO vo) throws Exception{
+		odao.registOpId(vo);
+	}
 	
 	
 	

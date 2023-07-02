@@ -58,8 +58,23 @@
 		    <td></td>
 		    <td>${op.op_process}</td>
 		    <td>${op.op_date}</td>
-		    <td>${op.op_emp}</td>
-		    <td></td>
+		    <td>
+		    	<c:choose>
+					<c:when test="${op.op_emp == 0}"> </c:when>
+					<c:otherwise>${op.op_emp }</c:otherwise>
+				</c:choose>
+		    </td>
+		    <td>
+		    	<c:choose>
+					<c:when test="${emp_department.equals('구매팀') }">
+						<c:if test="${empty op.op_id or op.op_id == '0' }">
+							<input type="button" class="btn btn-success opidDone" value="출고처리"
+					       		   onclick="location.href='/purchasing/outProduct/opid?production_id=${iml.production_id }';">
+						</c:if>
+					</c:when>
+					<c:otherwise> </c:otherwise>
+				</c:choose>
+		    </td>
 		</tr>
 	</c:forEach>
 </table>

@@ -7,8 +7,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.itwillbs.domain.InMaterialVO;
 import com.itwillbs.domain.OutProductVO;
 import com.itwillbs.service.OutProductService;
 
@@ -53,11 +57,34 @@ public class OutProductController {
 		
 		// View 페이지 전달
 		model.addAttribute("outproductList", outproductList);
+		model.addAttribute("emp_department", session.getAttribute("emp_department"));
 		
 		return null;
 	}
 	
 	
+	// 2-1. 출고번호 - 자동넘버링
+	@RequestMapping(value="/opid", method=RequestMethod.GET)
+	public void getOpIdGET(Model model) throws Exception {
+		logger.debug("@@@@@@@@@@ getOpIdGET() 호출");
+		
+		String maxNumber = oService.getMaxNumber();
+		String maxDate = oService.getMaxDate();
+		logger.debug("@@@@@@@@@@@@@@ maxNumber = " + maxNumber);	
+		logger.debug("@@@@@@@@@@@@@@ maxDate = " + maxDate);	   
+		
+		model.addAttribute("maxNumber", maxNumber);
+		model.addAttribute("maxDate", maxDate);
+	}
+	
+	// 2-2. 출고번호 & "재고량 감소" - DB 업데이트
+	@RequestMapping(value="/opid", method=RequestMethod.POST)
+	public void getOpIdPOST(Model model, @RequestBody OutProductVO vo) throws Exception{
+		logger.debug("@@@@@@@@@@ getOpIdPOST()_호출");
+		
+		// 입고번호, 발주번호 DB에 저장
+		oService.registOpId(vo);
+	}
 	
 	
 	

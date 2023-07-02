@@ -92,14 +92,8 @@
 					$('#due_date').focus();
 					return false;
 				}//due_date 제어 
-				
-				
-				
-		
 		  });// fr.sumbit() END
 	});// document.ready END
-	
-	
 	
 		function sendForm() {
 			//상단의 폼태그를 변수에 저장한다. 
@@ -122,8 +116,10 @@
 			});
 		}// sendForm()메소드 끝
 		
+		// 수주일의 기본설정을 오늘날짜로 하는 코드
+		document.getElementById('cont_date').valueAsDate = new Date();
 		
-		//납품날짜가 수주날짜보다 늦게 설정하는 메소드 
+		//납품날짜가 수주날짜보다 같거나 늦게 설정하는 메소드 
 		function limitDate(){
 			
 			var contDateInput = document.querySelector('input[name="cont_date"]');
@@ -135,8 +131,7 @@
 				dueDateInput.value = contDateInput.value;
 			}else {
 			    contDateInput.value = dueDateInput.value;
-		  }
-
+			}	
 		}//limitDate(); 메소드 끝
 	</script>	
 </body>

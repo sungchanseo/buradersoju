@@ -90,11 +90,10 @@
 	</div>
 	<!-- 	페이징 처리  -->
 	
-	
 	<script type="text/javascript">
 		// 거래처등록 새창열기
 		function insertPop(){
-		  var insertPop = window.open('/customer/insert', '거래처등록', 'width=1000px,height=400px');
+		  var insertPop = window.open('/customer/insert', '거래처등록', 'width=1000px,height=550px');
 		  
 		  if(insertPop == null){
 			  alert("팝업이 차단되었습니다. 차단을 해제하세요.");
@@ -131,10 +130,16 @@
 				var checkRow = "";
 				
 				$("input[name='checkRow']:checked").each(function(){
-					checkRow = checkRow + $(this).val() + ", ";
+					checkRow = checkRow + $(this).val() + ",";
 				});
 				
-				checkRow = checkRow.slice(0, -2); // 마지막에 추가된 ", " 제거
+				checkRow = {
+						cust_id : checkRow
+				}
+
+
+				
+// 				checkRow = checkRow.slice(0, -2); // 마지막에 추가된 ", " 제거
 				console.log("checkRow : "+checkRow);
 				console.log(checkRow);
 				console.log(typeof checkRow); 
@@ -148,8 +153,7 @@
 		 				$.ajax({
 		 					url : '/customer/remove/',
 		 					type : 'post',
-	// 						contentType : 'application/json', 
-	// 						data : JSON.stringify(checkRow), 
+		 					data : checkRow, 
 		 					success : function(){
 		 						alert('성공!');
 		 						window.location.reload();

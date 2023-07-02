@@ -84,7 +84,7 @@
 					<label><input type="radio" name="cust_type" value="사업자(해외)">사업자(해외)</label>
 					<label><input type="radio" name="cust_type" value="개인">개인</label></td>
 				<th>사업자등록번호</th>
-				<td><input type="text" name="reg_num" id="reg_num" placeholder="사업자번호를 입력하세요">
+				<td><input type="text" name="reg_num" id="reg_num" placeholder="000-00-0000">
 				<span id="regCheckMsg"></span>
 				</td>
 			</tr>
@@ -92,19 +92,21 @@
 				<th>거래처이름</th>
 				<td><input type="text" name="cust_name" id="cust_name" placeholder="상호를 입력하세요."></td>
 				<th>담당자이름</th>
-				<td><input type="text" name="emp_id" id="" placeholder="담당자이름을 입력하세요."></td>
+				<td><input type="text" name="emp_name" id="emp_name" placeholder="담당자이름을 입력하세요." onclick="empPop();">
+				<input type="hidden" name="emp_id">
+				</td>
 			</tr>
 			<tr>
 				<th>대표자명</th>
-				<td><input type="text" name="owner_name" id="" placeholder="대표자명을 입력하세요."></td>
+				<td><input type="text" name="owner_name" id="owner_name" placeholder="대표자명을 입력하세요."></td>
 				<th>담당자전화번호</th>
-				<td><input type="tel" name="emp_tel" id="" placeholder="연락처를 입력하세요."></td>
+				<td><input type="tel" name="emp_tel" id="emp_tel" placeholder="직원검색으로 입력됩니다." readonly></td>
 			</tr>
 			<tr>
 				<th>대표전화</th>
-				<td><input type="tel" name="main_phone" id="" placeholder="대표번호를 입력하세요."></td>
+				<td><input type="tel" name="main_phone" id="main_phone" placeholder="대표번호를 입력하세요."></td>
 				<th>담당자이메일</th>
-				<td><input type="email" name="emp_email" id="" placeholder="이메일을 입력하세요."></td>
+				<td><input type="email" name="emp_email" id="emp_email" placeholder="직원검색으로 입력됩니다." readonly></td>
 			</tr>
 			<tr>
 				<th>업태</th>
@@ -144,7 +146,7 @@
 			</tr>
 			<tr>
 				<th>기타</th>
-				<td rowspan="2"><textarea name="cust_etc"></textarea></td>
+				<td rowspan="2"><textarea name="cust_etc" placeholder="메모를 입력하세요(선택)"></textarea></td>
 				<th>홈페이지</th>
 				<td><input type="text" name="cust_homepage" placeholder="홈페이지를 입력하세요(선택)."></td>
 			</tr>
@@ -167,8 +169,23 @@
 			}).open(); 
 		};//우편번호 자동입력 api 메소드
 	
-	$(document).ready(function(){ 
+		//직원정보 검색 및 자동완성 기능 
+		function empPop(){
+			var empPop = window.open('/customer/empFind', '직원검색', 'width=700px,height=500px');
+			
+			if(empPop == null){
+				  alert("팝업이 차단되었습니다. 차단을 해제하세요.");
+			  }
+		  openPop.moveBy(100,100);
+		}//empPop END
 		
+// 		//자식창에서 얻은 정보 가져오기 
+// 		function setEmpInfoValue(emp_name){
+// 			document.getElementById('emp_name').value= emp_name;
+// 		}
+		
+		
+	$(document).ready(function(){ 
 		//사업자번호 중복확인 ajax 메소드
 		  $('#reg_num').keyup(function(){
 			 $.ajax({

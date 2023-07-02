@@ -20,8 +20,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.domain.CustomerVO;
+import com.itwillbs.domain.EmployeeVO;
 import com.itwillbs.domain.PagingVO;
 import com.itwillbs.service.CustomerService;
+import com.itwillbs.service.EmployeeService;
 import com.itwillbs.service.PagingService;
 
 @Controller
@@ -36,7 +38,8 @@ public class CustomerController {
 	private CustomerService custService;
 	@Inject
 	private PagingService pageService;
-	
+	@Inject
+	private EmployeeService empService;
 
 	// http://localhost:8088/test/customer/list
 	// http://localhost:8088/customer/list
@@ -160,18 +163,12 @@ public class CustomerController {
     
 	// 거래처 삭제 디비처리
 	
-//	@PostMapping(value = "/remove")
-//	@GetMapping(value="/remove/{cust_id}")
-//	@ResponseBody
+	@ResponseBody
 	@RequestMapping(value="/remove", method=RequestMethod.POST)
-	public String removeCustomerPOST(
-//			@RequestParam("cust_id") String cust_id,
-			@RequestParam("checkRow") String checkRow
-//			@PathVariable("checkRow") String checkRow
-			) throws Exception {
+	public String removeCustomerPOST(@RequestParam("cust_id") String cust_id) throws Exception {
 		logger.debug("@@@@@@@@@@@Controller : 거래처 삭제POST하기 !!!!!");
 //		
-		String[] arrIdx = checkRow.split(",");
+		String[] arrIdx = cust_id.split(",");
 		logger.debug("@@@@@@@@@@@Controller : arrIdx = {}",arrIdx);
 		for (int i=0; i<arrIdx.length; i++) {
 			custService.removeCustomer(arrIdx[i]);
@@ -182,4 +179,49 @@ public class CustomerController {
 //		return null;
 		return "redirect:/customer/list";
 	}
+	
+	
+	//직원찾기 
+	@RequestMapping(value="/empFind", method = RequestMethod.GET)
+	public void findEmpGET(PagingVO pvo, Model model, HttpSession session) throws Exception{
+		logger.debug("@@@@@@@@@@@Controller : 직원찾기 !!!!!");
+		
+		List<Object> employeeList = null;
+		
+		//사원 목록을 가져오는 employeeService 호출
+		pvo = empService.setPageInfoForEmployee(pvo);
+		logger.debug("@@@@@@@@@Controller : {}",pvo);
+		
+		//service객체를 호출
+		if(pvo.getSelector()!=null && pvo.getSelector()!="") {
+			//검색어가 있을 때 
+			logger.debug("@@@@@@@@@Controller : 검색어가 있을 때입니다");
+			employeeList = pageService.getListSearchObjectEmployeeVO(pvo);
+		}else {
+			//검색어가 없을 때
+			logger.debug("@@@@@@@@@Controller : 검색어가 없을 때입니다");
+			employeeList = pageService.getListPageSizeObjectEmployeeVO(pvo);
+		}
+		logger.debug("@@@@@@@@@Controller : employeeList={}",employeeList);
+	
+		// 변수에 담아서 전달
+		model.addAttribute("employeeList", employeeList);
+		model.addAttribute("pvo",pvo);
+		// 인사팀 일때 버튼 활성화
+		model.addAttribute("emp_department", session.getAttribute("emp_department"));
+		logger.debug("emp_department 호출", session.getAttribute("emp_department"));
+//		return null;
+	}
+	@ResponseBody
+	@RequestMapping(value="/empInfo", method = RequestMethod.GET)
+	public EmployeeVO getEmpInfo(@RequestParam("emp_id") String emp_id) throws Exception{
+		logger.debug("@@@@@@@@@@@Controller : 직원정보 가져오기 !!!!!");
+		logger.debug("@@@@@@@@@@@Controller : {}", emp_id);
+
+		EmployeeVO vo = empService.getEmployee(emp_id);
+		logger.debug("@@@@@@@@@@@Controller : {}", vo);
+
+		return vo;
+	}
+	
 }

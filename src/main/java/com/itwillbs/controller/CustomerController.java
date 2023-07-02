@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -160,12 +161,16 @@ public class CustomerController {
 	// 거래처 삭제 디비처리
 	
 //	@PostMapping(value = "/remove")
+//	@GetMapping(value="/remove/{cust_id}")
+//	@ResponseBody
 	@RequestMapping(value="/remove", method=RequestMethod.POST)
 	public String removeCustomerPOST(
-			@RequestParam("cust_id") String cust_id,
-			@RequestParam("checkRow") String checkRow) throws Exception {
+//			@RequestParam("cust_id") String cust_id,
+			@RequestParam("checkRow") String checkRow
+//			@PathVariable("checkRow") String checkRow
+			) throws Exception {
 		logger.debug("@@@@@@@@@@@Controller : 거래처 삭제POST하기 !!!!!");
-		
+//		
 		String[] arrIdx = checkRow.split(",");
 		logger.debug("@@@@@@@@@@@Controller : arrIdx = {}",arrIdx);
 		for (int i=0; i<arrIdx.length; i++) {

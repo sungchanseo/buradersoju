@@ -30,7 +30,7 @@
 		<!-- 영업팀이 아닐때 버튼 감추기 -->
 		<c:if test="${emp_department.equals('영업') || emp_department.equals('영업팀')}">
 			<input type="button" value="거래처등록" class="btn btn-success" onclick="insertPop();"> 
-			<input type="button" value="거래처삭제"  class="btn btn-success" onclick="removeChecked();">
+			<input type="button" value="거래처삭제"  class="btn btn-success" id="btnD" onclick="removeChecked();">
 		</c:if>
 		<!-- 영업팀이 아닐때 버튼 감추기 -->
 
@@ -123,40 +123,50 @@
 		}// allCheckBox END
 		
 		//체크박스 선택한 것만 삭제하기 메소드
-		function removeChecked(){
-			var checkRow = "";
+// 		function removeChecked(){
 			
-			$("input[name='checkRow']:checked").each(function(){
-				checkRow = checkRow + $(this).val() + ", ";
-			});
-			console.log("checkRow : {}", checkRow);
-			console.log(checkRow);
-			if(checkRow == ""){
-				alert("삭제할 목록이 없읍니다.");
-				return false;
-			}else{
-	 			if(confirm("정말로 삭제하시겠읍니까?")){
-	 				
-	 				$.ajax({
-	 					
-	 					url : '/customer/remove',
-	 					type : 'POST',
-// 	 					data : checkRow,
-  						data: { rows: checkRow },
-	 					success : function(){
-	 						alert('성공!');
-	 						window.location.reload();
-	 					},
-	 					error : function(){
-	 						alert('실패!');
-	 					}//error
- 					});//ajax END
-	 			}// confirm END
-
+		$(document).ready(function(){
+			$('#btnD').click(function(){
+		
+				var checkRow = "";
 				
-			}// else END
+				$("input[name='checkRow']:checked").each(function(){
+					checkRow = checkRow + $(this).val() + ", ";
+				});
+				
+				checkRow = checkRow.slice(0, -2); // 마지막에 추가된 ", " 제거
+				console.log("checkRow : "+checkRow);
+				console.log(checkRow);
+				console.log(typeof checkRow); 
+				//typeof : 변수의 데이타타입을 확인 => checkRow는 String 타입 
+				
+				if(checkRow == ""){
+					alert("삭제할 목록이 없읍니다.");
+					return false;
+				}else{
+		 			if(confirm("정말로 삭제하시겠읍니까?")){
+		 				$.ajax({
+		 					url : '/customer/remove/',
+		 					type : 'post',
+	// 						contentType : 'application/json', 
+	// 						data : JSON.stringify(checkRow), 
+		 					success : function(){
+		 						alert('성공!');
+		 						window.location.reload();
+		 					},
+		 					error : function(){
+		 						alert('실패!');
+		 					}//error
+	 					});//ajax END
+		 			}// confirm END
+					
+				}// else END
 			
-		}// removeChecked END
+			});// #btnD END
+
+		});// document.ready END
+		
+// 		}// removeChecked END
 		
 	
 	</script>

@@ -84,7 +84,7 @@
 					<label><input type="radio" name="cust_type" value="사업자(해외)">사업자(해외)</label>
 					<label><input type="radio" name="cust_type" value="개인">개인</label></td>
 				<th>사업자등록번호</th>
-				<td><input type="text" name="reg_num" id="reg_num" placeholder="사업자번호를 입력하세요">
+				<td><input type="text" name="reg_num" id="reg_num" placeholder="000-00-0000">
 				<span id="regCheckMsg"></span>
 				</td>
 			</tr>
@@ -92,7 +92,7 @@
 				<th>거래처이름</th>
 				<td><input type="text" name="cust_name" id="cust_name" placeholder="상호를 입력하세요."></td>
 				<th>담당자이름</th>
-				<td><input type="text" name="emp_id" id="" placeholder="담당자이름을 입력하세요."></td>
+				<td><input type="text" name="emp_id" id="" placeholder="담당자이름을 입력하세요." onclick="empPop();"></td>
 			</tr>
 			<tr>
 				<th>대표자명</th>
@@ -167,6 +167,16 @@
 			}).open(); 
 		};//우편번호 자동입력 api 메소드
 	
+		//직원정보 검색 및 자동완성 기능 
+		function empPop(){
+			var empPop = window.open('/customer/empFind', '직원검색', 'width=1000px,height=400px');
+			
+			if(empPop == null){
+				  alert("팝업이 차단되었습니다. 차단을 해제하세요.");
+			  }
+		  openPop.moveBy(100,100);
+		}//empPop END
+		
 	$(document).ready(function(){ 
 		
 		//사업자번호 중복확인 ajax 메소드

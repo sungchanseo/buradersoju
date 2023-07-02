@@ -182,4 +182,13 @@ public class CustomerController {
 //		return null;
 		return "redirect:/customer/list";
 	}
+	
+	
+	//직원찾기 
+	@RequestMapping(value="/empFind", method = RequestMethod.GET)
+	public void findEmpGET() throws Exception{
+		logger.debug("@@@@@@@@@@@Controller : 직원찾기 !!!!!");
+
+	}
+	
 }

@@ -3,10 +3,37 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
                       
-  <mapper namespace="com.itwillbs.mappers.outproductMapper">
-  
-    <select id="getOutproductList" resultType="com.itwillbs.domain.OutProductVO"> 
-    select * from out_product
-    </select>  
-  
-  </mapper>
+                      
+                      
+<mapper namespace="com.itwillbs.mappers.outproductMapper">
+
+
+<!-- 출고 리스트 -->
+	<select id="getOutProductList" resultType="com.itwillbs.domain.OutProductVO"> 
+		SELECT o.op_id, pr.production_id, cu.cust_name, pd.product_name, co.cont_qty, pd.product_qty, pr.production_date, co.due_date, o.op_process, o.op_date, o.op_emp
+		FROM production pr
+		LEFT JOIN product pd
+		ON pr.product_id = pd.product_id
+		LEFT JOIN out_product o
+		ON pd.product_id = o.product_id
+		LEFT JOIN contract co
+		ON o.cont_id = co.cont_id
+		LEFT JOIN customer cu
+		ON co.cust_id = cu.cust_id
+	</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

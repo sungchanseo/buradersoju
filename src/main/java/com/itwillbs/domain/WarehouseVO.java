@@ -2,13 +2,16 @@ package com.itwillbs.domain;
 
 public class WarehouseVO {
 
+	// warehouse
 	private String whs_id;
 	private String whs_type;
 	private String whs_tel;
 	private String shelt_position;
 	private String whs_emp;
-	private Boolean whs_status;
-	private int whs_sts;
+	private int whs_status;
+	
+	
+	// get & set
 	public String getWhs_id() {
 		return whs_id;
 	}
@@ -39,23 +42,20 @@ public class WarehouseVO {
 	public void setWhs_emp(String whs_emp) {
 		this.whs_emp = whs_emp;
 	}
-	public Boolean getWhs_status() {
+	public int getWhs_status() {
 		return whs_status;
 	}
-	public void setWhs_status(Boolean whs_status) {
+	public void setWhs_status(int whs_status) {
 		this.whs_status = whs_status;
 	}
-	public int getWhs_sts() {
-		return whs_sts;
-	}
-	public void setWhs_sts(int whs_sts) {
-		this.whs_sts = whs_sts;
-	}
+	
+	
+	
+	// toString
 	@Override
 	public String toString() {
 		return "WarehouseVO [whs_id=" + whs_id + ", whs_type=" + whs_type + ", whs_tel=" + whs_tel + ", shelt_position="
-				+ shelt_position + ", whs_emp=" + whs_emp + ", whs_status=" + whs_status + ", whs_sts=" + whs_sts + "]";
+				+ shelt_position + ", whs_emp=" + whs_emp + ", whs_status=" + whs_status + "]";
 	}
-	
-	
+
 }

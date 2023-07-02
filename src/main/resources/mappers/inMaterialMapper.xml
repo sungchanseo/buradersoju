@@ -8,15 +8,15 @@
  <mapper namespace="com.itwillbs.mappers.inMaterialMapper">
  	
  <!-- 입고 리스트 -->
- 	<select id="getInMaterialListAll" resultType="com.itwillbs.domain.InMaterialVO">
-	SELECT m.ma_id, i.in_id, o.order_id, m.ma_name, o.order_qty, m.ma_qty, o.add_ma, i.in_process, m.whs_id, m.shelt_position, o.in_date, i.in_emp
-	FROM orders o
-	LEFT JOIN in_material i
-	ON o.order_id = i.order_id
-	LEFT JOIN material m
-	ON o.ma_id = m.ma_id
-	ORDER BY in_id DESC, order_id DESC
- 	</select>
+	<select id="getInMaterialListAll" resultType="com.itwillbs.domain.InMaterialVO">
+		SELECT m.ma_id, i.in_id, o.order_id, m.ma_name, o.order_qty, m.ma_qty, o.add_ma, i.in_process, m.whs_id, m.shelt_position, o.in_date, i.in_emp
+		FROM orders o
+		LEFT JOIN in_material i
+		ON o.order_id = i.order_id
+		LEFT JOIN material m
+		ON o.ma_id = m.ma_id
+		ORDER BY in_id DESC, order_id DESC
+	</select>
  <!-- 입고 리스트 -->	
  
  
@@ -75,6 +75,7 @@
 		ON m.ma_id = o.ma_id
 		SET m.ma_qty = m.ma_qty + o.order_qty 
 		WHERE o.order_id = #{order_id} AND m.ma_id = #{ma_id}
+		AND order_status = 1
 	</update>
 <!-- 입고처리 시 해당 자재 재고량 증가 -->
 
@@ -93,8 +94,8 @@
 		ON o.order_id = i.order_id
 		LEFT JOIN material m
 		ON o.ma_id = m.ma_id
-		WHERE in_status = 1
-		ORDER BY in_process, in_id DESC
+		WHERE order_status = 1
+		ORDER BY in_process ASC, in_id DESC
 	</select>
 <!-- 	전체 리스트 갯수 조회  -->
 
@@ -107,8 +108,8 @@
 		ON o.order_id = i.order_id
 		LEFT JOIN material m
 		ON o.ma_id = m.ma_id
-		WHERE in_status = 1
-		ORDER BY in_process, in_id DESC
+		WHERE order_status = 1
+		ORDER BY in_process ASC, in_id DESC
 		limit 0, 10
 	</select>
 <!-- 아무조건이 없을 때 목록 개수 -->
@@ -122,9 +123,9 @@
 		ON o.order_id = i.order_id
 		LEFT JOIN material m
 		ON o.ma_id = m.ma_id
-		WHERE in_status = 1
+		WHERE order_status = 1
 		AND ${selector} LIKE CONCAT('%', #{search}, '%')
-		ORDER BY in_process, in_id DESC
+		ORDER BY in_process ASC, in_id DESC
 		limit 0, 10
 	</select>
 <!-- 검색어 + 페이지갯수 제한 전체 목록 개수 -->
@@ -148,7 +149,6 @@
 <!-- 검색어+필터처리+페이지갯수 제한 전체 목록 -->
 
 
-
 <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 목록 가져오기 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
 <!-- InMaterialVO 페이징처리 시작 -->
 <!-- 아무조건이 없을 때 목록 배열 -->
@@ -158,8 +158,8 @@
 		ON o.order_id = i.order_id
 		LEFT JOIN material m
 		ON o.ma_id = m.ma_id
-		WHERE in_status = 1
-		ORDER BY in_process, in_id DESC, o.order_id DESC
+		WHERE order_status = 1
+		ORDER BY in_process ASC, in_id DESC, o.order_id DESC
 		LIMIT #{startRow}, #{pageSize}
 	</select>
 <!-- 아무조건이 없을 때 목록 배열 -->
@@ -172,9 +172,9 @@
 		ON o.order_id = i.order_id
 		LEFT JOIN material m
 		ON o.ma_id = m.ma_id
-		WHERE in_status = 1
+		WHERE order_status = 1
 		AND ${selector} LIKE CONCAT('%', #{search}, '%')
-		ORDER BY in_process, in_id DESC, o.order_id DESC
+		ORDER BY in_process ASC, in_id DESC, o.order_id DESC
 		LIMIT #{startRow}, #{pageSize}
 	</select>
 <!-- 검색어 + 페이지갯수 제한 전체 목록 배열 -->

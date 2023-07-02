@@ -130,6 +130,7 @@ public class InMaterialVO {
 	}
 	
 	
+	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ toString ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	@Override
 	public String toString() {
 		return "InMaterialVO [in_id=" + in_id + ", order_id=" + order_id + ", in_process=" + in_process + ", in_emp="
@@ -138,9 +139,5 @@ public class InMaterialVO {
 				+ ", order_date=" + order_date + ", due_date=" + due_date + ", order_emp=" + order_emp + ", in_date="
 				+ in_date + ", add_ma=" + add_ma + "]";
 	}
-
-
-	
-
 
 }

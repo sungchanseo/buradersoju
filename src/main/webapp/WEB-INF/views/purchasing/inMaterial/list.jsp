@@ -4,64 +4,30 @@
 
 <%@ include file="../../includes/header.jsp" %>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-<script>
-// $(document).ready(function(){
-	
-// 	// '입고처리' 버튼 클릭
-// 	$('.inidDone').click(function(){
-// 		var btn = $(this);
-// 		var tr = btn.parent().parent();		// btn.parent()          : btn의 부모는 <td>
-// 		var td = tr.children();				// btn.parent().parent() : <td>의 부모는 <tr>		
-	
-// 		var order_id = td.eq(1).text();
-// 		var ma_id = td.eq(3).text();
-		
-// 		$.ajax({
-// 			url: "list",
-// 			type: "post",
-// 			data: {
-// 				order_id:order_id,
-// 				ma_id:ma_id
-// 			},
-// 			success: function(data){
-// 				alert("maqtyList 가져오기 성공");
-// 				var re_inId = data[0].in_id;	// 최신 입고번호
-// 				var re_inId = data[0].add_ma;	// 최신 입고번호의 총재고량
-				
-// 				// 입고처리
-// 				// 입고번호 및 총재고량 적용
-// 				alert("입고처리 (입고번호+총재고량 적용) 시작");
-// 				location.href="/purchasing/inMaterial/inid?order_id="+order_id+"&ma_id="+ma_id;
-// 			},
-// 			error: function(){
-// 				alert("error");
-// 			}
-// 		});
-
-// 	}); // inidDone.click
-	
-// }); // JQuery
-</script>
 </head>
 <body>
 <br>
 
+
 <div class="card-body">
-		<h1 class="card-title">
-			<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">입고 리스트</font></font>
-		</h1>
+	<h1 class="card-title">
+		<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">입고 리스트</font></font>
+	</h1>
 
-<!-- 검색 기능 -->
-<form action="/purchasing/inMaterial/list" method="get" style="display: inline;">
-	<select name="selector">
-		<option value="ma_name">자재명</option>
-		<option value="in_date">입고일자</option>
-		<option value="in_emp">담당직원</option>
-	</select> <input type="text" class="form-control" style="width:10%; display:inline;" name="search" placeholder="검색어를 입력해주세요">
-	<input type="submit"  class="btn btn-info" value="검색">
-</form>
 
-<br>
+	<!-- 검색 기능 -->
+	<form action="/purchasing/inMaterial/list" method="get" style="display: inline;">
+		<select name="selector">
+			<option value="ma_name">자재명</option>
+			<option value="in_date">입고일자</option>
+			<option value="in_emp">담당직원</option>
+		</select> <input type="text" class="form-control" style="width:10%; display:inline;" name="search" placeholder="검색어를 입력해주세요">
+		<input type="submit"  class="btn btn-info" value="검색">
+	</form>
+	<br>
+
+
+	<!-- 테이블 -->
 	<div>
  	<fmt:formatDate value=""/> 
 	<table border="1" class="table table-hover table-bordered text-center">
@@ -69,7 +35,6 @@
 		<th>입고번호</th>
 		<th>발주번호</th>
 		<th>상세</th>
-<!-- 		<th>자재코드</th> -->
 		<th>품명</th>		
 		<th>입고수량</th>
 		<th>현재고량</th>
@@ -97,7 +62,6 @@
 						<img class="viewDetail" src="${pageContext.request.contextPath}/resources/images/viewDetail.png" width="10px" height="10px" alt="image" />
 				</a>
 			</td>
-<%-- 			<td>${iml.ma_id }</td> --%>
 			<td>${iml.ma_name }</td>
 			<td>${iml.order_qty }</td>
 			<td>
@@ -137,11 +101,17 @@
 					<c:otherwise>${iml.in_emp }</c:otherwise>
 				</c:choose>
 			</td>
-			<td>		
-				<c:if test="${empty iml.in_id or iml.in_id == '0'}">
-					<input type="button" class="btn-outline-success inidDone" value="입고처리"
-					       onclick="location.href='/purchasing/inMaterial/inid?order_id=${iml.order_id }&ma_id=${iml.ma_id }';">
-				</c:if>
+			<td>
+				<c:choose>
+					<c:when test="${emp_department.equals('구매팀') }">
+						<c:if test="${empty iml.in_id or iml.in_id == '0' }">
+							<input type="button" class="btn btn-success inidDone" value="입고처리"
+					       		   onclick="location.href='/purchasing/inMaterial/inid?order_id=${iml.order_id }&ma_id=${iml.ma_id }';">
+						</c:if>
+					</c:when>
+					<c:otherwise> </c:otherwise>
+				</c:choose>
+
 			</td>
          </tr>
       </c:forEach>
@@ -167,7 +137,7 @@
 			</c:if>
 		</div>
 	</div>
-	<!-- 	페이징 처리  -->
+<!-- 	페이징 처리  -->
 
 
 

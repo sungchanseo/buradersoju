@@ -98,6 +98,13 @@ public class OrderServiceImpl implements OrderService {
 		return odao.getOrderInfoauto(order_id);
 	}
 
+	@Override
+	public void getAddMa(String order_id) throws Exception {
+	
+		odao.getAddMa(order_id);
+		
+	}
+
 	
     
 	

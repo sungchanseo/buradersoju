@@ -45,6 +45,9 @@ public interface OrderDAO {
  	
  	 // 발주 정보 조회하기 (자동완성기능구현 )
  	public OrderVO getOrderInfoauto(String order_id) throws Exception;
+ 	
+    //  특정 order_id의 기존 재고량 + 발주량 (== 총 재고량)
+ 	public void getAddMa(String order_id) throws Exception;
  
 
  	

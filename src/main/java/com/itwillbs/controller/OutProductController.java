@@ -42,7 +42,7 @@ public class OutProductController {
 	// 1. 출고 리스트 출력
 	@RequestMapping(value ="/list", method = RequestMethod.GET)
 	public String outProductListGET(Model model,
-								  HttpServletRequest request, HttpSession session) throws Exception{
+								    HttpServletRequest request, HttpSession session) throws Exception{
 		
 		logger.debug("@@@@@@@@@@@@@@@ outProductListGET 호출");
 		

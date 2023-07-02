@@ -75,7 +75,7 @@
 		ON m.ma_id = o.ma_id
 		SET m.ma_qty = m.ma_qty + o.order_qty 
 		WHERE o.order_id = #{order_id} AND m.ma_id = #{ma_id}
-		AND in_status = 1
+		AND order_status = 1
 	</update>
 <!-- 입고처리 시 해당 자재 재고량 증가 -->
 
@@ -95,7 +95,7 @@
 		LEFT JOIN material m
 		ON o.ma_id = m.ma_id
 		WHERE order_status = 1
-		ORDER BY in_process, in_id DESC
+		ORDER BY in_process ASC, in_id DESC
 	</select>
 <!-- 	전체 리스트 갯수 조회  -->
 
@@ -109,7 +109,7 @@
 		LEFT JOIN material m
 		ON o.ma_id = m.ma_id
 		WHERE order_status = 1
-		ORDER BY in_process, in_id DESC
+		ORDER BY in_process ASC, in_id DESC
 		limit 0, 10
 	</select>
 <!-- 아무조건이 없을 때 목록 개수 -->
@@ -125,7 +125,7 @@
 		ON o.ma_id = m.ma_id
 		WHERE order_status = 1
 		AND ${selector} LIKE CONCAT('%', #{search}, '%')
-		ORDER BY in_process, in_id DESC
+		ORDER BY in_process ASC, in_id DESC
 		limit 0, 10
 	</select>
 <!-- 검색어 + 페이지갯수 제한 전체 목록 개수 -->
@@ -159,7 +159,7 @@
 		LEFT JOIN material m
 		ON o.ma_id = m.ma_id
 		WHERE order_status = 1
-		ORDER BY in_process, in_id DESC, o.order_id DESC
+		ORDER BY in_process ASC, in_id DESC, o.order_id DESC
 		LIMIT #{startRow}, #{pageSize}
 	</select>
 <!-- 아무조건이 없을 때 목록 배열 -->
@@ -174,7 +174,7 @@
 		ON o.ma_id = m.ma_id
 		WHERE order_status = 1
 		AND ${selector} LIKE CONCAT('%', #{search}, '%')
-		ORDER BY in_process, in_id DESC, o.order_id DESC
+		ORDER BY in_process ASC, in_id DESC, o.order_id DESC
 		LIMIT #{startRow}, #{pageSize}
 	</select>
 <!-- 검색어 + 페이지갯수 제한 전체 목록 배열 -->

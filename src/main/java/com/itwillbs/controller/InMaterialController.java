@@ -59,7 +59,6 @@ public class InMaterialController {
 		// 리스트 출력 (페이징처리)
 		List<Object> inMaterialList = null;
 		pvo = iService.pagingAction(pvo);
-		logger.debug("여기까지는 되나요? 66 -- 얘가 안되서 에러발생");
 		logger.debug("@@@@@@@@@@ pvo : {}", pvo);
 		
 		
@@ -78,6 +77,7 @@ public class InMaterialController {
 		// View 페이지 전달
 		model.addAttribute("inMaterialList", inMaterialList);
 		model.addAttribute("pvo", pvo);
+		model.addAttribute("emp_department", session.getAttribute("emp_department"));
 		
 		return null;
 	}

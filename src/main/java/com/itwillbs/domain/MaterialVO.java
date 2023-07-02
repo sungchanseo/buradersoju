@@ -15,6 +15,7 @@ public class MaterialVO {
 	private Date ma_regdate;
 	private int ma_emp;
 	private String whs_id;
+	private int ma_status;
 	
 	// 검색필터
 	private String type;
@@ -48,7 +49,6 @@ public class MaterialVO {
 	public void setUnit_cost(int unit_cost) {
 		this.unit_cost = unit_cost;
 	}
-
 	public String getShelt_position() {
 		return shelt_position;
 	}
@@ -67,37 +67,43 @@ public class MaterialVO {
 	public void setMa_emp(int ma_emp) {
 		this.ma_emp = ma_emp;
 	}
-	
 	public String getUnit() {
 		return unit;
 	}
 	public void setUnit(String unit) {
 		this.unit = unit;
 	}
-	
 	public String getWhs_id() {
 		return whs_id;
 	}
 	public void setWhs_id(String whs_id) {
 		this.whs_id = whs_id;
 	}
+	public int getMa_status() {
+		return ma_status;
+	}
+
+	public void setMa_status(int ma_status) {
+		this.ma_status = ma_status;
+	}
+
 	
 	// 검색필터
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public String getKeyword() {
-		return keyword;
-	}
-
-	public void setKeyword(String keyword) {
-		this.keyword = keyword;
-	}
+//	public String getType() {
+//		return type;
+//	}
+//
+//	public void setType(String type) {
+//		this.type = type;
+//	}
+//
+//	public String getKeyword() {
+//		return keyword;
+//	}
+//
+//	public void setKeyword(String keyword) {
+//		this.keyword = keyword;
+//	}
 
 	
 	// toString 메서드
@@ -105,8 +111,11 @@ public class MaterialVO {
 	public String toString() {
 		return "MaterialVO [ma_id=" + ma_id + ", ma_name=" + ma_name + ", ma_qty=" + ma_qty + ", unit=" + unit
 				+ ", unit_cost=" + unit_cost + ", shelt_position=" + shelt_position + ", ma_regdate=" + ma_regdate
-				+ ", ma_emp=" + ma_emp + ", whs_id=" + whs_id + "]";
+				+ ", ma_emp=" + ma_emp + ", whs_id=" + whs_id + ", ma_status=" + ma_status + ", type=" + type
+				+ ", keyword=" + keyword + "]";
 	}
+
+
 	
 
 	

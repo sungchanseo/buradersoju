@@ -10,25 +10,24 @@
 
 
 <div class="card-body">
-		<h1 class="card-title">
-			<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">입고 리스트</font></font>
-		</h1>
+	<h1 class="card-title">
+		<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">입고 리스트</font></font>
+	</h1>
 
 
-<!-- 검색 기능 -->
-<form action="/purchasing/inMaterial/list" method="get" style="display: inline;">
-	<select name="selector">
-		<option value="ma_name">자재명</option>
-		<option value="in_date">입고일자</option>
-		<option value="in_emp">담당직원</option>
-	</select> <input type="text" class="form-control" style="width:10%; display:inline;" name="search" placeholder="검색어를 입력해주세요">
-	<input type="submit"  class="btn btn-info" value="검색">
-</form>
+	<!-- 검색 기능 -->
+	<form action="/purchasing/inMaterial/list" method="get" style="display: inline;">
+		<select name="selector">
+			<option value="ma_name">자재명</option>
+			<option value="in_date">입고일자</option>
+			<option value="in_emp">담당직원</option>
+		</select> <input type="text" class="form-control" style="width:10%; display:inline;" name="search" placeholder="검색어를 입력해주세요">
+		<input type="submit"  class="btn btn-info" value="검색">
+	</form>
+	<br>
 
-<br>
 
-
-<!-- 테이블 -->
+	<!-- 테이블 -->
 	<div>
  	<fmt:formatDate value=""/> 
 	<table border="1" class="table table-hover table-bordered text-center">
@@ -102,11 +101,17 @@
 					<c:otherwise>${iml.in_emp }</c:otherwise>
 				</c:choose>
 			</td>
-			<td>		
-				<c:if test="${empty iml.in_id or iml.in_id == '0'}">
-					<input type="button" class="btn-outline-success inidDone" value="입고처리"
-					       onclick="location.href='/purchasing/inMaterial/inid?order_id=${iml.order_id }&ma_id=${iml.ma_id }';">
-				</c:if>
+			<td>
+				<c:choose>
+					<c:when test="${emp_department.equals('구매팀') }">
+						<c:if test="${empty iml.in_id or iml.in_id == '0' }">
+							<input type="button" class="btn btn-success inidDone" value="입고처리"
+					       		   onclick="location.href='/purchasing/inMaterial/inid?order_id=${iml.order_id }&ma_id=${iml.ma_id }';">
+						</c:if>
+					</c:when>
+					<c:otherwise> </c:otherwise>
+				</c:choose>
+
 			</td>
          </tr>
       </c:forEach>

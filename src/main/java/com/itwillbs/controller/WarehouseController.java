@@ -1,8 +1,9 @@
 package com.itwillbs.controller;
-
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,28 +16,40 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.itwillbs.domain.WarehouseVO;
 import com.itwillbs.service.WarehouseService;
 
+
+
 @Controller
 @RequestMapping(value= "/purchasing/warehouse/*")
 public class WarehouseController {
-
-	@Inject
-	private WarehouseService waservice;
 	
+	
+	// 로거 생성
 	private static final Logger logger = LoggerFactory.getLogger(WarehouseController.class);
+	
+	
+	// 객체주입
+	@Inject
+	private WarehouseService wService;
+	
 
 	
-	// 창고리스트 보기 - /warehouse/list (GET)
-	// http://localhost:8088/purchasing/warehouse/list
+	/// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ메서드 정의ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+	
+	
+	
+	// 1. 창고 리스트
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public void listGET(Model model) {
+	public void whListGET(Model model,
+						  HttpServletRequest request, HttpSession session) throws Exception{
 		
-		logger.debug("@@@listGET호출!!@@@@");
+		logger.debug("@@@@@@@@@@@@@@@ whListGET 호출");
 		
-		// service객체 호출
-		List<WarehouseVO> warehouseList = waservice.getWarehouseList();
+		// 리스트 출력 (페이징처리 X)
+		List<WarehouseVO> warehouseList = wService.getWarehouseList();
 		
 		// view페이지 정보 전달
-		model.addAttribute("warehouseList",warehouseList);
+		model.addAttribute("warehouseList", warehouseList);
+		model.addAttribute("emp_department", session.getAttribute("emp_department"));
 	}
 	
 	// 창고등록 하기
@@ -57,7 +70,7 @@ public class WarehouseController {
 		 
 		logger.debug("@@@@ 창고 등록 POST @@@");
 		logger.debug("@@@@ 등록된 정보 @@@" + vo);
-		waservice.warehouseInsert(vo);
+		wService.warehouseInsert(vo);
 		
 		return "redirect:/purchasing/warehouse/list";
 	}
@@ -67,7 +80,7 @@ public class WarehouseController {
 	public void modifyWarehouseGET(WarehouseVO vo) {
 		logger.debug("modify 창고 수정입력하자아");
 		
-		WarehouseVO warehouseModify = waservice.warehouseID(vo.getWhs_id());
+		WarehouseVO warehouseModify = wService.warehouseID(vo.getWhs_id());
 	    logger.debug("warehouseModify" +vo.getWhs_id());
 	    logger.debug("warehouseModify" +warehouseModify);
 	}
@@ -77,7 +90,7 @@ public class WarehouseController {
 	public String modifyWarehousePOST(WarehouseVO mvo) {
 		logger.debug("mdify 창고 수정 처리 가즈아~");
 	    
-		waservice.modifyWarehouse(mvo);
+		wService.modifyWarehouse(mvo);
 		return "redirect:/purchasing/warehouse/list";
 	}
 	// 창고정보 삭제하기
@@ -87,7 +100,7 @@ public class WarehouseController {
     	 
 //    	  waservice.re
     	 logger.debug("vo" + vo);
-          waservice.removeWarehouse(vo.getWhs_id());
+    	 wService.removeWarehouse(vo.getWhs_id());
           logger.debug("삭제완료오오@@@@");
     	return "redirect:/purchasing/warehouse/list";
 	}

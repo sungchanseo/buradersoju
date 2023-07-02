@@ -360,16 +360,15 @@ $(document).ready(function() {
 		<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">자재 리스트</font></font>
 	</h1>
 
-	<!-- 검색창기능 -->
-<!-- 	<div style="margin: auto;"> -->
-		<form action="/purchasing/material/list" method="get" style="display: inline;">
-			<select name="selector">
-				<option value="ma_id">자재코드</option>
-				<option value="ma_name">자재명</option>
-			</select> <input type="text" class="form-control" style="width:10%; display:inline;" name="search" placeholder="검색어를 입력해주세요">
-			<input type="submit"  class="btn btn-info" value="검색">
-		</form>
-<!-- 	</div> -->
+	<!-- 검색 기능 -->
+	<form action="/purchasing/material/list" method="get" style="display: inline;">
+		<select name="selector">
+			<option value="ma_id">자재코드</option>
+			<option value="ma_name">자재명</option>
+		</select> <input type="text" class="form-control" style="width:10%; display:inline;" name="search" placeholder="검색어를 입력해주세요">
+		<input type="submit"  class="btn btn-info" value="검색">
+	</form>
+
 	
 	<!-- 구매팀일때만 버튼 활성화 -->
 	<c:if test="${emp_department.equals('구매') || emp_department.equals('구매팀')}">
@@ -380,6 +379,7 @@ $(document).ready(function() {
 			<button class="btn btn-info insert update">저장</button>
 		</div>
 	</c:if>
+
 
 	<!-- 테이블 -->
 	<div class="row">

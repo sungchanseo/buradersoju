@@ -90,7 +90,6 @@
 	</div>
 	<!-- 	페이징 처리  -->
 	
-	
 	<script type="text/javascript">
 		// 거래처등록 새창열기
 		function insertPop(){
@@ -131,10 +130,16 @@
 				var checkRow = "";
 				
 				$("input[name='checkRow']:checked").each(function(){
-					checkRow = checkRow + $(this).val() + ", ";
+					checkRow = checkRow + $(this).val() + ",";
 				});
 				
-				checkRow = checkRow.slice(0, -2); // 마지막에 추가된 ", " 제거
+				checkRow = {
+						cust_id : checkRow
+				}
+
+
+				
+// 				checkRow = checkRow.slice(0, -2); // 마지막에 추가된 ", " 제거
 				console.log("checkRow : "+checkRow);
 				console.log(checkRow);
 				console.log(typeof checkRow); 
@@ -148,8 +153,7 @@
 		 				$.ajax({
 		 					url : '/customer/remove/',
 		 					type : 'post',
-	// 						contentType : 'application/json', 
-	// 						data : JSON.stringify(checkRow), 
+		 					data : checkRow, 
 		 					success : function(){
 		 						alert('성공!');
 		 						window.location.reload();

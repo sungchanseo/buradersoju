@@ -163,18 +163,12 @@ public class CustomerController {
     
 	// 거래처 삭제 디비처리
 	
-//	@PostMapping(value = "/remove")
-//	@GetMapping(value="/remove/{cust_id}")
-//	@ResponseBody
+	@ResponseBody
 	@RequestMapping(value="/remove", method=RequestMethod.POST)
-	public String removeCustomerPOST(
-//			@RequestParam("cust_id") String cust_id,
-			@RequestParam("checkRow") String checkRow
-//			@PathVariable("checkRow") String checkRow
-			) throws Exception {
+	public String removeCustomerPOST(@RequestParam("cust_id") String cust_id) throws Exception {
 		logger.debug("@@@@@@@@@@@Controller : 거래처 삭제POST하기 !!!!!");
 //		
-		String[] arrIdx = checkRow.split(",");
+		String[] arrIdx = cust_id.split(",");
 		logger.debug("@@@@@@@@@@@Controller : arrIdx = {}",arrIdx);
 		for (int i=0; i<arrIdx.length; i++) {
 			custService.removeCustomer(arrIdx[i]);

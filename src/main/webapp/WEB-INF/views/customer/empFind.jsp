@@ -71,10 +71,6 @@
 	
 	//부모창으로 값 보내기 
 	function sendEmpInfoValue(id){
-		alert('성공!'+id);
-		console.log("emp_id : "+id);
-		console.log(typeof id);
-		var data=null;
 		$.ajax({
 			url : '/customer/empInfo',
 			type : 'get',
@@ -86,13 +82,8 @@
 				window.opener.document.getElementById("emp_tel").value = data.emp_phone;
 				window.opener.document.getElementById("emp_email").value = data.emp_email;
 				window.close();
-			},
-			error : function(){
-				alert('실패!');
 			}
 		});//ajax END
-		console.log("가져온 데이타 : "+data);
-		
 	}//sendEmpInfoValue END
 	
 	</script>

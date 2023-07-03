@@ -10,16 +10,17 @@
 
 <!-- 출고 리스트 -->
 	<select id="getOutProductList" resultType="com.itwillbs.domain.OutProductVO"> 
-		SELECT o.op_id, pr.production_id, cu.cust_name, pd.product_name, co.cont_qty, pd.product_qty, pr.production_date, co.due_date, o.op_process, o.op_date, o.op_emp
+		SELECT o.op_id, pr.production_id, 
+		       co.cust_name, pd.product_name, co.cont_qty, pd.product_qty, pr.production_date, 
+		       co.due_date, o.op_process, o.op_date, o.op_emp
 		FROM production pr
 		LEFT JOIN product pd
 		ON pr.product_id = pd.product_id
 		LEFT JOIN out_product o
 		ON pd.product_id = o.product_id
 		LEFT JOIN contract co
-		ON o.cont_id = co.cont_id
-		LEFT JOIN customer cu
-		ON co.cust_id = cu.cust_id;
+		ON o.production_id = co.production_id
+		ORDER BY op_process, op_id DESC, pr.production_id DESC
 	</select>
 <!-- 출고 리스트 -->
 
@@ -41,13 +42,13 @@
  
  
  <!-- op_id 출고번호, 담당직원 등록 -->
- 	<insert id="registOpId">		
+ 	<update id="registOpId">		
 		UPDATE production pr
 		LEFT JOIN out_product o
 		ON pr.production_id = o.production_id
-		SET o.op_id = #{op_id}, o.op_process = "출고완료", o.op_emp = #{op_emp}
+		SET o.op_id = #{op_id}, o.op_process = '출고완료', o.op_date = now(), o.op_emp = #{op_emp}
 		WHERE pr.production_id = #{production_id}
- 	</insert>
+ 	</update>
  <!-- op_id 출고번호, 담당직원 등록 -->
 
 

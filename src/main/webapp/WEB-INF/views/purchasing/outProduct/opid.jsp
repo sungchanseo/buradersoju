@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
-//오늘 날짜 출력 (yy-MM-dd)
+// 오늘 날짜 출력 (yy-MM-dd)
 function getToday() {
 	var date = new Date();
 	var year = date.getFullYear();
@@ -67,14 +67,10 @@ $(document).ready(function(){
 		
 		
 		// production_id 정보 저장       
-		var order_id = "${param.production_id }";
+		var production_id = "${param.production_id }";
 		console.log("************ productionr_id = " + production_id);
-		
-		
-		// ma_id 정보 저장
-// 		var ma_id = "${param.ma_id }";
 
-		
+
 		// maxDate 정보 저장
 		// maxDate가 없을 때 -> 입고번호 첫 등록
 		var maxDate = "${maxDate }";
@@ -86,7 +82,6 @@ $(document).ready(function(){
 			console.log("******************* (else)maxDate = " + maxDate);
 		}
 
-		
 		
 		// nextNumber 정보 저장
 		// DB 날짜와 어제 날짜가 같을 때 초기화
@@ -119,12 +114,13 @@ $(document).ready(function(){
 		$.ajax({
 				url: 'opid',
 				type: 'post',
-				dataType : "json",
-				contentType : "application/json;charset=UTF-8",
+				dataType : 'json',
+				contentType : 'application/json;charset=UTF-8',
 				data: JSON.stringify({
 					op_id:op_id,
 					production_id:production_id,
 					op_emp:op_emp,
+					op_date:today
 				}),
 				success: function(){
 // 					alert(op_id + ", 출고처리가 완료되었습니다.");
@@ -141,6 +137,5 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-
 </body>
 </html>

@@ -8,6 +8,7 @@ public class OutProductVO {
 	// out_product
     private String op_id;
     private String product_id;
+    private String cont_id;
     private String op_process;
     private Date op_date;
     private int op_emp;
@@ -23,8 +24,6 @@ public class OutProductVO {
     // contract
     private Date due_date;
     private int cont_qty;
-    
-    // customer
     private String cust_name;
     
     
@@ -32,6 +31,12 @@ public class OutProductVO {
 	
     
     // out_product
+	public String getCont_id() {
+		return cont_id;
+	}
+	public void setCont_id(String cont_id) {
+		this.cont_id = cont_id;
+	}
     public String getOp_id() {
 		return op_id;
 	}
@@ -107,9 +112,6 @@ public class OutProductVO {
 	public void setCont_qty(int cont_qty) {
 		this.cont_qty = cont_qty;
 	}
-	
-
-	// customer
 	public String getCust_name() {
 		return cust_name;
 	}
@@ -118,12 +120,11 @@ public class OutProductVO {
 	}
 	
 	
-	
 	// toString
 	@Override
 	public String toString() {
-		return "OutProductVO [op_id=" + op_id + ", product_id=" + product_id + ", op_process=" + op_process
-				+ ", op_date=" + op_date + ", op_emp=" + op_emp + ", production_id=" + production_id
+		return "OutProductVO [op_id=" + op_id + ", product_id=" + product_id + ", cont_id=" + cont_id + ", op_process="
+				+ op_process + ", op_date=" + op_date + ", op_emp=" + op_emp + ", production_id=" + production_id
 				+ ", production_date=" + production_date + ", product_name=" + product_name + ", product_qty="
 				+ product_qty + ", due_date=" + due_date + ", cont_qty=" + cont_qty + ", cust_name=" + cust_name + "]";
 	}

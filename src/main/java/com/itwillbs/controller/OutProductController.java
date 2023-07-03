@@ -81,6 +81,7 @@ public class OutProductController {
 	@RequestMapping(value="/opid", method=RequestMethod.POST)
 	public void getOpIdPOST(Model model, @RequestBody OutProductVO vo) throws Exception{
 		logger.debug("@@@@@@@@@@ getOpIdPOST()_호출");
+		logger.debug("@@@@@@@@@@ vo = " + vo);
 		
 		// 입고번호, 발주번호 DB에 저장
 		oService.registOpId(vo);

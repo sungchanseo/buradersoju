@@ -489,10 +489,12 @@ table tr>td:nth-of-type(1) {width:50px !important;
 </head>
 <body>
 <!-- 버튼 -->
+    <c:if test="${emp_department.equals('구매팀')}">    
     <button class="btn btn-info writeForm true" >등록</button>
 	<button class="btn btn-info modify true">수정</button>
 	<button class="btn btn-info" id="delete">삭제</button>
 	<button class="btn btn-success insert update write">저장</button>
+    </c:if>
  <fmt:formatDate value=""/>
  <div class="row" > 
 <table border="1" id="example-table-3" class="table table-bordered table-hover text-center tbl" style="width: 100%;">
@@ -531,6 +533,7 @@ table tr>td:nth-of-type(1) {width:50px !important;
 					<td>${order.in_date}</td>		
 					<td>${order.whs_id}</td>
 					<td>${order.order_emp}</td>
+					
 				</tr> 
 			</c:forEach>
 			</tbody>

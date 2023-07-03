@@ -70,7 +70,7 @@
 <!-- 필터처리+페이지갯수 제한 전체 목록 가져오기  -->
 <select id="getListFilterAll" resultType="_int">
     SELECT COUNT(*) FROM ${table}
-    WHERE ${column_name} = #{column_value}
+    WHERE ${column_name} = #{column_value} 
     LIMIT #{startRow}, #{pageSize}
 </select>
 <!-- 필터처리+페이지갯수 제한 전체 목록 가져오기  -->

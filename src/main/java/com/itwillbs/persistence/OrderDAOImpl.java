@@ -92,7 +92,7 @@ public class OrderDAOImpl implements OrderDAO{
 
 	@Override
 	public void getAddMa(String order_id) throws Exception {
-		sqlSession.selectOne(order_id);
+		sqlSession.selectOne(NAMESPACE+".addMa", order_id);
 	}
 	
 }

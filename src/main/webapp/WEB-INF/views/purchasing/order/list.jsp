@@ -522,7 +522,7 @@ table tr>td:nth-of-type(1) {width:50px !important;
 					<td>${order.ma_id}</td>
 					<td>${order.ma_name}</td> 
 					<td>${order.unit_cost}</td>
-					<td>${order.ma_qty}</td>					
+					<td>${order.add_order}</td>					
 					<td>${order.order_qty}</td>
 					<td>${order.order_sum}</td>
 					<td>${order.order_vat}</td>

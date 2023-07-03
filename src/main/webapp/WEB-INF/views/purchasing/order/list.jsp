@@ -227,7 +227,7 @@ $(function() {
         	  $("#ma_qty").val(data.ma_qty)
         	  $("#unit_cost").val(data.unit_cost)
         	  $("#ma_name").val(data.ma_name)
-        	  $("#order_sum").val(data.unit_cost*obj.in_order_qty)
+         	  $("#order_sum").val(data.unit_cost*obj.in_order_qty)
         	  $("#order_vat").val(data.unit_cost*obj.in_order_qty/100)
         	 // $("#ma_name").val(data.ma_name)
         	 
@@ -349,18 +349,18 @@ $(function() {
 							str += "<tr>";
 							str += "<td><input type='checkbox' name='check'></td>";
 							str += "<td>"+ obj.order_id +"</td>";
-							str += "<td><input type='text' id='ma_id' name='ma_id' value="+ obj.ma_id +" readonly></td>";
-							str += "<td><input type='text' id='ma_name' name='ma_name' value="+ obj.ma_name +" readonly></td>";
-							str += "<td><input type='text' id='unit_cost' name='unit_cost' value="+ obj.unit_cost +" readonly></td>";
-							str += "<td><input type='text' id='ma_qty' name='ma_qty' value="+ obj.ma_qty +" readonly></td>";
+							str += "<td>"+ obj.ma_id +"</td>";
+							str += "<td>"+ obj.ma_name +"</td>";
+							str += "<td>"+ obj.unit_cost +"</td>";
+							str += "<td>"+ obj.ma_qty +"</td>";
 							str += "<td><input type='text' id='order_qty' name='order_qty' value="+ obj.order_qty +"></td>";
 							str += "<td><input type='text' id='order_sum' name='order_sum' value="+ obj.order_sum +"></td>";
 							str += "<td><input type='text' id='order_vat' name='order_vat' value="+ obj.order_vat +"></td>";
-							str += "<td><input type='text' id='order_date' name='order_date' value="+ obj.order_date +"></td>";
-							str += "<td><input type='text' id='due_date' name='due_date' value="+ obj.due_date +"></td>";
-							str += "<td><input type='text' id='in_date' name='in_date' value="+ obj.in_date +"></td>";
-							str += "<td><input type='text' id='whs_id' name='whs_id' value="+ obj.whs_id +"></td>";
-							str += "<td><input type='text' id='order_emp' name='order_emp' value="+ obj.order_emp +"></td>";
+							str += "<td>"+getToday()+"</td>";
+							str += "<td>"+orderToday()+"</td>";
+							str += "<td>"+inToday()+"</td>";
+							str += "<td>"+ obj.whs_id +"</td>";
+							str += "<td>"+ obj.order_emp +"</td>";
 							// 담당직원 세션에 저장된 아이디 들고오기
 							str += "</tr>";			
 							$('table').prepend(str);
@@ -377,17 +377,15 @@ $(function() {
 					// 2-2. '저장' 클릭 
 					$('.update').click(function(){
 						$('.modify').addClass('true');
-						var order_id = tdArr[0];;
+						var order_id = tdArr[0];
 						var order_qty = $('#order_qty').val();
 						var order_sum = $('#order_sum').val();
 						var order_vat = $('#order_vat').val();
-						var order_emp = $('#order_emp').val();
-						var order_date = $('#order_date').val();
-				        var due_date = $('#due_date').val();
-				        var in_date = $('#in_date').val();
-				        var whs_id = $('#whs_id').val();
+						var order_date = getToday();
+				        var due_date = orderToday();
+				        var in_date = inToday;
 									
-						if(order_id==="" || order_vat==="" || order_emp==="" || order_date==="" || due_date==="" || in_date==="" ) {
+						if(order_id==="" || order_vat==="" ) {
 							alert("모든 order_qty 입력해주세요.");
 						} else {
 							$.ajax({
@@ -400,11 +398,10 @@ $(function() {
 									    order_qty:order_qty,
 									    order_vat:order_vat,
 									    order_sum:order_sum,
-									    order_emp:order_emp,
 									    order_date:order_date,
 									    in_date:in_date,
-									    due_date:due_date,
-									    whs_id:whs_id}),
+									    due_date:due_date
+							   }),
 								success: function() {
 //			 						alert("자재코드 " + ma_id + ", 수정이 완료되었습니다.");
 //			 						location.href="/purchasing/material/list";

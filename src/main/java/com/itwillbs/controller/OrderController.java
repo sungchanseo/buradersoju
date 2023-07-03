@@ -20,6 +20,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistration;
 
 import com.itwillbs.domain.MaterialVO;
 import com.itwillbs.domain.OrderVO;
+import com.itwillbs.domain.PagingVO;
 import com.itwillbs.service.MaterialService;
 import com.itwillbs.service.OrderService;
 
@@ -38,7 +39,7 @@ public class OrderController {
 	// http://localhost:8088/purchasing/order/list
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 
-	public String orderListGET(Model model, OrderVO vo,
+	public String orderListGET(Model model, OrderVO vo, PagingVO pvo,
 			 HttpServletRequest request, HttpSession session) throws Exception {
 
 		logger.debug("@@@@@orderList 호출@@@@@");
@@ -48,6 +49,23 @@ public class OrderController {
 
 		String maxNumber = orserivce.getMaxNumber();
 		String maxDate = orserivce.getMaxDate();
+		
+		// 리스트 출력 (페이징처리)
+				List<Object> inMaterialList = null;
+				pvo = orserivce.pagingAction(pvo);
+				logger.debug("@@@@@@@@@@ pvo : {}", pvo);
+				
+				
+				// 검색로직
+				if(pvo.getSelector()!=null && pvo.getSelector()!="") {
+					//검색어가 있을 때 
+					logger.debug("@@@@@@@@@@ 검색어가 있을 때");
+					inMaterialList = orserivce.getListSearchObjectInMaterialVO(pvo);
+				}else {
+					//검색어가 없을 때
+					logger.debug("@@@@@@@@@@ 검색어가 없을 때");
+					inMaterialList = orserivce.getListPageSizeObjectInMaterialVO(pvo);
+				}
 
 		// 로그인 세션 제어
 		if(session.getAttribute("emp_id") == null) {
@@ -59,7 +77,8 @@ public class OrderController {
 		// View페이지 정보 전달
 		logger.debug("@@@@@@@@@@@@@@ maxNumber = " + maxNumber);
 		logger.debug("@@@@@@@@@@@@@@ maxDate = " + maxDate);
-
+		
+		model.addAttribute("pvo", pvo);
 		model.addAttribute("maxNumber", maxNumber);
 		model.addAttribute("maxDate", maxDate);
 		model.addAttribute("orderList", orderList);

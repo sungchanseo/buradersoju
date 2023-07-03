@@ -3,6 +3,8 @@ package com.itwillbs.controller;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +38,8 @@ public class OrderController {
 	// http://localhost:8088/purchasing/order/list
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 
-	public void orderListGET(Model model, OrderVO vo) throws Exception {
+	public String orderListGET(Model model, OrderVO vo,
+			 HttpServletRequest request, HttpSession session) throws Exception {
 
 		logger.debug("@@@@@orderList 호출@@@@@");
 		// service 객체 호출
@@ -46,6 +49,13 @@ public class OrderController {
 		String maxNumber = orserivce.getMaxNumber();
 		String maxDate = orserivce.getMaxDate();
 
+		// 로그인 세션 제어
+		if(session.getAttribute("emp_id") == null) {
+			
+		return "redirect:/main/login";
+		
+		}
+		
 		// View페이지 정보 전달
 		logger.debug("@@@@@@@@@@@@@@ maxNumber = " + maxNumber);
 		logger.debug("@@@@@@@@@@@@@@ maxDate = " + maxDate);
@@ -53,6 +63,9 @@ public class OrderController {
 		model.addAttribute("maxNumber", maxNumber);
 		model.addAttribute("maxDate", maxDate);
 		model.addAttribute("orderList", orderList);
+		model.addAttribute("emp_department", session.getAttribute("emp_department"));
+		
+		return null;
 	}
 
 	// http://localhost:8088/purchasing/order/list

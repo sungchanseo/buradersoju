@@ -65,7 +65,7 @@
  <!-- DB 발주번호 최대 날짜 (maxDate) == 230620 -->
  <!-- 발주 정보 수정 -->
 	<update id="modifyOrder" >
-		update orders set order_id=#{order_id}, whs_id=#{whs_id}, order_qty=#{order_qty}, order_sum=#{order_sum}, order_vat=#{order_vat}, order_emp=#{order_emp}, order_date=#{order_date}, due_date=#{due_date}, in_date=#{in_date}
+		update orders set order_id=#{order_id}, order_qty=#{order_qty}, order_sum=#{order_sum}, order_vat=#{order_vat}
 		where order_id = #{order_id}
 	</update>
  <!-- 발주 정보 수정 -->

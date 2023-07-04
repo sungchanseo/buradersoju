@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/base/vendor.bundle.base.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main/fullcalendar-5.11.4/lib/main.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
 </head>
 <body>
 	<h1>수주 등록</h1>
@@ -17,17 +18,17 @@
 		<table border="1">
 			<tr>
 				<th>수주처이름</th>
-				<td><input type="text" name="cust_name" id="cust_name"></td>
+				<td><input type="text" name="cust_name" id="cust_name" onclick="custPop();"></td>
 				<th>상품명</th>
-				<td><input type="text" name="product_name" id="product_name"></td>
+				<td><input type="text" name="product_name" id="product_name" onclick="productPop();"></td>
 				<th>담당자</th>
-				<td><input type="text" name="cont_emp" id="cont_emp"></td>
+				<td><input type="text" name="cont_emp" id="cont_emp" onclick="empPop();"></td>
 			</tr>
 			<tr>
 				<th>수주처코드</th>
-				<td><input type="text" name="cust_id" id="cust_id"></td>
+				<td><input type="text" name="cust_id" id="cust_id" readonly></td>
 				<th>상품코드</th>
-				<td><input type="text" name="product_id" id="product_id"></td>
+				<td><input type="text" name="product_id" id="product_id" readonly></td>
 				<th>수주일자</th>
 				<td><input type="date" name="cont_date" id="cont_date"></td>
 			</tr>
@@ -35,7 +36,7 @@
 				<th>수주량</th>
 				<td><input type="text" name="cont_qty" id="cont_qty"></td>
 				<th>작업지시번호</th>
-				<td><input type="text" name="production_id" readonly></td>
+				<td><input type="text" name="production_id" value="수정하기에서 입력하세요." readonly></td>
 				<th>납품일자</th>
 				<td><input type="date" name="due_date" onchange="limitDate();" id="due_date"></td>
 			</tr>
@@ -47,6 +48,37 @@
 <!-- 	http://localhost:8088/contract/list -->
 <!-- 	제이쿼리 -->
 	<script>
+	
+	//수주처 검색 및 자동완성 기능 
+	function custPop(){
+		var custPop = window.open('/contract/custFind', '수주처검색', 'width=700px,height=500px');
+		
+		if(custPop == null){
+			  alert("팝업이 차단되었습니다. 차단을 해제하세요.");
+		  }
+		custPop.moveBy(100,100);
+	}//custPop END
+	
+	//상품명 검색 및 자동완성 기능 
+	function productPop(){
+		var productPop = window.open('/contract/productFind', '상품검색', 'width=700px,height=500px');
+		
+		if(productPop == null){
+			  alert("팝업이 차단되었습니다. 차단을 해제하세요.");
+		  }
+		productPop.moveBy(100,100);
+	}//productPop END
+	
+	//직원정보 검색 및 자동완성 기능 
+	function empPop(){
+		var empPop = window.open('/contract/empFind', '직원검색', 'width=700px,height=500px');
+		
+		if(empPop == null){
+			  alert("팝업이 차단되었습니다. 차단을 해제하세요.");
+		  }
+		empPop.moveBy(100,100);
+	}//empPop END
+	
 	function sendForm() {
 			//상단의 폼태그를 변수에 저장한다. 
 // 			var formObject = $("form[role='form']").serializeArray();
@@ -129,28 +161,6 @@
 		  });// fr.sumbit() END
 	});// document.ready END
 	
-// 		function sendForm() {
-// 			//상단의 폼태그를 변수에 저장한다. 
-// 			var formObject = $("form[role='form']").serializeArray();
-// 			var status = true;
-// 			consol.log(formObject);
-
-			
-// 			//작성완료 버튼을 눌렀을 때 ajax를 실행하도록 한다.
-// 			$.ajax({
-// 				url : '/contract/insert',
-// 				type : 'POST',
-// 				data : formObject,
-// 				success : function() {
-// 					alert("수주등록이 완료되었습니다.");
-// 					status = true;
-// 					window.opener.location.reload();
-// 					window.close();
-// 				}, error : function(){
-// 					alert('에러 발생!');
-// 				}
-// 			});
-// 		}// sendForm()메소드 끝
 		
 		// 수주일의 기본설정을 오늘날짜로 하는 코드
 		document.getElementById('cont_date').valueAsDate = new Date();

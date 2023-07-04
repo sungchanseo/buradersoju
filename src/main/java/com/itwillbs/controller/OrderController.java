@@ -58,7 +58,7 @@ public class OrderController {
 		String maxDate = orserivce.getMaxDate();
 		
 		// 리스트 출력 (페이징처리)
-				List<Object> inMaterialList = null;
+				List<Object>OrderLists = null;
 				pvo = orserivce.pagingAction(pvo);
 				logger.debug("@@@@@@@@@@ pvo : {}", pvo);
 				
@@ -67,11 +67,13 @@ public class OrderController {
 					
 					//검색어가 있을 때 
 					logger.debug("@@@@@@@@@@ 검색어가 있을 때");
-					inMaterialList = orserivce.getListSearchObjectInMaterialVO(pvo);
-				}else {
+//					OrderLists = orserivce.getListSearchObjectInMaterialVO(pvo);
+					OrderLists = orserivce.getListSearchObjectOrderVO(pvo);
+					}else {
 					//검색어가 없을 때
 					logger.debug("@@@@@@@@@@ 검색어가 없을 때");
-					inMaterialList = orserivce.getListPageSizeObjectInMaterialVO(pvo);
+//					OrderLists = orserivce.getListPageSizeObjectInMaterialVO(pvo);
+					OrderLists = orserivce.getListPageSizeObjectOrderVO(pvo);
 				}
 
 		
@@ -81,11 +83,10 @@ public class OrderController {
 		logger.debug("@@@@@@@@@@@@@@ maxDate = " + maxDate);
 		
 		
-		model.addAttribute("inMaterialList", inMaterialList);
+		model.addAttribute("OrderLists", OrderLists);
 		model.addAttribute("pvo", pvo);
 		model.addAttribute("maxNumber", maxNumber);
 		model.addAttribute("maxDate", maxDate);
-		model.addAttribute("orderList", orderList);
 		model.addAttribute("emp_department", session.getAttribute("emp_department"));
 		
 		return null;

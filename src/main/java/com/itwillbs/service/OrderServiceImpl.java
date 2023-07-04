@@ -199,31 +199,31 @@ public class OrderServiceImpl implements OrderService {
 	// 2. 객체 가져오기
 	// 아무조건이 없을 때 전체 목록 객체
 	@Override
-	public List<Object> getListPageSizeObjectInMaterialVO(PagingVO pvo) throws Exception {
-		logger.debug("############### Paging : getListPageSizeObjectInMaterialVO 호출");
-		List<Object> result = odao.getListPageSizeObjectInMaterialVO(pvo);
+	public List<Object> getListPageSizeObjectOrderVO(PagingVO pvo) throws Exception {
+		logger.debug("############### Paging : getListPageSizeObjectOrderVO 호출");
+		List<Object> result = odao.getListPageSizeObjectOrderVO(pvo);
 		return result;
 	}
 	
 	// 검색어 있을 때 전체 목록 객체	
 	@Override
-	public List<Object> getListSearchObjectInMaterialVO(PagingVO pvo) throws Exception {
-		logger.debug("############### Paging : getListSearchObjectInMaterialVO 호출");
-		return odao.getListSearchObjectInMaterialVO(pvo);
+	public List<Object> getListSearchObjectOrderVO(PagingVO pvo) throws Exception {
+		logger.debug("############### Paging : getListSearchObjectOrderVO 호출");
+		return odao.getListSearchObjectOrderVO(pvo);
 	}
 	
 	// 필터있을 때 전체 목록 객체 가져오기 	
 	@Override
-	public List<Object> getListFilterObjectInMaterialVO(PagingVO pvo) throws Exception {
-		logger.debug("############### Paging : getListFilterObjectInMaterialVO 호출");
-		return odao.getListFilterObjectInMaterialVO(pvo);
+	public List<Object> getListFilterObjectOrderVO(PagingVO pvo) throws Exception {
+		logger.debug("############### Paging : getListFilterObjectOrderVO 호출");
+		return odao.getListFilterObjectOrderVO(pvo);
 	}
 	
 	// 검색어와 필터 모두 있을 때 전체 객체 가져오기 
 	@Override
-	public List<Object> getListSearchFilterObjectInMaterialVO(PagingVO pvo) throws Exception {
-		logger.debug("############### Paging : getListSearchFilterObjectInMaterialVO 호출");
-		return odao.getListSearchFilterObjectInMaterialVO(pvo);
+	public List<Object> getListSearchFilterObjectOrderVO(PagingVO pvo) throws Exception {
+		logger.debug("############### Paging : getListSearchFilterObjectOrderVO 호출");
+		return odao.getListSearchFilterObjectOrderVO(pvo);
 	}
 
 	

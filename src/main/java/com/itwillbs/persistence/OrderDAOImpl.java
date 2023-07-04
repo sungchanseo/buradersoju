@@ -136,26 +136,26 @@ public class OrderDAOImpl implements OrderDAO{
 		// 2. 객체 가져오기
 		// 아무조건이 없을 때 전체 목록 객체
 		@Override
-		public List<Object> getListPageSizeObjectInMaterialVO(PagingVO pvo) throws Exception {
-			return sqlSession.selectList(NAMESPACE+".getListPageSizeObjectInMaterialVO", pvo);
+		public List<Object> getListPageSizeObjectOrderVO(PagingVO pvo) throws Exception {
+			return sqlSession.selectList(NAMESPACE+".getListPageSizeObjectOrderVO", pvo);
 		}
 		
 		// 검색어 있을 때 목록 객체	
 		@Override
-		public List<Object> getListSearchObjectInMaterialVO(PagingVO pvo) throws Exception {
+		public List<Object> getListSearchObjectOrderVO(PagingVO pvo) throws Exception {
 		logger.debug("****************PagingDAO : getListSearchObject()메소드 호출!");
-			return sqlSession.selectList(NAMESPACE+".getListSearchObjectInMaterialVO", pvo);
+			return sqlSession.selectList(NAMESPACE+".getListSearchObjectOrderVO", pvo);
 		}
 		
 		// 필터있을 때 전체 목록 객체
 		@Override
-		public List<Object> getListFilterObjectInMaterialVO(PagingVO pvo) throws Exception {
-			return sqlSession.selectList(NAMESPACE+".getListFilterObjecInMaterialVO",pvo);
+		public List<Object> getListFilterObjectOrderVO(PagingVO pvo) throws Exception {
+			return sqlSession.selectList(NAMESPACE+".getListFilterObjectOrderVO",pvo);
 		}
 		
 		// 검색어와 필터 모두 있을 때 전체 목록 개수
 		@Override
-		public List<Object> getListSearchFilterObjectInMaterialVO(PagingVO pvo) throws Exception {
-			return sqlSession.selectList(NAMESPACE+".getListSearchFilterObjectInMaterialVO", pvo);
+		public List<Object> getListSearchFilterObjectOrderVO(PagingVO pvo) throws Exception {
+			return sqlSession.selectList(NAMESPACE+".getListSearchFilterObjectOrderVO", pvo);
 		}
 }

@@ -486,7 +486,7 @@ table tr>td:nth-of-type(1) {width:50px !important;
 </style>
 </head>
 <body>
-${inMaterialList}
+
 
 <h1 class="card-title">
 		<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">발주 리스트</font></font>
@@ -528,7 +528,7 @@ ${inMaterialList}
 			</tr>
 			</thead>
 			<tbody id="tbody">
-			<c:forEach var="order" items="${orderList}">
+			<c:forEach var="order" items="${OrderLists}">
 			 	<tr>
 			 	    <td><input type="checkbox" name="check"></td>
 				    <td>${order.order_id}</td>

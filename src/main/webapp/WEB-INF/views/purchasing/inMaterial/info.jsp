@@ -8,13 +8,66 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
+<style type="text/css">
+table {
+margin-bottom: 1em;
+margin-left:auto; 
+margin-right:auto;}
+
+table, th {border: none;}
+
+th {background-color: #04AA6D;
+color: #fff;
+text-align: center;
+padding: 10px 8px;}
+
+td {border:1px solid #04AA6D;
+text-align: center;
+padding: 10px 6px;}
+
+#tb-btns {margin-left: 0.5em;
+float: right;}
+
+.btn{
+display: inline-block;
+font-weight: 600;
+line-height: 1;
+color: #6c7293;
+text-align: center;
+text-decoration: none;
+vertical-align: middle;
+cursor: pointer;
+user-select: none;
+background-color: transparent;
+border: 1px solid transparent;
+padding: 0.625rem 1.125rem;
+font-size: 0.875rem;
+border-radius: 0.25rem;
+transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;}
+    
+.btn-success {
+color: #000;
+background-color: #0ddbb9;
+border-color: #0ddbb9;}
+
+.btn-info {
+color: #000;
+background-color: #2fddf8;
+border-color: #23dbf8;}
+/* .btn {background-color: #048; */
+/* padding:8px 10px; */
+/* color: #fff;} */
+
+
+</style>
 </head>
 <body>
 
-<h1>입고 상세 보기</h1>
+<h1 style="text-align: center;">입고 상세 보기</h1>
 
-<button>엑셀파일</button>
-<button class="print-button" onclick="info_print()">인쇄하기</button>
+<button class="btn btn-success">엑셀파일</button>
+<button class="btn btn-success print-button" onclick="info_print()">인쇄하기</button>
 	<script>
 		/// 인쇄하기 버튼
 		function info_print() {

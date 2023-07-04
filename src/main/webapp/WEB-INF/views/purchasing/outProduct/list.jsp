@@ -37,6 +37,7 @@
 	   <th>품명</th>
 	   <th>주문수량</th>
 	   <th>상품재고</th>
+	   <th>재고확인</th>
 	   <th>납기일자</th>
 	   <th>진행현황</th>
 	   <th>출고일자</th>
@@ -55,7 +56,7 @@
 		    <td>${op.cont_id }</td>
 		    <td>
 		    	<a href="info?cont_id=${op.cont_id }"
-		    		onclick="window.open(this.href, '_blank', 'width=900, height=350, left=510, top=365'); return false;">
+		    		onclick="window.open(this.href, '_blank', 'width=850, height=400, left=510, top=365'); return false;">
 		    			<img class="viewDetail" src="${pageContext.request.contextPath}/resources/images/viewDetail.png" width="10px" height="10px" alt="image" />
 		    	</a>
 		    </td>
@@ -63,6 +64,16 @@
 		    <td>${op.product_name }</td>
 		    <td>${op.cont_qty }</td>
 		    <td>${op.product_qty }</td>
+		    <td>
+		    	<c:choose>
+		    		<c:when test="${op.product_qty - op.cont_qty >= 0 }">
+		    			<span style="color:blue">출고가능</span>
+		    		</c:when>
+		    		<c:when test="${op.product_qty - op.cont_qty < 0 }">
+		    			<span style="color:red">출고불가</span>
+		    		</c:when>
+		    	</c:choose>
+		    </td>
 		    <td>${op.due_date }</td>
 		    <td>${op.op_process}</td>
 		    <td>${op.op_date}</td>

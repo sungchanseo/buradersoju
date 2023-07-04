@@ -8,58 +8,62 @@
 
 <!-- 생산 목록 -->
 	<select id="getProductionList" resultType="com.itwillbs.domain.ProductionVO">
-<!-- 		SELECT * FROM production  -->
-<!-- 		JOIN product ON production.product_id = product.product_id -->
-<!-- 		LEFT JOIN pr_complete ON production.production_id = pr_complete.production_id -->
-		SELECT production.*, product.*, pr_complete.*, employee.emp_name
-		FROM production
-		JOIN product ON production.product_id = product.product_id
-		JOIN employee ON production.production_emp = employee.emp_id
-		LEFT JOIN pr_complete ON production.production_id = pr_complete.production_id
+<!-- 		SELECT pd.production_id, pd.production_line, pd.product_id, p.product_name, pd.plan_qty, pc.production_qty, pc.complete_defQty, e.emp_name, pc.production_status, pc.complete_date  -->
+<!-- 		FROM production pd -->
+<!-- 		JOIN product p ON pd.product_id = p.product_id -->
+<!-- 		JOIN employee e ON pd.production_emp = e.emp_id -->
+<!-- 		LEFT JOIN pr_complete pc ON pd.production_id = pc.production_id -->
+		SELECT pd.production_id, pd.production_line, pd.product_id, p.product_name, pd.plan_qty, e.emp_name, pc.* 
+		FROM production pd
+		JOIN product p ON pd.product_id = p.product_id
+		JOIN employee e ON pd.production_emp = e.emp_id
+		LEFT JOIN pr_complete pc ON pd.production_id = pc.production_id
 	</select>
 <!-- 생산 목록 -->
 
 <!-- 생산 등록 -->
 	<!-- 작업지시번호 조회 -->
-	<select id="insertSearch" resultType="com.itwillbs.domain.ProductionVO">
-<!-- 		SELECT pd.production_id, pd.production_emp, pd.production_date, pd.production_line, pd.product_id, p.product_name, pd.plan_qty, e.emp_name, pc.production_status -->
-<!-- 		FROM production pd -->
-<!-- 		JOIN product p ON pd.product_id = p.product_id -->
-<!-- 		JOIN employee e ON pd.production_emp = e.emp_id -->
-<!-- 		LEFT JOIN pr_complete pc ON pd.production_id = pc.production_id -->
-<!-- 		WHERE pd.production_id = #{production_id} -->
+	  <select id="insertSearch" resultType="com.itwillbs.domain.ProductionVO">
 		SELECT pd.production_id, pd.production_emp, pd.production_date, pd.production_line, pd.product_id, p.product_name, pd.plan_qty, e.emp_name, pc.production_status
 		FROM production pd
 		JOIN product p ON pd.product_id = p.product_id
 		JOIN employee e ON pd.production_emp = e.emp_id
-		LEFT JOIN (
-		    SELECT production_id, production_status
-		    FROM pr_complete
-		    ORDER BY CASE production_status
-		        WHEN '포장' THEN 1
-		        WHEN '주입' THEN 2
-		        WHEN '혼합' THEN 3
-		        ELSE 4
-		    END
-		    LIMIT 1
-		) pc ON pd.production_id = pc.production_id
+		LEFT JOIN pr_complete pc ON pd.production_id = pc.production_id
 		WHERE pd.production_id = #{production_id}
-	</select>
+	  </select>
 	<!-- 작업지시번호 조회 -->
-	<!-- DB 등록 -->
-<!-- 	<update id="insert"> -->
-<!-- 		UPDATE production -->
-<!-- 		SET production_status = #{production_status}, production_qty = #{production_qty} -->
-<!-- 		WHERE production_id = #{production_id} -->
-<!-- 	</update> -->
-		<insert id="insert">
-		INSERT INTO pr_complete 
-		(complete_id, production_id, complete_date, production_status, def_code, complete_defQty)
-		VALUES
-	    (#{complete_id}, #{production_id}, #{complete_date}, #{production_status}, #{def_code}, #{complete_defQty})
-		</insert>
 	
-	<!-- DB 등록 -->
+	<!-- [혼합] DB 등록 -->
+	  <insert id="insertStage1">
+		INSERT INTO pr_complete 
+		(production_id, production_status, stage1_defCode, stage1_defQty, stage1_date)
+		VALUES
+	    (#{production_id}, #{production_status}, #{stage1_defCode}, ${stage1_defQty}, now())
+	  </insert>
+	<!-- [혼합] DB 등록 -->
+	
+	<!-- [주입] DB 등록 -->
+	  <update id="insertStage2" parameterType="com.itwillbs.domain.ProductionVO">
+	 	UPDATE pr_complete 
+		SET production_status = #{production_status}, stage2_defCode = #{stage2_defCode}, stage2_defQty = #{stage2_defQty}, stage2_date = now()
+		WHERE production_id = #{production_id};
+	  </update>
+	<!-- [주입] DB 등록 -->
+	
+	<!-- [포장] DB 등록 -->
+	  <update id="insertStage3" parameterType="com.itwillbs.domain.ProductionVO">
+	 	UPDATE pr_complete 
+		SET production_status = #{production_status}, stage3_defCode = #{stage3_defCode}, stage3_defQty = #{stage3_defQty}, stage3_date = now()
+		WHERE production_id = #{production_id};
+	  </update>
+	  
+	  <update id="updateProductionQty" parameterType="com.itwillbs.domain.ProductionVO">
+	    UPDATE pr_complete pc
+        JOIN production pd ON pc.production_id = pd.production_id
+		SET pc.production_qty = pd.plan_qty - (pc.stage1_defQty + pc.stage2_defQty + pc.stage3_defQty)
+		WHERE pc.production_id = #{production_id};
+	  </update>
+	<!-- [포장] DB 등록 -->
 <!-- 생산 등록 -->
 
 

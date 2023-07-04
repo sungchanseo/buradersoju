@@ -54,5 +54,18 @@ public class WarehouseDAOImpl implements WarehouseDAO{
 		return sqlSession.delete(NAMESPACE+".removeWarehouse",whs_id);
 	}
 
+	@Override
+	public String getMaxNumber() throws Exception {
+         logger.debug("자동넘버리일일일이");
+         return sqlSession.selectOne(NAMESPACE+".getMaxNumber");
+	}
+
+	@Override
+	public WarehouseVO regisWhsId(String whs_id) throws Exception {
+	
+		return sqlSession.selectOne(NAMESPACE+".registWhsid", whs_id);
+	}
+
+	
 	
 }

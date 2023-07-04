@@ -20,6 +20,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistration;
 
 import com.itwillbs.domain.MaterialVO;
 import com.itwillbs.domain.OrderVO;
+import com.itwillbs.domain.PagingVO;
 import com.itwillbs.service.MaterialService;
 import com.itwillbs.service.OrderService;
 
@@ -38,7 +39,7 @@ public class OrderController {
 	// http://localhost:8088/purchasing/order/list
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 
-	public String orderListGET(Model model, OrderVO vo,
+	public String orderListGET(Model model, OrderVO vo, PagingVO pvo,
 			 HttpServletRequest request, HttpSession session) throws Exception {
 
 		logger.debug("@@@@@orderList 호출@@@@@");
@@ -48,6 +49,23 @@ public class OrderController {
 
 		String maxNumber = orserivce.getMaxNumber();
 		String maxDate = orserivce.getMaxDate();
+		
+		// 리스트 출력 (페이징처리)
+				List<Object> inMaterialList = null;
+				pvo = orserivce.pagingAction(pvo);
+				logger.debug("@@@@@@@@@@ pvo : {}", pvo);
+				
+				
+				// 검색로직
+				if(pvo.getSelector()!=null && pvo.getSelector()!="") {
+					//검색어가 있을 때 
+					logger.debug("@@@@@@@@@@ 검색어가 있을 때");
+					inMaterialList = orserivce.getListSearchObjectInMaterialVO(pvo);
+				}else {
+					//검색어가 없을 때
+					logger.debug("@@@@@@@@@@ 검색어가 없을 때");
+					inMaterialList = orserivce.getListPageSizeObjectInMaterialVO(pvo);
+				}
 
 		// 로그인 세션 제어
 		if(session.getAttribute("emp_id") == null) {
@@ -59,7 +77,8 @@ public class OrderController {
 		// View페이지 정보 전달
 		logger.debug("@@@@@@@@@@@@@@ maxNumber = " + maxNumber);
 		logger.debug("@@@@@@@@@@@@@@ maxDate = " + maxDate);
-
+		
+		model.addAttribute("pvo", pvo);
 		model.addAttribute("maxNumber", maxNumber);
 		model.addAttribute("maxDate", maxDate);
 		model.addAttribute("orderList", orderList);
@@ -82,21 +101,21 @@ public class OrderController {
 		return "redirect:/purchasing/order/list";
 	}
 
-// http://localhost:8088/purchasing/order/list
-	@RequestMapping(value = "/lists", method = RequestMethod.GET)
-	@ResponseBody
-	public List<OrderVO> modifyOrderGET2(Model model, String ma_id) throws Exception {
-
-		logger.debug("ma_id" + ma_id);
-
-		// 테이블의 정보를 가져와서 모델에 추가
-		List<OrderVO> orderLists = orserivce.getMaterialList(ma_id);
-
-		model.addAttribute("orderLists", orderLists);
-		logger.debug("orderLISTssssssssss가져와지나???");
-
-		return orderLists;
-	}
+//// http://localhost:8088/purchasing/order/list
+//	@RequestMapping(value = "/lists", method = RequestMethod.GET)
+//	@ResponseBody
+//	public List<OrderVO> modifyOrderGET2(Model model, String ma_id) throws Exception {
+//
+//		logger.debug("ma_id" + ma_id);
+//
+//		// 테이블의 정보를 가져와서 모델에 추가
+//		List<OrderVO> orderLists = orserivce.getMaterialList(ma_id);
+//
+//		model.addAttribute("orderLists", orderLists);
+//		logger.debug("orderLISTssssssssss가져와지나???");
+//
+//		return orderLists;
+//	}
 
 	// 발주 수정 (조회)
 	// http://localhost:8088/purchasing/order/list
@@ -140,6 +159,7 @@ public class OrderController {
 		logger.debug("@@@@@@@@@@ 삭제 된 행의 수 : " + result);
 	}
 
+	// 발주시 ma_id 값에 맞는 정보 가져오기
 	@RequestMapping(value = "/{ma_id}", method = RequestMethod.GET)
 	@ResponseBody
 	public MaterialVO getMaterialInfoByMaid(@PathVariable String ma_id) throws Exception {
@@ -149,13 +169,5 @@ public class OrderController {
 
 		return  materialvo;
 	}
-	//	@RequestMapping(value = "/{order_qty}", method = RequestMethod.GET)
-	//	@ResponseBody
-	//	public OrderVO getOrderInfoByMaid(@PathVariable String order_qty) throws Exception {
-	//
-	//		logger.debug("@@@@@@@@@@ getMaterialGET_호출");
-	//	//	MaterialVO OrderVO = orserivce;
-	//
-	//		return  null;
-	//	}
+	
 }

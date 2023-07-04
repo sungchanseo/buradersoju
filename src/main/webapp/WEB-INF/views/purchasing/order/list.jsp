@@ -229,6 +229,7 @@ $(function() {
         	  $("#ma_name").val(data.ma_name)
          	  $("#order_sum").val(data.unit_cost*obj.in_order_qty)
         	  $("#order_vat").val(data.unit_cost*obj.in_order_qty/100)
+        	  $("#whs_id").val(data.whs_id)
         	 // $("#ma_name").val(data.ma_name)
         	 
               
@@ -485,6 +486,18 @@ table tr>td:nth-of-type(1) {width:50px !important;
 </style>
 </head>
 <body>
+
+<h1 class="card-title">
+		<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">발주 리스트</font></font>
+	</h1>
+<!-- 검색 기능 -->
+	<form action="/purchasing/order/list" method="get" style="display: inline;">
+		<select name="selector">
+			<option value="ma_name">자재명</option>
+		</select> <input type="text" class="form-control" style="width:10%; display:inline;" name="search" placeholder="검색어를 입력해주세요">
+		<input type="submit"  class="btn btn-info" value="검색">
+	</form>
+	<br>
 <!-- 버튼 -->
     <c:if test="${emp_department.equals('구매팀')}">    
     <button class="btn btn-info writeForm true" >등록</button>
@@ -537,6 +550,25 @@ table tr>td:nth-of-type(1) {width:50px !important;
 		</table>
 		
  </div>
+ 
+ <!-- 	페이징 처리  -->
+	<div class="template-demo">
+		<div class="btn-group" role="group" aria-label="Basic example">
+			<c:if test="${pvo.startPage > pvo.pageBlock }">
+				<a href="/purchasing/order/list?pageNum=${pvo.startPage-pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">이전</a>
+			</c:if>
+			
+			<c:forEach var="i" begin="${pvo.startPage }" end="${pvo.endPage }" step="1">
+				<a href="/purchasing/order/list?pageNum=${i }&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">${i }</a>
+			</c:forEach>
+			
+			<c:if test="${pvo.endPage<pvo.pageCount }">
+				<a href="/purchasing/order/list?pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">다음</a>
+			</c:if>
+		</div>
+	</div>
+<!-- 	페이징 처리  -->
+ 
  <%@ include file="../../includes/footer.jsp" %>
 </body>
 </html>

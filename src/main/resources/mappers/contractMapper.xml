@@ -45,5 +45,12 @@
 		WHERE cont_id=#{cont_id}
 	</update>
 <!-- contract 삭제하기 	 -->
+
+<!-- cont_id를 out_product테이블에 넣기 -->
+	<insert id="contIdInsert">
+		insert into out_product (cont_id) 
+		values (#{cont_id})
+	</insert>
+<!-- cont_id를 out_product테이블에 넣기 -->
 	
 </mapper>

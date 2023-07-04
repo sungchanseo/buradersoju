@@ -57,7 +57,7 @@
 <!-- 									</p> -->
                                     <!-- 카테고리 기능 -->
 																
-									<c:if test="${emp_department.equals('인사팀') || emp_department.equals('인사') }">
+									<c:if test="${emp_department.equals('인사팀') || emp_department.equals('Master') }">
 										<input type="button" class="btn btn-success" value="사원등록" onclick="insertPop()">
 									</c:if>
 									
@@ -74,7 +74,7 @@
 											<tr>
 												<td>
 													<input class="btn btn-dark btn-rounded btn-fw" type="button" value="${vo.emp_id }" 
-														<c:if test="${emp_department.equals('인사팀') || emp_department.equals('인사') }">
+														<c:if test="${emp_department.equals('인사팀') || emp_department.equals('Master') }">
 															onclick="infoPop(${vo.emp_id})"
 														</c:if>
 													>

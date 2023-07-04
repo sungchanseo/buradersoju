@@ -212,6 +212,8 @@ public class CustomerController {
 		logger.debug("emp_department 호출", session.getAttribute("emp_department"));
 //		return null;
 	}
+	
+	//직원정보 검색 맵핑
 	@ResponseBody
 	@RequestMapping(value="/empInfo", method = RequestMethod.GET)
 	public EmployeeVO getEmpInfo(@RequestParam("emp_id") String emp_id) throws Exception{

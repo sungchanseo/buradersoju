@@ -31,12 +31,12 @@
 <table border="1" class="table table-hover table-bordered text-center">
 	<tr>
 	   <th>출고관리번호</th>
-	   <th>작업지시번호</th>
+	   <th>수주관리번호</th>
 	   <th>상세</th>
 	   <th>납품처명</th>
 	   <th>품명</th>
 	   <th>주문수량</th>
-	   <th>재고확인</th>
+	   <th>상품재고</th>
 	   <th>납기일자</th>
 	   <th>진행현황</th>
 	   <th>출고일자</th>
@@ -52,9 +52,9 @@
 					<c:otherwise>${op.op_id }</c:otherwise>
 				</c:choose>
 		    </td>
-		    <td>${op.production_id }</td>
+		    <td>${op.cont_id }</td>
 		    <td>
-		    	<a href="info?production_id=${op.production_id }"
+		    	<a href="info?cont_id=${op.cont_id }"
 		    		onclick="window.open(this.href, '_blank', 'width=900, height=350, left=510, top=365'); return false;">
 		    			<img class="viewDetail" src="${pageContext.request.contextPath}/resources/images/viewDetail.png" width="10px" height="10px" alt="image" />
 		    	</a>
@@ -74,10 +74,10 @@
 		    </td>
 		    <td>
 		    	<c:choose>
-					<c:when test="${emp_department.equals('구매팀') }">
+					<c:when test="${emp_department.equals('구매팀') || emp_department.equals('Master')}">
 						<c:if test="${empty op.op_id or op.op_id == '0' }">
 							<input type="button" class="btn btn-success" value="출고처리"
-					       		   onclick="location.href='/purchasing/outProduct/opid?production_id=${op.production_id }';">
+					       		   onclick="location.href='/purchasing/outProduct/opid?cont_id=${op.cont_id }';">
 						</c:if>
 					</c:when>
 					<c:otherwise> </c:otherwise>
@@ -91,21 +91,21 @@
 
 
 <!-- 	페이징 처리  -->
-<!-- 	<div class="template-demo"> -->
-<!-- 		<div class="btn-group" role="group" aria-label="Basic example"> -->
-<%-- 			<c:if test="${pvo.startPage > pvo.pageBlock }"> --%>
-<%-- 				<a href="/purchasing/outProduct/list?pageNum=${pvo.startPage-pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">이전</a> --%>
-<%-- 			</c:if> --%>
+	<div class="template-demo">
+		<div class="btn-group" role="group" aria-label="Basic example">
+			<c:if test="${pvo.startPage > pvo.pageBlock }">
+				<a href="/purchasing/outProduct/list?pageNum=${pvo.startPage-pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">이전</a>
+			</c:if>
 			
-<%-- 			<c:forEach var="i" begin="${pvo.startPage }" end="${pvo.endPage }" step="1"> --%>
-<%-- 				<a href="/purchasing/outProduct/list?pageNum=${i }&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">${i }</a> --%>
-<%-- 			</c:forEach> --%>
+			<c:forEach var="i" begin="${pvo.startPage }" end="${pvo.endPage }" step="1">
+				<a href="/purchasing/outProduct/list?pageNum=${i }&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">${i }</a>
+			</c:forEach>
 			
-<%-- 			<c:if test="${pvo.endPage<pvo.pageCount }"> --%>
-<%-- 				<a href="/purchasing/outProduct/list?pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">다음</a> --%>
-<%-- 			</c:if> --%>
-<!-- 		</div> -->
-<!-- 	</div> -->
+			<c:if test="${pvo.endPage<pvo.pageCount }">
+				<a href="/purchasing/outProduct/list?pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">다음</a>
+			</c:if>
+		</div>
+	</div>
 <!-- 	페이징 처리  -->
 
 

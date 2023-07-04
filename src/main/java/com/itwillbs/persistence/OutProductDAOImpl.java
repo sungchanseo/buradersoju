@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.itwillbs.domain.InMaterialVO;
 import com.itwillbs.domain.OutProductVO;
+import com.itwillbs.domain.PagingVO;
 
 
 
@@ -44,9 +45,9 @@ public class OutProductDAOImpl implements OutProductDAO {
 	
 	// 2. 출고 상세보기
 	@Override
-	public OutProductVO getOutProductInfo(String production_id) throws Exception{
+	public OutProductVO getOutProductInfo(String cont_id) throws Exception{
 		logger.debug("########## getOutProductInfo 호출");
-		return sqlSession.selectOne(NAMESPACE+".getOutProductInfo", production_id);
+		return sqlSession.selectOne(NAMESPACE+".getOutProductInfo", cont_id);
 	}
 
 	// 3-1. 출고번호 최대값 (maxNumber) 230620004
@@ -82,13 +83,63 @@ public class OutProductDAOImpl implements OutProductDAO {
 	
 	
 	
+	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ페이징처리ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+	// 1. 개수 가져오기
+	// 전체 목록 개수
+	@Override
+	public int getListAll(PagingVO pvo) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+".getListAll", pvo);
+	}
+	
+	// 아무조건이 없을 때 전체 목록 개수
+	@Override
+	public int getListPageSizeAll(PagingVO pvo) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+".getListPageSizeAll", pvo);
+	}
+	
+	// 검색어 있을 때 목록 개수 	
+	@Override
+	public int getListSearchAll(PagingVO pvo) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+".getListSearchAll", pvo);
+	}
+	
+	// 필터있을때 전체 목록 개수	
+	@Override
+	public int getListFilterAll(PagingVO pvo) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+".getListFilterAll", pvo);
+	}
+	
+	// 검색어와 필터 모두 있을 때 전체 목록 개수
+	@Override
+	public int getListSearchFilterAll(PagingVO pvo) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+".getListFilterAll", pvo);
+	}
 	
 	
+	// 2. 객체 가져오기
+	// 아무조건이 없을 때 전체 목록 객체
+	@Override
+	public List<Object> getListPageSizeObjectOutProductVO(PagingVO pvo) throws Exception {
+		return sqlSession.selectList(NAMESPACE+".getListPageSizeObjectOutProductVO", pvo);
+	}
 	
+	// 검색어 있을 때 목록 객체	
+	@Override
+	public List<Object> getListSearchObjectOutProductVO(PagingVO pvo) throws Exception {
+	logger.debug("****************PagingDAO : getListSearchObject()메소드 호출!");
+		return sqlSession.selectList(NAMESPACE+".getListSearchObjectOutProductVO", pvo);
+	}
 	
+	// 필터있을 때 전체 목록 객체
+	@Override
+	public List<Object> getListFilterObjectOutProductVO(PagingVO pvo) throws Exception {
+		return sqlSession.selectList(NAMESPACE+".getListFilterObjecOutProductVO",pvo);
+	}
 	
-	
-	
-	
-	
+	// 검색어와 필터 모두 있을 때 전체 목록 개수
+	@Override
+	public List<Object> getListSearchFilterObjectOutProductVO(PagingVO pvo) throws Exception {
+		return sqlSession.selectList(NAMESPACE+".getListSearchFilterObjectOutProductVO", pvo);
+	}
+
 }

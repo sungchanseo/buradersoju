@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.itwillbs.domain.ContractVO;
 import com.itwillbs.persistence.ContractDAO;
+import com.itwillbs.service.ContractService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/spring/root-context.xml"})
@@ -19,6 +20,8 @@ public class ContractDAOTest {
 	 
 	 @Autowired
 	 private ContractDAO cdao;
+	 @Autowired
+	 private ContractService cservice;
 	 
 //	 @Test
 	 public void insertContract() throws Exception{
@@ -49,5 +52,13 @@ public class ContractDAOTest {
 		 logger.debug("^^^^^^^^^^^^^^^^ContractDAOTest : 테스트 시작합니다!");
 		 
 		 cdao.deleteContract("CO20230101008");
+	 }
+	 
+	 @Test
+	 public void 수주번호출고테이블에넣기() throws Exception{
+		 logger.debug("^^^^^^^^^^^^^^^^ContractDAOTest : 테스트 시작합니다!");
+		 String cont_id = cservice.contIdCount();
+		 cdao.contIdInsert(cont_id);
+		 
 	 }
 }

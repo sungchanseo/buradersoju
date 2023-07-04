@@ -18,4 +18,7 @@ public interface ContractDAO {
 	
 	//수주 삭제하기 
 	public Integer deleteContract(String cont_id) throws Exception;
+	
+	//cont_id 를 out_product 테이블에 넣기 
+	public void contIdInsert(String cont_id) throws Exception;
 }

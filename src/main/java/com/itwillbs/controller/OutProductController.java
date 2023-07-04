@@ -11,9 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import com.itwillbs.domain.InMaterialVO;
 import com.itwillbs.domain.OutProductVO;
+import com.itwillbs.domain.PagingVO;
 import com.itwillbs.service.OutProductService;
 
 
@@ -42,7 +41,7 @@ public class OutProductController {
 	
 	// 1. 출고 리스트 출력
 	@RequestMapping(value ="/list", method = RequestMethod.GET)
-	public String outProductListGET(Model model,
+	public String outProductListGET(Model model, PagingVO pvo,
 								    HttpServletRequest request, HttpSession session) throws Exception{
 		
 		logger.debug("@@@@@@@@@@@@@@@ outProductListGET 호출");
@@ -53,9 +52,28 @@ public class OutProductController {
 		}
 	
 	    // 리스트 출력 (페이징처리 X)
-		List<OutProductVO> outproductList = oService.getOutProductList();
+//		List<OutProductVO> outproductList = oService.getOutProductList();
+		
+		
+		// 리스트 출력 (페이징처리 O)
+		List<Object> outproductList = null;
+		pvo = oService.pagingAction(pvo);
+		logger.debug("@@@@@@@@@@ pvo : {}", pvo);
+		
+		// 검색로직
+		if(pvo.getSelector()!=null && pvo.getSelector()!="") {
+			//검색어가 있을 때 
+			logger.debug("@@@@@@@@@@ 검색어가 있을 때");
+			outproductList = oService.getListSearchObjectOutProductVO(pvo);
+		}else {
+			//검색어가 없을 때
+			logger.debug("@@@@@@@@@@ 검색어가 없을 때");
+			outproductList = oService.getListPageSizeObjectOutProductVO(pvo);
+		}
+		
 		
 		// View 페이지 전달
+		model.addAttribute("pvo", pvo);
 		model.addAttribute("outproductList", outproductList);
 		model.addAttribute("emp_department", session.getAttribute("emp_department"));
 		
@@ -90,12 +108,12 @@ public class OutProductController {
 	
 	// 3. 출고 상세보기
 	@RequestMapping(value = "/info", method=RequestMethod.GET)
-	public void getOutProductInfo(Model model, @RequestParam("production_id") String production_id) throws Exception{
+	public void getOutProductInfo(Model model, @RequestParam("cont_id") String cont_id) throws Exception{
 		logger.debug("@@@@@@@@@@ getOutProductInfo()_호출");
 		
-		OutProductVO info = oService.getOutProductInfo(production_id);
+		OutProductVO info = oService.getOutProductInfo(cont_id);
 		logger.debug("@@@@@@@@@@ 출고 상세보기 데이터 : " + info);
-		model.addAttribute("resultVO", info);
+		model.addAttribute("info", info);
 	}
 	
 	

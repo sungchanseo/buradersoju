@@ -12,8 +12,8 @@
 
 	<!-- 글쓰기 -->
 	<insert id="create"> 
-	insert into notice(notice_title,notice_writer,notice_content)
-		values(#{notice_title},#{notice_writer},#{notice_content}) 
+	insert into notice(notice_title,notice_writer,notice_content,notice_file)
+		values(#{notice_title},#{notice_writer},#{notice_content},#{notice_file}) 
 	</insert>
 	<!-- 글쓰기 -->
 	
@@ -39,7 +39,7 @@
 	
 	 <!-- 공지 수정 -->
      <update id="update">
-         update notice set notice_title=#{notice_title},notice_content=#{notice_content},notice_regdate=now()  
+         update notice set notice_title=#{notice_title},notice_content=#{notice_content},notice_file=#{notice_file},notice_regdate=now()  
          where notice_id=#{notice_id}
      </update>
      <!-- 공지 수정 -->

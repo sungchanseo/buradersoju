@@ -96,6 +96,9 @@ public class OrderServiceImpl implements OrderService {
 		
 	}
 
+	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ페이징처리ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+	
+    // 0. 페이징처리 세부로직
 	@Override
 	public PagingVO pagingAction(PagingVO pvo) throws Exception {
 		

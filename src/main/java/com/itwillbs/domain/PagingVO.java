@@ -70,6 +70,10 @@ public class PagingVO {
 	private Date in_date;
 	private int in_emp;
 	
+	// Join문을 위한 [orders] 테이블 변수 선언
+	
+	
+	
 	
 	public OutProductVO getOutProductVO() {
 		return OutProductVO;

@@ -47,6 +47,13 @@ public class OrderController {
 		List<OrderVO> orderList = orserivce.getOrderList();
 		logger.debug("@@@@@@@@@@ getOrderIdGET() 호출");
 
+		// 로그인 세션 제어
+				if(session.getAttribute("emp_id") == null) {
+					
+				return "redirect:/main/login";
+				
+				}
+				
 		String maxNumber = orserivce.getMaxNumber();
 		String maxDate = orserivce.getMaxDate();
 		
@@ -55,9 +62,9 @@ public class OrderController {
 				pvo = orserivce.pagingAction(pvo);
 				logger.debug("@@@@@@@@@@ pvo : {}", pvo);
 				
-				
 				// 검색로직
 				if(pvo.getSelector()!=null && pvo.getSelector()!="") {
+					
 					//검색어가 있을 때 
 					logger.debug("@@@@@@@@@@ 검색어가 있을 때");
 					inMaterialList = orserivce.getListSearchObjectInMaterialVO(pvo);
@@ -67,17 +74,14 @@ public class OrderController {
 					inMaterialList = orserivce.getListPageSizeObjectInMaterialVO(pvo);
 				}
 
-		// 로그인 세션 제어
-		if(session.getAttribute("emp_id") == null) {
-			
-		return "redirect:/main/login";
 		
-		}
 		
 		// View페이지 정보 전달
 		logger.debug("@@@@@@@@@@@@@@ maxNumber = " + maxNumber);
 		logger.debug("@@@@@@@@@@@@@@ maxDate = " + maxDate);
 		
+		
+		model.addAttribute("inMaterialList", inMaterialList);
 		model.addAttribute("pvo", pvo);
 		model.addAttribute("maxNumber", maxNumber);
 		model.addAttribute("maxDate", maxDate);

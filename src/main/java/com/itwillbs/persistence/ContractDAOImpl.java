@@ -55,6 +55,13 @@ public class ContractDAOImpl implements ContractDAO {
 		return sqlSession.update(NAMESPACE+".deleteContract", cont_id);
 	}
 
+
+	//cont_id 를 out_product 테이블에 넣기 
+	@Override
+	public void contIdInsert(String cont_id) throws Exception {
+		logger.debug("##########ContractDAO : contIdInsert 메소드 호출!");
+		sqlSession.insert(NAMESPACE+".contIdInsert", cont_id);
+	}
 	
 
 }

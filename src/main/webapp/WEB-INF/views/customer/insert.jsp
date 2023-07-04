@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-
 <html>
 <head>
 <meta charset="UTF-8">
@@ -12,7 +11,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/base/vendor.bundle.base.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main/fullcalendar-5.11.4/lib/main.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
-	
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />	
 	<style type="text/css">
 		table {
 			margin-bottom: 1em;
@@ -176,7 +175,7 @@
 			if(empPop == null){
 				  alert("팝업이 차단되었습니다. 차단을 해제하세요.");
 			  }
-		  openPop.moveBy(100,100);
+			empPop.moveBy(100,100);
 		}//empPop END
 		
 // 		//자식창에서 얻은 정보 가져오기 

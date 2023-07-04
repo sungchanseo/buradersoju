@@ -28,7 +28,7 @@
 		<!-- 검색창기능 -->
 		
 		<!-- 영업팀이 아닐때 버튼 감추기 -->
-		<c:if test="${emp_department.equals('영업') || emp_department.equals('영업팀')}">
+		<c:if test="${emp_department.equals('영업') || emp_department.equals('영업팀') || emp_department.equals('Master')}">
 			<input type="button" value="거래처등록" class="btn btn-success" onclick="insertPop();"> 
 			<input type="button" value="거래처삭제"  class="btn btn-success" id="btnD" onclick="removeChecked();">
 		</c:if>

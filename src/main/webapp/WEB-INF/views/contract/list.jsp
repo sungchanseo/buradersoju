@@ -32,7 +32,7 @@
 		<!-- 검색창기능 -->
 
 		<!-- 영업팀이 아닐때 버튼 감추기 -->
-		<c:if test="${emp_department.equals('영업') || emp_department.equals('영업팀')}">
+		<c:if test="${emp_department.equals('영업') || emp_department.equals('영업팀') || emp_department.equals('Master')}">
 			<button type="button" class="btn btn-success" onclick="openPop();">수주등록</button>
 		</c:if>
 			<button type="button" class="btn btn-light">엑셀다운</button>

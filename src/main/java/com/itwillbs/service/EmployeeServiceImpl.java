@@ -29,7 +29,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 		pvo.setPageSize(8);
 		pvo.setStartRow(1);
 		pvo.setStatus_name("emp_status");
-		pvo.setStatus_value("%직");
+		pvo.setStatus_value("재직");
 		
 		//페이지 계산을 위해서 pageingSerivce의 메소드 호출 
 		pvo = pageService.pagingAction(pvo);

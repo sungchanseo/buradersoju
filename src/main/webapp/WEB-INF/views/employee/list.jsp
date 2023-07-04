@@ -69,6 +69,7 @@
 											<th>직급</th>
 											<th>입사일</th>
 											<th>내선번호</th>
+											<th>재직구분</th>
 										</tr>
 										<c:forEach var="vo" items="${employeeList }">
 											<tr>
@@ -84,6 +85,7 @@
 												<td>${vo.emp_position }</td>
 												<td>${vo.join_date }</td>
 												<td>${vo.emp_tel }</td>
+												<td>${vo.emp_status }</td>
 											</tr>
 										</c:forEach>
 									</table>

@@ -60,6 +60,12 @@ public class WarehouseServiceImpl implements WarehouseService  {
 		return wdao.regisWhsId(whs_id);
 	}
 
+	@Override
+	public String getMaxprNumber() throws Exception {
+		
+		return wdao.getMaxprNumber();
+	}
+
 	
 }
 

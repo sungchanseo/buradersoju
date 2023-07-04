@@ -25,8 +25,8 @@
 
 <!-- 창고 등록 -->
 	<insert id ="warehouseInsert">
-		INSERT INTO warehouse (whs_id, whs_type, whs_tel, whs_status, whs_emp)
-		VALUES (#{whs_id} ,#{whs_type}, #{whs_tel}, #{whs_status}, #{whs_emp})
+		INSERT INTO warehouse (whs_id, whs_type, whs_tel, whs_status, whs_emp, whspr_id)
+		VALUES (#{whs_id} ,#{whs_type}, #{whs_tel}, #{whs_status}, #{whs_emp}, #{whspr_id})
 	</insert>
 <!-- 창고 등록 -->
 
@@ -61,9 +61,9 @@
    </select>
 <!-- 품목코드 최대 값 (maxNumber) 007 -->
   <!-- 품목코드 최대 값 (maxNumber) 007 -->
-   <select id="getMaxNumber" resultType="String">
+   <select id="getMaxprNumber" resultType="String">
       	SELECT MAX((SUBSTRING(whspr_id, 3)))
-		FROM warehouse;
+		FROM warehouse;	
    </select>
 <!-- 품목코드 최대 값 (maxNumber) 007 -->
         

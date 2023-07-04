@@ -95,7 +95,7 @@ $('.modify').click(function(){
 					var whs_id = tdArr[0];
 					var whs_type = $('#whs_type').val();
 					var whs_tel = $('#whs_tel').val();
-					var whs_status = $('#whs_status').val();
+					var whs_status = $("input[name='whs_status']:checked").val();
 					var whs_emp = $('#whs_emp').val();
 	
 								

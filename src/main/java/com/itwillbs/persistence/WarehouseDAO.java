@@ -27,6 +27,9 @@ public interface WarehouseDAO {
 	
 	// 창고 품목코드 자동넘버링
 	public String getMaxNumber() throws Exception;
+	
+	// 창고 품목코드 자동넘버링2
+	public String getMaxprNumber() throws Exception;
 
     // 창고수정하기위한 아이디 가져오기
 	public WarehouseVO regisWhsId(String whs_id) throws Exception;

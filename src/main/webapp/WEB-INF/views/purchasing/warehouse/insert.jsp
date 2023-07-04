@@ -25,6 +25,22 @@ function addNumber(){
 	console.log("************ 포매팅 nextNumber =  " + nextNumber);	
 	return nextNumber;
 }
+function praddNumber(){	
+	// maxNumber가 없을 때 (품목코드 첫 등록)
+	var prmaxNumber = "${prmaxNumber }";
+	if(prmaxNumber == ""){
+		prmaxNumber = "000";
+		console.log("************ (if)전달받은 prmaxNumber =  " + prmaxNumber);
+	}else{	// 있을 때
+		prmaxNumber = "${prmaxNumber}";
+		console.log("************ (else)전달받은 prmaxNumber =  " + prmaxNumber);
+	}
+	
+	// 다음 번호 생성
+	var prnextNumber = String(Number(prmaxNumber) + 1).padStart(3,'0');
+	console.log("************ 포매팅 prnextNumber =  " + prnextNumber);	
+	return prnextNumber;
+}
 
 // 체크박스 선택된 개수 출력
 function getCheckedCnt()  {
@@ -45,16 +61,26 @@ $(document).ready(function(){
           alert(emp_id);
 
           var nextNumber = addNumber();
-  		  var whs_id = "MW" + nextNumber;
+          var prnextNumber = praddNumber();
+          var whs_id = "MW"+ nextNumber;
   		  console.log("************ 품목코드 = " + whs_id);
           
-          console.log("whs_id : "+whs_id);
-          
-          var whs_id = "MW"+ nextNumber;
+  		  var whspr_id = "PW"+prnextNumber;
           var whs_type	= $("#whs_type").val();
+          console.log(whs_type);
+          if($("#whs_type").val() == "자재"){
+             whs_id = "MW"+ nextNumber;
+             whspr_id = "PW001";
+          }else if($("#whs_type").val() =="상품"){
+        	 whs_id = "PW" +prnextNumber;
+        	 var whspr_id = whs_id;
+          } 
+          console.log("whs_id : "+whs_id);
+          console.log(whs_id);
           var whs_tel = $("#whs_tel").val();
           var whs_status = $("input[name='whs_status']:checked").val();
           var whs_emp = emp_id;
+          
      
   	 	
           
@@ -66,7 +92,8 @@ $(document).ready(function(){
             	     whs_type : whs_type,
             	     whs_tel : whs_tel,
             	     whs_status : whs_status,
-            	     whs_emp : whs_emp 
+            	     whs_emp : whs_emp,
+            	     whspr_id : whspr_id
              },
              success : function(){
             	 alert("등록완료!!");

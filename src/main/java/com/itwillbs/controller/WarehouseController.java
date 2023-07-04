@@ -61,7 +61,10 @@ public class WarehouseController {
 		
 		String maxNumber = wService.getMaxNumber();
 		logger.debug("@@@@@@@@ maxNumber" + maxNumber);
+		
+		String prmaxNumber = wService.getMaxprNumber();
 
+		model.addAttribute("prmaxNumber",prmaxNumber);
 		model.addAttribute("maxNumber" ,maxNumber);
 		return "/purchasing/warehouse/insert";
 	}

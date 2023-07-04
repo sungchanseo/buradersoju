@@ -66,6 +66,12 @@ public class WarehouseDAOImpl implements WarehouseDAO{
 		return sqlSession.selectOne(NAMESPACE+".registWhsid", whs_id);
 	}
 
+	@Override
+	public String getMaxprNumber() throws Exception {
+		 logger.debug("자동넘버리일일일이");
+         return sqlSession.selectOne(NAMESPACE+".getMaxprNumber");
+	}
+
 	
 	
 }

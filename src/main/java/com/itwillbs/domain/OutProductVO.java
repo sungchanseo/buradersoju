@@ -16,6 +16,7 @@ public class OutProductVO {
     // production
     private String production_id;
     private String production_date;
+    private int production_emp;
     
     // product
     private String product_name;
@@ -88,6 +89,12 @@ public class OutProductVO {
 	public void setProduction_date(String production_date) {
 		this.production_date = production_date;
 	}
+	public int getProduction_emp() {
+		return production_emp;
+	}
+	public void setProduction_emp(int production_emp) {
+		this.production_emp = production_emp;
+	}
 	
 
 	// product
@@ -127,6 +134,6 @@ public class OutProductVO {
 				+ op_process + ", op_date=" + op_date + ", op_emp=" + op_emp + ", production_id=" + production_id
 				+ ", production_date=" + production_date + ", product_name=" + product_name + ", product_qty="
 				+ product_qty + ", due_date=" + due_date + ", cont_qty=" + cont_qty + ", cust_name=" + cust_name + "]";
-	}
-
+	}	
+	
 }

@@ -54,7 +54,10 @@
 		    </td>
 		    <td>${op.production_id }</td>
 		    <td>
-		    	<img class="viewDetail" src="${pageContext.request.contextPath}/resources/images/viewDetail.png" width="10px" height="10px" alt="image" />
+		    	<a href="info?production_id=${op.production_id }"
+		    		onclick="window.open(this.href, '_blank', 'width=900, height=350, left=510, top=365'); return false;">
+		    			<img class="viewDetail" src="${pageContext.request.contextPath}/resources/images/viewDetail.png" width="10px" height="10px" alt="image" />
+		    	</a>
 		    </td>
 		    <td>${op.cust_name }</td>
 		    <td>${op.product_name }</td>

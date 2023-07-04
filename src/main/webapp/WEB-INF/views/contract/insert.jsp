@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 </head>
 <body>
-	<h1>수주 등록하기</h1>
+	<h1>수주 등록</h1>
 	<form role="form" id="fr">
 		<table border="1">
 			<tr>
@@ -40,14 +40,48 @@
 				<td><input type="date" name="due_date" onchange="limitDate();" id="due_date"></td>
 			</tr>
 		</table>
-		<input type="submit" class="btn btn-success" value="작성완료">
+		<input type="submit" class="btn btn-success" value="작성완료" onclick="sendForm();">
 		<input type="reset" class="btn btn-success" value="초기화">
 		<input type="button" class="btn btn-light" value="창닫기" onclick="window.close();">
 	</form>
 <!-- 	http://localhost:8088/contract/list -->
 <!-- 	제이쿼리 -->
 	<script>
-	
+	function sendForm() {
+			//상단의 폼태그를 변수에 저장한다. 
+// 			var formObject = $("form[role='form']").serializeArray();
+			
+			var formObject ={
+					cust_name:$('cust_name').val(),
+					product_name:$('product_name').val(),
+					cont_emp:$('cont_emp').val(),
+					cust_id:$('cust_id').val(),
+					product_id:$('product_id').val(),
+					cont_date:$('cont_date').val(),
+					cont_qty:$('cont_qty').val(),
+					production_id:$('production_id').val(),
+					due_date:$('due_date').val()
+			}
+			console.log(formObject);
+
+		
+			//작성완료 버튼을 눌렀을 때 ajax를 실행하도록 한다.
+			$.ajax({
+				url : '${contextPath}/contract/insert',
+				type : 'POST',
+// 				data : formObject,
+				contentType : 'application/json',
+				data : JSON.stringify(formObject),
+				success : function() {
+					alert("수주등록이 완료되었습니다.");
+// 					window.opener.location.reload();
+// 					window.close();
+				}, error : function(){
+					alert('에러 발생!');
+				}//error
+			});
+		}// sendForm()메소드 끝
+		
 	$(document).ready(function(){
 		
 		 //빈칸이 있을때 submit 제어 
@@ -95,26 +129,28 @@
 		  });// fr.sumbit() END
 	});// document.ready END
 	
-		function sendForm() {
-			//상단의 폼태그를 변수에 저장한다. 
-			var formObject = $("form[role='form']").serializeArray();
-			var status = true;
-			consol.log(formObject);
+// 		function sendForm() {
+// 			//상단의 폼태그를 변수에 저장한다. 
+// 			var formObject = $("form[role='form']").serializeArray();
+// 			var status = true;
+// 			consol.log(formObject);
 
 			
-			//작성완료 버튼을 눌렀을 때 ajax를 실행하도록 한다.
-			$.ajax({
-				url : '/contract/insert',
-				type : 'POST',
-				data : formObject,
-				success : function(json) {
-					alert("수주등록이 완료되었습니다.");
-					status = true;
-					window.opener.location.reload();
-					window.close();
-				}
-			});
-		}// sendForm()메소드 끝
+// 			//작성완료 버튼을 눌렀을 때 ajax를 실행하도록 한다.
+// 			$.ajax({
+// 				url : '/contract/insert',
+// 				type : 'POST',
+// 				data : formObject,
+// 				success : function() {
+// 					alert("수주등록이 완료되었습니다.");
+// 					status = true;
+// 					window.opener.location.reload();
+// 					window.close();
+// 				}, error : function(){
+// 					alert('에러 발생!');
+// 				}
+// 			});
+// 		}// sendForm()메소드 끝
 		
 		// 수주일의 기본설정을 오늘날짜로 하는 코드
 		document.getElementById('cont_date').valueAsDate = new Date();
@@ -131,8 +167,10 @@
 				dueDateInput.value = contDateInput.value;
 			}else {
 			    contDateInput.value = dueDateInput.value;
-			}	
+			}//else
 		}//limitDate(); 메소드 끝
+		
+		
 	</script>	
 </body>
 </html>

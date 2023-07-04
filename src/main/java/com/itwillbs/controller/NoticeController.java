@@ -1,5 +1,8 @@
 package com.itwillbs.controller;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -10,12 +13,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.itwillbs.domain.NoticeVO;
@@ -43,25 +48,31 @@ public class NoticeController {
 		logger.debug(" /notice/insert.jsp 페이지 이동 ");
 	}
 
-	// 글쓰기 - /notice/insert  (POST)
+	// 공지 등록 - /notice/insert  (POST)
 	@RequestMapping(value = "/insert",method = RequestMethod.POST)
 	public String registPOST(NoticeVO vo,RedirectAttributes rttr) throws Exception{
 		logger.debug(" insertPOST() 호출 ");
-		// 한글처리(필터)
-		// 페이지 전달된 데이터(파라메터) 저장
-		//logger.debug("vo :"+vo);
+		// 한글처리(필터) + 페이지 전달된 데이터(파라메터) 저장
 		logger.debug("vo : {}",vo); //err 레벨에서 사용권장
-		//logger.error(msg);
-
+		
+//		String boardUploadPath = "../resources/upload/"; 
+//		
+//		if(file.isEmpty()) {
+//			vo.setNotice_file(null);
+//	    } else {
+//	        // 현재 시간을 기반으로 한 고유한 파일 이름 생성
+//	        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
+//	        String filename = sdf.format(new Date()) + "_" + file.getOriginalFilename();
+//	        FileCopyUtils.copy(file.getBytes(), new File(boardUploadPath, filename));
+//	        
+//	        vo.setNotice_file(filename);
+//	    }
+		
 		// 서비스 - 글쓰기 동작 호출
 		service.insertBoard(vo);
-
 		// 리스트로 정보를 전달 (rttr)
 		rttr.addFlashAttribute("result", "CREATEOK");
 
-		// 리스트 페이지로 이동
-		//return "/notice/success";
-		//return "redirect:/notice/listALL?test=12345"; //Model객체(@ModelAttrbute)
 		return "redirect:/notice/list";
 	}
 
@@ -98,12 +109,8 @@ public class NoticeController {
 		model.addAttribute("pvo", pvo);
 
 		return null;
-		
-//		return "/notice/list";
 	}
 	// 게시판 글 리스트 - http://localhost:8088/notice/list
-	
-	// http://localhost:8088/notice/info?notice_id=6
 	// 글 내용(본문)보기
 	@RequestMapping(value = "/info",method = RequestMethod.GET)
 	public void readGET(Model model,
@@ -191,5 +198,6 @@ public class NoticeController {
 
 		return boardList;
 	}
+
 	
 }// controller

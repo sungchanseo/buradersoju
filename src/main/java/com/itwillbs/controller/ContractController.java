@@ -214,7 +214,7 @@ public class ContractController {
 		model.addAttribute("pvo",pvo);
 	}
 	
-	//직원정보 검색 맵핑
+	//거래처클릭 자동완성 
 	@ResponseBody
 	@RequestMapping(value="/custInfo", method = RequestMethod.GET)
 	public CustomerVO getCustInfo(@RequestParam("cust_id") String cust_id) throws Exception{
@@ -226,4 +226,31 @@ public class ContractController {
 
 		return vo;
 	}
+	
+	//상품명 자동완성 팝업창
+//	@RequestMapping(value="/productFind", method = RequestMethod.GET)
+//	public void findProductGET(PagingVO pvo, Model model) throws Exception{
+//		logger.debug("@@@@@@@@@@@Controller : 팝업으로 상품명찾기 !!!!!");
+//		
+//		List<Object> productList = null;
+//		
+//		pvo = custService.setPageInfoForCustomer(pvo);
+//		logger.debug("@@@@@@@@@Controller : {}",pvo);
+//		
+//		//service객체를 호출
+//		if(pvo.getSelector()!=null && pvo.getSelector()!="") {
+//			//검색어가 있을 때 
+//			logger.debug("@@@@@@@@@Controller : 검색어가 있을 때입니다");
+//			productList = pageService.getListSearchObjectProductionVO(pvo);
+//		}else {
+//			//검색어가 없을 때
+//			logger.debug("@@@@@@@@@Controller : 검색어가 없을 때입니다");
+//			productList = pageService.getListPageSizeObjectProductVO(pvo);
+//		}
+//		logger.debug("@@@@@@@@@Controller : employeeList={}",productList);
+//	
+//		// 변수에 담아서 전달
+//		model.addAttribute("productList", productList);
+//		model.addAttribute("pvo",pvo);
+//	}
 }

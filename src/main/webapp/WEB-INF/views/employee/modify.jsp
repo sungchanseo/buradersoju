@@ -5,6 +5,7 @@
 <head>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <title>사원 정보 수정</title>
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
 <style type="text/css">
 table {margin-bottom: 1em;}
 

@@ -5,6 +5,7 @@
 <head>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <title>사원 정보</title>
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
 <style type="text/css">
 table {margin-bottom: 1em;}
 
@@ -54,10 +55,10 @@ border-color: #23dbf8;}
 </head>
 <body>
 	<h1>사원 정보</h1>
-	<c:if test="${emp_department.equals('인사팀') || emp_department.equals('인사') }">
-		<input type="button" value="수정하기" onclick="location.href='/employee/modify?emp_id=${resultVO.emp_id}';">
+	<c:if test="${emp_department.equals('인사팀') || emp_department.equals('Master') }">
+		<input type="button" class="btn btn-info" value="수정하기" onclick="location.href='/employee/modify?emp_id=${resultVO.emp_id}';">
 	</c:if>
-	<input type="button" value="창닫기" onclick="window.close();">
+	<input type="button" class="btn btn-success" value="창닫기" onclick="window.close();">
 	<table border="1">
 		<tr>
 			<th>사원사진</th>

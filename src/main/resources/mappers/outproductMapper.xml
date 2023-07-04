@@ -25,6 +25,23 @@
 <!-- 출고 리스트 -->
 
 
+ <!-- 출고 정보 상세보기 -->	
+	<select id="getOutProductInfo" resultType="com.itwillbs.domain.OutProductVO">
+		SELECT pr.production_id, c.due_date, pr.production_date, pr.production_emp, 
+		       o.op_id, o.op_process, o.op_date, o.op_emp,
+		       pd.product_name, c.cust_name
+		FROM out_product o
+		LEFT JOIN production pr
+		ON  o.production_id = pr.production_id
+		LEFT JOIN product pd
+		ON pr.product_id = pd.product_id
+		LEFT JOIN contract c
+		ON pd.product_id = c.product_id
+		WHERE pr.production_id  = #{production_id};
+	</select>
+ <!-- 출고 정보 상세보기 -->	
+
+
  <!-- 출고번호 최대 값 (maxNumber) 230620004 -->
     <select id="getMaxNumber" resultType="String">
         SELECT MAX((SUBSTRING(op_id, 3)))

@@ -10,7 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.itwillbs.domain.InMaterialVO;
 import com.itwillbs.domain.OutProductVO;
@@ -85,6 +85,17 @@ public class OutProductController {
 		
 		// 입고번호, 발주번호 DB에 저장
 		oService.registOpId(vo);
+	}
+	
+	
+	// 3. 출고 상세보기
+	@RequestMapping(value = "/info", method=RequestMethod.GET)
+	public void getOutProductInfo(Model model, @RequestParam("production_id") String production_id) throws Exception{
+		logger.debug("@@@@@@@@@@ getOutProductInfo()_호출");
+		
+		OutProductVO info = oService.getOutProductInfo(production_id);
+		logger.debug("@@@@@@@@@@ 출고 상세보기 데이터 : " + info);
+		model.addAttribute("resultVO", info);
 	}
 	
 	

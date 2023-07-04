@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<h1>입고 상세 보기</h1>
+<h1>출고 상세 보기</h1>
 
 <button>엑셀파일</button>
 <button class="print-button" onclick="info_print()">인쇄하기</button>
@@ -45,76 +45,71 @@
 <fmt:formatDate value=""/> 
 <table border="1">
 		<tr>
-			<th>발주관리번호</th>
-			<td>${param.order_id }</td>
+			<th>작업지시번호</th>
+			<td>${param.production_id }</td>
 			
 			<th>납기일</th>
 			<td>${resultVO.due_date }</td>
 			
-			<th>발주일자</th>
-			<td>${resultVO.order_date }</td>
+			<th>작업지시일자</th>
+			<td>${resultVO.production_date }</td>
 			
-			<th>발주담당직원</th>
-			<td>${resultVO.order_emp }</td>
+			<th>작업지시담당직원</th>
+			<td>${resultVO.production_emp }</td>
 		</tr>
 		<tr>
-			<th>입고관리번호</th>
+			<th>출고관리번호</th>
 			<td>
 				<c:choose>
-					<c:when test="${resultVO.in_id == '0'}"> </c:when>
-					<c:otherwise>${resultVO.in_id }</c:otherwise>
+					<c:when test="${resultVO.op_id == '0'}"> </c:when>
+					<c:otherwise>${resultVO.op_id }</c:otherwise>
 				</c:choose>
 			</td>
 			
-			<th>입고진행현황</th>
+			<th>출고진행현황</th>
 			<td>
 				<c:choose>
-					<c:when test="${resultVO.in_process.equals('미입고') }">
-						<span style="color:red">미입고</span>
+					<c:when test="${resultVO.op_process.equals('미출고') }">
+						<span style="color:red">미출고</span>
 					</c:when>
-					<c:otherwise>${resultVO.in_process }</c:otherwise>
+					<c:otherwise>${resultVO.op_process }</c:otherwise>
 				</c:choose>
 			</td>
 			
-			<th>입고일자</th>
-			<td><fmt:formatDate value="${resultVO.in_date}" pattern="yyyy-MM-dd"/></td>
+			<th>출고일자</th>
+			<td><fmt:formatDate value="${resultVO.op_date}" pattern="yyyy-MM-dd"/></td>
 			
-			<th>입고담당직원</th>
+			<th>출고담당직원</th>
 			<td>
 				<c:choose>
-					<c:when test="${resultVO.in_emp == 0}"> </c:when>
-					<c:otherwise>${resultVO.in_emp }</c:otherwise>
+					<c:when test="${resultVO.op_emp == 0}"> </c:when>
+					<c:otherwise>${resultVO.op_emp }</c:otherwise>
 				</c:choose>
 			</td>
 		</tr>
 		<tr>
 			<th>품명</th>
-			<td>${resultVO.ma_name }</td>
-			
-			<th>발주수량</th>
-			<td>${resultVO.order_qty }</td>
-			
-			<th>입고후재고수량</th>
-			<td>
-				<c:choose>
-					<c:when test="${resultVO.add_ma == 0}">
-						${resultVO.order_qty + resultVO.ma_qty }
-					</c:when>
-					<c:when test="${!empty resultVO.add_ma }">
-						<c:if test="${resultVO.add_ma <= 100 }">
-							<span style="color:red">${resultVO.add_ma }</span>
-						</c:if>
-						<c:if test="${resultVO.add_ma > 100 }">
-							${resultVO.add_ma }
-						</c:if>
-					</c:when>
-				</c:choose>
-			</td>
-			
-			<th>위치</th>
-			<td>${resultVO.shelt_position }</td>
+			<td colspan="3">${resultVO.product_name }</td>
+			<th>납품처명</th>
+			<td colspan="3">${resultVO.cust_name }</td>
 		</tr>
 </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 </body>

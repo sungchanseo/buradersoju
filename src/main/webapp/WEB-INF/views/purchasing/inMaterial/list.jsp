@@ -36,8 +36,8 @@
 		<th>발주번호</th>
 		<th>상세</th>
 		<th>품명</th>		
-		<th>입고수량</th>
-		<th>현재고량</th>
+		<th>입고량</th>
+		<th>재고량</th>
 <!-- 		<th>입고후재고량</th> -->
 		<th>진행현황</th>
 		<th>창고번호</th>
@@ -103,7 +103,7 @@
 			</td>
 			<td>
 				<c:choose>
-					<c:when test="${emp_department.equals('구매팀') }">
+					<c:when test="${emp_department.equals('구매팀') || emp_department.equals('Master')}">
 						<c:if test="${empty iml.in_id or iml.in_id == '0' }">
 							<input type="button" class="btn btn-success inidDone" value="입고처리"
 					       		   onclick="location.href='/purchasing/inMaterial/inid?order_id=${iml.order_id }&ma_id=${iml.ma_id }';">

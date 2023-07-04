@@ -10,34 +10,28 @@
 
 <!-- 출고 리스트 -->
 	<select id="getOutProductList" resultType="com.itwillbs.domain.OutProductVO"> 
-		SELECT o.op_id, pr.production_id, 
-		       c.cust_name, pd.product_name, c.cont_qty, pd.product_qty, pr.production_date, 
-		       c.due_date, o.op_process, o.op_date, o.op_emp
-		FROM out_product o
-		LEFT JOIN production pr
-		ON  o.production_id = pr.production_id
-		LEFT JOIN product pd
-		ON pr.product_id = pd.product_id
-		LEFT JOIN contract c
-		ON pd.product_id = c.product_id
-		ORDER BY op_process, op_id DESC, pr.production_id DESC
+		SELECT o.op_id, c.cont_id, c.production_id, c.cust_name, c.product_name, c.cont_qty, p.product_qty, c.due_date, o.op_process, o.op_date, o.op_emp
+		FROM contract c
+		LEFT JOIN product p
+		ON c.product_name = p.product_name
+		LEFT JOIN out_product o
+		ON  c.cont_id = o.cont_id
+		WHERE c.cont_status = 0
+		ORDER BY op_process, op_id DESC, c.cont_id DESC
 	</select>
 <!-- 출고 리스트 -->
 
 
  <!-- 출고 정보 상세보기 -->	
 	<select id="getOutProductInfo" resultType="com.itwillbs.domain.OutProductVO">
-		SELECT pr.production_id, c.due_date, pr.production_date, pr.production_emp, 
-		       o.op_id, o.op_process, o.op_date, o.op_emp,
-		       pd.product_name, c.cust_name
-		FROM out_product o
-		LEFT JOIN production pr
-		ON  o.production_id = pr.production_id
-		LEFT JOIN product pd
-		ON pr.product_id = pd.product_id
-		LEFT JOIN contract c
-		ON pd.product_id = c.product_id
-		WHERE pr.production_id  = #{production_id};
+		SELECT o.op_id, c.cont_id, c.production_id, c.product_name, c.cust_name, c.cont_qty, p.product_qty, c.due_date, o.op_process, o.op_date, o.op_emp
+		FROM contract c
+		LEFT JOIN product p
+		ON c.product_name = p.product_name
+		LEFT JOIN out_product o
+		ON  c.cont_id = o.cont_id
+		WHERE c.cont_status = 0
+		AND c.cont_id  = #{cont_id}
 	</select>
  <!-- 출고 정보 상세보기 -->	
 
@@ -45,7 +39,7 @@
  <!-- 출고번호 최대 값 (maxNumber) 230620004 -->
     <select id="getMaxNumber" resultType="String">
         SELECT MAX((SUBSTRING(op_id, 3)))
-		FROM out_product;
+		FROM out_product
     </select>
  <!-- 출고번호 최대값 (maxNumber) 230620004 -->
  
@@ -53,18 +47,18 @@
  <!-- DB 출고번호 최대 날짜 (maxDate) == 230620 -->	
  	<select id="getMaxDate" resultType="String">
  		SELECT MAX((SUBSTRING(op_id, 3, 6)))
-		FROM out_product;
+		FROM out_product
  	</select>
  <!-- DB 출고번호 최대 날짜 (maxDate) == 230620 -->
  
  
  <!-- op_id 출고번호, 담당직원 등록 -->
  	<update id="registOpId">		
-		UPDATE production pr
+		UPDATE contract c
 		LEFT JOIN out_product o
-		ON pr.production_id = o.production_id
+		ON  c.cont_id = o.cont_id
 		SET o.op_id = #{op_id}, o.op_process = '출고완료', o.op_date = now(), o.op_emp = #{op_emp}
-		WHERE pr.production_id = #{production_id}
+		WHERE c.cont_id = #{cont_id}
  	</update>
  <!-- op_id 출고번호, 담당직원 등록 -->
 
@@ -78,7 +72,123 @@
 
 
 
+<!-- **************************** 페이징 처리 *************************** -->
 
+<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 갯수 조회 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+<!--  	전체 리스트 개수 조회  -->
+	<select id="getListAll" resultType="_int">
+		SELECT count(*)
+		FROM contract c
+		LEFT JOIN product p
+		ON c.product_name = p.product_name
+		LEFT JOIN out_product o
+		ON  c.cont_id = o.cont_id
+		WHERE c.cont_status = 0
+	</select>
+<!-- 	전체 리스트 갯수 조회  -->
+
+
+<!-- 아무조건이 없을 때 목록 개수  -->
+	<select id="getListPageSizeAll" resultType="_int">
+		SELECT count(*)
+		FROM contract c
+		LEFT JOIN product p
+		ON c.product_name = p.product_name
+		LEFT JOIN out_product o
+		ON  c.cont_id = o.cont_id
+		WHERE c.cont_status = 0
+		limit 0, 10
+	</select>
+<!-- 아무조건이 없을 때 목록 개수 -->
+
+
+<!-- 검색어 + 페이지갯수 제한 전체 목록 개수 -->
+	<select id="getListSearchAll" resultType="_int">
+		SELECT count(*)
+		FROM contract c
+		LEFT JOIN product p
+		ON c.product_name = p.product_name
+		LEFT JOIN out_product o
+		ON  c.cont_id = o.cont_id
+		WHERE c.cont_status = 0
+		AND ${selector} LIKE CONCAT('%', #{search}, '%')
+		limit 0, 10
+	</select>
+<!-- 검색어 + 페이지갯수 제한 전체 목록 개수 -->
+
+
+<!-- 필터처리 + 페이지갯수 제한 전체 목록 -->
+	<select id="getListFilterAll" resultType="_int">
+		SELECT COUNT(*) FROM ${table}
+		WHERE ${column_name} = #{column_value} AND ${status_name}=#{status_value} 
+		LIMIT #{startRow}, #{pageSize}
+	</select>
+<!-- 필터처리 + 페이지갯수 제한 전체 목록 -->
+
+
+<!-- 검색어+필터처리+페이지갯수 제한 전체 목록 -->
+	<select id="getListSearchAndFilterAll" resultType="_int">
+		SELECT COUNT(*) FROM ${table}
+		WHERE ${column_name} = #{column_value} AND ${status_name}=#{status_value}  
+		AND ${selector} LIKE CONCAT('%', #{search}, '%') LIMIT #{startRow}, #{pageSize}
+	</select>
+<!-- 검색어+필터처리+페이지갯수 제한 전체 목록 -->
+
+
+
+<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 목록 가져오기 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+<!-- OutProductVO 페이징처리 시작 -->
+<!-- 아무조건이 없을 때 목록 배열 -->
+	<select id="getListPageSizeObjectOutProductVO" resultType="OutProductVO">
+		SELECT o.op_id, c.cont_id, c.production_id, c.cust_name, c.product_name, c.cont_qty, p.product_qty, c.due_date, o.op_process, o.op_date, o.op_emp
+		FROM contract c
+		LEFT JOIN product p
+		ON c.product_name = p.product_name
+		LEFT JOIN out_product o
+		ON  c.cont_id = o.cont_id
+		WHERE c.cont_status = 0
+		ORDER BY op_process, op_id DESC, c.cont_id DESC
+		LIMIT #{startRow}, #{pageSize}
+	</select>
+<!-- 아무조건이 없을 때 목록 배열 -->
+		
+		
+<!-- 검색어 + 페이지갯수 제한 전체 목록 배열 -->
+	<select id="getListSearchObjectOutProductVO" resultType="OutProductVO">
+		SELECT o.op_id, c.cont_id, c.production_id, c.cust_name, c.product_name, c.cont_qty, p.product_qty, c.due_date, o.op_process, o.op_date, o.op_emp
+		FROM contract c
+		LEFT JOIN product p
+		ON c.product_name = p.product_name
+		LEFT JOIN out_product o
+		ON  c.cont_id = o.cont_id
+		WHERE c.cont_status = 0
+		AND ${selector} LIKE CONCAT('%', #{search}, '%')
+		ORDER BY op_process, op_id DESC, c.cont_id DESC
+		LIMIT #{startRow}, #{pageSize}
+	</select>
+<!-- 검색어 + 페이지갯수 제한 전체 목록 배열 -->
+	
+	
+<!-- 필터처리 + 페이지갯수 제한 전체 목록 -->
+	<select id="getListFilterObjectOutProductVO" resultType="OutProductVO">
+		SELECT * FROM ${table} 
+		WHERE ${column_name} = #{column_value} AND ${status_name} = #{status_value} 
+		ORDER BY ${id} DESC LIMIT #{startRow}, #{pageSize}
+	</select>
+<!-- 필터처리 + 페이지갯수 제한 전체 목록 -->
+
+
+<!-- 검색어 + 필터처리 + 페이지갯수 제한 전체 목록 -->
+	<select id="getListSearchFilterObjectOutProductVO" resultType="OutProductVO">
+		SELECT * FROM ${table}
+		WHERE ${column_name} = #{column_value} AND ${status_name}=#{status_value}   
+		AND ${selector} LIKE CONCAT('%', #{search}, '%') 
+		ORDER BY ${id} DESC LIMIT #{startRow}, #{pageSize}
+	</select>
+<!-- 검색어 + 필터처리 + 페이지갯수 제한 전체 목록 -->
+
+
+<!-- **************************** 페이징 처리 **************************** -->
 
 
 </mapper>

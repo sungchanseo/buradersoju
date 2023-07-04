@@ -371,7 +371,7 @@ $(document).ready(function() {
 
 	
 	<!-- 구매팀일때만 버튼 활성화 -->
-	<c:if test="${emp_department.equals('구매') || emp_department.equals('구매팀')}">
+	<c:if test="${emp_department.equals('구매팀') || emp_department.equals('Master')}">
 		<div style=float:right;>
 			<button class="btn btn-success insertForm true">등록</button>
 			<button class="btn btn-success modify true">수정</button>

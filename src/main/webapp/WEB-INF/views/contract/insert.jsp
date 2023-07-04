@@ -51,7 +51,7 @@
 	
 	//수주처 검색 및 자동완성 기능 
 	function custPop(){
-		var custPop = window.open('/contract/custFind', '수주처검색', 'width=700px,height=500px');
+		var custPop = window.open('/contract/custFind', '수주처검색', 'width=700px,height=650px');
 		
 		if(custPop == null){
 			  alert("팝업이 차단되었습니다. 차단을 해제하세요.");

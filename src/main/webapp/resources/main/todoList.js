@@ -3,7 +3,7 @@ $(document).ready(function(){
     const toDoInput = toDoForm.querySelector("input");
     const toDoList = document.querySelector(".toDoList");
     const maxToDoCount = 10;
-    const maxToDoMessage = "할 일이 너무 많아요!";
+    const maxToDoMessage = "할 일이 너무 많습니다";
     const TODOS_LS = 'toDos';
     let toDos = [];
 

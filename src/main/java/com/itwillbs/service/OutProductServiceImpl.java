@@ -4,8 +4,6 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-
-import com.itwillbs.domain.InMaterialVO;
 import com.itwillbs.domain.OutProductVO;
 import com.itwillbs.domain.PagingVO;
 import com.itwillbs.persistence.OutProductDAO;

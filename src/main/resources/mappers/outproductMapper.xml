@@ -110,9 +110,22 @@
 		ON c.product_name = p.product_name
 		LEFT JOIN out_product o
 		ON  c.cont_id = o.cont_id
-		WHERE c.cont_status = 0
-		AND ${selector} LIKE CONCAT('%', #{search}, '%')
-		limit 0, 10
+		<where>	
+			<if test="selector == 'op_id'">
+				AND o.op_id LIKE CONCAT('%', #{search}, '%')
+			</if>
+			<if test="selector == 'op_date'">
+				AND o.op_date LIKE CONCAT('%', #{search}, '%')
+			</if>
+			<if test="selector == 'product_name'">
+				AND c.product_name LIKE CONCAT('%', #{search}, '%') 
+			</if>
+			<if test="selector == 'op_emp'">
+				AND o.op_emp LIKE CONCAT('%', #{search}, '%')
+			</if>
+		</where>
+		AND c.cont_status = 0
+		LIMIT 0, 10
 	</select>
 <!-- 검색어 + 페이지갯수 제한 전체 목록 개수 -->
 
@@ -161,8 +174,21 @@
 		ON c.product_name = p.product_name
 		LEFT JOIN out_product o
 		ON  c.cont_id = o.cont_id
-		WHERE c.cont_status = 0
-		AND ${selector} LIKE CONCAT('%', #{search}, '%')
+		<where>	
+			<if test="selector == 'op_id'">
+				AND ${selector} LIKE CONCAT('%', #{search}, '%')
+			</if>
+			<if test="selector == 'op_date'">
+				AND o.op_date LIKE CONCAT('%', #{search}, '%')
+			</if>
+			<if test="selector == 'product_name'">
+				AND c.product_name LIKE CONCAT('%', #{search}, '%') 
+			</if>
+			<if test="selector == 'op_emp'">
+				AND o.op_emp LIKE CONCAT('%', #{search}, '%')
+			</if>
+		</where>
+		AND c.cont_status = 0
 		ORDER BY op_process, op_id DESC, c.cont_id DESC
 		LIMIT #{startRow}, #{pageSize}
 	</select>
@@ -181,7 +207,7 @@
 <!-- 검색어 + 필터처리 + 페이지갯수 제한 전체 목록 -->
 	<select id="getListSearchFilterObjectOutProductVO" resultType="OutProductVO">
 		SELECT * FROM ${table}
-		WHERE ${column_name} = #{column_value} AND ${status_name}=#{status_value}   
+		WHERE ${column_name} = #{column_value} AND ${status_name}=#{status_value}
 		AND ${selector} LIKE CONCAT('%', #{search}, '%') 
 		ORDER BY ${id} DESC LIMIT #{startRow}, #{pageSize}
 	</select>

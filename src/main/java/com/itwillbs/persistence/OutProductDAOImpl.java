@@ -1,14 +1,10 @@
 package com.itwillbs.persistence;
 import java.util.List;
-
 import javax.inject.Inject;
-
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
-
-import com.itwillbs.domain.InMaterialVO;
 import com.itwillbs.domain.OutProductVO;
 import com.itwillbs.domain.PagingVO;
 

@@ -46,7 +46,12 @@
 	
 	<c:forEach var="op" items="${outproductList}">
 		<tr>
-		    <td>${op.op_id}</td>
+		    <td>
+		    	<c:choose>
+					<c:when test="${empty op.op_id || op.op_id == '0'}"> </c:when>
+					<c:otherwise>${op.op_id }</c:otherwise>
+				</c:choose>
+		    </td>
 		    <td>${op.production_id }</td>
 		    <td>
 		    	<img class="viewDetail" src="${pageContext.request.contextPath}/resources/images/viewDetail.png" width="10px" height="10px" alt="image" />

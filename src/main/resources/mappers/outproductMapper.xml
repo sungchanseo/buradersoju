@@ -11,15 +11,15 @@
 <!-- 출고 리스트 -->
 	<select id="getOutProductList" resultType="com.itwillbs.domain.OutProductVO"> 
 		SELECT o.op_id, pr.production_id, 
-		       co.cust_name, pd.product_name, co.cont_qty, pd.product_qty, pr.production_date, 
-		       co.due_date, o.op_process, o.op_date, o.op_emp
-		FROM production pr
+		       c.cust_name, pd.product_name, c.cont_qty, pd.product_qty, pr.production_date, 
+		       c.due_date, o.op_process, o.op_date, o.op_emp
+		FROM out_product o
+		LEFT JOIN production pr
+		ON  o.production_id = pr.production_id
 		LEFT JOIN product pd
 		ON pr.product_id = pd.product_id
-		LEFT JOIN out_product o
-		ON pd.product_id = o.product_id
-		LEFT JOIN contract co
-		ON o.production_id = co.production_id
+		LEFT JOIN contract c
+		ON pd.product_id = c.product_id
 		ORDER BY op_process, op_id DESC, pr.production_id DESC
 	</select>
 <!-- 출고 리스트 -->

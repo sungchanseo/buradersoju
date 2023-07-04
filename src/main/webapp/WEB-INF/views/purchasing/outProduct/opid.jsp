@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
+
 // 오늘 날짜 출력 (yy-MM-dd)
 function getToday() {
 	var date = new Date();

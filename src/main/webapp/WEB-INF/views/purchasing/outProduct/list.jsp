@@ -46,20 +46,40 @@
 	
 	<c:forEach var="op" items="${outproductList}">
 		<tr>
-		    <td>${op.op_id}</td>
+		    <td>
+		    	<c:choose>
+					<c:when test="${empty op.op_id || op.op_id == '0'}"> </c:when>
+					<c:otherwise>${op.op_id }</c:otherwise>
+				</c:choose>
+		    </td>
 		    <td>${op.production_id }</td>
 		    <td>
 		    	<img class="viewDetail" src="${pageContext.request.contextPath}/resources/images/viewDetail.png" width="10px" height="10px" alt="image" />
 		    </td>
-		    <td></td>
-		    <td></td>
-		    <td></td>
-		    <td>재고확인</td>
-		    <td></td>
+		    <td>${op.cust_name }</td>
+		    <td>${op.product_name }</td>
+		    <td>${op.cont_qty }</td>
+		    <td>${op.product_qty }</td>
+		    <td>${op.due_date }</td>
 		    <td>${op.op_process}</td>
 		    <td>${op.op_date}</td>
-		    <td>${op.op_emp}</td>
-		    <td></td>
+		    <td>
+		    	<c:choose>
+					<c:when test="${op.op_emp == 0}"> </c:when>
+					<c:otherwise>${op.op_emp }</c:otherwise>
+				</c:choose>
+		    </td>
+		    <td>
+		    	<c:choose>
+					<c:when test="${emp_department.equals('구매팀') }">
+						<c:if test="${empty op.op_id or op.op_id == '0' }">
+							<input type="button" class="btn btn-success" value="출고처리"
+					       		   onclick="location.href='/purchasing/outProduct/opid?production_id=${op.production_id }';">
+						</c:if>
+					</c:when>
+					<c:otherwise> </c:otherwise>
+				</c:choose>
+		    </td>
 		</tr>
 	</c:forEach>
 </table>

@@ -26,6 +26,9 @@ public interface WarehouseService {
 	// 창고 품목코드 자동넘버링
 	public String getMaxNumber() throws Exception;
 	
+	// 창고 품목코드 자동넘버링2
+	public String getMaxprNumber() throws Exception;
+	
 	public WarehouseVO regisWhsId(String whs_id) throws Exception;
 	
 }

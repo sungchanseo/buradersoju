@@ -24,16 +24,28 @@ public class ProductionServiceImpl implements ProductionService {
 	}
 
 	@Override
-	public void insertProducion(ProductionVO vo) throws Exception {
-		pdao.insertProducion(vo);
-		
-	}
-
-	@Override
 	public ProductionVO getInsertSearch(String production_id) throws Exception {
 		return pdao.getInsertSearch(production_id);
 	}
 
+	@Override
+	public void insertStage1(ProductionVO vo) throws Exception {
+		pdao.insertStage1(vo);
+		
+	}
+
+	@Override
+	public void insertStage2(ProductionVO vo) throws Exception {
+		pdao.insertStage2(vo);
+		
+	}
+
+	@Override
+	public void insertStage3(ProductionVO vo) throws Exception {
+		pdao.insertStage3(vo);
+		
+	}
+	
 	
 
 	

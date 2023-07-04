@@ -52,13 +52,22 @@
             
             // 불량코드 값 설정
               if (!vo.production_status) {
-	            $("#def_code").val('DE110');
+	            $("#stage3_defCode").val('DE110');
 	          } else if (vo.production_status === '혼합') {
-	            $("#def_code").val('DE120');
+	            $("#stage3_defCode").val('DE120');
 	          } else if (vo.production_status === '주입') {
-	            $("#def_code").val('DE130');
+	            $("#stage3_defCode").val('DE130');
 	          }
-        
+            
+           // 등록 버튼 표시 여부 설정
+           // 포장등록 페이지 (productionInsertStage2.jsp)
+           // => 생산단계가 '주입'일 때만 표시
+              if (vo.production_status === '주입') {
+                $("#btnInsert").show(); // 등록 버튼 보이기
+              } else {
+                $("#btnInsert").hide(); // 등록 버튼 숨기기
+              }
+            
         },
         error : function(error) {
         console.log(error);
@@ -69,26 +78,10 @@
   
   /* 불량수량 입력값에 숫자가 아닌 문자 제거 */
   $(document).ready(function() {
-    $("input[name='complete_defQty']").on("input", function() {
+    $("input[name='stage3_defQty']").on("input", function() {
       $(this).val($(this).val().replace(/[^0-9]/g, ""));
     });
   });
-  
-  /* 팝업창(수정중) */
-  var popupWindow; // 팝업 창 객체를 참조하기 위한 변수
-
-  function closePopup() {
-    if (popupWindow) {
-      popupWindow.close();
-    }
-    
-    return false; // 폼 제출을 막기 위해 false를 반환
-  }
-  
-  function submitForm() {
-	  document.getElementById('insert').submit(); // 폼을 제출
-	  closePopup(); // 폼 제출 후 팝업 창 닫기
-	}
 	
 </script>
 
@@ -96,14 +89,14 @@
 
 </head>
 <body>
-	<h1>생산 등록</h1>
+	<h1>포장 등록</h1>
 	
 	<form id="btn_idSearch" method="get">
         <label for="production_id">작업지시번호</label>
         <input type="text" id="production_id" name="production_id" value="">
         <input type="button" value="조회">
     </form>
-    <%
+     <%
         // 작업지시번호 저장
         String production_id = request.getParameter("production_id");
      %>
@@ -131,7 +124,7 @@
 	  	<tr>
 		 <td>생산단계</td>
 		 <td>
-			<input type="text" name="production_status" id="production_status" readonly>
+			<input type="text" name="production_status" id="production_status" style="background-color: #e6e6e6;" readonly>
          </td>
 		</tr>
 <!-- 		<tr> -->
@@ -139,27 +132,42 @@
 <!-- 		 <td><input type="text" name="production_qty"><td>  -->
 <!-- 		</tr> -->
 		<tr>
-		 <td>불량코드</td>
+<!-- 		 <td>불량코드</td> -->
 		 <td>
-			<input type="text" name="def_code" id="def_code" readonly>
+			<input type="hidden" name="stage3_defCode" id="stage3_defCode" readonly >
          </td>
 		</tr>
 		<tr>
 		 <td>불량수량</td>
-		 <td><input type="text" name="complete_defQty"><td> 
+		 <td><input type="text" name="stage3_defQty"><td> 
 		</tr>
 	  </table>
-	<button type="button" onclick="submitForm();" class="btn btn-success">등록</button>
+	<button type="button" onclick="submitForm();" class="btn btn-success" id="btnInsert">등록</button>
 	</form>
 	
-	<script type="text/javascript">
+	<script>
     
 	/* 팝업 창 닫기 */
-    function closePopup() {
-        if (popupWindow) {
-            popupWindow.close();
-        }
-    }
+//     function closePopup() {
+//         if (popupWindow) {
+//             popupWindow.close();
+//         }
+//     }
+	
+	function submitForm() {
+	  document.getElementById('insert').submit(); // 폼을 제출
+	  closePopup(); // 폼 제출 후 팝업 창 닫기
+	}
+//     $("#btnInsert").click(function() {
+//   	  setDef();
+//   	  $("#insert").submit();
+  	  
+//       setTimeout(function() {   
+//       opener.parent.location.reload();
+//   	  window.close(); // 팝업 창 닫기
+//       }, 1000);
+//     });
+    
 	</script>
 	
 </body>

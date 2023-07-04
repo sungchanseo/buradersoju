@@ -40,55 +40,131 @@ public class ProductionController {
         model.addAttribute("productionList", productionList);
         return "/production/productionList";
     }
+
 	
-	// http://localhost:8088/production/productionInsert
-	// 생산 등록 (GET)
-	@RequestMapping(value = "productionInsert",method = RequestMethod.GET)
-	public void insertGET(Model model) throws Exception{
-		logger.debug(" insertGET() 호출! ");
-		logger.debug(" /production/productionInsert.jsp 페이지 이동 ");
+	
+	// 생산등록
+	
+		// 작업지시번호 조회 (생산 등록)
+			@RequestMapping(value="/insertSearch.do",  produces = "application/text; charset=UTF-8")
+			@ResponseBody
+			public String woSearchGET(String production_id) throws Exception {
+				
+				//자바에서 JSON 객체로 변환
+				ObjectMapper mapper = new ObjectMapper();
+				HashMap<String, Object> hashMap = new HashMap<String, Object>();
+				logger.info("production_id : "+production_id);
+				
+				//servicer객체 호출
+				ProductionVO insertSearch = proService.getInsertSearch(production_id);
+				hashMap.put("vo", insertSearch);
+				
+				String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(hashMap);
+				System.out.println("json : "+json);
+				
+				return json;
+			}
+		
+		///////////////////////////////////////////////////////////////////
+		// 혼합 등록 (1/3단계)
+		///////////////////////////////////////////////////////////////////
+	
+		// http://localhost:8088/production/productionInsertStage1
+		// 혼합 등록 (GET)
+		@RequestMapping(value = "productionInsertStage1",method = RequestMethod.GET)
+		public void insertStage1GET(Model model) throws Exception{
+			logger.debug(" insertStage1GET() 호출! ");
+			logger.debug(" /production/productionInsertStage1.jsp 페이지 이동 ");
+			
+			// 테이블의 정보를 가져와서 모델에 추가
+			List<ProductionVO> productionList = proService.getProductionList();
+			model.addAttribute("productionList",productionList);
+		}
+					
+		// 혼합 등록 (POST)
+		@RequestMapping(value = "productionInsertStage1",method = RequestMethod.POST)
+		public String insertStage1POST(ProductionVO vo,RedirectAttributes rttr) throws Exception{
+			logger.debug(" insertStage1POST() 호출! ");
+			// 한글처리(필터)
+			// 페이지 전달된 데이터(파라메터) 저장
+			logger.debug(" vo : " +vo);
+			
+			proService.insertStage1(vo);
+			
+			// 리스트로 정보 전달 (rttr)
+			rttr.addFlashAttribute("result", "OK");
+			
+			// 리스트 페이지로 이동		
+			return "redirect:/production/productionList";
+		}
+		
+		///////////////////////////////////////////////////////////////////
+		// 주입 등록 (2/3단계)
+		///////////////////////////////////////////////////////////////////
+		
+		// http://localhost:8088/production/productionInsertStage2
+		// 주입 등록 (GET)
+		@RequestMapping(value = "productionInsertStage2",method = RequestMethod.GET)
+		public void insertStage2GET(Model model) throws Exception{
+		logger.debug(" insertStage2GET() 호출! ");
+		logger.debug(" /production/productionInsertStage2.jsp 페이지 이동 ");
 		
 		// 테이블의 정보를 가져와서 모델에 추가
 		List<ProductionVO> productionList = proService.getProductionList();
 		model.addAttribute("productionList",productionList);
-	}
-				
-	// 생산 등록 (POST)
-	@RequestMapping(value = "productionInsert",method = RequestMethod.POST)
-	public String insertPOST(ProductionVO vo,RedirectAttributes rttr) throws Exception{
-		logger.debug(" insertPOST() 호출! ");
+		}
+		
+		// 주입 등록 (POST)
+		@RequestMapping(value = "productionInsertStage2",method = RequestMethod.POST)
+		public String insertStage2POST(ProductionVO vo,RedirectAttributes rttr) throws Exception{
+		logger.debug(" insertStage2POST() 호출! ");
 		// 한글처리(필터)
 		// 페이지 전달된 데이터(파라메터) 저장
 		logger.debug(" vo : " +vo);
 		
-		proService.insertProducion(vo);
+		proService.insertStage2(vo);
 		
 		// 리스트로 정보 전달 (rttr)
 		rttr.addFlashAttribute("result", "OK");
 		
 		// 리스트 페이지로 이동		
 		return "redirect:/production/productionList";
-	}
-	
-		// 작업지시번호 조회 (생산 등록)
-		@RequestMapping(value="/insertSearch.do",  produces = "application/text; charset=UTF-8")
-		@ResponseBody
-		public String woSearchGET(String production_id) throws Exception {
-			
-			//자바에서 JSON 객체로 변환
-			ObjectMapper mapper = new ObjectMapper();
-			HashMap<String, Object> hashMap = new HashMap<String, Object>();
-			logger.info("production_id : "+production_id);
-			
-			//servicer객체 호출
-			ProductionVO insertSearch = proService.getInsertSearch(production_id);
-			hashMap.put("vo", insertSearch);
-			
-			String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(hashMap);
-			System.out.println("json : "+json);
-			
-			return json;
 		}
+	
+		///////////////////////////////////////////////////////////////////
+		// 포장 등록 (3/3단계)
+		///////////////////////////////////////////////////////////////////
+		
+		// http://localhost:8088/production/productionInsertStage3
+		// 포장 등록 (GET)
+		@RequestMapping(value = "productionInsertStage3",method = RequestMethod.GET)
+		public void insertStage3GET(Model model) throws Exception{
+			logger.debug(" insertStage3GET() 호출! ");
+			logger.debug(" /production/productionInsertStage3.jsp 페이지 이동 ");
+			
+			// 테이블의 정보를 가져와서 모델에 추가
+			List<ProductionVO> productionList = proService.getProductionList();
+			model.addAttribute("productionList",productionList);
+		}
+		
+		// 포장 등록 (POST)
+		@RequestMapping(value = "productionInsertStage3",method = RequestMethod.POST)
+		public String insertStage3POST(ProductionVO vo,RedirectAttributes rttr) throws Exception{
+			logger.debug(" insertStage3POST() 호출! ");
+			// 한글처리(필터)
+			// 페이지 전달된 데이터(파라메터) 저장
+			logger.debug(" vo : " +vo);
+			
+			proService.insertStage3(vo);
+			
+			// 리스트로 정보 전달 (rttr)
+			rttr.addFlashAttribute("result", "OK");
+			
+			// 리스트 페이지로 이동		
+			return "redirect:/production/productionList";
+		}
+		
+		
 	
 		
 }

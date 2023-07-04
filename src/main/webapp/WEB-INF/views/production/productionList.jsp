@@ -54,7 +54,9 @@
 								</form>
 								<!-- 검색창기능 -->
 										
-								<button type="button" onclick="openPopup();" class="btn btn-success">생산 등록</button>
+								 <button type="button" onclick="openPopup('productionInsertStage1');" class="btn btn-success">혼합 등록</button>
+                                 <button type="button" onclick="openPopup('productionInsertStage2');" class="btn btn-success">주입 등록</button>
+                                 <button type="button" onclick="openPopup('productionInsertStage3');" class="btn btn-success">포장 등록</button>
 
 								<div class="button-group">
 								  <button id="excel" 
@@ -104,7 +106,7 @@
 							          </td>
 									  <td>${productionList.emp_name}</td>
 									  <td>${productionList.production_status}</td>
-									  <td>${productionList.production_date}</td>
+<%-- 								  <td>${productionList.complete_date}</td> --%>
 									 </tr>									 
 									</c:forEach>
 									
@@ -130,8 +132,8 @@
 							<script type="text/javascript">
 
 							/* 등록 버튼 팝업 */
-							function openPopup() {
-								window.open('./productionInsert', 'productionPopup', 'width=800, height=500, left=2000');
+							function openPopup(pageName) {
+								window.open('./' + pageName, 'productionPopup', 'width=800, height=500, left=2000');
 							}
 
 							/* 인쇄 버튼 기능 */

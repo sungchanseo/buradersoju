@@ -29,20 +29,48 @@ public class ProductionDAOImpl implements ProductionDAO {
 	}
 
 	@Override
-	public void insertProducion(ProductionVO vo) throws Exception {
-		logger.debug(" insertProducion() 호출 ");
-		int result = sqlSession.insert(NAMESPACE + ".insert", vo);
-		
-		if(result != 0)
-			logger.debug(" 생산등록 완료! ");
-	}
-
-	@Override
 	public ProductionVO getInsertSearch(String production_id) throws Exception {
 		logger.debug(" getInsertSearch() 호출 ");
 		return sqlSession.selectOne(NAMESPACE+".insertSearch", production_id);
 	}
 
+	@Override
+	public void insertStage1(ProductionVO vo) throws Exception {
+		logger.debug(" insertStage1() 호출 ");
+		int result = sqlSession.insert(NAMESPACE + ".insertStage1", vo);
+		
+		if(result != 0)
+			logger.debug(" 혼합등록 완료! ");
+	}
+
+	@Override
+	public void insertStage2(ProductionVO vo) throws Exception {
+		logger.debug(" insertStage2() 호출 ");
+		int result = sqlSession.insert(NAMESPACE + ".insertStage2", vo);
+		
+		if(result != 0)
+			logger.debug(" 주입등록 완료! ");
+		
+	}
+
+	@Override
+	public void insertStage3(ProductionVO vo) throws Exception {
+		logger.debug(" insertStage3() 호출 ");
+		int insertResult = sqlSession.insert(NAMESPACE + ".insertStage3", vo);
+		int updateResult = sqlSession.update(NAMESPACE + ".updateProductionQty", vo);
+		
+		if (insertResult != 0 && updateResult != 0) {
+	        logger.debug("포장 & 생산수량 등록 완료!");
+	    } else if (insertResult != 0) {
+	        logger.debug("포장 등록 완료!");
+	    } else if (updateResult != 0) {
+	        logger.debug("생산수량 등록 완료!");
+	    } else {
+	        logger.debug("포장 & 생산수량 등록 실패!");
+	    }
+		
+	}
+	
 	
 	
 	

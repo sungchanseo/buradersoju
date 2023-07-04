@@ -66,6 +66,13 @@ public class WarehouseServiceImpl implements WarehouseService  {
 		return wdao.getMaxprNumber();
 	}
 
+	@Override
+	public Integer deleteWhs(String whs_id) throws Exception {
+	
+		return wdao.deleteWhs(whs_id);
+	}
+
+	
 	
 }
 

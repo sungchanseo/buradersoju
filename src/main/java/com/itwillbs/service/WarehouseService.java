@@ -31,4 +31,6 @@ public interface WarehouseService {
 	
 	public WarehouseVO regisWhsId(String whs_id) throws Exception;
 	
+    // 창고 정보 삭제하기
+	public Integer deleteWhs(String whs_id) throws Exception;
 }

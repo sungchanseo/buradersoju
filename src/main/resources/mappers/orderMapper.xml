@@ -144,8 +144,8 @@
 <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 목록 가져오기 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
 <!-- InMaterialVO 페이징처리 시작 -->
 <!-- 아무조건이 없을 때 목록 배열 -->
-	<select id="getListPageSizeObjectInMaterialVO" resultType="OrderVO">
-		SELECT COUNT(*)
+	<select id="getListPageSizeObjectOrderVO" resultType="OrderVO">		
+		SELECT o.order_id, o.order_status, m.ma_id, o.add_order,  m.ma_name, m.ma_qty, o.order_vat,o.order_sum ,o.order_date, o.due_date, o.order_emp, o.order_qty, o.whs_id, m.unit_cost, o.in_date, o.add_order
 		FROM material m, orders o
 		WHERE m.ma_id = o.ma_id and o.order_status = 1
 		ORDER BY o.order_id DESC
@@ -155,8 +155,8 @@
 		
 		
 <!-- 검색어 + 페이지갯수 제한 전체 목록 배열 -->
-	<select id="getListSearchObjectInMaterialVO" resultType="OrderVO">
-		SELECT COUNT(*)
+	<select id="getListSearchObjectOrderVO" resultType="OrderVO">
+		SELECT o.order_id, o.order_status, m.ma_id, o.add_order,  m.ma_name, m.ma_qty, o.order_vat,o.order_sum ,o.order_date, o.due_date, o.order_emp, o.order_qty, o.whs_id, m.unit_cost, o.in_date, o.add_order
 		FROM material m, orders o
 		WHERE m.ma_id = o.ma_id and o.order_status = 1
 		AND ${selector} LIKE CONCAT('%', #{search}, '%')
@@ -167,8 +167,8 @@
 		
 	
 <!-- 필터처리 + 페이지갯수 제한 전체 목록 -->
-	<select id="getListFilterObjectInMaterialVO" resultType="OrderVO">
-		SELECT * FROM ${table} 
+	<select id="getListFilterObjectOrderVO" resultType="OrderVO">
+		SELECT o.order_id, o.order_status, m.ma_id, o.add_order,  m.ma_name, m.ma_qty, o.order_vat,o.order_sum ,o.order_date, o.due_date, o.order_emp, o.order_qty, o.whs_id, m.unit_cost, o.in_date, o.add_order 
 		WHERE ${column_name} = #{column_value} AND ${status_name} = #{status_value} 
 		ORDER BY ${id} DESC LIMIT #{startRow}, #{pageSize}
 	</select>
@@ -176,8 +176,8 @@
 
 
 <!-- 검색어 + 필터처리 + 페이지갯수 제한 전체 목록 -->
-	<select id="getListSearchFilterObjectInMaterialVO" resultType="OrderVO">
-		SELECT * FROM ${table}
+	<select id="getListSearchFilterObjectOrderVO" resultType="OrderVO">
+		SELECT o.order_id, o.order_status, m.ma_id, o.add_order,  m.ma_name, m.ma_qty, o.order_vat,o.order_sum ,o.order_date, o.due_date, o.order_emp, o.order_qty, o.whs_id, m.unit_cost, o.in_date, o.add_order
 		WHERE ${column_name} = #{column_value} AND ${status_name}=#{status_value}   
 		AND ${selector} LIKE CONCAT('%', #{search}, '%') 
 		ORDER BY ${id} DESC LIMIT #{startRow}, #{pageSize}

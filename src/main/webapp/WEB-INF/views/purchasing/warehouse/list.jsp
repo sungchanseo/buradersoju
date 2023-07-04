@@ -131,7 +131,54 @@ $('.modify').click(function(){
 		}); // update.click 
 		
   }); // modify.click
-});
+  
+//3-1. '삭제' 클릭
+	$('#delete').click(function(){ 
+			
+		var rowData = new Array();
+		var tdArr = new Array();
+		var checkbox = $("input[name=check]:checked");
+		
+		// 체크된 체크박스 값을 가져옴
+		checkbox.each(function(i) {
+
+			// checkbox.parent()          : checkbox의 부모는 <td>
+			// checkbox.parent().parent() : <td>의 부모이므로 <tr>
+			var tr = checkbox.parent().parent().eq(i);
+			var td = tr.children();
+			
+			// 체크된 row의 모든 값 배열에 담기
+			rowData.push(tr.text());
+			
+			// td.eq(0)은 체크박스, td.eq(1)이 ma_id
+			var whs_id = td.eq(1).text();
+			tdArr.push(whs_id);	// tdArr[0]
+        console.log(whs_id);
+		}); // function(i)
+		
+	
+		// 3-2. 체크된 데이터 컨트롤러 전달
+		var whs_id = tdArr[0];
+		
+		$.ajax({
+			url: "delete",
+			type: "post",
+			data: { whs_id:whs_id },
+			success: function() {
+				var result = confirm("품목코드 " + whs_id + "를 정말 삭제하시겠습니까?");
+				if(result){
+					alert("삭제가 완료되었습니다.");
+					location.href="/purchasing/warehouse/list";
+				}
+			},
+			error: function() {
+				alert("삭제할 항목을 선택해주세요.");
+			}
+	    }); //ajax		
+	
+	}); // deleteForm.click
+  
+}); // jquery
 
 
 
@@ -163,7 +210,7 @@ $('.modify').click(function(){
 		<div style=float:right;>
 			<button class="btn btn-success add-button" type="button" onclick="openPopup();">창고등록</button>
 			<button class="btn btn-success modify true">창고수정</button>
-			<button class="btn btn-success add-button" type="button" onclick="click_add();">창고삭제</button>
+			<button class="btn btn-success" id="delete">창고삭제</button>
 			<button class="btn btn-info insert update">저장</button>
 		</div>
 	</c:if>

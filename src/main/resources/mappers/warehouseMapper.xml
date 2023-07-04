@@ -15,11 +15,18 @@
 	</select>
 <!-- 창고 리스트 -->
 
+<!-- whs_id, whs_type, whs_tel, whs_status, whs_emp  -->
+     <select id="registWhsid" resultType="com.itwillbs.domain.WarehouseVO">
+      SELECT whs_id, whs_type, whs_tel, whs_status, whs_emp 
+      FROM warehouse
+      WHERE whs_id = #{whs_id}
+     </select> 
+
 
 <!-- 창고 등록 -->
 	<insert id ="warehouseInsert">
-		INSERT INTO warehouse (whs_type, whs_tel, whs_status, whs_emp)
-		VALUES (#{whs_type}, #{whs_tel}, #{whs_status}, #{whs_emp})
+		INSERT INTO warehouse (whs_id, whs_type, whs_tel, whs_status, whs_emp)
+		VALUES (#{whs_id} ,#{whs_type}, #{whs_tel}, #{whs_status}, #{whs_emp})
 	</insert>
 <!-- 창고 등록 -->
 
@@ -34,7 +41,7 @@
 
 <!-- 창고정보 수정 -->
     <update id ="modifyWarehouse">
-	     UPDATE warehouse SET whs_type=#{whs_type}, whs_tel=#{whs_tel}, shelt_position=#{shelt_position}, whs_status=#{whs_status}, whs_emp=#{whs_emp}
+	     UPDATE warehouse SET whs_id = #{whs_id} ,whs_type=#{whs_type}, whs_tel=#{whs_tel}, whs_status=#{whs_status}, whs_emp=#{whs_emp}
 	     WHERE whs_id = #{whs_id}
     </update>
 <!-- 창고정보 수정 -->
@@ -47,6 +54,18 @@
 	</update> 
 <!-- 창고정보 삭제 -->
         
+  <!-- 품목코드 최대 값 (maxNumber) 007 -->
+   <select id="getMaxNumber" resultType="String">
+      	SELECT MAX((SUBSTRING(whs_id, 3)))
+		FROM warehouse;
+   </select>
+<!-- 품목코드 최대 값 (maxNumber) 007 -->
+  <!-- 품목코드 최대 값 (maxNumber) 007 -->
+   <select id="getMaxNumber" resultType="String">
+      	SELECT MAX((SUBSTRING(whspr_id, 3)))
+		FROM warehouse;
+   </select>
+<!-- 품목코드 최대 값 (maxNumber) 007 -->
         
         
         

@@ -229,6 +229,7 @@ $(function() {
         	  $("#ma_name").val(data.ma_name)
          	  $("#order_sum").val(data.unit_cost*obj.in_order_qty)
         	  $("#order_vat").val(data.unit_cost*obj.in_order_qty/100)
+        	  $("#whs_id").val(data.whs_id)
         	 // $("#ma_name").val(data.ma_name)
         	 
               

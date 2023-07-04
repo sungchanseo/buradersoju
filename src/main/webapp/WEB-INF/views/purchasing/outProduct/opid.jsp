@@ -67,9 +67,9 @@ $(document).ready(function(){
 		var yesterday = getYesterday();
 		
 		
-		// production_id 정보 저장       
-		var production_id = "${param.production_id }";
-		console.log("************ productionr_id = " + production_id);
+		// cont_id 정보 저장       
+		var cont_id = "${param.cont_id }";
+		console.log("************ cont_id = " + cont_id);
 
 
 		// maxDate 정보 저장
@@ -119,7 +119,7 @@ $(document).ready(function(){
 				contentType : 'application/json;charset=UTF-8',
 				data: JSON.stringify({
 					op_id:op_id,
-					production_id:production_id,
+					cont_id:cont_id,
 					op_emp:op_emp,
 					op_date:today
 				}),

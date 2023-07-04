@@ -9,13 +9,16 @@
  	
  <!-- 입고 리스트 -->
 	<select id="getInMaterialListAll" resultType="com.itwillbs.domain.InMaterialVO">
-		SELECT m.ma_id, i.in_id, o.order_id, m.ma_name, o.order_qty, m.ma_qty, o.add_ma, i.in_process, m.whs_id, m.shelt_position, o.in_date, i.in_emp
-		FROM orders o
-		LEFT JOIN in_material i
-		ON o.order_id = i.order_id
-		LEFT JOIN material m
-		ON o.ma_id = m.ma_id
-		ORDER BY in_id DESC, order_id DESC
+		SELECT o.op_id, c.cont_id, c.production_id,
+		       c.cust_name, c.product_name, c.cont_qty, p.product_qty,
+		       c.due_date, o.op_process, o.op_date, o.op_emp
+		FROM contract c
+		LEFT JOIN out_product o
+		ON  o.cont_id = c.cont_id
+		LEFT JOIN product p
+		ON o.product_id = p.product_id
+		WHERE c.cont_status = 0
+		ORDER BY op_process, op_id DESC, c.cont_id DESC;
 	</select>
  <!-- 입고 리스트 -->	
  

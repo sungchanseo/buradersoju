@@ -228,9 +228,9 @@ public class ContractController {
 	}
 	
 	//상품명 자동완성 팝업창
-//	@RequestMapping(value="/productFind", method = RequestMethod.GET)
-//	public void findProductGET(PagingVO pvo, Model model) throws Exception{
-//		logger.debug("@@@@@@@@@@@Controller : 팝업으로 상품명찾기 !!!!!");
+	@RequestMapping(value="/productFind", method = RequestMethod.GET)
+	public void findProductGET(PagingVO pvo, Model model) throws Exception{
+		logger.debug("@@@@@@@@@@@Controller : 팝업으로 상품명찾기 !!!!!");
 //		
 //		List<Object> productList = null;
 //		
@@ -252,5 +252,5 @@ public class ContractController {
 //		// 변수에 담아서 전달
 //		model.addAttribute("productList", productList);
 //		model.addAttribute("pvo",pvo);
-//	}
+	}
 }

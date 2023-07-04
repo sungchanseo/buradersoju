@@ -42,7 +42,7 @@ public interface OrderService {
 //  특정 order_id의 기존 재고량 + 발주량 (== 총 재고량)
  	public void getAddMa(String order_id) throws Exception;
  
- 
+    
  	
  	
  // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ페이징처리ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ

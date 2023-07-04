@@ -110,14 +110,14 @@ public class WarehouseController {
 		return "redirect:/purchasing/warehouse/list";
 	}
 	// 창고정보 삭제하기
-    @RequestMapping(value = "remove" ) 	
-	public String removeWarehousePOST( WarehouseVO vo) {
+    @RequestMapping(value = "delete", method = RequestMethod.POST )
+    @ResponseBody
+	public void deleteWarehousePOST(@RequestParam("whs_id") String whs_id) throws Exception {
     	 logger.debug("창고정보삭제에에에에@@");
+  
+    	 int result = wService.deleteWhs(whs_id);
+    	 logger.debug("@@@@@@@@삭제된 행의수 : " + result);
     	 
-//    	  waservice.re
-    	 logger.debug("vo" + vo);
-    //	 wService.removeWarehouse(vo.getWhs_id());
-          logger.debug("삭제완료오오@@@@");
-    	return "redirect:/purchasing/warehouse/list";
+         logger.debug("삭제완료오오@@@@");
 	}
 }

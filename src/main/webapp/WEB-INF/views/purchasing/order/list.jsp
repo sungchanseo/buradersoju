@@ -543,7 +543,6 @@ table tr>td:nth-of-type(1) {width:50px !important;
 					<td>${order.in_date}</td>		
 					<td>${order.whs_id}</td>
 					<td>${order.order_emp}</td>
-					
 				</tr> 
 			</c:forEach>
 			</tbody>

@@ -3,6 +3,7 @@ package com.itwillbs.persistence;
 import java.util.List;
 
 
+
 import org.springframework.stereotype.Repository;
 
 import com.itwillbs.domain.WarehouseVO;
@@ -33,4 +34,8 @@ public interface WarehouseDAO {
 
     // 창고수정하기위한 아이디 가져오기
 	public WarehouseVO regisWhsId(String whs_id) throws Exception;
+	
+	// 창고 정보 삭제하기
+	public Integer deleteWhs(String whs_id) throws Exception;
+	
 }

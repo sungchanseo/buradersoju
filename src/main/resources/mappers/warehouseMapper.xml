@@ -57,15 +57,20 @@
   <!-- 품목코드 최대 값 (maxNumber) 007 -->
    <select id="getMaxNumber" resultType="String">
       	SELECT MAX((SUBSTRING(whs_id, 3)))
-		FROM warehouse;
+		FROM warehouse
    </select>
 <!-- 품목코드 최대 값 (maxNumber) 007 -->
   <!-- 품목코드 최대 값 (maxNumber) 007 -->
    <select id="getMaxprNumber" resultType="String">
       	SELECT MAX((SUBSTRING(whspr_id, 3)))
-		FROM warehouse;	
+		FROM warehouse
    </select>
 <!-- 품목코드 최대 값 (maxNumber) 007 -->
+
+<delete id="deleteWhs" >
+        update warehouse SET whs_status = 0
+        where whs_id = #{whs_id}
+     </delete>
         
         
         

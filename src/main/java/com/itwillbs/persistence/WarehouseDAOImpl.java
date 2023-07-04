@@ -72,6 +72,12 @@ public class WarehouseDAOImpl implements WarehouseDAO{
          return sqlSession.selectOne(NAMESPACE+".getMaxprNumber");
 	}
 
+	@Override
+	public Integer deleteWhs(String whs_id) throws Exception {
+		logger.debug("삭제대라ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ");
+		return sqlSession.delete(NAMESPACE+".deleteWhs",whs_id);
+	}
+
 	
 	
 }

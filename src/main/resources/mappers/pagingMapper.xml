@@ -132,7 +132,7 @@
 	<!-- 아무조건이 없을 때 목록 배열 가져오기  -->
 		<select id="getListPageSizeObjectEmployeeVO" resultType="EmployeeVO">
 			SELECT * FROM ${table} 
-			WHERE ${status_name} = #{status_value} 
+			WHERE ${status_name} LIKE CONCAT('%', #{status_value}, '%') 
 			ORDER BY ${id} DESC LIMIT #{startRow}, #{pageSize}
 		</select>
 	<!-- 아무조건이 없을 때 목록갯수 가져오기  -->	

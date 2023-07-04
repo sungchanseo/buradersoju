@@ -40,20 +40,21 @@
 										<select name="selector">
 											<option value="emp_name">이름</option>
 											<option value="emp_department">부서</option>
+											<option value="emp_status">재직구분</option>
 										</select>
 										<input type="text" name="search" placeholder="검색어를 입력해주세요">
 										<input type="submit" class="btn btn-info" value="검색">
 									<!-- 검색창기능 -->
 									
                                     <!-- 카테고리 기능 -->
-                                    <p id="category_search">
-									    <label>
-									        <input type="checkbox" name="" value="" onchange="this.form.submit()" 
-									            <c:if test="">checked</c:if>
-									        >
-									        현재재직자
-									    </label>
-									</p>
+<!--                                     <p id="category_search"> -->
+<!-- 									    <label> -->
+<!-- 									        <input type="checkbox" name="" value="" onchange="this.form.submit()"  -->
+<%-- 									            <c:if test="${emp_department.equals('인사팀') || emp_department.equals('인사') }">checked</c:if> --%>
+<!-- 									        > -->
+<!-- 									        현재재직자 -->
+<!-- 									    </label> -->
+<!-- 									</p> -->
                                     <!-- 카테고리 기능 -->
 																
 									<c:if test="${emp_department.equals('인사팀') || emp_department.equals('인사') }">

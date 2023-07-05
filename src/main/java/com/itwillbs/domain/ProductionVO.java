@@ -299,6 +299,7 @@ public class ProductionVO {
 		this.bt_defQty = bt_defQty;
 	}
 	
+	
 	// toString()
 	@Override
 	public String toString() {

@@ -26,20 +26,25 @@ function loadJSON(callback) {
         document.getElementById("todaysDescription").innerHTML = "날씨: " + weatherDescription;
         document.getElementById("todaysHumidity").innerHTML = "습도: " + weatherHumidity + "%";
         document.getElementById("todaysWindSpeed").innerHTML = "풍속: " + weatherWindSpeed + " m/s";
+        
+//        alert("weatherMain="+weatherMain);
     
-    
-        var iconClass = "mdi mdi-weather-cloudy"; // 기본값: 흐림
+        var iconClass = "mdi mdi-weather-sunny"; // 기본값: 맑음
+
         if (weatherMain === "Clear") {
             iconClass = "mdi mdi-weather-sunny"; // 맑음
-            document.getElementById("weatherCard").style.backgroundImage = "url(${pageContext.request.contextPath}/resources/images/dashboard/clear.png)"; // 맑은 날씨 배경 이미지
+            document.getElementById("weatherCard").style.backgroundImage = "url(../resources/images/dashboard/clear.png)"; // 맑은 날씨 이미지
+        } else if (weatherMain === "Clouds") {
+            iconClass = "mdi mdi-weather-cloudy"; // 구름
+            document.getElementById("weatherCard").style.backgroundImage = "url(../resources/images/dashboard/cloud.png)"; // 구름 이미지
         } else if (weatherMain === "Rain") {
             iconClass = "mdi mdi-weather-pouring"; // 비
-            document.getElementById("weatherCard").style.backgroundImage = "url(${pageContext.request.contextPath}/resources/images/dashboard/rain.png)"; // 비 오는 날씨 배경 이미지
+            document.getElementById("weatherCard").style.backgroundImage = "url(../resources/images/dashboard/rain.png)"; // 비 이미지
         } else if (weatherMain === "Snow") {
             iconClass = "mdi mdi-weather-snowy"; // 눈
-            document.getElementById("weatherCard").style.backgroundImage = "url(${pageContext.request.contextPath}/resources/images/dashboard/snow.png)"; // 눈 오는 날씨 배경 이미지
+            document.getElementById("weatherCard").style.backgroundImage = "url(../resources/images/dashboard/snow.png)"; // 눈 이미지
         } else {
-            document.getElementById("weatherCard").style.backgroundImage = "url(${pageContext.request.contextPath}/resources/images/dashboard/clear.png)"; // 기본 배경 이미지
+            document.getElementById("weatherCard").style.backgroundImage = "url(../resources/images/dashboard/clear.png)"; // 기본 이미지
         }
     
         document.getElementById("todaysWeather").className = iconClass;

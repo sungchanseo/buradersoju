@@ -150,7 +150,6 @@ $(function() {
 
   
     $('.writeForm').click(function() {
-     var emp_id =  "${sessionScope.emp_id }";
        console.log(nextNumber);
        console.log("행추가 등록함");
        console.log(emp_id);
@@ -201,7 +200,7 @@ $(function() {
            tbl += "<input type='text' name='whs_id' id='whs_id'>";
            tbl += "</td>";
            tbl += "<td>";
-           tbl += "<input type='text' name='order_emp' id='order_emp' value="+emp_id+">";
+           tbl += "<input type='text' name='emp_name' id='emp_name'>";
            tbl += "</td>";
            tbl += "</tr>";
            
@@ -263,7 +262,7 @@ $(function() {
           var due_date = $('#due_date').val();
           var in_date = $('#in_date').val();
           var order_emp = $('#order_emp').val();
- 
+          var emp_name = $('#emp_name').val();
           console.log(ma_id);
           console.log(ma_name);
           console.log(whs_id);
@@ -283,7 +282,7 @@ $(function() {
              $.ajax({
                 url: "list",
                 type: "post",
-                data: {whs_id:whs_id,ma_id:ma_id,order_date:order_date,due_date:due_date,in_date:in_date,order_id:order_id ,order_qty:order_qty,order_sum:order_sum,order_vat:order_vat,order_emp:order_emp},
+                data: {emp_name:emp_name,whs_id:whs_id,ma_id:ma_id,order_date:order_date,due_date:due_date,in_date:in_date,order_id:order_id ,order_qty:order_qty,order_sum:order_sum,order_vat:order_vat,order_emp:order_emp},
                success: function() {
               	 location.href="/purchasing/order/list"
                    alert("등록완료");
@@ -361,7 +360,7 @@ $(function() {
 							str += "<td>"+orderToday()+"</td>";
 							str += "<td>"+inToday()+"</td>";
 							str += "<td>"+ obj.whs_id +"</td>";
-							str += "<td>"+ obj.order_emp +"</td>";
+							str += "<td>"+ obj.emp_name +"</td>";
 							// 담당직원 세션에 저장된 아이디 들고오기
 							str += "</tr>";			
 							$('table').prepend(str);
@@ -550,7 +549,7 @@ table tr>td:nth-of-type(1) {width:50px !important;
 					<td>${order.due_date}</td>
 					<td>${order.in_date}</td>		
 					<td>${order.whs_id}</td>
-					<td>${order.order_emp}</td>
+					<td>${order.emp_name}</td>
 				</tr> 
 			</c:forEach>
 			</tbody>
@@ -634,7 +633,7 @@ table tr>td:nth-of-type(1) {width:50px !important;
 					<td>${order.due_date}</td>
 					<td>${order.in_date}</td>		
 					<td>${order.whs_id}</td>
-					<td>${order.order_emp}</td>
+					<td>${order.emp_name}</td>
 				</tr> 
 			</c:forEach>
 			</tbody>

@@ -13,6 +13,7 @@
 	border-color: #6C7293;}
 .auth .auth-form-light select {
     color: #6C7293;}
+    
 </style>
 <body>
 	<!-- 사원등록 새창열기  -->
@@ -54,7 +55,7 @@
 											<option value="emp_status">재직구분</option>
 										</select>
 										<input type="text" name="search" placeholder="검색어를 입력해주세요">
-										<input type="submit" class="btn btn-info" value="검색">
+										<input type="submit" class="btn btn-info" style="margin-bottom: 1em;" value="검색">
 									<!-- 검색창기능 -->
 									
                                     <!-- 카테고리 기능 -->
@@ -69,10 +70,10 @@
                                     <!-- 카테고리 기능 -->
 																
 									<c:if test="${emp_department.equals('인사팀') || emp_department.equals('Master') }">
-										<input type="button" class="btn btn-success" value="사원등록" onclick="insertPop()">
+										<input type="button" class="btn btn-success" style="float: right;" value="사원등록" onclick="insertPop()">
 									</c:if>
 									
-									<table class="table table-hover">
+									<table border="1" class="table table-hover table-bordered text-center">
 										<tr>
 											<th style="width: 60px">사번</th>
 											<th>이름</th>

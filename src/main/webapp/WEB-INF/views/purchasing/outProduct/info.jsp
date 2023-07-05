@@ -70,7 +70,7 @@ margin-left: 75%;
 
 <h1 style="text-align: center;">출고 상세보기</h1>
 	
-	<div id="buttons">
+<div id="buttons">
 		<button class="btn btn-success">엑셀파일</button>
 		<button class="btn btn-success print-button" onclick="info_print()">인쇄하기</button>
 			<script>
@@ -99,14 +99,14 @@ margin-left: 75%;
 				  window.print();
 				} 
 			</script>
-	</div>
+</div>	
 	
 
 
-	<!-- 테이블 -->
+	<!-- 테이블1 -->
 	<div>
 		<fmt:formatDate value=""/> 
-		<table border="1">
+		<table style="width: 830px;">
 			<tr>
 				<th>수주관리번호</th>
 				<td>${param.cont_id }</td>
@@ -117,17 +117,23 @@ margin-left: 75%;
 				<th>수주량</th>
 				<td>${info.cont_qty }EA</td>
 				
-				<th>재고확인</th>
-				<td>
-					<c:choose>
-						<c:when test="${info.product_qty >= info.cont_qty}">
-							<span style="color:blue">출고가능</span>
-						</c:when>
-						<c:when test="${info.product_qty < info.cont_qty}">
-							<span style="color:red">출고불가능</span>
-						</c:when>
-					</c:choose>
-				</td>
+				<th>납기일</th>
+				<td>${info.due_date }</td>
+				
+<!-- 				<th>재고확인</th> -->
+<!-- 				<td> -->
+<%-- 					<c:choose> --%>
+<%-- 			    		<c:when test="${info.op_process.equals('출고완료') }">ㅡ</c:when> --%>
+<%-- 			    		<c:when test="${info.op_process.equals('미출고') }">  --%>
+<%-- 				    		<c:if test="${info.product_qty >= info.cont_qty }"> --%>
+<!-- 				    			<span style="color:blue">출고가능</span> -->
+<%-- 				    		</c:if> --%>
+<%-- 				    		<c:if test="${info.product_qty < info.cont_qty }"> --%>
+<!-- 				    			<span style="color:red">출고불가</span> -->
+<%-- 				    		</c:if> --%>
+<%-- 				    	</c:when> --%>
+<%-- 		    		</c:choose>					 --%>
+<!-- 				</td> -->
 			</tr>
 			
 			<tr>
@@ -165,16 +171,52 @@ margin-left: 75%;
 			
 			<tr>
 				<th>품명</th>
-				<td colspan="2">${info.product_name }</td>
+				<td colspan="3">${info.product_name }</td>
 				
 				<th>납품처명</th>
-				<td colspan="2">${info.cust_name }</td>
-				
-				<th>납기일</th>
-				<td>${info.due_date }</td>
+				<td colspan="3">${info.cust_name }</td>
 			</tr>
 		</table>
 	</div>
+	
+	
+	<br>
+	
+	
+	<!-- 테이블2 -->
+	<c:if test="${info.op_process.equals('미출고') }">
+		<div>
+			<table style="width: 830px;">
+				<tr>
+					<th>자재코드</th>
+					<th>자재명</th>
+					<th>필요수량</th>
+					<th>재고수량</th>
+					<th>재고상태</th>
+				</tr>
+				
+				<c:forEach var="il" items="${inventoryList }">
+					<tr>
+						<td>${il.ma_id }</td>
+						<td>${il.ma_name }</td>
+						<td>${il.use_qty }</td>
+						<td>${il.ma_qty }</td>
+						<td>
+							<c:choose>
+								<c:when test="${il.ma_qty - il.use_qty >= 0 }">
+									<span style="color:blue">출고가능</span>
+								</c:when>
+								<c:otherwise>
+									<span style="color:red">출고불가</span>
+								</c:otherwise>
+							</c:choose>
+						</td>
+					</tr>
+				</c:forEach>
+			</table>
+		</div>
+	</c:if>
+
 
 </body>
 </html>

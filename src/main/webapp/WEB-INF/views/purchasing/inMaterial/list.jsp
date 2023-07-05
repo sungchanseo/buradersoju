@@ -58,7 +58,7 @@
 			<td>${iml.order_id }</td>		
 			<td>
 				<a href="info?order_id=${iml.order_id }"
-				   onclick="window.open(this.href, '_blank', 'width=900, height=300, left=510, top=365'); return false;">
+				   onclick="window.open(this.href, '_blank', 'width=970, height=300, left=510, top=365'); return false;">
 						<img class="viewDetail" src="${pageContext.request.contextPath}/resources/images/viewDetail.png" width="10px" height="10px" alt="image" />
 				</a>
 			</td>

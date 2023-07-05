@@ -26,6 +26,14 @@ public class OutProductVO {
     // employee
     private String emp_name;
     
+    // pr_material
+    private float use_qty;
+    
+    // material
+    private String ma_id;
+    private String ma_name;
+    private int ma_qty;
+    
     
     // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ getter & setter ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	
@@ -120,13 +128,44 @@ public class OutProductVO {
 	}
 	
 	
+	// pr_material
+	public float getUse_qty() {
+		return use_qty;
+	}
+	public void setUse_qty(float use_qty) {
+		this.use_qty = use_qty;
+	}
+	
+	
+	// material
+	public String getMa_id() {
+		return ma_id;
+	}
+	public void setMa_id(String ma_id) {
+		this.ma_id = ma_id;
+	}
+	public String getMa_name() {
+		return ma_name;
+	}
+	public void setMa_name(String ma_name) {
+		this.ma_name = ma_name;
+	}
+	public int getMa_qty() {
+		return ma_qty;
+	}
+	public void setMa_qty(int ma_qty) {
+		this.ma_qty = ma_qty;
+	}
+	
+	
 	// toString
 	@Override
 	public String toString() {
 		return "OutProductVO [op_id=" + op_id + ", product_id=" + product_id + ", cont_id=" + cont_id + ", op_process="
 				+ op_process + ", op_date=" + op_date + ", op_emp=" + op_emp + ", product_name=" + product_name
 				+ ", product_qty=" + product_qty + ", due_date=" + due_date + ", cont_qty=" + cont_qty + ", cust_name="
-				+ cust_name + ", production_id=" + production_id + ", emp_name=" + emp_name + "]";
+				+ cust_name + ", production_id=" + production_id + ", emp_name=" + emp_name + ", use_qty=" + use_qty
+				+ ", ma_id=" + ma_id + ", ma_name=" + ma_name + ", ma_qty=" + ma_qty + "]";
 	}
 
 }

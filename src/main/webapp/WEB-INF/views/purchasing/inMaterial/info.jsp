@@ -102,7 +102,7 @@ margin-left: 75%;
 </div>
 
 <fmt:formatDate value=""/> 
-<table border="1">
+<table style="width: 900px;">
 		<tr>
 			<th>발주관리번호</th>
 			<td>${param.order_id }</td>
@@ -131,7 +131,9 @@ margin-left: 75%;
 					<c:when test="${info.in_process.equals('미입고') }">
 						<span style="color:red">미입고</span>
 					</c:when>
-					<c:otherwise>${info.in_process }</c:otherwise>
+					<c:when test="${info.in_process.equals('입고완료') }">
+						<span style="color:blue">입고완료</span>
+					</c:when>
 				</c:choose>
 			</td>
 			

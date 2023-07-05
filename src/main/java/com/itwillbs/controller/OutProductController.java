@@ -108,12 +108,18 @@ public class OutProductController {
 	
 	// 3. 출고 상세보기
 	@RequestMapping(value = "/info", method=RequestMethod.GET)
-	public void getOutProductInfo(Model model, @RequestParam("cont_id") String cont_id) throws Exception{
+	public void getOutProductInfo(Model model, @RequestParam("cont_id") String cont_id,
+											   @RequestParam("product_id") String product_id) throws Exception{
 		logger.debug("@@@@@@@@@@ getOutProductInfo()_호출");
 		
 		OutProductVO info = oService.getOutProductInfo(cont_id);
-		logger.debug("@@@@@@@@@@ 출고 상세보기 데이터 : " + info);
+		logger.debug("@@@@@@@@@@ 출고 상세보기 테이블1 : " + info);
+		
+		List<OutProductVO> inventoryList = oService.getInventory(product_id);
+		logger.debug("@@@@@@@@@@ 출고 상세보기 테이블2 : " + inventoryList);
+		
 		model.addAttribute("info", info);
+		model.addAttribute("inventoryList", inventoryList);
 	}
 	
 	

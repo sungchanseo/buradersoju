@@ -62,6 +62,11 @@ public class OutProductServiceImpl implements OutProductService{
 		odao.registOpId(vo);
 	}
 	
+	// 4. 상품에 필요한 소요량과 현재고량 가져오기
+	@Override
+	public List<OutProductVO> getInventory(String product_id) throws Exception {
+		return odao.getInventory(product_id);
+	}
 	
 	
 	

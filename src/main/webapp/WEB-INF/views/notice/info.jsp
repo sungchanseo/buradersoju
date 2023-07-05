@@ -24,27 +24,21 @@
 										<tr>
 											<td><h3>No. ${vo.notice_id }</h3></td>
 											<td><h3>${vo.notice_title }</h3></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
+											<td colspan="6"></td>
 										</tr>
-										<tr>
-											<td style="text-align: right;"></td>
-											<td style="text-align: right;"></td>
-											<td style="text-align: right;">작성자</td>
-											<td style="text-align: right;">${vo.notice_writer}</td>
-											<td style="text-align: right;">작성일</td>
-											<td style="text-align: right;">${vo.notice_regdate}</td>
-											<td style="text-align: right;">조회수</td>
-											<td style="text-align: right;">${vo.notice_count}</td>
+										<tr style="text-align: right;">
+											<td colspan="2"></td>
+											<td><b>작성자</b></td>
+											<td>${vo.notice_writer}</td>
+											<td><b>작성일</b></td>
+											<td>${vo.notice_regdate}</td>
+											<td><b>조회수</b></td>
+											<td>${vo.notice_count}</td>
 										</tr>
 										<tr>
 											<td>내용</td>
 											<td>
-												<div style="width: 800px; height: 400px; overflow: auto;">
+												<div style="width: 800px; height: 650px; overflow: auto;">
 													${vo.notice_content}</div>
 											</td>
 										</tr>
@@ -55,7 +49,7 @@
 							<!-- 수정, 목록, 삭제 버튼 -->
 							<button class="btn btn-success btn-fw"
 										onclick="location.href='/notice/list'">공지 목록</button>
-							<c:if test="${sessionScope.emp_id == 111}">
+							<c:if test="${sessionScope.emp_department == '인사팀'|| sessionScope.emp_department == '전산팀'}">
 								<div class="button-container d-flex justify-content-end">
 									<button class="btn btn-success btn-fw"
 										onclick="location.href='/notice/modify?notice_id=${vo.notice_id}'" style="margin-right: 10px;">수정</button>

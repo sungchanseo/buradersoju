@@ -73,6 +73,13 @@ public class OutProductDAOImpl implements OutProductDAO {
 		sqlSession.update(NAMESPACE + ".registOpId", vo);
 	}
 	
+	// 4. 상품에 필요한 소요량과 현재고량 가져오기
+	@Override
+	public List<OutProductVO> getInventory(String product_id) throws Exception {
+		logger.debug("########## getInventory 호출");
+		return sqlSession.selectList(NAMESPACE+".getInventory", product_id);
+	}
+	
 	
 	
 	

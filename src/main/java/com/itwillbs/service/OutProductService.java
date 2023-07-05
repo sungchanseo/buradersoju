@@ -26,6 +26,9 @@ public interface OutProductService {
 	// 3-3. 출고번호 등록하기
 	public void registOpId(OutProductVO vo) throws Exception;
 	
+	// 4. 상품에 필요한 소요량과 현재고량 가져오기
+	public List<OutProductVO> getInventory(String product_id) throws Exception;
+	
 	
 	
 	

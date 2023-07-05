@@ -10,7 +10,7 @@
 
 <!-- 출고 리스트 -->
 	<select id="getOutProductList" resultType="com.itwillbs.domain.OutProductVO"> 
-		SELECT o.op_id, c.cont_id, c.production_id, c.cust_name, c.product_name, c.cont_qty, p.product_qty, c.due_date, o.op_process, o.op_date, o.op_emp
+		SELECT *
 		FROM contract c
 		LEFT JOIN product p
 		ON c.product_name = p.product_name
@@ -24,7 +24,7 @@
 
  <!-- 출고 정보 상세보기 -->	
 	<select id="getOutProductInfo" resultType="com.itwillbs.domain.OutProductVO">
-		SELECT o.op_id, c.cont_id, c.production_id, c.product_name, c.cust_name, c.cont_qty, p.product_qty, c.due_date, o.op_process, o.op_date, e.emp_name
+		SELECT *
 		FROM contract c
 		LEFT JOIN product p
 		ON c.product_name = p.product_name
@@ -63,9 +63,17 @@
 		WHERE c.cont_id = #{cont_id}
  	</update>
  <!-- op_id 출고번호, 담당직원 등록 -->
-
-
-
+ 
+ 
+ <!-- 상품에 필요한 소요량과 현재고량 가져오기 -->
+ 	<select id="getInventory" resultType="com.itwillbs.domain.OutProductVO">
+ 		SELECT pr.product_id, m.ma_id, m.ma_name, pr.use_qty, m.ma_qty
+		FROM material m, pr_material pr
+		WHERE m.ma_name = pr.ma_name
+		AND product_id = #{product_id}
+		ORDER BY ma_id
+ 	</select>
+ <!-- 상품에 필요한 소요량과 현재고량 가져오기 -->
 
 
 
@@ -161,7 +169,7 @@
 <!-- OutProductVO 페이징처리 시작 -->
 <!-- 아무조건이 없을 때 목록 배열 -->
 	<select id="getListPageSizeObjectOutProductVO" resultType="OutProductVO">
-		SELECT o.op_id, c.cont_id, c.production_id, c.cust_name, c.product_name, c.cont_qty, p.product_qty, c.due_date, o.op_process, o.op_date, e.emp_name
+		SELECT *
 		FROM contract c
 		LEFT JOIN product p
 		ON c.product_name = p.product_name

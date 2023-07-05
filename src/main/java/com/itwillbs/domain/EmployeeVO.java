@@ -19,6 +19,7 @@ public class EmployeeVO {
 	private String absence_date;
 	private String rehabi_date;
 	private String resign_date;
+	private String emp_hidden;
 
 	public EmployeeVO() {
 
@@ -168,10 +169,18 @@ public class EmployeeVO {
 		this.resign_date = resign_date;
 	}
 
+	public String getEmp_hidden() {
+		return emp_hidden;
+	}
+
+	public void setEmp_hidden(String emp_hidden) {
+		this.emp_hidden = emp_hidden;
+	}
+
 	public EmployeeVO(String emp_id, String emp_pw, String emp_name, String emp_email, String emp_birth,
 			String emp_gender, String emp_phone, String emp_tel, String emp_address, String emp_address_detail,
 			String emp_image, String emp_department, String emp_position, String emp_status, String join_date,
-			String absence_date, String rehabi_date, String resign_date) {
+			String absence_date, String rehabi_date, String resign_date, String emp_hidden) {
 		super();
 		this.emp_id = emp_id;
 		this.emp_pw = emp_pw;
@@ -191,6 +200,7 @@ public class EmployeeVO {
 		this.absence_date = absence_date;
 		this.rehabi_date = rehabi_date;
 		this.resign_date = resign_date;
+		this.emp_hidden = emp_hidden;
 	}
 
 	@Override
@@ -200,7 +210,7 @@ public class EmployeeVO {
 				+ ", emp_tel=" + emp_tel + ", emp_address=" + emp_address + ", emp_address_detail=" + emp_address_detail
 				+ ", emp_image=" + emp_image + ", emp_department=" + emp_department + ", emp_position=" + emp_position
 				+ ", emp_status=" + emp_status + ", join_date=" + join_date + ", absence_date=" + absence_date
-				+ ", rehabi_date=" + rehabi_date + ", resign_date=" + resign_date + "]";
+				+ ", rehabi_date=" + rehabi_date + ", resign_date=" + resign_date + ", emp_hidden=" + emp_hidden + "]";
 	}
-	
+
 }

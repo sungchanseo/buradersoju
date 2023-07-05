@@ -3,9 +3,41 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%@ include file="../../includes/header.jsp" %>
+
+<style type="text/css">
+html,body {width:100%;  }
+body,div,ul,li{margin:0; padding:0;}
+ul,li {list-style:none;}
+
+/*tab css*/
+.tab{float:left; width:500px; height:690px;}
+.tabnav{font-size:0; width:252px; border:1px solid #ddd;}
+.tabnav li{display: inline-block;  height:46px; text-align:center; border-right:1px solid #ddd;}
+.tabnav li a:before{content:""; position:absolute; left:0; top:0px; width:100%; height:3px; }
+.tabnav li a.active:before{background:#7ea21e;}  /*탭기능 버튼눌렀을때 눌렀따~~표시되는 css  */
+.tabnav li a.active{border-bottom:1px solid #fff;} /*탭기능 버튼눌렀을때 눌렀따~~표시되는 css  */
+.tabnav li a{ position:relative; display:block; background: #f8f8f8; color: #000; padding:0 30px; line-height:46px; text-decoration:none; font-size:16px;}
+/* 위에 코드 없으면 탭버튼들이 안보임 모르겠음 왜인지는 ㅎㄷㄷ  */
+.tabnav li a:hover, /*탭기능 버튼눌렀을때 눌렀따~~표시되는 css  */
+.tabnav li a.active{background:#fff; color:#7ea21e; } /*탭기능 버튼눌렀을때 눌렀따~~표시되는 css  */
+.tabcontent{padding: 20px; height:764px; width:1892px; border:1px solid #ddd; border-top:none;}
+</style>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script type="text/javascript">
 
+// 탭기능
+$(function(){
+	  $('.tabcontent > div').hide();
+	  $('.tabnav a').click(function () {
+	    $('.tabcontent > div').hide().filter(this.hash).fadeIn();
+	    $('.tabnav a').removeClass('active');
+	    $(this).addClass('active');
+	    return false;
+	  }).filter(':eq(0)').click();
+	  });
+	  
+	  
 function openPopup() {
 	window.open('./insert', 'warehousePopup', 'width=800, height=500, left=2000');
 }
@@ -187,23 +219,66 @@ $('.modify').click(function(){
 <body>
 <br>
 
-
-<div class="card-body">
 	<h1 class="card-title">
 		<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">창고 리스트</font></font>
 	</h1>
 	
+	<div>
+	<ul class="nav nav-tabs tab-no-active-fill" role="tablist">
+	<li class="nav-item">
+	<a class="nav-link ps-2 pe-2 active" id="stage1-tab" data-bs-toggle="tab" href="#stage1" role="tab" aria-controls="stage1" aria-selected="true">자재창고</a>
+	</li>
+	<li class="nav-item">
+	<a class="nav-link ps-2 pe-2" id="stage2-tab" data-bs-toggle="tab" href="#stage2" role="tab" aria-controls="stage2" aria-selected="false">상품창고</a>
+    </li>
+	</ul>								
+	<div class="tab-content tab-no-active-fill-tab-content">
 	
-	<!-- 검색 기능 -->
-	<form action="/purchasing/inMaterial/list" method="get" style="display: inline;">
-		<select name="selector">
-			<option value="ma_name">자재명</option>	
-			<option value="in_date">입고일자</option>
-			<option value="in_emp">담당직원</option>
-		</select> <input type="text" class="form-control" style="width:10%; display:inline;" name="search" placeholder="검색어를 입력해주세요">
-		<input type="submit"  class="btn btn-info" value="검색">
-	</form>
+	<div class="tab-pane fade active show" id="stage1" role="tabpanel" aria-labelledby="stage1-tab">
 	
+	<c:if test="${emp_department.equals('구매팀')}">
+		<div style=float:right;>
+			<button class="btn btn-success add-button" type="button" onclick="openPopup();">창고등록</button>
+			<button class="btn btn-success modify true">창고수정</button>
+			<button class="btn btn-success" id="delete">창고삭제</button>
+			<button class="btn btn-info insert update">저장</button>
+		</div>
+	</c:if> 
+	
+	<!-- 테이블 -->
+	<table border="1" class="table table-hover table-bordered text-center">
+		<tr>
+			<th></th>
+			<th>창고번호</th>
+			<th>창고타입</th>
+			<th>전화번호</th>
+			<th>사용여부</th>
+			<th>창고관리자</th>
+		</tr>
+		
+		<c:forEach var="wh" items="${warehouseList}">
+			<tr>
+			<c:choose>
+			   <c:when test="${wh.whs_type.equals('자재')}">
+			   <td><input type="checkbox" name="check"></td>
+		       <td>${wh.whs_id}</td>
+		       <td>${wh.whs_type}</td>
+		       <td>${wh.whs_tel}</td>
+		       <td>
+		       	 <c:choose>
+		       		<c:when test="${wh.whs_status == 1}">사용중</c:when>
+		       		<c:when test="${wh.whs_status == 2}">미사용</c:when>
+		       	 </c:choose>
+		       </td>
+		       <td>${wh.whs_emp}</td>
+		       </c:when>
+		       </c:choose>
+			</tr>
+		</c:forEach>
+	</table>
+</div>
+<!-- 2번째 탭 내용들  -->
+<div class="tab-pane fade show" id="stage2" role="tabpanel" aria-labelledby="stage2-tab">
 	
 	<!-- 구매팀일때만 버튼 활성화 -->
 	<c:if test="${emp_department.equals('구매팀')}">
@@ -213,7 +288,7 @@ $('.modify').click(function(){
 			<button class="btn btn-success" id="delete">창고삭제</button>
 			<button class="btn btn-info insert update">저장</button>
 		</div>
-	</c:if>
+	</c:if> 
 	
 	
 	<!-- 테이블 -->
@@ -229,6 +304,8 @@ $('.modify').click(function(){
 		
 		<c:forEach var="wh" items="${warehouseList}">
 			<tr>
+			<c:choose>
+			   <c:when test="${wh.whs_type.equals('상품')}">
 			   <td><input type="checkbox" name="check"></td>
 		       <td>${wh.whs_id}</td>
 		       <td>${wh.whs_type}</td>
@@ -240,17 +317,16 @@ $('.modify').click(function(){
 		       	 </c:choose>
 		       </td>
 		       <td>${wh.whs_emp}</td>
-<%-- 		       <td><a href="/purchasing/warehouse/modify?whs_id=${wh.whs_id}">수정</a></td> --%>
-<%-- 		       <td><a href="/purchasing/warehouse/remove?whs_id=${wh.whs_id}">삭제</a></td> --%>
+		       </c:when>
+		       </c:choose>
 			</tr>
 		</c:forEach>
 	</table>
+   </div>
+ </div>
 </div>
 
-
-
-
-
 <%@ include file="../../includes/footer.jsp" %>
+
 </body>
 </html>

@@ -43,8 +43,7 @@ public class OrderController {
 			 HttpServletRequest request, HttpSession session) throws Exception {
 
 		logger.debug("@@@@@orderList 호출@@@@@");
-		// service 객체 호출
-		List<OrderVO> orderList = orserivce.getOrderList();
+	
 		logger.debug("@@@@@@@@@@ getOrderIdGET() 호출");
 
 		// 로그인 세션 제어

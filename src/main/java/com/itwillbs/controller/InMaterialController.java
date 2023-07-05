@@ -121,7 +121,7 @@ public class InMaterialController {
 		
 		InMaterialVO info = iService.getInMaterialInfo(order_id);
 		logger.debug("@@@@@@@@@@ 입고 상세보기 데이터 : " + info);
-		model.addAttribute("resultVO", info);
+		model.addAttribute("info", info);
 	}
 
 

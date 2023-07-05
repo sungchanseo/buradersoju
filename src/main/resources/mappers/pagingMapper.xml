@@ -174,8 +174,10 @@
 <!-- MaterialVO  페이징처리 시작 -->
 	<!-- 아무조건이 없을 때 목록 배열 가져오기  -->
 		<select id="getListPageSizeObjectMaterialVO" resultType="MaterialVO">
-			SELECT * FROM ${table} 
-			WHERE ${status_name} = #{status_value} 
+			SELECT *
+			FROM material m, employee e
+			WHERE m.ma_emp = e.emp_id
+			AND ${status_name} = #{status_value} 
 			ORDER BY ${id} DESC
 			LIMIT #{startRow}, #{pageSize}
 		</select>
@@ -183,8 +185,10 @@
 		
 	<!--  	검색어+페이지갯수 제한 전체 목록 배열 가져오기  -->
 		<select id="getListSearchObjectMaterialVO" resultType="MaterialVO">
-			SELECT * FROM ${table} 
-			WHERE ${status_name} = #{status_value} 
+			SELECT *
+			FROM material m, employee e
+			WHERE m.ma_emp = e.emp_id
+			AND ${status_name} = #{status_value} 
 			AND ${selector} LIKE CONCAT('%', #{search}, '%') 
 			ORDER BY ${id} DESC LIMIT #{startRow}, #{pageSize}
 		</select>

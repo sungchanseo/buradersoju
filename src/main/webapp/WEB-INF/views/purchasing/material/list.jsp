@@ -81,8 +81,9 @@ $(document).ready(function() {
 		console.log("************ 품목코드 = " + ma_id);
 		
 		// 직원 정보 저장
-		var emp_id = "${sessionScope.emp_id }";
-		console.log("************ 로그인 되어 있는 아이디 = " + emp_id);
+		var ma_emp = "${sessionScope.emp_id }";
+		var emp_name = "${sessionScope.emp_name }";
+		console.log("************ 로그인 아이디 + 이름 = " + ma_emp + emp_name);
 		
 		// 행 추가
 		if($(this).hasClass('true')) {
@@ -114,7 +115,7 @@ $(document).ready(function() {
 	        tbl += regdate;
 	        tbl += "</td>";
 	        tbl += "<td>";
-	        tbl += emp_id;
+	        tbl += emp_name;
 	        tbl += "</td>";
 	        tbl += "</tr>";
             
@@ -136,16 +137,8 @@ $(document).ready(function() {
 				var shelt_position = $('#shelt_position').val();
 				var ma_regdate = $('#ma_regdate').val();
 				var ma_emp = "${sessionScope.emp_id }";
+				var emp_name = "${sessionScope.emp_name }";
 				
-// 				var obj = {whs_id:whs_id,
-// 				            ma_id:ma_id,
-// 						    ma_name:ma_name,
-// 						    unit:unit,
-// 						    ma_qty:ma_qty,
-// 						    unit_cost:unit_cost,
-// 						    shelt_position:shelt_position,
-// 						    ma_regdate:ma_regdate};
-
 				if(whs_id==="" || ma_name==="" || unit==="" || ma_qty==="" || unit_cost==="" || shelt_position==="") {
 					alert("모든 정보를 입력해주세요.");
 				} else {
@@ -162,7 +155,8 @@ $(document).ready(function() {
                             unit_cost:unit_cost,
                             shelt_position:shelt_position,
                             ma_regdate:ma_regdate,
-                            ma_emp:ma_emp
+                            ma_emp:ma_emp,
+                            emp_name:emp_name
 						},
 						success: function() {
 							alert("자재코드 " + ma_id + ", 등록 완료되었습니다.");
@@ -238,8 +232,7 @@ $(document).ready(function() {
 							str += "<td><input type='text' id='whs_id' name='whs_id' value="+ obj.whs_id +"></td>";
 							str += "<td><input type='text' id='shelt_position' name='shelt_position' value="+ obj.shelt_position +"></td>";
 							str += "<td>"+ getToday() +"</td>";
-							str += "<td><input type='text' id='ma_emp' name='ma_emp' value="+ obj.ma_emp +"></td>";	
-							// 담당직원 세션에 저장된 아이디 들고오기
+							str += "<td><input type='text' id='emp_name' name='emp_name' value="+ obj.emp_name +"></td>";	
 							str += "</tr>";			
 							$('table').prepend(str);
 						});
@@ -264,9 +257,10 @@ $(document).ready(function() {
 			var unit_cost = $('#unit_cost').val();
 			var shelt_position = $('#shelt_position').val();
 			var ma_regdate = getToday();
-			var ma_emp = $('#ma_emp').val();
+			var ma_emp = "${sessionScope.emp_id }";
+			var emp_name = $('#emp_name').val();
 						
-			if(whs_id==="" | ma_name==="" || unit==="" || ma_qty==="" || unit_cost==="" || shelt_position==="" || ma_emp==="") {
+			if(whs_id==="" | ma_name==="" || unit==="" || ma_qty==="" || unit_cost==="" || shelt_position==="") {
 				alert("모든 정보를 입력해주세요.");
 			} else {
 				$.ajax({
@@ -283,7 +277,8 @@ $(document).ready(function() {
 						    unit_cost:unit_cost,
 						    shelt_position:shelt_position,
 						    ma_regdate:ma_regdate,
-						    ma_emp:ma_emp }),
+						    ma_emp:ma_emp,
+						    emp_name:emp_name }),
 					success: function() {
 // 						alert("자재코드 " + ma_id + ", 수정이 완료되었습니다.");
 // 						location.href="/purchasing/material/list";
@@ -419,7 +414,7 @@ $(document).ready(function() {
          	<td>${ml.whs_id }</td>
 			<td>${ml.shelt_position }</td>
 			<td><fmt:formatDate pattern="yyyy-MM-dd" value="${ml.ma_regdate}"/></td>
-			<td>${ml.ma_emp }</td>
+			<td>${ml.emp_name }</td>
          </tr>
       </c:forEach>
      </tbody>

@@ -30,5 +30,8 @@ public interface MaterialService {
 	
 	// 6. 자재 삭제
 	public Integer deleteMaterial(String ma_id) throws Exception;
+	
+	// 7. 사원이름 가져오기
+	public String getEmpName(String ma_id) throws Exception;
 
 }

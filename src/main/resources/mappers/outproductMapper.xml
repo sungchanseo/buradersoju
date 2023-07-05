@@ -24,12 +24,14 @@
 
  <!-- 출고 정보 상세보기 -->	
 	<select id="getOutProductInfo" resultType="com.itwillbs.domain.OutProductVO">
-		SELECT o.op_id, c.cont_id, c.production_id, c.product_name, c.cust_name, c.cont_qty, p.product_qty, c.due_date, o.op_process, o.op_date, o.op_emp
+		SELECT o.op_id, c.cont_id, c.production_id, c.product_name, c.cust_name, c.cont_qty, p.product_qty, c.due_date, o.op_process, o.op_date, e.emp_name
 		FROM contract c
 		LEFT JOIN product p
 		ON c.product_name = p.product_name
 		LEFT JOIN out_product o
 		ON  c.cont_id = o.cont_id
+		LEFT JOIN employee e
+		ON o.op_emp = e.emp_id
 		WHERE c.cont_status = 0
 		AND c.cont_id  = #{cont_id}
 	</select>
@@ -52,7 +54,7 @@
  <!-- DB 출고번호 최대 날짜 (maxDate) == 230620 -->
  
  
- <!-- op_id 출고번호, 담당직원 등록 -->
+ <!-- 출고번호, 출고일자, 담당직원 등록 -->
  	<update id="registOpId">		
 		UPDATE contract c
 		LEFT JOIN out_product o
@@ -83,6 +85,8 @@
 		ON c.product_name = p.product_name
 		LEFT JOIN out_product o
 		ON  c.cont_id = o.cont_id
+		LEFT JOIN employee e
+		ON o.op_emp = e.emp_id
 		WHERE c.cont_status = 0
 	</select>
 <!-- 	전체 리스트 갯수 조회  -->
@@ -96,6 +100,8 @@
 		ON c.product_name = p.product_name
 		LEFT JOIN out_product o
 		ON  c.cont_id = o.cont_id
+		LEFT JOIN employee e
+		ON o.op_emp = e.emp_id
 		WHERE c.cont_status = 0
 		limit 0, 10
 	</select>
@@ -110,6 +116,8 @@
 		ON c.product_name = p.product_name
 		LEFT JOIN out_product o
 		ON  c.cont_id = o.cont_id
+		LEFT JOIN employee e
+		ON o.op_emp = e.emp_id
 		<where>	
 			<if test="selector == 'op_id'">
 				AND o.op_id LIKE CONCAT('%', #{search}, '%')
@@ -121,7 +129,7 @@
 				AND c.product_name LIKE CONCAT('%', #{search}, '%') 
 			</if>
 			<if test="selector == 'op_emp'">
-				AND o.op_emp LIKE CONCAT('%', #{search}, '%')
+				AND e.emp_name LIKE CONCAT('%', #{search}, '%')
 			</if>
 		</where>
 		AND c.cont_status = 0
@@ -153,12 +161,14 @@
 <!-- OutProductVO 페이징처리 시작 -->
 <!-- 아무조건이 없을 때 목록 배열 -->
 	<select id="getListPageSizeObjectOutProductVO" resultType="OutProductVO">
-		SELECT o.op_id, c.cont_id, c.production_id, c.cust_name, c.product_name, c.cont_qty, p.product_qty, c.due_date, o.op_process, o.op_date, o.op_emp
+		SELECT o.op_id, c.cont_id, c.production_id, c.cust_name, c.product_name, c.cont_qty, p.product_qty, c.due_date, o.op_process, o.op_date, e.emp_name
 		FROM contract c
 		LEFT JOIN product p
 		ON c.product_name = p.product_name
 		LEFT JOIN out_product o
 		ON  c.cont_id = o.cont_id
+		LEFT JOIN employee e
+		ON o.op_emp = e.emp_id
 		WHERE c.cont_status = 0
 		ORDER BY op_process, op_id DESC, c.cont_id DESC
 		LIMIT #{startRow}, #{pageSize}
@@ -168,12 +178,14 @@
 		
 <!-- 검색어 + 페이지갯수 제한 전체 목록 배열 -->
 	<select id="getListSearchObjectOutProductVO" resultType="OutProductVO">
-		SELECT o.op_id, c.cont_id, c.production_id, c.cust_name, c.product_name, c.cont_qty, p.product_qty, c.due_date, o.op_process, o.op_date, o.op_emp
+		SELECT o.op_id, c.cont_id, c.production_id, c.cust_name, c.product_name, c.cont_qty, p.product_qty, c.due_date, o.op_process, o.op_date, e.emp_name
 		FROM contract c
 		LEFT JOIN product p
 		ON c.product_name = p.product_name
 		LEFT JOIN out_product o
 		ON  c.cont_id = o.cont_id
+		LEFT JOIN employee e
+		ON o.op_emp = e.emp_id
 		<where>	
 			<if test="selector == 'op_id'">
 				AND ${selector} LIKE CONCAT('%', #{search}, '%')
@@ -185,7 +197,7 @@
 				AND c.product_name LIKE CONCAT('%', #{search}, '%') 
 			</if>
 			<if test="selector == 'op_emp'">
-				AND o.op_emp LIKE CONCAT('%', #{search}, '%')
+				AND e.emp_name LIKE CONCAT('%', #{search}, '%')
 			</if>
 		</where>
 		AND c.cont_status = 0

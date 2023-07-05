@@ -17,18 +17,20 @@ public interface MaterialDAO {
 	// 3. 자재 검색
 	public List<MaterialVO> getSearchList(MaterialVO vo) throws Exception;
 	
-	// 3-1. 자재 품목코드 자동넘버링
+	// 4-1. 자재 품목코드 자동넘버링
 	public String getMaxNumber() throws Exception;
 	
-	// 3-2. 자재 등록
+	// 4-2. 자재 등록
 	public void insertMaterial(MaterialVO vo) throws Exception;
 	
-	// 4. 자재 수정
-	public Integer modifyMaterial(MaterialVO mvo);
+	// 5. 자재 수정
+	public Integer modifyMaterial(MaterialVO mvo) throws Exception;
 	
-	// 5. 자재 삭제
-	public Integer deleteMaterial(String ma_id);
+	// 6. 자재 삭제
+	public Integer deleteMaterial(String ma_id) throws Exception;
 	
+	// 7. 사원이름 가져오기
+	public String getEmpName(String ma_id) throws Exception;
 
 
 }

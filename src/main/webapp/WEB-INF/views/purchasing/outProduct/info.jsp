@@ -59,6 +59,10 @@ border-color: #23dbf8;}
 /* padding:8px 10px; */
 /* color: #fff;} */
 
+#buttons {
+margin-left: 75%;
+}
+
 
 </style>
 </head>
@@ -66,7 +70,7 @@ border-color: #23dbf8;}
 
 <h1 style="text-align: center;">출고 상세보기</h1>
 	
-	<div>
+	<div id="buttons">
 		<button class="btn btn-success">엑셀파일</button>
 		<button class="btn btn-success print-button" onclick="info_print()">인쇄하기</button>
 			<script>
@@ -153,8 +157,8 @@ border-color: #23dbf8;}
 				<th>출고담당직원</th>
 				<td>
 					<c:choose>
-						<c:when test="${info.op_emp == 0 || empty info.op_emp}"> </c:when>
-						<c:otherwise>${info.op_emp }</c:otherwise>
+						<c:when test="${empty info.emp_name}"> </c:when>
+						<c:otherwise>${info.emp_name }</c:otherwise>
 					</c:choose>
 				</td>
 			</tr>

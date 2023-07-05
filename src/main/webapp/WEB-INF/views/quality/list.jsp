@@ -11,17 +11,18 @@
 	
 	
 	<!-- (수정중) 생산 목록 중 ‘생산량 >= 수주량’ => 작업상태가 완료인 작업지시만 나타남 -->
+	<!-- 페이징 처리에서 완료됨 -->
 	<script>
-	$(function(){
-		var production_status = $('#production_status').val();
-		var state0 = "대기";
-		var state1 = "진행중";
-		console.log(production_status);
+// 	$(function(){
+// 		var production_status = $('#production_status').val();
+// 		var state0 = "대기";
+// 		var state1 = "진행중";
+// 		console.log(production_status);
 		
-		if( production_status == state0 || production_status == state1){
-			$(".qualityListResult").hide();
-		}
-		});
+// 		if( production_status == state0 || production_status == state1){
+// 			$(".qualityListResult").hide();
+// 		}
+// 		});
 	</script>
 	
 	<!-- 등록 버튼 보이기 제어 -->
@@ -71,9 +72,10 @@
 	</div>
 	
 	<!-- 관리자에게만 보이는 검수등록 버튼 -->
-	<input type="button" id="qualityInsertBT" value="검수 등록"
-		onclick="window.open('/quality/qualityInsert', '_blank', 'width=600, height=500, left=2000');">
-	<button class="print-button" onclick="info_print()">인쇄하기</button>
+	<input type="button" id="qualityInsertBT" class="btn btn-success" value="검수 등록"
+		onclick="window.open('/quality/insert', '_blank', 'width=600, height=500, left=2000');">
+	<button class="print-button" onclick="info_print()" style='text-align: right; float: right;'>엑셀파일</button>
+	<button class="print-button" onclick="info_print()" style='text-align: right; float: right;'>인쇄하기</button>
 		<script>
 			/* 인쇄하기 버튼 */
 			function info_print() {
@@ -118,17 +120,17 @@
 				<th>불량률</th>
 				<th>검수자</th>
 				<th>검수완료일시</th>
-				<th>검수상태</th>
+<!-- 				<th>검수상태</th> -->
 			</tr>
 		</thead>
 		<tbody>	            
-			<c:forEach var="vo" items="${productionList }">
+			<c:forEach var="vo" items="${qualityList }">
 				<!-- 나중에 불필요한거 정리할 예정 -->
 				<input type="hidden" id="production_qty" name="production_qty" value=" ${vo.production_qty}">
 				<input type="hidden" id="plan_qty" name="plan_qty" value=" ${vo.plan_qty}">
 				<input type="hidden" id="production_status" name="production_status" value=" ${vo.production_status}">
 			<tr class="qualityListResult">
-				<td><a href="/quality/qualityInfo?qc_num=${vo.qc_num }" onclick="window.open(this.href, '_blank', 'width=800, height=500, left=2000'); return false;">${vo.qc_num  }</a></td>
+				<td><a href="/quality/info?qc_num=${vo.qc_num }" onclick="window.open(this.href, '_blank', 'width=800, height=500, left=2000'); return false;">${vo.qc_num  }</a></td>
 				<td><a href="/production/workOrder/workOrder?production_id=${vo.production_id }" onclick="window.open(this.href, '_blank', 'width=800, height=500, left=2000'); return false;">${vo.production_id }</a></td>
 				<td>${vo.production_line }</td>
 				<td>${vo.product_id }</td>
@@ -138,29 +140,45 @@
 				<td>${vo.def_qty }</td>
 				<td><fmt:formatNumber value="${(vo.def_qty /vo.qc_qty*100) }" pattern="#.###"/></td>
 				<td>${vo.qc_emp }</td>
-				<td>${vo.qc_date }</td>
-				<td>${vo.qc_state }</td>
+				<td><fmt:formatDate value="${vo.qc_date }" pattern="yyyy-MM-dd hh:mm:ss"/> </td>
+<%-- 				<td>${vo.qc_status }</td> --%>
 			</tr>
 			</c:forEach>
 	</tbody>
 	</table>
 	</div>
 	<!-- 	페이징 처리  -->
-	<c:if test="${pvo.startPage > pvo.pageBlock }">
-		<a href="/contract/list?pageNum=${pvo.startPage-pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}">이전</a>
-	</c:if>
+<%-- 	<c:if test="${pvo.startPage > pvo.pageBlock }"> --%>
+<%-- 		<a href="/quality/list?pageNum=${pvo.startPage-pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}">이전</a> --%>
+<%-- 	</c:if> --%>
 
-	<c:forEach var="i" begin="${pvo.startPage }" end="${pvo.endPage }" step="1">
-		<a href="/contract/list?pageNum=${i }&selector=${pvo.selector}&search=${pvo.search}">${i }</a>
-	</c:forEach>
+<%-- 	<c:forEach var="i" begin="${pvo.startPage }" end="${pvo.endPage }" step="1"> --%>
+<%-- 		<a href="/quality/list?pageNum=${i }&selector=${pvo.selector}&search=${pvo.search}">${i }</a> --%>
+<%-- 	</c:forEach> --%>
 
-	<c:if test="${pvo.endPage<pvo.pageCount }">
-		<a href="/contract/list?pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}">다음</a>
-	</c:if>
+<%-- 	<c:if test="${pvo.endPage<pvo.pageCount }"> --%>
+<%-- 		<a href="/quality/list?pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}">다음</a> --%>
+<%-- 	</c:if> --%>
+	<!-- 	페이징 처리  -->
+	<div class="template-demo">
+		<div class="btn-group" role="group" aria-label="Basic example">
+			<c:if test="${pvo.startPage > pvo.pageBlock }">
+				<a href="/quality/list?pageNum=${pvo.startPage-pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">이전</a>
+			</c:if>
+			
+			<c:forEach var="i" begin="${pvo.startPage }" end="${pvo.endPage }" step="1">
+				<a href="/quality/list?pageNum=${i }&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">${i }</a>
+			</c:forEach>
+			
+			<c:if test="${pvo.endPage<pvo.pageCount }">
+				<a href="/quality/list?pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">다음</a>
+			</c:if>
+		</div>
+	</div>
 	<!-- 	페이징 처리  -->
 	</div>
-								<button class="btn btn-success btn-fw" type="submit">
-									등록</button>
+<!-- 								<button class="btn btn-success btn-fw" type="submit"> -->
+<!-- 									등록</button> -->
 							</form>
 						</div>
 					</div>

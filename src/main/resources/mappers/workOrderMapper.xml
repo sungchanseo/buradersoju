@@ -8,8 +8,8 @@
 
 <!-- 작업지시 목록 -->
 	<select id="getWorkOrderList" resultType="com.itwillbs.domain.ProductionVO">
-		select * from production 
-		join product ON production.product_id = product.product_id;
+		select * from production a, product b
+		where a.product_id = b.product_id
 	</select>
 <!-- 작업지시 목록 -->
 
@@ -22,13 +22,13 @@
 <!-- 작업지시 상세 -->
 
 <!-- 작업지시 등록 -->
-<!-- 		<select id="insertSearch" resultType="com.itwillbs.domain.ProductionVO"> -->
-<!-- 			select * -->
-<!-- 			from production a, -->
-<!-- 		     	 product b -->
-<!-- 			where a.product_id = b.product_id -->
-<!-- 			and a.production_id = #{production_id} -->
-<!-- 		</select> -->
+		<select id="insertSearch" resultType="com.itwillbs.domain.ProductionVO">
+			select *
+			from production a,
+		     	 product b
+			where a.product_id = b.product_id
+			and a.production_id = #{production_id}
+		</select>
 	<!-- 수주번호 조회 -->
 	<select id="woInsertSearch" resultType="com.itwillbs.domain.ProductionVO">
 			select *
@@ -46,18 +46,25 @@
 		and pm.product_id = #{product_id}
 	</select>
 	<!-- 자재 재고 조회 -->
+	<!-- cont_id 자동 카운트 -->
+	 	<select id="getLastGeneratedNumber" resultType="java.lang.String">
+	        SELECT production_id FROM production ORDER BY production_id DESC LIMIT 1
+	    </select>
+	<!-- cont_id 자동 카운트 -->
 	<!-- DB 등록 -->
 	<insert id="insertWorkOrder">
-		insert into production(production_id,cont_id,production_emp,production_date,production_line,
+		insert IGNORE into production(production_id,cont_id,production_emp,production_date,production_line,
 		product_id,plan_qty,workOrder_status) 
 		values(#{production_id},#{cont_id},#{production_emp},now(),#{production_line},
 		#{product_id},#{plan_qty},'대기')
 	</insert>
 	<!-- 자재 update -->
-<!-- 	<update id="maQtyUpdate"> -->
-<!-- 		update material set ma_qty = #{ma_qty} -->
-<!-- 		where ma_name = #{ma_name} -->
-<!-- 	</update> -->
+	<update id="maQtyUpdate" >
+		 UPDATE material
+	     SET ma_qty = #{ma_qty}
+	     WHERE ma_name = #{ma_name}
+	</update>
+
 	<!-- DB 등록 -->
 <!-- 작업지시 등록 -->
 

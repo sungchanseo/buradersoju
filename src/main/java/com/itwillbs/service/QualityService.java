@@ -2,13 +2,16 @@ package com.itwillbs.service;
 
 import java.util.List;
 
-
+import com.itwillbs.domain.PagingVO;
 import com.itwillbs.domain.ProductionVO;
 
 public interface QualityService {
 	
 	// 품질관리 - 목록 가져오기
 	public List<ProductionVO> getQualityList() throws Exception;
+	
+	//페이징처리 변수저장을 위한 serive생성
+	public PagingVO setPageInfoForQuality(PagingVO pvo) throws Exception;
 	
 	// 품질관리 - 검수 상세보기
 	public ProductionVO getQualityInfo(String qc_num);
@@ -19,26 +22,20 @@ public interface QualityService {
 	// 검수등록 - 조회
 	public ProductionVO getInsertSearch(String production_id);
 	
-	// 4-1. 입고번호 최대값 (maxNumber) 230620004
-	public String getMaxNumber() throws Exception;
-
-	// 4-2. 입고번호 최대날짜 (maxDate) 230620
-	public String getMaxDate() throws Exception;
-	
 	// 검수등록 - 등록
-	public void qualityInsertDB(ProductionVO vo);
+	public void qualityInsertDB(ProductionVO vo, List<String> def_codeList, List<String> def_qtyList) throws Exception;
 	
-	// 품질관리 - 검수 수정 (아직 비었음)
+	// 품질관리 - 검수 수정 (시간남으면 넣고 삭제로 하기로함)
 	public Integer updateQuality(ProductionVO pvo);
 	
 	// 공병 관리
 	public List<ProductionVO> getBottleList() throws Exception;
 	
 	// 공병관리 - 수량 등록
-	public void btInsert(ProductionVO vo);
+	public void btInsert(ProductionVO vo) throws Exception;
 	
 	// 공병관리 - 불량 등록
-	public void btUpdate(ProductionVO vo) throws Exception;
+	public String btUpdate(ProductionVO vo) throws Exception;
 	
 	
 }

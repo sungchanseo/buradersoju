@@ -38,35 +38,35 @@
 		<select id="insertSearch" resultType="com.itwillbs.domain.ProductionVO">
 			select *
 			from production a,
-		     	 product b
+		     	 product b,
+		     	 pr_complete c
 			where a.product_id = b.product_id
+			and a.production_id = c.production_id
 			and a.production_id = #{production_id}
 		</select>
 	<!-- 작업지시번호 조회 -->
-	<!-- 검수번호 최대 값 (maxNumber) 230620004 -->
-	    <select id="getMaxNumber" resultType="String">
-	        SELECT MAX((SUBSTRING(qc_num, 3)))
-			FROM qc;
-	    </select>
-	 <!-- 검수번호 최대값 (maxNumber) 230620004 -->
+	<!-- cont_id 자동 카운트 -->
+ 	<select id="getLastGeneratedNumber" resultType="java.lang.String">
+        SELECT qc_num FROM qc ORDER BY qc_num DESC LIMIT 1
+    </select>
+	<!-- cont_id 자동 카운트 -->
+	
 	 
-	 
-	 <!-- DB 검수번호 최대 날짜 (maxDate) == 230620 -->	
-	 	<select id="getMaxDate" resultType="String">
-	 		SELECT MAX((SUBSTRING(qc_num, 3, 6)))
-			FROM qc;
-	 	</select>
-	 <!-- DB 검수번호 최대 날짜 (maxDate) == 230620 -->
 	<!-- 검수 정보 DB등록 -->
 		<insert id="qInsertDB">
 			insert into qc
-			(qc_num, qc_emp, qc_date, qc_qty, qc_state, production_id)
+			(qc_num, qc_emp, qc_date, qc_qty, qc_status, production_id)
 			values (#{qc_num}, #{qc_emp}, now(), #{qc_qty}, '완료', #{production_id})
 		</insert>
+		<update id="prUpdate">
+			update production
+			set production_qty = #{production_qty}
+			where production_id = #{production_id}
+		</update>
 		<insert id="qInsertDB2" >
 			insert into defective
-			(qc_num, def_code, def_qty)
-			values (#{qc_num},#{def_code},#{def_qty})
+			(qc_num, def_code, def_qty,production_id)
+			values (#{qc_num},#{def_code},#{def_qty},#{production_id})
 		</insert>
 	<!-- 검수 정보 DB등록 -->
 <!--    검수 등록    -->
@@ -77,9 +77,14 @@
 	<!-- 공병 목록 가져오기 -->
 	<select id="bottleList" resultType="com.itwillbs.domain.ProductionVO">
 		select *
-			from empty_bottle
+		from empty_bottle
 	</select>
 	<!-- 공병 수량 DB등록 -->
+	<select id="btISearch" resultType="com.itwillbs.domain.ProductionVO">
+		select *
+		from empty_bottle
+		where bt_date != #{bt_date}
+	</select>
 	<insert id="btInsert">
 		insert into empty_bottle
 		(bt_date,bt_qty)
@@ -91,6 +96,16 @@
 		update empty_bottle
 		set bt_defQty = #{bt_defQty}
 		where bt_date = date_format(#{bt_date}, '%Y-%m-%d %H:%i:%s')
+	</update>
+	<select id="todayDef" resultType="com.itwillbs.domain.ProductionVO">
+		select bt_defQty
+		FROM empty_bottle
+		WHERE bt_date = date_format(#{bt_date}, '%Y-%m-%d %H:%i:%s')
+	</select>
+	<update id="btMaUpdate">
+		update material
+		set ma_qty = (ma_qty+#{bt_defQty})
+		where ma_name = '공병'
 	</update>
 	<!-- 공병 불량 DB등록 -->
 	

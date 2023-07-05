@@ -17,8 +17,10 @@ text-align: center;
 padding: 10px 8px;}
 
 td {border:1px solid #04AA6D;
+color: #6C7293;
 text-align: center;
-padding: 10px 6px;}
+padding: 10px 6px;
+font-weight: 600;}
 
 #tb-btns {margin-left: 0.5em;}
 
@@ -55,10 +57,7 @@ border-color: #23dbf8;}
 </head>
 <body>
 	<h1>사원 정보</h1>
-	<c:if test="${emp_department.equals('인사팀') || emp_department.equals('Master') }">
-		<input type="button" class="btn btn-info" value="수정하기" onclick="location.href='/employee/modify?emp_id=${resultVO.emp_id}';">
-	</c:if>
-	<input type="button" class="btn btn-success" value="창닫기" onclick="window.close();">
+	
 	<table border="1">
 		<tr>
 			<th>사원사진</th>
@@ -68,7 +67,7 @@ border-color: #23dbf8;}
 			<td>${resultVO.emp_name }</td>
 		</tr>
 		<tr>
-			<td rowspan="4">${resultVO.emp_image }</td>
+			<td rowspan="5">${resultVO.emp_image }</td>
 			<th>생년월일</th>
 			<td>${resultVO.emp_birth }</td>
 			<th>휴대전화</th>
@@ -97,7 +96,6 @@ border-color: #23dbf8;}
 			<td>${resultVO.join_date }</td>
 		</tr>
 		<tr>
-			<td></td>
 			<th>휴직일</th>
 			<td>${resultVO.absence_date }</td>		
 			<th>복직일</th>
@@ -107,6 +105,10 @@ border-color: #23dbf8;}
 		</tr>
 	</table>
 	
+	<c:if test="${emp_department.equals('인사팀') || emp_department.equals('Master') }">
+		<input type="button" class="btn btn-info" value="수정하기" onclick="location.href='/employee/modify?emp_id=${resultVO.emp_id}';">
+	</c:if>
+	<input type="button" class="btn btn-success" value="창닫기" onclick="window.close();">
 
 </body>
 </html>

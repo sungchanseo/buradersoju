@@ -3,6 +3,17 @@
     pageEncoding="UTF-8"%> 
 <%@ include file="../includes/header.jsp" %>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<style>
+.btn-outline-light {
+	color: #6C7293;
+	border-color: #6C7293;}
+.btn-outline-light:hover {
+	color: #000;
+	background-color: #0ddbb9;
+	border-color: #6C7293;}
+.auth .auth-form-light select {
+    color: #6C7293;}
+</style>
 <body>
 	<!-- 사원등록 새창열기  -->
 	<script type="text/javascript">
@@ -37,7 +48,7 @@
 									<div class="form-group">								
 									<h1>사원리스트</h1>
 									<!-- 검색창기능 -->
-										<select name="selector">
+										<select name="selector" class="auth auth-form-light select">
 											<option value="emp_name">이름</option>
 											<option value="emp_department">부서</option>
 											<option value="emp_status">재직구분</option>
@@ -74,7 +85,7 @@
 										<c:forEach var="vo" items="${employeeList }">
 											<tr>
 												<td>
-													<input class="btn btn-dark btn-rounded btn-fw" type="button" value="${vo.emp_id }" 
+													<input class="btn btn-outline-light btn-fw" type="button" value="${vo.emp_id }" 
 														<c:if test="${emp_department.equals('인사팀') || emp_department.equals('Master') }">
 															onclick="infoPop(${vo.emp_id})"
 														</c:if>
@@ -91,7 +102,6 @@
 									</table>
 									<!-- 이 곳에 내용 작성하시면 됩니다  -->
 									</div>
-
 									<!-- 	페이징 처리  -->
 									<div class="template-demo">
 										<div class="btn-group" role="group" aria-label="Basic example">

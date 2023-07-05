@@ -489,9 +489,97 @@ table tr>td:nth-of-type(1) {width:50px !important;
 
 <br>
 <h1 class="card-title">
-		<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">발주 리스트</font></font>
+		<font style="vertical-align: inherit;"><a href="http://localhost:8088/purchasing/order/list" style="text-decoration:none;" >발주 리스트</a></font>
 	</h1>
-<!-- 검색 기능 -->
+	<div>
+	<!-- 탭 메뉴 -->
+	<ul class="nav nav-tabs tab-no-active-fill" role="tablist">
+	<li class="nav-item">
+	<a class="nav-link ps-2 pe-2 active" id="stage1-tab" data-bs-toggle="tab" href="#stage1" role="tab" aria-controls="stage1" aria-selected="true">발주현황</a>
+	</li>
+	<li class="nav-item">
+	<a class="nav-link ps-2 pe-2" id="stage2-tab" data-bs-toggle="tab" href="#stage2" role="tab" aria-controls="stage2" aria-selected="false">발주등록</a>
+	</li>
+	</ul>
+	<!-- 탭 내용 -->
+	<div class="tab-content tab-no-active-fill-tab-content">
+	<div class="tab-pane fade active show" id="stage1" role="tabpanel" aria-labelledby="stage1-tab">
+    <!-- 검색 기능 -->
+	<form action="/purchasing/order/list" method="get" style="display: inline;">
+		<select name="selector">
+			<option value="ma_name">자재명</option>
+			<option value="order_date">발주일자</option>
+			<option value="in_date">입고일자</option>
+		</select> <input type="text" class="form-control" style="width:10%; display:inline;" name="search" placeholder="검색어를 입력해주세요">
+		<input type="submit"  class="btn btn-info" value="검색">
+	</form>
+ <fmt:formatDate value=""/>
+ <div class="row" > 
+<table border="1" id="example-table-3" class="table table-bordered table-hover text-center tbl" style="width: 100%;">
+		    <thead>
+			<tr>
+			    <th></th>
+				<th>발주번호</th>
+				<th>자재코드</th>
+				<th>자재명</th>
+				<th>단가</th>
+				<th>자재수량</th>
+				<th>주문수량</th>
+				<th>총액</th>
+				<th>부가세</th>
+				<th>발주일자</th>
+				<th>납기일자</th>
+				<th>입고일자</th>
+				<th>입고창고</th>
+				<th>담당직원</th>
+			</tr>
+			</thead>
+			<tbody id="tbody">
+			<c:forEach var="order" items="${OrderLists}">
+			 	<tr>
+			 	    <td><input type="checkbox" name="check"></td>
+				    <td>${order.order_id}</td>
+					<td>${order.ma_id}</td>
+					<td>${order.ma_name}</td> 
+					<td>${order.unit_cost}</td>
+					<td>${order.add_order}</td>					
+					<td>${order.order_qty}</td>
+					<td>${order.order_sum}</td>
+					<td>${order.order_vat}</td>
+					<td>${order.order_date}</td>
+					<td>${order.due_date}</td>
+					<td>${order.in_date}</td>		
+					<td>${order.whs_id}</td>
+					<td>${order.order_emp}</td>
+				</tr> 
+			</c:forEach>
+			</tbody>
+		</table>
+		
+ </div>
+ 
+ <!-- 	페이징 처리  -->
+	<div class="template-demo">
+		<div class="btn-group" role="group" aria-label="Basic example">
+			<c:if test="${pvo.startPage > pvo.pageBlock }">
+				<a href="/purchasing/order/list?pageNum=${pvo.startPage-pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">이전</a>
+			</c:if>
+			
+			<c:forEach var="i" begin="${pvo.startPage }" end="${pvo.endPage }" step="1">
+				<a href="/purchasing/order/list?pageNum=${i }&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">${i }</a>
+			</c:forEach>
+			
+			<c:if test="${pvo.endPage<pvo.pageCount }">
+				<a href="/purchasing/order/list?pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">다음</a>
+			</c:if>
+		</div>
+	</div>
+<!-- 	페이징 처리  -->
+   </div>
+   
+   <!-- 탭기능 2번쨰  -->
+   <div class="tab-pane fade show" id="stage2" role="tabpanel" aria-labelledby="stage2-tab">
+    <!-- 검색 기능 -->
 	<form action="/purchasing/order/list" method="get" style="display: inline;">
 		<select name="selector">
 			<option value="ma_name">자재명</option>
@@ -571,7 +659,9 @@ table tr>td:nth-of-type(1) {width:50px !important;
 		</div>
 	</div>
 <!-- 	페이징 처리  -->
- 
+     </div>
+   </div>
+ </div>
  <%@ include file="../../includes/footer.jsp" %>
 </body>
 </html>

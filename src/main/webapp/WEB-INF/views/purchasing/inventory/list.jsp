@@ -98,9 +98,12 @@
 
 </head>
 <body>
+<br>
+<h1 class="card-title">
+		<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">재고 리스트</font></font>
+	</h1>
 <!-- 검색창기능 -->
 		<form action="/purchasing/inventory/list" method="get" style="display: inline;">
-		
 			<select name="selector">
 				<option value="ma_name">자재명</option>
 				<option value="ma_id">자재코드</option>

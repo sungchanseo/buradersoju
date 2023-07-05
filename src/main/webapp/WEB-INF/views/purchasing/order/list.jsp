@@ -487,7 +487,7 @@ table tr>td:nth-of-type(1) {width:50px !important;
 </head>
 <body>
 
-
+<br>
 <h1 class="card-title">
 		<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">발주 리스트</font></font>
 	</h1>
@@ -500,13 +500,14 @@ table tr>td:nth-of-type(1) {width:50px !important;
 		</select> <input type="text" class="form-control" style="width:10%; display:inline;" name="search" placeholder="검색어를 입력해주세요">
 		<input type="submit"  class="btn btn-info" value="검색">
 	</form>
-	<br>
 <!-- 버튼 -->
-    <c:if test="${emp_department.equals('구매팀')}">    
+    <c:if test="${emp_department.equals('구매팀') || emp_department.equals('Master')}">
+	   <div style=float:right;>   
     <button class="btn btn-info writeForm true" >등록</button>
 	<button class="btn btn-info modify true">수정</button>
 	<button class="btn btn-info" id="delete">삭제</button>
 	<button class="btn btn-success insert update write">저장</button>
+	   </div>
     </c:if>
  <fmt:formatDate value=""/>
  <div class="row" > 

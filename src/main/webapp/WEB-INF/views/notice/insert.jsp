@@ -7,12 +7,11 @@
 			<div class="content-wrapper d-flex align-items-center auth px-0">
 				<div class="row w-100 mx-0">
 					<div class="col-lg-12 mx-auto">
-						<div class="auth-form-light text-left py-5 px-4 px-sm-5" style="height: 1000px;">
+						<div class="auth-form-light text-left py-5 px-4 px-sm-5" style="height: 100%;">
 							<h2>공지 작성</h2>
 							<hr>
-							<br>
-							<form action="" method="post">
-								<div class="form-group">
+							<form action="/notice/fileupload" method="post" enctype="multipart/form-data">
+								<div class="form-group" >
 										제목 <input type="text"
 										class="form-control" name="notice_title" id="notice_title"
 										placeholder="공지 제목을 작성하세요 :)" required style="width: 600px;" maxlength="30">
@@ -23,8 +22,10 @@
 										style="width: 600px;">
 										내용<textarea id="summernote" name="notice_content"></textarea>
 										<br>
-										파일 첨부 <input type="file"
-											class="form-control" name="notice_file" id="notice_file" style="width: 800px;">
+										<input type="button" value="파일 추가" id="btnAdd"  class="btn btn-success btn-fw"> 
+										<hr>
+										<div id="divFile"></div>
+										<hr>
 								</div>
 								<button class="btn btn-success btn-fw" onclick="location.href='/notice/list'">공지 목록</button>
 								<div style="text-align: right; margin-right: 580px;">
@@ -85,3 +86,16 @@
 	});
 	</script>
 	<!-- 서머노트 -->
+	<script type="text/javascript">
+  $(document).ready(function(){
+	  var cnt = 0;
+	  
+	  $("#btnAdd").click(function(){
+		  if(cnt < 5){
+		  $('#divFile').append("<input type='file' class='form-control' name='file"+(cnt++)+"' accept='image/*' style='width: 800px;'>");
+		  cnt++;  
+		  }
+	  }); // btnAdd-click
+  });
+
+</script>	

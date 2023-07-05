@@ -126,18 +126,30 @@
       </tr>
     </thead>
     <tbody>  
-      <c:forEach var="in" items="${inventoryList}">
+      <c:forEach var="in" items="${inventoryList}" >
          <tr>
             <td>${in.ma_name}</td>
             <td>${in.ma_id}<input type="hidden" name="ma_id" value="${in.ma_id}"></td>
             <td><c:choose>
-					<c:when test="${in.ma_qty < 100 }">
-					<span style="color:red">
+					<c:when test="${in.ma_name eq '아스파탐' }">
+					<c:if test="${in.ma_qty <= 1000}">
+                    <span style="color:red">
 					${in.ma_qty}
 					</span>
+					</c:if>
+					<c:if test="${in.ma_qty > 1000}">
+					${in.ma_qty}
+					</c:if>
 					</c:when>
 					<c:otherwise>
-					${in.ma_qty}
+					<c:if test="${in.ma_qty <= 1000}">
+                    <span style="color:red">
+					<fmt:formatNumber type="number" maxFractionDigits="0" value="${in.ma_qty }"/> 		
+					</span>
+					</c:if>
+					<c:if test="${in.ma_qty > 1000}">
+					<fmt:formatNumber type="number" maxFractionDigits="0" value="${in.ma_qty }"/> 		
+					</c:if>
 					</c:otherwise>
 			 	    </c:choose></td>
             <td>${in.unit}</td>	

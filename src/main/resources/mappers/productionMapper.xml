@@ -8,11 +8,6 @@
 
 <!-- 생산 목록 -->
 	<select id="getProductionList" resultType="com.itwillbs.domain.ProductionVO">
-<!-- 		SELECT pd.production_id, pd.production_line, pd.product_id, p.product_name, pd.plan_qty, pc.production_qty, pc.complete_defQty, e.emp_name, pc.production_status, pc.complete_date  -->
-<!-- 		FROM production pd -->
-<!-- 		JOIN product p ON pd.product_id = p.product_id -->
-<!-- 		JOIN employee e ON pd.production_emp = e.emp_id -->
-<!-- 		LEFT JOIN pr_complete pc ON pd.production_id = pc.production_id -->
 		SELECT pd.production_id, pd.production_line, pd.product_id, p.product_name, pd.plan_qty, e.emp_name, pc.* 
 		FROM production pd
 		JOIN product p ON pd.product_id = p.product_id
@@ -60,7 +55,7 @@
 	  <update id="updateProductionQty" parameterType="com.itwillbs.domain.ProductionVO">
 	    UPDATE pr_complete pc
         JOIN production pd ON pc.production_id = pd.production_id
-		SET pc.production_qty = pd.plan_qty - (pc.stage1_defQty + pc.stage2_defQty + pc.stage3_defQty)
+		SET pd.production_qty = pd.plan_qty - (pc.stage1_defQty + pc.stage2_defQty + pc.stage3_defQty)
 		WHERE pc.production_id = #{production_id};
 	  </update>
 	<!-- [포장] DB 등록 -->

@@ -495,6 +495,8 @@ table tr>td:nth-of-type(1) {width:50px !important;
 	<form action="/purchasing/order/list" method="get" style="display: inline;">
 		<select name="selector">
 			<option value="ma_name">자재명</option>
+			<option value="order_date">발주일자</option>
+			<option value="in_date">입고일자</option>
 		</select> <input type="text" class="form-control" style="width:10%; display:inline;" name="search" placeholder="검색어를 입력해주세요">
 		<input type="submit"  class="btn btn-info" value="검색">
 	</form>

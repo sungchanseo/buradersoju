@@ -9,7 +9,7 @@
       <select id="getOrderList" resultType="com.itwillbs.domain.OrderVO">
         SELECT o.order_id, o.order_status, m.ma_id, o.add_order,  m.ma_name, m.ma_qty, o.order_vat,o.order_sum ,o.order_date, o.due_date, o.order_emp, o.order_qty, o.whs_id, m.unit_cost, o.in_date, o.add_order
 		FROM material m, orders o
-		WHERE m.ma_id = o.ma_id and o.order_status = 1
+		WHERE m.ma_id = o.ma_id and o.order_status = 1 
 		ORDER BY o.order_id DESC
       </select>
    <!-- 발주목록 조회  -->

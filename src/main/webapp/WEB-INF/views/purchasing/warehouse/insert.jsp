@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script type="text/javascript">
 
@@ -118,6 +119,7 @@ $(document).ready(function(){
 <body>
 
 
+  
    <div>
    <form action="" method="post" name="ware">
 			 창고타입 : <select name="whs_type" id="whs_type"><option value="자재">자재창고</option>

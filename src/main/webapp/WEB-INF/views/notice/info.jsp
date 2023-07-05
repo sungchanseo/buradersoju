@@ -14,7 +14,7 @@
 				<div class="row w-100 mx-0">
 					<div class="col-lg-12 mx-auto">
 						<div class="auth-form-light text-left py-5 px-4 px-sm-5"
-							style="height: 1000px;">
+							style="height: 100%;">
 							<div class="box-body">
 								<h2>공지 사항</h2>
 								<hr>
@@ -24,26 +24,33 @@
 										<tr>
 											<td><h3>No. ${vo.notice_id }</h3></td>
 											<td><h3>${vo.notice_title }</h3></td>
-											<td colspan="6"></td>
+											<td colspan="5"></td>
 										</tr>
-										<tr style="text-align: right;">
-											<td colspan="2"></td>
-											<td><b>작성자</b></td>
-											<td>${vo.notice_writer}</td>
-											<td><b>작성일</b></td>
-											<td>${vo.notice_regdate}</td>
-											<td><b>조회수</b></td>
-											<td>${vo.notice_count}</td>
+										<tr>
+											<td colspan="2" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"></td>
+											<td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">작성자</td>
+											<td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${vo.notice_writer}</td>
+											<td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">작성일</td>
+											<td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${vo.notice_regdate}</td>
+											<td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">조회수</td>
+											<td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${vo.notice_count}</td>
 										</tr>
 										<tr>
 											<td>내용</td>
 											<td>
-												<div style="width: 800px; height: 650px; overflow: auto;">
+												<div>
 													${vo.notice_content}</div>
 											</td>
 										</tr>
 									</tbody>
 								</table>
+								<br>
+								<div>
+									첨부파일 : 
+									<a href="/notice/fileDown?fileName=${vo.notice_file.split('/')[1] }">${vo.notice_file.split('/')[1] }</a>
+									<a href="/notice/fileDown?fileName=${vo.notice_file.split('/')[2] }">${vo.notice_file.split('/')[2] }</a>
+									<a href="/notice/fileDown?fileName=${vo.notice_file.split('/')[3] }">${vo.notice_file.split('/')[3] }</a>
+								</div>
 							</div>
 							<br>
 							<!-- 수정, 목록, 삭제 버튼 -->

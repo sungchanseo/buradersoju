@@ -56,7 +56,7 @@
 		if(custPop == null){
 			  alert("팝업이 차단되었습니다. 차단을 해제하세요.");
 		  }
-		custPop.moveBy(100,100);
+// 		custPop.moveBy(100,100);
 	}//custPop END
 	
 	//상품명 검색 및 자동완성 기능 
@@ -66,7 +66,7 @@
 		if(productPop == null){
 			  alert("팝업이 차단되었습니다. 차단을 해제하세요.");
 		  }
-		productPop.moveBy(100,100);
+// 		productPop.moveBy(100,100);
 	}//productPop END
 	
 	//직원정보 검색 및 자동완성 기능 
@@ -76,43 +76,42 @@
 		if(empPop == null){
 			  alert("팝업이 차단되었습니다. 차단을 해제하세요.");
 		  }
-		empPop.moveBy(100,100);
+// 		empPop.moveBy(100,100);
 	}//empPop END
 	
 	function sendForm() {
-			//상단의 폼태그를 변수에 저장한다. 
-// 			var formObject = $("form[role='form']").serializeArray();
-			
-			var formObject ={
-					cust_name:$('cust_name').val(),
-					product_name:$('product_name').val(),
-					cont_emp:$('cont_emp').val(),
-					cust_id:$('cust_id').val(),
-					product_id:$('product_id').val(),
-					cont_date:$('cont_date').val(),
-					cont_qty:$('cont_qty').val(),
-					production_id:$('production_id').val(),
-					due_date:$('due_date').val()
-			}
-			console.log(formObject);
 
-		
-			//작성완료 버튼을 눌렀을 때 ajax를 실행하도록 한다.
-			$.ajax({
-				url : '${contextPath}/contract/insert',
-				type : 'POST',
-// 				data : formObject,
-				contentType : 'application/json',
-				data : JSON.stringify(formObject),
-				success : function() {
-					alert("수주등록이 완료되었습니다.");
-// 					window.opener.location.reload();
-// 					window.close();
-				}, error : function(){
-					alert('에러 발생!');
-				}//error
-			});
-		}// sendForm()메소드 끝
+		var formObject ={
+				cust_name:$('#cust_name').val(),
+				product_name:$('#product_name').val(),
+				cont_emp:$('#cont_emp').val(),
+				cust_id:$('#cust_id').val(),
+				product_id:$('#product_id').val(),
+				cont_date:$('#cont_date').val(),
+				cont_qty:$('#cont_qty').val(),
+				production_id:$('#production_id').val(),
+				due_date:$('#due_date').val()
+		}//formObject END
+		console.log(formObject);
+	
+	
+		//작성완료 버튼을 눌렀을 때 ajax를 실행하도록 한다.
+		$.ajax({
+			url : '${contextPath}/contract/insert',
+			type : 'POST',
+	//			data : formObject,
+			contentType : 'application/json',
+			data : JSON.stringify(formObject),
+			success : function() {
+				alert("수주등록이 완료되었습니다.");
+	//				window.opener.location.reload();
+	//				window.close();
+			}, 
+			error : function(){
+				alert('에러 발생!');
+			}//error END
+		});// ajax END
+	}// sendForm() END
 		
 	$(document).ready(function(){
 		
@@ -158,6 +157,7 @@
 					$('#due_date').focus();
 					return false;
 				}//due_date 제어 
+				
 		  });// fr.sumbit() END
 	});// document.ready END
 	

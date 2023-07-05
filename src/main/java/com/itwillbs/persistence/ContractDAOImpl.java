@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.itwillbs.domain.ContractVO;
+import com.itwillbs.domain.ProductionVO;
 
 @Repository
 public class ContractDAOImpl implements ContractDAO {
@@ -62,6 +63,14 @@ public class ContractDAOImpl implements ContractDAO {
 		logger.debug("##########ContractDAO : contIdInsert 메소드 호출!");
 		sqlSession.insert(NAMESPACE+".contIdInsert", cont_id);
 	}
+
 	
+	//product_id로 상품정보 조회하기 
+	@Override
+	public ProductionVO readProductInfo(String product_id) throws Exception {
+		logger.debug("##########ContractDAO : readProductInfo 메소드 호출!");
+		return sqlSession.selectOne(NAMESPACE+".getProductInfo", product_id);
+	}
+
 
 }

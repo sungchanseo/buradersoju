@@ -16,14 +16,28 @@
 <body>
 <h1>상품 검색</h1>
 <!-- 표 들어가는 자리  -->
-
+<table class="table table-color">
+  <tbody>
+	<tr>
+	  <th>상품코드</th>
+	  <th>상품명</th>
+	</tr>
+	<c:forEach var="productionList" items="${productionList }">
+	 <tr onclick="sendProductInfoValue('${productionList.product_id}');">  
+	  <td>${productionList.product_id}</td>
+	  <td>${productionList.product_name}</td>
+	 </tr>
+	</c:forEach>
+	
+  </tbody>
+</table>
 
 
 <!-- 표 들어가는 자리  -->
 
 	<script>
 	//부모창으로 값 보내기 
-	function sendProudctInfoValue(id){
+	function sendProductInfoValue(id){
 		$.ajax({
 			url : '/contract/productInfo',
 			type : 'get',

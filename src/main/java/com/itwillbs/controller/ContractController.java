@@ -21,10 +21,12 @@ import com.itwillbs.domain.ContractVO;
 import com.itwillbs.domain.CustomerVO;
 import com.itwillbs.domain.EmployeeVO;
 import com.itwillbs.domain.PagingVO;
+import com.itwillbs.domain.ProductionVO;
 import com.itwillbs.service.ContractService;
 import com.itwillbs.service.CustomerService;
 import com.itwillbs.service.EmployeeService;
 import com.itwillbs.service.PagingService;
+import com.itwillbs.service.ProductionService;
 
 @Controller
 @RequestMapping(value = "/contract/*")
@@ -42,7 +44,8 @@ public class ContractController {
 	private EmployeeService empService;
 	@Autowired
 	private CustomerService custService;
-
+	@Autowired
+	private ProductionService proService;
 	// http://localhost:8088/contract/list
 
 	// 수주 목록 불러오기
@@ -102,6 +105,7 @@ public class ContractController {
 
 	// 수주 등록 디비처리
 //	@PostMapping(value = "/insert")
+	@ResponseBody
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
 	public String registContractPOST(@RequestBody ContractVO cvo) throws Exception {
 		logger.debug("@@@@@@@@@@@@Controller : 수주 등록POST하기!!!!");
@@ -231,26 +235,21 @@ public class ContractController {
 	@RequestMapping(value="/productFind", method = RequestMethod.GET)
 	public void findProductGET(PagingVO pvo, Model model) throws Exception{
 		logger.debug("@@@@@@@@@@@Controller : 팝업으로 상품명찾기 !!!!!");
-//		
-//		List<Object> productList = null;
-//		
-//		pvo = custService.setPageInfoForCustomer(pvo);
-//		logger.debug("@@@@@@@@@Controller : {}",pvo);
-//		
-//		//service객체를 호출
-//		if(pvo.getSelector()!=null && pvo.getSelector()!="") {
-//			//검색어가 있을 때 
-//			logger.debug("@@@@@@@@@Controller : 검색어가 있을 때입니다");
-//			productList = pageService.getListSearchObjectProductionVO(pvo);
-//		}else {
-//			//검색어가 없을 때
-//			logger.debug("@@@@@@@@@Controller : 검색어가 없을 때입니다");
-//			productList = pageService.getListPageSizeObjectProductVO(pvo);
-//		}
-//		logger.debug("@@@@@@@@@Controller : employeeList={}",productList);
-//	
-//		// 변수에 담아서 전달
-//		model.addAttribute("productList", productList);
-//		model.addAttribute("pvo",pvo);
+
+		List<ProductionVO> productionList = proService.getProductionList();
+        model.addAttribute("productionList", productionList);
+	}
+	
+	//상품명 자동완성 
+	@ResponseBody
+	@RequestMapping(value="/productInfo", method = RequestMethod.GET)
+	public ProductionVO getProductInfo(@RequestParam("product_id") String product_id) throws Exception{
+		logger.debug("@@@@@@@@@@@Controller : 거래처정보 가져오기 !!!!!");
+		logger.debug("@@@@@@@@@@@Controller : {}", product_id);
+
+		ProductionVO vo = contService.getProductInfo(product_id);
+		logger.debug("@@@@@@@@@@@Controller : {}", vo);
+
+		return vo;
 	}
 }

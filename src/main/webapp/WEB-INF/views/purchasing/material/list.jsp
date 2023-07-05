@@ -405,10 +405,27 @@ $(document).ready(function() {
 			<td>${ml.unit }</td>
 			<td>
 				<c:choose>
-					<c:when test="${ml.ma_qty <= 100 }">
-						<span style="color:red">${ml.ma_qty }</span>
+					<c:when test="${ml.ma_name eq '아스파탐' }">
+					<c:if test="${ml.ma_qty <= 1000}">
+                    <span style="color:red">
+					${ml.ma_qty}
+					</span>
+					</c:if>
+					<c:if test="${ml.ma_qty > 1000}">
+					${ml.ma_qty}
+					</c:if>
 					</c:when>
-					<c:otherwise>${ml.ma_qty }</c:otherwise>
+					<c:otherwise>
+					<c:if test="${ml.ma_qty <= 1000}">
+                    <span style="color:red">
+					<fmt:formatNumber type="number" maxFractionDigits="0" value="${ml.ma_qty }"/> 		
+					</span>
+					</c:if>
+					<c:if test="${ml.ma_qty > 1000}">
+					<fmt:formatNumber type="number" maxFractionDigits="0" value="${ml.ma_qty }"/> 		
+					</c:if>
+					
+					</c:otherwise>
 				</c:choose>
 			</td>			
 			<td>${ml.unit_cost }</td>

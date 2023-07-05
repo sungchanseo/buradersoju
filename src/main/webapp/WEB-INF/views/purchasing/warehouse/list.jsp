@@ -236,7 +236,7 @@ $('.modify').click(function(){
 	
 	<div class="tab-pane fade active show" id="stage1" role="tabpanel" aria-labelledby="stage1-tab">
 	
-	<c:if test="${emp_department.equals('구매팀')}">
+	<c:if test="${emp_department.equals('구매팀') || emp_department.equals('Master')}">
 		<div style=float:right;>
 			<button class="btn btn-success add-button" type="button" onclick="openPopup();">창고등록</button>
 			<button class="btn btn-success modify true">창고수정</button>

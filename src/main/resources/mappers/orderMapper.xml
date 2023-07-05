@@ -93,8 +93,12 @@
 <!--  	전체 리스트 개수 조회  -->
 	<select id="getListAll" resultType="_int">
 	SELECT COUNT(*)
-		FROM material m, orders o
-		WHERE m.ma_id = o.ma_id and o.order_status = 1
+		FROM employee e
+        LEFT JOIN orders o
+		ON o.order_emp = e.emp_id
+        LEFT JOIN material m
+		on m.ma_id = o.ma_id 
+        where o.order_status = 1
 		ORDER BY o.order_id DESC
 	</select>
 <!-- 	전체 리스트 갯수 조회  -->
@@ -103,9 +107,12 @@
 <!-- 아무조건이 없을 때 목록 개수  -->
 	<select id="getListPageSizeAll" resultType="_int">
 		SELECT COUNT(*)
-		FROM material m, orders o
-		WHERE m.ma_id = o.ma_id and o.order_status = 1
-		ORDER BY o.order_id DESC
+		FROM employee e
+        LEFT JOIN orders o
+		ON o.order_emp = e.emp_id
+        LEFT JOIN material m
+		on m.ma_id = o.ma_id 
+        where o.order_status = 1
 		limit 0, 10
 	</select>
 <!-- 아무조건이 없을 때 목록 개수 -->
@@ -114,8 +121,12 @@
 <!-- 검색어 + 페이지갯수 제한 전체 목록 개수 -->
 	<select id="getListSearchAll" resultType="_int">
 		SELECT COUNT(*)
-		FROM material m, orders o
-		WHERE m.ma_id = o.ma_id and o.order_status = 1
+		FROM employee e
+        LEFT JOIN orders o
+		ON o.order_emp = e.emp_id
+        LEFT JOIN material m
+		on m.ma_id = o.ma_id 
+        where o.order_status = 1
 		AND ${selector} LIKE CONCAT('%', #{search}, '%')
 		ORDER BY o.order_id DESC
 		limit 0, 10
@@ -145,9 +156,13 @@
 <!-- InMaterialVO 페이징처리 시작 -->
 <!-- 아무조건이 없을 때 목록 배열 -->
 	<select id="getListPageSizeObjectOrderVO" resultType="OrderVO">		
-		SELECT o.order_id, o.order_status, m.ma_id, o.add_order,  m.ma_name, m.ma_qty, o.order_vat,o.order_sum ,o.order_date, o.due_date, o.order_emp, o.order_qty, o.whs_id, m.unit_cost, o.in_date, o.add_order
-		FROM material m, orders o
-		WHERE m.ma_id = o.ma_id and o.order_status = 1
+		SELECT o.order_id, o.order_status, m.ma_id, o.add_order,  m.ma_name, m.ma_qty, o.order_vat,o.order_sum ,o.order_date, o.due_date, o.order_emp, o.order_qty, o.whs_id, m.unit_cost, o.in_date, o.add_order ,e.emp_name
+        FROM employee e
+        LEFT JOIN orders o
+		ON o.order_emp = e.emp_id
+        LEFT JOIN material m
+		on m.ma_id = o.ma_id 
+        where o.order_status = 1
 		ORDER BY o.order_id DESC
 		LIMIT #{startRow}, #{pageSize}
 	</select>
@@ -156,9 +171,13 @@
 		
 <!-- 검색어 + 페이지갯수 제한 전체 목록 배열 -->
 	<select id="getListSearchObjectOrderVO" resultType="OrderVO">
-		SELECT o.order_id, o.order_status, m.ma_id, o.add_order,  m.ma_name, m.ma_qty, o.order_vat,o.order_sum ,o.order_date, o.due_date, o.order_emp, o.order_qty, o.whs_id, m.unit_cost, o.in_date, o.add_order
-		FROM material m, orders o
-		WHERE m.ma_id = o.ma_id and o.order_status = 1
+		SELECT o.order_id, o.order_status, m.ma_id, o.add_order,  m.ma_name, m.ma_qty, o.order_vat,o.order_sum ,o.order_date, o.due_date, o.order_emp, o.order_qty, o.whs_id, m.unit_cost, o.in_date, o.add_order ,e.emp_name
+        FROM employee e
+        LEFT JOIN orders o
+		ON o.order_emp = e.emp_id
+        LEFT JOIN material m
+		on m.ma_id = o.ma_id 
+        where o.order_status = 1
 		AND ${selector} LIKE CONCAT('%', #{search}, '%')
 		ORDER BY o.order_id DESC
 		LIMIT #{startRow}, #{pageSize}
@@ -168,7 +187,7 @@
 	
 <!-- 필터처리 + 페이지갯수 제한 전체 목록 -->
 	<select id="getListFilterObjectOrderVO" resultType="OrderVO">
-		SELECT o.order_id, o.order_status, m.ma_id, o.add_order,  m.ma_name, m.ma_qty, o.order_vat,o.order_sum ,o.order_date, o.due_date, o.order_emp, o.order_qty, o.whs_id, m.unit_cost, o.in_date, o.add_order 
+		SELECT o.order_id, o.order_status, m.ma_id, o.add_order,  m.ma_name, m.ma_qty, o.order_vat,o.order_sum ,o.order_date, o.due_date, o.order_emp, o.order_qty, o.whs_id, m.unit_cost, o.in_date, o.add_order ,e.emp_name
 		WHERE ${column_name} = #{column_value} AND ${status_name} = #{status_value} 
 		ORDER BY ${id} DESC LIMIT #{startRow}, #{pageSize}
 	</select>
@@ -177,7 +196,7 @@
 
 <!-- 검색어 + 필터처리 + 페이지갯수 제한 전체 목록 -->
 	<select id="getListSearchFilterObjectOrderVO" resultType="OrderVO">
-		SELECT o.order_id, o.order_status, m.ma_id, o.add_order,  m.ma_name, m.ma_qty, o.order_vat,o.order_sum ,o.order_date, o.due_date, o.order_emp, o.order_qty, o.whs_id, m.unit_cost, o.in_date, o.add_order
+		SELECT o.order_id, o.order_status, m.ma_id, o.add_order,  m.ma_name, m.ma_qty, o.order_vat,o.order_sum ,o.order_date, o.due_date, o.order_emp, o.order_qty, o.whs_id, m.unit_cost, o.in_date, o.add_order,e.emp_name
 		WHERE ${column_name} = #{column_value} AND ${status_name}=#{status_value}   
 		AND ${selector} LIKE CONCAT('%', #{search}, '%') 
 		ORDER BY ${id} DESC LIMIT #{startRow}, #{pageSize}

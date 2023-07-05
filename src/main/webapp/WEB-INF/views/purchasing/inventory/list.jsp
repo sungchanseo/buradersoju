@@ -98,9 +98,12 @@
 
 </head>
 <body>
+<br>
+<h1 class="card-title">
+		<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">재고 리스트</font></font>
+	</h1>
 <!-- 검색창기능 -->
 		<form action="/purchasing/inventory/list" method="get" style="display: inline;">
-		
 			<select name="selector">
 				<option value="ma_name">자재명</option>
 				<option value="ma_id">자재코드</option>
@@ -123,18 +126,30 @@
       </tr>
     </thead>
     <tbody>  
-      <c:forEach var="in" items="${inventoryList}">
+      <c:forEach var="in" items="${inventoryList}" >
          <tr>
             <td>${in.ma_name}</td>
             <td>${in.ma_id}<input type="hidden" name="ma_id" value="${in.ma_id}"></td>
             <td><c:choose>
-					<c:when test="${in.ma_qty < 100 }">
-					<span style="color:red">
+					<c:when test="${in.ma_name eq '아스파탐' }">
+					<c:if test="${in.ma_qty <= 1000}">
+                    <span style="color:red">
 					${in.ma_qty}
 					</span>
+					</c:if>
+					<c:if test="${in.ma_qty > 1000}">
+					${in.ma_qty}
+					</c:if>
 					</c:when>
 					<c:otherwise>
-					${in.ma_qty}
+					<c:if test="${in.ma_qty <= 1000}">
+                    <span style="color:red">
+					<fmt:formatNumber type="number" maxFractionDigits="0" value="${in.ma_qty }"/> 		
+					</span>
+					</c:if>
+					<c:if test="${in.ma_qty > 1000}">
+					<fmt:formatNumber type="number" maxFractionDigits="0" value="${in.ma_qty }"/> 		
+					</c:if>
 					</c:otherwise>
 			 	    </c:choose></td>
             <td>${in.unit}</td>	

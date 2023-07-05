@@ -150,7 +150,6 @@ $(function() {
 
   
     $('.writeForm').click(function() {
-     var emp_id =  "${sessionScope.emp_id }";
        console.log(nextNumber);
        console.log("행추가 등록함");
        console.log(emp_id);
@@ -201,7 +200,7 @@ $(function() {
            tbl += "<input type='text' name='whs_id' id='whs_id'>";
            tbl += "</td>";
            tbl += "<td>";
-           tbl += "<input type='text' name='order_emp' id='order_emp' value="+emp_id+">";
+           tbl += "<input type='text' name='emp_name' id='emp_name'>";
            tbl += "</td>";
            tbl += "</tr>";
            
@@ -263,7 +262,7 @@ $(function() {
           var due_date = $('#due_date').val();
           var in_date = $('#in_date').val();
           var order_emp = $('#order_emp').val();
- 
+          var emp_name = $('#emp_name').val();
           console.log(ma_id);
           console.log(ma_name);
           console.log(whs_id);
@@ -283,7 +282,7 @@ $(function() {
              $.ajax({
                 url: "list",
                 type: "post",
-                data: {whs_id:whs_id,ma_id:ma_id,order_date:order_date,due_date:due_date,in_date:in_date,order_id:order_id ,order_qty:order_qty,order_sum:order_sum,order_vat:order_vat,order_emp:order_emp},
+                data: {emp_name:emp_name,whs_id:whs_id,ma_id:ma_id,order_date:order_date,due_date:due_date,in_date:in_date,order_id:order_id ,order_qty:order_qty,order_sum:order_sum,order_vat:order_vat,order_emp:order_emp},
                success: function() {
               	 location.href="/purchasing/order/list"
                    alert("등록완료");
@@ -361,7 +360,7 @@ $(function() {
 							str += "<td>"+orderToday()+"</td>";
 							str += "<td>"+inToday()+"</td>";
 							str += "<td>"+ obj.whs_id +"</td>";
-							str += "<td>"+ obj.order_emp +"</td>";
+							str += "<td>"+ obj.emp_name +"</td>";
 							// 담당직원 세션에 저장된 아이디 들고오기
 							str += "</tr>";			
 							$('table').prepend(str);
@@ -487,11 +486,24 @@ table tr>td:nth-of-type(1) {width:50px !important;
 </head>
 <body>
 
-
+<br>
 <h1 class="card-title">
-		<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">발주 리스트</font></font>
+		<font style="vertical-align: inherit;"><a href="http://localhost:8088/purchasing/order/list" style="text-decoration:none;" >발주 리스트</a></font>
 	</h1>
-<!-- 검색 기능 -->
+	<div>
+	<!-- 탭 메뉴 -->
+	<ul class="nav nav-tabs tab-no-active-fill" role="tablist">
+	<li class="nav-item">
+	<a class="nav-link ps-2 pe-2 active" id="stage1-tab" data-bs-toggle="tab" href="#stage1" role="tab" aria-controls="stage1" aria-selected="true">발주현황</a>
+	</li>
+	<li class="nav-item">
+	<a class="nav-link ps-2 pe-2" id="stage2-tab" data-bs-toggle="tab" href="#stage2" role="tab" aria-controls="stage2" aria-selected="false">발주등록</a>
+	</li>
+	</ul>
+	<!-- 탭 내용 -->
+	<div class="tab-content tab-no-active-fill-tab-content">
+	<div class="tab-pane fade active show" id="stage1" role="tabpanel" aria-labelledby="stage1-tab">
+    <!-- 검색 기능 -->
 	<form action="/purchasing/order/list" method="get" style="display: inline;">
 		<select name="selector">
 			<option value="ma_name">자재명</option>
@@ -500,13 +512,89 @@ table tr>td:nth-of-type(1) {width:50px !important;
 		</select> <input type="text" class="form-control" style="width:10%; display:inline;" name="search" placeholder="검색어를 입력해주세요">
 		<input type="submit"  class="btn btn-info" value="검색">
 	</form>
-	<br>
+ <fmt:formatDate value=""/>
+ <div class="row" > 
+<table border="1" id="example-table-3" class="table table-bordered table-hover text-center tbl" style="width: 100%;">
+		    <thead>
+			<tr>
+			    <th></th>
+				<th>발주번호</th>
+				<th>자재코드</th>
+				<th>자재명</th>
+				<th>단가</th>
+				<th>자재수량</th>
+				<th>주문수량</th>
+				<th>총액</th>
+				<th>부가세</th>
+				<th>발주일자</th>
+				<th>납기일자</th>
+				<th>입고일자</th>
+				<th>입고창고</th>
+				<th>담당직원</th>
+			</tr>
+			</thead>
+			<tbody id="tbody">
+			<c:forEach var="order" items="${OrderLists}">
+			 	<tr>
+			 	    <td><input type="checkbox" name="check"></td>
+				    <td>${order.order_id}</td>
+					<td>${order.ma_id}</td>
+					<td>${order.ma_name}</td> 
+					<td>${order.unit_cost}</td>
+					<td>${order.add_order}</td>					
+					<td>${order.order_qty}</td>
+					<td>${order.order_sum}</td>
+					<td>${order.order_vat}</td>
+					<td>${order.order_date}</td>
+					<td>${order.due_date}</td>
+					<td>${order.in_date}</td>		
+					<td>${order.whs_id}</td>
+					<td>${order.emp_name}</td>
+				</tr> 
+			</c:forEach>
+			</tbody>
+		</table>
+		
+ </div>
+ 
+ <!-- 	페이징 처리  -->
+	<div class="template-demo">
+		<div class="btn-group" role="group" aria-label="Basic example">
+			<c:if test="${pvo.startPage > pvo.pageBlock }">
+				<a href="/purchasing/order/list?pageNum=${pvo.startPage-pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">이전</a>
+			</c:if>
+			
+			<c:forEach var="i" begin="${pvo.startPage }" end="${pvo.endPage }" step="1">
+				<a href="/purchasing/order/list?pageNum=${i }&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">${i }</a>
+			</c:forEach>
+			
+			<c:if test="${pvo.endPage<pvo.pageCount }">
+				<a href="/purchasing/order/list?pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">다음</a>
+			</c:if>
+		</div>
+	</div>
+<!-- 	페이징 처리  -->
+   </div>
+   
+   <!-- 탭기능 2번쨰  -->
+   <div class="tab-pane fade show" id="stage2" role="tabpanel" aria-labelledby="stage2-tab">
+    <!-- 검색 기능 -->
+	<form action="/purchasing/order/list" method="get" style="display: inline;">
+		<select name="selector">
+			<option value="ma_name">자재명</option>
+			<option value="order_date">발주일자</option>
+			<option value="in_date">입고일자</option>
+		</select> <input type="text" class="form-control" style="width:10%; display:inline;" name="search" placeholder="검색어를 입력해주세요">
+		<input type="submit"  class="btn btn-info" value="검색">
+	</form>
 <!-- 버튼 -->
-    <c:if test="${emp_department.equals('구매팀')}">    
+    <c:if test="${emp_department.equals('구매팀') || emp_department.equals('Master')}">
+	   <div style=float:right;>   
     <button class="btn btn-info writeForm true" >등록</button>
 	<button class="btn btn-info modify true">수정</button>
 	<button class="btn btn-info" id="delete">삭제</button>
 	<button class="btn btn-success insert update write">저장</button>
+	   </div>
     </c:if>
  <fmt:formatDate value=""/>
  <div class="row" > 
@@ -545,7 +633,7 @@ table tr>td:nth-of-type(1) {width:50px !important;
 					<td>${order.due_date}</td>
 					<td>${order.in_date}</td>		
 					<td>${order.whs_id}</td>
-					<td>${order.order_emp}</td>
+					<td>${order.emp_name}</td>
 				</tr> 
 			</c:forEach>
 			</tbody>
@@ -570,7 +658,9 @@ table tr>td:nth-of-type(1) {width:50px !important;
 		</div>
 	</div>
 <!-- 	페이징 처리  -->
- 
+     </div>
+   </div>
+ </div>
  <%@ include file="../../includes/footer.jsp" %>
 </body>
 </html>

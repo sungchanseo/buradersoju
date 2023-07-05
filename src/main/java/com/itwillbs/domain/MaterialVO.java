@@ -8,17 +8,17 @@ public class MaterialVO {
 	// Material
 	private String ma_id;
 	private String ma_name;
-	private int ma_qty;
+	private float ma_qty;
 	private String unit;
 	private int unit_cost;
 	private String shelt_position;
 	private Date ma_regdate;
 	private int ma_emp;
 	private String whs_id;
+	private int ma_status;
 	
-	// 검색필터
-	private String type;
-	private String keyword;
+	// employee
+	private String emp_name;
 	
 	
 	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ Getter & Setter ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
@@ -36,10 +36,10 @@ public class MaterialVO {
 	public void setMa_name(String ma_name) {
 		this.ma_name = ma_name;
 	}
-	public int getMa_qty() {
+	public float getMa_qty() {
 		return ma_qty;
 	}
-	public void setMa_qty(int ma_qty) {
+	public void setMa_qty(float ma_qty) {
 		this.ma_qty = ma_qty;
 	}
 	public int getUnit_cost() {
@@ -48,7 +48,6 @@ public class MaterialVO {
 	public void setUnit_cost(int unit_cost) {
 		this.unit_cost = unit_cost;
 	}
-
 	public String getShelt_position() {
 		return shelt_position;
 	}
@@ -67,36 +66,33 @@ public class MaterialVO {
 	public void setMa_emp(int ma_emp) {
 		this.ma_emp = ma_emp;
 	}
-	
 	public String getUnit() {
 		return unit;
 	}
 	public void setUnit(String unit) {
 		this.unit = unit;
 	}
-	
 	public String getWhs_id() {
 		return whs_id;
 	}
 	public void setWhs_id(String whs_id) {
 		this.whs_id = whs_id;
 	}
+	public int getMa_status() {
+		return ma_status;
+	}
+
+	public void setMa_status(int ma_status) {
+		this.ma_status = ma_status;
+	}
 	
-	// 검색필터
-	public String getType() {
-		return type;
+	
+	// employee
+	public String getEmp_name() {
+		return emp_name;
 	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public String getKeyword() {
-		return keyword;
-	}
-
-	public void setKeyword(String keyword) {
-		this.keyword = keyword;
+	public void setEmp_name(String emp_name) {
+		this.emp_name = emp_name;
 	}
 
 	
@@ -105,9 +101,8 @@ public class MaterialVO {
 	public String toString() {
 		return "MaterialVO [ma_id=" + ma_id + ", ma_name=" + ma_name + ", ma_qty=" + ma_qty + ", unit=" + unit
 				+ ", unit_cost=" + unit_cost + ", shelt_position=" + shelt_position + ", ma_regdate=" + ma_regdate
-				+ ", ma_emp=" + ma_emp + ", whs_id=" + whs_id + "]";
+				+ ", ma_emp=" + ma_emp + ", whs_id=" + whs_id + ", ma_status=" + ma_status + ", emp_name=" + emp_name
+				+ "]";
 	}
-	
 
-	
 }

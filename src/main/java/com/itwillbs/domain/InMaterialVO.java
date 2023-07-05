@@ -11,12 +11,15 @@ public class InMaterialVO {
 	private String order_id;
 	private String in_process;
 	private int in_emp;
+	private int in_status;
+	private String in_name;
 	
 	// material
 	private String shelt_position;
 	private String ma_name;
 	private int ma_qty;
 	private String whs_id;
+	private String ma_id;
 	
 	// orders
 	private int order_qty;
@@ -24,6 +27,11 @@ public class InMaterialVO {
 	private Date due_date;
 	private int order_emp;
 	private Date in_date;
+	private int add_ma;
+	private String order_name;
+	
+	// employee
+	private String emp_name;
 	
 	
 	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ getter & setter ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
@@ -107,15 +115,55 @@ public class InMaterialVO {
 	public void setIn_date(Date in_date) {
 		this.in_date = in_date;
 	}
+	public int getAdd_ma() {
+		return add_ma;
+	}
+	public void setAdd_ma(int add_ma) {
+		this.add_ma = add_ma;
+	}
+	public String getMa_id() {
+		return ma_id;
+	}
+	public void setMa_id(String ma_id) {
+		this.ma_id = ma_id;
+	}
+	public int getIn_status() {
+		return in_status;
+	}
+	public void setIn_status(int in_status) {
+		this.in_status = in_status;
+	}
+	public String getIn_name() {
+		return in_name;
+	}
+	public void setIn_name(String in_name) {
+		this.in_name = in_name;
+	}
+	public String getOrder_name() {
+		return order_name;
+	}
+	public void setOrder_name(String order_name) {
+		this.order_name = order_name;
+	}
 	
 	
+	// employee
+	public String getEmp_name() {
+		return emp_name;
+	}
+	public void setEmp_name(String emp_name) {
+		this.emp_name = emp_name;
+	}
+	
+	
+	// toString
 	@Override
 	public String toString() {
 		return "InMaterialVO [in_id=" + in_id + ", order_id=" + order_id + ", in_process=" + in_process + ", in_emp="
-				+ in_emp + ", shelt_position=" + shelt_position + ", ma_name=" + ma_name + ", ma_qty=" + ma_qty
-				+ ", whs_id=" + whs_id + ", order_qty=" + order_qty + ", order_date=" + order_date + ", due_date="
-				+ due_date + ", order_emp=" + order_emp + ", in_date=" + in_date + "]";
+				+ in_emp + ", in_status=" + in_status + ", shelt_position=" + shelt_position + ", ma_name=" + ma_name
+				+ ", ma_qty=" + ma_qty + ", whs_id=" + whs_id + ", ma_id=" + ma_id + ", order_qty=" + order_qty
+				+ ", order_date=" + order_date + ", due_date=" + due_date + ", order_emp=" + order_emp + ", in_date="
+				+ in_date + ", add_ma=" + add_ma + ", emp_name=" + emp_name + "]";
 	}
-
 
 }

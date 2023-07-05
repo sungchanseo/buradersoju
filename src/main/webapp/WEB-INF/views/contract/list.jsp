@@ -8,6 +8,12 @@
 <title>Insert title here</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script> <!-- 제이쿼리 -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> <!-- 우편api -->
+
+	<style type="text/css">
+		/* 인쇄하기 가로 기본출력 지정 */
+		@page { size: A4 landscape; margin:0; }
+	</style>
+
 </head>
 <body>
 <div class="card-body">
@@ -24,13 +30,14 @@
 			<input type="submit" class="btn btn-info" value="검색">
 		</form>
 		<!-- 검색창기능 -->
-		
-<!-- 		<input type="button" value="수주등록" onclick="openPop();">  -->
-<!-- 		<input type="button" value="엑셀다운">  -->
-<!-- 		<input type="button" value="출력하기">  -->
-		<button type="button" class="btn btn-success" onclick="openPop();">수주등록</button>
-		<button type="button" class="btn btn-light">엑셀다운</button>
-		<button type="button" class="btn btn-light">출력하기</button>
+
+		<!-- 영업팀이 아닐때 버튼 감추기 -->
+		<c:if test="${emp_department.equals('영업') || emp_department.equals('영업팀') || emp_department.equals('Master')}">
+			<button type="button" class="btn btn-success" onclick="openPop();">수주등록</button>
+		</c:if>
+			<button type="button" class="btn btn-light">엑셀다운</button>
+			<button type="button" class="btn btn-light" id="print" onclick="printList();">출력하기</button>
+		<!-- 영업팀이 아닐때 버튼 감추기 -->
 
 		<!-- 수주목록 테이블 -->
 		<div class="table-responsive">
@@ -114,5 +121,31 @@
 		  openPop.moveBy(100,100);
 		}
 		//수주등록 새창열기
+		
+		//인쇄하기 
+		function printList() {
+			let initBody = document.body;
+			let hiddenBtn = document.querySelector('.print');
+			let hiddenHeader = document.querySelector('#header');
+			let hiddenNavbar = document.querySelector('.navbar-device');
+			let hiddenClearfix = document.querySelector('.clearfix');
+
+			window.onbeforeprint = function() {
+				hiddenBtn.style.display = "none";
+				hiddenHeader.style.display = "none";
+				hiddenNavbar.style.display = "none";
+				hiddenClearfix.style.display = "none";
+				document.body = document.querySelector('.main-container');
+			}
+			window.onafterprint = function() {
+				hiddenBtn.style.display = "block";
+				hiddenHeader.style.display = "block";
+				hiddenNavbar.style.display = "block";
+				hiddenClearfix.style.display = "block";
+				document.body = initBody;
+			}
+			window.print();
+		}//인쇄하기 끝
+		
 	</script>
 <%@ include file="../includes/footer.jsp" %>

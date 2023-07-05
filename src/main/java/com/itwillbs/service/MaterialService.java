@@ -1,10 +1,14 @@
 package com.itwillbs.service;
 import java.util.List;
 import com.itwillbs.domain.MaterialVO;
+import com.itwillbs.domain.PagingVO;
 
 
 
 public interface MaterialService {
+	
+	// 0. 페이징처리 변수저장을 위한 Service 생성
+	public PagingVO setPageInfoForMaterial(PagingVO pvo) throws Exception;
 	
 	// 1. 자재 목록 조회
 	public List<MaterialVO> getMaterialList() throws Exception;
@@ -26,5 +30,8 @@ public interface MaterialService {
 	
 	// 6. 자재 삭제
 	public Integer deleteMaterial(String ma_id) throws Exception;
+	
+	// 7. 사원이름 가져오기
+	public String getEmpName(String ma_id) throws Exception;
 
 }

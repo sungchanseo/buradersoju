@@ -26,8 +26,8 @@
       <div class="content-wrapper d-flex align-items-center auth lock-full-bg">
         <div class="row w-100">
           <div class="col-lg-4 mx-auto">
-            <div class="auth-form-transparent text-left p-5 text-center">
-               <img src="${pageContext.request.contextPath}/resources/images/logo.png" alt="로고" style="width: 500px; ">
+            <div class="auth-form-transparent text-left p-5 text-center" style="text-align: center;">
+               <img src="${pageContext.request.contextPath}/resources/images/logo.png" alt="로고" style="width: 100%;">
               <form class="pt-5" action="" method="post" onsubmit="saveId()">
                   <div class="form-group">
                     <input type="text" class="form-control form-control-lg" name="emp_id" id="emp_id" placeholder="사번을 입력하세요 :)" value="${cookie.emp_id}" style="color: #D8D8D8;">

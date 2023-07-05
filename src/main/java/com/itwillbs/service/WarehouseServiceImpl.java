@@ -16,37 +16,63 @@ public class WarehouseServiceImpl implements WarehouseService  {
 	private WarehouseDAO wdao;
 	
 	@Override
-	public List<WarehouseVO> getWarehouseList() {
+	public List<WarehouseVO> getWarehouseList() throws Exception {
 	
 		
 		return wdao.getWarehouseList();
 	}
 
 	@Override
-	public void warehouseInsert(WarehouseVO vo) {
+	public void warehouseInsert(WarehouseVO vo)  throws Exception{
 	  
 		wdao.warehouseInsert(vo);
 	}
 	
 
 	@Override
-	public WarehouseVO warehouseID(String whs_id) {
+	public WarehouseVO warehouseID(String whs_id) throws Exception{
 	
 		return wdao.warehouseID(whs_id);
 	}
 
 	@Override
-	public Integer modifyWarehouse(WarehouseVO mvo) {
+	public Integer modifyWarehouse(WarehouseVO mvo) throws Exception{
 	    
 	     return  wdao.modifyWarehouse(mvo);
 		
 	}
 
 	@Override
-	public Integer removeWarehouse(String whs_id) {
+	public Integer removeWarehouse(String whs_id) throws Exception{
 		
 		return wdao.removeWarehouse(whs_id);
 	}
 
+	@Override
+	public String getMaxNumber() throws Exception {
+		
+		return wdao.getMaxNumber();
+	}
+
+	@Override
+	public WarehouseVO regisWhsId(String whs_id) throws Exception {
+		
+		return wdao.regisWhsId(whs_id);
+	}
+
+	@Override
+	public String getMaxprNumber() throws Exception {
+		
+		return wdao.getMaxprNumber();
+	}
+
+	@Override
+	public Integer deleteWhs(String whs_id) throws Exception {
+	
+		return wdao.deleteWhs(whs_id);
+	}
+
+	
+	
 }
 

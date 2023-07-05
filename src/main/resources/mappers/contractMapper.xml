@@ -32,7 +32,7 @@
 <!-- contract 수정하기 -->
 	<update id="updateContract">
 	UPDATE contract SET cust_name=#{cust_name},
-	production_id=#{production_id}, product_name=#{product_name},
+	product_id=#{product_id}, product_name=#{product_name},
 	cust_id=#{cust_id}, cont_date=#{cont_date}, cont_qty=#{cont_qty},
 	due_date=#{due_date}, cont_emp=#{cont_emp}
 	WHERE cont_id=#{cont_id}
@@ -45,5 +45,12 @@
 		WHERE cont_id=#{cont_id}
 	</update>
 <!-- contract 삭제하기 	 -->
+
+<!-- cont_id를 out_product테이블에 넣기 -->
+	<insert id="contIdInsert">
+		insert into out_product (cont_id) 
+		values (#{cont_id})
+	</insert>
+<!-- cont_id를 out_product테이블에 넣기 -->
 	
 </mapper>

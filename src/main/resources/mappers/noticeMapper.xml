@@ -12,30 +12,34 @@
 
 	<!-- 글쓰기 -->
 	<insert id="create"> 
-	insert into notice(notice_title,notice_writer,notice_content)
-		values(#{notice_title},#{notice_writer},#{notice_content}) 
+	insert into notice(notice_title,notice_writer,notice_content,notice_file)
+		values(#{notice_title},#{notice_writer},#{notice_content},#{notice_file}) 
 	</insert>
 	<!-- 글쓰기 -->
+	
 	<!-- 글 목록 조회 -->
 	<select id="listAll" resultType="NoticeVO" resultMap="notice"> 
 	select * from notice 
 	</select>
 	<!-- 글 목록 조회 -->
+	
 	<!-- 글 조회수 1증가 -->
 	<update id="upViewcnt"> 
 		update notice set notice_count = notice_count+1
 		where notice_id = #{notice_id} 
 	</update>
 	<!-- 글 조회수 1증가 -->
+	
 	<!-- 특정 글정보 조회 -->
 	<select id="getBoard" resultType="NoticeVO" resultMap="notice"> 
 		select *
 		from notice where notice_id = #{notice_id} 
 	</select>
 	<!-- 특정 글정보 조회 -->
+	
 	 <!-- 공지 수정 -->
      <update id="update">
-         update notice set notice_title=#{notice_title},notice_content=#{notice_content},notice_regdate=now()  
+         update notice set notice_title=#{notice_title},notice_content=#{notice_content},notice_file=#{notice_file},notice_regdate=now()  
          where notice_id=#{notice_id}
      </update>
      <!-- 공지 수정 -->

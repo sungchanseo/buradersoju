@@ -98,9 +98,12 @@
 
 </head>
 <body>
+<br>
+<h1 class="card-title">
+		<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">재고 리스트</font></font>
+	</h1>
 <!-- 검색창기능 -->
 		<form action="/purchasing/inventory/list" method="get" style="display: inline;">
-		
 			<select name="selector">
 				<option value="ma_name">자재명</option>
 				<option value="ma_id">자재코드</option>
@@ -110,38 +113,49 @@
 		<!-- 검색창기능 -->
  
    <fmt:formatDate value=""/>
-
-   <table border="1" id="#bodyContents">
+ <table border="1" id="example-table-3" class="table table-bordered table-hover text-center tbl" style="width: 100%;">
    <thead>
       <tr>
          <th>자재명</th>
          <th>자재코드</th>
          <th>현재고</th>
-         <th>단위?</th>
+         <th>단위</th>
          <th>날짜</th>
          <th>실사량</th>
          <th>수정</th>
       </tr>
     </thead>
     <tbody>  
-      <c:forEach var="in" items="${inventoryList}">
+      <c:forEach var="in" items="${inventoryList}" >
          <tr>
             <td>${in.ma_name}</td>
             <td>${in.ma_id}<input type="hidden" name="ma_id" value="${in.ma_id}"></td>
             <td><c:choose>
-					<c:when test="${in.ma_qty < 100 }">
-					<span style="color:red">
+					<c:when test="${in.ma_name eq '아스파탐' }">
+					<c:if test="${in.ma_qty <= 1000}">
+                    <span style="color:red">
 					${in.ma_qty}
 					</span>
+					</c:if>
+					<c:if test="${in.ma_qty > 1000}">
+					${in.ma_qty}
+					</c:if>
 					</c:when>
 					<c:otherwise>
-					${in.ma_qty}
+					<c:if test="${in.ma_qty <= 1000}">
+                    <span style="color:red">
+					<fmt:formatNumber type="number" maxFractionDigits="0" value="${in.ma_qty }"/> 		
+					</span>
+					</c:if>
+					<c:if test="${in.ma_qty > 1000}">
+					<fmt:formatNumber type="number" maxFractionDigits="0" value="${in.ma_qty }"/> 		
+					</c:if>
 					</c:otherwise>
 			 	    </c:choose></td>
             <td>${in.unit}</td>	
             <td><fmt:formatDate value="${in.ma_regdate}" pattern="yyyy-MM-dd"/></td>
             <td><input type="text" class="ma_qty" ></td>
-            <td><input type="button" class="update" value="수정" data-ma_id="${in.ma_id}"></td>
+            <td><input type="button" class="update btn-success" value="수정" data-ma_id="${in.ma_id}"></td>
          <!-- 날짜 포맷팅 표현식 OOOO년-OO월-OO일  -->	
          </tr>
       </c:forEach>

@@ -16,7 +16,7 @@
 							<div class="row flex-grow">
 								<div class="col-lg-12 grid-margin stretch-card">
 									<div class="card"
-										style="background-image: url(${pageContext.request.contextPath}/resources/images/dashboard/bb.png);
+										style="
 						                box-shadow: none;
 						                -webkit-box-shadow: none;
 						                -moz-box-shadow: none;
@@ -26,29 +26,30 @@
 						                background-repeat: no-repeat;
 						                border: 0;
 						                box-shadow: none;
-						                padding: 2.112rem 3.25rem;">
+						                padding: 2.112rem 3.25rem;"
+						                id="weatherCard">
 										<div class="card-body" style="color: D8D8D8;">
-											<div class="row">
-												<div class="weather-info">
-													<div class="d-flex">
-														<div>
-															<h1 class="mb-0 font-weight-normal">
-																<span id="todaysTemp" style="margin-right: 5px;"></span>
-																<span class="weather-icon mr-3" id="todaysWeather"></span>
-															</h1>
-														</div>
-														<div class="ml-2">
-															<h4
-																style="margin-bottom: 5px !important; font-weight: 550 !important;">부산시</h4>
-															<h6>부산 진구</h6>
-														</div>
-													</div>
+											<div class="row" style="display: flex;">
+												<div class="col-md-6" style="margin-right: 20px;">
+													<h1 style="font-size: 32px; color: black;">Today's Weather</h1>
+													<div id="todaysWeather" class="mdi mdi-weather-cloudy"
+														style="font-size: 48px; margin-bottom: 20px; color: black;"></div>
+												</div>
+												<div class="col-md-6">
+													<div id="todaysTemp" style="font-size: 48px; color: black;"></div>
+													<div id="todaysLocation"
+														style="font-size: 22px; color: #777; color: black;"></div>
+													<div id="todaysDescription"
+														style="font-size: 18px; color: black;"></div>
+													<div id="todaysHumidity"
+														style="font-size: 18px; color: black;"></div>
+													<div id="todaysWindSpeed"
+														style="font-size: 18px; color: black;"></div>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-
 							</div>
 						</div>
 						<!-- 날씨 끝 -->
@@ -70,7 +71,6 @@
 					<!-- 1단 -->
 					<!-- 2단 -->
 					<div class="row">
-						
 						<!-- 투두리스트 시작-->
 						<div class="col-lg-6 grid-margin stretch-card">
 							<div class="row flex-grow">
@@ -131,7 +131,6 @@
 						<!-- 수주왕 끝-->
 					</div>
 					<!-- 2단 -->
-
 					<!-- 3단 -->
 					<div class="row" style="text-align: center;">
 						<!--공지 시작 -->

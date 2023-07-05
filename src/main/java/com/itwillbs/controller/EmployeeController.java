@@ -81,7 +81,7 @@ public class EmployeeController {
 	// 사원리스트
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String listGET(Model model, PagingVO pvo, HttpSession session) throws Exception{
-//		logger.debug(" listGET() 호출! ");
+		logger.debug(" listGET() 호출! ");
 //		
 //		List<EmployeeVO> employeeList = eService.getEmployeeList();
 //		

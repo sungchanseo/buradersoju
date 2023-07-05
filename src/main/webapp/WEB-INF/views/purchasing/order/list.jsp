@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -148,74 +148,100 @@ $(function() {
 	 var order_id = "OR" + today + endNumber;
     //// 행추가 ////////////////////////////////////////////////////////////
 
-
+  
     $('.writeForm').click(function() {
-     var emp_id =  "${sessionScope.emp_id }";
        console.log(nextNumber);
        console.log("행추가 등록함");
        console.log(emp_id);
- 
        let regdate = getToday();
        let intodays = inToday();
        let orderTodays = orderToday();
-  /*      console.log(regdate);
-       console.log(intodays);
-       console.log(orderTodays); */
-       if($(this).hasClass('true')) {
-          
-          let tbl = "<tr>";
-          tbl += " <td>";
-          tbl += "<input type='checkbox' name='check'>";
-          tbl += "</td>";
-          tbl += " <td>";
-          tbl += "<input type='text' name='order_id' id='order_id' value="+order_id+">";
-          tbl += "</td>";
-          tbl += " <td>";
-          tbl += "<input type='text' name='ma_id' id='ma_id'>" ;
-          tbl += "</td>";
-          tbl += " <td>";
-          tbl += "<input type='text' name='ma_name' id='ma_name'>";
-          tbl += "</td>";
-          tbl += " <td>";
-          tbl += "<input type='text' name='unit_cost' id='unit_cost'>";
-          tbl += "</td>";
-          tbl += " <td>";
-          tbl += "<input type='text' name='ma_qty' id='ma_qty'>";
-          tbl += "</td>";
-          tbl += " <td>";
-          tbl += "<input type='text' name='order_qty' id='order_qty'>";
-          tbl += "</td>";
-          tbl += " <td>";
-          tbl += "<input type='text' name='order_sum' id='order_sum'>";
-          tbl += "</td>";
-          tbl += " <td>";
-          tbl += "<input type='text' name='order_vat' id='order_vat'>";
-          tbl += "</td>";
-          tbl += " <td>";
-          tbl += "<input type='text' name='order_date' id='order_date' value="+regdate+">";
-          tbl += "</td>";
-          tbl += " <td>";
-          tbl += "<input type='text' name='due_date' id='due_date' value="+orderTodays+">";
-          tbl += "</td>";
-          tbl += "<td>";
-          tbl += "<input type='text' name='in_date' id='in_date' value="+intodays+">";
-          tbl += "</td>"; 
-          tbl += "<td>";
-          tbl += "<input type='text' name='whs_id' id='whs_id'>";
-          tbl += "</td>";
-          tbl += "<td>";
-          tbl += "<input type='text' name='order_emp' id='order_emp' value="+emp_id+">";
-          tbl += "</td>";
-          tbl += "</tr>";
-          
-          $('table').append(tbl);
-          
-          
-          $(this).removeClass('writeForm').addClass('write');
-          $(this).removeClass('true');
-          $(this).text("등록");
        
-       }
+       if($(this).hasClass('true')) {
+           
+           let tbl = "<tr id='key_id'>";
+           tbl += " <td>";
+           tbl += "<input size='15' type='checkbox' name='check'>";
+           tbl += "</td>";
+           tbl += " <td>";
+           tbl += "<input type='text' name='order_id' id='order_id' value="+order_id+">";
+           tbl += "</td>";
+           tbl += " <td>";
+           tbl += "<input type='text' name='ma_id' id='ma_id'>" ;
+           tbl += "</td>";
+           tbl += " <td>";
+           tbl += "<input type='text' name='ma_name' id='ma_name'>";
+           tbl += "</td>";
+           tbl += " <td>";
+           tbl += "<input type='text' name='unit_cost' id='unit_cost'>";
+           tbl += "</td>";
+           tbl += " <td>";
+           tbl += "<input type='text' name='ma_qty' id='ma_qty'>";
+           tbl += "</td>";
+           tbl += " <td>";
+           tbl += "<input type='text' name='order_qty' id='order_qty'>";
+           tbl += "</td>";
+           tbl += " <td>";
+           tbl += "<input type='text' name='order_sum' id='order_sum'>";
+           tbl += "</td>";
+           tbl += " <td>";
+           tbl += "<input type='text' name='order_vat' id='order_vat'>";
+           tbl += "</td>";
+           tbl += " <td>";
+           tbl += "<input type='text' name='order_date' id='order_date' value="+regdate+">";
+           tbl += "</td>";
+           tbl += " <td>";
+           tbl += "<input type='text' name='due_date' id='due_date' value="+orderTodays+">";
+           tbl += "</td>";
+           tbl += "<td>";
+           tbl += "<input type='text' name='in_date' id='in_date' value="+intodays+">";
+           tbl += "</td>"; 
+           tbl += "<td>";
+           tbl += "<input type='text' name='whs_id' id='whs_id'>";
+           tbl += "</td>";
+           tbl += "<td>";
+           tbl += "<input type='text' name='emp_name' id='emp_name'>";
+           tbl += "</td>";
+           tbl += "</tr>";
+           
+           $('table').prepend(tbl);
+           
+           
+           $(this).removeClass('writeForm').addClass('write');
+           $(this).removeClass('true');
+       
+        }
+       $("#key_id").keyup(function() {
+           var obj = {
+                       in_ma_id : $("#ma_id").val(),
+                       in_order_qty : $("#order_qty").val()
+               };
+          console.log(obj.in_ma_id);
+      $.ajax({
+          url :"/purchasing/order/"+obj.in_ma_id,
+          type :"get",
+          success:function(data){
+        	  console.log(obj.in_order_qty);
+        	  console.log(data);
+        	  $("#ma_qty").val(data.ma_qty)
+        	  $("#unit_cost").val(data.unit_cost)
+        	  $("#ma_name").val(data.ma_name)
+         	  $("#order_sum").val(data.unit_cost*obj.in_order_qty)
+        	  $("#order_vat").val(data.unit_cost*obj.in_order_qty/100)
+        	  $("#whs_id").val(data.whs_id)
+        	 // $("#ma_name").val(data.ma_name)
+        	 
+              
+            	// 등록버튼을 누르면 기존의 데이터가 초기화
+      
+          }, //success
+           error : function(error){
+        	  
+       }  //error
+    }); //ajax
+    
+ }); // keyup
+     
        
        
        
@@ -236,7 +262,7 @@ $(function() {
           var due_date = $('#due_date').val();
           var in_date = $('#in_date').val();
           var order_emp = $('#order_emp').val();
- 
+          var emp_name = $('#emp_name').val();
           console.log(ma_id);
           console.log(ma_name);
           console.log(whs_id);
@@ -256,7 +282,7 @@ $(function() {
              $.ajax({
                 url: "list",
                 type: "post",
-                data: {whs_id:whs_id,ma_id:ma_id,order_date:order_date,due_date:due_date,in_date:in_date,order_id:order_id ,order_qty:order_qty,order_sum:order_sum,order_vat:order_vat,order_emp:order_emp},
+                data: {emp_name:emp_name,whs_id:whs_id,ma_id:ma_id,order_date:order_date,due_date:due_date,in_date:in_date,order_id:order_id ,order_qty:order_qty,order_sum:order_sum,order_vat:order_vat,order_emp:order_emp},
                success: function() {
               	 location.href="/purchasing/order/list"
                    alert("등록완료");
@@ -323,18 +349,18 @@ $(function() {
 							str += "<tr>";
 							str += "<td><input type='checkbox' name='check'></td>";
 							str += "<td>"+ obj.order_id +"</td>";
-							str += "<td><input type='text' id='ma_id' name='ma_id' value="+ obj.ma_id +" readonly></td>";
-							str += "<td><input type='text' id='ma_name' name='ma_name' value="+ obj.ma_name +" readonly></td>";
-							str += "<td><input type='text' id='unit_cost' name='unit_cost' value="+ obj.unit_cost +" readonly></td>";
-							str += "<td><input type='text' id='ma_qty' name='ma_qty' value="+ obj.ma_qty +" readonly></td>";
+							str += "<td>"+ obj.ma_id +"</td>";
+							str += "<td>"+ obj.ma_name +"</td>";
+							str += "<td>"+ obj.unit_cost +"</td>";
+							str += "<td>"+ obj.ma_qty +"</td>";
 							str += "<td><input type='text' id='order_qty' name='order_qty' value="+ obj.order_qty +"></td>";
 							str += "<td><input type='text' id='order_sum' name='order_sum' value="+ obj.order_sum +"></td>";
 							str += "<td><input type='text' id='order_vat' name='order_vat' value="+ obj.order_vat +"></td>";
-							str += "<td><input type='text' id='order_date' name='order_date' value="+ obj.order_date +"></td>";
-							str += "<td><input type='text' id='due_date' name='due_date' value="+ obj.due_date +"></td>";
-							str += "<td><input type='text' id='in_date' name='in_date' value="+ obj.in_date +"></td>";
-							str += "<td><input type='text' id='whs_id' name='whs_id' value="+ obj.whs_id +"></td>";
-							str += "<td><input type='text' id='order_emp' name='order_emp' value="+ obj.order_emp +"></td>";
+							str += "<td>"+getToday()+"</td>";
+							str += "<td>"+orderToday()+"</td>";
+							str += "<td>"+inToday()+"</td>";
+							str += "<td>"+ obj.whs_id +"</td>";
+							str += "<td>"+ obj.emp_name +"</td>";
 							// 담당직원 세션에 저장된 아이디 들고오기
 							str += "</tr>";			
 							$('table').prepend(str);
@@ -351,17 +377,15 @@ $(function() {
 					// 2-2. '저장' 클릭 
 					$('.update').click(function(){
 						$('.modify').addClass('true');
-						var order_id = tdArr[0];;
+						var order_id = tdArr[0];
 						var order_qty = $('#order_qty').val();
 						var order_sum = $('#order_sum').val();
 						var order_vat = $('#order_vat').val();
-						var order_emp = $('#order_emp').val();
-						var order_date = $('#order_date').val();
-				        var due_date = $('#due_date').val();
-				        var in_date = $('#in_date').val();
-				        var whs_id = $('#whs_id').val();
+						var order_date = getToday();
+				        var due_date = orderToday();
+				        var in_date = inToday;
 									
-						if(order_id==="" || order_vat==="" || order_emp==="" || order_date==="" || due_date==="" || in_date==="" ) {
+						if(order_id==="" || order_vat==="" ) {
 							alert("모든 order_qty 입력해주세요.");
 						} else {
 							$.ajax({
@@ -374,11 +398,10 @@ $(function() {
 									    order_qty:order_qty,
 									    order_vat:order_vat,
 									    order_sum:order_sum,
-									    order_emp:order_emp,
 									    order_date:order_date,
 									    in_date:in_date,
-									    due_date:due_date,
-									    whs_id:whs_id}),
+									    due_date:due_date
+							   }),
 								success: function() {
 //			 						alert("자재코드 " + ma_id + ", 수정이 완료되었습니다.");
 //			 						location.href="/purchasing/material/list";
@@ -396,6 +419,7 @@ $(function() {
 			}); // update.click
 			
 	}); // modify.click
+	
 	// 3-1. '삭제' 클릭
 	$('#delete').click(function(){ 
 			
@@ -416,13 +440,13 @@ $(function() {
 			
 			// td.eq(0)은 체크박스, td.eq(1)이 ma_id
 			var order_id = td.eq(1).text();
-			tdArr.push(ma_id);	// tdArr[0]
-
+			tdArr.push(order_id);	// tdArr[0]
+          console.log(order_id);
 		}); // function(i)
 		
 	
 		// 3-2. 체크된 데이터 컨트롤러 전달
-		var ma_id = tdArr[0];
+		var order_id = tdArr[0];
 		
 		$.ajax({
 			url: "delete",
@@ -438,23 +462,60 @@ $(function() {
 			error: function() {
 				alert("삭제할 항목을 선택해주세요.");
 			}
-	    	}); //ajax		
+	    }); //ajax		
 	
-	}); // btnsearch.click
+	}); // deleteForm.click
 	
  }); // jQuery
 </script>
+<style type="text/css">
+table {width: 100%;
+/* table-layout:fixed;  */}
+
+
+ 
+/* table tr>th:nth-of-type(1) {width:50px !important;
+}
+  */
+table tr>td:nth-of-type(1) {width:50px !important;
+}
+
+ table input {width:7em;}
+ table input[type:checkbox] {width:1em;}
+</style>
 </head>
 <body>
-<button class="writeForm true">행추가</button>
-<!-- 버튼 -->
-	<button class="insertForm true" >등록</button>
-	<button class="btn btn-outline btn-primary pull-right modify true">수정</button>
-	<button class="btn btn-outline btn-primary pull-right" id="delete">삭제</button>
-	<button class="insert update delete">저장</button>
+
+<br>
+<h1 class="card-title">
+		<font style="vertical-align: inherit;"><a href="http://localhost:8088/purchasing/order/list" style="text-decoration:none;" >발주 리스트</a></font>
+	</h1>
+	<div>
+	<!-- 탭 메뉴 -->
+	<ul class="nav nav-tabs tab-no-active-fill" role="tablist">
+	<li class="nav-item">
+	<a class="nav-link ps-2 pe-2 active" id="stage1-tab" data-bs-toggle="tab" href="#stage1" role="tab" aria-controls="stage1" aria-selected="true">발주현황</a>
+	</li>
+	<li class="nav-item">
+	<a class="nav-link ps-2 pe-2" id="stage2-tab" data-bs-toggle="tab" href="#stage2" role="tab" aria-controls="stage2" aria-selected="false">발주등록</a>
+	</li>
+	</ul>
+	<!-- 탭 내용 -->
+	<div class="tab-content tab-no-active-fill-tab-content">
+	<div class="tab-pane fade active show" id="stage1" role="tabpanel" aria-labelledby="stage1-tab">
+    <!-- 검색 기능 -->
+	<form action="/purchasing/order/list" method="get" style="display: inline;">
+		<select name="selector">
+			<option value="ma_name">자재명</option>
+			<option value="order_date">발주일자</option>
+			<option value="in_date">입고일자</option>
+		</select> <input type="text" class="form-control" style="width:10%; display:inline;" name="search" placeholder="검색어를 입력해주세요">
+		<input type="submit"  class="btn btn-info" value="검색">
+	</form>
  <fmt:formatDate value=""/>
  <div class="row" > 
-<table border="1" id="example-table-3" class="table table-bordered table-hover text-center tbl">
+<table border="1" id="example-table-3" class="table table-bordered table-hover text-center tbl" style="width: 100%;">
+		    <thead>
 			<tr>
 			    <th></th>
 				<th>발주번호</th>
@@ -471,15 +532,16 @@ $(function() {
 				<th>입고창고</th>
 				<th>담당직원</th>
 			</tr>
+			</thead>
 			<tbody id="tbody">
-			<c:forEach var="order" items="${orderList}">
+			<c:forEach var="order" items="${OrderLists}">
 			 	<tr>
 			 	    <td><input type="checkbox" name="check"></td>
 				    <td>${order.order_id}</td>
 					<td>${order.ma_id}</td>
 					<td>${order.ma_name}</td> 
 					<td>${order.unit_cost}</td>
-					<td>${order.ma_qty}</td>					
+					<td>${order.add_order}</td>					
 					<td>${order.order_qty}</td>
 					<td>${order.order_sum}</td>
 					<td>${order.order_vat}</td>
@@ -487,13 +549,118 @@ $(function() {
 					<td>${order.due_date}</td>
 					<td>${order.in_date}</td>		
 					<td>${order.whs_id}</td>
-					<td>${order.order_emp}</td>
+					<td>${order.emp_name}</td>
 				</tr> 
 			</c:forEach>
 			</tbody>
 		</table>
 		
  </div>
+ 
+ <!-- 	페이징 처리  -->
+	<div class="template-demo">
+		<div class="btn-group" role="group" aria-label="Basic example">
+			<c:if test="${pvo.startPage > pvo.pageBlock }">
+				<a href="/purchasing/order/list?pageNum=${pvo.startPage-pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">이전</a>
+			</c:if>
+			
+			<c:forEach var="i" begin="${pvo.startPage }" end="${pvo.endPage }" step="1">
+				<a href="/purchasing/order/list?pageNum=${i }&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">${i }</a>
+			</c:forEach>
+			
+			<c:if test="${pvo.endPage<pvo.pageCount }">
+				<a href="/purchasing/order/list?pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">다음</a>
+			</c:if>
+		</div>
+	</div>
+<!-- 	페이징 처리  -->
+   </div>
+   
+   <!-- 탭기능 2번쨰  -->
+   <div class="tab-pane fade show" id="stage2" role="tabpanel" aria-labelledby="stage2-tab">
+    <!-- 검색 기능 -->
+	<form action="/purchasing/order/list" method="get" style="display: inline;">
+		<select name="selector">
+			<option value="ma_name">자재명</option>
+			<option value="order_date">발주일자</option>
+			<option value="in_date">입고일자</option>
+		</select> <input type="text" class="form-control" style="width:10%; display:inline;" name="search" placeholder="검색어를 입력해주세요">
+		<input type="submit"  class="btn btn-info" value="검색">
+	</form>
+<!-- 버튼 -->
+    <c:if test="${emp_department.equals('구매팀') || emp_department.equals('Master')}">
+	   <div style=float:right;>   
+    <button class="btn btn-info writeForm true" >등록</button>
+	<button class="btn btn-info modify true">수정</button>
+	<button class="btn btn-info" id="delete">삭제</button>
+	<button class="btn btn-success insert update write">저장</button>
+	   </div>
+    </c:if>
+ <fmt:formatDate value=""/>
+ <div class="row" > 
+<table border="1" id="example-table-3" class="table table-bordered table-hover text-center tbl" style="width: 100%;">
+		    <thead>
+			<tr>
+			    <th></th>
+				<th>발주번호</th>
+				<th>자재코드</th>
+				<th>자재명</th>
+				<th>단가</th>
+				<th>자재수량</th>
+				<th>주문수량</th>
+				<th>총액</th>
+				<th>부가세</th>
+				<th>발주일자</th>
+				<th>납기일자</th>
+				<th>입고일자</th>
+				<th>입고창고</th>
+				<th>담당직원</th>
+			</tr>
+			</thead>
+			<tbody id="tbody">
+			<c:forEach var="order" items="${OrderLists}">
+			 	<tr>
+			 	    <td><input type="checkbox" name="check"></td>
+				    <td>${order.order_id}</td>
+					<td>${order.ma_id}</td>
+					<td>${order.ma_name}</td> 
+					<td>${order.unit_cost}</td>
+					<td>${order.add_order}</td>					
+					<td>${order.order_qty}</td>
+					<td>${order.order_sum}</td>
+					<td>${order.order_vat}</td>
+					<td>${order.order_date}</td>
+					<td>${order.due_date}</td>
+					<td>${order.in_date}</td>		
+					<td>${order.whs_id}</td>
+					<td>${order.emp_name}</td>
+				</tr> 
+			</c:forEach>
+			</tbody>
+		</table>
+		
+ </div>
+ 
+ <!-- 	페이징 처리  -->
+	<div class="template-demo">
+		<div class="btn-group" role="group" aria-label="Basic example">
+			<c:if test="${pvo.startPage > pvo.pageBlock }">
+				<a href="/purchasing/order/list?pageNum=${pvo.startPage-pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">이전</a>
+			</c:if>
+			
+			<c:forEach var="i" begin="${pvo.startPage }" end="${pvo.endPage }" step="1">
+				<a href="/purchasing/order/list?pageNum=${i }&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">${i }</a>
+			</c:forEach>
+			
+			<c:if test="${pvo.endPage<pvo.pageCount }">
+				<a href="/purchasing/order/list?pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">다음</a>
+			</c:if>
+		</div>
+	</div>
+<!-- 	페이징 처리  -->
+     </div>
+   </div>
+ </div>
+ <%@ include file="../../includes/footer.jsp" %>
 </body>
 </html>
-<%@ include file="../../includes/footer.jsp" %>

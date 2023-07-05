@@ -5,6 +5,84 @@
 <head>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <title>사원 정보 수정</title>
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
+<style type="text/css">
+/* alert창 css */
+div:where(.swal2-container) div:where(.swal2-popup) {
+	width: 14em;
+	padding: 0 0 0.5em;}
+div:where(.swal2-container) h2:where(.swal2-title) {
+	padding: 0;
+	font-size: 1.05em;}
+div:where(.swal2-container) .swal2-html-container {
+	margin: 0;
+	font-size: 0.95em;}
+div:where(.swal2-container) div:where(.swal2-actions) {
+	margin: 0;}
+div:where(.swal2-icon) {
+	margin: 0.5em auto 0.5em;}
+div:where(.swal2-icon).swal2-warning {
+	border-color: #0ddbb9;
+	color: #0ddbb9;}
+div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
+	background-color: #0ddbb9;
+	color: #000;
+	font-size: 0.9em;
+	font-weight: 600;}
+/* alert창 css */
+
+/* 테이블 css */
+table {margin-bottom: 1em;}
+
+table, th {border: none;}
+
+th {background-color: #04AA6D;
+	color: #fff;
+	text-align: center;
+	padding: 10px 8px;}
+
+td {border:1px solid #04AA6D;
+	padding: 10px 6px;}
+
+#tb-btns {margin-left: 0.5em;}
+
+.btn{
+	display: inline-block;
+	font-weight: 600;
+	line-height: 1;
+	color: #6C7293;
+	text-align: center;
+	text-decoration: none;
+	vertical-align: middle;
+	cursor: pointer;
+	user-select: none;
+	background-color: transparent;
+	border: 1px solid transparent;
+	padding: 0.625rem 1.125rem;
+	font-size: 0.875rem;
+	border-radius: 0.25rem;
+	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;}
+    
+.btn-success {
+	color: #000;
+	background-color: #0ddbb9;
+	border-color: #0ddbb9;}
+
+.btn-info {
+	color: #000;
+	background-color: #2fddf8;
+	border-color: #23dbf8;}
+	
+.btn_ch{
+	color: #ffffff;
+	background-color: #04AA6D;
+	border-color: #0ddbb9;}
+
+/* .btn {background-color: #048; */
+/* padding:8px 10px; */
+/* color: #fff;} */
+/* 테이블 css */
+</style>
 </head>
 <body>
 	<form action="" role="form" id="fr" method="post">
@@ -14,7 +92,7 @@
 				<th>사번</th>
 				<td><input type="text" name="emp_id" value="${resultVO.emp_id }" readonly></td>
 				<th>비밀번호</th>
-				<th><input type="password" name="emp_pw" id="emp_pw" placeholder="비밀번호를 입력하세요"></th>				
+				<td><input type="password" name="emp_pw" id="emp_pw" placeholder="비밀번호를 입력하세요"></td>				
 				<th>이름</th>
 				<td><input type="text" name="emp_name" id="emp_name" value="${resultVO.emp_name }"></td>
 			</tr>
@@ -31,7 +109,7 @@
 				<th>주소</th>
 				<td colspan="5">
 					<input type="text" name="emp_address" id="emp_address" size="45" value="${resultVO.emp_address }" onclick="addr();">
-					<input type="button" value="주소찾기" onclick="addr();"><br>
+					<input type="button" class="btn_ch" value="주소찾기" onclick="addr();"><br>
 					<input type="text" name="emp_address_detail" id="emp_address_detail" size="55" maxlength="55" value="${resultVO.emp_address_detail }">
 				</td>
 			</tr>
@@ -39,15 +117,15 @@
 				<th>성별</th>
 				<td>
 					<label><input type="radio" name="emp_gender" value="남" ${resultVO.emp_gender == '남' ? 'checked' : ''}>남</label>
-					<label><input type="radio" name="emp_gender" value="남" ${resultVO.emp_gender == '여' ? 'checked' : ''}>여</label>
+					<label><input type="radio" name="emp_gender" value="여" ${resultVO.emp_gender == '여' ? 'checked' : ''}>여</label>
 				</td>			
 				<th>부서</th>
 				<td><select name="emp_department">
-						<option value="전산" ${resultVO.emp_department == '전산' ? 'selected' : ''}>전산팀</option>
-						<option value="인사" ${resultVO.emp_department == '인사' ? 'selected' : ''}>인사팀</option>
-						<option value="생산" ${resultVO.emp_department == '생산' ? 'selected' : ''}>생산팀</option>
-						<option value="구매" ${resultVO.emp_department == '구매' ? 'selected' : ''}>구매팀</option>
-						<option value="영업" ${resultVO.emp_department == '영업' ? 'selected' : ''}>영업팀</option>
+						<option value="전산팀" ${resultVO.emp_department == '전산팀' ? 'selected' : ''}>전산팀</option>
+						<option value="인사팀" ${resultVO.emp_department == '인사팀' ? 'selected' : ''}>인사팀</option>
+						<option value="생산팀" ${resultVO.emp_department == '생산팀' ? 'selected' : ''}>생산팀</option>
+						<option value="구매팀" ${resultVO.emp_department == '구매팀' ? 'selected' : ''}>구매팀</option>
+						<option value="영업팀" ${resultVO.emp_department == '영업팀' ? 'selected' : ''}>영업팀</option>
 				</select></td>
 				<th>직급</th>
 				<td><select name="emp_position">
@@ -71,16 +149,16 @@
 						<option value="퇴직" ${resultVO.emp_status == '퇴직' ? 'selected' : ''}>퇴직</option>
 				</select></td>
 				<th>입사일</th>
-				<th><input type="text" name="join_date" id="join_date" value="${resultVO.join_date }"></th>
+				<td><input type="text" name="join_date" id="join_date" value="${resultVO.join_date }"></td>
 			</tr>
 			<tr>
 				<td><input type="file" multiple name="emp_image" accept="image/*" value="이미지등록"></td>
 				<th>휴직일</th>
-				<th><input type="text" name="absence_date" value="${resultVO.absence_date }"></th>			
+				<td><input type="text" name="absence_date" value="${resultVO.absence_date }"></td>			
 				<th>복직일</th>
-				<th><input type="text" name="rehabi_date" value="${resultVO.rehabi_date }"></th>
+				<td><input type="text" name="rehabi_date" value="${resultVO.rehabi_date }"></td>
 				<th>퇴사일</th>
-				<th><input type="text" name="resign_date" value="${resultVO.resign_date }"></th>
+				<td><input type="text" name="resign_date" value="${resultVO.resign_date }"></td>
 			</tr>
 			
 		</table>
@@ -97,46 +175,88 @@
 				var status = true;
 		
 				if ($('#emp_pw').val() == ""){
-					alert('비밀번호를 입력하세요.');
+					Swal.fire({
+			            icon: 'warning',				// Alert 타입
+			            title: '비밀번호를 입력하세요',	// Alert 제목
+			            text: '필수입력란 입니다.',		// Alert 내용
+			            confirmButtonText: '확인',		// Alert 버튼내용
+			        });
 					$('#emp_pw').focus();
 					status = false;
 					return false;
 				}//비밀번호 입력 제어
 		
 				if ($('#emp_name').val() == ""){
-					alert('이름을 입력하세요.');
+					Swal.fire({
+			            icon: 'warning',					
+			            title: '이름을 입력하세요',	
+			            text: '필수입력란 입니다.',	
+			            confirmButtonText: '확인',
+			        });
 					$('#emp_name').focus();
 					status = false;
 					return false;
 				}//이름 입력 제어
 		
 				if ($('#emp_birth').val() == ""){
-					alert('생년월일을 입력하세요.');
+					Swal.fire({
+			            icon: 'warning',					
+			            title: '생년월일을 입력하세요',	
+			            text: '필수입력란 입니다.',	
+			            confirmButtonText: '확인',
+			        });
 					$('#emp_birth').focus();
 					status = false;
 					return false;
 				}//생년월일 입력 제어
 		
 				if ($('#emp_phone').val() == ""){
-					alert('연락처를 입력하세요.');
+					Swal.fire({
+			            icon: 'warning',					
+			            title: '연락처를 입력하세요',	
+			            text: '필수입력란 입니다.',	
+			            confirmButtonText: '확인',
+			        });
 					$('#emp_phone').focus();
 					status = false;
 					return false;
 				}//연락처 입력 제어
 		
 				if ($('#emp_email').val() == ""){
-					alert('이메일를 입력하세요.');
+					Swal.fire({
+			            icon: 'warning',					
+			            title: '이메일을 입력하세요',	
+			            text: '필수입력란 입니다.',	
+			            confirmButtonText: '확인',
+			        });
 					$('#emp_email').focus();
 					status = false;
 					return false;
 				}//이메일 입력 제어
 				
 				if ($('#emp_address').val() == ""){
-					alert('주소를 입력하세요.');
+					Swal.fire({
+			            icon: 'warning',					
+			            title: '주소를 입력하세요',	
+			            text: '필수입력란 입니다.',	
+			            confirmButtonText: '확인',
+			        });
 					$('#emp_address').focus();
 					status = false;
 					return false;
 				}//주소 입력 제어
+
+				if ($('#emp_address_detail').val() == ""){
+					Swal.fire({
+			            icon: 'warning',					
+			            title: '상세주소를 입력하세요',	
+			            text: '필수입력란 입니다.',	
+			            confirmButtonText: '확인',
+			        });
+					$('#emp_address_detail').focus();
+					status = false;
+					return false;
+				}//상세주소 입력 제어
 				
 				if ($('#emp_tel').val() == ""){
 					alert('내선번호를 입력하세요.');

@@ -157,7 +157,7 @@
 	<!-- 검색어+필터처리+페이지갯수 제한 전체 목록 가져오기  -->
 		<select id="getListSearchFilterObjectEmployeeVO" resultType="EmployeeVO">
 			SELECT * FROM ${table}
-			WHERE ${column_name} = #{column_value} AND ${status_name}=#{status_value}  
+			WHERE ${column_name} = #{column_value} AND ${status_name} = #{status_value}  
 			AND ${selector} LIKE CONCAT('%', #{search}, '%') 
 			ORDER BY ${id} DESC LIMIT #{startRow}, #{pageSize}
 		</select>
@@ -166,40 +166,7 @@
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
-<!-- InMaterialVO 페이징처리 시작 -->
-	<!-- 아무조건이 없을 때 목록 배열 가져오기  -->
-		<select id="getListPageSizeObjectInMaterialVO" resultType="InMaterialVO">
-			SELECT * FROM ${table} 
-			WHERE ${status_name} = #{status_value} 
-			ORDER BY ${id} DESC LIMIT #{startRow}, #{pageSize}
-		</select>
-	<!-- 아무조건이 없을 때 목록갯수 가져오기  -->	
-		
-	<!--  	검색어+페이지갯수 제한 전체 목록 배열 가져오기  -->
-		<select id="getListSearchObjectInMaterialVO" resultType="InMaterialVO">
-			SELECT * FROM ${table} 
-			WHERE ${status_name} = #{status_value} 
-			AND ${selector} LIKE CONCAT('%', #{search}, '%') 
-			ORDER BY ${id} DESC LIMIT #{startRow}, #{pageSize}
-		</select>
-	<!--  	검색어+페이지갯수 제한 전체 목록 배열 가져오기  -->	
-		
-	<!-- 필터처리+페이지갯수 제한 전체 목록 가져오기  -->
-		<select id="getListFilterObjectInMaterialVO" resultType="InMaterialVO">
-			SELECT * FROM ${table} 
-			WHERE ${column_name} = #{column_value} AND ${status_name} = #{status_value} 
-			ORDER BY ${id} DESC LIMIT #{startRow}, #{pageSize}
-		</select>
-	<!-- 필터처리+페이지갯수 제한 전체 목록 가져오기  -->
-	
-	<!-- 검색어+필터처리+페이지갯수 제한 전체 목록 가져오기  -->
-		<select id="getListSearchFilterObjectInMaterialVO" resultType="InMaterialVO">
-			SELECT * FROM ${table}
-			WHERE ${column_name} = #{column_value} AND ${status_name}=#{status_value}   
-			AND ${selector} LIKE CONCAT('%', #{search}, '%') 
-			ORDER BY ${id} DESC LIMIT #{startRow}, #{pageSize}
-		</select>
-	<!-- 검색어+필터처리+페이지갯수 제한 전체 목록 가져오기  -->
+
 <!-- inventory  페이징처리 시작 -->
 <!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 	
@@ -207,16 +174,21 @@
 <!-- MaterialVO  페이징처리 시작 -->
 	<!-- 아무조건이 없을 때 목록 배열 가져오기  -->
 		<select id="getListPageSizeObjectMaterialVO" resultType="MaterialVO">
-			SELECT * FROM ${table} 
-			WHERE ${status_name} = #{status_value} 
-			ORDER BY ${id} DESC LIMIT #{startRow}, #{pageSize}
+			SELECT *
+			FROM material m, employee e
+			WHERE m.ma_emp = e.emp_id
+			AND ${status_name} = #{status_value} 
+			ORDER BY ${id} DESC
+			LIMIT #{startRow}, #{pageSize}
 		</select>
 	<!-- 아무조건이 없을 때 목록갯수 가져오기  -->	
 		
 	<!--  	검색어+페이지갯수 제한 전체 목록 배열 가져오기  -->
 		<select id="getListSearchObjectMaterialVO" resultType="MaterialVO">
-			SELECT * FROM ${table} 
-			WHERE ${status_name} = #{status_value} 
+			SELECT *
+			FROM material m, employee e
+			WHERE m.ma_emp = e.emp_id
+			AND ${status_name} = #{status_value} 
 			AND ${selector} LIKE CONCAT('%', #{search}, '%') 
 			ORDER BY ${id} DESC LIMIT #{startRow}, #{pageSize}
 		</select>

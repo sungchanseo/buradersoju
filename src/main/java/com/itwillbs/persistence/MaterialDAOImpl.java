@@ -30,7 +30,7 @@ public class MaterialDAOImpl implements MaterialDAO {
 	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ메서드 정의ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	// 1. 자재 목록 조회
 	@Override
-	public List<MaterialVO> getMaterialList() {
+	public List<MaterialVO> getMaterialList() throws Exception {
 		logger.debug("########## getMaterialList_호출");
 		return sqlSession.selectList(NAMESPACE+".getMaterialList");
 	}
@@ -38,7 +38,7 @@ public class MaterialDAOImpl implements MaterialDAO {
 	
 	// 2. 자재 정보 조회
 	@Override
-	public MaterialVO getMaterialInfo(String ma_id) {
+	public MaterialVO getMaterialInfo(String ma_id) throws Exception {
 		logger.debug("########## getMaterialInfo_호출");
 		return sqlSession.selectOne(NAMESPACE+".getMaterialInfo", ma_id);
 	}
@@ -46,14 +46,14 @@ public class MaterialDAOImpl implements MaterialDAO {
 	
 	// 3-1. 자재 품목코드 자동넘버링
 	@Override
-	public String getMaxNumber() throws Exception {
+	public String getMaxNumber() throws Exception  {
 		logger.debug("########## getMaxNumber_호출");
 		return sqlSession.selectOne(NAMESPACE+".getMaxNumber");
 	}
 
 	// 3-2. 자재 등록
 	@Override
-	public void insertMaterial(MaterialVO vo) {
+	public void insertMaterial(MaterialVO vo) throws Exception {
 		logger.debug("########## insertMaterial_호출");
 		sqlSession.insert(NAMESPACE + ".insertMaterial", vo);
 		logger.debug("########## 자재 등록 완료");
@@ -70,7 +70,7 @@ public class MaterialDAOImpl implements MaterialDAO {
 
 	// 5. 자재 수정
 	@Override
-	public Integer modifyMaterial(MaterialVO mvo) {
+	public Integer modifyMaterial(MaterialVO mvo) throws Exception {
 		logger.debug("########## modifyMaterial_호출");
 		
 		// DB에서 수정할 자재 정보 가져오기
@@ -84,13 +84,20 @@ public class MaterialDAOImpl implements MaterialDAO {
 	
 	// 6. 자제 삭제
 	@Override
-	public Integer deleteMaterial(String ma_id) {
+	public Integer deleteMaterial(String ma_id) throws Exception {
 		logger.debug("########## deleteMaterial_호출");
 		
 		// DB에서 자제 삭제 기능 가져오기 (사실상 업데이트)
 		return sqlSession.update(NAMESPACE+".deleteMaterial", ma_id);
 	}
 
+
+	// 7. 사원이름 가져오기
+	@Override
+	public String getEmpName(String ma_id) throws Exception {
+		logger.debug("########## getEmpName_호출");
+		return sqlSession.selectOne(NAMESPACE+".getEmpName", ma_id);
+	}
 
 
 

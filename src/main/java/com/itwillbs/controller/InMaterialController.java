@@ -1,6 +1,9 @@
 package com.itwillbs.controller;
 import java.util.List;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -10,12 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.itwillbs.domain.InMaterialVO;
-import com.itwillbs.domain.MaterialVO;
+import com.itwillbs.domain.PagingVO;
 import com.itwillbs.service.InMaterialService;
-
-
+import com.itwillbs.service.PagingService;
 
 @Controller
 @RequestMapping(value = "/purchasing/inMaterial/*")
@@ -36,16 +37,52 @@ public class InMaterialController {
 	
 	
 	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ메서드 정의ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-	// 1-1. 입고 리스트 출력
+	
+	
+	
+	// 1. 입고 리스트 출력
 	@RequestMapping(value="/list", method=RequestMethod.GET)
-	public void inMaterialListAllGET(Model model) throws Exception{
+	public String inMaterialListAllGET(Model model, PagingVO pvo,
+									   HttpServletRequest request, HttpSession session) throws Exception{
 		logger.debug("@@@@@@@@@@ inMaterialListAllGET()_호출");
+		
+		// 리스트 출력 (페이징처리 X)
+//		List<InMaterialVO> inMaterialList =  iService.getInMaterialListAll();
+//		model.addAttribute("inMaterialList", inMaterialList);
 
-		List<InMaterialVO> inMaterialList =  iService.getInMaterialListAll();
+		// 로그인 세션 제어
+		if(session.getAttribute("emp_id") == null) {
+			return "redirect:/main/login";
+		}
+		
+		
+		// 리스트 출력 (페이징처리)
+		List<Object> inMaterialList = null;
+		pvo = iService.pagingAction(pvo);
+		logger.debug("@@@@@@@@@@ pvo : {}", pvo);
+		
+		
+		// 검색로직
+		if(pvo.getSelector()!=null && pvo.getSelector()!="") {
+			//검색어가 있을 때 
+			logger.debug("@@@@@@@@@@ 검색어가 있을 때");
+			inMaterialList = iService.getListSearchObjectInMaterialVO(pvo);
+		}else {
+			//검색어가 없을 때
+			logger.debug("@@@@@@@@@@ 검색어가 없을 때");
+			inMaterialList = iService.getListPageSizeObjectInMaterialVO(pvo);
+		}
+
+		
+		// View 페이지 전달
 		model.addAttribute("inMaterialList", inMaterialList);
+		model.addAttribute("pvo", pvo);
+		model.addAttribute("emp_department", session.getAttribute("emp_department"));
+		
+		return null;
 	}
 	
-	
+
 	// 2-1. 입고번호 - 자동넘버링
 	@RequestMapping(value="/inid", method=RequestMethod.GET)
 	public void getInIdGET(Model model) throws Exception {
@@ -60,37 +97,21 @@ public class InMaterialController {
 		model.addAttribute("maxDate", maxDate);
 	}
 	
-	// 2-2. 입고번호 - DB 업데이트
+	// 2-2. 입고번호 & 재고량 증가 - DB 업데이트
 	@RequestMapping(value="/inid", method=RequestMethod.POST)
 	@ResponseBody
 	public void getInIdPOST(Model model, @RequestBody InMaterialVO vo) throws Exception{
 		logger.debug("@@@@@@@@@@ getInIdPOST()_호출");
-
+		
 		// 입고번호, 발주번호 DB에 저장
 		iService.registInId(vo);
 		
-		// 재고테이블에 해당 자재 수량 증가
-		// orders의 ma_id와 material의 ma_id로 join해서 orders의 order_qty만큼 수량 더하기
-		// 파라미터로 전달되는 order_id값을 받아와서 총 재고량을 구한 뒤 ma_qty를 업데이트
-		iService.getMaCnt(vo.getOrder_id());
-		logger.debug("@@@@@@@@@@ 재고테이블 자재 수량 증가 완료");
+//		// 현 재고량 + 입고량 = 총재고량 (add_ma)
+		iService.getAddMa(vo.getOrder_id());
+		
+		// 입고된 자재 재고량 증가
+		iService.getplusMa(vo);
 	}
-	
-//	@RequestMapping(value="/inid", method=RequestMethod.POST)
-//	@ResponseBody
-//	public void getInIdPOST(Model model, @RequestParam("in_id") String in_id,
-//			                             @RequestParam("order_id") String order_id,
-//			                             @RequestParam("in_emp") int in_emp) throws Exception{
-//		logger.debug("@@@@@@@@@@ getInIdPOST()_호출");
-//
-//		// 입고번호, 발주번호 DB에 저장
-//		InMaterialVO vo = new InMaterialVO();
-//		vo.setIn_id(in_id);
-//		vo.setOrder_id(order_id);
-//		vo.setIn_emp(in_emp);
-//		iService.registInId(vo);
-//		
-//	}
 	
 	
 	// 3. 입고 상세보기
@@ -100,15 +121,11 @@ public class InMaterialController {
 		
 		InMaterialVO info = iService.getInMaterialInfo(order_id);
 		logger.debug("@@@@@@@@@@ 입고 상세보기 데이터 : " + info);
-		model.addAttribute("resultVO", info);
-
+		model.addAttribute("info", info);
 	}
-	
-	
-	
-	
-	
-	
-	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ메서드 정의ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
+
+	
+	
+	
 }

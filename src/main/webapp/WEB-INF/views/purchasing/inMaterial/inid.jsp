@@ -71,6 +71,10 @@ $(document).ready(function(){
 		// order_id 정보 저장       
 		var order_id = "${param.order_id }";
 		console.log("************ order_id = " + order_id);
+		
+		
+		// ma_id 정보 저장
+		var ma_id = "${param.ma_id }";
 
 		
 		// maxDate 정보 저장
@@ -122,9 +126,10 @@ $(document).ready(function(){
 				data: JSON.stringify({
 					in_id:in_id,
 					order_id:order_id,
-					in_emp:in_emp
+					in_emp:in_emp,
+					ma_id:ma_id
 				}),
-				success: function(data){
+				success: function(){
 // 					alert(in_id + ", 입고처리가 완료되었습니다.");
 // 					location.href = "/purchasing/inMaterial/list";
 					alert("찐에러! inid.jsp line 130 수정ㄱㄱ");

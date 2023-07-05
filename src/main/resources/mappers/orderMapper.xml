@@ -7,11 +7,14 @@
  
    <!-- 발주목록 조회  -->              
       <select id="getOrderList" resultType="com.itwillbs.domain.OrderVO">
-        SELECT o.order_id, o.order_status, m.ma_id, m.ma_name, m.ma_qty, o.order_vat,o.order_sum ,o.order_date, o.due_date, o.order_emp, o.order_qty, o.whs_id, m.unit_cost, o.in_date
+        SELECT o.order_id, o.order_status, m.ma_id, o.add_order,  m.ma_name, m.ma_qty, o.order_vat,o.order_sum ,o.order_date, o.due_date, o.order_emp, o.order_qty, o.whs_id, m.unit_cost, o.in_date, o.add_order
 		FROM material m, orders o
-		WHERE m.ma_id = o.ma_id and o.order_status = 1
+		WHERE m.ma_id = o.ma_id and o.order_status = 1 
+		ORDER BY o.order_id DESC
       </select>
    <!-- 발주목록 조회  -->
+  
+   
        <!-- 발주등록하기  -->
        <insert id="insertOrder" >
          insert into orders (order_id, ma_id, order_qty, order_sum, order_vat, order_emp, order_date,due_date,in_date, whs_id)
@@ -37,6 +40,22 @@
 		WHERE order_id = #{order_id} and o.order_status = 1 and m.ma_id = o.ma_id
 	</select>
  <!-- 발주목록 조회하기 -->
+
+<!-- 발주목록 자동 조회하기 -->
+      <select id="getOrderInfoauto" resultType="com.itwillbs.domain.OrderVO">
+		SELECT o.order_id, o.order_status, m.ma_id, m.ma_name, m.ma_qty, o.order_vat,o.order_sum ,o.order_date, o.due_date, o.order_emp, o.order_qty, o.whs_id ,m.unit_cost,o.in_date
+		FROM material m, orders o
+		WHERE order_id = #{order_id} and o.order_status = 1 
+	</select>
+ <!-- 발주목록 자동 조회하기 -->
+ <!-- 자동들록 위한 조회 -->
+      <select id="getMaterialList" resultType="com.itwillbs.domain.OrderVO">
+		SELECT o.order_id, o.order_status, m.ma_id, m.ma_name, m.ma_qty, o.order_vat,o.order_sum ,o.order_date, o.due_date, o.order_emp, o.order_qty, o.whs_id ,m.unit_cost,o.in_date
+		FROM material m, orders o
+		where o.ma_id = m.ma_id 
+	</select>
+ <!-- 자동들록 위한 조회 -->
+
  
  <!-- DB 발주번호 최대 날짜 (maxDate) == 230620 -->	
  	<select id="getMaxDate" resultType="String">
@@ -46,17 +65,147 @@
  <!-- DB 발주번호 최대 날짜 (maxDate) == 230620 -->
  <!-- 발주 정보 수정 -->
 	<update id="modifyOrder" >
-		update orders set order_id=#{order_id}, whs_id=#{whs_id}, order_qty=#{order_qty}, order_sum=#{order_sum}, order_vat=#{order_vat}, order_emp=#{order_emp}, order_date=#{order_date}, due_date=#{due_date}, in_date=#{in_date}
+		update orders set order_id=#{order_id}, order_qty=#{order_qty}, order_sum=#{order_sum}, order_vat=#{order_vat}
 		where order_id = #{order_id}
 	</update>
  <!-- 발주 정보 수정 -->
 
    <!-- 발주 정보 삭제  -->
      <delete id="deleteOrder" >
-        update orders SET status = 0
+        update orders SET order_status = 0
         where order_id = #{order_id}
      </delete>
    <!-- 발주 정보 삭제  -->
+ <update id="addMa">
+		UPDATE orders o
+		LEFT JOIN material m
+		ON o.ma_id = m.ma_id
+		SET o.add_order =  m.ma_qty
+		WHERE order_id = #{order_id}
+	</update>
  
  
-      </mapper>
+ 
+ 
+ <!-- **************************** 페이징 처리 *************************** -->
+
+<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 갯수 조회 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+<!--  	전체 리스트 개수 조회  -->
+	<select id="getListAll" resultType="_int">
+	SELECT COUNT(*)
+		FROM employee e
+        LEFT JOIN orders o
+		ON o.order_emp = e.emp_id
+        LEFT JOIN material m
+		on m.ma_id = o.ma_id 
+        where o.order_status = 1
+		ORDER BY o.order_id DESC
+	</select>
+<!-- 	전체 리스트 갯수 조회  -->
+
+
+<!-- 아무조건이 없을 때 목록 개수  -->
+	<select id="getListPageSizeAll" resultType="_int">
+		SELECT COUNT(*)
+		FROM employee e
+        LEFT JOIN orders o
+		ON o.order_emp = e.emp_id
+        LEFT JOIN material m
+		on m.ma_id = o.ma_id 
+        where o.order_status = 1
+		limit 0, 10
+	</select>
+<!-- 아무조건이 없을 때 목록 개수 -->
+
+
+<!-- 검색어 + 페이지갯수 제한 전체 목록 개수 -->
+	<select id="getListSearchAll" resultType="_int">
+		SELECT COUNT(*)
+		FROM employee e
+        LEFT JOIN orders o
+		ON o.order_emp = e.emp_id
+        LEFT JOIN material m
+		on m.ma_id = o.ma_id 
+        where o.order_status = 1
+		AND ${selector} LIKE CONCAT('%', #{search}, '%')
+		ORDER BY o.order_id DESC
+		limit 0, 10
+	</select>
+<!-- 검색어 + 페이지갯수 제한 전체 목록 개수 -->
+
+
+<!-- 필터처리 + 페이지갯수 제한 전체 목록 -->
+	<select id="getListFilterAll" resultType="_int">
+		SELECT COUNT(*) FROM ${table}
+		WHERE ${column_name} = #{column_value} AND ${status_name}=#{status_value} 
+		LIMIT #{startRow}, #{pageSize}
+	</select>
+<!-- 필터처리 + 페이지갯수 제한 전체 목록 -->
+
+
+<!-- 검색어+필터처리+페이지갯수 제한 전체 목록 -->
+	<select id="getListSearchAndFilterAll" resultType="_int">
+		SELECT COUNT(*) FROM ${table}
+		WHERE ${column_name} = #{column_value} AND ${status_name}=#{status_value}  
+		AND ${selector} LIKE CONCAT('%', #{search}, '%') LIMIT #{startRow}, #{pageSize}
+	</select>
+<!-- 검색어+필터처리+페이지갯수 제한 전체 목록 -->
+
+
+<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 목록 가져오기 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+<!-- InMaterialVO 페이징처리 시작 -->
+<!-- 아무조건이 없을 때 목록 배열 -->
+	<select id="getListPageSizeObjectOrderVO" resultType="OrderVO">		
+		SELECT o.order_id, o.order_status, m.ma_id, o.add_order,  m.ma_name, m.ma_qty, o.order_vat,o.order_sum ,o.order_date, o.due_date, o.order_emp, o.order_qty, o.whs_id, m.unit_cost, o.in_date, o.add_order ,e.emp_name
+        FROM employee e
+        LEFT JOIN orders o
+		ON o.order_emp = e.emp_id
+        LEFT JOIN material m
+		on m.ma_id = o.ma_id 
+        where o.order_status = 1
+		ORDER BY o.order_id DESC
+		LIMIT #{startRow}, #{pageSize}
+	</select>
+<!-- 아무조건이 없을 때 목록 배열 -->
+		
+		
+<!-- 검색어 + 페이지갯수 제한 전체 목록 배열 -->
+	<select id="getListSearchObjectOrderVO" resultType="OrderVO">
+		SELECT o.order_id, o.order_status, m.ma_id, o.add_order,  m.ma_name, m.ma_qty, o.order_vat,o.order_sum ,o.order_date, o.due_date, o.order_emp, o.order_qty, o.whs_id, m.unit_cost, o.in_date, o.add_order ,e.emp_name
+        FROM employee e
+        LEFT JOIN orders o
+		ON o.order_emp = e.emp_id
+        LEFT JOIN material m
+		on m.ma_id = o.ma_id 
+        where o.order_status = 1
+		AND ${selector} LIKE CONCAT('%', #{search}, '%')
+		ORDER BY o.order_id DESC
+		LIMIT #{startRow}, #{pageSize}
+	</select>
+<!-- 검색어 + 페이지갯수 제한 전체 목록 배열 -->
+		
+	
+<!-- 필터처리 + 페이지갯수 제한 전체 목록 -->
+	<select id="getListFilterObjectOrderVO" resultType="OrderVO">
+		SELECT o.order_id, o.order_status, m.ma_id, o.add_order,  m.ma_name, m.ma_qty, o.order_vat,o.order_sum ,o.order_date, o.due_date, o.order_emp, o.order_qty, o.whs_id, m.unit_cost, o.in_date, o.add_order ,e.emp_name
+		WHERE ${column_name} = #{column_value} AND ${status_name} = #{status_value} 
+		ORDER BY ${id} DESC LIMIT #{startRow}, #{pageSize}
+	</select>
+<!-- 필터처리 + 페이지갯수 제한 전체 목록 -->
+
+
+<!-- 검색어 + 필터처리 + 페이지갯수 제한 전체 목록 -->
+	<select id="getListSearchFilterObjectOrderVO" resultType="OrderVO">
+		SELECT o.order_id, o.order_status, m.ma_id, o.add_order,  m.ma_name, m.ma_qty, o.order_vat,o.order_sum ,o.order_date, o.due_date, o.order_emp, o.order_qty, o.whs_id, m.unit_cost, o.in_date, o.add_order,e.emp_name
+		WHERE ${column_name} = #{column_value} AND ${status_name}=#{status_value}   
+		AND ${selector} LIKE CONCAT('%', #{search}, '%') 
+		ORDER BY ${id} DESC LIMIT #{startRow}, #{pageSize}
+	</select>
+<!-- 검색어 + 필터처리 + 페이지갯수 제한 전체 목록 -->
+
+
+<!-- **************************** 페이징 처리 **************************** -->
+ 
+ 
+ 
+  </mapper>

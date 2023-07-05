@@ -1,17 +1,23 @@
 package com.itwillbs.controller;
 import java.util.List;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.itwillbs.domain.MaterialVO;
+import com.itwillbs.domain.PagingVO;
 import com.itwillbs.service.MaterialService;
+import com.itwillbs.service.PagingService;
 
 
 
@@ -27,44 +33,48 @@ public class MaterialController {
 	// 객체 주입 (DI)
 	@Inject
 	private MaterialService mService;
+	@Inject
+	private PagingService pageService;
 
+	
 	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ메서드 정의ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	// 1-1. 자재 목록 & 자동넘버링
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public void materialListGET(Model model) throws Exception {
+	public String materialListGET(Model model, PagingVO pvo,
+								HttpServletRequest request, HttpSession session) throws Exception {
 		logger.debug("@@@@@@@@@@ materialListGET_호출");
 
-		// serivce 객체 호출
-		List<MaterialVO> materialList = mService.getMaterialList();
+		// 로그인 세션 제어
+		if(session.getAttribute("emp_id") == null) {
+			return "redirect:/main/login";
+		}
+		
+		// 페이징 처리 service 호출
+		pvo = mService.setPageInfoForMaterial(pvo);
+		
+		// 리스트 출력 (페이징처리)
+		List<Object> materialList = null;
+		if(pvo.getSelector()!=null && pvo.getSelector()!="") {
+			// 검색어가 있을 때 
+			materialList = pageService.getListSearchObjectMaterialVO(pvo);
+		}else {
+			// 검색어가 없을 때
+			logger.debug("@@@@@@@@@Controller : 검색어가 없을 때입니다");
+			materialList = pageService.getListPageSizeObjectMaterialVO(pvo);
+		}
 		
 		// 자동넘버링
 		String maxNumber = mService.getMaxNumber();
 		logger.debug("@@@@@@@@@@@@@@ maxNumber = " + maxNumber);	
-
+		
 		// View 페이지 정보 전달
 		model.addAttribute("materialList", materialList);
+		model.addAttribute("emp_department", session.getAttribute("emp_department"));
+		model.addAttribute("emp_name", session.getAttribute("emp_name"));
 		model.addAttribute("maxNumber", maxNumber);
-	}
-	
-	// 1-2. 자재 검색
-	@RequestMapping(value = "/search", method = RequestMethod.GET)
-	@ResponseBody
-	public List<MaterialVO> searchMaterialGET(Model model,
-											  @RequestParam("type") String type,
-							                  @RequestParam("keyword") String keyword) throws Exception {
-		logger.debug("@@@@@@@@@@ searchMaterialGET() 호출");
+		model.addAttribute("pvo", pvo);
 		
-		MaterialVO searchVO = new MaterialVO();		
-		searchVO.setType(type);
-		searchVO.setKeyword(keyword);
-		logger.debug("@@@@@@@@@@ type = " + type);
-		logger.debug("@@@@@@@@@@ keyword = " + keyword);
-
-		List<MaterialVO> searchlist = mService.getSearchList(searchVO);
-		model.addAttribute("searchlist", searchlist);
-		logger.debug("@@@@@@@@@@ searchlist = " + searchlist);
-		
-		return searchlist;
+		return null;
 	}
 
 	
@@ -112,16 +122,10 @@ public class MaterialController {
 		return "redirect:/purchasing/material/list";
 	}
 
-	
-	// 4-1. 자재 삭제
-//	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-//	public void deleteMaterialGET(String ma_id) throws Exception {
-//		logger.debug("@@@@@@@@@@ deleteMaterialGET_호출");
-//		logger.debug("@@@@@@@@@@ delete.jsp 페이지 이동");
-//	}
 
-	// 4-2. 자재 삭제 (데이터처리)
+	// 4. 자재 삭제 (데이터처리)
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	@ResponseBody
 	public void deleteMaterialPOST(@RequestParam("ma_id") String ma_id) throws Exception {
 		logger.debug("@@@@@@@@@@ deleteMaterialPOST_호출");
 
@@ -129,7 +133,7 @@ public class MaterialController {
 		int result = mService.deleteMaterial(ma_id);
 		logger.debug("@@@@@@@@@@ 삭제 된 행의 수 : " + result);
 	}
-	
+
 	
 	
 	

@@ -8,15 +8,18 @@
  <mapper namespace="com.itwillbs.mappers.inMaterialMapper">
  	
  <!-- 입고 리스트 -->
- 	<select id="getInMaterialListAll" resultType="com.itwillbs.domain.InMaterialVO">
-	SELECT i.in_id, o.order_id, m.ma_name, o.order_qty, m.ma_qty, i.in_process, m.whs_id, m.shelt_position, o.in_date, i.in_emp
-	FROM orders o
-	LEFT JOIN in_material i
-	ON o.order_id = i.order_id
-	LEFT JOIN material m
-	ON o.ma_id = m.ma_id
-	ORDER BY in_process, in_id desc
- 	</select>
+	<select id="getInMaterialListAll" resultType="com.itwillbs.domain.InMaterialVO">
+		SELECT i.in_id, o.order_id, m.ma_name, o.order_qty, m.ma_qty, 
+		       i.in_process, m.whs_id, m.shelt_position, o.in_date, e.emp_name
+		FROM orders o
+		LEFT JOIN in_material i
+		ON o.order_id = i.order_id
+		LEFT JOIN material m
+		ON o.ma_id = m.ma_id
+		LEFT JOIN employee e
+		ON i.in_emp = e.emp_id
+		ORDER BY in_process, in_id DESC, order_id DESC;
+	</select>
  <!-- 입고 리스트 -->	
  
  
@@ -49,31 +52,166 @@
  
  <!-- 입고 정보 상세보기 -->	
 	<select id="getInMaterialInfo" resultType="com.itwillbs.domain.InMaterialVO">
-		SELECT o.order_id, o.due_date, o.order_date, o.order_emp, i.in_id, i.in_process, o.in_date, i.in_emp, m.ma_name, o.order_qty, m.ma_qty, m.shelt_position
-		FROM in_material i, material m, orders o
-		WHERE m.ma_id = o.ma_id AND o.order_id = i.order_id AND o.order_id = #{order_id}
+		SELECT o.order_id, o.due_date, o.order_date, oe.emp_name 'order_name', 
+		       i.in_id, i.in_process, o.in_date, ie.emp_name 'in_name', m.ma_name, 
+		       o.order_qty, o.add_ma, m.ma_qty, m.shelt_position
+		FROM orders o
+		LEFT JOIN material m ON o.ma_id = m.ma_id
+		LEFT JOIN in_material i ON i.order_id = o.order_id
+		LEFT JOIN employee ie ON i.in_emp = ie.emp_id
+		LEFT JOIN employee oe ON o.order_emp = oe.emp_id
+		WHERE o.order_id = #{order_id}
 	</select>
  <!-- 입고 정보 상세보기 -->	
  
  
- <!-- 특정 order_id의 기존 재고량 + 발주량으로 업데이트 -->
- 	<update id="maCnt">
+ <!-- 특정 order_id의 기존 재고량+발주량 (add_ma) -->
+	<update id="addMa">
 		UPDATE orders o
 		LEFT JOIN material m
 		ON o.ma_id = m.ma_id
-		SET m.ma_qty = m.ma_qty + o.order_qty
-		WHERE o.order_id = #{order_id};
- 	</update>
- <!-- 특정 order_id의 기존 재고량 + 발주량으로 업데이트 -->
+		SET o.add_ma = o.order_qty + m.ma_qty
+		WHERE order_id = #{order_id}
+	</update>
+ <!-- 특정 order_id의 기존 재고량 + 발주량 (add_ma) -->
  
  
- <!-- 재고량 수정하기 -->
- 
- 	
- 	
- 	
- 	
- 	
- 		
- 
+<!-- 입고처리 시 해당 자재 재고량 증가 -->
+	<update id="plusMa">
+		UPDATE material m
+		LEFT JOIN orders o
+		ON m.ma_id = o.ma_id
+		SET m.ma_qty = m.ma_qty + o.order_qty 
+		WHERE o.order_id = #{order_id} AND m.ma_id = #{ma_id}
+		AND order_status = 1
+	</update>
+<!-- 입고처리 시 해당 자재 재고량 증가 -->
+
+
+
+
+
+<!-- **************************** 페이징 처리 *************************** -->
+
+<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 갯수 조회 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+<!--  	전체 리스트 개수 조회  -->
+	<select id="getListAll" resultType="_int">
+		SELECT COUNT(*) 
+		FROM orders o
+		LEFT JOIN in_material i
+		ON o.order_id = i.order_id
+		LEFT JOIN material m
+		ON o.ma_id = m.ma_id
+		WHERE order_status = 1
+	</select>
+<!-- 	전체 리스트 갯수 조회  -->
+
+
+<!-- 아무조건이 없을 때 목록 개수  -->
+	<select id="getListPageSizeAll" resultType="_int">
+		SELECT COUNT(*) 
+		FROM orders o
+		LEFT JOIN in_material i
+		ON o.order_id = i.order_id
+		LEFT JOIN material m
+		ON o.ma_id = m.ma_id
+		WHERE order_status = 1
+		limit 0, 10
+	</select>
+<!-- 아무조건이 없을 때 목록 개수 -->
+
+
+<!-- 검색어 + 페이지갯수 제한 전체 목록 개수 -->
+	<select id="getListSearchAll" resultType="_int">
+		SELECT COUNT(*) 
+		FROM orders o
+		LEFT JOIN in_material i
+		ON o.order_id = i.order_id
+		LEFT JOIN material m
+		ON o.ma_id = m.ma_id
+		LEFT JOIN employee e
+		ON i.in_emp = e.emp_id
+		WHERE order_status = 1
+		AND ${selector} LIKE CONCAT('%', #{search}, '%')
+		limit 0, 10
+	</select>
+<!-- 검색어 + 페이지갯수 제한 전체 목록 개수 -->
+
+
+<!-- 필터처리 + 페이지갯수 제한 전체 목록 -->
+	<select id="getListFilterAll" resultType="_int">
+		SELECT COUNT(*) FROM ${table}
+		WHERE ${column_name} = #{column_value} AND ${status_name}=#{status_value} 
+		LIMIT #{startRow}, #{pageSize}
+	</select>
+<!-- 필터처리 + 페이지갯수 제한 전체 목록 -->
+
+
+<!-- 검색어+필터처리+페이지갯수 제한 전체 목록 -->
+	<select id="getListSearchAndFilterAll" resultType="_int">
+		SELECT COUNT(*) FROM ${table}
+		WHERE ${column_name} = #{column_value} AND ${status_name}=#{status_value}  
+		AND ${selector} LIKE CONCAT('%', #{search}, '%') LIMIT #{startRow}, #{pageSize}
+	</select>
+<!-- 검색어+필터처리+페이지갯수 제한 전체 목록 -->
+
+
+<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 목록 가져오기 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+<!-- InMaterialVO 페이징처리 시작 -->
+<!-- 아무조건이 없을 때 목록 배열 -->
+	<select id="getListPageSizeObjectInMaterialVO" resultType="InMaterialVO">
+		SELECT * FROM orders o
+		LEFT JOIN in_material i
+		ON o.order_id = i.order_id
+		LEFT JOIN material m
+		ON o.ma_id = m.ma_id
+		LEFT JOIN employee e
+		ON i.in_emp = e.emp_id
+		WHERE order_status = 1
+		ORDER BY in_process, in_id DESC, o.order_id DESC
+		LIMIT #{startRow}, #{pageSize}
+	</select>
+<!-- 아무조건이 없을 때 목록 배열 -->
+		
+		
+<!-- 검색어 + 페이지갯수 제한 전체 목록 배열 -->
+	<select id="getListSearchObjectInMaterialVO" resultType="InMaterialVO">
+		SELECT * FROM orders o
+		LEFT JOIN in_material i
+		ON o.order_id = i.order_id
+		LEFT JOIN material m
+		ON o.ma_id = m.ma_id
+		LEFT JOIN employee e
+		ON i.in_emp = e.emp_id
+		WHERE order_status = 1
+		AND ${selector} LIKE CONCAT('%', #{search}, '%')
+		ORDER BY in_process ASC, in_id DESC, o.order_id DESC
+		LIMIT #{startRow}, #{pageSize}
+	</select>
+<!-- 검색어 + 페이지갯수 제한 전체 목록 배열 -->
+	
+	
+<!-- 필터처리 + 페이지갯수 제한 전체 목록 -->
+	<select id="getListFilterObjectInMaterialVO" resultType="InMaterialVO">
+		SELECT * FROM ${table} 
+		WHERE ${column_name} = #{column_value} AND ${status_name} = #{status_value} 
+		ORDER BY ${id} DESC LIMIT #{startRow}, #{pageSize}
+	</select>
+<!-- 필터처리 + 페이지갯수 제한 전체 목록 -->
+
+
+<!-- 검색어 + 필터처리 + 페이지갯수 제한 전체 목록 -->
+	<select id="getListSearchFilterObjectInMaterialVO" resultType="InMaterialVO">
+		SELECT * FROM ${table}
+		WHERE ${column_name} = #{column_value} AND ${status_name}=#{status_value}   
+		AND ${selector} LIKE CONCAT('%', #{search}, '%') 
+		ORDER BY ${id} DESC LIMIT #{startRow}, #{pageSize}
+	</select>
+<!-- 검색어 + 필터처리 + 페이지갯수 제한 전체 목록 -->
+
+
+<!-- **************************** 페이징 처리 **************************** -->
+
+
+
  </mapper>

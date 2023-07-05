@@ -13,11 +13,6 @@ public class OutProductVO {
     private Date op_date;
     private int op_emp;
     
-    // production
-    private String production_id;
-    private String production_date;
-    private int production_emp;
-    
     // product
     private String product_name;
     private String product_qty;
@@ -26,6 +21,10 @@ public class OutProductVO {
     private Date due_date;
     private int cont_qty;
     private String cust_name;
+    private String production_id;
+    
+    // employee
+    private String emp_name;
     
     
     // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ getter & setter ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
@@ -76,27 +75,6 @@ public class OutProductVO {
 	}
 	
 
-	// production
-	public String getProduction_id() {
-		return production_id;
-	}
-	public void setProduction_id(String production_id) {
-		this.production_id = production_id;
-	}
-	public String getProduction_date() {
-		return production_date;
-	}
-	public void setProduction_date(String production_date) {
-		this.production_date = production_date;
-	}
-	public int getProduction_emp() {
-		return production_emp;
-	}
-	public void setProduction_emp(int production_emp) {
-		this.production_emp = production_emp;
-	}
-	
-
 	// product
 	public String getProduct_qty() {
 		return product_qty;
@@ -125,15 +103,30 @@ public class OutProductVO {
 	public void setCust_name(String cust_name) {
 		this.cust_name = cust_name;
 	}
+	public String getProduction_id() {
+		return production_id;
+	}
+	public void setProduction_id(String production_id) {
+		this.production_id = production_id;
+	}
+	
+	
+	// employee
+	public String getEmp_name() {
+		return emp_name;
+	}
+	public void setEmp_name(String emp_name) {
+		this.emp_name = emp_name;
+	}
 	
 	
 	// toString
 	@Override
 	public String toString() {
 		return "OutProductVO [op_id=" + op_id + ", product_id=" + product_id + ", cont_id=" + cont_id + ", op_process="
-				+ op_process + ", op_date=" + op_date + ", op_emp=" + op_emp + ", production_id=" + production_id
-				+ ", production_date=" + production_date + ", product_name=" + product_name + ", product_qty="
-				+ product_qty + ", due_date=" + due_date + ", cont_qty=" + cont_qty + ", cust_name=" + cust_name + "]";
-	}	
-	
+				+ op_process + ", op_date=" + op_date + ", op_emp=" + op_emp + ", product_name=" + product_name
+				+ ", product_qty=" + product_qty + ", due_date=" + due_date + ", cont_qty=" + cont_qty + ", cust_name="
+				+ cust_name + ", production_id=" + production_id + ", emp_name=" + emp_name + "]";
+	}
+
 }

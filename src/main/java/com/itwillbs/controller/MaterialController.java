@@ -36,6 +36,7 @@ public class MaterialController {
 	@Inject
 	private PagingService pageService;
 
+	
 	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ메서드 정의ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	// 1-1. 자재 목록 & 자동넘버링
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -65,12 +66,13 @@ public class MaterialController {
 		// 자동넘버링
 		String maxNumber = mService.getMaxNumber();
 		logger.debug("@@@@@@@@@@@@@@ maxNumber = " + maxNumber);	
-
+		
 		// View 페이지 정보 전달
 		model.addAttribute("materialList", materialList);
 		model.addAttribute("emp_department", session.getAttribute("emp_department"));
+		model.addAttribute("emp_name", session.getAttribute("emp_name"));
 		model.addAttribute("maxNumber", maxNumber);
-		model.addAttribute("pvo",pvo);
+		model.addAttribute("pvo", pvo);
 		
 		return null;
 	}

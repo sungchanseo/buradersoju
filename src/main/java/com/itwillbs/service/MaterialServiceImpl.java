@@ -91,12 +91,16 @@ public class MaterialServiceImpl implements MaterialService {
 		return mdao.deleteMaterial(ma_id);
 	}
 
+	
+	// 7. 사원 이름 가져오기
+	@Override
+	public String getEmpName(String ma_id) throws Exception {
+		return mdao.getEmpName(ma_id);
+	}
 
 
 
-	
-	
-	
-	
+
+
 
 }

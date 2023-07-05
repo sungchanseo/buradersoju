@@ -59,6 +59,10 @@ border-color: #23dbf8;}
 /* padding:8px 10px; */
 /* color: #fff;} */
 
+#buttons {
+margin-left: 75%;
+}
+
 
 </style>
 </head>
@@ -66,34 +70,36 @@ border-color: #23dbf8;}
 
 <h1 style="text-align: center;">입고 상세 보기</h1>
 
-<button class="btn btn-success">엑셀파일</button>
-<button class="btn btn-success print-button" onclick="info_print()">인쇄하기</button>
-	<script>
-		/// 인쇄하기 버튼
-		function info_print() {
-		  let initBody = document.body;
-		  let hiddenBtn = document.querySelector('.print-button'); 
-		  let hiddenHeader = document.querySelector('#header');
-		  let hiddenNavbar = document.querySelector('.navbar-device');
-		  let hiddenClearfix = document.querySelector('.clearfix');
-		 
-		  window.onbeforeprint = function () {
-		    hiddenBtn.style.display = "none";
-		    hiddenHeader.style.display = "none";
-		    hiddenNavbar.style.display = "none";
-		    hiddenClearfix.style.display = "none";
-		    document.body = document.querySelector('.main-container');
-		  }
-		  window.onafterprint = function () {
-		    hiddenBtn.style.display = "block";
-		    hiddenHeader.style.display = "block";
-		    hiddenNavbar.style.display = "block";
-		    hiddenClearfix.style.display = "block";
-		    document.body = initBody;
-		  }
-		  window.print();
-		} 
-	</script>
+<div id="buttons">
+	<button class="btn btn-success">엑셀파일</button>
+	<button class="btn btn-success print-button" onclick="info_print()">인쇄하기</button>
+		<script>
+			/// 인쇄하기 버튼
+			function info_print() {
+			  let initBody = document.body;
+			  let hiddenBtn = document.querySelector('.print-button'); 
+			  let hiddenHeader = document.querySelector('#header');
+			  let hiddenNavbar = document.querySelector('.navbar-device');
+			  let hiddenClearfix = document.querySelector('.clearfix');
+			 
+			  window.onbeforeprint = function () {
+			    hiddenBtn.style.display = "none";
+			    hiddenHeader.style.display = "none";
+			    hiddenNavbar.style.display = "none";
+			    hiddenClearfix.style.display = "none";
+			    document.body = document.querySelector('.main-container');
+			  }
+			  window.onafterprint = function () {
+			    hiddenBtn.style.display = "block";
+			    hiddenHeader.style.display = "block";
+			    hiddenNavbar.style.display = "block";
+			    hiddenClearfix.style.display = "block";
+			    document.body = initBody;
+			  }
+			  window.print();
+			} 
+		</script>
+</div>
 
 <fmt:formatDate value=""/> 
 <table border="1">
@@ -102,70 +108,70 @@ border-color: #23dbf8;}
 			<td>${param.order_id }</td>
 			
 			<th>납기일</th>
-			<td>${resultVO.due_date }</td>
+			<td>${info.due_date }</td>
 			
 			<th>발주일자</th>
-			<td>${resultVO.order_date }</td>
+			<td>${info.order_date }</td>
 			
 			<th>발주담당직원</th>
-			<td>${resultVO.order_emp }</td>
+			<td>${info.order_name }</td>
 		</tr>
 		<tr>
 			<th>입고관리번호</th>
 			<td>
 				<c:choose>
-					<c:when test="${resultVO.in_id == '0'}"> </c:when>
-					<c:otherwise>${resultVO.in_id }</c:otherwise>
+					<c:when test="${info.in_id == '0'}"> </c:when>
+					<c:otherwise>${info.in_id }</c:otherwise>
 				</c:choose>
 			</td>
 			
 			<th>입고진행현황</th>
 			<td>
 				<c:choose>
-					<c:when test="${resultVO.in_process.equals('미입고') }">
+					<c:when test="${info.in_process.equals('미입고') }">
 						<span style="color:red">미입고</span>
 					</c:when>
-					<c:otherwise>${resultVO.in_process }</c:otherwise>
+					<c:otherwise>${info.in_process }</c:otherwise>
 				</c:choose>
 			</td>
 			
 			<th>입고일자</th>
-			<td><fmt:formatDate value="${resultVO.in_date}" pattern="yyyy-MM-dd"/></td>
+			<td><fmt:formatDate value="${info.in_date}" pattern="yyyy-MM-dd"/></td>
 			
 			<th>입고담당직원</th>
 			<td>
 				<c:choose>
-					<c:when test="${resultVO.in_emp == 0}"> </c:when>
-					<c:otherwise>${resultVO.in_emp }</c:otherwise>
+					<c:when test="${empty info.in_name}"> </c:when>
+					<c:otherwise>${info.in_name }</c:otherwise>
 				</c:choose>
 			</td>
 		</tr>
 		<tr>
 			<th>품명</th>
-			<td>${resultVO.ma_name }</td>
+			<td>${info.ma_name }</td>
 			
 			<th>발주수량</th>
-			<td>${resultVO.order_qty }</td>
+			<td>${info.order_qty }</td>
 			
 			<th>입고후재고수량</th>
 			<td>
 				<c:choose>
-					<c:when test="${resultVO.add_ma == 0}">
-						${resultVO.order_qty + resultVO.ma_qty }
+					<c:when test="${info.add_ma == 0}">
+						${info.order_qty + info.ma_qty }
 					</c:when>
-					<c:when test="${!empty resultVO.add_ma }">
-						<c:if test="${resultVO.add_ma <= 100 }">
-							<span style="color:red">${resultVO.add_ma }</span>
+					<c:when test="${!empty info.add_ma }">
+						<c:if test="${info.add_ma <= 100 }">
+							<span style="color:red">${info.add_ma }</span>
 						</c:if>
-						<c:if test="${resultVO.add_ma > 100 }">
-							${resultVO.add_ma }
+						<c:if test="${info.add_ma > 100 }">
+							${info.add_ma }
 						</c:if>
 					</c:when>
 				</c:choose>
 			</td>
 			
 			<th>위치</th>
-			<td>${resultVO.shelt_position }</td>
+			<td>${info.shelt_position }</td>
 		</tr>
 </table>
 

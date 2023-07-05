@@ -41,7 +41,7 @@
 	   <th>납기일자</th>
 	   <th>진행현황</th>
 	   <th>출고일자</th>
-	   <th>담당자</th>
+	   <th>담당직원</th>
 	   <th>출고처리</th>
 	</tr>
 	
@@ -56,7 +56,7 @@
 		    <td>${op.cont_id }</td>
 		    <td>
 		    	<a href="info?cont_id=${op.cont_id }"
-		    		onclick="window.open(this.href, '_blank', 'width=850, height=400, left=510, top=365'); return false;">
+		    		onclick="window.open(this.href, '_blank', 'width=850, height=500, left=510, top=365'); return false;">
 		    			<img class="viewDetail" src="${pageContext.request.contextPath}/resources/images/viewDetail.png" width="10px" height="10px" alt="image" />
 		    	</a>
 		    </td>
@@ -79,8 +79,8 @@
 		    <td>${op.op_date}</td>
 		    <td>
 		    	<c:choose>
-					<c:when test="${op.op_emp == 0}"> </c:when>
-					<c:otherwise>${op.op_emp }</c:otherwise>
+					<c:when test="${empty op.emp_name }"> </c:when>
+					<c:otherwise>${op.emp_name }</c:otherwise>
 				</c:choose>
 		    </td>
 		    <td>

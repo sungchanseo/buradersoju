@@ -17,9 +17,8 @@ public class MaterialVO {
 	private String whs_id;
 	private int ma_status;
 	
-	// 검색필터
-	private String type;
-	private String keyword;
+	// employee
+	private String emp_name;
 	
 	
 	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ Getter & Setter ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
@@ -86,24 +85,15 @@ public class MaterialVO {
 	public void setMa_status(int ma_status) {
 		this.ma_status = ma_status;
 	}
-
 	
-	// 검색필터
-//	public String getType() {
-//		return type;
-//	}
-//
-//	public void setType(String type) {
-//		this.type = type;
-//	}
-//
-//	public String getKeyword() {
-//		return keyword;
-//	}
-//
-//	public void setKeyword(String keyword) {
-//		this.keyword = keyword;
-//	}
+	
+	// employee
+	public String getEmp_name() {
+		return emp_name;
+	}
+	public void setEmp_name(String emp_name) {
+		this.emp_name = emp_name;
+	}
 
 	
 	// toString 메서드
@@ -111,12 +101,8 @@ public class MaterialVO {
 	public String toString() {
 		return "MaterialVO [ma_id=" + ma_id + ", ma_name=" + ma_name + ", ma_qty=" + ma_qty + ", unit=" + unit
 				+ ", unit_cost=" + unit_cost + ", shelt_position=" + shelt_position + ", ma_regdate=" + ma_regdate
-				+ ", ma_emp=" + ma_emp + ", whs_id=" + whs_id + ", ma_status=" + ma_status + ", type=" + type
-				+ ", keyword=" + keyword + "]";
+				+ ", ma_emp=" + ma_emp + ", whs_id=" + whs_id + ", ma_status=" + ma_status + ", emp_name=" + emp_name
+				+ "]";
 	}
 
-
-	
-
-	
 }

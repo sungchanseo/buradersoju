@@ -22,26 +22,26 @@ public interface QualityDAO {
 	
 	// 검수등록 - 조회
 	public ProductionVO getInsertSearch(String production_id);
-	
-	// 입고번호 최대값 (maxNumber) 230620004
-	public String getMaxNumber();
-	
-	// 입고번호 최대날짜 (maxDate) 230620
-	public String getMaxDate();
 
 	// 품질관리 - 검수 수정
 	public Integer updateQuality(ProductionVO pvo);
 	
+	//수주등록 번호 자동 카운트
+	public String getLastGeneratedNumber() throws Exception;
+	
 	// 검수등록 - 등록
-	public void qualityInsertDB(ProductionVO vo);
+	public void qualityInsertDB(ProductionVO vo, List<String> def_codeList, List<String> def_qtyList);
 	
 	// 공병 관리 - 목록 가져오기
 	public List<ProductionVO> getBottleList() throws Exception;
 	
 	// 공병관리 - 수량 등록
-	public void btInsert(ProductionVO vo);
+	public void btInsert(ProductionVO vo) throws Exception;
 	
 	// 공병관리 - 불량 등록
 	public void btUpdate(ProductionVO vo) throws Exception;
+	
+	// 공병관리 - 등록했었는지 체크
+	public int btUpCheck(ProductionVO vo);
 	
 }

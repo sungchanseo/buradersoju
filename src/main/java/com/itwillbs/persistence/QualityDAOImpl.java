@@ -60,27 +60,32 @@ public class QualityDAOImpl implements QualityDAO {
 			return null;
 		}
 		
-		// 자동넘버링 getMaxNumber
+		//검수등록 번호 자동 카운트
 		@Override
-		public String getMaxNumber() {
-			String maxNumber = sqlSession.selectOne(NAMESPACE + ".getMaxNumber"); // 230620001
-			logger.debug("############## maxNumber : " + maxNumber);
-			return maxNumber;
+		public String getLastGeneratedNumber() throws Exception {
+			logger.debug("수주등록 번호 카운트");
+			return sqlSession.selectOne(NAMESPACE+".getLastGeneratedNumber");
 		}
-		// 자동넘버링 getMaxDate
-		@Override
-		public String getMaxDate() {
-			String maxDate = sqlSession.selectOne(NAMESPACE + ".getMaxDate"); // 230620
-			logger.debug("############## maxDate : " + maxDate);
-			return maxDate;
-		}
+		
 
 		@Override
-		public void qualityInsertDB(ProductionVO vo) {
-			logger.info("@@@@검수 등록 등록시작@@@@");
+		public void qualityInsertDB(ProductionVO vo, List<String> def_codeList, List<String> def_qtyList) {
+			logger.info("@@@@ DAOImpl -검수 등록 등록시작 @@@@");
 				
 			int result = sqlSession.insert(NAMESPACE+".qInsertDB", vo);
-			sqlSession.insert(NAMESPACE+".qInsertDB2", vo);
+			logger.debug("qc insert 완료");
+			logger.debug("@@@@@@@@@ insert완료 후 vo : "+vo);
+			
+			// 상품 재고 추가
+			sqlSession.update(NAMESPACE+".prUpdate", vo);
+			logger.debug("production 테이블에 불량수를 뺀 생산량 변경 완료");
+			logger.debug("@@@@@@@@@ update완료 후 vo : "+vo);
+			//불량 코드 등록
+			for (int i = 0; i < def_codeList.size(); i++) {
+				vo.setDef_code(def_codeList.get(i));
+				vo.setDef_qty(Integer.parseInt(def_qtyList.get(i)));
+				sqlSession.insert(NAMESPACE+".qInsertDB2", vo);
+			}
 			
 			if(result != 0)
 				logger.debug("저장 완료!");
@@ -94,16 +99,32 @@ public class QualityDAOImpl implements QualityDAO {
 		}
 
 		@Override
-		public void btInsert(ProductionVO vo) {
-			int result = sqlSession.update(NAMESPACE+".btInsert", vo);
+		public void btInsert(ProductionVO vo) throws Exception {
+			logger.debug("@@@@@@@@@@@@@디비 저장 시작 : "+vo);
 			
-			if(result != 0)
-				logger.debug("저장 완료!");
+			int result = sqlSession.selectOne(NAMESPACE+".btISearch", vo);
+			logger.debug("@@@@@@@@@@@@@result : "+result);
+					if(result == 0) {
+						sqlSession.update(NAMESPACE+".btInsert", vo);
+						logger.debug("중복 날짜 x 저장 완료");
+					}else {
+						logger.debug("중복 날짜, 저장실패");
+					}
 		}
 
 		@Override
 		public void btUpdate(ProductionVO vo) throws Exception {
-			sqlSession.update(NAMESPACE+".btUpdate", vo);
+			
+			sqlSession.update(NAMESPACE+".btUpdate", vo); 
+			sqlSession.update(NAMESPACE+".btMaUpdate", vo);
+		}
+
+		@Override
+		public int btUpCheck(ProductionVO vo) {
+			// TODO Auto-generated method stub
+			int result = sqlSession.update(NAMESPACE+".todayDef", vo); 
+			
+			return result;
 		}
 
 

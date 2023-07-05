@@ -52,7 +52,7 @@
                 </li>
                 <li class="nav-item nav-profile dropdown">
                   <a class="nav-link dropdown-toggle" href="" data-bs-toggle="dropdown" id="profileDropdown">
-                    <span class="nav-profile-name">	${sessionScope.emp_department}팀  ${sessionScope.emp_name}님</span>
+                    <span class="nav-profile-name">	${sessionScope.emp_department}  ${sessionScope.emp_name}님</span>
                     <span class="online-status"></span>
                     <img src="${pageContext.request.contextPath}/resources/images/faces/face28.png" alt="profile"/>
                   </a>
@@ -64,7 +64,7 @@
                       </a>
                       <a class="dropdown-item">
                         <i class="mdi mdi-account-card-details text-primary"></i>
-                         	부서 : ${sessionScope.emp_department}팀
+                         	부서 : ${sessionScope.emp_department}
                       </a>
                        <a href="/main/logout" class="dropdown-item">
                         <i class="mdi mdi-logout text-primary"></i>
@@ -111,7 +111,7 @@
                          <li class="nav-item"><a class="nav-link" href="/purchasing/inventory/list">재고 관리</a></li>
                          <li class="nav-item"><a class="nav-link" href="/purchasing/order/list">발주 관리</a></li>
                          <li class="nav-item"><a class="nav-link" href="/purchasing/inMaterial/list">입고 관리</a></li>
-                         <li class="nav-item"><a class="nav-link" href="/purchasing/outproduct/list">출고 관리</a></li>
+                         <li class="nav-item"><a class="nav-link" href="/purchasing/outProduct/list">출고 관리</a></li>
                       </ul>
                   </div>
               </li>
@@ -123,9 +123,10 @@
                   </a>
                   <div class="submenu">
                     <ul>
-                          <li class="nav-item"><a class="nav-link" href="/production/workOrder/workOrderList">작업 지시 목록</a></li>
-                          <li class="nav-item"><a class="nav-link" href="/production/productionList">생산 목록</a></li>
-                          <li class="nav-item"><a class="nav-link" href="/quality/qualityList">품질 관리 목록</a></li>
+                          <li class="nav-item"><a class="nav-link" href="/production/workOrder/workOrderList">작업 지시</a></li>
+                          <li class="nav-item"><a class="nav-link" href="/production/productionList">생산</a></li>
+                          <li class="nav-item"><a class="nav-link" href="/quality/list">품질 관리</a></li>
+                          <li class="nav-item"><a class="nav-link" href="/quality/emptyBottle">공병 관리</a></li>
                       </ul>
                   </div>
               </li>

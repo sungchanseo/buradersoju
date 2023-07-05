@@ -42,11 +42,11 @@
 	  <td>${workOrder.product_name}</td>
 	  <td>${workOrder.plan_qty}</td>
 	  <td>${workOrder.production_qty}</td>
-	  <td>${workOrder.production_state}</td>
+	  <td>${workOrder.production_status}</td>
 	 </tr>
   </table>
   
-  <button type="button" onclick="location.href='/production/workOrderModify';">수정</button>
+  <button type="button" onclick="location.href='/production/workOrderModify';">삭제</button>
   
   
  <script type="text/javascript">

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,6 +25,8 @@
 						<div class="auth-form-light text-left py-5 px-4 px-sm-5" style="height: 1000px;">
 							
 								<div class="form-group">
+								<!-- CSS 기본 틀 -->
+									
 	<h1>작업지시 현황</h1>
 	
 <!-- 검색창 기능 -->
@@ -41,22 +43,22 @@
   </form>
   
 	<input type="button" class="btn btn-success btn-fw" value="생산 등록" onclick="openPopup();">
-	<br>
-	<button class="btn btn-success btn-fw">엑셀파일</button>
-	<button class="print-button" onclick="info_print()">인쇄하기</button>
+<!-- 	<br> -->
+	<button class="btn btn-success btn-fw" style='text-align: right; float: right;'>엑셀파일</button>
+	<button class="print-button" onclick="info_print()" style='text-align: right; float: right;'>인쇄하기</button>
 	
   <table class="table table-color">
     <tr>
 	  <th>작업지시번호</th>
 	  <th>수주번호</th>
 	  <th>작업지시자</th>
-	  <th>작업지시일시</th>
 	  <th>생산라인</th>
 	  <th>상품코드</th>
 	  <th>상품명</th>
 	  <th>작업지시수량</th>
 	  <th>생산수량</th>
 	  <th>작업상태</th>
+	  <th>작업지시일시</th>
 	</tr>
 	<c:forEach var="workOrderList" items="${workOrderList }">
 	 <tr>  
@@ -73,13 +75,13 @@
 	  	</a>
 	  </td>	  
 	  <td>${workOrderList.production_emp}</td>
-	  <td>${workOrderList.production_date}</td>
 	  <td>${workOrderList.production_line}</td>
 	  <td>${workOrderList.product_id}</td>
 	  <td>${workOrderList.product_name}</td>
 	  <td>${workOrderList.plan_qty}</td>
 	  <td>${workOrderList.production_qty}</td>
-	  <td>${workOrderList.production_status}</td>
+	  <td>${workOrderList.workOrder_status}</td>
+	  <td><fmt:formatDate value="${workOrderList.production_date}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
 	 </tr>
 	</c:forEach>
   </table>
@@ -117,9 +119,28 @@ function info_print() {
   window.print();
 } 
 </script>
+
+	<!-- 	페이징 처리  -->
+	<div class="template-demo">
+		<div class="btn-group" role="group" aria-label="Basic example">
+			<c:if test="${pvo.startPage > pvo.pageBlock }">
+				<a href="/production/workOrder/workOrderList?pageNum=${pvo.startPage-pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">이전</a>
+			</c:if>
+			
+			<c:forEach var="i" begin="${pvo.startPage }" end="${pvo.endPage }" step="1">
+				<a href="/production/workOrder/workOrderList?pageNum=${i }&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">${i }</a>
+			</c:forEach>
+			
+			<c:if test="${pvo.endPage<pvo.pageCount }">
+				<a href="/production/workOrder/workOrderList?pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">다음</a>
+			</c:if>
+		</div>
+	</div>
+	<!-- 	페이징 처리  -->
+									<!-- CSS 기본 틀 -->
 									</div>
-								<button class="btn btn-success btn-fw" type="submit">
-									등록</button>
+<!-- 								<button class="btn btn-success btn-fw" type="submit"> -->
+<!-- 									등록</button> -->
 						</div>
 					</div>
 				</div>

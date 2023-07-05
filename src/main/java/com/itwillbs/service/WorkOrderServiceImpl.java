@@ -36,8 +36,8 @@ public class WorkOrderServiceImpl implements WorkOrderService {
 		pvo.setId("production_id");
 		pvo.setPageSize(10);
 		pvo.setStartRow(1);
-		pvo.setStatus_name("a.product_id = b.product_id and workOrder_status");
-		pvo.setStatus_value("대기");
+		pvo.setStatus_name("a.product_id = b.product_id and del_woStatus");
+		pvo.setStatus_value("0");
 		logger.debug("@@@@@@WorkOrderService : {}",pvo);
 
 		

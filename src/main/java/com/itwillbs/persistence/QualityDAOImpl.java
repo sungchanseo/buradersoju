@@ -101,31 +101,31 @@ public class QualityDAOImpl implements QualityDAO {
 		@Override
 		public void btInsert(ProductionVO vo) throws Exception {
 			logger.debug("@@@@@@@@@@@@@디비 저장 시작 : "+vo);
-			
-			int result = sqlSession.selectOne(NAMESPACE+".btISearch", vo);
+			String result = sqlSession.selectOne(NAMESPACE+".btISearch", vo);
 			logger.debug("@@@@@@@@@@@@@result : "+result);
-					if(result == 0) {
+					if(result == null) {
 						sqlSession.update(NAMESPACE+".btInsert", vo);
 						logger.debug("중복 날짜 x 저장 완료");
 					}else {
 						logger.debug("중복 날짜, 저장실패");
 					}
 		}
-
+		
 		@Override
 		public void btUpdate(ProductionVO vo) throws Exception {
-			
 			sqlSession.update(NAMESPACE+".btUpdate", vo); 
+			logger.debug("@@@@@공병 불량 등록 완료");
 			sqlSession.update(NAMESPACE+".btMaUpdate", vo);
+			logger.debug("@@@@@자재 창고 공병수 업데이트 완료");
 		}
 
-		@Override
-		public int btUpCheck(ProductionVO vo) {
-			// TODO Auto-generated method stub
-			int result = sqlSession.update(NAMESPACE+".todayDef", vo); 
-			
-			return result;
-		}
+//		@Override
+//		public int btUpCheck(ProductionVO vo) {
+//			// TODO Auto-generated method stub
+//			int result = sqlSession.update(NAMESPACE+".todayDef", vo); 
+//			
+//			return result;
+//		}
 
 
 

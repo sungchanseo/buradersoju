@@ -141,7 +141,8 @@ public class QualityController {
 		
 			
 		/////// 검수 등록 ///////
-		/////// 공병 관리 ///////	
+		/////// 공병 관리 ///////
+		//http://localhost:8088/quality/emptyBottle
 		// 리스트 출력
 		@RequestMapping(value="/emptyBottle", method=RequestMethod.GET)
 		public void BottleListGET(Model model) throws Exception {
@@ -173,10 +174,9 @@ public class QualityController {
 		public String BottleUpdate(ProductionVO vo) throws Exception {
 			logger.debug("@@@@@@@@@@@@Controller : 공병 불량 등록(수정)");
 			
-			
 			logger.debug(vo+"");
 			//servicer객체 호출
-			String msg = quService.btUpdate(vo);
+			quService.btUpdate(vo);
 			
 			return "redirect:/quality/emptyBottle";
 		}

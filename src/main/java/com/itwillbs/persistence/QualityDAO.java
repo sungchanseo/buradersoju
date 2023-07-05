@@ -41,7 +41,7 @@ public interface QualityDAO {
 	// 공병관리 - 불량 등록
 	public void btUpdate(ProductionVO vo) throws Exception;
 	
-	// 공병관리 - 등록했었는지 체크
-	public int btUpCheck(ProductionVO vo);
+//	// 공병관리 - 등록했었는지 체크
+//	public int btUpCheck(ProductionVO vo);
 	
 }

@@ -151,18 +151,9 @@ public class QualityServiceImpl implements QualityService {
 	}
 
 	@Override
-	public String btUpdate(ProductionVO vo) throws Exception {
-		int result = qdao.btUpCheck(vo);
-		String msg = "";
-		logger.debug("result : "+result);
+	public void btUpdate(ProductionVO vo) throws Exception {
 		logger.debug("bt_defQty : "+vo.getBt_defQty());
-		if(result == 0) {
 			qdao.btUpdate(vo);
-			msg = "저장완료";
-		}else {
-			msg = "이미 등록했습니다.";
-		}
-		return msg;
 	}
 
 

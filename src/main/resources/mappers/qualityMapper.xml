@@ -83,7 +83,7 @@
 	<select id="btISearch" resultType="com.itwillbs.domain.ProductionVO">
 		select *
 		from empty_bottle
-		where bt_date != #{bt_date}
+		where bt_date = #{bt_date}
 	</select>
 	<insert id="btInsert">
 		insert into empty_bottle
@@ -95,16 +95,16 @@
 	<update id="btUpdate">
 		update empty_bottle
 		set bt_defQty = #{bt_defQty}
-		where bt_date = date_format(#{bt_date}, '%Y-%m-%d %H:%i:%s')
+		where bt_date = #{bt_date}
 	</update>
-	<select id="todayDef" resultType="com.itwillbs.domain.ProductionVO">
-		select bt_defQty
-		FROM empty_bottle
-		WHERE bt_date = date_format(#{bt_date}, '%Y-%m-%d %H:%i:%s')
-	</select>
+<!-- 	<select id="todayDef" resultType="com.itwillbs.domain.ProductionVO"> -->
+<!-- 		select bt_defQty -->
+<!-- 		FROM empty_bottle -->
+<!-- 		WHERE bt_date = date_format(#{bt_date}, '%Y-%m-%d %H:%i:%s') -->
+<!-- 	</select> -->
 	<update id="btMaUpdate">
 		update material
-		set ma_qty = (ma_qty+#{bt_defQty})
+		set ma_qty = (ma_qty+(#{bt_qty}-#{bt_defQty}))
 		where ma_name = '공병'
 	</update>
 	<!-- 공병 불량 DB등록 -->

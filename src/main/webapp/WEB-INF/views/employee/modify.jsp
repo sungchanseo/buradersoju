@@ -4,6 +4,7 @@
 <html lang="en">
 <head>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert창 링크 -->
 <title>사원 정보 수정</title>
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
 <style type="text/css">
@@ -96,7 +97,7 @@ td {border:1px solid #04AA6D;
 </style>
 </head>
 <body>
-	<form action="" role="form" id="fr" method="post">
+	<form action="" role="form" id="fr" method="post" enctype="multipart/form-data">
 		<div class="container">
 			<h1 style="display: inline;">사원 수정</h1>
 			
@@ -118,7 +119,7 @@ td {border:1px solid #04AA6D;
 						<td><input type="text" name="emp_name" id="emp_name" value="${resultVO.emp_name }"></td>
 					</tr>
 					<tr>
-						<td rowspan="4">이미지</td>
+						<td rowspan="4"><img src="/employee/imgDown?fileName=${resultVO.emp_image }"></td>
 						<th>생년월일</th>
 						<td><input type="text" name="emp_birth" id="emp_birth" value="${resultVO.emp_birth }"></td>
 						<th>휴대전화</th>
@@ -173,7 +174,7 @@ td {border:1px solid #04AA6D;
 						<td><input type="text" name="join_date" id="join_date" value="${resultVO.join_date }"></td>
 					</tr>
 					<tr>
-						<td><input type="file" multiple name="emp_image" accept="image/*" value="이미지등록"></td>
+						<td><input type="file" class="form-control" name="file1" accept="image/*" ></td>
 						<th>휴직일</th>
 						<td><input type="text" name="absence_date" value="${resultVO.absence_date }"></td>			
 						<th>복직일</th>
@@ -307,27 +308,25 @@ td {border:1px solid #04AA6D;
 				}
 		
 				return false; // 폼 제출 막기
-			});
+			}); // submit function
 		
 			function sendForm() {
-				var formObject = $("form[role='form']").serialize();
 				$.ajax({
 					url: '/employee/modify', 
-					type: 'post', 
-					data : formObject, 
+					type: 'POST', 
+					data: new FormData($("form[role='form']")[0]), 
+					enctype: 'multipart/form-data', 
+					processData: false, 
+			        contentType: false, 
+			        cache: false, 
 					success: function(json) {
-						Swal.fire({
-				            icon: 'success',					
-				            title: '사원수정이 완료되었습니다.',	
-				            text: '확인을 누르면 창이 닫힙니다.',	
-				            confirmButtonText: '확인',
-				        });
+						alert("사원수정이 완료되었습니다.");
 						window.opener.location.reload();
 						window.close();
 					}
-				});
-			}
-		});
+				}); // ajax
+			} // sendForm
+		}); // document
 	</script>
 	<!-- 팝업창 처리 -->
 </body>

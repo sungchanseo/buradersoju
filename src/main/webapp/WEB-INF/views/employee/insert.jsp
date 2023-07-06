@@ -104,12 +104,12 @@ td {border:1px solid #04AA6D;
 </style>
 </head>
 <body>
-	<form action="" role="form" id="fr" method="post" >
+	<form action="" role="form" id="fr" method="post" enctype="multipart/form-data">
 		<div class="container">
 			<h1 style="display: inline;">사원 등록</h1>
 			
 			<div class="btn_btn">
-				 <input type="submit" class="btn btn-info" value="사원등록" onclick="sendForm();">
+				 <input type="submit" class="btn btn-info" value="사원등록">
 				 <input type="reset" class="btn btn-success" value="초기화">
 				 <input type="button" class="btn btn-success" value="창닫기" onclick="window.close();">
 			</div>
@@ -126,7 +126,7 @@ td {border:1px solid #04AA6D;
 						<td><input type="text" name="emp_name" id="emp_name" placeholder="이름을 입력하세요."></td>
 					</tr>
 					<tr>
-						<td rowspan="4" >이미지</td>
+						<td rowspan="5" ><input type="file" class="form-control" name="file1" accept="image/*" ></td>
 						<th>생년월일</th>
 						<td><input type="text" name="emp_birth" id="emp_birth" placeholder="생년월일을 입력하세요."></td>
 						<th>연락처</th>
@@ -183,8 +183,6 @@ td {border:1px solid #04AA6D;
 						<td><input type="text" name="join_date" id="join_date" placeholder="입사일을 입력하세요."></td>
 					</tr>
 					<tr>
-						<td>
-							<input type="file" multiple name="emp_image" accept="image/*" value="이미지등록"></td>
 						<th>휴직일</th>
 						<td><input type="text" name="absence_date" placeholder="휴직시 휴직일을 입력하세요."></td>			
 						<th>복직일</th>
@@ -337,23 +335,25 @@ td {border:1px solid #04AA6D;
 				}
 		
 				return false; // 폼 제출 막기
-			});
+			}); // submit function
 		
 			function sendForm() {
-				var formObject = $("form[role='form']").serialize();
-		
 				$.ajax({
-					url: '/employee/insert',
-					type: 'POST',
-					data: formObject,
+					url: '/employee/insert', 
+					type: 'POST', 
+					data: new FormData($("form[role='form']")[0]), 
+					enctype: 'multipart/form-data', 
+					processData: false, 
+			        contentType: false, 
+			        cache: false, 
 					success: function(json) {
 						alert("사원등록이 완료되었습니다.");
 						window.opener.location.reload();
 						window.close();
 					}
-				});
-			}
-		});
+				}); // ajax
+			} // sendForm
+		}); // document
 	</script>
 </body>
 </html>

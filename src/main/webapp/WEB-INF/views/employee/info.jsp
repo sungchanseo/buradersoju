@@ -6,6 +6,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <title>사원 정보</title>
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
+
 <style type="text/css">
 table {
 	margin-bottom: 1em;}

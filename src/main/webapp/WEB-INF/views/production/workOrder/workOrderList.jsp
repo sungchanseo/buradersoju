@@ -97,7 +97,8 @@ function info_print() {
 	
 <!-- 검색창 기능 -->
   <form action="/production/workOrderList" method="get">   
-    <label>검색</label><br>
+<!--     <label>검색</label> -->
+<!--     <br> -->
 	  <select name="listSelector">
 	    <option value="production_id">작업지시번호</option>
 	    <option value="cont_id">수주번호</option>
@@ -173,7 +174,7 @@ function info_print() {
    <div class="tab-pane fade show" id="stage2" role="tabpanel" aria-labelledby="stage2-tab">
    <!-- 검색창 기능 -->
   <form action="/production/workOrderList" method="get">   
-    <label>검색</label><br>
+<!--     <label>검색</label><br> -->
 	  <select name="listSelector">
 	    <option value="production_id">작업지시번호</option>
 	    <option value="cont_id">수주번호</option>
@@ -249,7 +250,7 @@ function info_print() {
    <div class="tab-pane fade show" id="stage3" role="tabpanel" aria-labelledby="stage3-tab">
    <!-- 검색창 기능 -->
   <form action="/production/workOrderList" method="get">   
-    <label>검색</label><br>
+<!--     <label>검색</label><br> -->
 	  <select name="listSelector">
 	    <option value="production_id">작업지시번호</option>
 	    <option value="cont_id">수주번호</option>
@@ -325,7 +326,7 @@ function info_print() {
    <div class="tab-pane fade show" id="stage4" role="tabpanel" aria-labelledby="stage4-tab">
    <!-- 검색창 기능 -->
   <form action="/production/workOrderList" method="get">   
-    <label>검색</label><br>
+<!--     <label>검색</label><br> -->
 	  <select name="listSelector">
 	    <option value="production_id">작업지시번호</option>
 	    <option value="cont_id">수주번호</option>

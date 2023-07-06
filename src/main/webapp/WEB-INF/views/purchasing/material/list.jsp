@@ -19,6 +19,7 @@ table input[type:checkbox] {width:1em;}
 
 </style>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert창 링크 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script type="text/javascript">
 
@@ -159,7 +160,14 @@ $(document).ready(function() {
                             emp_name:emp_name
 						},
 						success: function() {
-							alert("자재코드 " + ma_id + ", 등록 완료되었습니다.");
+							alert("자재코드 " + ma_id +", 등록이 완료되었습니다.");
+// 							Swal.fire({
+// 								icon: 'success',										// Alert 타입 (warning/success/error)
+// 								title: '완료',											// Alert 제목
+// 								text: '자재코드 ' + ma_id + ' 등록이 완료되었습니다.',	// Alert 내용
+// 								confirmButtonText: '확인',								// Alert 버튼내용
+// 							});
+							
 							location.href="/purchasing/material/list";
 						},
 						error: function(err) {
@@ -350,114 +358,137 @@ $(document).ready(function() {
 <body>
 <br>
 
-<div class="card-body">
 
-	<h1 class="card-title">
-		<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">자재 리스트</font></font>
-	</h1>
+<div class="container-scroller">
+		<div class="container-fluid page-body-wrapper full-page-wrapper">
+			<div class="main-panel">
+				<div class="content-wrapper d-flex align-items-center auth px-0"
+					style="min-height: 100vh;">
+					<div class="row w-100 mx-0">
+						<div class="col-lg-12 mx-auto">
+							<div class="auth-form-light text-left py-5 px-4 px-sm-5"
+								style="height: 1000px;">
 
-	<!-- 검색 기능 -->
-	<form action="/purchasing/material/list" method="get" style="display: inline;">
-		<select name="selector">
-			<option value="ma_id">자재코드</option>
-			<option value="ma_name">자재명</option>
-		</select> <input type="text" class="form-control" style="width:10%; display:inline;" name="search" placeholder="검색어를 입력해주세요">
-		<input type="submit"  class="btn btn-info" value="검색">
-	</form>
 
-	
-	<!-- 구매팀일때만 버튼 활성화 -->
-	<c:if test="${emp_department.equals('구매팀') || emp_department.equals('Master')}">
-		<div style=float:right;>
-			<button class="btn btn-success insertForm true">등록</button>
-			<button class="btn btn-success modify true">수정</button>
-			<button class="btn btn-success" id="delete">삭제</button>
-			<button class="btn btn-info insert update">저장</button>
+							<!-- 제목 -->
+							<div class="card-body">
+								<h1 class="card-title">
+									<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">자재 리스트</font></font>
+								</h1>
+							
+							
+							<!-- 검색 기능 -->
+							<form action="/purchasing/material/list" method="get" style="display: inline;">
+								<select name="selector">
+									<option value="ma_id">자재코드</option>
+									<option value="ma_name">자재명</option>
+								</select> <input type="text" class="form-control" style="width:10%; display:inline;" name="search" placeholder="검색어를 입력해주세요">
+								<input type="submit"  class="btn btn-info" value="검색">
+							</form>
+						
+							
+							<!-- 구매팀일때만 버튼 활성화 -->
+							<c:if test="${emp_department.equals('구매팀') || emp_department.equals('Master')}">
+								<div style=float:right;>
+									<button class="btn btn-success insertForm true">등록</button>
+									<button class="btn btn-success modify true">수정</button>
+									<button class="btn btn-success" id="delete">삭제</button>
+									<button class="btn btn-info insert update">저장</button>
+								</div>
+							</c:if>
+						
+						
+							<!-- 테이블 -->
+							<div class="row">
+							  	<fmt:formatDate value=""/> 	
+								<table border="1" class="table table-hover table-bordered text-center">
+								 <thead>
+								 <tr>
+									<th></th>
+									<th>자재코드</th>
+									<th>자재명</th>
+									<th>단위</th>
+									<th>재고량</th>
+									<th>단가 (WON)</th>
+									<th>창고번호</th>
+									<th>선반위치</th>
+									<th>최근 수정 날짜</th>
+									<th>담당직원</th>
+								 </tr>
+								 </thead>
+								
+								 <tbody id="tbody">
+							      <c:forEach var="ml" items="${materialList }">
+							         <tr>
+							         	<td><input type="checkbox" name="check"></td>
+							         	<td>${ml.ma_id }</td>
+										<td>${ml.ma_name }</td>
+										<td>${ml.unit }</td>
+										<td>
+											<c:choose>
+												<c:when test="${ml.ma_name eq '아스파탐' }">
+												<c:if test="${ml.ma_qty <= 1000}">
+							                    <span style="color:red">
+												${ml.ma_qty}
+												</span>
+												</c:if>
+												<c:if test="${ml.ma_qty > 1000}">
+												${ml.ma_qty}
+												</c:if>
+												</c:when>
+												<c:otherwise>
+												<c:if test="${ml.ma_qty <= 1000}">
+							                    <span style="color:red">
+												<fmt:formatNumber type="number" maxFractionDigits="0" value="${ml.ma_qty }"/> 		
+												</span>
+												</c:if>
+												<c:if test="${ml.ma_qty > 1000}">
+												<fmt:formatNumber type="number" maxFractionDigits="0" value="${ml.ma_qty }"/> 		
+												</c:if>
+												
+												</c:otherwise>
+											</c:choose>
+										</td>			
+										<td>${ml.unit_cost }</td>
+							         	<td>${ml.whs_id }</td>
+										<td>${ml.shelt_position }</td>
+										<td><fmt:formatDate pattern="yyyy-MM-dd" value="${ml.ma_regdate}"/></td>
+										<td>${ml.emp_name }</td>
+							         </tr>
+							      </c:forEach>
+							     </tbody>
+							    </table>
+							  	</div>
+						 	</div>
+						 
+						 
+							<!-- 페이징 처리 -->
+							<div class="template-demo">
+								<div class="btn-group" role="group" aria-label="Basic example">
+									<c:if test="${pvo.startPage > pvo.pageBlock }">
+										<a href="/purchasing/material/list?pageNum=${pvo.startPage-pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">이전</a>
+									</c:if>
+									
+									<c:forEach var="i" begin="${pvo.startPage }" end="${pvo.endPage }" step="1">
+										<a href="/purchasing/material/list?pageNum=${i }&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">${i }</a>
+									</c:forEach>
+									
+									<c:if test="${pvo.endPage<pvo.pageCount }">
+										<a href="/purchasing/material/list?pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">다음</a>
+									</c:if>
+								</div>
+							</div>
+							<!-- 페이징 처리 -->
+
+
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-	</c:if>
-
-
-	<!-- 테이블 -->
-	<div class="row">
-  	<fmt:formatDate value=""/> 	
-	<table border="1" class="table table-bordered table-hover text-center">
-	 <thead>
-	 <tr>
-		<th></th>
-		<th>품목코드</th>
-		<th>품목명</th>
-		<th>단위</th>
-		<th>재고량</th>
-		<th>단가 (WON)</th>
-		<th>창고번호</th>
-		<th>선반위치</th>
-		<th>최근 수정 날짜</th>
-		<th>담당직원</th>
-	 </tr>
-	 </thead>
-	
-	 <tbody id="tbody">
-      <c:forEach var="ml" items="${materialList }">
-         <tr>
-         	<td><input type="checkbox" name="check"></td>
-         	<td>${ml.ma_id }</td>
-			<td>${ml.ma_name }</td>
-			<td>${ml.unit }</td>
-			<td>
-				<c:choose>
-					<c:when test="${ml.ma_name eq '아스파탐' }">
-					<c:if test="${ml.ma_qty <= 1000}">
-                    <span style="color:red">
-					${ml.ma_qty}
-					</span>
-					</c:if>
-					<c:if test="${ml.ma_qty > 1000}">
-					${ml.ma_qty}
-					</c:if>
-					</c:when>
-					<c:otherwise>
-					<c:if test="${ml.ma_qty <= 1000}">
-                    <span style="color:red">
-					<fmt:formatNumber type="number" maxFractionDigits="0" value="${ml.ma_qty }"/> 		
-					</span>
-					</c:if>
-					<c:if test="${ml.ma_qty > 1000}">
-					<fmt:formatNumber type="number" maxFractionDigits="0" value="${ml.ma_qty }"/> 		
-					</c:if>
-					
-					</c:otherwise>
-				</c:choose>
-			</td>			
-			<td>${ml.unit_cost }</td>
-         	<td>${ml.whs_id }</td>
-			<td>${ml.shelt_position }</td>
-			<td><fmt:formatDate pattern="yyyy-MM-dd" value="${ml.ma_regdate}"/></td>
-			<td>${ml.emp_name }</td>
-         </tr>
-      </c:forEach>
-     </tbody>
-    </table>
-  	</div>
- </div>
- 
- 
-<!-- 페이징 처리 -->
-<div class="template-demo">
-	<div class="btn-group" role="group" aria-label="Basic example">
-		<c:if test="${pvo.startPage > pvo.pageBlock }">
-			<a href="/purchasing/material/list?pageNum=${pvo.startPage-pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">이전</a>
-		</c:if>
-		
-		<c:forEach var="i" begin="${pvo.startPage }" end="${pvo.endPage }" step="1">
-			<a href="/purchasing/material/list?pageNum=${i }&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">${i }</a>
-		</c:forEach>
-		
-		<c:if test="${pvo.endPage<pvo.pageCount }">
-			<a href="/purchasing/material/list?pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">다음</a>
-		</c:if>
 	</div>
 </div>
-<!-- 페이징 처리 -->
+
 
 <%@ include file="../../includes/footer.jsp" %>
 </body>

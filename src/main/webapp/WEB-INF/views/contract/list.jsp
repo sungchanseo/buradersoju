@@ -16,6 +16,7 @@
 
 </head>
 <body>
+<div>
 <div class="card-body">
 		<h1 class="card-title">
 			<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">수주 리스트</font></font>
@@ -32,11 +33,13 @@
 		<!-- 검색창기능 -->
 
 		<!-- 영업팀이 아닐때 버튼 감추기 -->
-		<c:if test="${emp_department.equals('영업') || emp_department.equals('영업팀') || emp_department.equals('Master')}">
-			<button type="button" class="btn btn-success" onclick="openPop();">수주등록</button>
-		</c:if>
-			<button type="button" class="btn btn-light">엑셀다운</button>
-			<button type="button" class="btn btn-light" id="print" onclick="printList();">출력하기</button>
+		<div style="float:right; display:inline;">
+			<c:if test="${emp_department.equals('영업') || emp_department.equals('영업팀') || emp_department.equals('Master')}">
+				<button type="button" class="btn btn-success" onclick="openPop();">수주등록</button>
+			</c:if>
+				<button type="button" class="btn btn-light">엑셀다운</button>
+				<button type="button" class="btn btn-light" id="print" onclick="printList();">출력하기</button>
+		</div>
 		<!-- 영업팀이 아닐때 버튼 감추기 -->
 
 		<!-- 수주목록 테이블 -->
@@ -65,12 +68,7 @@
 								<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.cont_date }</font></font></td>								
 								<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.cont_qty }</font></font></td>
 								<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.due_date }</font></font></td>
-								<td>
-									<c:if test="${empty vo.production_id }">
-										<button class="btn btn-light" id="insertProductId">작업지시번호 등록</button>
-									</c:if>
-								<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.production_id }</font></font>
-								</td>
+								<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.production_id }</font></font></td>
 								<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.cont_emp }</font></font></td>
 	                        </tr>
 	                      </tbody>
@@ -98,7 +96,7 @@
 	</div>
 	<!-- 	페이징 처리  -->
 	
-
+</div>
 </body>
 	<!-- 수주등록 새창열기  -->
 	<script>

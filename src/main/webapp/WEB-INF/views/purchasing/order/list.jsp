@@ -9,9 +9,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Order</title>
+
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script type="text/javascript">
+
 	function getToday() {
 		var date = new Date();
 
@@ -434,10 +436,7 @@
 																				str += "<td><input type='text' id='emp_name' name='emp_name' value="+ obj.emp_name +"></td>";
 																				// 담당직원 세션에 저장된 아이디 들고오기
 																				str += "</tr>";
-																				$(
-																						'table')
-																						.prepend(
-																								str);
+																				$('table').prepend(str);
 																			});
 														},
 														error : function() {
@@ -454,25 +453,19 @@
 											function() {
 												$('.modify').addClass('true');
 												var order_id = tdArr[0];
-												var order_qty = $('#order_qty')
-														.val();
-												var order_sum = $('#order_sum')
-														.val();
-												var order_vat = $('#order_vat')
-														.val();
+												var order_qty = $('#order_qty').val();
+												var order_sum = $('#order_sum').val();
+												var order_vat = $('#order_vat').val();
 												var order_date = getToday();
 												var due_date = orderToday();
 												var in_date = inToday;
 												var emp_id = "${sessionScope.emp_id }";
-												var emp_name = $('#emp_name')
-														.val();
+												var emp_name = $('#emp_name').val();
 
-												if (order_id === ""
-														|| order_vat === "") {
+												if (order_id === ""|| order_vat === "") {
 													alert("모든 order_qty 입력해주세요.");
 												} else {
-													$
-															.ajax({
+													$.ajax({
 																url : "modify",
 																type : "post",
 																dataType : "json",

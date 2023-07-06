@@ -10,6 +10,20 @@
 	<style type="text/css">
 	/* 인쇄하기 가로 기본출력 지정 */
 		@page { size: A4 landscape; margin:0; }
+		
+	/* 엑셀, 인쇄 버튼 배치 */
+	.button-group {
+	  width: 170px;
+	  height: 35px;
+	  display: flex;
+	  gap: 5px; /* 버튼 사이 간격 */
+	  float: right; /* 오른쪽으로 배치 */
+	  margin-top: 10px; /* 위 여백 추가 */
+  	  margin-bottom: 10px; /* 아래 여백 추가 */
+	}
+	.button-group button {
+	  flex: 1; /* 버튼들을 동일한 너비로 설정 */
+	}
 	</style>
 
 </head>
@@ -50,30 +64,34 @@
   
   
  <script type="text/javascript">
+ /* 인쇄 버튼 기능 */
+ function info_print() {
+ 	window.print();
+ } 
 /* 인쇄하기 버튼 */
-function info_print() {
-  let initBody = document.body;
-  let hiddenBtn = document.querySelector('.print-button'); 
-  let hiddenHeader = document.querySelector('#header');
-  let hiddenNavbar = document.querySelector('.navbar-device');
-  let hiddenClearfix = document.querySelector('.clearfix');
+// function info_print() {
+//   let initBody = document.body;
+//   let hiddenBtn = document.querySelector('.print-button'); 
+//   let hiddenHeader = document.querySelector('#header');
+//   let hiddenNavbar = document.querySelector('.navbar-device');
+//   let hiddenClearfix = document.querySelector('.clearfix');
  
-  window.onbeforeprint = function () {
-    hiddenBtn.style.display = "none";
-    hiddenHeader.style.display = "none";
-    hiddenNavbar.style.display = "none";
-    hiddenClearfix.style.display = "none";
-    document.body = document.querySelector('.main-container');
-  }
-  window.onafterprint = function () {
-    hiddenBtn.style.display = "block";
-    hiddenHeader.style.display = "block";
-    hiddenNavbar.style.display = "block";
-    hiddenClearfix.style.display = "block";
-    document.body = initBody;
-  }
-  window.print();
-} 
+//   window.onbeforeprint = function () {
+//     hiddenBtn.style.display = "none";
+//     hiddenHeader.style.display = "none";
+//     hiddenNavbar.style.display = "none";
+//     hiddenClearfix.style.display = "none";
+//     document.body = document.querySelector('.main-container');
+//   }
+//   window.onafterprint = function () {
+//     hiddenBtn.style.display = "block";
+//     hiddenHeader.style.display = "block";
+//     hiddenNavbar.style.display = "block";
+//     hiddenClearfix.style.display = "block";
+//     document.body = initBody;
+//   }
+//   window.print();
+// } 
 </script>
 	
 </body>

@@ -121,7 +121,6 @@ border-color: #23dbf8;}
 			          data : { product_id: product_id },
 			          dataType: 'json',
 			          success: function(response) {
-			        	  // 등록버튼을 누르면 기존의 데이터가 초기화
 			        	  $("#meInsertTable tbody").empty();
 // 			        	  alert(response);
 						  var ma_qtyList = [];
@@ -143,7 +142,8 @@ border-color: #23dbf8;}
 						        var cal_qty_td = $("<td><input type='hidden' class='ma_qtyList' name='ma_qtyList' value='" + (vo.ma_qty - (vo.use_qty * plan_qty)) + "'>" + cal_qty + vo.unit + "</td>");
 								
 						        // 재고량이 필요수량보다 작은경우 해당 td만 빨간색으로 처리
-						        if (ma_qty < cal_qty) {
+						        if (be_ma_qty < cal_qty) {
+						        	console.log(ma_qty < cal_qty);
 						          be_ma_qty_td.css("color", "red");
 						          row.addClass("colorRed");
 						          $("#workOrderInsert").attr('disabled',true);

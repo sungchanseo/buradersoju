@@ -13,7 +13,6 @@
 	border-color: #6C7293;}
 .auth .auth-form-light select {
     color: #6C7293;}
-    
 </style>
 <body>
 	<!-- 사원등록 새창열기  -->

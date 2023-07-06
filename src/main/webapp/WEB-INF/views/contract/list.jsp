@@ -65,7 +65,12 @@
 								<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.cont_date }</font></font></td>								
 								<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.cont_qty }</font></font></td>
 								<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.due_date }</font></font></td>
-								<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.production_id }</font></font></td>
+								<td>
+									<c:if test="${empty vo.production_id }">
+										<button class="btn btn-light" id="insertProductId">작업지시번호 등록</button>
+									</c:if>
+								<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.production_id }</font></font>
+								</td>
 								<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.cont_emp }</font></font></td>
 	                        </tr>
 	                      </tbody>
@@ -98,6 +103,17 @@
 	<!-- 수주등록 새창열기  -->
 	<script>
 		
+	//작업지시번호 등록하기	
+	$(document).ready(function(){
+		
+		$("#insertProductId").click(function(){
+			var openPop = window.open('/contract/productionFind', '작업지시번호 등록', 'width=1000px,height=400px');
+		});//insertProductId END
+		
+		
+	});//document.ready END
+	
+	
 // 		수주상세정보 보기
 		function infoPop(contId){
 // 			var contId = document.getElementById("cont_id").value;

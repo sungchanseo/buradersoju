@@ -73,10 +73,21 @@ td {border:1px solid #04AA6D;
 	background-color: #2fddf8;
 	border-color: #23dbf8;}
 	
-.btn_ch{
+.btn_add{
 	color: #ffffff;
 	background-color: #04AA6D;
 	border-color: #0ddbb9;}
+	
+.container {
+	position: relative;}
+
+.btn_btn {
+	position: absolute;
+	top: 0;
+	right: 0;}
+
+.btn_table table {
+	width: 100%;}
 
 /* .btn {background-color: #048; */
 /* padding:8px 10px; */
@@ -86,85 +97,94 @@ td {border:1px solid #04AA6D;
 </head>
 <body>
 	<form action="" role="form" id="fr" method="post">
-		<table border="1">
-			<tr>
-				<th>사원사진</th>
-				<th>사번</th>
-				<td><input type="text" name="emp_id" value="${resultVO.emp_id }" readonly></td>
-				<th>비밀번호</th>
-				<td><input type="password" name="emp_pw" id="emp_pw" placeholder="비밀번호를 입력하세요"></td>				
-				<th>이름</th>
-				<td><input type="text" name="emp_name" id="emp_name" value="${resultVO.emp_name }"></td>
-			</tr>
-			<tr>
-				<td rowspan="4">이미지</td>
-				<th>생년월일</th>
-				<td><input type="text" name="emp_birth" id="emp_birth" value="${resultVO.emp_birth }"></td>
-				<th>휴대전화</th>
-				<td><input type="text" name="emp_phone" id="emp_phone" value="${resultVO.emp_phone }"></td>
-				<th>이메일</th>
-				<td><input type="text" name="emp_email" id="emp_email" value="${resultVO.emp_email }"></td>
-			</tr>
-			<tr>
-				<th>주소</th>
-				<td colspan="5">
-					<input type="text" name="emp_address" id="emp_address" size="45" value="${resultVO.emp_address }" onclick="addr();">
-					<input type="button" class="btn_ch" value="주소찾기" onclick="addr();"><br>
-					<input type="text" name="emp_address_detail" id="emp_address_detail" size="55" maxlength="55" value="${resultVO.emp_address_detail }">
-				</td>
-			</tr>
-			<tr>
-				<th>성별</th>
-				<td>
-					<label><input type="radio" name="emp_gender" value="남" ${resultVO.emp_gender == '남' ? 'checked' : ''}>남</label>
-					<label><input type="radio" name="emp_gender" value="여" ${resultVO.emp_gender == '여' ? 'checked' : ''}>여</label>
-				</td>			
-				<th>부서</th>
-				<td><select name="emp_department">
-						<option value="전산팀" ${resultVO.emp_department == '전산팀' ? 'selected' : ''}>전산팀</option>
-						<option value="인사팀" ${resultVO.emp_department == '인사팀' ? 'selected' : ''}>인사팀</option>
-						<option value="생산팀" ${resultVO.emp_department == '생산팀' ? 'selected' : ''}>생산팀</option>
-						<option value="구매팀" ${resultVO.emp_department == '구매팀' ? 'selected' : ''}>구매팀</option>
-						<option value="영업팀" ${resultVO.emp_department == '영업팀' ? 'selected' : ''}>영업팀</option>
-				</select></td>
-				<th>직급</th>
-				<td><select name="emp_position">
-						<option value="임원" ${resultVO.emp_position == '임원' ? 'selected' : ''}>임원</option>
-						<option value="부장" ${resultVO.emp_position == '부장' ? 'selected' : ''}>부장</option>
-						<option value="차장" ${resultVO.emp_position == '차장' ? 'selected' : ''}>차장</option>
-						<option value="과장" ${resultVO.emp_position == '과장' ? 'selected' : ''}>과장</option>
-						<option value="대리" ${resultVO.emp_position == '대리' ? 'selected' : ''}>대리</option>
-						<option value="주임" ${resultVO.emp_position == '주임' ? 'selected' : ''}>주임</option>
-						<option value="사원" ${resultVO.emp_position == '사원' ? 'selected' : ''}>사원</option>
-				</select></td>
-			</tr>
-			<tr>
-				<th>내선번호</th>
-				<td><input type="text" name="emp_tel" id="emp_tel" value="${resultVO.emp_tel }"></td>			
-				<th>재직구분</th>
-				<td><select name="emp_status">
-						<option value="재직" ${resultVO.emp_status == '재직' ? 'selected' : ''}>재직</option>
-						<option value="휴직" ${resultVO.emp_status == '휴직' ? 'selected' : ''}>휴직</option>
-						<option value="복직" ${resultVO.emp_status == '복직' ? 'selected' : ''}>복직</option>
-						<option value="퇴직" ${resultVO.emp_status == '퇴직' ? 'selected' : ''}>퇴직</option>
-				</select></td>
-				<th>입사일</th>
-				<td><input type="text" name="join_date" id="join_date" value="${resultVO.join_date }"></td>
-			</tr>
-			<tr>
-				<td><input type="file" multiple name="emp_image" accept="image/*" value="이미지등록"></td>
-				<th>휴직일</th>
-				<td><input type="text" name="absence_date" value="${resultVO.absence_date }"></td>			
-				<th>복직일</th>
-				<td><input type="text" name="rehabi_date" value="${resultVO.rehabi_date }"></td>
-				<th>퇴사일</th>
-				<td><input type="text" name="resign_date" value="${resultVO.resign_date }"></td>
-			</tr>
+		<div class="container">
+			<h1 style="display: inline;">사원 수정</h1>
 			
-		</table>
-		<input type="submit" class="btn btn-info" value="사원수정" onclick="sendForm();">
-		<input type="reset" class="btn btn-success" value="초기화">
-		<input type="button" class="btn btn-success" value="창닫기" onclick="window.close();">
+			<div class="btn_btn">
+				<input type="submit" class="btn btn-info" value="사원수정" onclick="sendForm();">
+				<input type="reset" class="btn btn-success" value="초기화">
+				<input type="button" class="btn btn-success" value="창닫기" onclick="window.close();">
+			</div>
+			
+			<div class="btn_table">	
+				<table border="1">
+					<tr>
+						<th>사원사진</th>
+						<th>사번</th>
+						<td><input type="text" name="emp_id" value="${resultVO.emp_id }" readonly></td>
+						<th>비밀번호</th>
+						<td><input type="password" name="emp_pw" id="emp_pw" placeholder="비밀번호를 입력하세요"></td>				
+						<th>이름</th>
+						<td><input type="text" name="emp_name" id="emp_name" value="${resultVO.emp_name }"></td>
+					</tr>
+					<tr>
+						<td rowspan="4">이미지</td>
+						<th>생년월일</th>
+						<td><input type="text" name="emp_birth" id="emp_birth" value="${resultVO.emp_birth }"></td>
+						<th>휴대전화</th>
+						<td><input type="text" name="emp_phone" id="emp_phone" value="${resultVO.emp_phone }"></td>
+						<th>이메일</th>
+						<td><input type="text" name="emp_email" id="emp_email" value="${resultVO.emp_email }"></td>
+					</tr>
+					<tr>
+						<th>주소</th>
+						<td colspan="5">
+							<input type="text" name="emp_address" id="emp_address" size="45" value="${resultVO.emp_address }" onclick="addr();">
+							<input type="button" class="btn_add" value="주소찾기" onclick="addr();"><br>
+							<input type="text" name="emp_address_detail" id="emp_address_detail" size="55" maxlength="55" value="${resultVO.emp_address_detail }">
+						</td>
+					</tr>
+					<tr>
+						<th>성별</th>
+						<td>
+							<label><input type="radio" name="emp_gender" value="남" ${resultVO.emp_gender == '남' ? 'checked' : ''}>남</label>
+							<label><input type="radio" name="emp_gender" value="여" ${resultVO.emp_gender == '여' ? 'checked' : ''}>여</label>
+						</td>			
+						<th>부서</th>
+						<td><select name="emp_department">
+								<option value="전산팀" ${resultVO.emp_department == '전산팀' ? 'selected' : ''}>전산팀</option>
+								<option value="인사팀" ${resultVO.emp_department == '인사팀' ? 'selected' : ''}>인사팀</option>
+								<option value="생산팀" ${resultVO.emp_department == '생산팀' ? 'selected' : ''}>생산팀</option>
+								<option value="구매팀" ${resultVO.emp_department == '구매팀' ? 'selected' : ''}>구매팀</option>
+								<option value="영업팀" ${resultVO.emp_department == '영업팀' ? 'selected' : ''}>영업팀</option>
+						</select></td>
+						<th>직급</th>
+						<td><select name="emp_position">
+								<option value="임원" ${resultVO.emp_position == '임원' ? 'selected' : ''}>임원</option>
+								<option value="부장" ${resultVO.emp_position == '부장' ? 'selected' : ''}>부장</option>
+								<option value="차장" ${resultVO.emp_position == '차장' ? 'selected' : ''}>차장</option>
+								<option value="과장" ${resultVO.emp_position == '과장' ? 'selected' : ''}>과장</option>
+								<option value="대리" ${resultVO.emp_position == '대리' ? 'selected' : ''}>대리</option>
+								<option value="주임" ${resultVO.emp_position == '주임' ? 'selected' : ''}>주임</option>
+								<option value="사원" ${resultVO.emp_position == '사원' ? 'selected' : ''}>사원</option>
+						</select></td>
+					</tr>
+					<tr>
+						<th>내선번호</th>
+						<td><input type="text" name="emp_tel" id="emp_tel" value="${resultVO.emp_tel }"></td>			
+						<th>재직구분</th>
+						<td><select name="emp_status">
+								<option value="재직" ${resultVO.emp_status == '재직' ? 'selected' : ''}>재직</option>
+								<option value="휴직" ${resultVO.emp_status == '휴직' ? 'selected' : ''}>휴직</option>
+								<option value="복직" ${resultVO.emp_status == '복직' ? 'selected' : ''}>복직</option>
+								<option value="퇴직" ${resultVO.emp_status == '퇴직' ? 'selected' : ''}>퇴직</option>
+						</select></td>
+						<th>입사일</th>
+						<td><input type="text" name="join_date" id="join_date" value="${resultVO.join_date }"></td>
+					</tr>
+					<tr>
+						<td><input type="file" multiple name="emp_image" accept="image/*" value="이미지등록"></td>
+						<th>휴직일</th>
+						<td><input type="text" name="absence_date" value="${resultVO.absence_date }"></td>			
+						<th>복직일</th>
+						<td><input type="text" name="rehabi_date" value="${resultVO.rehabi_date }"></td>
+						<th>퇴사일</th>
+						<td><input type="text" name="resign_date" value="${resultVO.resign_date }"></td>
+					</tr>
+					
+				</table>
+			</div>
+		</div>
 	</form>
 	<!-- 팝업창 처리 -->
 	<script>
@@ -259,14 +279,24 @@ td {border:1px solid #04AA6D;
 				}//상세주소 입력 제어
 				
 				if ($('#emp_tel').val() == ""){
-					alert('내선번호를 입력하세요.');
+					Swal.fire({
+			            icon: 'warning',					
+			            title: '내선번호를 입력하세요',	
+			            text: '필수입력란 입니다.',	
+			            confirmButtonText: '확인',
+			        });
 					$('#emp_tel').focus();
 					status = false;
 					return false;
 				}//내선번호 입력 제어
 		
 				if ($('#join_date').val() == ""){
-					alert('입사일을 입력하세요.');
+					Swal.fire({
+			            icon: 'warning',					
+			            title: '입사일을 입력하세요',	
+			            text: '필수입력란 입니다.',	
+			            confirmButtonText: '확인',
+			        });
 					$('#join_date').focus();
 					status = false;
 					return false;
@@ -286,7 +316,12 @@ td {border:1px solid #04AA6D;
 					type: 'post', 
 					data : formObject, 
 					success: function(json) {
-						alert("사원수정이 완료되었습니다.");
+						Swal.fire({
+				            icon: 'success',					
+				            title: '사원수정이 완료되었습니다.',	
+				            text: '확인을 누르면 창이 닫힙니다.',	
+				            confirmButtonText: '확인',
+				        });
 						window.opener.location.reload();
 						window.close();
 					}

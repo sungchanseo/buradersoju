@@ -39,8 +39,8 @@ public class QualityServiceImpl implements QualityService {
 		pvo.setId("q.qc_num");
 		pvo.setPageSize(10);
 		pvo.setStartRow(1);
-		pvo.setStatus_name("a.product_id = b.product_id and a.production_id = q.production_id and q.qc_num = d.qc_num and a.workorder_status");
-		pvo.setStatus_value("완료");
+		pvo.setStatus_name("a.product_id = b.product_id and a.production_id = q.production_id and q.qc_num = d.qc_num and q.del_qcStatus");
+		pvo.setStatus_value("0");
 //		pvo.setSelector(selector);
 //		pvo.setSearch(search);
 		logger.debug("@@@@@@QualityService : {}",pvo);
@@ -151,18 +151,9 @@ public class QualityServiceImpl implements QualityService {
 	}
 
 	@Override
-	public String btUpdate(ProductionVO vo) throws Exception {
-		int result = qdao.btUpCheck(vo);
-		String msg = "";
-		logger.debug("result : "+result);
+	public void btUpdate(ProductionVO vo) throws Exception {
 		logger.debug("bt_defQty : "+vo.getBt_defQty());
-		if(result == 0) {
 			qdao.btUpdate(vo);
-			msg = "저장완료";
-		}else {
-			msg = "이미 등록했습니다.";
-		}
-		return msg;
 	}
 
 

@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 
 <title>포장 등록</title>
 
@@ -129,6 +129,29 @@ border-color: #23dbf8;}
         }
       });
     });
+    
+ 	// 등록 버튼 클릭 시 sendForm 함수 호출
+    $("#btnInsert").click(function(event) {
+	    event.preventDefault(); // 폼의 서버 전송 방지
+	    sendForm();
+    });
+    
+    // sendForm 함수 정의
+    function sendForm() {
+      var formObject = $("form[role='form']").serialize();
+
+      $.ajax({
+        url: '/production/productionInsertStage3',
+        type: 'POST',
+        data: formObject,
+        success: function(json) {
+          alert("등록이 완료되었습니다.");
+          window.opener.location.reload();
+          window.close();
+        }
+      });
+    }
+    
   });	
   
   /* 불량수량 입력값에 숫자가 아닌 문자 제거 */
@@ -148,7 +171,7 @@ border-color: #23dbf8;}
 	
 	<form id="btn_idSearch" method="get">
         <label for="production_id">작업지시번호</label>
-        <input type="text" id="production_id" name="production_id" value="">
+        <input type="text" id="production_id" name="production_id" value="PR" maxlength="11">
         <input type="button" class="btn btn-info" value="조회">
     </form>
      <%
@@ -185,7 +208,7 @@ border-color: #23dbf8;}
 		  불량수량
 		  <input type="text" name="stage3_defQty">
 	<br>
-	<button type="button" onclick="submitForm();" class="btn btn-success" id="btnInsert">등록</button>
+	<input type="submit" class="btn btn-success" id="btnInsert" value="등록" onclick="sendForm();">
 	</form>
 	
 	<script>

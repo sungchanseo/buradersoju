@@ -19,12 +19,13 @@
 <!-- 생산 등록 -->
 	<!-- 작업지시번호 조회 -->
 	  <select id="insertSearch" resultType="com.itwillbs.domain.ProductionVO">
-		SELECT pd.production_id, pd.production_emp, pd.production_date, pd.production_line, pd.product_id, p.product_name, pd.plan_qty, e.emp_name, pc.production_status
+		SELECT pd.production_id, pd.production_date, pd.production_line, pd.product_id, 
+		p.product_name, pd.plan_qty, e.emp_name, pc.production_status
 		FROM production pd
 		JOIN product p ON pd.product_id = p.product_id
 		JOIN employee e ON pd.production_emp = e.emp_id
 		LEFT JOIN pr_complete pc ON pd.production_id = pc.production_id
-		WHERE pd.production_id = #{production_id}
+		WHERE pd.production_id = #{production_id} AND pd.workOrder_status != '완료'
 	  </select>
 	<!-- 작업지시번호 조회 -->
 	
@@ -35,6 +36,12 @@
 		VALUES
 	    (#{production_id}, #{production_status}, #{stage1_defCode}, ${stage1_defQty}, now())
 	  </insert>
+	  
+	  <update id="updateWostatus">
+	  UPDATE production
+	  SET workOrder_status = '진행중'
+	  WHERE production_id = #{production_id};
+	  </update>
 	<!-- [혼합] DB 등록 -->
 	
 	<!-- [주입] DB 등록 -->

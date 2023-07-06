@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/base/vendor.bundle.base.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main/fullcalendar-5.11.4/lib/main.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
     <script src="${pageContext.request.contextPath}/resources/vendors/base/vendor.bundle.base.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/template.js"></script>

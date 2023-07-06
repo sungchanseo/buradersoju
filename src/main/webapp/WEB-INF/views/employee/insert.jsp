@@ -10,36 +10,9 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert창 링크 -->
 <title>사원 등록</title>
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
-
-<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/mdi/css/materialdesignicons.min.css"> --%>
-<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/base/vendor.bundle.base.css"> --%>
-<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main/fullcalendar-5.11.4/lib/main.css"> --%>
-<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css"> --%>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
 
 <style type="text/css">
-/* alert창 css */
-div:where(.swal2-container) div:where(.swal2-popup) {
-	width: 14em;
-	padding: 0 0 0.5em;}
-div:where(.swal2-container) h2:where(.swal2-title) {
-	padding: 0;
-	font-size: 1.05em;}
-div:where(.swal2-container) .swal2-html-container {
-	margin: 0;
-	font-size: 0.95em;}
-div:where(.swal2-container) div:where(.swal2-actions) {
-	margin: 0;}
-div:where(.swal2-icon) {
-	margin: 0.5em auto 0.5em;}
-div:where(.swal2-icon).swal2-warning {
-	border-color: #0ddbb9;
-	color: #0ddbb9;}
-div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
-	background-color: #0ddbb9;
-	color: #000;
-	font-size: 0.9em;
-	font-weight: 600;}
-/* alert창 css */
 
 /* 테이블 css */
 table {margin-bottom: 1em;}
@@ -97,9 +70,6 @@ td {border:1px solid #04AA6D;
 .btn_table table {
 	width: 100%;}		
 
-/* .btn {background-color: #048; */
-/* padding:8px 10px; */
-/* color: #fff;} */
 /* 테이블 css */
 </style>
 </head>
@@ -338,20 +308,39 @@ td {border:1px solid #04AA6D;
 			}); // submit function
 		
 			function sendForm() {
-				$.ajax({
-					url: '/employee/insert', 
-					type: 'POST', 
-					data: new FormData($("form[role='form']")[0]), 
-					enctype: 'multipart/form-data', 
-					processData: false, 
-			        contentType: false, 
-			        cache: false, 
-					success: function(json) {
-						alert("사원등록이 완료되었습니다.");
-						window.opener.location.reload();
-						window.close();
-					}
-				}); // ajax
+			    Swal.fire({
+			        title: '사원정보를 등록하시겠습니까?',
+			        text: '선택하라 인간',
+			        icon: 'warning',
+			        showCancelButton: true,
+			        confirmButtonColor: '#0ddbb9',
+			        cancelButtonColor: '#d33',
+			        confirmButtonText: '등록',
+			        cancelButtonText: '취소'
+			    }).then((result) => {
+			        if (result.isConfirmed) {
+			            $.ajax({
+			                url: '/employee/insert',
+			                type: 'POST',
+			                data: new FormData($("form[role='form']")[0]),
+			                enctype: 'multipart/form-data',
+			                processData: false,
+			                contentType: false,
+			                cache: false,
+			                success: function(json) {
+			                    Swal.fire({
+			                        title: '사원등록이 완료되었습니다.',
+			                        text: '확인을 누르면 창을 닫습니다.',
+			                        icon: 'success',
+			                        confirmButtonText: '확인'
+			                    }).then(() => {
+			                        window.opener.location.reload();
+			                        window.close();
+			                    });
+			                } // json
+			            }); // ajax
+			        } // isConfirmed
+			    }); // then(result)
 			} // sendForm
 		}); // document
 	</script>

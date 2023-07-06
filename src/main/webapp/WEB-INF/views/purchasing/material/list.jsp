@@ -162,7 +162,7 @@ $(document).ready(function() {
 						success: function() {
 							alert("자재코드 " + ma_id +", 등록이 완료되었습니다.");
 // 							Swal.fire({
-// 								icon: 'success',										// Alert 타입 (warning/success/error)
+// 								icon: 'success',										// Alert 타입 (warning / success / error)
 // 								title: '완료',											// Alert 제목
 // 								text: '자재코드 ' + ma_id + ' 등록이 완료되었습니다.',	// Alert 내용
 // 								confirmButtonText: '확인',								// Alert 버튼내용

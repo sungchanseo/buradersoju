@@ -22,27 +22,39 @@ public class ProductionDAOImpl implements ProductionDAO {
 	// mapper의 namespace 정보
 	private static final String NAMESPACE = "com.itwillbs.mappers.productionMapper";
 	
+	// 생산목록
 	@Override
 	public List<ProductionVO> getProductionList() throws Exception {
 		logger.debug(" getProductionList() 호출 ");
 		return sqlSession.selectList(NAMESPACE+".getProductionList");
 	}
 
+	// 작업지시번호 조회
 	@Override
 	public ProductionVO getInsertSearch(String production_id) throws Exception {
 		logger.debug(" getInsertSearch() 호출 ");
 		return sqlSession.selectOne(NAMESPACE+".insertSearch", production_id);
 	}
 
+	// 혼합 등록
 	@Override
 	public void insertStage1(ProductionVO vo) throws Exception {
 		logger.debug(" insertStage1() 호출 ");
-		int result = sqlSession.insert(NAMESPACE + ".insertStage1", vo);
+		int insertResult = sqlSession.insert(NAMESPACE + ".insertStage1", vo);
+		int updateResult = sqlSession.update(NAMESPACE + ".updateWostatus", vo);
 		
-		if(result != 0)
-			logger.debug(" 혼합등록 완료! ");
+		if (insertResult != 0 && updateResult != 0) {
+	        logger.debug("혼합 등록 & 작업지시상태 변경 완료!");
+	    } else if (insertResult != 0) {
+	        logger.debug("혼합 등록 완료!");
+	    } else if (updateResult != 0) {
+	        logger.debug("작업지시상태 변경 완료!");
+	    } else {
+	        logger.debug("혼합 등록 & 작업지시상태 변경 실패!");
+	    }
 	}
 
+	// 주입 등록
 	@Override
 	public void insertStage2(ProductionVO vo) throws Exception {
 		logger.debug(" insertStage2() 호출 ");
@@ -53,6 +65,7 @@ public class ProductionDAOImpl implements ProductionDAO {
 		
 	}
 
+	// 포장 등록
 	@Override
 	public void insertStage3(ProductionVO vo) throws Exception {
 		logger.debug(" insertStage3() 호출 ");

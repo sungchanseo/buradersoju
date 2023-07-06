@@ -17,7 +17,7 @@ public interface ProductionDAO {
 	// 생산목록
 	public List<ProductionVO> getProductionList() throws Exception;
 		
-	// 작업지시 등록-수주번호 조회
+	// 작업지시번호 조회
 	public ProductionVO getInsertSearch(String production_id) throws Exception;
 	
 	// 혼합 등록

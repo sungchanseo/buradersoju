@@ -9,7 +9,24 @@
 <!-- 제이쿼리 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 	
-	
+	<style type="text/css">
+	/* 인쇄하기 가로 기본출력 지정 */
+		@page { size: A4 landscape; margin:0; }
+		
+	/* 엑셀, 인쇄 버튼 배치 */
+	.button-group {
+	  width: 170px;
+	  height: 35px;
+	  display: flex;
+	  gap: 5px; /* 버튼 사이 간격 */
+	  float: right; /* 오른쪽으로 배치 */
+	  margin-top: 10px; /* 위 여백 추가 */
+  	  margin-bottom: 10px; /* 아래 여백 추가 */
+	}
+	.button-group button {
+	  flex: 1; /* 버튼들을 동일한 너비로 설정 */
+	}
+	</style>
 	<!-- (수정중) 생산 목록 중 ‘생산량 >= 수주량’ => 작업상태가 완료인 작업지시만 나타남 -->
 	<!-- 페이징 처리에서 완료됨 -->
 	<script>
@@ -74,8 +91,8 @@
 	<!-- 관리자에게만 보이는 검수등록 버튼 -->
 	<input type="button" id="qualityInsertBT" class="btn btn-success" value="검수 등록"
 		onclick="window.open('/quality/insert', '_blank', 'width=600, height=500, left=2000');">
-	<button class="print-button" onclick="info_print()" style='text-align: right; float: right;'>엑셀파일</button>
-	<button class="print-button" onclick="info_print()" style='text-align: right; float: right;'>인쇄하기</button>
+	<button class="btn btn-success btn-fw" style='text-align: right; float: right;'>엑셀파일</button>
+	<button id="print-button" class="btn btn-success" onclick="info_print()" style='text-align: right; float: right;'>인쇄하기</button>
 		<script>
 			/* 인쇄하기 버튼 */
 			function info_print() {
@@ -130,7 +147,7 @@
 				<input type="hidden" id="plan_qty" name="plan_qty" value=" ${vo.plan_qty}">
 				<input type="hidden" id="production_status" name="production_status" value=" ${vo.production_status}">
 			<tr class="qualityListResult">
-				<td><a href="/quality/info?qc_num=${vo.qc_num }" onclick="window.open(this.href, '_blank', 'width=800, height=500, left=2000'); return false;">${vo.qc_num  }</a></td>
+				<td><a href="/quality/info?qc_num=${vo.qc_num }" onclick="window.open(this.href, '_blank', 'width=800, height=500, left=2000'); return false;">${vo.qc_num}</a></td>
 				<td><a href="/production/workOrder/workOrder?production_id=${vo.production_id }" onclick="window.open(this.href, '_blank', 'width=800, height=500, left=2000'); return false;">${vo.production_id }</a></td>
 				<td>${vo.production_line }</td>
 				<td>${vo.product_id }</td>
@@ -139,7 +156,7 @@
 				<td>${vo.qc_qty }</td>
 				<td>${vo.def_qty }</td>
 				<td><fmt:formatNumber value="${(vo.def_qty /vo.qc_qty*100) }" pattern="#.###"/></td>
-				<td>${vo.qc_emp }</td>
+				<td>${vo.emp_name }</td>
 				<td><fmt:formatDate value="${vo.qc_date }" pattern="yyyy-MM-dd hh:mm:ss"/> </td>
 <%-- 				<td>${vo.qc_status }</td> --%>
 			</tr>

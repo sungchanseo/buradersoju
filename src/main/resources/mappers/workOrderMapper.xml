@@ -8,8 +8,9 @@
 
 <!-- 작업지시 목록 -->
 	<select id="getWorkOrderList" resultType="com.itwillbs.domain.ProductionVO">
-		select * from production a, product b
+		select * from production a, product b, employee e
 		where a.product_id = b.product_id
+		and e.emp_id = a.production_emp
 	</select>
 <!-- 작업지시 목록 -->
 

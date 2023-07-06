@@ -60,7 +60,7 @@ public class ContractServiceImpl implements ContractService {
 		///////////cont_id 조합하기 시작!///////////
 		//먼저 디비 데이터의 가장 최신 자료를 불러온다. 
 		String lastId = cdao.getLastGeneratedNumber();
-		logger.debug("@@@@@@ContractService : {}", lastId);
+		logger.debug("@@@@@@ContractService : getLastGeneratedNumber={}", lastId);
 		
 		//cont_id 접두사
 		String prefix = "CO";
@@ -74,7 +74,7 @@ public class ContractServiceImpl implements ContractService {
 		logger.debug("@@@@@@ContractService : countPart={}", countPart);
 
 		String result = null;
-		if(lastId != null) {
+		if(lastId == null) {
 			//수주목록에 아무것도 없을 때
 			logger.debug("@@@@@@ContractService : 수주목록이 없읍니다.");
 

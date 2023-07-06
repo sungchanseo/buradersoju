@@ -107,13 +107,14 @@ public class ContractController {
 //	@PostMapping(value = "/insert")
 	@ResponseBody
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
-	public String registContractPOST(@RequestBody ContractVO cvo) throws Exception {
+	public void registContractPOST(@RequestBody ContractVO cvo) throws Exception {
 		logger.debug("@@@@@@@@@@@@Controller : 수주 등록POST하기!!!!");
 		logger.debug("@@@@@@@입력된 정보 : " + cvo);
 
+		logger.debug("@@@@@@@@@@@@Controller : registContract()호출합니다!");
 		contService.registContract(cvo);
 		contService.contIdInsert(cvo.getCont_id());
-		return "redirect:/contract/list";
+//		return "redirect:/contract/list";
 	}
 
 	// 수주 수정 입력하기

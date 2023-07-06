@@ -99,13 +99,12 @@
 		$.ajax({
 			url : '${contextPath}/contract/insert',
 			type : 'POST',
-	//			data : formObject,
 			contentType : 'application/json',
 			data : JSON.stringify(formObject),
 			success : function() {
 				alert("수주등록이 완료되었습니다.");
-	//				window.opener.location.reload();
-	//				window.close();
+				window.opener.location.reload();
+				window.close();
 			}, 
 			error : function(){
 				alert('에러 발생!');

@@ -2,6 +2,8 @@ package com.itwillbs.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -105,12 +107,12 @@ public class ContractController {
 
 	// 수주 등록 디비처리
 //	@PostMapping(value = "/insert")
-	@RequestMapping(value = "/insert", method = RequestMethod.POST)
+	@RequestMapping(value = "/insert", method = RequestMethod.POST, produces = "application/json; charset=UTF-8") 
 	@ResponseBody
-	public void registContractPOST(@RequestBody ContractVO cvo) throws Exception {
+	public void registContractPOST(@RequestBody ContractVO cvo, HttpServletResponse response) throws Exception {
 		logger.debug("@@@@@@@@@@@@Controller : 수주 등록POST하기!!!!");
 		logger.debug("@@@@@@@입력된 정보 : " + cvo);
-
+		response.setContentType("application/json; charset=UTF-8");
 		logger.debug("@@@@@@@@@@@@Controller : registContract()호출합니다!");
 		contService.registContract(cvo);
 		contService.contIdInsert(cvo.getCont_id());

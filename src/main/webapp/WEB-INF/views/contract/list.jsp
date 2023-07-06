@@ -31,7 +31,7 @@
 			<input type="submit" class="btn btn-info" value="검색">
 		</form>
 		<!-- 검색창기능 -->
-
+		
 		<!-- 영업팀이 아닐때 버튼 감추기 -->
 		<div style="float:right; display:inline;">
 			<c:if test="${emp_department.equals('영업') || emp_department.equals('영업팀') || emp_department.equals('Master')}">

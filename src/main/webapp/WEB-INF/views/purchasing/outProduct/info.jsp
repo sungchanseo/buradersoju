@@ -204,10 +204,10 @@ margin-left: 75%;
 						<td>
 							<c:choose>
 								<c:when test="${il.ma_qty - il.use_qty >= 0 }">
-									<span style="color:blue">출고가능</span>
+									<span style="color:blue">생산가능</span>
 								</c:when>
 								<c:otherwise>
-									<span style="color:red">출고불가</span>
+									<span style="color:red">생산불가</span>
 								</c:otherwise>
 							</c:choose>
 						</td>

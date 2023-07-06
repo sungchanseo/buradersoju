@@ -141,21 +141,6 @@
 						due_date:$('#due_date').val()
 				}//formObject END
 				
-// 				var formObject ={
-// 						cust_name:cust_name,
-// 						product_name:product_name,
-// 						cont_emp:cont_emp,
-// 						cust_id:cust_id,
-// 						product_id:product_id,
-// 						cont_date:cont_date,
-// 						cont_qty:cont_qty,
-// 						production_id:production_id,
-// 						due_date:due_date
-// 				}//formObject END
-				
-				
-				
-				
 				console.log(formObject);
 				//작성완료 버튼을 눌렀을 때 ajax를 실행하도록 한다.
 				$.ajax({

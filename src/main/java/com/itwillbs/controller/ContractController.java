@@ -98,15 +98,15 @@ public class ContractController {
 
 	// http://localhost:8088/contract/insert
 	// 수주 등록 입력하기
-	@GetMapping(value = "/insert")
+	@RequestMapping(value = "/insert", method = RequestMethod.GET)
 	public void registContractGET(ContractVO cvo) throws Exception {
-		logger.debug("@@@@@@@@@@@@Controller : 수주 등록GET하기!!!!");
+		logger.debug("@@@@@@@@@@@@Controller : 111수주 등록GET하기!!!!");
 	}
 
 	// 수주 등록 디비처리
 //	@PostMapping(value = "/insert")
-	@ResponseBody
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
+	@ResponseBody
 	public void registContractPOST(@RequestBody ContractVO cvo) throws Exception {
 		logger.debug("@@@@@@@@@@@@Controller : 수주 등록POST하기!!!!");
 		logger.debug("@@@@@@@입력된 정보 : " + cvo);

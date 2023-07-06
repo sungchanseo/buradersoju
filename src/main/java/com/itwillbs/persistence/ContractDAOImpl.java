@@ -39,6 +39,7 @@ public class ContractDAOImpl implements ContractDAO {
 	//수주등록 번호 자동 카운트
 	@Override
 	public String getLastGeneratedNumber() throws Exception {
+		logger.debug("##########ContractDAO : getLastGeneratedNumber 메소드 호출!");
 		return sqlSession.selectOne(NAMESPACE+".getLastGeneratedNumber");
 	}
 

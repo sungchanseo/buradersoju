@@ -68,7 +68,7 @@
 										<div class="tab-pane fade active show" id="stage1" role="tabpanel" aria-labelledby="stage1-tab">
 										  <!-- 본문 상단 -->
 										  <div class="d-lg-flex justify-content-between">
-											<button type="button" onclick="openPopup('productionInsertStage1');" class="btn btn-success">혼합 등록</button>
+											<button type="button" onclick="openPopup('insertStage1');" class="btn btn-success">혼합 등록</button>
 										  </div>
 										  <!-- 본문 -->
 										  	<div class="button-group">
@@ -99,7 +99,7 @@
 											      <c:if test="${productionList.production_status == '혼합'}">
 											        <tr>  
 											          <td>
-											            <a href="./workOrder/workOrder?production_id=${productionList.production_id}"
+											            <a href="/workOrder/info?production_id=${productionList.production_id}"
 											            onclick="window.open(this.href, '_blank', 'width=800, height=500, left=2000'); return false;">
 											            ${productionList.production_id}
 											            </a>
@@ -128,7 +128,7 @@
 										<div class="tab-pane fade" id="stage2" role="tabpanel" aria-labelledby="stage2-tab">
 											<!-- 본문 상단 -->
 											<div class="d-flex justify-content-between">
-											  <button type="button" onclick="openPopup('productionInsertStage2');" class="btn btn-success">주입 등록</button>
+											  <button type="button" onclick="openPopup('insertStage2');" class="btn btn-success">주입 등록</button>
 											</div>
 											<!-- 본문 -->
 											<div class="button-group">
@@ -159,7 +159,7 @@
 											      <c:if test="${productionList.production_status == '주입'}">
 											        <tr>  
 											          <td>
-											            <a href="/production/workOrder/workOrder?production_id=${productionList.production_id}"
+											            <a href="/workOrder/info?production_id=${productionList.production_id}"
 											            onclick="window.open(this.href, '_blank', 'width=800, height=500, left=2000'); return false;">
 											            ${productionList.production_id}
 											            </a>
@@ -189,7 +189,7 @@
 											<!-- 본문 상단 -->
 											<div class="d-flex justify-content-between">
 											  <!-- 검색창 시작 -->
-											  <form action="/production/productionList" method="get" style="display: inline;">
+											  <form action="/production/list" method="get" style="display: inline;">
 												<select name="selector">
 													<option value="production_id">작업지시번호</option>
 													<option value="production_line">생산라인</option>
@@ -201,7 +201,7 @@
 											  </form>
 											  <!-- 검색창 끝 -->
 											  <!-- 등록 버튼 -->
-											   	<button type="button" onclick="openPopup('productionInsertStage3');" class="btn btn-success">포장 등록</button>
+											   	<button type="button" onclick="openPopup('insertStage3');" class="btn btn-success">포장 등록</button>
 											</div>
 											<!-- 본문 -->
 											<div class="button-group">
@@ -232,7 +232,7 @@
 											      <c:if test="${productionList.production_status == '포장'}">
 											        <tr>  
 											          <td>
-											            <a href="/production/workOrder/workOrder?production_id=${productionList.production_id}"
+											            <a href="/workOrder/info?production_id=${productionList.production_id}"
 											            onclick="window.open(this.href, '_blank', 'width=800, height=500, left=2000'); return false;">
 											            ${productionList.production_id}
 											            </a>
@@ -259,15 +259,15 @@
 	<div class="template-demo">
 		<div class="btn-group" role="group" aria-label="Basic example">
 			<c:if test="${pvo.startPage > pvo.pageBlock }">
-				<a href="/production/productionList?pageNum=${pvo.startPage-pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">이전</a>
+				<a href="/production/list?pageNum=${pvo.startPage-pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">이전</a>
 			</c:if>
 			
 			<c:forEach var="i" begin="${pvo.startPage }" end="${pvo.endPage }" step="1">
-				<a href="/production/productionList?pageNum=${i }&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">${i }</a>
+				<a href="/production/list?pageNum=${i }&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">${i }</a>
 			</c:forEach>
 			
 			<c:if test="${pvo.endPage<pvo.pageCount }">
-				<a href="/production/productionList?pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">다음</a>
+				<a href="/production/list?pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">다음</a>
 			</c:if>
 		</div>
 	</div>
@@ -309,7 +309,7 @@
 											    <c:forEach var="productionList" items="${productionList}">
 											        <tr>  
 											          <td>
-											            <a href="/production/workOrder/workOrder?production_id=${productionList.production_id}"
+											            <a href="/workOrder/info?production_id=${productionList.production_id}"
 											            onclick="window.open(this.href, '_blank', 'width=800, height=500, left=2000'); return false;">
 											            ${productionList.production_id}
 											            </a>

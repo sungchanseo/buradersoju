@@ -9,14 +9,14 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 
-<title>주입 등록</title>
+<title>혼합 등록</title>
 
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
 
 <style type="text/css">
 table {margin-bottom: 1em;
 table-layout: fixed;
-width: 80%; /* 테이블의 전체 너비 지정 */}
+width: 95%; /* 테이블의 전체 너비 지정 */}
 
 table, th {border: none;}
 
@@ -115,9 +115,9 @@ border-color: #23dbf8;}
 	          }
             
            // 등록 버튼 표시 여부 설정
-           // 주입등록 페이지 (productionInsertStage2.jsp)
-           // => 생산단계가 '혼합'일 때만 표시
-              if (vo.production_status === '혼합') {
+           // 혼합등록 페이지 (productionInsertStage1.jsp)
+           // => 생산단계가 없음('')일 때만 표시
+              if (!vo.production_status) {
                 $("#btnInsert").show(); // 등록 버튼 보이기
               } else {
                 $("#btnInsert").hide(); // 등록 버튼 숨기기
@@ -129,34 +129,35 @@ border-color: #23dbf8;}
         }
       });
     });
+   
     
-	 // 등록 버튼 클릭 시 sendForm 함수 호출
-	    $("#btnInsert").click(function(event) {
-		    event.preventDefault(); // 폼의 서버 전송 방지
-		    sendForm();
-	    });
-	    
-	    // sendForm 함수 정의
-	    function sendForm() {
-	      var formObject = $("form[role='form']").serialize();
-	
-	      $.ajax({
-	        url: '/production/productionInsertStage2',
-	        type: 'POST',
-	        data: formObject,
-	        success: function(json) {
-	          alert("등록이 완료되었습니다.");
-	          window.opener.location.reload();
-	          window.close();
-	        }
-	      });
-	    }
+    // 등록 버튼 클릭 시 sendForm 함수 호출
+    $("#btnInsert").click(function(event) {
+	    event.preventDefault(); // 폼의 서버 전송 방지
+	    sendForm();
+    });
+    
+    // sendForm 함수 정의
+    function sendForm() {
+      var formObject = $("form[role='form']").serialize();
+
+      $.ajax({
+        url: '/production/insertStage1',
+        type: 'POST',
+        data: formObject,
+        success: function(json) {
+          alert("등록이 완료되었습니다.");
+          window.opener.location.reload();
+          window.close();
+        }
+      });
+    }
     
   });	
   
   /* 불량수량 입력값에 숫자가 아닌 문자 제거 */
   $(document).ready(function() {
-    $("input[name='stage2_defQty']").on("input", function() {
+    $("input[name='stage1_defQty']").on("input", function() {
       $(this).val($(this).val().replace(/[^0-9]/g, ""));
     });
   });
@@ -167,7 +168,7 @@ border-color: #23dbf8;}
 
 </head>
 <body>
-	<h1>주입 등록</h1>
+	<h1>혼합 등록</h1>
 	
 	<form id="btn_idSearch" method="get">
         <label for="production_id">작업지시번호</label>
@@ -196,7 +197,7 @@ border-color: #23dbf8;}
 	    <tbody>
 	    
 		</tbody>
-	  </table>
+	  </table>	
 	<br>
 	  생산단계
 	  <input type="text" name="production_status" id="production_status" style="background-color: #e6e6e6;" readonly>
@@ -204,37 +205,12 @@ border-color: #23dbf8;}
 <!-- 	  생산수량 -->
 <!-- 	  <input type="text" name="production_qty"> -->
 <!-- 	  불량코드 -->
-	  <input type="hidden" name="stage2_defCode" id="stage2_defCode" readonly >
+	  <input type="hidden" name="stage1_defCode" id="stage1_defCode" readonly>
 		  불량수량
-		  <input type="text" name="stage2_defQty">
+		  <input type="text" name="stage1_defQty">
 	<br>
 	<input type="submit" class="btn btn-success" id="btnInsert" value="등록" onclick="sendForm();">
 	</form>
-	
-	<script>
-    
-	/* 팝업 창 닫기 */
-//     function closePopup() {
-//         if (popupWindow) {
-//             popupWindow.close();
-//         }
-//     }
-	
-	function submitForm() {
-	  document.getElementById('insert').submit(); // 폼을 제출
-	  closePopup(); // 폼 제출 후 팝업 창 닫기
-	}
-//     $("#btnInsert").click(function() {
-//   	  setDef();
-//   	  $("#insert").submit();
-  	  
-//       setTimeout(function() {   
-//       opener.parent.location.reload();
-//   	  window.close(); // 팝업 창 닫기
-//       }, 1000);
-//     });
-    
-	</script>
 	
 </body>
 </html>

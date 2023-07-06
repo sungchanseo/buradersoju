@@ -16,7 +16,7 @@
 <style type="text/css">
 table {margin-bottom: 1em;
 table-layout: fixed;
-width: 80%; /* 테이블의 전체 너비 지정 */}
+width: 95%; /* 테이블의 전체 너비 지정 */}
 
 table, th {border: none;}
 
@@ -141,7 +141,7 @@ border-color: #23dbf8;}
       var formObject = $("form[role='form']").serialize();
 
       $.ajax({
-        url: '/production/productionInsertStage3',
+        url: '/production/insertStage3',
         type: 'POST',
         data: formObject,
         success: function(json) {
@@ -180,7 +180,7 @@ border-color: #23dbf8;}
      %>
    	<br>
 	
-   	<form id="insert"  method="post">
+   	<form role="form" id="insert"  method="post">
    	<table id="insertTable" border="1">
 	    <thead>
 	    <tr>
@@ -210,31 +210,6 @@ border-color: #23dbf8;}
 	<br>
 	<input type="submit" class="btn btn-success" id="btnInsert" value="등록" onclick="sendForm();">
 	</form>
-	
-	<script>
-    
-	/* 팝업 창 닫기 */
-//     function closePopup() {
-//         if (popupWindow) {
-//             popupWindow.close();
-//         }
-//     }
-	
-	function submitForm() {
-	  document.getElementById('insert').submit(); // 폼을 제출
-	  closePopup(); // 폼 제출 후 팝업 창 닫기
-	}
-//     $("#btnInsert").click(function() {
-//   	  setDef();
-//   	  $("#insert").submit();
-  	  
-//       setTimeout(function() {   
-//       opener.parent.location.reload();
-//   	  window.close(); // 팝업 창 닫기
-//       }, 1000);
-//     });
-    
-	</script>
 	
 </body>
 </html>

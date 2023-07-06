@@ -28,20 +28,12 @@
           <div class="navbar-menu-wrapper d-flex align-items-center justify-content-between">
             <ul class="navbar-nav navbar-nav-left">
               <li class="nav-item nav-search d-none d-lg-block ms-3">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text" id="search">
-                        
-                      </span>
-                    </div>
-                    <input type="text" class="form-control" aria-label="search" aria-describedby="search">
-                </div>
+                    <div style="width: 200px;"></div>
               </li>	
             </ul>
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
                 <a class="navbar-brand brand-logo" href="/main"><img src="${pageContext.request.contextPath}/resources/images/logo.png" alt="logo" style="width: 400px; height: auto;"/></a>
                 <a class="navbar-brand brand-logo-mini" href="/main">
-    			<img src="${pageContext.request.contextPath}/resources/images/logo-mini.png" alt="logo"/>
 				</a>
             </div>
             <ul class="navbar-nav navbar-nav-right">

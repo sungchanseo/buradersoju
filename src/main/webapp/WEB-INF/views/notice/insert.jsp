@@ -10,7 +10,7 @@
 						<div class="auth-form-light text-left py-5 px-4 px-sm-5" style="height: 100%;">
 							<h2>공지 작성</h2>
 							<hr>
-							<form action="/notice/fileupload" method="post" enctype="multipart/form-data">
+							<form action="" method="post" enctype="multipart/form-data">
 								<div class="form-group" >
 										제목 <input type="text"
 										class="form-control" name="notice_title" id="notice_title"
@@ -20,7 +20,7 @@
 										class="form-control" name="notice_writer" id="notice_writer"
 										value="${sessionScope.emp_name}" readonly required
 										style="width: 600px;">
-										내용<textarea id="summernote" name="notice_content"></textarea>
+										내용<textarea id="summernote" name="notice_content" required></textarea>
 										<br>
 										<input type="button" value="파일 추가" id="btnAdd"  class="btn btn-success btn-fw"> 
 										<hr>
@@ -47,7 +47,7 @@
   <script src="${pageContext.request.contextPath}/resources/notice/summernote/summernote-lite.js"></script>
   <script src="${pageContext.request.contextPath}/resources/notice/summernote/summernote-ko-KR.js"></script>
   
-  <script>
+<script type="text/javascript">
 	  function checkForm() {
 	    if (document.getElementsByName("notice_title")[0].value == "") {
 	      alert("공지 제목을 입력하세요");
@@ -59,9 +59,7 @@
 	    }
 	    return true;
 	  }
-  </script>
-  
-  <script>
+
   $(document).ready(function() {
 		//여기 아래 부분
 		$('#summernote').summernote({
@@ -84,9 +82,7 @@
 		});
 		$('#summernote').summernote(setting);
 	});
-	</script>
-	<!-- 서머노트 -->
-	<script type="text/javascript">
+
   $(document).ready(function(){
 	  var cnt = 0;
 	  
@@ -98,4 +94,9 @@
 	  }); // btnAdd-click
   });
 
+//초기화 버튼 클릭 이벤트 처리
+  var resetButton = document.querySelector('button[type="reset"]');
+  resetButton.addEventListener('click', function() {
+    document.getElementById('myForm').reset(); // form 요소 초기화
+  });
 </script>	

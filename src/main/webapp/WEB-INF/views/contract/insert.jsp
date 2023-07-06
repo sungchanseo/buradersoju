@@ -140,19 +140,46 @@
 						production_id:$('#production_id').val(),
 						due_date:$('#due_date').val()
 				}//formObject END
-			
+				
+// 				var formObject ={
+// 						cust_name:cust_name,
+// 						product_name:product_name,
+// 						cont_emp:cont_emp,
+// 						cust_id:cust_id,
+// 						product_id:product_id,
+// 						cont_date:cont_date,
+// 						cont_qty:cont_qty,
+// 						production_id:production_id,
+// 						due_date:due_date
+// 				}//formObject END
+				
+				
+				
+				
+				console.log(formObject);
 				//작성완료 버튼을 눌렀을 때 ajax를 실행하도록 한다.
 				$.ajax({
 					url : '${contextPath}/contract/insert',
-					contentType : "application/json",
 					type : 'POST',
 					data : JSON.stringify(formObject),
-					dataType: 'json',
+					headers : {
+						"Content-Type" : "application/json; charset=utf-8"
+					},
+// 					dataType: 'json',
+					contentType: "application/json; charset=utf-8",
+// 					headers : {
+// 						contentType: "application/json"
+// 					},
 					success : function() {
 						alert("수주등록이 완료되었습니다.");
-						window.opener.location.reload();
-						window.close();
-					} //success END
+// 						window.opener.location.reload();
+// 						window.close();
+					}, //success END
+					error : function(){
+						alert("수주등록이 완료되었습니다.");
+// 						window.opener.location.reload();
+// 						window.close();
+					}
 				});// ajax END
 		  });// fr.sumbit() END
 	}); // document.ready END

@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/base/vendor.bundle.base.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main/fullcalendar-5.11.4/lib/main.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
     <script src="${pageContext.request.contextPath}/resources/vendors/base/vendor.bundle.base.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/template.js"></script>
@@ -115,7 +116,7 @@
                       </ul>
                   </div>
               </li>
-              <li class="nav-item production">
+              <li class="nav-item">
                   <a href="" class="nav-link">
                     <i class="mdi mdi-package-variant-closed menu-icon" style="font-size: 30px;"></i>
                     <span class="menu-title">생산 관리</span>
@@ -124,7 +125,7 @@
                   <div class="submenu">
                     <ul>
                           <li class="nav-item"><a class="nav-link" href="/workOrder/list">작업 지시</a></li>
-                          <li class="nav-item"><a class="nav-link" href="/production/productionList">생산</a></li>
+                          <li class="nav-item"><a class="nav-link" href="/production/list">생산</a></li>
                           <li class="nav-item"><a class="nav-link" href="/quality/list">품질 관리</a></li>
                           <li class="nav-item"><a class="nav-link" href="/quality/emptyBottle">공병 관리</a></li>
                       </ul>

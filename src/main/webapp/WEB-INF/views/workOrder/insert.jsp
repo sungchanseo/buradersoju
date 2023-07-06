@@ -326,7 +326,7 @@ border-color: #23dbf8;}
 	  <table class="table table-color">
 		<tr>
 		 <th>상품코드</th>
-		 <td >
+		 <td>
 		  <select class=product_select id="product_id" name="product_id">
 		  	<option value="상품코드">상품코드</option>
 		    <option value="PR136">PR136</option>
@@ -338,7 +338,11 @@ border-color: #23dbf8;}
 		    <option value="PR360">PR360</option>
 		  </select>
 		 </td>
-		</tr>
+		 <th>작업지시자</th>
+		 <td><input type="text" id="production_emp" name="production_emp"></td> 
+<!-- 		 <td>작업지시자번호(임시)</td> -->
+<!-- 		 <td><input type="text" id="production_id" name="production_id"><td>  -->
+	</tr>
 		</table>
    	<hr>
    	<form id="woInsert"  method="post">
@@ -376,14 +380,7 @@ border-color: #23dbf8;}
   </table>
   <br>
   <hr>
-  <table class="table table-color">
- 	 <tr>
-		 <th>작업지시자</th>
-		 <td><input type="text" id="production_emp" name="production_emp"></td> 
-<!-- 		 <td>작업지시자번호(임시)</td> -->
-<!-- 		 <td><input type="text" id="production_id" name="production_id"><td>  -->
-	</tr>
-	</table>
+  
 	
 	  <div>
 	  <table>

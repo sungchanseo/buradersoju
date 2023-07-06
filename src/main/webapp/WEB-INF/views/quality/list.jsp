@@ -154,7 +154,7 @@
 				<td>${vo.product_name }</td>
 				<td>${vo.production_qty }</td>
 				<td>${vo.qc_qty }</td>
-				<td>${vo.def_qty }</td>
+				<td>${vo.total_defQty }</td>
 				<td><fmt:formatNumber value="${(vo.def_qty /vo.qc_qty*100) }" pattern="#.###"/></td>
 				<td>${vo.emp_name }</td>
 				<td><fmt:formatDate value="${vo.qc_date }" pattern="yyyy-MM-dd hh:mm:ss"/> </td>

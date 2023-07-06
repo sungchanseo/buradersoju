@@ -35,11 +35,11 @@ public class QualityServiceImpl implements QualityService {
 		logger.debug("@@@@@@QualityService : setPageInfoForQuality호출!");
 		
 		//quality서비스에 필요한 변수를 저장. 
-		pvo.setTable("production a, product b, qc q, defective d, employee e");
+		pvo.setTable("production a, product b, qc q, employee e");
 		pvo.setId("q.qc_num");
 		pvo.setPageSize(10);
 		pvo.setStartRow(1);
-		pvo.setStatus_name("a.product_id = b.product_id and a.production_id = q.production_id and q.qc_num = d.qc_num and e.emp_id = q.qc_emp and q.del_qcStatus");
+		pvo.setStatus_name("a.product_id = b.product_id and a.production_id = q.production_id and e.emp_id = q.qc_emp and q.del_qcStatus");
 		pvo.setStatus_value("0");
 //		pvo.setSelector(selector);
 //		pvo.setSearch(search);

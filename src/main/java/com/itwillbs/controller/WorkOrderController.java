@@ -29,7 +29,7 @@ import com.itwillbs.service.PagingService;
 import com.itwillbs.service.WorkOrderService;
 
 @Controller
-@RequestMapping(value = "/production/workOrder/*")
+@RequestMapping(value = "/workOrder/*")
 public class WorkOrderController {
 	
 	// 서비스 객체 주입
@@ -41,13 +41,13 @@ public class WorkOrderController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(WorkOrderController.class);
 	
-		// http://localhost:8088/production/workOrder/workOrderInsert
-		// http://localhost:8088/production/workOrder/workOrderList
-		// http://localhost:8088/production/workOrder/workOrder?production_id=PR230615001
+		// http://localhost:8088/workOrder/insert
+		// http://localhost:8088/workOrder/list
+		// http://localhost:8088/workOrder/info?production_id=PR230615001
 		
 		////// 작업지시 등록 //////
 		// 작업지시 등록 페이지
-		@RequestMapping(value = "workOrderInsert",method = RequestMethod.GET)
+		@RequestMapping(value = "insert",method = RequestMethod.GET)
 		public void insertGET(Model model) throws Exception{
 			logger.debug(" insertGET() 호출! ");
 			logger.debug(" /production/workOrderInsert.jsp 페이지 이동 ");
@@ -122,8 +122,8 @@ public class WorkOrderController {
 		////// 작업지시 등록 //////
 		
 		////// 작업지시 목록 //////
-		// http://localhost:8088/production/workOrder/workOrderList
-		@RequestMapping(value = "/workOrderList")
+		// http://localhost:8088/workOrder/list
+		@RequestMapping(value = "/list")
 		public void customerListGET(Model model, PagingVO pvo, 
 				HttpServletRequest request, HttpSession session) throws Exception {
 			logger.debug("@@@@@@@@@Controller : 작업지시 목록 보기");
@@ -153,9 +153,9 @@ public class WorkOrderController {
 
 		
 		////// 작업지시 상세보기 //////
-		// http://localhost:8088/production/workOrder/workOrder?production_id=PR230615001
+		// http://localhost:8088/workOrder/info?production_id=PR230615001
 		// 작업지시 상세
-		@RequestMapping(value = "/workOrder",method = RequestMethod.GET)
+		@RequestMapping(value = "/info",method = RequestMethod.GET)
 		public void workOrderGET(Model model, HttpSession session,
 								 @RequestParam("production_id") String production_id) throws Exception{
 			logger.debug(" workOrderGET()호출! ");
@@ -167,7 +167,7 @@ public class WorkOrderController {
 		}
 		////// 작업지시 상세보기 //////
 		
-		// http://localhost:8088/production/workOrder/workOrderModify?production_id=PR230615001
+		// http://localhost:8088/workOrder/modify?production_id=PR230615001
 		// 작업지시 수정
 	
 		

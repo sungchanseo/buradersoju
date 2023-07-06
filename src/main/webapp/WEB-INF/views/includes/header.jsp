@@ -123,7 +123,7 @@
                   </a>
                   <div class="submenu">
                     <ul>
-                          <li class="nav-item"><a class="nav-link" href="/production/workOrder/workOrderList">작업 지시</a></li>
+                          <li class="nav-item"><a class="nav-link" href="/workOrder/list">작업 지시</a></li>
                           <li class="nav-item"><a class="nav-link" href="/production/productionList">생산</a></li>
                           <li class="nav-item"><a class="nav-link" href="/quality/list">품질 관리</a></li>
                           <li class="nav-item"><a class="nav-link" href="/quality/emptyBottle">공병 관리</a></li>

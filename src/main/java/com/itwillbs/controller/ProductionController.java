@@ -35,9 +35,9 @@ public class ProductionController {
 	private static final Logger logger = LoggerFactory.getLogger(ProductionController.class);
 	
 	
-	// http://localhost:8088/production/productionList
+	// http://localhost:8088/production/list
 	// 생산목록
-	@RequestMapping(value = "/productionList", method = RequestMethod.GET)
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
     public void productionListGET(Model model, PagingVO pvo, HttpSession session) throws Exception {
 		logger.debug(" productionListGET()호출! ");
 		
@@ -102,12 +102,12 @@ public class ProductionController {
 		// 혼합 등록 (1/3단계)
 		///////////////////////////////////////////////////////////////////
 	
-		// http://localhost:8088/production/productionInsertStage1
+		// http://localhost:8088/production/insertStage1
 		// 혼합 등록 (GET)
-		@RequestMapping(value = "productionInsertStage1",method = RequestMethod.GET)
+		@RequestMapping(value = "insertStage1",method = RequestMethod.GET)
 		public void insertStage1GET(Model model) throws Exception{
 			logger.debug(" insertStage1GET() 호출! ");
-			logger.debug(" /production/productionInsertStage1.jsp 페이지 이동 ");
+			logger.debug(" /production/insertStage1.jsp 페이지 이동 ");
 			
 			// 테이블의 정보를 가져와서 모델에 추가
 			List<ProductionVO> productionList = proService.getProductionList();
@@ -115,7 +115,7 @@ public class ProductionController {
 		}
 					
 		// 혼합 등록 (POST)
-		@RequestMapping(value = "productionInsertStage1",method = RequestMethod.POST)
+		@RequestMapping(value = "insertStage1",method = RequestMethod.POST)
 		public String insertStage1POST(ProductionVO vo,RedirectAttributes rttr) throws Exception{
 			logger.debug(" insertStage1POST() 호출! ");
 			// 한글처리(필터)
@@ -128,19 +128,19 @@ public class ProductionController {
 			rttr.addFlashAttribute("result", "OK");
 			
 			// 리스트 페이지로 이동		
-			return "redirect:/production/productionList";
+			return "redirect:/production/list";
 		}
 		
 		///////////////////////////////////////////////////////////////////
 		// 주입 등록 (2/3단계)
 		///////////////////////////////////////////////////////////////////
 		
-		// http://localhost:8088/production/productionInsertStage2
+		// http://localhost:8088/production/insertStage2
 		// 주입 등록 (GET)
-		@RequestMapping(value = "productionInsertStage2",method = RequestMethod.GET)
+		@RequestMapping(value = "insertStage2",method = RequestMethod.GET)
 		public void insertStage2GET(Model model) throws Exception{
 		logger.debug(" insertStage2GET() 호출! ");
-		logger.debug(" /production/productionInsertStage2.jsp 페이지 이동 ");
+		logger.debug(" /production/insertStage2.jsp 페이지 이동 ");
 		
 		// 테이블의 정보를 가져와서 모델에 추가
 		List<ProductionVO> productionList = proService.getProductionList();
@@ -148,7 +148,7 @@ public class ProductionController {
 		}
 		
 		// 주입 등록 (POST)
-		@RequestMapping(value = "productionInsertStage2",method = RequestMethod.POST)
+		@RequestMapping(value = "insertStage2",method = RequestMethod.POST)
 		public String insertStage2POST(ProductionVO vo,RedirectAttributes rttr) throws Exception{
 		logger.debug(" insertStage2POST() 호출! ");
 		// 한글처리(필터)
@@ -161,19 +161,19 @@ public class ProductionController {
 		rttr.addFlashAttribute("result", "OK");
 		
 		// 리스트 페이지로 이동		
-		return "redirect:/production/productionList";
+		return "redirect:/production/list";
 		}
 	
 		///////////////////////////////////////////////////////////////////
 		// 포장 등록 (3/3단계)
 		///////////////////////////////////////////////////////////////////
 		
-		// http://localhost:8088/production/productionInsertStage3
+		// http://localhost:8088/production/insertStage3
 		// 포장 등록 (GET)
-		@RequestMapping(value = "productionInsertStage3",method = RequestMethod.GET)
+		@RequestMapping(value = "insertStage3",method = RequestMethod.GET)
 		public void insertStage3GET(Model model) throws Exception{
 			logger.debug(" insertStage3GET() 호출! ");
-			logger.debug(" /production/productionInsertStage3.jsp 페이지 이동 ");
+			logger.debug(" /production/insertStage3.jsp 페이지 이동 ");
 			
 			// 테이블의 정보를 가져와서 모델에 추가
 			List<ProductionVO> productionList = proService.getProductionList();
@@ -181,7 +181,7 @@ public class ProductionController {
 		}
 		
 		// 포장 등록 (POST)
-		@RequestMapping(value = "productionInsertStage3",method = RequestMethod.POST)
+		@RequestMapping(value = "insertStage3",method = RequestMethod.POST)
 		public String insertStage3POST(ProductionVO vo,RedirectAttributes rttr) throws Exception{
 			logger.debug(" insertStage3POST() 호출! ");
 			// 한글처리(필터)
@@ -194,7 +194,7 @@ public class ProductionController {
 			rttr.addFlashAttribute("result", "OK");
 			
 			// 리스트 페이지로 이동		
-			return "redirect:/production/productionList";
+			return "redirect:/production/list";
 		}
 		
 		

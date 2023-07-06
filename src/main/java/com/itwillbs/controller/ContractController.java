@@ -1,11 +1,16 @@
 package com.itwillbs.controller;
 
+import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -282,7 +287,16 @@ public class ContractController {
 		// 변수에 담아서 전달
 		model.addAttribute("productionList", productionList);
 		model.addAttribute("pvo",pvo);
-		
+	}
+	
+	//엑셀다운로드 콘트롤러
+	@ResponseBody
+	@PostMapping(value="/downExcel", produces = "application/text; charset=utf8")
+	public void downloadExcelPOST(HttpServletResponse response, ContractVO cvo) throws IOException{
+		logger.debug("@@@@@@@@@@@Controller : 엑셀다운로드 콘트롤러 호출!!!!!");
+		logger.debug("@@@@@@@@@@@Controller : response={}", response);
+		logger.debug("@@@@@@@@@@@Controller : {}", cvo);
 
+		contService.downExcel(cvo, response);
 	}
 }

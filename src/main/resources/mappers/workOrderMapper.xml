@@ -59,6 +59,14 @@
 		values(#{production_id},#{cont_id},#{production_emp},now(),#{production_line},
 		#{product_id},#{plan_qty},'대기')
 	</insert>
+	<!-- 해당 수주번호에 작업지시번호 저장 -->
+	<update id="prIdContUpdate">
+		update contract
+		set production_id = #{production_id}
+		where cont_id = #{cont_id}
+	<!-- 해당 수주번호에 작업지시번호 저장 -->
+		
+	</update>
 	<!-- 자재 update -->
 	<update id="maQtyUpdate" >
 		 UPDATE material

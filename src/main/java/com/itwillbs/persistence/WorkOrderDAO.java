@@ -28,10 +28,18 @@ public interface WorkOrderDAO {
 	// 작업지시 등록 DB저장
 	public void insertWorkOrder(ProductionVO vo) throws Exception;
 	
+	// 작업지시 등록 - 해당 수주번호에 작업지시번호 저장
+	public void contSetPrId(ProductionVO vo) throws Exception;
+	
+	// 작업지시 등록 - 창고의 자재 수 업데이트
+	public void maQtyUpdate(List<String> ma_nameList, List<String> ma_qtyList) throws Exception;
+
 	// 작업지시 상세
 	public ProductionVO detailWorkOrder(String production_id) throws Exception;
-
-	public void maQtyUpdate(List<String> ma_nameList, List<String> ma_qtyList) throws Exception;
+	
+	//
+	
+	
 	
 	
 }

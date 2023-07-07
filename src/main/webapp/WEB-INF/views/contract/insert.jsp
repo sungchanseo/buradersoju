@@ -10,7 +10,10 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/base/vendor.bundle.base.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main/fullcalendar-5.11.4/lib/main.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert창 링크 -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
 </head>
 <body>
 	<h1>수주 등록</h1>
@@ -64,7 +67,12 @@
 		var productPop = window.open('/contract/productFind', '상품검색', 'width=700px,height=500px');
 		
 		if(productPop == null){
-			  alert("팝업이 차단되었습니다. 차단을 해제하세요.");
+			  Swal.fire({
+		            icon: 'warning',				// Alert 타입
+		            title: '팝업이 차단되었습니다.',	// Alert 제목
+		            text: '차단을 해제하세요.',		// Alert 내용
+		            confirmButtonText: '확인',		// Alert 버튼내용
+        		});
 		  }
 // 		productPop.moveBy(100,100);
 	}//productPop END
@@ -74,7 +82,12 @@
 		var empPop = window.open('/contract/empFind', '직원검색', 'width=700px,height=500px');
 		
 		if(empPop == null){
-			  alert("팝업이 차단되었습니다. 차단을 해제하세요.");
+			Swal.fire({
+	            icon: 'warning',				// Alert 타입
+	            title: '팝업이 차단되었습니다.',	// Alert 제목
+	            text: '차단을 해제하세요.',		// Alert 내용
+	            confirmButtonText: '확인',		// Alert 버튼내용
+    		});
 		  }
 // 		empPop.moveBy(100,100);
 	}//empPop END
@@ -89,42 +102,74 @@
 		 //빈칸이 있을때 submit 제어 
 		  $('#fr').submit(function() {
 				if($('#cust_name').val() == ""){
-					alert('수주처이름을 입력하세요.');
+					Swal.fire({
+			            icon: 'warning',				// Alert 타입
+			            title: '수주처이름을 입력하세요.',	// Alert 제목
+			            confirmButtonText: '확인',		// Alert 버튼내용
+	        		});
 					$('#cust_name').focus();
 					return false;
 				}//cust_name 제어 
 				if($('#product_name').val() == ""){
-					alert('상품명을 입력하세요.');
+					Swal.fire({
+			            icon: 'warning',				// Alert 타입
+			            title: '상품명을 입력하세요.',	// Alert 제목
+			            confirmButtonText: '확인',		// Alert 버튼내용
+	        		});
 					$('#product_name').focus();
 					return false;
 				}//product_name 제어 
 				if($('#cont_emp').val() == ""){
-					alert('담당직원을 입력하세요.');
+					Swal.fire({
+			            icon: 'warning',				// Alert 타입
+			            title: '담당직원을 입력하세요.',	// Alert 제목
+			            confirmButtonText: '확인',		// Alert 버튼내용
+	        		});
 					$('#cont_emp').focus();
 					return false;
 				}//cont_emp 제어 
 				if($('#cust_id').val() == ""){
-					alert('거래처코드를 입력하세요.');
+					Swal.fire({
+			            icon: 'warning',				// Alert 타입
+			            title: '거래처코드를 입력하세요.',	// Alert 제목
+			            confirmButtonText: '확인',		// Alert 버튼내용
+	        		});
 					$('#cust_id').focus();
 					return false;
 				}//cust_id 제어 
 				if($('#product_id').val() == ""){
-					alert('상품코드를 입력하세요.');
+					Swal.fire({
+			            icon: 'warning',				// Alert 타입
+			            title: '상품코드를 입력하세요.',	// Alert 제목
+			            confirmButtonText: '확인',		// Alert 버튼내용
+	        		});
 					$('#product_id').focus();
 					return false;
 				}//product_id 제어 
 				if($('#cont_date').val() == ""){
-					alert('수주일을 입력하세요.');
+					Swal.fire({
+			            icon: 'warning',				// Alert 타입
+			            title: '수주일을 입력하세요.',	// Alert 제목
+			            confirmButtonText: '확인',		// Alert 버튼내용
+	        		});
 					$('#cont_date').focus();
 					return false;
 				}//cont_date 제어 
 				if($('#cont_qty').val() == ""){
-					alert('수주량을 입력하세요.');
+					Swal.fire({
+			            icon: 'warning',				// Alert 타입
+			            title: '수주량을 입력하세요.',	// Alert 제목
+			            confirmButtonText: '확인',		// Alert 버튼내용
+	        		});
 					$('#cont_qty').focus();
 					return false;
 				}//cont_qty 제어 
 				if($('#due_date').val() == ""){
-					alert('납기일을 입력하세요.');
+					Swal.fire({
+			            icon: 'warning',				// Alert 타입
+			            title: '납기일을 입력하세요.',	// Alert 제목
+			            confirmButtonText: '확인',		// Alert 버튼내용
+	        		});
 					$('#due_date').focus();
 					return false;
 				}//due_date 제어 
@@ -156,15 +201,14 @@
 // 						contentType: "application/json"
 // 					},
 					success : function() {
-						alert("수주등록이 완료되었습니다.");
+						Swal.fire({
+				            icon: 'warning',				// Alert 타입
+				            title: '수주등록이 완료되었습니다.',	// Alert 제목
+				            confirmButtonText: '확인',		// Alert 버튼내용
+		        		});
 // 						window.opener.location.reload();
 // 						window.close();
-					}, //success END
-					error : function(){
-						alert("수주등록이 완료되었습니다.");
-// 						window.opener.location.reload();
-// 						window.close();
-					}
+					}// success END
 				});// ajax END
 		  });// fr.sumbit() END
 	}); // document.ready END

@@ -290,13 +290,12 @@ public class ContractController {
 	}
 	
 	//엑셀다운로드 콘트롤러
-	@ResponseBody
 	@PostMapping(value="/downExcel", produces = "application/text; charset=utf8")
-	public void downloadExcelPOST(HttpServletResponse response, ContractVO cvo) throws IOException{
+	public void downloadExcelPOST(HttpServletResponse response, @RequestParam("contractList") List<Object> contractList) throws IOException{
 		logger.debug("@@@@@@@@@@@Controller : 엑셀다운로드 콘트롤러 호출!!!!!");
 		logger.debug("@@@@@@@@@@@Controller : response={}", response);
-		logger.debug("@@@@@@@@@@@Controller : {}", cvo);
+		logger.debug("@@@@@@@@@@@Controller : 받아온 리스트객체 : {}", contractList);
 
-		contService.downExcel(cvo, response);
+		contService.downExcel(contractList, response);
 	}
 }

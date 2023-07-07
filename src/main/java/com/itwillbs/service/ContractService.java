@@ -1,6 +1,7 @@
 package com.itwillbs.service;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -35,6 +36,6 @@ public interface ContractService {
 	public ProductionVO getProductInfo(String product_id) throws Exception;
 	
 	//엑셀화일 다운로드
-	public void downExcel(ContractVO cvo, HttpServletResponse response) throws IOException;
+	public void downExcel(List<Object> contractList, HttpServletResponse response) throws IOException;
 }
 

@@ -2,6 +2,7 @@ package com.itwillbs.service;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -211,15 +212,17 @@ public class ContractServiceImpl implements ContractService {
 
 	//엑셀화일 다운로드
 	@Override
-	public void downExcel(ContractVO cvo, HttpServletResponse response) throws IOException {
+	public void downExcel(List<Object> contractList, HttpServletResponse response) throws IOException {
 		logger.debug("@@@@@@ContractService : 상품코드로 상품정보를 불러옵니다.");
+		logger.debug("@@@@@@ContractService : contractList : {}", contractList);
+		logger.debug("@@@@@@ContractService : contractList.size() : {}", contractList.size());
 
 		Workbook wb = new XSSFWorkbook();
         Sheet sheet = wb.createSheet("첫번째 시트");
         int rowNum = 0;
         Cell cell = null;
         Row row = null;
- 
+        
         // 엑셀의 머리 
         int cellNum = 0;
         row = sheet.createRow(rowNum++);
@@ -241,32 +244,46 @@ public class ContractServiceImpl implements ContractService {
         cell.setCellValue("작업지시번호");
         cell = row.createCell(cellNum++);
         cell.setCellValue("담당자");
- 
-        // 엑셀 몸통
-        for (int i = 1; i <= 3; i++) {
-            cellNum = 0;
-            row = sheet.createRow(rowNum++);
-            cell = row.createCell(cellNum++);
-            cell.setCellValue(i);
-            cell = row.createCell(cellNum++);
-            cell.setCellValue("학생" + i);
-            cell = row.createCell(cellNum++);
-            cell.setCellValue("학생" + i);
-            cell = row.createCell(cellNum++);
-            cell.setCellValue("학생" + i);
-            cell = row.createCell(cellNum++);
-            cell.setCellValue("학생" + i);
-            cell = row.createCell(cellNum++);
-            cell.setCellValue("학생" + i);
-            cell = row.createCell(cellNum++);
-            cell.setCellValue("학생" + i);
-            cell = row.createCell(cellNum++);
-            cell.setCellValue("학생" + i);
-            cell = row.createCell(cellNum++);
-            cell.setCellValue("학생" + i);
-            cell = row.createCell(cellNum++);
-            cell.setCellValue("학생" + i);
-        }
+        //엑셀 몸통
+		for(Object vo : contractList) {
+//			ContractVO cvo = (ContractVO) vo;
+//			logger.debug("@@@@@@ContractService : cvo.getCont_id() : {}", cvo.getCont_id()); 
+//			logger.debug("@@@@@@ContractService : vo : {}", vo); 
+//			logger.debug("@@@@@@ContractService : vo.hashCode() : {}", vo.); 
+
+			
+		}
+//        for (int i = 0; i < contractList.size() ; i++) {
+////    		logger.debug("반복문 시작합니다. ");
+////    		contractList.get(i);
+////    		Object contract = contractList.get(i);
+////    		logger.debug("contract[i] : {}", contract);
+//    		
+//            cellNum = 0;
+//            row = sheet.createRow(rowNum++);
+//            cell = row.createCell(cellNum++);
+//            cell.setCellValue(1);
+//            cell = row.createCell(cellNum++);
+//            cell.setCellValue("학생" + i);
+//            cell = row.createCell(cellNum++);
+//            cell.setCellValue("학생" + i);
+//            cell = row.createCell(cellNum++);
+//            cell.setCellValue("학생" + i);
+//            cell = row.createCell(cellNum++);
+//            cell.setCellValue("학생" + i);
+//            cell = row.createCell(cellNum++);
+//            cell.setCellValue("학생" + i);
+//            cell = row.createCell(cellNum++);
+//            cell.setCellValue("학생" + i);
+//            cell = row.createCell(cellNum++);
+//            cell.setCellValue("학생" + i);
+//            cell = row.createCell(cellNum++);
+//            cell.setCellValue("학생" + i);
+//            cell = row.createCell(cellNum++);
+//            cell.setCellValue("학생" + i);
+////    		logger.debug("@@@@@@ContractService : 한번 끝");
+//
+//        }
  
         // Download
         response.setContentType("ms-vnd/excel");

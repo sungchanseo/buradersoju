@@ -1,57 +1,113 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%@ include file="../../includes/header.jsp" %>
+<%@ include file="../../includes/header.jsp"%>
 
 <style type="text/css">
-html,body {width:100%;  }
-body,div,ul,li{margin:0; padding:0;}
-ul,li {list-style:none;}
-
-/*tab css*/
-.tab{float:left; width:500px; height:690px;}
-.tabnav{font-size:0; width:252px; border:1px solid #ddd;}
-.tabnav li{display: inline-block;  height:46px; text-align:center; border-right:1px solid #ddd;}
-.tabnav li a:before{content:""; position:absolute; left:0; top:0px; width:100%; height:3px; }
-.tabnav li a.active:before{background:#7ea21e;}  /*탭기능 버튼눌렀을때 눌렀따~~표시되는 css  */
-.tabnav li a.active{border-bottom:1px solid #fff;} /*탭기능 버튼눌렀을때 눌렀따~~표시되는 css  */
-.tabnav li a{ position:relative; display:block; background: #f8f8f8; color: #000; padding:0 30px; line-height:46px; text-decoration:none; font-size:16px;}
-/* 위에 코드 없으면 탭버튼들이 안보임 모르겠음 왜인지는 ㅎㄷㄷ  */
-.tabnav li a:hover, /*탭기능 버튼눌렀을때 눌렀따~~표시되는 css  */
-.tabnav li a.active{background:#fff; color:#7ea21e; } /*탭기능 버튼눌렀을때 눌렀따~~표시되는 css  */
-.tabcontent{padding: 20px; height:764px; width:1892px; border:1px solid #ddd; border-top:none;}
-</style>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-<script type="text/javascript">
-
-// 탭기능
-$(function(){
-	  $('.tabcontent > div').hide();
-	  $('.tabnav a').click(function () {
-	    $('.tabcontent > div').hide().filter(this.hash).fadeIn();
-	    $('.tabnav a').removeClass('active');
-	    $(this).addClass('active');
-	    return false;
-	  }).filter(':eq(0)').click();
-	  });
-	  
-	  
-function openPopup() {
-	window.open('./insert', 'warehousePopup', 'width=800, height=500, left=2000');
+html, body {
+	width: 100%;
 }
 
-//체크박스 선택된 개수 출력
-function getCheckedCnt()  {
-	  // 선택된 목록 가져오기
-	  var count = 'input[name="check"]:checked';
-	  var selectedElements = document.querySelectorAll(count);
-	  // 선택된 목록의 갯수 세기
-	  var cnt = selectedElements.length;
-	  
-	  return cnt;  
+body, div, ul, li {
+	margin: 0;
+	padding: 0;
+}
+
+ul, li {
+	list-style: none;
+}
+
+/*tab css*/
+.tab {
+	float: left;
+	width: 500px;
+	height: 690px;
+}
+
+.tabnav {
+	font-size: 0;
+	width: 252px;
+	border: 1px solid #ddd;
+}
+
+.tabnav li {
+	display: inline-block;
+	height: 46px;
+	text-align: center;
+	border-right: 1px solid #ddd;
+}
+
+.tabnav li a:before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0px;
+	width: 100%;
+	height: 3px;
+}
+
+.tabnav li a.active:before {
+	background: #7ea21e;
+} /*탭기능 버튼눌렀을때 눌렀따~~표시되는 css  */
+.tabnav li a.active {
+	border-bottom: 1px solid #fff;
+} /*탭기능 버튼눌렀을때 눌렀따~~표시되는 css  */
+.tabnav li a {
+	position: relative;
+	display: block;
+	background: #f8f8f8;
+	color: #000;
+	padding: 0 30px;
+	line-height: 46px;
+	text-decoration: none;
+	font-size: 16px;
+}
+/* 위에 코드 없으면 탭버튼들이 안보임 모르겠음 왜인지는 ㅎㄷㄷ  */
+.tabnav li a:hover, /*탭기능 버튼눌렀을때 눌렀따~~표시되는 css  */ .tabnav li a.active {
+	background: #fff;
+	color: #7ea21e;
+} /*탭기능 버튼눌렀을때 눌렀따~~표시되는 css  */
+.tabcontent {
+	padding: 20px;
+	height: 764px;
+	width: 1892px;
+	border: 1px solid #ddd;
+	border-top: none;
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert 링크 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script type="text/javascript">
+	// 탭기능
+	$(function() {
+		$('.tabcontent > div').hide();
+		$('.tabnav a').click(function() {
+			$('.tabcontent > div').hide().filter(this.hash).fadeIn();
+			$('.tabnav a').removeClass('active');
+			$(this).addClass('active');
+			return false;
+		}).filter(':eq(0)').click();
+	});
+
+	function openPopup() {
+		window.open('./insert', 'warehousePopup',
+				'width=800, height=500, left=2000');
 	}
+
+	//체크박스 선택된 개수 출력
+	function getCheckedCnt() {
+		// 선택된 목록 가져오기
+		var count = 'input[name="check"]:checked';
+		var selectedElements = document.querySelectorAll(count);
+		// 선택된 목록의 갯수 세기
+		var cnt = selectedElements.length;
+
+		return cnt;
+	}
+
 //2-1. '수정' 클릭
 $(document).ready(function() {
 $('.modify').click(function(){ 
@@ -66,11 +122,34 @@ $('.modify').click(function(){
 		
 		// 체크박스 항목 개수 제어
 		if(checkbox.length > 1){
-			alert("하나의 항목만 수정이 가능합니다.");
-			location.reload();
+// 			alert("하나의 항목만 수정이 가능합니다.");
+// 			location.reload();
+// 			return false;
+			Swal.fire({
+				icon: 'warning',
+				text: '하나의 항목만 수정이 가능합니다.',
+				confirmButtonColor: '#0ddbb9',
+				confirmButtonText: '확인',
+			}).then((result) => {
+				if(result.isConfirmed){
+					location.reload();
+				}
+			}); // then(result)
+			
 			return false;
+			
 		}else if($('input:checkbox[name="check"]:checked').length == 0){
-			alert("수정할 항목을 선택해주세요.");
+// 			alert("수정할 항목을 선택해주세요.");
+			Swal.fire({
+				icon: 'warning',									
+				text: '수정할 항목을 선택해 주세요.',
+				confirmButtonColor: '#0ddbb9',
+				confirmButtonText: '확인',
+			}).then((result) => {
+				if(result.isConfirmed){
+					location.reload();
+				}
+			}); // then(result)
 		}
 			
 		// 체크된 체크박스 값 가져오기
@@ -132,7 +211,16 @@ $('.modify').click(function(){
 	
 								
 					if(whs_id==="" || whs_type==="" ) {
-						alert("모든 order_qty 입력해주세요.");
+						Swal.fire({
+							icon: 'warning',
+							text: '모든 내용을 입력해주세요.',
+							confirmButtonColor: '#0ddbb9',
+							confirmButtonText: '확인',
+						}).then((result) => {
+							if(result.isConfirmed){
+								return false;
+							}
+						}); // then(result)
 					} else {
 						$.ajax({
 							url: "modify",
@@ -147,16 +235,32 @@ $('.modify').click(function(){
 								whs_emp:whs_emp
 						   }),
 							success: function() {
-//		 						alert("자재코드 " + ma_id + ", 수정이 완료되었습니다.");
-//		 						location.href="/purchasing/material/list";
-								alert("발주코드 " + whs_id + ", 수정이 완료되었습니다. @success@" );
-								location.href="/purchasing/warehouse/list";
-								},
+								Swal.fire({
+									icon: 'success',
+									title: '창고번호 ' + whs_id,
+									text: '수정이 완료되었습니다.',
+									confirmButtonColor: '#0ddbb9',
+									confirmButtonText: '확인',
+								}).then((result) => {
+									if(result.isConfirmed){
+										location.href="/purchasing/warehouse/list";
+									}
+								}); // then(result)
+							},
 							error: function() {
-								alert("발주코드 " + whs_id + ", 수정이 완료되었습니다. @er@ ");
-								location.href="/purchasing/warehouse/list";
-					    }
-			   }); //ajax		
+								Swal.fire({
+									icon: 'success',
+									title: '창고번호 ' + whs_id,
+									text: '수정이 완료되었습니다.',
+									confirmButtonColor: '#0ddbb9',
+									confirmButtonText: '확인',
+								}).then((result) => {
+									if(result.isConfirmed){
+										location.href="/purchasing/warehouse/list";
+									}
+								}); // then(result)
+					    	}
+			   	}); //ajax		
 			
 			} // if-else
 				
@@ -197,14 +301,41 @@ $('.modify').click(function(){
 			type: "post",
 			data: { whs_id:whs_id },
 			success: function() {
-				var result = confirm("품목코드 " + whs_id + "를 정말 삭제하시겠습니까?");
-				if(result){
-					alert("삭제가 완료되었습니다.");
-					location.href="/purchasing/warehouse/list";
-				}
+				Swal.fire({
+					text: '창고번호 ' + whs_id + '를 정말 삭제하시겠습니까?',
+					icon: 'warning',
+					showCancelButton: true,
+					confirmButtonColor: '#0ddbb9',
+					cancelButtonColor: '#d33',
+					confirmButtonText: '확인',
+					cancelButtonText: '취소'
+				}).then((result) => {
+					if (result.isConfirmed) {
+						Swal.fire({
+							icon: 'success',
+							title: '완료',
+							text: '창고번호 ' + whs_id + ', 삭제가 완료되었습니다.',
+							confirmButtonColor: '#0ddbb9',
+							confirmButtonText: '확인',
+						}).then((result) => {
+							if(result.isConfirmed){
+								location.href="/purchasing/warehouse/list";
+							}
+						}); // then(result) 삭제하시겠습니까?
+					}
+				}); // then(result) 삭제가 완료되었습니다
 			},
 			error: function() {
-				alert("삭제할 항목을 선택해주세요.");
+				Swal.fire({
+					icon: 'warning',
+					text: '삭제할 항목을 선택해주세요.',
+					confirmButtonColor: '#0ddbb9',
+					confirmButtonText: '확인',
+				}).then((result) => {
+					if(result.isConfirmed){
+						return false;
+					}
+				}); // then(result)
 			}
 	    }); //ajax		
 	
@@ -212,118 +343,138 @@ $('.modify').click(function(){
   
 }); // jquery
 
-
-
 </script>
 </head>
 <body>
-<br>
+	<br>
 
-	<h1 class="card-title">
-		<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">창고 리스트</font></font>
-	</h1>
-	
-	<div>
-	<ul class="nav nav-tabs tab-no-active-fill" role="tablist">
-	<li class="nav-item">
-	<a class="nav-link ps-2 pe-2 active" id="stage1-tab" data-bs-toggle="tab" href="#stage1" role="tab" aria-controls="stage1" aria-selected="true">자재창고</a>
-	</li>
-	<li class="nav-item">
-	<a class="nav-link ps-2 pe-2" id="stage2-tab" data-bs-toggle="tab" href="#stage2" role="tab" aria-controls="stage2" aria-selected="false">상품창고</a>
-    </li>
-	</ul>								
-	<div class="tab-content tab-no-active-fill-tab-content">
-	
-	<div class="tab-pane fade active show" id="stage1" role="tabpanel" aria-labelledby="stage1-tab">
-	
-	<c:if test="${emp_department.equals('구매팀') || emp_department.equals('Master')}">
-		<div style=float:right;>
-			<button class="btn btn-success add-button" type="button" onclick="openPopup();">창고등록</button>
-			<button class="btn btn-success modify true">창고수정</button>
-			<button class="btn btn-success" id="delete">창고삭제</button>
-			<button class="btn btn-info insert update">저장</button>
+
+<!-- 리스트 형식 -->
+<div class="container-scroller">
+		<div class="container-fluid page-body-wrapper full-page-wrapper">
+			<div class="main-panel">
+				<div class="content-wrapper d-flex align-items-center auth px-0"
+					style="min-height: 100vh;">
+					<div class="row w-100 mx-0">
+						<div class="col-lg-12 mx-auto">
+							<div class="auth-form-light text-left py-5 px-4 px-sm-5"
+								style="height: 1000px;">
+
+
+								<h1 class="card-title">
+									<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">창고 리스트</font></font>
+								</h1>
+								
+								<div>
+								<ul class="nav nav-tabs tab-no-active-fill" role="tablist">
+								<li class="nav-item">
+								<a class="nav-link ps-2 pe-2 active" id="stage1-tab" data-bs-toggle="tab" href="#stage1" role="tab" aria-controls="stage1" aria-selected="true">자재창고</a>
+								</li>
+								<li class="nav-item">
+								<a class="nav-link ps-2 pe-2" id="stage2-tab" data-bs-toggle="tab" href="#stage2" role="tab" aria-controls="stage2" aria-selected="false">상품창고</a>
+							    </li>
+								</ul>								
+								<div class="tab-content tab-no-active-fill-tab-content">
+								
+								<div class="tab-pane fade active show" id="stage1" role="tabpanel" aria-labelledby="stage1-tab">
+								
+								<c:if test="${emp_department.equals('구매팀') || emp_department.equals('Master')}">
+									<div style=float:right;>
+										<button class="btn btn-success add-button" type="button" onclick="openPopup();">창고등록</button>
+										<button class="btn btn-success modify true">창고수정</button>
+										<button class="btn btn-success" id="delete">창고삭제</button>
+										<button class="btn btn-info insert update">저장</button>
+									</div>
+								</c:if> 
+								
+								<!-- 테이블 -->
+								<table border="1" class="table table-hover table-bordered text-center">
+									<tr>
+										<th></th>
+										<th>창고번호</th>
+										<th>창고타입</th>
+										<th>전화번호</th>
+										<th>사용여부</th>
+										<th>창고관리자</th>
+									</tr>
+									
+									<c:forEach var="wh" items="${warehouseList}">
+										<tr>
+										<c:choose>
+										   <c:when test="${wh.whs_type.equals('자재')}">
+										   <td><input type="checkbox" name="check"></td>
+									       <td>${wh.whs_id}</td>
+									       <td>${wh.whs_type}</td>
+									       <td>${wh.whs_tel}</td>
+									       <td>
+									       	 <c:choose>
+									       		<c:when test="${wh.whs_status == 1}">사용중</c:when>
+									       		<c:when test="${wh.whs_status == 2}">미사용</c:when>
+									       	 </c:choose>
+									       </td>
+									       <td>${wh.whs_emp}</td>
+									       </c:when>
+									       </c:choose>
+										</tr>
+									</c:forEach>
+								</table>
+							</div>
+							<!-- 2번째 탭 내용들  -->
+							<div class="tab-pane fade show" id="stage2" role="tabpanel" aria-labelledby="stage2-tab">
+								
+								<!-- 구매팀일때만 버튼 활성화 -->
+								<c:if test="${emp_department.equals('구매팀')}">
+									<div style=float:right;>
+										<button class="btn btn-success add-button" type="button" onclick="openPopup();">창고등록</button>
+										<button class="btn btn-success modify true">창고수정</button>
+										<button class="btn btn-success" id="delete">창고삭제</button>
+										<button class="btn btn-info insert update">저장</button>
+									</div>
+								</c:if> 
+								
+								
+								<!-- 테이블 -->
+								<table border="1" class="table table-hover table-bordered text-center">
+									<tr>
+										<th></th>
+										<th>창고번호</th>
+										<th>창고타입</th>
+										<th>전화번호</th>
+										<th>사용여부</th>
+										<th>창고관리자</th>
+									</tr>
+									
+									<c:forEach var="wh" items="${warehouseList}">
+										<tr>
+										<c:choose>
+										   <c:when test="${wh.whs_type.equals('상품')}">
+										   <td><input type="checkbox" name="check"></td>
+									       <td>${wh.whs_id}</td>
+									       <td>${wh.whs_type}</td>
+									       <td>${wh.whs_tel}</td>
+									       <td>
+									       	 <c:choose>
+									       		<c:when test="${wh.whs_status == 1}">사용중</c:when>
+									       		<c:when test="${wh.whs_status == 2}">미사용</c:when>
+									       	 </c:choose>
+									       </td>
+									       <td>${wh.whs_emp}</td>
+									       </c:when>
+									       </c:choose>
+										</tr>
+									</c:forEach>
+								</table>
+							   </div>
+							 </div>
+							</div>
+
+
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-	</c:if> 
-	
-	<!-- 테이블 -->
-	<table border="1" class="table table-hover table-bordered text-center">
-		<tr>
-			<th></th>
-			<th>창고번호</th>
-			<th>창고타입</th>
-			<th>전화번호</th>
-			<th>사용여부</th>
-			<th>창고관리자</th>
-		</tr>
-		
-		<c:forEach var="wh" items="${warehouseList}">
-			<tr>
-			<c:choose>
-			   <c:when test="${wh.whs_type.equals('자재')}">
-			   <td><input type="checkbox" name="check"></td>
-		       <td>${wh.whs_id}</td>
-		       <td>${wh.whs_type}</td>
-		       <td>${wh.whs_tel}</td>
-		       <td>
-		       	 <c:choose>
-		       		<c:when test="${wh.whs_status == 1}">사용중</c:when>
-		       		<c:when test="${wh.whs_status == 2}">미사용</c:when>
-		       	 </c:choose>
-		       </td>
-		       <td>${wh.whs_emp}</td>
-		       </c:when>
-		       </c:choose>
-			</tr>
-		</c:forEach>
-	</table>
-</div>
-<!-- 2번째 탭 내용들  -->
-<div class="tab-pane fade show" id="stage2" role="tabpanel" aria-labelledby="stage2-tab">
-	
-	<!-- 구매팀일때만 버튼 활성화 -->
-	<c:if test="${emp_department.equals('구매팀')}">
-		<div style=float:right;>
-			<button class="btn btn-success add-button" type="button" onclick="openPopup();">창고등록</button>
-			<button class="btn btn-success modify true">창고수정</button>
-			<button class="btn btn-success" id="delete">창고삭제</button>
-			<button class="btn btn-info insert update">저장</button>
-		</div>
-	</c:if> 
-	
-	
-	<!-- 테이블 -->
-	<table border="1" class="table table-hover table-bordered text-center">
-		<tr>
-			<th></th>
-			<th>창고번호</th>
-			<th>창고타입</th>
-			<th>전화번호</th>
-			<th>사용여부</th>
-			<th>창고관리자</th>
-		</tr>
-		
-		<c:forEach var="wh" items="${warehouseList}">
-			<tr>
-			<c:choose>
-			   <c:when test="${wh.whs_type.equals('상품')}">
-			   <td><input type="checkbox" name="check"></td>
-		       <td>${wh.whs_id}</td>
-		       <td>${wh.whs_type}</td>
-		       <td>${wh.whs_tel}</td>
-		       <td>
-		       	 <c:choose>
-		       		<c:when test="${wh.whs_status == 1}">사용중</c:when>
-		       		<c:when test="${wh.whs_status == 2}">미사용</c:when>
-		       	 </c:choose>
-		       </td>
-		       <td>${wh.whs_emp}</td>
-		       </c:when>
-		       </c:choose>
-			</tr>
-		</c:forEach>
-	</table>
-   </div>
- </div>
+	</div>
 </div>
 
 <%@ include file="../../includes/footer.jsp" %>

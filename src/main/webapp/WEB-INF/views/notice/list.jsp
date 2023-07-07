@@ -6,10 +6,10 @@
 	<div class="container-fluid page-body-wrapper full-page-wrapper">
 		<div class="main-panel">
 			<div class="content-wrapper d-flex align-items-center auth px-0" style="min-height: 100vh;">
-				<div class="row w-100 mx-0">
-					<div class="col-lg-12 mx-auto">
+				<div class="row w-100 mx-0" style="height: 100%;">
+					<div class="col-lg-12 mx-auto" style="height: 100%;">
 						<div class="auth-form-light text-left py-5 px-4 px-sm-5"
-							style="height: 1000px;">
+							style="height: 100%;">
 							<h2>공지 사항</h2>
 							<hr>
 							<br>
@@ -73,7 +73,7 @@
 									</ul>
 									<!-- 공지 작성 버튼 -->
 									<div>
-										<c:if test="${sessionScope.emp_id == 111}">
+										<c:if test="${sessionScope.emp_department == '인사팀'|| sessionScope.emp_department == '전산팀'}">
 											<button class="btn btn-success btn-fw"
 												onclick="location.href='/notice/insert'">공지 작성</button>
 										</c:if>

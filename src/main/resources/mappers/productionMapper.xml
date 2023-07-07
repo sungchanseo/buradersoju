@@ -8,23 +8,25 @@
 
 <!-- 생산 목록 -->
 	<select id="getProductionList" resultType="com.itwillbs.domain.ProductionVO">
-		SELECT pd.production_id, pd.production_line, pd.product_id, p.product_name, pd.plan_qty, e.emp_name, pc.* 
+		SELECT pd.production_id, pd.production_line, pd.product_id, p.product_name, pd.plan_qty, pd.production_qty, e.emp_name, pc.* 
 		FROM production pd
 		JOIN product p ON pd.product_id = p.product_id
 		JOIN employee e ON pd.production_emp = e.emp_id
 		LEFT JOIN pr_complete pc ON pd.production_id = pc.production_id
+		order by stage3_date desc, stage2_date desc, stage1_date desc
 	</select>
 <!-- 생산 목록 -->
 
 <!-- 생산 등록 -->
 	<!-- 작업지시번호 조회 -->
 	  <select id="insertSearch" resultType="com.itwillbs.domain.ProductionVO">
-		SELECT pd.production_id, pd.production_emp, pd.production_date, pd.production_line, pd.product_id, p.product_name, pd.plan_qty, e.emp_name, pc.production_status
+		SELECT pd.production_id, pd.production_date, pd.production_line, pd.product_id, 
+		p.product_name, pd.plan_qty, e.emp_name, pc.production_status
 		FROM production pd
 		JOIN product p ON pd.product_id = p.product_id
 		JOIN employee e ON pd.production_emp = e.emp_id
 		LEFT JOIN pr_complete pc ON pd.production_id = pc.production_id
-		WHERE pd.production_id = #{production_id}
+		WHERE pd.production_id = #{production_id} AND pd.workOrder_status != '완료'
 	  </select>
 	<!-- 작업지시번호 조회 -->
 	
@@ -35,6 +37,12 @@
 		VALUES
 	    (#{production_id}, #{production_status}, #{stage1_defCode}, ${stage1_defQty}, now())
 	  </insert>
+	  
+	  <update id="updateWostatus">
+	  UPDATE production
+	  SET workOrder_status = '진행중'
+	  WHERE production_id = #{production_id};
+	  </update>
 	<!-- [혼합] DB 등록 -->
 	
 	<!-- [주입] DB 등록 -->
@@ -60,6 +68,140 @@
 	  </update>
 	<!-- [포장] DB 등록 -->
 <!-- 생산 등록 -->
+
+
+
+
+<!-- **************************** 페이징 처리 *************************** -->
+
+<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 갯수 조회 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+<!--  	전체 리스트 개수 조회  -->
+	<select id="getListAll" resultType="_int">
+		SELECT count(*)
+		FROM production pd
+		JOIN product p ON pd.product_id = p.product_id
+		JOIN employee e ON pd.production_emp = e.emp_id
+		LEFT JOIN pr_complete pc ON pd.production_id = pc.production_id
+	</select>
+<!-- 	전체 리스트 갯수 조회  -->
+
+
+<!-- 아무조건이 없을 때 목록 개수  -->
+	<select id="getListPageSizeAll" resultType="_int">
+		SELECT count(*)
+		FROM production pd
+		JOIN product p ON pd.product_id = p.product_id
+		JOIN employee e ON pd.production_emp = e.emp_id
+		LEFT JOIN pr_complete pc ON pd.production_id = pc.production_id
+		limit 0, 10
+	</select>
+<!-- 아무조건이 없을 때 목록 개수 -->
+
+
+<!-- 검색어 + 페이지갯수 제한 전체 목록 개수 -->
+	<select id="getListSearchAll" resultType="_int">
+		SELECT count(*)
+		FROM production pd
+		JOIN product p ON pd.product_id = p.product_id
+		JOIN employee e ON pd.production_emp = e.emp_id
+		LEFT JOIN pr_complete pc ON pd.production_id = pc.production_id
+		<where>	
+			<if test="selector == 'production_id'">
+				AND pd.production_id LIKE CONCAT('%', #{search}, '%')
+			</if>
+			<if test="selector == 'production_line'">
+				AND pd.production_line LIKE CONCAT('%', #{search}, '%')
+			</if>
+			<if test="selector == 'production_emp'">
+				AND pd.production_emp LIKE CONCAT('%', #{search}, '%') 
+			</if>
+		</where>
+<!-- 		AND pd.del_woStatus = 0 -->
+		LIMIT 0, 10
+	</select>
+<!-- 검색어 + 페이지갯수 제한 전체 목록 개수 -->
+
+
+<!-- 필터처리 + 페이지갯수 제한 전체 목록 -->
+	<select id="getListFilterAll" resultType="_int">
+		SELECT COUNT(*) FROM ${table}
+		WHERE ${column_name} = #{column_value} AND ${status_name}=#{status_value} 
+		LIMIT #{startRow}, #{pageSize}
+	</select>
+<!-- 필터처리 + 페이지갯수 제한 전체 목록 -->
+
+
+<!-- 검색어+필터처리+페이지갯수 제한 전체 목록 -->
+	<select id="getListSearchAndFilterAll" resultType="_int">
+		SELECT COUNT(*) FROM ${table}
+		WHERE ${column_name} = #{column_value} AND ${status_name}=#{status_value}  
+		AND ${selector} LIKE CONCAT('%', #{search}, '%') LIMIT #{startRow}, #{pageSize}
+	</select>
+<!-- 검색어+필터처리+페이지갯수 제한 전체 목록 -->
+
+
+
+<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 목록 가져오기 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+<!-- ProductionVO 페이징처리 시작 -->
+<!-- 아무조건이 없을 때 목록 배열 -->
+	<select id="getListPageSizeObjectProductionVO" resultType="ProductionVO">
+		SELECT pd.production_id, pd.production_line, pd.product_id, p.product_name, pd.plan_qty, pd.production_qty, e.emp_name, pc.* 
+		FROM production pd
+		JOIN product p ON pd.product_id = p.product_id
+		JOIN employee e ON pd.production_emp = e.emp_id
+		LEFT JOIN pr_complete pc ON pd.production_id = pc.production_id
+		order by stage3_date desc, stage2_date desc, stage1_date desc
+		LIMIT #{startRow}, #{pageSize}
+	</select>
+<!-- 아무조건이 없을 때 목록 배열 -->
+		
+		
+<!-- 검색어 + 페이지갯수 제한 전체 목록 배열 -->
+	<select id="getListSearchObjectProductionVO" resultType="ProductionVO">
+		SELECT pd.production_id, pd.production_line, pd.product_id, p.product_name, pd.plan_qty, pd.production_qty, e.emp_name, pc.*
+		FROM production pd
+		JOIN product p ON pd.product_id = p.product_id
+		JOIN employee e ON pd.production_emp = e.emp_id
+		LEFT JOIN pr_complete pc ON pd.production_id = pc.production_id
+		<where>	
+			<if test="selector == 'production_id'">
+				AND pd.production_id LIKE CONCAT('%', #{search}, '%')
+			</if>
+			<if test="selector == 'production_line'">
+				AND pd.production_line LIKE CONCAT('%', #{search}, '%')
+			</if>
+			<if test="selector == 'production_emp'">
+				AND pd.production_emp LIKE CONCAT('%', #{search}, '%') 
+			</if>
+		</where>
+<!-- 		AND pd.del_woStatus = 0 -->
+		order by stage3_date desc, stage2_date desc, stage1_date desc
+		LIMIT #{startRow}, #{pageSize}
+	</select>
+<!-- 검색어 + 페이지갯수 제한 전체 목록 배열 -->
+	
+	
+<!-- 필터처리 + 페이지갯수 제한 전체 목록 -->
+	<select id="getListFilterObjectProductionVO" resultType="ProductionVO">
+		SELECT * FROM ${table} 
+		WHERE ${column_name} = #{column_value} AND ${status_name} = #{status_value} 
+		ORDER BY ${id} DESC LIMIT #{startRow}, #{pageSize}
+	</select>
+<!-- 필터처리 + 페이지갯수 제한 전체 목록 -->
+
+
+<!-- 검색어 + 필터처리 + 페이지갯수 제한 전체 목록 -->
+	<select id="getListSearchFilterObjectProductionVO" resultType="ProductionVO">
+		SELECT * FROM ${table}
+		WHERE ${column_name} = #{column_value} AND ${status_name}=#{status_value}
+		AND ${selector} LIKE CONCAT('%', #{search}, '%') 
+		ORDER BY ${id} DESC LIMIT #{startRow}, #{pageSize}
+	</select>
+<!-- 검색어 + 필터처리 + 페이지갯수 제한 전체 목록 -->
+
+
+<!-- **************************** 페이징 처리 **************************** -->
+
 
 
 

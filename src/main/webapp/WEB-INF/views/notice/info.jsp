@@ -38,18 +38,25 @@
 										<tr>
 											<td>내용</td>
 											<td>
+												<div>${vo.notice_content}</div>
+											</td>
+										</tr>
+										<tr>
+											<td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">첨부파일</td>
+											<td>
 												<div>
-													${vo.notice_content}</div>
+												<a href="/notice/fileDown?fileName=${vo.notice_file.split('/')[1] }">${vo.notice_file.split('/')[1] }</a>
+												<a href="/notice/fileDown?fileName=${vo.notice_file.split('/')[2] }">${vo.notice_file.split('/')[2] }</a>
+												<a href="/notice/fileDown?fileName=${vo.notice_file.split('/')[3] }">${vo.notice_file.split('/')[3] }</a>	
+												</div>
 											</td>
 										</tr>
 									</tbody>
 								</table>
 								<br>
 								<div>
-									첨부파일 : 
-									<a href="/notice/fileDown?fileName=${vo.notice_file.split('/')[1] }">${vo.notice_file.split('/')[1] }</a>
-									<a href="/notice/fileDown?fileName=${vo.notice_file.split('/')[2] }">${vo.notice_file.split('/')[2] }</a>
-									<a href="/notice/fileDown?fileName=${vo.notice_file.split('/')[3] }">${vo.notice_file.split('/')[3] }</a>
+									
+									
 								</div>
 							</div>
 							<br>

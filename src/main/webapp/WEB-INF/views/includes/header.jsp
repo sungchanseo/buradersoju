@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html lang="en">
-	<title>Alcoholic</title>
+	<title>BURADER</title>
     <!-- plugin css, js, etc...-->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/base/vendor.bundle.base.css">
@@ -28,20 +28,12 @@
           <div class="navbar-menu-wrapper d-flex align-items-center justify-content-between">
             <ul class="navbar-nav navbar-nav-left">
               <li class="nav-item nav-search d-none d-lg-block ms-3">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text" id="search">
-                        
-                      </span>
-                    </div>
-                    <input type="text" class="form-control" aria-label="search" aria-describedby="search">
-                </div>
+                    <div style="width: 200px;"></div>
               </li>	
             </ul>
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
                 <a class="navbar-brand brand-logo" href="/main"><img src="${pageContext.request.contextPath}/resources/images/logo.png" alt="logo" style="width: 400px; height: auto;"/></a>
                 <a class="navbar-brand brand-logo-mini" href="/main">
-    			<img src="${pageContext.request.contextPath}/resources/images/logo-mini.png" alt="logo"/>
 				</a>
             </div>
             <ul class="navbar-nav navbar-nav-right">
@@ -101,22 +93,20 @@
                   </div>
               </li>
               <li class="nav-item">
-                  <a href="" class="nav-link">
+                  <a href="/purchasing/order/list" class="nav-link">
                     <i class="mdi mdi-chart-areaspline menu-icon" style="font-size: 30px;"></i>
                     <span class="menu-title">구매 관리</span>
                     <i class="menu-arrow"></i>
                   </a>
                   <div class="submenu">
                       <ul>
-                         <li class="nav-item"><a class="nav-link"  href="/purchasing/material/list">자재 관리</a></li>
-                         <li class="nav-item"><a class="nav-link" href="/purchasing/inventory/list">재고 관리</a></li>
                          <li class="nav-item"><a class="nav-link" href="/purchasing/order/list">발주 관리</a></li>
                          <li class="nav-item"><a class="nav-link" href="/purchasing/inMaterial/list">입고 관리</a></li>
                          <li class="nav-item"><a class="nav-link" href="/purchasing/outProduct/list">출고 관리</a></li>
                       </ul>
                   </div>
               </li>
-              <li class="nav-item production">
+              <li class="nav-item">
                   <a href="" class="nav-link">
                     <i class="mdi mdi-package-variant-closed menu-icon" style="font-size: 30px;"></i>
                     <span class="menu-title">생산 관리</span>
@@ -124,19 +114,26 @@
                   </a>
                   <div class="submenu">
                     <ul>
-                          <li class="nav-item"><a class="nav-link" href="/production/workOrder/workOrderList">작업 지시</a></li>
-                          <li class="nav-item"><a class="nav-link" href="/production/productionList">생산</a></li>
+                          <li class="nav-item"><a class="nav-link" href="/workOrder/list">작업 지시</a></li>
+                          <li class="nav-item"><a class="nav-link" href="/production/list">생산</a></li>
                           <li class="nav-item"><a class="nav-link" href="/quality/list">품질 관리</a></li>
                           <li class="nav-item"><a class="nav-link" href="/quality/emptyBottle">공병 관리</a></li>
                       </ul>
                   </div>
               </li>
               <li class="nav-item warehouse">
-                  <a href="/purchasing/warehouse/list" class="nav-link">
+                  <a href="/purchasing/material/list" class="nav-link">
                     <i class="mdi mdi-grid menu-icon" style="font-size: 30px;"></i>
                     <span class="menu-title">창고 관리</span>
                     <i class="menu-arrow"></i>
                   </a>
+                  <div class="submenu">
+                    <ul>
+						<li class="nav-item"><a class="nav-link"  href="/purchasing/material/list">자재 관리</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/purchasing/inventory/list">재고 관리</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/purchasing/warehouse/list">창고 관리</a></li>
+                    </ul>
+                  </div>
               </li>
             </ul>
         </div>

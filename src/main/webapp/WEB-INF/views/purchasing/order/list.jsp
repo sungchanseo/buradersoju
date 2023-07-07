@@ -555,8 +555,8 @@ table input[type :checkbox] {
 								style="height: 1000px;">
 								<h1 class="card-title">
 									<font style="vertical-align: inherit;"><a
-										href="http://localhost:8088/purchasing/order/list"
-										style="text-decoration: none;">발주 리스트</a></font>
+										href="/purchasing/order/list"
+										style="text-decoration: none; color: #000;">발주 리스트</a></font>
 								</h1>
 <!-- 								<div> -->
 <!-- 									탭 메뉴 -->

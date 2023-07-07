@@ -71,12 +71,10 @@ public class OrderController {
 					
 					//검색어가 있을 때 
 					logger.debug("@@@@@@@@@@ 검색어가 있을 때");
-//					OrderLists = orserivce.getListSearchObjectInMaterialVO(pvo);
 					OrderLists = orserivce.getListSearchObjectOrderVO(pvo);
 					}else {
 					//검색어가 없을 때
 					logger.debug("@@@@@@@@@@ 검색어가 없을 때");
-//					OrderLists = orserivce.getListPageSizeObjectInMaterialVO(pvo);
 					OrderLists = orserivce.getListPageSizeObjectOrderVO(pvo);
 				}
 
@@ -109,23 +107,6 @@ public class OrderController {
 		logger.debug("######################## order_id 1번째 = " + order_id + "#### order_id 2번째 : " +vo.getOrder_id());
 		return "redirect:/purchasing/order/list";
 	}
-
-//// http://localhost:8088/purchasing/order/list
-//	@RequestMapping(value = "/lists", method = RequestMethod.GET)
-//	@ResponseBody
-//	public List<OrderVO> modifyOrderGET2(Model model, String ma_id) throws Exception {
-//
-//		logger.debug("ma_id" + ma_id);
-//
-//		// 테이블의 정보를 가져와서 모델에 추가
-//		List<OrderVO> orderLists = orserivce.getMaterialList(ma_id);
-//
-//		model.addAttribute("orderLists", orderLists);
-//		logger.debug("orderLISTssssssssss가져와지나???");
-//
-//		return orderLists;
-//	}
-
 	// 발주 수정 (조회)
 	// http://localhost:8088/purchasing/order/list
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)

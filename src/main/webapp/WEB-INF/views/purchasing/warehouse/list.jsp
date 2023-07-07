@@ -23,6 +23,7 @@ ul,li {list-style:none;}
 .tabcontent{padding: 20px; height:764px; width:1892px; border:1px solid #ddd; border-top:none;}
 </style>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert 링크 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script type="text/javascript">
 
@@ -66,11 +67,34 @@ $('.modify').click(function(){
 		
 		// 체크박스 항목 개수 제어
 		if(checkbox.length > 1){
-			alert("하나의 항목만 수정이 가능합니다.");
-			location.reload();
+// 			alert("하나의 항목만 수정이 가능합니다.");
+// 			location.reload();
+// 			return false;
+			Swal.fire({
+				icon: 'warning',
+				text: '하나의 항목만 수정이 가능합니다.',
+				confirmButtonColor: '#0ddbb9',
+				confirmButtonText: '확인',
+			}).then((result) => {
+				if(result.isConfirmed){
+					location.reload();
+				}
+			}); // then(result)
+			
 			return false;
+			
 		}else if($('input:checkbox[name="check"]:checked').length == 0){
-			alert("수정할 항목을 선택해주세요.");
+// 			alert("수정할 항목을 선택해주세요.");
+			Swal.fire({
+				icon: 'warning',									
+				text: '수정할 항목을 선택해 주세요.',
+				confirmButtonColor: '#0ddbb9',
+				confirmButtonText: '확인',
+			}).then((result) => {
+				if(result.isConfirmed){
+					location.reload();
+				}
+			}); // then(result)
 		}
 			
 		// 체크된 체크박스 값 가져오기
@@ -132,7 +156,16 @@ $('.modify').click(function(){
 	
 								
 					if(whs_id==="" || whs_type==="" ) {
-						alert("모든 order_qty 입력해주세요.");
+						Swal.fire({
+							icon: 'warning',
+							text: '모든 내용을 입력해주세요.',
+							confirmButtonColor: '#0ddbb9',
+							confirmButtonText: '확인',
+						}).then((result) => {
+							if(result.isConfirmed){
+								return false;
+							}
+						}); // then(result)
 					} else {
 						$.ajax({
 							url: "modify",
@@ -147,16 +180,32 @@ $('.modify').click(function(){
 								whs_emp:whs_emp
 						   }),
 							success: function() {
-//		 						alert("자재코드 " + ma_id + ", 수정이 완료되었습니다.");
-//		 						location.href="/purchasing/material/list";
-								alert("발주코드 " + whs_id + ", 수정이 완료되었습니다. @success@" );
-								location.href="/purchasing/warehouse/list";
-								},
+								Swal.fire({
+									icon: 'success',
+									title: '창고번호 ' + whs_id,
+									text: '수정이 완료되었습니다.',
+									confirmButtonColor: '#0ddbb9',
+									confirmButtonText: '확인',
+								}).then((result) => {
+									if(result.isConfirmed){
+										location.href="/purchasing/warehouse/list";
+									}
+								}); // then(result)
+							},
 							error: function() {
-								alert("발주코드 " + whs_id + ", 수정이 완료되었습니다. @er@ ");
-								location.href="/purchasing/warehouse/list";
-					    }
-			   }); //ajax		
+								Swal.fire({
+									icon: 'success',
+									title: '창고번호 ' + whs_id,
+									text: '수정이 완료되었습니다.',
+									confirmButtonColor: '#0ddbb9',
+									confirmButtonText: '확인',
+								}).then((result) => {
+									if(result.isConfirmed){
+										location.href="/purchasing/warehouse/list";
+									}
+								}); // then(result)
+					    	}
+			   	}); //ajax		
 			
 			} // if-else
 				
@@ -197,14 +246,41 @@ $('.modify').click(function(){
 			type: "post",
 			data: { whs_id:whs_id },
 			success: function() {
-				var result = confirm("품목코드 " + whs_id + "를 정말 삭제하시겠습니까?");
-				if(result){
-					alert("삭제가 완료되었습니다.");
-					location.href="/purchasing/warehouse/list";
-				}
+				Swal.fire({
+					text: '창고번호 ' + whs_id + '를 정말 삭제하시겠습니까?',
+					icon: 'warning',
+					showCancelButton: true,
+					confirmButtonColor: '#0ddbb9',
+					cancelButtonColor: '#d33',
+					confirmButtonText: '확인',
+					cancelButtonText: '취소'
+				}).then((result) => {
+					if (result.isConfirmed) {
+						Swal.fire({
+							icon: 'success',
+							title: '완료',
+							text: '창고번호 ' + whs_id + ', 삭제가 완료되었습니다.',
+							confirmButtonColor: '#0ddbb9',
+							confirmButtonText: '확인',
+						}).then((result) => {
+							if(result.isConfirmed){
+								location.href="/purchasing/warehouse/list";
+							}
+						}); // then(result) 삭제하시겠습니까?
+					}
+				}); // then(result) 삭제가 완료되었습니다
 			},
 			error: function() {
-				alert("삭제할 항목을 선택해주세요.");
+				Swal.fire({
+					icon: 'warning',
+					text: '삭제할 항목을 선택해주세요.',
+					confirmButtonColor: '#0ddbb9',
+					confirmButtonText: '확인',
+				}).then((result) => {
+					if(result.isConfirmed){
+						return false;
+					}
+				}); // then(result)
 			}
 	    }); //ajax		
 	

@@ -188,13 +188,13 @@ $(function(){
 								
 								<!-- 2. 미입고 탭 테이블 -->
 								<div class="tab-pane fade active show" id="stage2" role="tabpanel" aria-labelledby="stage2-tab">
-									zz
+									
 								</div>
 								
 								
 								<!-- 3. 입고완료 탭 테이블 -->
 								<div class="tab-pane fade active show" id="stage3" role="tabpanel" aria-labelledby="stage3-tab">
-									zz
+									
 								</div>
 							</div>
 							

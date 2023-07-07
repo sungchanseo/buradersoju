@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Order</title>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert 링크 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script type="text/javascript">
 
@@ -277,15 +278,36 @@ $(function() {
           console.log(order_emp);
        
           if(ma_id==="" || ma_name==="") {
-             alert("빈칸을 입력하세요");
+//              alert("빈칸을 입력하세요");
+             Swal.fire({
+           		icon: 'warning',
+           		text: '빈 칸을 입력하세요.',
+           		confirmButtonColor: '#0ddbb9',
+           		confirmButtonText: '확인',
+           	 }).then((result) => {
+           		if(result.isConfirmed){
+           			return false;
+           		}
+           	 }); // then(result)
           } else {
              $.ajax({
                 url: "list",
                 type: "post",
                 data: {emp_name:emp_name,whs_id:whs_id,ma_id:ma_id,order_date:order_date,due_date:due_date,in_date:in_date,order_id:order_id ,order_qty:order_qty,order_sum:order_sum,order_vat:order_vat,order_emp:order_emp},
                success: function() {
-              	 location.href="/purchasing/order/list"
-                   alert("등록완료");
+//                 	alert("등록완료");
+//               	location.href="/purchasing/order/list";
+					Swal.fire({
+					icon: 'success',
+					title: '발주번호 ' + order_id,
+					text: '발주처리가 완료되었습니다.',
+					confirmButtonColor: '#0ddbb9',
+					confirmButtonText: '확인',
+					}).then((result) => {
+						if(result.isConfirmed){
+							location.href="/purchasing/order/list";
+						}
+					}); // then(result)
                 },
                 error: function() {
                    alert("error");
@@ -309,15 +331,35 @@ $(function() {
 			var tdArr = new Array();
 			var checkbox = $("input[name=check]:checked");
 			
+			
 			// 체크박스 항목 개수 제어
 			if(checkbox.length > 1){
-				alert("하나의 항목만 수정이 가능합니다.");
-				location.reload();
-				return false;
+// 				alert("하나의 항목만 수정이 가능합니다.");
+				Swal.fire({
+					icon: 'warning',
+					text: '하나의 항목만 수정이 가능합니다.',
+					confirmButtonColor: '#0ddbb9',
+					confirmButtonText: '확인',
+				}).then((result) => {
+					if(result.isConfirmed){
+						return false;
+					}
+				}); // then(result)
 			}else if($('input:checkbox[name="check"]:checked').length == 0){
-				alert("수정할 항목을 선택해주세요.");
+// 				alert("수정할 항목을 선택해주세요.");
+				Swal.fire({
+					icon: 'warning',
+					text: '수정할 항목을 선택해주세요.',
+					confirmButtonColor: '#0ddbb9',
+					confirmButtonText: '확인',
+				}).then((result) => {
+					if(result.isConfirmed){
+						return false;
+					}
+				}); // then(result)
 			}
 				
+			
 			// 체크된 체크박스 값 가져오기
 			checkbox.each(function(i) {
 	
@@ -386,7 +428,17 @@ $(function() {
 				        var in_date = inToday;
 									
 						if(order_id==="" || order_vat==="" ) {
-							alert("모든 order_qty 입력해주세요.");
+// 							alert("모든 order_qty 입력해주세요.");
+							Swal.fire({
+								icon: 'warning',
+								text: '빈 칸을 입력해주세요.',
+								confirmButtonColor: '#0ddbb9',
+								confirmButtonText: '확인',
+							}).then((result) => {
+								if(result.isConfirmed){
+									return false;
+								}
+							}); // then(result)
 						} else {
 							$.ajax({
 								url: "modify",
@@ -403,16 +455,25 @@ $(function() {
 									    due_date:due_date
 							   }),
 								success: function() {
-//			 						alert("자재코드 " + ma_id + ", 수정이 완료되었습니다.");
-//			 						location.href="/purchasing/material/list";
-									alert("발주코드 " + order_id + ", 수정이 완료되었습니다. @success@" );
-									location.href="/purchasing/order/list";
-									},
+// 									alert("발주코드 " + order_id + ", 수정이 완료되었습니다. @success@" );
+// 									location.href="/purchasing/order/list";
+									alert("order/list.jsp line 460 체크!!!");
+								},
 								error: function() {
-									alert("발주코드 " + order_id + ", 수정이 완료되었습니다. @er@ ");
 									location.href="/purchasing/order/list";
-						    }
-				   }); //ajax		
+									Swal.fire({
+										icon: 'success',
+										title: '발주번호 ' + order_id,
+										text: '발주수정이 완료되었습니다.',
+										confirmButtonColor: '#0ddbb9',
+										confirmButtonText: '확인',
+									}).then((result) => {
+										if(result.isConfirmed){
+											location.href="/purchasing/order/list";
+										}
+									}); // then(result)
+						    	}
+				  			 }); //ajax		
 				
 				} // if-else
 					
@@ -453,14 +514,41 @@ $(function() {
 			type: "post",
 			data: { order_id:order_id },
 			success: function() {
-				var result = confirm("품목코드 " + order_id + "를 정말 삭제하시겠습니까?");
-				if(result){
-					alert("삭제가 완료되었습니다.");
-					location.href="/purchasing/order/list";
-				}
+				Swal.fire({
+					text: '발주번호 ' + order_id + ', 정말 삭제하시겠습니까?',
+					icon: 'warning',
+					showCancelButton: true,
+					confirmButtonColor: '#0ddbb9',
+					cancelButtonColor: '#d33',
+					confirmButtonText: '확인',
+					cancelButtonText: '취소'
+				}).then((result) => {
+					if (result.isConfirmed) {
+						Swal.fire({
+							icon: 'success',
+							title: '완료',
+							text: '발주번호 ' + order_id + ', 삭제가 완료되었습니다.',
+							confirmButtonColor: '#0ddbb9',
+							confirmButtonText: '확인',
+						}).then((result) => {
+							if(result.isConfirmed){
+								location.href="/purchasing/order/list";
+							}
+						}); // then(result) 삭제하시겠습니까?
+					}
+				}); // then(result) 삭제가 완료되었습니다
 			},
 			error: function() {
-				alert("삭제할 항목을 선택해주세요.");
+				Swal.fire({
+					icon: 'warning',
+					text: '삭제할 항목을 선택해주세요.',
+					confirmButtonColor: '#0ddbb9',
+					confirmButtonText: '확인',
+				}).then((result) => {
+					if(result.isConfirmed){
+						return false;
+					}
+				}); // then(result)
 			}
 	    }); //ajax		
 	

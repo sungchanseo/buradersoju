@@ -160,16 +160,18 @@ $(document).ready(function() {
                             emp_name:emp_name
 						},
 						success: function() {
-							alert("자재코드 " + ma_id +", 등록이 완료되었습니다.");
-// 							Swal.fire({
-// 								icon: 'success',										// Alert 타입 (warning / success / error)
-// 								title: '완료',											// Alert 제목
-// 								text: '자재코드 ' + ma_id + ' 등록이 완료되었습니다.',	// Alert 내용
-// 								confirmButtonText: '확인',								// Alert 버튼내용
-// 							});
-							
-							location.href="/purchasing/material/list";
-						},
+							Swal.fire({
+								icon: 'success',										// Alert 타입 (warning / success / error)
+								title: '완료',											// Alert 제목
+								text: '자재코드 ' + ma_id + ' 등록이 완료되었습니다.',	// Alert 내용
+								confirmButtonColor: '#0ddbb9',							// Alert 버튼 색깔
+								confirmButtonText: '확인',								// Alert 버튼내용
+							}).then((result) => {
+								if(result.isConfirmed){									// '확인'누르면 이동
+									location.href="/purchasing/material/list";
+								}
+							}); // then(result)
+						}, // success
 						error: function(err) {
 							alert("error");
 						}
@@ -198,11 +200,30 @@ $(document).ready(function() {
 			
 			// 체크박스 항목 개수 제어
 			if(checkbox.length > 1){
-				alert("하나의 항목만 수정이 가능합니다.");
-				location.reload();
+				Swal.fire({
+					icon: 'warning',									
+					text: '하나의 항목만 수정 가능합니다.',
+					confirmButtonColor: '#0ddbb9',
+					confirmButtonText: '확인',							
+				}).then((result) => {
+					if(result.isConfirmed){								
+						location.reload();
+					}
+				}); // then(result)
+				
 				return false;
+				
 			}else if($('input:checkbox[name="check"]:checked').length == 0){
-				alert("수정할 항목을 선택해주세요.");
+				Swal.fire({
+					icon: 'warning',									
+					text: '수정할 항목을 선택해 주세요.',
+					confirmButtonColor: '#0ddbb9',
+					confirmButtonText: '확인',
+				}).then((result) => {
+					if(result.isConfirmed){
+						location.reload();
+					}
+				}); // then(result)
 			}
 				
 			// 체크된 체크박스 값 가져오기
@@ -269,7 +290,16 @@ $(document).ready(function() {
 			var emp_name = $('#emp_name').val();
 						
 			if(whs_id==="" | ma_name==="" || unit==="" || ma_qty==="" || unit_cost==="" || shelt_position==="") {
-				alert("모든 정보를 입력해주세요.");
+				Swal.fire({
+					icon: 'warning',
+					text: '모든 내용을 입력해주세요.',
+					confirmButtonColor: '#0ddbb9',
+					confirmButtonText: '확인',
+				}).then((result) => {
+					if(result.isConfirmed){
+						return false;
+					}
+				}); // then(result)
 			} else {
 				$.ajax({
 					url: "modify",
@@ -291,11 +321,22 @@ $(document).ready(function() {
 // 						alert("자재코드 " + ma_id + ", 수정이 완료되었습니다.");
 // 						location.href="/purchasing/material/list";
 						alert("찐에러! material/list.jsp line 274 수정하긩");
-						},
+					},
 					error: function() {
-						alert("자재코드 " + ma_id + ", 수정이 완료되었습니다.");
-						location.href="/purchasing/material/list";
-						}
+						Swal.fire({
+							icon: 'success',
+							title: '완료',
+							text: '자재코드' + ma_id + '수정이 완료되었습니다.',
+							confirmButtonColor: '#0ddbb9',
+							confirmButtonText: '확인',
+						}).then((result) => {
+							if(result.isConfirmed){
+								location.href="/purchasing/material/list";
+							}
+						}); // then(result)
+						
+					} // error
+					
 				}); //ajax
 						
 			} // if-else
@@ -339,14 +380,41 @@ $(document).ready(function() {
 			type: "post",
 			data: { ma_id:ma_id },
 			success: function() {
-				var result = confirm("품목코드 " + ma_id + "를 정말 삭제하시겠습니까?");
-				if(result){
-					alert("삭제가 완료되었습니다.");
-					location.href="/purchasing/material/list";
-				}
+				Swal.fire({
+					text: '자재코드 ' + ma_id + '를 정말 삭제하시겠습니까?',
+					icon: 'warning',
+					showCancelButton: true,
+					confirmButtonColor: '#0ddbb9',
+					cancelButtonColor: '#d33',
+					confirmButtonText: '확인',
+					cancelButtonText: '취소'
+				}).then((result) => {
+					if (result.isConfirmed) {
+						Swal.fire({
+							icon: 'success',
+							title: '완료',
+							text: '자재코드 ' + ma_id + ', 삭제가 완료되었습니다.',
+							confirmButtonColor: '#0ddbb9',
+							confirmButtonText: '확인',
+						}).then((result) => {
+							if(result.isConfirmed){
+								location.href="/purchasing/material/list";
+							}
+						}); // then(result) 삭제하시겠습니까?
+					}
+				}); // then(result) 삭제가 완료되었습니다
 			},
-			error: function() {
-				alert("삭제할 항목을 선택해주세요.");
+			error: function() {			
+				Swal.fire({
+					icon: 'warning',
+					text: '삭제할 항목을 선택해주세요.',
+					confirmButtonColor: '#0ddbb9',
+					confirmButtonText: '확인',
+				}).then((result) => {
+					if(result.isConfirmed){
+						return false;
+					}
+				}); // then(result)
 			}
 		}); //ajax		
 

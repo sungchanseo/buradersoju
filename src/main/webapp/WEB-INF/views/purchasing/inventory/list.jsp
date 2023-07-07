@@ -8,22 +8,24 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert 링크 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script type="text/javascript">
 
-   function getToday() {
-      var date = new Date();
-      
-      var year = date.getFullYear();
-      console.log(year);
-      var month = ("0" + (1 + date.getMonth())).slice(-2);
-      console.log(month);
-      var day = ("0" + date.getDate()).slice(-2);
-      console.log(day);
-      return year + "-" + month + "-" + day;
-   }
+function getToday() {
+   var date = new Date();
+   
+   var year = date.getFullYear();
+   console.log(year);
+   var month = ("0" + (1 + date.getMonth())).slice(-2);
+   console.log(month);
+   var day = ("0" + date.getDate()).slice(-2);
+   console.log(day);
+   return year + "-" + month + "-" + day;
+}
 
-   $(function() {
+   
+$(function() {
       
       //// 글쓰기 ////////////////////////////////////////////////////////////
       var tbl;
@@ -71,31 +73,30 @@
             console.log(regdate);
             console.log(ma_id==="" || ma_name==="");
 
-            
             if(ma_id==="" || ma_name==="") {
-               alert("빈칸을 입력하세요");
+            	alert("빈 칸을 입력하세요.");            	
             } else {
                $.ajax({
                   url: "list",
                   type: "post",
                   data: {ma_id:ma_id, ma_name:ma_name,ma_qty:ma_qty,regdate:regdate},
                  success: function() {
-                	 location.href="/purchasing/inventory/list"
-                     alert("등록완료");
+                	location.href="/purchasing/inventory/list"
+                    alert("등록완료");
                   },
                   error: function() {
                      alert("error");
                   }
                }); //ajax
+               
             } //if-else
             
          }); //write click
       
       }); //writeForm click
    
-   }); //jQuery
+}); //jQuery
 </script>
-
 </head>
 <body>
 <br>
@@ -113,25 +114,30 @@
 								style="height: 1000px;">
 
 
+								<!-- 제목 -->
 								<h1 class="card-title">
 										<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">재고 리스트</font></font>
 									</h1>
+									
+									
 								<!-- 검색창기능 -->
-										<form action="/purchasing/inventory/list" method="get" style="display: inline;">
-											<select name="selector">
-												<option value="ma_name">자재명</option>
-												<option value="ma_id">자재코드</option>
-											</select> <input type="text" class="form-control" style="width:10%; display:inline;" name="search" placeholder="검색어를 입력해주세요">
-											<input type="submit"  class="btn btn-info" value="검색">
-										</form>
-										<!-- 검색창기능 -->
+								<form action="/purchasing/inventory/list" method="get" style="display: inline;">
+									<select name="selector">
+										<option value="ma_name">자재명</option>
+										<option value="ma_id">자재코드</option>
+									</select> <input type="text" class="form-control" style="width:10%; display:inline;" name="search" placeholder="검색어를 입력해주세요">
+									<input type="submit"  class="btn btn-info" value="검색">
+								</form>
+								<!-- 검색창기능 -->
 								 
-								   <fmt:formatDate value=""/>
-								 <table border="1" id="example-table-3" class="table table-bordered table-hover text-center tbl" style="width: 100%;">
+								 
+								<!-- 테이블 -->
+								<fmt:formatDate value=""/>
+							    <table border="1" id="example-table-3" class="table table-bordered table-hover text-center tbl" style="width: 100%;">
 								   <thead>
 								      <tr>
-								         <th>자재명</th>
 								         <th>자재코드</th>
+								         <th>자재명</th>
 								         <th>현재고</th>
 								         <th>단위</th>
 								         <th>날짜</th>
@@ -142,8 +148,8 @@
 								    <tbody>  
 								      <c:forEach var="in" items="${inventoryList}" >
 								         <tr>
-								            <td>${in.ma_name}</td>
 								            <td>${in.ma_id}<input type="hidden" name="ma_id" value="${in.ma_id}"></td>
+								            <td>${in.ma_name}</td>
 								            <td><c:choose>
 													<c:when test="${in.ma_name eq '아스파탐' }">
 													<c:if test="${in.ma_qty <= 1000}">
@@ -205,6 +211,8 @@
 										<!-- 		</div> -->
 									</div>
 									<!-- 	페이징 처리  -->
+									
+									
 								 <script>
 								    /*실사량 수정 버튼 동작  */
 								 $(document).ready(function() {

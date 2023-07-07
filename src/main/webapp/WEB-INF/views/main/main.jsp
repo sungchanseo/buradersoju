@@ -1,10 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file="../includes/header.jsp" %>
 
 <body>
 	<div class="container-scroller">
-		<!--헤더 -->
-		<%@ include file="../includes/header.jsp"%>
-		<!--헤더 -->
 		<!-- 본문시작 -->
 		<div class="container-fluid page-body-wrapper">
 			<div class="main-panel">

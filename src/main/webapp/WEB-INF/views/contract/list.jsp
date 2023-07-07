@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script> <!-- 제이쿼리 -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> <!-- 우편api -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert창 링크 -->
 
 	<style type="text/css">
 		/* 인쇄하기 가로 기본출력 지정 */
@@ -37,9 +38,10 @@
 			<c:if test="${emp_department.equals('영업') || emp_department.equals('영업팀') || emp_department.equals('Master')}">
 				<button type="button" class="btn btn-success" onclick="openPop();">수주등록</button>
 			</c:if>
-<!-- 				<form action="/contract/downExcel" method="post" style="display:inline;"> -->
-					<button type="submit" class="btn btn-light" id="excel">엑셀다운</button>
-<!-- 				</form> -->
+				<form action="/contract/downExcel" id="excelForm" method="post" style="display:inline;">
+					<input type="hidden" name="contractList" value="${contractList }">
+					<button type="submit" class="btn btn-light" id="excel" form="excelForm">엑셀다운</button>
+				</form>
 				<button type="button" class="btn btn-light" id="print" onclick="printList();">출력하기</button>
 		</div>
 		<!-- 영업팀이 아닐때 버튼 감추기 -->
@@ -63,7 +65,7 @@
                       <c:forEach var="vo" items="${contractList }">
 	                      <tbody>
 	                        <tr>
- 								<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" id="cont_id" value="${vo.cont_id}" onclick="infoPop('${vo.cont_id}');">${vo.cont_id }</font></font></td>
+ 								<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"  onclick="infoPop('${vo.cont_id}');">${vo.cont_id }</font></font></td>
 								<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" id="product_id"  value="${vo.product_id }" onclick="infoPop('${vo.cont_id}');">${vo.product_id }</font></font></td>
 								<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" id="product_name"  value="${vo.product_name }" onclick="infoPop('${vo.cont_id}');">${vo.product_name }</font></font></td>
 								<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" id="cust_name" value="${vo.cust_name }">${vo.cust_name }</font></font></td>
@@ -74,6 +76,7 @@
 								<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" id="cont_emp" value="${vo.cont_emp }">${vo.cont_emp }</font></font></td>
 	                        </tr>
 	                      </tbody>
+                       
                       	</c:forEach>
                     </table>
                   </div>
@@ -103,37 +106,41 @@
 	<!-- 수주등록 새창열기  -->
 	<script>
 	
+	function downloadExcel(){
+		alert('성공!');
+		location.href="${contextPath}/contract/downExcel";
+	}
 	
 	//엑셀 다운로드 호출
-	$(document).ready(function(){
+// 	$(document).ready(function(){
 		
-		$("#excel").click(function(){
+// 		$("#excel").click(function(){
 			
-			var formObject = {
-				cont_id : $('#cont_id').val(),
-// 				product_id : product_id, 
-// 				product_name : product_name,
-// 				cust_name : cust_name, 
-// 				cont_date : cont_date,
-// 				cont_qty : cont_qty,
-// 				production_id : production_id, 
-// 				cont_emp : cont_emp
-			}
-			console.log("표의 데이타 : "+formObject);
+// 			var formObject = {
+// 				cont_id : $('#cont_id').val(),
+// // 				product_id : product_id, 
+// // 				product_name : product_name,
+// // 				cust_name : cust_name, 
+// // 				cont_date : cont_date,
+// // 				cont_qty : cont_qty,
+// // 				production_id : production_id, 
+// // 				cont_emp : cont_emp
+// 			}
+// 			console.log("표의 데이타 : "+formObject);
 			
-			$.ajax({
-				url : '${contextPath}/contract/downExcel',
-				type : 'post',
-				data : formObject,
-				success : function(){
-					alert('성공!');
-				},
-				error : function(){
-					alert('실패!');
-				}
-			});//ajax END
-		});// excel.click END
-	})// document.ready END
+// 			$.ajax({
+// 				url : '${contextPath}/contract/downExcel',
+// 				type : 'post',
+// 				data : formObject,
+// 				success : function(){
+// 					alert('성공!');
+// 				},
+// 				error : function(){
+// 					alert('실패!');
+// 				}
+// 			});//ajax END
+// 		});// excel.click END
+// 	})// document.ready END
 		
 	// 수주상세정보 보기
 	function infoPop(contId){
@@ -142,7 +149,12 @@
 		var infoPop = window.open(url, '수주상세보기', 'width=1000px,height=400px');
 	  
 	  if(infoPop == null){
-		  alert("팝업이 차단되었습니다. 차단을 해제하세요.");
+		  Swal.fire({
+	            icon: 'warning',					
+	            title: '팝업이 차단되었습니다.',	
+	            text: '차단을 해제하세요.',	
+	            confirmButtonText: '확인',
+	        });
 	  }
 	}//수주상세정보 보기
 	
@@ -152,7 +164,12 @@
 	  var insertPop = window.open('/contract/insert', '수주등록', 'width=1000px,height=400px');
 	  
 	  if(insertPop == null){
-		  alert("팝업이 차단되었습니다. 차단을 해제하세요.");
+		  Swal.fire({
+	            icon: 'warning',					
+	            title: '팝업이 차단되었습니다.',	
+	            text: '차단을 해제하세요.',	
+	            confirmButtonText: '확인',
+	        });
 	  }
 	  openPop.moveBy(100,100);
 	}

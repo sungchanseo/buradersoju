@@ -12,6 +12,9 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main/fullcalendar-5.11.4/lib/main.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert창 링크 -->
 </head>
 <body>
 	<h1>수주번호 : ${contractInfo.cont_id }</h1>
@@ -53,48 +56,75 @@
 		
 		 //빈칸이 있을때 submit 제어 
 		  $('#fr').submit(function() {
-				if($('#cust_name').val() == ""){
-					alert('수주처이름을 입력하세요.');
+			  if($('#cust_name').val() == ""){
+					Swal.fire({
+			            icon: 'warning',				// Alert 타입
+			            title: '수주처이름을 입력하세요.',	// Alert 제목
+			            confirmButtonText: '확인',		// Alert 버튼내용
+	        		});
 					$('#cust_name').focus();
 					return false;
 				}//cust_name 제어 
 				if($('#product_name').val() == ""){
-					alert('상품명을 입력하세요.');
+					Swal.fire({
+			            icon: 'warning',				// Alert 타입
+			            title: '상품명을 입력하세요.',	// Alert 제목
+			            confirmButtonText: '확인',		// Alert 버튼내용
+	        		});
 					$('#product_name').focus();
 					return false;
 				}//product_name 제어 
 				if($('#cont_emp').val() == ""){
-					alert('담당직원을 입력하세요.');
+					Swal.fire({
+			            icon: 'warning',				// Alert 타입
+			            title: '담당직원을 입력하세요.',	// Alert 제목
+			            confirmButtonText: '확인',		// Alert 버튼내용
+	        		});
 					$('#cont_emp').focus();
 					return false;
 				}//cont_emp 제어 
 				if($('#cust_id').val() == ""){
-					alert('거래처코드를 입력하세요.');
+					Swal.fire({
+			            icon: 'warning',				// Alert 타입
+			            title: '거래처코드를 입력하세요.',	// Alert 제목
+			            confirmButtonText: '확인',		// Alert 버튼내용
+	        		});
 					$('#cust_id').focus();
 					return false;
 				}//cust_id 제어 
 				if($('#product_id').val() == ""){
-					alert('상품코드를 입력하세요.');
+					Swal.fire({
+			            icon: 'warning',				// Alert 타입
+			            title: '상품코드를 입력하세요.',	// Alert 제목
+			            confirmButtonText: '확인',		// Alert 버튼내용
+	        		});
 					$('#product_id').focus();
 					return false;
 				}//product_id 제어 
-				if($('#cont_qty').val() == ""){
-					alert('수주량을 입력하세요.');
-					$('#cont_qty').focus();
-					return false;
-				}//cont_qty 제어 
-				if($('#production_id').val() == ""){
-					alert('작업지시번호를 입력하세요.');
-					$('#production_id').focus();
-					return false;
-				}//production_id 제어 
 				if($('#cont_date').val() == ""){
-					alert('수주일을 입력하세요.');
+					Swal.fire({
+			            icon: 'warning',				// Alert 타입
+			            title: '수주일을 입력하세요.',	// Alert 제목
+			            confirmButtonText: '확인',		// Alert 버튼내용
+	        		});
 					$('#cont_date').focus();
 					return false;
 				}//cont_date 제어 
+				if($('#cont_qty').val() == ""){
+					Swal.fire({
+			            icon: 'warning',				// Alert 타입
+			            title: '수주량을 입력하세요.',	// Alert 제목
+			            confirmButtonText: '확인',		// Alert 버튼내용
+	        		});
+					$('#cont_qty').focus();
+					return false;
+				}//cont_qty 제어 
 				if($('#due_date').val() == ""){
-					alert('납기일을 입력하세요.');
+					Swal.fire({
+			            icon: 'warning',				// Alert 타입
+			            title: '납기일을 입력하세요.',	// Alert 제목
+			            confirmButtonText: '확인',		// Alert 버튼내용
+	        		});
 					$('#due_date').focus();
 					return false;
 				}//due_date 제어 

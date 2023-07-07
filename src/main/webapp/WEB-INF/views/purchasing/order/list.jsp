@@ -416,41 +416,38 @@
 										}); // function(i)
 							}
 							// 2-2. '저장' 클릭 
-							$('.update')
-									.click(
-											function() {
-												$('.modify').addClass('true');
-												var order_id = tdArr[0];
-												var order_qty = $('#order_qty').val();
-												var order_sum = $('#order_sum').val();
-												var order_vat = $('#order_vat').val();
-												var order_date = getToday();
-												var due_date = orderToday();
-												var in_date = inToday;
-												var emp_id = "${sessionScope.emp_id }";
-												var emp_name = $('#emp_name').val();
-
-												if (order_id === ""|| order_vat === "") {
-													alert("모든 order_qty 입력해주세요.");
-												} else {
-													$.ajax({
-																url : "modify",
-																type : "post",
-																dataType : "json",
-																contentType : "application/json;charset=UTF-8",
-																data : JSON
-																		.stringify({
-																			order_id : order_id,
-																			order_qty : order_qty,
-																			order_vat : order_vat,
-																			order_sum : order_sum,
-																			order_date : order_date,
-																			in_date : in_date,
-																			due_date : due_date,
-																			emp_name : emp_name,
-																			emp_id : emp_id
-																		}),
-																success : function() {
+							$('.update').click(function()
+									{$('.modify').addClass('true');
+									var order_id = tdArr[0];
+									var order_qty = $('#order_qty').val();
+									var order_sum = $('#order_sum').val();
+									var order_vat = $('#order_vat').val();
+									var order_date = getToday();
+									var due_date = orderToday();
+									var in_date = inToday;
+									var emp_id = "${sessionScope.emp_id }";
+									var emp_name = $('#emp_name').val();
+                                             console.log(order_qty);
+										if (order_id === ""|| order_vat === "") {
+										alert("모든 order_qty 입력해주세요.");
+										} else {
+										$.ajax({
+											url : "modify",
+											type : "post",
+									    	dataType : "json",
+											contentType : "application/json;charset=UTF-8",
+											data : JSON.stringify({
+													order_id : order_id,
+													order_qty : order_qty,
+													order_vat : order_vat,
+													order_sum : order_sum,
+													order_date : order_date,
+													in_date : in_date,
+													due_date : due_date,
+													emp_name : emp_name,
+													emp_id : emp_id
+													}),
+													success : function() {
 																	//			 						alert("자재코드 " + ma_id + ", 수정이 완료되었습니다.");
 																	//			 						location.href="/purchasing/material/list";
 																	alert("발주코드 "

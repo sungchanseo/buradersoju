@@ -48,23 +48,17 @@ $('.modify').click(function(){
 			// 체크된 row의 모든 값 배열에 담기
 			rowData.push(tr.text());
 			
-			// td.eq(0)은 체크박스, td.eq(1)이 ma_id
+			// td.eq(0)은 체크박스, td.eq(1)이 whs_id
 			// -> 배열 tdArr에 정보를 담음
 			var whs_id = td.eq(1).text();
-			tdArr.push(whs_id);	// tdArr[0] == ma_id
+			tdArr.push(whs_id);	// tdArr[0] == whs_id
 			
 			$.ajax({
 				url: "modify",
 				type: "get",
 				data: { whs_id:whs_id },
-				success: function(data) {	// 기존데이터정보(orderVo) 받아옴 
-	
-					// 여기서 order_id를 이용해서 if문걸어가지고 같은 값일때 아래처럼 나오게하면될듯?!
-					
-					// orderVo에서 테이블 값 가져오기
-				 //   var order_date = data.order_date;
+				success: function(data) {
 				      console.log(data);
-				//    console.log(order_date);
 				$(data).each(function(idx, obj){
 						var str = "";
 						str += "<tr>";
@@ -93,20 +87,16 @@ $('.modify').click(function(){
 					var whs_id = tdArr[0];
 					var whs_type = $('#whs_type').val();
 					var whs_tels = $('#whs_tel').val();
-					var whs_tel = $("input[name=whs_tel]").val();
+					var whs_tel = $("input[name='whs_tel']").val();
 					var whs_status = $("input[name='whs_status']:checked").val();
-					var whs_emp = $('#whs_emp').val();
+					var whs_emp = "${sessionScope.emp_id}";
 	                console.log(whs_tel);
 	                console.log(whs_tels);
 	                console.log(whs_status);
 	                console.log(whs_emp);
-								
-					if(whs_id==="" || whs_type==="" ) {
-						alert("모든 창고정보 입력해주세요.");
-					} else {
-						$.ajax({
+				    $.ajax({
 							url: "modify",
-							type: "POST",
+							type: "post",
 							dataType : "json",
 							contentType : "application/json;charset=UTF-8",
 							data: JSON.stringify({ 
@@ -117,8 +107,6 @@ $('.modify').click(function(){
 								whs_emp:whs_emp
 							}),
 							success: function() {
-//		 						alert("자재코드 " + ma_id + ", 수정이 완료되었습니다.");
-//		 						location.href="/purchasing/material/list";
 								alert("창고코드 " + whs_id + ", 수정이 완료되었습니다. @success@" );
 								location.href="/purchasing/warehouse/list";
 								},
@@ -128,8 +116,6 @@ $('.modify').click(function(){
 					    }
 			   }); //ajax		
 			
-			} // if-else
-				
 		}); // update.click 
 		
   }); // modify.click
@@ -166,7 +152,7 @@ $('.modify').click(function(){
 			type: "post",
 			data: { whs_id:whs_id },
 			success: function() {
-				var result = confirm("품목코드 " + whs_id + "를 정말 삭제하시겠습니까?");
+				var result = confirm("창고코드 " + whs_id + "를 정말 삭제하시겠습니까?");
 				if(result){
 					alert("삭제가 완료되었습니다.");
 					location.href="/purchasing/warehouse/list";
@@ -183,14 +169,31 @@ $('.modify').click(function(){
 </script>
 </head>
 <body>
+	<br>
+	<div class="container-scroller">
+<!-- 		<div class="container-fluid page-body-wrapper full-page-wrapper"> -->
+			<div class="main-panel">
+				<div class="content-wrapper d-flex align-items-center auth px-0"
+					style="min-height: 100vh;">
+					<div class="row w-100 mx-0">
+						<div class="col-lg-12 mx-auto">
+							<div class="auth-form-light text-left py-5 px-4 px-sm-5"
+								style="height: 1000px;">
 <br><br>
-
+ 
 	<h1 class="card-title">
 		<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">창고 리스트</font></font>
 	</h1>
 	
-	
-	
+ 	
+     <c:if test="${emp_department.equals('구매팀') || emp_department.equals('Master')}">
+		<div style=float:right;>
+			<button class="btn btn-success add-button" type="button" onclick="openPopup();">창고등록</button>
+			<button class="btn btn-success modify true">창고수정</button>
+			<button class="btn btn-success" id="delete">창고삭제</button>
+			<button class="btn btn-info insert update">저장</button>
+		</div>
+	</c:if>	
 	<div>
 	<ul class="nav nav-tabs tab-no-active-fill" role="tablist">
 	<li class="nav-item">
@@ -204,15 +207,6 @@ $('.modify').click(function(){
 	
 	<div class="tab-pane fade active show" id="stage1" role="tabpanel" aria-labelledby="stage1-tab">
      
-     <c:if test="${emp_department.equals('구매팀') || emp_department.equals('Master')}">
-		<div style=float:right;>
-			<button class="btn btn-success add-button" type="button" onclick="openPopup();">창고등록</button>
-			<button class="btn btn-success modify true">창고수정</button>
-			<button class="btn btn-success" id="delete">창고삭제</button>
-			<button class="btn btn-info insert update">저장</button>
-		</div>
-	</c:if> 
-
 	<!-- 테이블 -->
 	<table border="1" class="table table-hover table-bordered text-center">
 		<tr>
@@ -247,19 +241,6 @@ $('.modify').click(function(){
 </div>
 <!-- 2번째 탭 내용들  -->
 <div class="tab-pane fade show" id="stage2" role="tabpanel" aria-labelledby="stage2-tab">
-
-	
-	<!-- 구매팀일때만 버튼 활성화 -->
-	 <c:if test="${emp_department.equals('구매팀')}">
-		<div style=float:right;>
-			<button class="btn btn-success add-button" type="button" onclick="openPopup();">창고등록</button>
-			<button class="btn btn-success modify true">창고수정</button>
-			<button class="btn btn-success" id="delete">창고삭제</button>
-			<button class="btn btn-info insert update">저장</button>
-		</div>
-	</c:if>  
-	
-	
 	<!-- 테이블 -->
 	<table border="1" class="table table-hover table-bordered text-center">
 		<tr>
@@ -294,4 +275,11 @@ $('.modify').click(function(){
    </div>
   </div>
  </div>
+ </div>
+  </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ 
 <%@ include file="../../includes/footer.jsp" %>

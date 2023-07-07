@@ -73,7 +73,7 @@ $('.modify').click(function(){
 						str += "<td><input type='text' id='whs_type' name='whs_type' value="+ obj.whs_type +" readonly></td>";
 						str += "<td><input type='text' id='whs_tel' name='whs_tel'  value="+ obj.whs_tel +"></td>";
 						str += "<td>미사용<input type='radio' id='whs_status' name='whs_status' value='2'>사용<input type='radio' id='whs_status' name='whs_status' value='1'></td>";
-						str += "<td><input type='text' id='whs_emp' name='whs_emp' value="+ obj.whs_emp +"></td>";
+						str += "<td><input type='text' id='whs_emp' name='whs_emp' value="+ obj.emp_name +"></td>";
 						// 담당직원 세션에 저장된 아이디 들고오기
 						str += "</tr>";			
 						$('table').prepend(str);
@@ -119,11 +119,11 @@ $('.modify').click(function(){
 							success: function() {
 //		 						alert("자재코드 " + ma_id + ", 수정이 완료되었습니다.");
 //		 						location.href="/purchasing/material/list";
-								alert("발주코드 " + whs_id + ", 수정이 완료되었습니다. @success@" );
+								alert("창고코드 " + whs_id + ", 수정이 완료되었습니다. @success@" );
 								location.href="/purchasing/warehouse/list";
 								},
 							error: function() {
-								alert("발주코드 " + whs_id + ", 수정이 완료되었습니다. @er@ ");
+								alert("창고코드 " + whs_id + ", 수정이 완료되었습니다. @er@ ");
 								location.href="/purchasing/warehouse/list";
 					    }
 			   }); //ajax		
@@ -189,15 +189,9 @@ $('.modify').click(function(){
 		<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">창고 리스트</font></font>
 	</h1>
 	
-	<c:if test="${emp_department.equals('구매팀') || emp_department.equals('Master')}">
-		<div style=float:right;>
-			<button class="btn btn-success add-button" type="button" onclick="openPopup();">창고등록</button>
-			<button class="btn btn-success modify true">창고수정</button>
-			<button class="btn btn-success" id="delete">창고삭제</button>
-			<button class="btn btn-info insert update">저장</button>
-		</div>
-	</c:if> 
 	
+	
+	<div>
 	<ul class="nav nav-tabs tab-no-active-fill" role="tablist">
 	<li class="nav-item">
 	<a class="nav-link ps-2 pe-2 active" id="stage1-tab" data-bs-toggle="tab" href="#stage1" role="tab" aria-controls="stage1" aria-selected="true">자재창고</a>
@@ -209,6 +203,15 @@ $('.modify').click(function(){
 	<div class="tab-content tab-no-active-fill-tab-content">
 	
 	<div class="tab-pane fade active show" id="stage1" role="tabpanel" aria-labelledby="stage1-tab">
+     
+     <c:if test="${emp_department.equals('구매팀') || emp_department.equals('Master')}">
+		<div style=float:right;>
+			<button class="btn btn-success add-button" type="button" onclick="openPopup();">창고등록</button>
+			<button class="btn btn-success modify true">창고수정</button>
+			<button class="btn btn-success" id="delete">창고삭제</button>
+			<button class="btn btn-info insert update">저장</button>
+		</div>
+	</c:if> 
 
 	<!-- 테이블 -->
 	<table border="1" class="table table-hover table-bordered text-center">
@@ -235,7 +238,7 @@ $('.modify').click(function(){
 		       		<c:when test="${wh.whs_status == 2}">미사용</c:when>
 		       	 </c:choose>
 		       </td>
-		       <td>${wh.whs_emp}</td>
+		       <td>${wh.emp_name}</td>
 		       </c:when>
 		       </c:choose>
 			</tr>
@@ -247,14 +250,14 @@ $('.modify').click(function(){
 
 	
 	<!-- 구매팀일때만 버튼 활성화 -->
-	<%-- <c:if test="${emp_department.equals('구매팀')}">
+	 <c:if test="${emp_department.equals('구매팀')}">
 		<div style=float:right;>
 			<button class="btn btn-success add-button" type="button" onclick="openPopup();">창고등록</button>
 			<button class="btn btn-success modify true">창고수정</button>
 			<button class="btn btn-success" id="delete">창고삭제</button>
 			<button class="btn btn-info insert update">저장</button>
 		</div>
-	</c:if>  --%>
+	</c:if>  
 	
 	
 	<!-- 테이블 -->
@@ -282,15 +285,13 @@ $('.modify').click(function(){
 		       		<c:when test="${wh.whs_status == 2}">미사용</c:when>
 		       	 </c:choose>
 		       </td>
-		       <td>${wh.whs_emp}</td>
+		       <td>${wh.emp_name}</td>
 		       </c:when>
 		       </c:choose>
 			</tr>
 		</c:forEach>
 	</table>
    </div>
+  </div>
  </div>
-
 <%@ include file="../../includes/footer.jsp" %>
-</body>
-</html>

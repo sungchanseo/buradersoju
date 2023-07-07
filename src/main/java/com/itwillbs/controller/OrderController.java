@@ -52,6 +52,11 @@ public class OrderController {
 				return "redirect:/main/login";
 				
 				}
+				if(session.getAttribute("emp_name") == null) {
+					
+					return "redirect:/main/login";
+					
+					}
 				
 		String maxNumber = orserivce.getMaxNumber();
 		String maxDate = orserivce.getMaxDate();

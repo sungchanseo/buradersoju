@@ -146,13 +146,16 @@ border-color: #23dbf8;}
 				});
 				console.log(def_codeList);
 				console.log(def_qtyList);
-				var production_qty = 0;
+				var product_qty = 0;
 				var be_qty = $("#production_qty").val();
+				var total_defQty = 0; // 생산의 총 불량수
+				
 				for(i = 0; i<def_qtyList.length; i++){
-					be_qty -= def_qtyList[i];
+					be_qty -= parseInt(def_qtyList[i]);
+					total_defQty += parseInt(def_qtyList[i]);
 				}
 				// 불량 개수가 모두 빠진 총 생산량
-				production_qty = be_qty;
+				product_qty = be_qty;
 				
 		  		// form 동적 생성
 				var $form = $("<form>", {
@@ -161,7 +164,13 @@ border-color: #23dbf8;}
 				    id: "fr",
 				    method: "POST"
 				  });
-				  
+		  		
+				 $("<input>", {
+				    type: "hidden",
+				    name: "total_defQty",
+				    value: total_defQty
+				  }).appendTo($form);
+				 
 			      $("<input>", {
 				    type: "hidden",
 				    name: "product_id",
@@ -170,8 +179,8 @@ border-color: #23dbf8;}
 				  
 				  $("<input>", {
 				    type: "hidden",
-				    name: "production_qty",
-				    value: production_qty
+				    name: "product_qty",
+				    value: product_qty
 				  }).appendTo($form);
 				  
 				  $("<input>", {

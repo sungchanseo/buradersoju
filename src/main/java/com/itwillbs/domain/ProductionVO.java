@@ -30,17 +30,18 @@ public class ProductionVO {
 	private String op_id;
 	private String production_line;
 	private int plan_qty;
+	private int production_qty;
 	private String workOrder_status;
+	private String del_woStatus;
 //	private String product_id;
 	
 	// product
 	private String product_id;
 	private String product_name;
 	private int product_qty;
-
 	
 	// pr_complete
-  private String production_status;
+    private String production_status;
 	private String stage1_defCode;
 	private int stage1_defQty;
 	private Timestamp stage1_date;
@@ -58,6 +59,8 @@ public class ProductionVO {
 	private Timestamp qc_date;
 	private int qc_qty;
 	private String qc_status;
+	private String del_qcStatus;
+	private int total_defQty;
 	
 	// defective
 	private String def_code;
@@ -68,10 +71,25 @@ public class ProductionVO {
 	private int bt_qty;
 	private int bt_defQty;
 	
+	
 	// getter / setter
+	
+	
 	
 	public String getCont_id() {
 		return cont_id;
+	}
+	public int getTotal_defQty() {
+		return total_defQty;
+	}
+	public void setTotal_defQty(int total_defQty) {
+		this.total_defQty = total_defQty;
+	}
+	public String getDel_qcStatus() {
+		return del_qcStatus;
+	}
+	public void setDel_qcStatus(String del_qcStatus) {
+		this.del_qcStatus = del_qcStatus;
 	}
 	public Integer getCont_qty() {
 		return cont_qty;
@@ -112,8 +130,14 @@ public class ProductionVO {
 	public int getPlan_qty() {
 		return plan_qty;
 	}
+	public int getProduction_qty() {
+		return production_qty;
+	}
 	public String getWorkOrder_status() {
 		return workOrder_status;
+	}
+	public String getDel_woStatus() {
+		return del_woStatus;
 	}
 	public String getProduct_id() {
 		return product_id;
@@ -226,8 +250,14 @@ public class ProductionVO {
 	public void setPlan_qty(int plan_qty) {
 		this.plan_qty = plan_qty;
 	}
+	public void setProduction_qty(int production_qty) {
+		this.production_qty = production_qty;
+	}
 	public void setWorkOrder_status(String workOrder_status) {
 		this.workOrder_status = workOrder_status;
+	}
+	public void setDel_woStatus(String del_woStatus) {
+		this.del_woStatus = del_woStatus;
 	}
 	public void setProduct_id(String product_id) {
 		this.product_id = product_id;
@@ -299,6 +329,7 @@ public class ProductionVO {
 		this.bt_defQty = bt_defQty;
 	}
 	
+	
 	// toString()
 	@Override
 	public String toString() {
@@ -306,16 +337,21 @@ public class ProductionVO {
 				+ ma_name + ", use_qty=" + use_qty + ", ma_id=" + ma_id + ", ma_qty=" + ma_qty + ", unit=" + unit
 				+ ", production_id=" + production_id + ", production_emp=" + production_emp + ", production_date="
 				+ production_date + ", op_id=" + op_id + ", production_line=" + production_line + ", plan_qty="
-				+ plan_qty + ", workOrder_status=" + workOrder_status + ", product_id=" + product_id + ", product_name="
-				+ product_name + ", product_qty=" + product_qty + ", production_status=" + production_status
-				+ ", stage1_defCode=" + stage1_defCode + ", stage1_defQty=" + stage1_defQty + ", stage1_date="
-				+ stage1_date + ", stage2_defCode=" + stage2_defCode + ", stage2_defQty=" + stage2_defQty
-				+ ", stage2_date=" + stage2_date + ", stage3_defCode=" + stage3_defCode + ", stage3_defQty="
-				+ stage3_defQty + ", stage3_date=" + stage3_date + ", qc_num=" + qc_num + ", qc_emp=" + qc_emp
-				+ ", qc_date=" + qc_date + ", qc_qty=" + qc_qty + ", qc_status=" + qc_status + ", def_code=" + def_code
-				+ ", def_qty=" + def_qty + ", bt_date=" + bt_date + ", bt_qty=" + bt_qty + ", bt_defQty=" + bt_defQty
-				+ "]";
+				+ plan_qty + ", production_qty=" + production_qty + ", workOrder_status=" + workOrder_status
+				+ ", del_woStatus=" + del_woStatus + ", product_id=" + product_id + ", product_name=" + product_name
+				+ ", product_qty=" + product_qty + ", production_status=" + production_status + ", stage1_defCode="
+				+ stage1_defCode + ", stage1_defQty=" + stage1_defQty + ", stage1_date=" + stage1_date
+				+ ", stage2_defCode=" + stage2_defCode + ", stage2_defQty=" + stage2_defQty + ", stage2_date="
+				+ stage2_date + ", stage3_defCode=" + stage3_defCode + ", stage3_defQty=" + stage3_defQty
+				+ ", stage3_date=" + stage3_date + ", qc_num=" + qc_num + ", qc_emp=" + qc_emp + ", qc_date=" + qc_date
+				+ ", qc_qty=" + qc_qty + ", qc_status=" + qc_status + ", del_qcStatus=" + del_qcStatus
+				+ ", total_defQty=" + total_defQty + ", def_code=" + def_code + ", def_qty=" + def_qty + ", bt_date="
+				+ bt_date + ", bt_qty=" + bt_qty + ", bt_defQty=" + bt_defQty + "]";
 	}
+
+	
+	
+	
 	
 	
 	

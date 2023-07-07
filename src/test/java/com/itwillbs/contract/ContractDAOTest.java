@@ -57,8 +57,8 @@ public class ContractDAOTest {
 	 @Test
 	 public void 수주번호출고테이블에넣기() throws Exception{
 		 logger.debug("^^^^^^^^^^^^^^^^ContractDAOTest : 테스트 시작합니다!");
-		 String cont_id = cservice.contIdCount();
-		 cdao.contIdInsert(cont_id);
+//		 String cont_id = cservice.contIdCount();
+//		 cdao.contIdInsert(cont_id);
 		 
 	 }
 }

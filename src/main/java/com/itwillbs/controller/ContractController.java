@@ -1,9 +1,16 @@
 package com.itwillbs.controller;
 
+import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +28,12 @@ import com.itwillbs.domain.ContractVO;
 import com.itwillbs.domain.CustomerVO;
 import com.itwillbs.domain.EmployeeVO;
 import com.itwillbs.domain.PagingVO;
+import com.itwillbs.domain.ProductionVO;
 import com.itwillbs.service.ContractService;
 import com.itwillbs.service.CustomerService;
 import com.itwillbs.service.EmployeeService;
 import com.itwillbs.service.PagingService;
+import com.itwillbs.service.ProductionService;
 
 @Controller
 @RequestMapping(value = "/contract/*")
@@ -42,7 +51,8 @@ public class ContractController {
 	private EmployeeService empService;
 	@Autowired
 	private CustomerService custService;
-
+	@Autowired
+	private ProductionService proService;
 	// http://localhost:8088/contract/list
 
 	// 수주 목록 불러오기
@@ -95,21 +105,23 @@ public class ContractController {
 
 	// http://localhost:8088/contract/insert
 	// 수주 등록 입력하기
-	@GetMapping(value = "/insert")
+	@RequestMapping(value = "/insert", method = RequestMethod.GET)
 	public void registContractGET(ContractVO cvo) throws Exception {
-		logger.debug("@@@@@@@@@@@@Controller : 수주 등록GET하기!!!!");
+		logger.debug("@@@@@@@@@@@@Controller : 111수주 등록GET하기!!!!");
 	}
 
 	// 수주 등록 디비처리
 //	@PostMapping(value = "/insert")
-	@RequestMapping(value = "/insert", method = RequestMethod.POST)
-	public String registContractPOST(@RequestBody ContractVO cvo) throws Exception {
+	@RequestMapping(value = "/insert", method = RequestMethod.POST, produces = "application/json; charset=UTF-8") 
+	@ResponseBody
+	public void registContractPOST(@RequestBody ContractVO cvo, HttpServletResponse response) throws Exception {
 		logger.debug("@@@@@@@@@@@@Controller : 수주 등록POST하기!!!!");
 		logger.debug("@@@@@@@입력된 정보 : " + cvo);
-
+		response.setContentType("application/json; charset=UTF-8");
+		logger.debug("@@@@@@@@@@@@Controller : registContract()호출합니다!");
 		contService.registContract(cvo);
 		contService.contIdInsert(cvo.getCont_id());
-		return "redirect:/contract/list";
+//		return "redirect:/contract/list";
 	}
 
 	// 수주 수정 입력하기
@@ -228,29 +240,63 @@ public class ContractController {
 	}
 	
 	//상품명 자동완성 팝업창
-//	@RequestMapping(value="/productFind", method = RequestMethod.GET)
-//	public void findProductGET(PagingVO pvo, Model model) throws Exception{
-//		logger.debug("@@@@@@@@@@@Controller : 팝업으로 상품명찾기 !!!!!");
-//		
-//		List<Object> productList = null;
-//		
-//		pvo = custService.setPageInfoForCustomer(pvo);
-//		logger.debug("@@@@@@@@@Controller : {}",pvo);
-//		
-//		//service객체를 호출
-//		if(pvo.getSelector()!=null && pvo.getSelector()!="") {
-//			//검색어가 있을 때 
-//			logger.debug("@@@@@@@@@Controller : 검색어가 있을 때입니다");
-//			productList = pageService.getListSearchObjectProductionVO(pvo);
-//		}else {
-//			//검색어가 없을 때
-//			logger.debug("@@@@@@@@@Controller : 검색어가 없을 때입니다");
-//			productList = pageService.getListPageSizeObjectProductVO(pvo);
-//		}
-//		logger.debug("@@@@@@@@@Controller : employeeList={}",productList);
-//	
-//		// 변수에 담아서 전달
-//		model.addAttribute("productList", productList);
-//		model.addAttribute("pvo",pvo);
-//	}
+	@RequestMapping(value="/productFind", method = RequestMethod.GET)
+	public void findProductGET(PagingVO pvo, Model model) throws Exception{
+		logger.debug("@@@@@@@@@@@Controller : 팝업으로 상품명찾기 !!!!!");
+
+		List<ProductionVO> productionList = proService.getProductionList();
+        model.addAttribute("productionList", productionList);
+	}
+	
+	//상품명 자동완성 
+	@ResponseBody
+	@RequestMapping(value="/productInfo", method = RequestMethod.GET)
+	public ProductionVO getProductInfo(@RequestParam("product_id") String product_id) throws Exception{
+		logger.debug("@@@@@@@@@@@Controller : 거래처정보 가져오기 !!!!!");
+		logger.debug("@@@@@@@@@@@Controller : {}", product_id);
+
+		ProductionVO vo = contService.getProductInfo(product_id);
+		logger.debug("@@@@@@@@@@@Controller : {}", vo);
+
+		return vo;
+	}
+	
+	//작업지시번호 자동완성 팝업창
+	@RequestMapping(value="/productionFind", method = RequestMethod.GET)
+	public void findProductionGET(PagingVO pvo, Model model) throws Exception{
+		logger.debug("@@@@@@@@@@@Controller : 팝업으로 작업지시번호 찾기 !!!!!");
+		
+		List<Object> productionList = null;
+		
+		// 생산목록을 가져오는 productionService 호출
+		pvo = proService.getListSearchObjectProductionVO(pvo);
+		logger.debug("@@@@@@@@@Controller : {}",pvo);
+		
+		//service객체를 호출
+		if(pvo.getSelector()!=null && pvo.getSelector()!="") {
+			//검색어가 있을 때 
+			logger.debug("@@@@@@@@@Controller : 검색어가 있을 때입니다");
+			productionList = pageService.getListSearchObjectProductionVO(pvo);
+		}else {
+			//검색어가 없을 때
+			logger.debug("@@@@@@@@@Controller : 검색어가 없을 때입니다");
+			productionList = pageService.getListPageSizeObjectProductionVO(pvo);
+		}
+		logger.debug("@@@@@@@@@Controller : productionList={}",productionList);
+	
+		// 변수에 담아서 전달
+		model.addAttribute("productionList", productionList);
+		model.addAttribute("pvo",pvo);
+	}
+	
+	//엑셀다운로드 콘트롤러
+	@ResponseBody
+	@PostMapping(value="/downExcel", produces = "application/text; charset=utf8")
+	public void downloadExcelPOST(HttpServletResponse response, ContractVO cvo) throws IOException{
+		logger.debug("@@@@@@@@@@@Controller : 엑셀다운로드 콘트롤러 호출!!!!!");
+		logger.debug("@@@@@@@@@@@Controller : response={}", response);
+		logger.debug("@@@@@@@@@@@Controller : {}", cvo);
+
+		contService.downExcel(cvo, response);
+	}
 }

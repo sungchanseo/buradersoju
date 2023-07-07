@@ -1,58 +1,113 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%@ include file="../../includes/header.jsp" %>
+<%@ include file="../../includes/header.jsp"%>
 
 <style type="text/css">
-html,body {width:100%;  }
-body,div,ul,li{margin:0; padding:0;}
-ul,li {list-style:none;}
+html, body {
+	width: 100%;
+}
+
+body, div, ul, li {
+	margin: 0;
+	padding: 0;
+}
+
+ul, li {
+	list-style: none;
+}
 
 /*tab css*/
-.tab{float:left; width:500px; height:690px;}
-.tabnav{font-size:0; width:252px; border:1px solid #ddd;}
-.tabnav li{display: inline-block;  height:46px; text-align:center; border-right:1px solid #ddd;}
-.tabnav li a:before{content:""; position:absolute; left:0; top:0px; width:100%; height:3px; }
-.tabnav li a.active:before{background:#7ea21e;}  /*탭기능 버튼눌렀을때 눌렀따~~표시되는 css  */
-.tabnav li a.active{border-bottom:1px solid #fff;} /*탭기능 버튼눌렀을때 눌렀따~~표시되는 css  */
-.tabnav li a{ position:relative; display:block; background: #f8f8f8; color: #000; padding:0 30px; line-height:46px; text-decoration:none; font-size:16px;}
+.tab {
+	float: left;
+	width: 500px;
+	height: 690px;
+}
+
+.tabnav {
+	font-size: 0;
+	width: 252px;
+	border: 1px solid #ddd;
+}
+
+.tabnav li {
+	display: inline-block;
+	height: 46px;
+	text-align: center;
+	border-right: 1px solid #ddd;
+}
+
+.tabnav li a:before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0px;
+	width: 100%;
+	height: 3px;
+}
+
+.tabnav li a.active:before {
+	background: #7ea21e;
+} /*탭기능 버튼눌렀을때 눌렀따~~표시되는 css  */
+.tabnav li a.active {
+	border-bottom: 1px solid #fff;
+} /*탭기능 버튼눌렀을때 눌렀따~~표시되는 css  */
+.tabnav li a {
+	position: relative;
+	display: block;
+	background: #f8f8f8;
+	color: #000;
+	padding: 0 30px;
+	line-height: 46px;
+	text-decoration: none;
+	font-size: 16px;
+}
 /* 위에 코드 없으면 탭버튼들이 안보임 모르겠음 왜인지는 ㅎㄷㄷ  */
-.tabnav li a:hover, /*탭기능 버튼눌렀을때 눌렀따~~표시되는 css  */
-.tabnav li a.active{background:#fff; color:#7ea21e; } /*탭기능 버튼눌렀을때 눌렀따~~표시되는 css  */
-.tabcontent{padding: 20px; height:764px; width:1892px; border:1px solid #ddd; border-top:none;}
+.tabnav li a:hover, /*탭기능 버튼눌렀을때 눌렀따~~표시되는 css  */ .tabnav li a.active {
+	background: #fff;
+	color: #7ea21e;
+} /*탭기능 버튼눌렀을때 눌렀따~~표시되는 css  */
+.tabcontent {
+	padding: 20px;
+	height: 764px;
+	width: 1892px;
+	border: 1px solid #ddd;
+	border-top: none;
+}
 </style>
+
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert 링크 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script type="text/javascript">
+	// 탭기능
+	$(function() {
+		$('.tabcontent > div').hide();
+		$('.tabnav a').click(function() {
+			$('.tabcontent > div').hide().filter(this.hash).fadeIn();
+			$('.tabnav a').removeClass('active');
+			$(this).addClass('active');
+			return false;
+		}).filter(':eq(0)').click();
+	});
 
-// 탭기능
-$(function(){
-	  $('.tabcontent > div').hide();
-	  $('.tabnav a').click(function () {
-	    $('.tabcontent > div').hide().filter(this.hash).fadeIn();
-	    $('.tabnav a').removeClass('active');
-	    $(this).addClass('active');
-	    return false;
-	  }).filter(':eq(0)').click();
-	  });
-	  
-	  
-function openPopup() {
-	window.open('./insert', 'warehousePopup', 'width=800, height=500, left=2000');
-}
-
-//체크박스 선택된 개수 출력
-function getCheckedCnt()  {
-	  // 선택된 목록 가져오기
-	  var count = 'input[name="check"]:checked';
-	  var selectedElements = document.querySelectorAll(count);
-	  // 선택된 목록의 갯수 세기
-	  var cnt = selectedElements.length;
-	  
-	  return cnt;  
+	function openPopup() {
+		window.open('./insert', 'warehousePopup',
+				'width=800, height=500, left=2000');
 	}
+
+	//체크박스 선택된 개수 출력
+	function getCheckedCnt() {
+		// 선택된 목록 가져오기
+		var count = 'input[name="check"]:checked';
+		var selectedElements = document.querySelectorAll(count);
+		// 선택된 목록의 갯수 세기
+		var cnt = selectedElements.length;
+
+		return cnt;
+	}
+
 //2-1. '수정' 클릭
 $(document).ready(function() {
 $('.modify').click(function(){ 
@@ -288,12 +343,10 @@ $('.modify').click(function(){
   
 }); // jquery
 
-
-
 </script>
 </head>
 <body>
-<br>
+	<br>
 
 
 <!-- 리스트 형식 -->

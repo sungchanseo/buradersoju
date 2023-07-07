@@ -55,14 +55,19 @@
 	<!-- 검수 정보 DB등록 -->
 		<insert id="qInsertDB">
 			insert into qc
-			(qc_num, qc_emp, qc_date, qc_qty, qc_status, production_id)
-			values (#{qc_num}, #{qc_emp}, now(), #{qc_qty}, '완료', #{production_id})
+			(qc_num, qc_emp, qc_date, qc_qty, qc_status, production_id, total_defQty)
+			values (#{qc_num}, #{qc_emp}, now(), #{qc_qty}, '완료', #{production_id}, #{total_defQty})
 		</insert>
 		<update id="prUpdate">
-			update production
-			set production_qty = #{production_qty}
-			where production_id = #{production_id}
+			update product
+			set product_qty = #{product_qty}
+			where product_id = #{product_id}
 		</update>
+<!-- 		<update id="prUpdate"> -->
+<!-- 			update production -->
+<!-- 			set production_qty = #{production_qty} -->
+<!-- 			where production_id = #{production_id} -->
+<!-- 		</update> -->
 		<insert id="qInsertDB2" >
 			insert into defective
 			(qc_num, def_code, def_qty,production_id)
@@ -83,7 +88,7 @@
 	<select id="btISearch" resultType="com.itwillbs.domain.ProductionVO">
 		select *
 		from empty_bottle
-		where bt_date != #{bt_date}
+		where bt_date = #{bt_date}
 	</select>
 	<insert id="btInsert">
 		insert into empty_bottle
@@ -95,16 +100,16 @@
 	<update id="btUpdate">
 		update empty_bottle
 		set bt_defQty = #{bt_defQty}
-		where bt_date = date_format(#{bt_date}, '%Y-%m-%d %H:%i:%s')
+		where bt_date = #{bt_date}
 	</update>
-	<select id="todayDef" resultType="com.itwillbs.domain.ProductionVO">
-		select bt_defQty
-		FROM empty_bottle
-		WHERE bt_date = date_format(#{bt_date}, '%Y-%m-%d %H:%i:%s')
-	</select>
+<!-- 	<select id="todayDef" resultType="com.itwillbs.domain.ProductionVO"> -->
+<!-- 		select bt_defQty -->
+<!-- 		FROM empty_bottle -->
+<!-- 		WHERE bt_date = date_format(#{bt_date}, '%Y-%m-%d %H:%i:%s') -->
+<!-- 	</select> -->
 	<update id="btMaUpdate">
 		update material
-		set ma_qty = (ma_qty+#{bt_defQty})
+		set ma_qty = (ma_qty+(#{bt_qty}-#{bt_defQty}))
 		where ma_name = '공병'
 	</update>
 	<!-- 공병 불량 DB등록 -->

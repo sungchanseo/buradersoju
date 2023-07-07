@@ -35,12 +35,12 @@ public class QualityServiceImpl implements QualityService {
 		logger.debug("@@@@@@QualityService : setPageInfoForQuality호출!");
 		
 		//quality서비스에 필요한 변수를 저장. 
-		pvo.setTable("production a, product b, qc q, defective d");
+		pvo.setTable("production a, product b, qc q, employee e");
 		pvo.setId("q.qc_num");
 		pvo.setPageSize(10);
 		pvo.setStartRow(1);
-		pvo.setStatus_name("a.product_id = b.product_id and a.production_id = q.production_id and q.qc_num = d.qc_num and a.workorder_status");
-		pvo.setStatus_value("완료");
+		pvo.setStatus_name("a.product_id = b.product_id and a.production_id = q.production_id and e.emp_id = q.qc_emp and q.del_qcStatus");
+		pvo.setStatus_value("0");
 //		pvo.setSelector(selector);
 //		pvo.setSearch(search);
 		logger.debug("@@@@@@QualityService : {}",pvo);
@@ -72,12 +72,12 @@ public class QualityServiceImpl implements QualityService {
 
 	@Override
 	public void qualityInsertDB(ProductionVO vo, List<String> def_codeList, List<String> def_qtyList) throws Exception {
-///////////cont_id 조합하기 시작!///////////
+		///////////qc_num 조합하기 시작!///////////
 		//먼저 디비 데이터의 가장 최신 자료를 불러온다. 
 		String lastId = qdao.getLastGeneratedNumber();
 		logger.debug("@@@@@@QualityService : {}", lastId);
 		
-		// 접두사
+		// qc_num 접두사
 		String prefix = "QC";
 		
 		// 현재 날짜를 계산한다. 
@@ -89,15 +89,15 @@ public class QualityServiceImpl implements QualityService {
 		logger.debug("@@@@@@QualityService : countPart={}", countPart);
 
 		String result = null;
-//		if(lastId == null) {
-//			//수주목록에 아무것도 없을 때
-//			logger.debug("@@@@@@QualityService : 수주목록이 없읍니다.");
-//
-//			//접두사+현재날짜+001을 그냥 더한다.
-//			result = prefix + datePart + countPart;
-//			logger.debug("@@@@@@QualityService : result={}", result);
-//
-//		}else {
+		if(lastId == null) {
+			//수주목록에 아무것도 없을 때
+			logger.debug("@@@@@@QualityService : 수주목록이 없읍니다.");
+
+			//접두사+현재날짜+001을 그냥 더한다.
+			result = prefix + datePart + countPart;
+			logger.debug("@@@@@@QualityService : result={}", result);
+
+		}else {
 			//수주목록이 있을 때 
 			logger.debug("@@@@@@QualityService : 수주목록이 있읍니다..");
 
@@ -114,19 +114,18 @@ public class QualityServiceImpl implements QualityService {
 				//날짜부분이 같고 끝번호가 1이상일 때는 1을 더해서 카운트한다.  
 				if(countPartUp >= 1) {
 					countPartUp +=1;
-					logger.debug("countPartUp : "+countPartUp);
 					countPart = String.format("%03d", countPartUp);
 					// 접두사+날짜+카운트를 조합한다.
 					result = prefix + datePart + countPart;
 					logger.debug("@@@@@@QualityService : result={}", result);
 				}
 			}
-//		}
-//		String result = prefix + datePart + countPart;
+		}
+		result = prefix + datePart + countPart;
 		logger.debug("@@@@@@QualityService : {}", result);
 
 		vo.setQc_num(result);
-		///////////cont_id 조합하기 끝!///////////
+		///////////qc_num 조합하기 끝!///////////
 		
 		qdao.qualityInsertDB(vo, def_codeList, def_qtyList);
 		
@@ -151,18 +150,9 @@ public class QualityServiceImpl implements QualityService {
 	}
 
 	@Override
-	public String btUpdate(ProductionVO vo) throws Exception {
-		int result = qdao.btUpCheck(vo);
-		String msg = "";
-		logger.debug("result : "+result);
+	public void btUpdate(ProductionVO vo) throws Exception {
 		logger.debug("bt_defQty : "+vo.getBt_defQty());
-		if(result == 0) {
 			qdao.btUpdate(vo);
-			msg = "저장완료";
-		}else {
-			msg = "이미 등록했습니다.";
-		}
-		return msg;
 	}
 
 

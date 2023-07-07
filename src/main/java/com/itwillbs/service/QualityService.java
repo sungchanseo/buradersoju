@@ -35,7 +35,7 @@ public interface QualityService {
 	public void btInsert(ProductionVO vo) throws Exception;
 	
 	// 공병관리 - 불량 등록
-	public String btUpdate(ProductionVO vo) throws Exception;
+	public void btUpdate(ProductionVO vo) throws Exception;
 	
 	
 }

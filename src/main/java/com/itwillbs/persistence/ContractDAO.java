@@ -1,6 +1,7 @@
 package com.itwillbs.persistence;
 
 import com.itwillbs.domain.ContractVO;
+import com.itwillbs.domain.ProductionVO;
 
 public interface ContractDAO {
 	
@@ -21,4 +22,7 @@ public interface ContractDAO {
 	
 	//cont_id 를 out_product 테이블에 넣기 
 	public void contIdInsert(String cont_id) throws Exception;
+	
+	//product_id로 상품정보 조회하기 
+	public ProductionVO readProductInfo(String product_id) throws Exception;
 }

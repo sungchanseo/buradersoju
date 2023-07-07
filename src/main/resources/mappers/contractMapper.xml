@@ -14,9 +14,9 @@
 	
 <!-- contract 등록하기 	 -->
 	<insert id="insertContract">
-	INSERT INTO contract (cont_id, product_name, product_id, cust_id,
+	INSERT INTO contract (cont_id, product_name, product_id, cust_id, cust_name,
 	cont_date, cont_qty, due_date, production_id, cont_emp, cont_status)
-	VALUES(#{cont_id}, #{product_name}, #{product_id}, #{cust_id},
+	VALUES(#{cont_id}, #{product_name}, #{product_id}, #{cust_id}, #{cust_name}, 
 	#{cont_date}, #{cont_qty}, #{due_date}, #{production_id}, #{cont_emp},
 	0)
 	</insert>
@@ -52,5 +52,13 @@
 		values (#{cont_id})
 	</insert>
 <!-- cont_id를 out_product테이블에 넣기 -->
+
+<!-- 상품 상세정보 조회 -->
+	<select id="getProductInfo" resultType="ProductionVO">
+		select * from product 
+		where product_id = #{product_id}
+	</select>
+<!-- 상품 상세정보 조회 -->
+
 	
 </mapper>

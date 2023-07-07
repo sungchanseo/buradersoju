@@ -10,16 +10,17 @@
     
 <!-- 창고 리스트 -->              
 	<select id="getWarehouseList" resultType="com.itwillbs.domain.WarehouseVO">
-		SELECT * FROM warehouse
-		WHERE whs_status = 1 OR whs_status = 2
+		SELECT whs_id, whs_type, whs_tel, whs_emp,whs_status,emp_name
+        FROM warehouse w, employee e
+        WHERE whs_emp = emp_id and whs_status != 0
 	</select>
 <!-- 창고 리스트 -->
 
 <!-- whs_id, whs_type, whs_tel, whs_status, whs_emp  -->
      <select id="registWhsid" resultType="com.itwillbs.domain.WarehouseVO">
-      SELECT whs_id, whs_type, whs_tel, whs_status, whs_emp 
-      FROM warehouse
-      WHERE whs_id = #{whs_id}
+     SELECT whs_id, whs_type, whs_tel, whs_emp,whs_status,emp_name
+        FROM warehouse w, employee e
+        WHERE whs_emp = emp_id and whs_id =#{whs_id}
      </select> 
 
 

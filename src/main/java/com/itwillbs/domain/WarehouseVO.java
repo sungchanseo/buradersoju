@@ -10,13 +10,23 @@ public class WarehouseVO {
 	private String whs_emp;
 	private int whs_status;
 	private String whspr_id;
-	// get & set
 	
+	// employee
+	private String emp_name;
+	// get & set
 
+	
+		
+	
+	
 
 	public String getWhs_id() {
 		return whs_id;
 	}
+
+
+
+
 
 
 	public String getWhs_type() {
@@ -24,9 +34,17 @@ public class WarehouseVO {
 	}
 
 
+
+
+
+
 	public String getWhs_tel() {
 		return whs_tel;
 	}
+
+
+
+
 
 
 	public String getShelt_position() {
@@ -34,9 +52,17 @@ public class WarehouseVO {
 	}
 
 
+
+
+
+
 	public String getWhs_emp() {
 		return whs_emp;
 	}
+
+
+
+
 
 
 	public int getWhs_status() {
@@ -44,9 +70,26 @@ public class WarehouseVO {
 	}
 
 
+
+
+
+
 	public String getWhspr_id() {
 		return whspr_id;
 	}
+
+
+
+
+
+
+	public String getEmp_name() {
+		return emp_name;
+	}
+
+
+
+
 
 
 	public void setWhs_id(String whs_id) {
@@ -54,9 +97,17 @@ public class WarehouseVO {
 	}
 
 
+
+
+
+
 	public void setWhs_type(String whs_type) {
 		this.whs_type = whs_type;
 	}
+
+
+
+
 
 
 	public void setWhs_tel(String whs_tel) {
@@ -64,9 +115,17 @@ public class WarehouseVO {
 	}
 
 
+
+
+
+
 	public void setShelt_position(String shelt_position) {
 		this.shelt_position = shelt_position;
 	}
+
+
+
+
 
 
 	public void setWhs_emp(String whs_emp) {
@@ -74,13 +133,30 @@ public class WarehouseVO {
 	}
 
 
+
+
+
+
 	public void setWhs_status(int whs_status) {
 		this.whs_status = whs_status;
 	}
 
 
+
+
+
+
 	public void setWhspr_id(String whspr_id) {
 		this.whspr_id = whspr_id;
+	}
+
+
+
+
+
+
+	public void setEmp_name(String emp_name) {
+		this.emp_name = emp_name;
 	}
 	
 	
@@ -88,8 +164,13 @@ public class WarehouseVO {
 	public String toString() {
 		return "WarehouseVO [whs_id=" + whs_id + ", whs_type=" + whs_type + ", whs_tel=" + whs_tel + ", shelt_position="
 				+ shelt_position + ", whs_emp=" + whs_emp + ", whs_status=" + whs_status + ", whspr_id=" + whspr_id
-				+ "]";
+				+ ", emp_name=" + emp_name + "]";
 	}
+
+
+
+
+
 
 	
 }

@@ -14,6 +14,7 @@
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
+<link rel="stylesheet" href="${contextPath }/resources/css/table.css"/>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert창 링크 -->
 </head>
 <body>
@@ -22,23 +23,23 @@
 		<table border="1">
 			<tr>
 				<th>수주처이름</th>
-				<td><input type="text" name="cust_name" id="cust_name" value="${contractInfo.cust_name }"></td>
+				<td><input type="text" name="cust_name" id="cust_name" value="${contractInfo.cust_name }" onclick="custPop();"></td>
 				<th>상품명</th>
-				<td><input type="text" name="product_name" id="product_name" value="${contractInfo.product_name }"></td>
+				<td><input type="text" name="product_name" id="product_name" value="${contractInfo.product_name }" onclick="productPop();"></td>
 				<th>담당자</th>
-				<td><input type="text" name="cont_emp" id="cont_emp" value="${contractInfo.cont_emp }"></td>
+				<td><input type="text" name="cont_emp" id="cont_emp" value="${contractInfo.cont_emp }" onclick="empPop();"></td>
 			</tr>
 			<tr>
 				<th>수주처코드</th>
-				<td><input type="text" name="cust_id" id="cust_id" value="${contractInfo.cust_id }"></td>
+				<td><input type="text" name="cust_id" id="cust_id" value="${contractInfo.cust_id }" readonly></td>
 				<th>상품코드</th>
-				<td><input type="text" name="product_id" id="product_id" value="${contractInfo.product_id }"></td>
+				<td><input type="text" name="product_id" id="product_id" value="${contractInfo.product_id }" readonly></td>
 				<th>수주일자</th>
 				<td><input type="date" name="cont_date" id="cont_date" value="${contractInfo.cont_date }"></td>
 			</tr>
 			<tr>
 				<th>수주량</th>
-				<td><input type="text" name="cont_qty" id="cont_qty"></td>
+				<td><input type="text" name="cont_qty" id="cont_qty" value="${contractInfo.cont_qty }"> </td>
 				<th>작업지시번호</th>
 				<td><input type="text" name="production_id" id="production_id"></td>
 				<th>납품일자</th>
@@ -131,24 +132,65 @@
 		
 			//폼태그를 변수에 저장한다. 
 			var formObject = $("form[role='form']").serializeArray();
+				
+			
 			$.ajax({
 				url : '${contextPath}/contract/modify', 
 				type : 'POST', 
 				data : formObject, 
 				success : function() {
-					alert("수주수정이 완료되었읍니다.");
-					window.opener.location.reload();
-					window.close();
-				}, //success
-				error : function() {
-					alert("수주수정이 완료되었읍니다.");
-					window.opener.location.reload();
-					window.close();
-				} //error
+                        window.opener.location.reload();
+                        window.close();
+				}//success
 			});// ajax END
 		  });//submit END	
 	});// document.ready END
 		
+	
+	//수주처 검색 및 자동완성 기능 
+	function custPop(){
+		var custPop = window.open('/contract/custFind', '수주처검색', 'width=700px,height=650px');
+		
+		if(custPop == null){
+			 Swal.fire({
+		            icon: 'warning',				// Alert 타입
+		            title: '팝업이 차단되었습니다.',	// Alert 제목
+		            text: '차단을 해제하세요.',		// Alert 내용
+		            confirmButtonText: '확인',		// Alert 버튼내용
+     		});
+		  }
+// 		custPop.moveBy(100,100);
+	}//custPop END
+	
+	//상품명 검색 및 자동완성 기능 
+	function productPop(){
+		var productPop = window.open('/contract/productFind', '상품검색', 'width=700px,height=500px');
+		
+		if(productPop == null){
+			  Swal.fire({
+		            icon: 'warning',				// Alert 타입
+		            title: '팝업이 차단되었습니다.',	// Alert 제목
+		            text: '차단을 해제하세요.',		// Alert 내용
+		            confirmButtonText: '확인',		// Alert 버튼내용
+        		});
+		  }
+// 		productPop.moveBy(100,100);
+	}//productPop END
+	
+	//직원정보 검색 및 자동완성 기능 
+	function empPop(){
+		var empPop = window.open('/contract/empFind', '직원검색', 'width=700px,height=500px');
+		
+		if(empPop == null){
+			Swal.fire({
+	            icon: 'warning',				// Alert 타입
+	            title: '팝업이 차단되었습니다.',	// Alert 제목
+	            text: '차단을 해제하세요.',		// Alert 내용
+	            confirmButtonText: '확인',		// Alert 버튼내용
+    		});
+		  }
+// 		empPop.moveBy(100,100);
+	}//empPop END
 	</script>
 </body>
 </html>

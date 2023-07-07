@@ -15,6 +15,7 @@
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert창 링크 -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/table.css"/>
 </head>
 <body>
 	<h1>수주번호 : ${contractInfo.cont_id }</h1>

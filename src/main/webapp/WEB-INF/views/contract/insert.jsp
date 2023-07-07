@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
+<link rel="stylesheet" href="${contextPath }/resources/css/table.css"/>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert창 링크 -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
 </head>
@@ -57,7 +58,12 @@
 		var custPop = window.open('/contract/custFind', '수주처검색', 'width=700px,height=650px');
 		
 		if(custPop == null){
-			  alert("팝업이 차단되었습니다. 차단을 해제하세요.");
+			 Swal.fire({
+		            icon: 'warning',				// Alert 타입
+		            title: '팝업이 차단되었습니다.',	// Alert 제목
+		            text: '차단을 해제하세요.',		// Alert 내용
+		            confirmButtonText: '확인',		// Alert 버튼내용
+     		});
 		  }
 // 		custPop.moveBy(100,100);
 	}//custPop END
@@ -92,11 +98,6 @@
 // 		empPop.moveBy(100,100);
 	}//empPop END
 	
-// 	function sendForm() {
-
-		
-// 	}// sendForm() END
-		
 	$(document).ready(function(){
 		
 		 //빈칸이 있을때 submit 제어 

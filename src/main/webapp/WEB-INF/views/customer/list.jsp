@@ -57,11 +57,11 @@
               </thead>
               <c:forEach var="vo" items="${customerList }">
                <tbody>
-                 <tr>
+                 <tr onclick="infoPop('${vo.cust_id}');">
                    <td><input type="checkbox" name="checkRow" class="checkRow" value="${vo.cust_id}"></td>
-                   <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" onclick="infoPop('${vo.cust_id}');">${vo.cust_id }</font></font></td>
-                   <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" onclick="infoPop('${vo.cust_id}');">${vo.reg_num }</font></font></td>
-                   <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" onclick="infoPop('${vo.cust_id}');">${vo.cust_name }</font></font></td>
+                   <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.cust_id }</font></font></td>
+                   <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.reg_num }</font></font></td>
+                   <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.cust_name }</font></font></td>
                    <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.cust_class }</font></font></td>
                    <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.owner_name }</font></font></td>
                    <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.main_phone }</font></font></td>

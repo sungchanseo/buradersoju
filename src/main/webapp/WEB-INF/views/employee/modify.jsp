@@ -4,6 +4,7 @@
 <html lang="en">
 <head>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> <!-- 우편api -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert창 링크 -->
 <title>사원 정보 수정</title>
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
@@ -165,6 +166,16 @@ td {border:1px solid #04AA6D;
 	</form>
 	<!-- 팝업창 처리 -->
 	<script>
+		// 주소 자동입력 api 메소드
+		function addr() {
+			new daum.Postcode({
+				    oncomplete : function(data) {
+					document.getElementById("emp_address").value = data.address; // 주소 넣기
+				}
+			}).open();
+		};
+		// 주소 자동입력 api 메소드	
+		
 		// 중복체크와 입력값 확인
 		$(document).ready(function () {
 		

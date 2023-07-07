@@ -12,7 +12,16 @@
 	background-color: #0ddbb9;
 	border-color: #6C7293;}
 .auth .auth-form-light select {
-    color: #6C7293;}
+    color: #6C7293;
+    border-radius: 10px;
+    padding: 6px 6px;
+    text-align: center;
+    display: inline;}
+.btn_line1 {
+margin-bottom: 1em;;}
+input {
+	border-radius: 10px;
+    padding: 6px 6px;}
     
 </style>
 <body>
@@ -48,31 +57,21 @@
 								<form action="/employee/list" method="get" style="display:inline;" role="form">
 									<div class="form-group">								
 									<h1>사원리스트</h1>
-									<!-- 검색창기능 -->
+									<div class="btn_line1">
+										<!-- 검색창기능 -->
 										<select name="selector" class="auth auth-form-light select">
 											<option value="emp_name">이름</option>
 											<option value="emp_department">부서</option>
 											<option value="emp_status">재직구분</option>
 										</select>
 										<input type="text" name="search" placeholder="검색어를 입력해주세요">
-										<input type="submit" class="btn btn-info" style="margin-bottom: 1em;" value="검색">
-									<!-- 검색창기능 -->
-									
-                                    <!-- 카테고리 기능 -->
-<!--                                     <p id="category_search"> -->
-<!-- 									    <label> -->
-<!-- 									        <input type="checkbox" name="" value="" onchange="this.form.submit()"  -->
-<%-- 									            <c:if test="${emp_department.equals('인사팀') || emp_department.equals('인사') }">checked</c:if> --%>
-<!-- 									        > -->
-<!-- 									        현재재직자 -->
-<!-- 									    </label> -->
-<!-- 									</p> -->
-                                    <!-- 카테고리 기능 -->
-																
-									<c:if test="${emp_department.equals('인사팀') || emp_department.equals('Master') }">
-										<input type="button" class="btn btn-success" style="float: right;" value="사원등록" onclick="insertPop()">
-									</c:if>
-									
+										<input type="submit" class="btn btn-info" value="검색">
+										<!-- 검색창기능 -->
+																	
+										<c:if test="${emp_department.equals('인사팀') || emp_department.equals('Master') }">
+											<input type="button" class="btn btn-success" style="float: right;" value="사원등록" onclick="insertPop()">
+										</c:if>
+									</div>
 									<table border="1" class="table table-hover table-bordered text-center">
 										<tr>
 											<th style="width: 60px">사번</th>

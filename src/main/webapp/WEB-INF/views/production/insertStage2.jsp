@@ -7,10 +7,11 @@
 <head>
 <meta charset="UTF-8">
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-
 <title>주입 등록</title>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11%22%3E"></script> <!-- alert창 링크 -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
 
 <style type="text/css">
@@ -107,11 +108,11 @@ border-color: #23dbf8;}
             
             // 불량코드 값 설정
               if (!vo.production_status) {
-	            $("#stage1_defCode").val('DE110');
+	            $("#stage2_defCode").val('DE110');
 	          } else if (vo.production_status === '혼합') {
-	            $("#stage1_defCode").val('DE120');
+	            $("#stage2_defCode").val('DE120');
 	          } else if (vo.production_status === '주입') {
-	            $("#stage1_defCode").val('DE130');
+	            $("#stage2_defCode").val('DE130');
 	          }
             
            // 등록 버튼 표시 여부 설정

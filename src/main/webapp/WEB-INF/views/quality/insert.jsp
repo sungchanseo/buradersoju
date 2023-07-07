@@ -66,12 +66,90 @@ border-color: #23dbf8;}
 </head>
 <body>
 
- <script>
+ 
+		
+		
+	<h1>검수 등록</h1>
+	
+	<form>
+	<table>
+	<tr>
+        <th>작업지시번호</th>
+        <td>
+        <input type="text" name="production_id" id="production_id">
+<!--         <input type="text" id="production_id" name="production_id" > -->
+<!--         <input id="btn_Search"  type="button" onclick="workSearch();" value="조회"></td> -->
+        </tr>
+        </table>
+    </form>
+  
+   	<hr>
+	    <table id="insertTable" border="1">
+    <thead>
+    <tr>
+        <th>작업지시번호</th>
+        <th>생산라인</th>
+        <th>상품코드</th>
+        <th>상품명</th>
+        <th>생산량</th>
+    </tr>
+    </thead>
+    <tbody> <!-- 검색 결과 추가되는 공간 -->
+    	
+	</tbody>
+	</table>
+	  <br>
+	
+		<table>
+				 <tr>
+				 <th>검수자</th>
+				 <td>
+				 <input type="hidden" id="qc_emp" name="qc_emp" value="${sessionScope.emp_id}">
+				 ${sessionScope.emp_name}</td> 
+				 </tr>
+				 <tr>
+				 <th>검수량</th>
+				 <td>
+				 <input type="text" id="qc_qty" name="qc_qty">
+				 </td> 
+				 </tr>
+		 </table>
+		 <table id="defInsert">
+				 <tr>
+				 <th>불량</th>
+				 <td>
+					<select class="def_codeList" id="def_code1" name="def_code1">
+<!-- 						<option value="DE100">DE100</option> -->
+						<option value="DE210">DE210</option>
+						<option value="DE220">DE220</option>
+						<option value="DE230">기타</option>
+					</select> </td>
+				 <td> <input type="text" class="def_qtyList" id="def_qty1" name="def_qty1" pattern="[0-9]*">
+				 <input type="button" id="plusBT1" value="추가"></td>
+				 </tr>
+		</table>
+		<button type="button" id="insertBT" class="btn btn-success" >등록</button>
+		
+<script>
  	////// 작업지시번호로 정보 조회(페이지 이동x) //////
     $(document).ready(function(){
-      $("#btn_Search").click(function() {
+    	
+    	//작업지시번호 검색 및 자동완성 기능 
+		$("#production_id").click(function(){
+//			function prodPop(){
+			var prodPop = window.open('/quality/prodFind', '작업지시검색', 'width=700px,height=500px');
+			
+			if(prodPop == null){
+				  alert("팝업이 차단되었습니다. 차단을 해제하세요.");
+			  }
+			prodPop.onbeforeunload = workSearch;
+		}); //("#production_id").click
+    	
+//       $("#btn_Search").click(function() {
+		function workSearch(){
+		console.log("호출완료");
     	  var production_id = $("#production_id").val();
-    	  
+    	  console.log("production_id : "+production_id);
         $.ajax({
           url : 'qualityInsertSearch',
           type : 'GET',
@@ -83,7 +161,8 @@ border-color: #23dbf8;}
               var vo = response.vo;
               $("#insertTable tbody").html(
                 "<tr>" +
-                "<td><input type='hidden' id='production_id' name='production_id' value='"+vo.production_id+"'>" 
+                "<td>"+
+                "<input type='hidden' id='production_id' name='production_id' value='"+vo.production_id+"'>" 
                 + vo.production_id + "</td>" +
                 "<td>" + vo.production_line + "</td>" +
                 "<td><input type='hidden' id='product_id' name='product_id' value='"+vo.product_id+"'>"
@@ -105,10 +184,13 @@ border-color: #23dbf8;}
           console.log(error);
           }
         }); //ajax
+		} // workSearch()
+// 	  }); //(document).ready
       }); // $("#btn_Search").click
 	//////작업지시번호로 정보 조회(페이지 이동x) //////
 	
    	////// 불량 코드/개수 입력 행 추가 //////
+   	$(document).ready(function(){
 	    var maxRows = 3; // 최대 행 수
 	    var currentRows = 1; // 현재 행 수
 	    $("#plusBT1").click(function() {
@@ -129,7 +211,7 @@ border-color: #23dbf8;}
 	            $("#defInsert").append(newRow);
 	            currentRows++;
 	          } // if
-	    }); //$("#plusBT1").click
+	    }); //("#plusBT1").click
 	  }); //(document).ready
 	  ////// 불량 입력 행 추가 //////
 		  
@@ -217,7 +299,7 @@ border-color: #23dbf8;}
 				  
 				  sendForm();
 				  
-		}); //click}); 
+		}); //click; 
 		function sendForm() {
 			var formObject = $("form[role='form']").serialize();
 	
@@ -235,68 +317,6 @@ border-color: #23dbf8;}
 	////// 불량 검수 등록+각 불량 코드에 대한 불량 개수 DB등록+불량 개수를 뺀 생산량 DB등록//////
 	 });  // document.ready
 	</script>
-		
-		
-	<h1>검수 등록</h1>
-	
-	<form>
-	<table>
-	<tr>
-        <th><label for="production_id">작업지시번호</label></th>
-        <td><input type="text" id="production_id" name="production_id" >
-        <input id="btn_Search"  type="button" value="조회"></td>
-        </tr>
-        </table>
-    </form>
-  
-   	<hr>
-	    <table id="insertTable" border="1">
-    <thead>
-    <tr>
-        <th>작업지시번호</th>
-        <th>생산라인</th>
-        <th>상품코드</th>
-        <th>상품명</th>
-        <th>생산량</th>
-    </tr>
-    </thead>
-    <tbody> <!-- 검색 결과 추가되는 공간 -->
-    	
-	</tbody>
-	</table>
-	  <br>
-	
-		<table>
-				 <tr>
-				 <th>검수자</th>
-				 <td>
-				 <input type="text" id="qc_emp" name="qc_emp">
-				 </td> 
-				 </tr>
-				 <tr>
-				 <th>검수량</th>
-				 <td>
-				 <input type="text" id="qc_qty" name="qc_qty">
-				 </td> 
-				 </tr>
-		 </table>
-		 <table id="defInsert">
-				 <tr>
-				 <th>불량</th>
-				 <td>
-					<select class="def_codeList" id="def_code1" name="def_code1">
-<!-- 						<option value="DE100">DE100</option> -->
-						<option value="DE210">DE210</option>
-						<option value="DE220">DE220</option>
-						<option value="DE230">기타</option>
-					</select> </td>
-				 <td> <input type="text" class="def_qtyList" id="def_qty1" name="def_qty1" pattern="[0-9]*">
-				 <input type="button" id="plusBT1" value="추가"></td>
-				 </tr>
-		</table>
-		<button type="button" id="insertBT" class="btn btn-success" >등록</button>
-		
-
 
 </body>
 </html>

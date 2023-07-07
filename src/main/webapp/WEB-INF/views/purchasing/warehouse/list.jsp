@@ -219,111 +219,133 @@ $('.modify').click(function(){
 <body>
 <br>
 
-	<h1 class="card-title">
-		<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">창고 리스트</font></font>
-	</h1>
-	
-	<div>
-	<ul class="nav nav-tabs tab-no-active-fill" role="tablist">
-	<li class="nav-item">
-	<a class="nav-link ps-2 pe-2 active" id="stage1-tab" data-bs-toggle="tab" href="#stage1" role="tab" aria-controls="stage1" aria-selected="true">자재창고</a>
-	</li>
-	<li class="nav-item">
-	<a class="nav-link ps-2 pe-2" id="stage2-tab" data-bs-toggle="tab" href="#stage2" role="tab" aria-controls="stage2" aria-selected="false">상품창고</a>
-    </li>
-	</ul>								
-	<div class="tab-content tab-no-active-fill-tab-content">
-	
-	<div class="tab-pane fade active show" id="stage1" role="tabpanel" aria-labelledby="stage1-tab">
-	
-	<c:if test="${emp_department.equals('구매팀') || emp_department.equals('Master')}">
-		<div style=float:right;>
-			<button class="btn btn-success add-button" type="button" onclick="openPopup();">창고등록</button>
-			<button class="btn btn-success modify true">창고수정</button>
-			<button class="btn btn-success" id="delete">창고삭제</button>
-			<button class="btn btn-info insert update">저장</button>
+
+<!-- 리스트 형식 -->
+<div class="container-scroller">
+		<div class="container-fluid page-body-wrapper full-page-wrapper">
+			<div class="main-panel">
+				<div class="content-wrapper d-flex align-items-center auth px-0"
+					style="min-height: 100vh;">
+					<div class="row w-100 mx-0">
+						<div class="col-lg-12 mx-auto">
+							<div class="auth-form-light text-left py-5 px-4 px-sm-5"
+								style="height: 1000px;">
+
+
+								<h1 class="card-title">
+									<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">창고 리스트</font></font>
+								</h1>
+								
+								<div>
+								<ul class="nav nav-tabs tab-no-active-fill" role="tablist">
+								<li class="nav-item">
+								<a class="nav-link ps-2 pe-2 active" id="stage1-tab" data-bs-toggle="tab" href="#stage1" role="tab" aria-controls="stage1" aria-selected="true">자재창고</a>
+								</li>
+								<li class="nav-item">
+								<a class="nav-link ps-2 pe-2" id="stage2-tab" data-bs-toggle="tab" href="#stage2" role="tab" aria-controls="stage2" aria-selected="false">상품창고</a>
+							    </li>
+								</ul>								
+								<div class="tab-content tab-no-active-fill-tab-content">
+								
+								<div class="tab-pane fade active show" id="stage1" role="tabpanel" aria-labelledby="stage1-tab">
+								
+								<c:if test="${emp_department.equals('구매팀') || emp_department.equals('Master')}">
+									<div style=float:right;>
+										<button class="btn btn-success add-button" type="button" onclick="openPopup();">창고등록</button>
+										<button class="btn btn-success modify true">창고수정</button>
+										<button class="btn btn-success" id="delete">창고삭제</button>
+										<button class="btn btn-info insert update">저장</button>
+									</div>
+								</c:if> 
+								
+								<!-- 테이블 -->
+								<table border="1" class="table table-hover table-bordered text-center">
+									<tr>
+										<th></th>
+										<th>창고번호</th>
+										<th>창고타입</th>
+										<th>전화번호</th>
+										<th>사용여부</th>
+										<th>창고관리자</th>
+									</tr>
+									
+									<c:forEach var="wh" items="${warehouseList}">
+										<tr>
+										<c:choose>
+										   <c:when test="${wh.whs_type.equals('자재')}">
+										   <td><input type="checkbox" name="check"></td>
+									       <td>${wh.whs_id}</td>
+									       <td>${wh.whs_type}</td>
+									       <td>${wh.whs_tel}</td>
+									       <td>
+									       	 <c:choose>
+									       		<c:when test="${wh.whs_status == 1}">사용중</c:when>
+									       		<c:when test="${wh.whs_status == 2}">미사용</c:when>
+									       	 </c:choose>
+									       </td>
+									       <td>${wh.whs_emp}</td>
+									       </c:when>
+									       </c:choose>
+										</tr>
+									</c:forEach>
+								</table>
+							</div>
+							<!-- 2번째 탭 내용들  -->
+							<div class="tab-pane fade show" id="stage2" role="tabpanel" aria-labelledby="stage2-tab">
+								
+								<!-- 구매팀일때만 버튼 활성화 -->
+								<c:if test="${emp_department.equals('구매팀')}">
+									<div style=float:right;>
+										<button class="btn btn-success add-button" type="button" onclick="openPopup();">창고등록</button>
+										<button class="btn btn-success modify true">창고수정</button>
+										<button class="btn btn-success" id="delete">창고삭제</button>
+										<button class="btn btn-info insert update">저장</button>
+									</div>
+								</c:if> 
+								
+								
+								<!-- 테이블 -->
+								<table border="1" class="table table-hover table-bordered text-center">
+									<tr>
+										<th></th>
+										<th>창고번호</th>
+										<th>창고타입</th>
+										<th>전화번호</th>
+										<th>사용여부</th>
+										<th>창고관리자</th>
+									</tr>
+									
+									<c:forEach var="wh" items="${warehouseList}">
+										<tr>
+										<c:choose>
+										   <c:when test="${wh.whs_type.equals('상품')}">
+										   <td><input type="checkbox" name="check"></td>
+									       <td>${wh.whs_id}</td>
+									       <td>${wh.whs_type}</td>
+									       <td>${wh.whs_tel}</td>
+									       <td>
+									       	 <c:choose>
+									       		<c:when test="${wh.whs_status == 1}">사용중</c:when>
+									       		<c:when test="${wh.whs_status == 2}">미사용</c:when>
+									       	 </c:choose>
+									       </td>
+									       <td>${wh.whs_emp}</td>
+									       </c:when>
+									       </c:choose>
+										</tr>
+									</c:forEach>
+								</table>
+							   </div>
+							 </div>
+							</div>
+
+
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-	</c:if> 
-	
-	<!-- 테이블 -->
-	<table border="1" class="table table-hover table-bordered text-center">
-		<tr>
-			<th></th>
-			<th>창고번호</th>
-			<th>창고타입</th>
-			<th>전화번호</th>
-			<th>사용여부</th>
-			<th>창고관리자</th>
-		</tr>
-		
-		<c:forEach var="wh" items="${warehouseList}">
-			<tr>
-			<c:choose>
-			   <c:when test="${wh.whs_type.equals('자재')}">
-			   <td><input type="checkbox" name="check"></td>
-		       <td>${wh.whs_id}</td>
-		       <td>${wh.whs_type}</td>
-		       <td>${wh.whs_tel}</td>
-		       <td>
-		       	 <c:choose>
-		       		<c:when test="${wh.whs_status == 1}">사용중</c:when>
-		       		<c:when test="${wh.whs_status == 2}">미사용</c:when>
-		       	 </c:choose>
-		       </td>
-		       <td>${wh.whs_emp}</td>
-		       </c:when>
-		       </c:choose>
-			</tr>
-		</c:forEach>
-	</table>
-</div>
-<!-- 2번째 탭 내용들  -->
-<div class="tab-pane fade show" id="stage2" role="tabpanel" aria-labelledby="stage2-tab">
-	
-	<!-- 구매팀일때만 버튼 활성화 -->
-	<c:if test="${emp_department.equals('구매팀')}">
-		<div style=float:right;>
-			<button class="btn btn-success add-button" type="button" onclick="openPopup();">창고등록</button>
-			<button class="btn btn-success modify true">창고수정</button>
-			<button class="btn btn-success" id="delete">창고삭제</button>
-			<button class="btn btn-info insert update">저장</button>
-		</div>
-	</c:if> 
-	
-	
-	<!-- 테이블 -->
-	<table border="1" class="table table-hover table-bordered text-center">
-		<tr>
-			<th></th>
-			<th>창고번호</th>
-			<th>창고타입</th>
-			<th>전화번호</th>
-			<th>사용여부</th>
-			<th>창고관리자</th>
-		</tr>
-		
-		<c:forEach var="wh" items="${warehouseList}">
-			<tr>
-			<c:choose>
-			   <c:when test="${wh.whs_type.equals('상품')}">
-			   <td><input type="checkbox" name="check"></td>
-		       <td>${wh.whs_id}</td>
-		       <td>${wh.whs_type}</td>
-		       <td>${wh.whs_tel}</td>
-		       <td>
-		       	 <c:choose>
-		       		<c:when test="${wh.whs_status == 1}">사용중</c:when>
-		       		<c:when test="${wh.whs_status == 2}">미사용</c:when>
-		       	 </c:choose>
-		       </td>
-		       <td>${wh.whs_emp}</td>
-		       </c:when>
-		       </c:choose>
-			</tr>
-		</c:forEach>
-	</table>
-   </div>
- </div>
+	</div>
 </div>
 
 <%@ include file="../../includes/footer.jsp" %>

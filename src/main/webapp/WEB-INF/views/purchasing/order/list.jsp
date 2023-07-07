@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -9,9 +8,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Order</title>
+
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script type="text/javascript">
+
 	function getToday() {
 		var date = new Date();
 
@@ -215,44 +216,22 @@
 									.keyup(
 											function() {
 												var obj = {
-													in_ma_id : $("#ma_id")
-															.val(),
-													in_order_qty : $(
-															"#order_qty").val()
+													in_ma_id : $("#ma_id").val(),
+													in_order_qty : $("#order_qty").val()
 												};
 												console.log(obj.in_ma_id);
-												$
-														.ajax({
-															url : "/purchasing/order/"
-																	+ obj.in_ma_id,
+												$.ajax({
+															url : "/purchasing/order/"+ obj.in_ma_id,
 															type : "get",
-															success : function(
-																	data) {
-																console
-																		.log(obj.in_order_qty);
-																console
-																		.log(data);
-																$("#ma_qty")
-																		.val(
-																				data.ma_qty)
-																$("#unit_cost")
-																		.val(
-																				data.unit_cost)
-																$("#ma_name")
-																		.val(
-																				data.ma_name)
-																$("#order_sum")
-																		.val(
-																				data.unit_cost
-																						* obj.in_order_qty)
-																$("#order_vat")
-																		.val(
-																				data.unit_cost
-																						* obj.in_order_qty
-																						/ 100)
-																$("#whs_id")
-																		.val(
-																				data.whs_id)
+															success : function(data) {
+																console.log(obj.in_order_qty);
+																console.log(data);
+																$("#ma_qty").val(data.ma_qty)
+																$("#unit_cost").val(data.unit_cost)
+																$("#ma_name").val(data.ma_name)
+																$("#order_sum").val(data.unit_cost* obj.in_order_qty)
+																$("#order_vat").val(data.unit_cost* obj.in_order_qty/ 100)
+																$("#whs_id").val(data.whs_id)
 																// $("#ma_name").val(data.ma_name)
 
 																// 등록버튼을 누르면 기존의 데이터가 초기화
@@ -272,26 +251,17 @@
 												console.log("글쓰기 등록함");
 
 												var ma_id = $('#ma_id').val();
-												var ma_name = $('#ma_name')
-														.val();
-												var order_id = $('#order_id')
-														.val();
+												var ma_name = $('#ma_name').val();
+												var order_id = $('#order_id').val();
 												var whs_id = $('#whs_id').val();
-												var unit_cost = $('#unit_cost')
-														.val();
+												var unit_cost = $('#unit_cost').val();
 												var ma_qty = $('#ma_qty').val();
-												var order_qty = $('#order_qty')
-														.val();
-												var order_sum = $('#order_sum')
-														.val();
-												var order_vat = $('#order_vat')
-														.val();
-												var order_date = $(
-														'#order_date').val();
-												var due_date = $('#due_date')
-														.val();
-												var in_date = $('#in_date')
-														.val();
+												var order_qty = $('#order_qty').val();
+												var order_sum = $('#order_sum').val();
+												var order_vat = $('#order_vat').val();
+												var order_date = $('#order_date').val();
+												var due_date = $('#due_date').val();
+												var in_date = $('#in_date').val();
 												var emp_id = "${sessionScope.emp_id }";
 												console.log(ma_id);
 												console.log(ma_name);
@@ -434,62 +404,49 @@
 																				str += "<td><input type='text' id='emp_name' name='emp_name' value="+ obj.emp_name +"></td>";
 																				// 담당직원 세션에 저장된 아이디 들고오기
 																				str += "</tr>";
-																				$(
-																						'table')
-																						.prepend(
-																								str);
+																				$('table').prepend(str);
 																			});
 														},
 														error : function() {
 															alert("error");
 														}
-
-													}); //ajax	
+														}); //ajax	
 
 										}); // function(i)
 							}
 							// 2-2. '저장' 클릭 
-							$('.update')
-									.click(
-											function() {
-												$('.modify').addClass('true');
-												var order_id = tdArr[0];
-												var order_qty = $('#order_qty')
-														.val();
-												var order_sum = $('#order_sum')
-														.val();
-												var order_vat = $('#order_vat')
-														.val();
-												var order_date = getToday();
-												var due_date = orderToday();
-												var in_date = inToday;
-												var emp_id = "${sessionScope.emp_id }";
-												var emp_name = $('#emp_name')
-														.val();
-
-												if (order_id === ""
-														|| order_vat === "") {
-													alert("모든 order_qty 입력해주세요.");
-												} else {
-													$
-															.ajax({
-																url : "modify",
-																type : "post",
-																dataType : "json",
-																contentType : "application/json;charset=UTF-8",
-																data : JSON
-																		.stringify({
-																			order_id : order_id,
-																			order_qty : order_qty,
-																			order_vat : order_vat,
-																			order_sum : order_sum,
-																			order_date : order_date,
-																			in_date : in_date,
-																			due_date : due_date,
-																			emp_name : emp_name,
-																			emp_id : emp_id
-																		}),
-																success : function() {
+							$('.update').click(function()
+									{$('.modify').addClass('true');
+									var order_id = tdArr[0];
+									var order_qty = $('#order_qty').val();
+									var order_sum = $('#order_sum').val();
+									var order_vat = $('#order_vat').val();
+									var order_date = getToday();
+									var due_date = orderToday();
+									var in_date = inToday;
+									var emp_id = "${sessionScope.emp_id }";
+									var emp_name = $('#emp_name').val();
+                                             console.log(order_qty);
+										if (order_id === ""|| order_vat === "") {
+										alert("모든 order_qty 입력해주세요.");
+										} else {
+										$.ajax({
+											url : "modify",
+											type : "post",
+									    	dataType : "json",
+											contentType : "application/json;charset=UTF-8",
+											data : JSON.stringify({
+													order_id : order_id,
+													order_qty : order_qty,
+													order_vat : order_vat,
+													order_sum : order_sum,
+													order_date : order_date,
+													in_date : in_date,
+													due_date : due_date,
+													emp_name : emp_name,
+													emp_id : emp_id
+													}),
+													success : function() {
 																	//			 						alert("자재코드 " + ma_id + ", 수정이 완료되었습니다.");
 																	//			 						location.href="/purchasing/material/list";
 																	alert("발주코드 "
@@ -588,7 +545,7 @@ table input[type :checkbox] {
 
 	<br>
 	<div class="container-scroller">
-		<div class="container-fluid page-body-wrapper full-page-wrapper">
+<!-- 		<div class="container-fluid page-body-wrapper full-page-wrapper"> -->
 			<div class="main-panel">
 				<div class="content-wrapper d-flex align-items-center auth px-0"
 					style="min-height: 100vh;">
@@ -601,22 +558,22 @@ table input[type :checkbox] {
 										href="http://localhost:8088/purchasing/order/list"
 										style="text-decoration: none;">발주 리스트</a></font>
 								</h1>
-								<div>
-									<!-- 탭 메뉴 -->
-									<ul class="nav nav-tabs tab-no-active-fill" role="tablist">
-										<li class="nav-item"><a class="nav-link ps-2 pe-2 active"
-											id="stage1-tab" data-bs-toggle="tab" href="#stage1"
-											role="tab" aria-controls="stage1" aria-selected="true">발주현황</a>
-										</li>
-										<li class="nav-item"><a class="nav-link ps-2 pe-2"
-											id="stage2-tab" data-bs-toggle="tab" href="#stage2"
-											role="tab" aria-controls="stage2" aria-selected="false">발주등록</a>
-										</li>
-									</ul>
-									<!-- 탭 내용 -->
-									<div class="tab-content tab-no-active-fill-tab-content">
-										<div class="tab-pane fade active show" id="stage1"
-											role="tabpanel" aria-labelledby="stage1-tab">
+<!-- 								<div> -->
+<!-- 									탭 메뉴 -->
+<!-- 									<ul class="nav nav-tabs tab-no-active-fill" role="tablist"> -->
+<!-- 										<li class="nav-item"><a class="nav-link ps-2 pe-2 active" -->
+<!-- 											id="stage1-tab" data-bs-toggle="tab" href="#stage1" -->
+<!-- 											role="tab" aria-controls="stage1" aria-selected="true">발주현황</a> -->
+<!-- 										</li> -->
+<!-- 										<li class="nav-item"><a class="nav-link ps-2 pe-2" -->
+<!-- 											id="stage2-tab" data-bs-toggle="tab" href="#stage2" -->
+<!-- 											role="tab" aria-controls="stage2" aria-selected="false">발주등록</a> -->
+<!-- 										</li> -->
+<!-- 									</ul> -->
+<!-- 									탭 내용 -->
+<!-- 									<div class="tab-content tab-no-active-fill-tab-content"> -->
+<!-- 										<div class="tab-pane fade active show" id="stage1" -->
+<!-- 											role="tabpanel" aria-labelledby="stage1-tab"> -->
 											<!-- 검색 기능 -->
 											<form action="/purchasing/order/list" method="get"
 												style="display: inline;">
@@ -720,8 +677,8 @@ table input[type :checkbox] {
 										<!-- 탭기능  -->
 
 										<!-- 탭기능 2번쨰  -->
-										<div class="tab-pane fade show" id="stage2" role="tabpanel"
-											aria-labelledby="stage2-tab">
+<!-- 										<div class="tab-pane fade show" id="stage2" role="tabpanel" -->
+<!-- 											aria-labelledby="stage2-tab"> -->
 											<!-- 검색 기능 -->
 											<form action="/purchasing/order/list" method="get"
 												style="display: inline;">
@@ -802,37 +759,37 @@ table input[type :checkbox] {
 													aria-label="Basic example">
 													<c:if test="${pvo.startPage > pvo.pageBlock }">
 														<a
-															href="/purchasing/order/list?pageNum=${pvo.startPage-pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}"
+															href="/purchasing/order/list?tab=stage2&pageNum=${pvo.startPage-pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}"
 															class="btn btn-outline-secondary">이전</a>
 													</c:if>
 
 													<c:forEach var="i" begin="${pvo.startPage }"
 														end="${pvo.endPage }" step="1">
 														<a
-															href="/purchasing/order/list?pageNum=${i }&selector=${pvo.selector}&search=${pvo.search}"
+															href="/purchasing/order/list?tab=stage2&pageNum=${i }&selector=${pvo.selector}&search=${pvo.search}"
 															class="btn btn-outline-secondary">${i }</a>
 													</c:forEach>
 
 													<c:if test="${pvo.endPage<pvo.pageCount }">
 														<a
-															href="/purchasing/order/list?pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}"
+															href="/purchasing/order/list?tab=stage2&pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}"
 															class="btn btn-outline-secondary">다음</a>
 													</c:if>
 												</div>
 											</div>
 											<!-- 	페이징 처리  -->
-										</div>
+<!-- 										</div> -->
 										<!-- 탭  -->
 
-									</div>
-								</div>
+<!-- 									</div> -->
+<!-- 								</div> -->
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
+<!-- 		</div> -->
+<!-- 	</div> -->
 	<%@ include file="../../includes/footer.jsp"%>
 </body>
 </html>

@@ -93,15 +93,13 @@
                   </div>
               </li>
               <li class="nav-item">
-                  <a href="" class="nav-link">
+                  <a href="/purchasing/order/list" class="nav-link">
                     <i class="mdi mdi-chart-areaspline menu-icon" style="font-size: 30px;"></i>
                     <span class="menu-title">구매 관리</span>
                     <i class="menu-arrow"></i>
                   </a>
                   <div class="submenu">
                       <ul>
-                         <li class="nav-item"><a class="nav-link"  href="/purchasing/material/list">자재 관리</a></li>
-                         <li class="nav-item"><a class="nav-link" href="/purchasing/inventory/list">재고 관리</a></li>
                          <li class="nav-item"><a class="nav-link" href="/purchasing/order/list">발주 관리</a></li>
                          <li class="nav-item"><a class="nav-link" href="/purchasing/inMaterial/list">입고 관리</a></li>
                          <li class="nav-item"><a class="nav-link" href="/purchasing/outProduct/list">출고 관리</a></li>
@@ -124,11 +122,18 @@
                   </div>
               </li>
               <li class="nav-item warehouse">
-                  <a href="/purchasing/warehouse/list" class="nav-link">
+                  <a href="/purchasing/material/list" class="nav-link">
                     <i class="mdi mdi-grid menu-icon" style="font-size: 30px;"></i>
                     <span class="menu-title">창고 관리</span>
                     <i class="menu-arrow"></i>
                   </a>
+                  <div class="submenu">
+                    <ul>
+						<li class="nav-item"><a class="nav-link"  href="/purchasing/material/list">자재 관리</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/purchasing/inventory/list">재고 관리</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/purchasing/warehouse/list">창고 관리</a></li>
+                    </ul>
+                  </div>
               </li>
             </ul>
         </div>

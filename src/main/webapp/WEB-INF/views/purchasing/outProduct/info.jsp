@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
 <style type="text/css">
 table {
@@ -204,10 +205,10 @@ margin-left: 75%;
 						<td>
 							<c:choose>
 								<c:when test="${il.ma_qty - il.use_qty >= 0 }">
-									<span style="color:blue">출고가능</span>
+									<span style="color:blue">생산가능</span>
 								</c:when>
 								<c:otherwise>
-									<span style="color:red">출고불가</span>
+									<span style="color:red">생산불가</span>
 								</c:otherwise>
 							</c:choose>
 						</td>

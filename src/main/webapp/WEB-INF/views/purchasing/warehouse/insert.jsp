@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert 링크 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script type="text/javascript">
 
@@ -59,7 +60,7 @@ $(document).ready(function(){
           $("#warehouseInsert").click(function(){
     	  var emp_id = "${sessionScope.emp_id }";
           console.log("emp_Id : "+emp_id);
-          alert(emp_id);
+//           alert(emp_id);
 
           var nextNumber = addNumber();
           var prnextNumber = praddNumber();
@@ -82,10 +83,6 @@ $(document).ready(function(){
           var whs_status = $("input[name='whs_status']:checked").val();
           var whs_emp = emp_id;
           
-     
-  	 	
-          
-          
           $.ajax({
              url : "insert",
              type : "POST",
@@ -97,15 +94,37 @@ $(document).ready(function(){
             	     whspr_id : whspr_id
              },
              success : function(){
-            	 alert("등록완료!!");
-            	 opener.parent.location.reload();
-            	 window.close(); // 팝업 창 닫기
+            	 Swal.fire({
+            			icon: 'success',
+            			title: '창고번호 ' + whs_id,
+            			text: '등록이 완료되었습니다.',
+            			confirmButtonColor: '#0ddbb9',
+            			confirmButtonText: '확인',
+            		}).then((result) => {
+            			if(result.isConfirmed){
+            				opener.parent.location.reload();
+            				window.close(); // 팝업 창 닫기
+            			}
+            		}); // then(result)
+            		
              }, // success
              error : function () {
-            	 alert("err 등록은됨 ㅋ");
-            	opener.parent.location.reload();
-				window.close(); 
+//             	alert("err 등록은 됨 !");
+           	    Swal.fire({
+           			icon: 'success',
+           			title: '창고번호 ' + whs_id,
+           			text: '등록이 완료되었습니다.',
+           			confirmButtonColor: '#0ddbb9',
+           			confirmButtonText: '확인',
+           		}).then((result) => {
+           			if(result.isConfirmed){
+           				opener.parent.location.reload();
+           				window.close(); // 팝업 창 닫기
+           			}
+           		}); // then(result)
+           		
 			 }// error
+			 
           }) // ajax
           
          });// warehouseInsert

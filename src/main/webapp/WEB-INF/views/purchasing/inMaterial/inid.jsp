@@ -6,7 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert 링크 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
 
 
 <script>
@@ -135,13 +137,25 @@ $(document).ready(function(){
 					alert("찐에러! inid.jsp line 130 수정ㄱㄱ");
 				},
 				error: function(){
-					alert(in_id + ", 입고처리가 완료되었습니다.");
-					location.href = "/purchasing/inMaterial/list";
-				}
+					Swal.fire({
+						icon: 'success',
+						title: '입고번호 ' + in_id,
+						text: '입고처리가 완료되었습니다.',
+						confirmButtonColor: '#0ddbb9',
+						confirmButtonText: '확인',
+					}).then((result) => {
+						if(result.isConfirmed){
+							location.href="/purchasing/inMaterial/list";
+						}
+					}); // then(result)
+					
+				} // error
+				
 		}); // ajax
 	
+		
+		
 }); // JQuery
-
 </script>
 </head>
 <body>

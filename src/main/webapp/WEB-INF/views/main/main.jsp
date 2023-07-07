@@ -1,10 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file="../includes/header.jsp" %>
 
 <body>
 	<div class="container-scroller">
-		<!--헤더 -->
-		<%@ include file="../includes/header.jsp"%>
-		<!--헤더 -->
 		<!-- 본문시작 -->
 		<div class="container-fluid page-body-wrapper">
 			<div class="main-panel">
@@ -15,19 +14,7 @@
 						<div class="col-lg-6 grid-margin stretch-card">
 							<div class="row flex-grow">
 								<div class="col-lg-12 grid-margin stretch-card">
-									<div class="card"
-										style="
-						                box-shadow: none;
-						                -webkit-box-shadow: none;
-						                -moz-box-shadow: none;
-						                -ms-box-shadow: none;
-						                border-radius: 16px 16px 18px 16px;
-						                background-size: contain;
-						                background-repeat: no-repeat;
-						                border: 0;
-						                box-shadow: none;
-						                padding: 2.112rem 3.25rem;"
-						                id="weatherCard">
+									<div class="card" id="weatherCard">
 										<div class="card-body" style="color: D8D8D8;">
 											<div class="row" style="display: flex;">
 												<div class="col-md-6" style="margin-right: 20px;">

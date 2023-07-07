@@ -1,7 +1,17 @@
 package com.itwillbs.service;
 
+import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Iterator;
+import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,6 +72,69 @@ public class ContractServiceImpl implements ContractService {
 		String lastId = cdao.getLastGeneratedNumber();
 		logger.debug("@@@@@@ContractService : getLastGeneratedNumber={}", lastId);
 		
+//		//cont_id 접두사
+//		String prefix = "CO";
+//		
+//		// 현재 날짜를 계산한다. 
+//		LocalDate currentDate = LocalDate.now();
+//		String datePart = currentDate.toString().replace("-", "").substring(2, 8); // 년월일 6글자
+//	
+//		// 1부터 시작하는 카운트를 생성한다. 
+//		String countPart = String.format("%03d", 1);// 001부터 시작
+//		logger.debug("@@@@@@ContractService : countPart={}", countPart);
+//
+//		String result = null;
+//		if(lastId == null) {
+//			//수주목록에 아무것도 없을 때
+//			logger.debug("@@@@@@ContractService : 수주목록이 없읍니다.");
+//
+//			//접두사+현재날짜+001을 그냥 더한다.
+//			result = prefix + datePart + countPart;
+//			logger.debug("@@@@@@ContractService : result={}", result);
+//
+//		}else {
+//			//수주목록이 있을 때 
+//			logger.debug("@@@@@@ContractService : 수주목록이 있읍니다..");
+//
+//			//가운데 날짜 8자리를 추출한다. 
+//			String datePartUp = lastId.substring(2,8);
+//			logger.debug("@@@@@@ContractService : datePartUp={}", datePartUp);
+//
+//			//데이타베이의 날짜부분과 오늘날짜 추출한 부분이 같으면 카운트에 1을 더한다. 
+//			if(datePart.equals(datePartUp)) {
+//				//카운트 부분을 추려낸다. 
+//				Integer countPartUp = Integer.parseInt(lastId.substring(9,11));
+//				logger.debug("@@@@@@ContractService : countPartUp={}", countPartUp);
+//
+//				//날짜부분이 같고 끝번호가 1이상일 때는 1을 더해서 카운트한다.  
+//				if(countPartUp >= 1) {
+//					countPartUp +=1;
+//					countPart = String.format("%03d", countPartUp);
+//					// 접두사+날짜+카운트를 조합한다.
+//					result = prefix + datePart + countPart;
+//					logger.debug("@@@@@@ContractService : result={}", result);
+//				}
+//			}
+//		}
+//		result = prefix + datePart + countPart;
+////		logger.debug("@@@@@@ContractService : 수주등록번호 자동생성합니다.");
+
+		String result = contIdCount();
+		logger.debug("@@@@@@ContractService : {}", result);
+
+		cvo.setCont_id(result);
+		///////////cont_id 조합하기 끝!///////////
+
+		cdao.insertContract(cvo);
+	}
+	
+	//수주번호 자동계산하기 
+	public String contIdCount() throws Exception{
+		///////////cont_id 조합하기 시작!///////////
+		//먼저 디비 데이터의 가장 최신 자료를 불러온다. 
+		String lastId = cdao.getLastGeneratedNumber();
+		logger.debug("@@@@@@ContractService : {}", lastId);
+		
 		//cont_id 접두사
 		String prefix = "CO";
 		
@@ -97,7 +170,7 @@ public class ContractServiceImpl implements ContractService {
 				logger.debug("@@@@@@ContractService : countPartUp={}", countPartUp);
 
 				//날짜부분이 같고 끝번호가 1이상일 때는 1을 더해서 카운트한다.  
-				if(countPartUp >= 1) {
+				if(countPartUp >= 0) {
 					countPartUp +=1;
 					countPart = String.format("%03d", countPartUp);
 					// 접두사+날짜+카운트를 조합한다.
@@ -106,71 +179,8 @@ public class ContractServiceImpl implements ContractService {
 				}
 			}
 		}
-		result = prefix + datePart + countPart;
-//		logger.debug("@@@@@@ContractService : 수주등록번호 자동생성합니다.");
-
-//		String result = contIdCount();
-		logger.debug("@@@@@@ContractService : {}", result);
-
-		cvo.setCont_id(result);
-		///////////cont_id 조합하기 끝!///////////
-
-		cdao.insertContract(cvo);
-	}
-	
-	//수주번호 자동계산하기 
-//	public String contIdCount() throws Exception{
-//		///////////cont_id 조합하기 시작!///////////
-//		//먼저 디비 데이터의 가장 최신 자료를 불러온다. 
-//		String lastId = cdao.getLastGeneratedNumber();
-//		logger.debug("@@@@@@ContractService : {}", lastId);
-//		
-//		//cont_id 접두사
-//		String prefix = "CO";
-//		
-//		// 현재 날짜를 계산한다. 
-//		LocalDate currentDate = LocalDate.now();
-//		String datePart = currentDate.toString().replace("-", "").substring(2, 8); // 년월일 6글자
-//	
-//		// 1부터 시작하는 카운트를 생성한다. 
-//		String countPart = String.format("%03d", 1);// 001부터 시작
-//		logger.debug("@@@@@@ContractService : countPart={}", countPart);
-//
-//		String result = null;
-//		if(lastId != null) {
-//			//수주목록에 아무것도 없을 때
-//			logger.debug("@@@@@@ContractService : 수주목록이 없읍니다.");
-//
-//			//접두사+현재날짜+001을 그냥 더한다.
-//			result = prefix + datePart + countPart;
-//			logger.debug("@@@@@@ContractService : result={}", result);
-//
-//		}else {
-//			//수주목록이 있을 때 
-//			logger.debug("@@@@@@ContractService : 수주목록이 있읍니다..");
-//
-//			//가운데 날짜 8자리를 추출한다. 
-//			String datePartUp = lastId.substring(2,8);
-//			logger.debug("@@@@@@ContractService : datePartUp={}", datePartUp);
-//
-//			//데이타베이의 날짜부분과 오늘날짜 추출한 부분이 같으면 카운트에 1을 더한다. 
-//			if(datePart.equals(datePartUp)) {
-//				//카운트 부분을 추려낸다. 
-//				Integer countPartUp = Integer.parseInt(lastId.substring(9,11));
-//				logger.debug("@@@@@@ContractService : countPartUp={}", countPartUp);
-//
-//				//날짜부분이 같고 끝번호가 1이상일 때는 1을 더해서 카운트한다.  
-//				if(countPartUp != 0) {
-//					countPartUp +=1;
-//					countPart = String.format("%03d", countPartUp);
-//					// 접두사+날짜+카운트를 조합한다.
-//					result = prefix + datePart + countPart;
-//					logger.debug("@@@@@@ContractService : result={}", result);
-//				}
-//			}
-//		}
-//		return result;
-//	} //contIdCount END
+		return result;
+	} //contIdCount END
 
 	//수주 수정하기
 	@Override
@@ -200,5 +210,89 @@ public class ContractServiceImpl implements ContractService {
 		return cdao.readProductInfo(product_id);
 	}
 
+	//엑셀화일 다운로드
+	@Override
+	public void downExcel(List<Object> contractList, HttpServletResponse response) throws IOException {
+		logger.debug("@@@@@@ContractService : 상품코드로 상품정보를 불러옵니다.");
+		logger.debug("@@@@@@ContractService : contractList : {}", contractList);
+		logger.debug("@@@@@@ContractService : contractList.size() : {}", contractList.size());
+
+		Workbook wb = new XSSFWorkbook();
+        Sheet sheet = wb.createSheet("첫번째 시트");
+        int rowNum = 0;
+        Cell cell = null;
+        Row row = null;
+        
+        // 엑셀의 머리 
+        int cellNum = 0;
+        row = sheet.createRow(rowNum++);
+        cell = row.createCell(cellNum++);
+        cell.setCellValue("수주번호");
+        cell = row.createCell(cellNum++);
+        cell.setCellValue("상품코드");
+        cell = row.createCell(cellNum++);
+        cell.setCellValue("상품명");
+        cell = row.createCell(cellNum++);
+        cell.setCellValue("수주처");
+        cell = row.createCell(cellNum++);
+        cell.setCellValue("수주일");
+        cell = row.createCell(cellNum++);
+        cell.setCellValue("수주량");
+        cell = row.createCell(cellNum++);
+        cell.setCellValue("납기일");
+        cell = row.createCell(cellNum++);
+        cell.setCellValue("작업지시번호");
+        cell = row.createCell(cellNum++);
+        cell.setCellValue("담당자");
+        //엑셀 몸통
+		for(Object vo : contractList) {
+//			ContractVO cvo = (ContractVO) vo;
+//			logger.debug("@@@@@@ContractService : cvo.getCont_id() : {}", cvo.getCont_id()); 
+//			logger.debug("@@@@@@ContractService : vo : {}", vo); 
+//			logger.debug("@@@@@@ContractService : vo.hashCode() : {}", vo.); 
+
+			
+		}
+//        for (int i = 0; i < contractList.size() ; i++) {
+////    		logger.debug("반복문 시작합니다. ");
+////    		contractList.get(i);
+////    		Object contract = contractList.get(i);
+////    		logger.debug("contract[i] : {}", contract);
+//    		
+//            cellNum = 0;
+//            row = sheet.createRow(rowNum++);
+//            cell = row.createCell(cellNum++);
+//            cell.setCellValue(1);
+//            cell = row.createCell(cellNum++);
+//            cell.setCellValue("학생" + i);
+//            cell = row.createCell(cellNum++);
+//            cell.setCellValue("학생" + i);
+//            cell = row.createCell(cellNum++);
+//            cell.setCellValue("학생" + i);
+//            cell = row.createCell(cellNum++);
+//            cell.setCellValue("학생" + i);
+//            cell = row.createCell(cellNum++);
+//            cell.setCellValue("학생" + i);
+//            cell = row.createCell(cellNum++);
+//            cell.setCellValue("학생" + i);
+//            cell = row.createCell(cellNum++);
+//            cell.setCellValue("학생" + i);
+//            cell = row.createCell(cellNum++);
+//            cell.setCellValue("학생" + i);
+//            cell = row.createCell(cellNum++);
+//            cell.setCellValue("학생" + i);
+////    		logger.debug("@@@@@@ContractService : 한번 끝");
+//
+//        }
+ 
+        // Download
+        response.setContentType("ms-vnd/excel");
+        response.setHeader("Content-Disposition", "attachment;filename=student.xlsx");
+        try {
+            wb.write(response.getOutputStream());
+        } finally {
+            wb.close();
+        }
+    }		
 	
 }

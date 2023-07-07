@@ -22,10 +22,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.itwillbs.domain.ContractVO;
 import com.itwillbs.domain.PagingVO;
 import com.itwillbs.domain.ProductionVO;
 import com.itwillbs.service.PagingService;
 import com.itwillbs.service.QualityService;
+import com.itwillbs.service.WorkOrderService;
 
 @Controller
 @RequestMapping(value = "/quality/*")
@@ -36,6 +38,8 @@ public class QualityController {
 	private QualityService quService;
 	@Inject
 	private PagingService pageService;
+	@Inject
+	private WorkOrderService woService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(QualityController.class);
 	
@@ -101,11 +105,54 @@ public class QualityController {
 			//servicer객체 호출
 			quService.insertQuality(vo);
 		}
-		// 작업 지시 번호로 조회
-		@RequestMapping(value="/qualityInsertSearch",  produces = "application/text; charset=UTF-8")
+		
+		// 품질관리 등록 - 수주 정보 조회
+			@RequestMapping(value="/prodFind", method = RequestMethod.GET)
+			public void findWorkGET(PagingVO pvo, Model model, HttpSession session) throws Exception{
+				logger.debug("@@@@@@@@@@@Controller : 작업지시번호 찾기");
+				
+				List<Object> workOrderList = null;
+				
+				//작업지시 목록을 가져오는 woService 호출
+				pvo = woService.setPageInfoForWorkOrder2(pvo);
+				logger.debug("@@@@@@@@@Controller : {}",pvo);
+				
+				//service객체를 호출
+				if(pvo.getSelector()!=null && pvo.getSelector()!="") {
+					//검색어가 있을 때 
+					logger.debug("@@@@@@@@@Controller : 검색어가 있을 때입니다");
+					workOrderList = pageService.getListSearchObjectProductionVO(pvo);
+				}else {
+					//검색어가 없을 때
+					logger.debug("@@@@@@@@@Controller : 검색어가 없을 때입니다");
+					workOrderList = pageService.getListPageSizeObjectProductionVO(pvo);
+				}
+				logger.debug("@@@@@@@@@Controller : workOrderList={}",workOrderList);
+			
+				// 변수에 담아서 전달
+				model.addAttribute("workOrderList", workOrderList);
+				model.addAttribute("pvo",pvo);
+				
+//						return null;
+			}
+			// 수주번호 자동완성
+			@ResponseBody
+			@RequestMapping(value="/prodInfo", method = RequestMethod.GET)
+			public ProductionVO getProdInfo(@RequestParam("production_id") String production_id) throws Exception{
+				logger.debug("@@@@@@@@@@@Controller : 작업지시번호 가져오기 !!!!!");
+				logger.debug("@@@@@@@@@@@Controller : {}", production_id);
+
+				ProductionVO vo = woService.detailWorkOrder(production_id);
+				logger.debug("@@@@@@@@@@@Controller : {}", vo);
+
+				return vo;
+			}
+		
+		// 검수번호로 번호로 조회
+		@RequestMapping(value="/qualityInsertSearch",  produces = "application/text; charset=UTF-8", method = RequestMethod.GET)
 		@ResponseBody
 		public String searchListGET(String production_id) throws Exception {
-			
+			logger.debug("@@@@@@@@호출 searchListGET");
 			//자바에서 JSON 객체로 변환
 			ObjectMapper mapper = new ObjectMapper();
 			HashMap<String, Object> hashMap = new HashMap<String, Object>();
@@ -113,6 +160,7 @@ public class QualityController {
 			
 			//servicer객체 호출
 			ProductionVO qualityInsertSearch = quService.getInsertSearch(production_id);
+			logger.debug("vo : "+qualityInsertSearch);
 			hashMap.put("vo", qualityInsertSearch);
 			
 			String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(hashMap);
@@ -135,7 +183,7 @@ public class QualityController {
 			logger.debug(def_codeList+"def_codeList");
 			quService.qualityInsertDB(vo, def_codeList, def_qtyList);
 			logger.debug("@@@@@@@@@@@@Controller : 검수 등록 insert 작업 완료");
-			return "redirect:/quality/qualityList";
+			return "redirect:/quality/list";
 		}
 		
 		

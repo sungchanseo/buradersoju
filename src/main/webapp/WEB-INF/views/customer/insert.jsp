@@ -12,6 +12,8 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main/fullcalendar-5.11.4/lib/main.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />	
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert창 링크 -->
 	<style type="text/css">
 		table {
 			margin-bottom: 1em;

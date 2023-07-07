@@ -27,6 +27,7 @@ public class WorkOrderServiceImpl implements WorkOrderService {
 	@Inject
 	private PagingService pageService;
 	
+	// 작업지시 목록(페이징)
 	@Override
 	public PagingVO setPageInfoForWorkOrder(PagingVO pvo) throws Exception{
 		logger.debug("@@@@@@CustomerService : setPageInfoForCustomer호출!");
@@ -37,6 +38,26 @@ public class WorkOrderServiceImpl implements WorkOrderService {
 		pvo.setPageSize(10);
 		pvo.setStartRow(1);
 		pvo.setStatus_name("a.product_id = b.product_id and e.emp_id = a.production_emp and del_woStatus");
+		pvo.setStatus_value("0");
+		logger.debug("@@@@@@WorkOrderService : {}",pvo);
+
+		
+		//페이지 계산을 위해서 pageingSerivce의 메소드 호출 
+		pvo = pageService.pagingAction(pvo);
+		logger.debug("@@@@@@WorkOrderService : {}",pvo);
+		return pvo;
+	}
+	
+	@Override
+	public PagingVO setPageInfoForWorkOrder2(PagingVO pvo) throws Exception{
+		logger.debug("@@@@@@CustomerService : setPageInfoForCustomer호출!");
+		
+		//WorkOrder서비스에 필요한 변수를 저장. 
+		pvo.setTable("production a, product b, employee e, pr_complete c");
+		pvo.setId("a.production_id");
+		pvo.setPageSize(10);
+		pvo.setStartRow(1);
+		pvo.setStatus_name("a.product_id = b.product_id and e.emp_id = a.production_emp and a.production_id = c.production_id and del_woStatus");
 		pvo.setStatus_value("0");
 		logger.debug("@@@@@@WorkOrderService : {}",pvo);
 
@@ -70,8 +91,6 @@ public class WorkOrderServiceImpl implements WorkOrderService {
 	@Override
 	public void insertWorkOrder(ProductionVO vo) throws Exception {
 		logger.debug("@@@@@@WorkOrderService : 작업지시 등록 실행");
-		
-		
 		///////////production_id 조합하기 시작!///////////
 		//먼저 디비 데이터의 가장 최신 자료를 불러온다. 
 		String lastId = wdao.getLastGeneratedNumber();
@@ -141,6 +160,13 @@ public class WorkOrderServiceImpl implements WorkOrderService {
 	@Override
 	public ProductionVO detailWorkOrder(String production_id) throws Exception{
 		return wdao.detailWorkOrder(production_id);
+	}
+	
+	// 해당 수주번호에 작업지시번호 저장
+	@Override
+	public void contSetPrId(ProductionVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		wdao.contSetPrId(vo);
 	}
 
 	

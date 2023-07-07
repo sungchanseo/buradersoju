@@ -4,32 +4,13 @@
 <html lang="en">
 <head>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> <!-- 우편api -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert창 링크 -->
 <title>사원 정보 수정</title>
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
+
 <style type="text/css">
-/* alert창 css */
-div:where(.swal2-container) div:where(.swal2-popup) {
-	width: 14em;
-	padding: 0 0 0.5em;}
-div:where(.swal2-container) h2:where(.swal2-title) {
-	padding: 0;
-	font-size: 1.05em;}
-div:where(.swal2-container) .swal2-html-container {
-	margin: 0;
-	font-size: 0.95em;}
-div:where(.swal2-container) div:where(.swal2-actions) {
-	margin: 0;}
-div:where(.swal2-icon) {
-	margin: 0.5em auto 0.5em;}
-div:where(.swal2-icon).swal2-warning {
-	border-color: #0ddbb9;
-	color: #0ddbb9;}
-div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
-	background-color: #0ddbb9;
-	color: #000;
-	font-size: 0.9em;
-	font-weight: 600;}
-/* alert창 css */
 
 /* 테이블 css */
 table {margin-bottom: 1em;}
@@ -88,17 +69,14 @@ td {border:1px solid #04AA6D;
 
 .btn_table table {
 	width: 100%;}
-
-/* .btn {background-color: #048; */
-/* padding:8px 10px; */
-/* color: #fff;} */
 /* 테이블 css */
+
 </style>
 </head>
 <body>
-	<form action="" role="form" id="fr" method="post">
+	<form action="" role="form" id="fr" method="post" enctype="multipart/form-data">
 		<div class="container">
-			<h1 style="display: inline;">사원 수정</h1>
+			<h1 style="display: inline; font-family: 'NanumSquareRoundBold'; ">사원 수정</h1>
 			
 			<div class="btn_btn">
 				<input type="submit" class="btn btn-info" value="사원수정" onclick="sendForm();">
@@ -118,7 +96,7 @@ td {border:1px solid #04AA6D;
 						<td><input type="text" name="emp_name" id="emp_name" value="${resultVO.emp_name }"></td>
 					</tr>
 					<tr>
-						<td rowspan="4">이미지</td>
+						<td rowspan="4"><img src="/employee/imgDown?fileName=${resultVO.emp_image }"></td>
 						<th>생년월일</th>
 						<td><input type="text" name="emp_birth" id="emp_birth" value="${resultVO.emp_birth }"></td>
 						<th>휴대전화</th>
@@ -173,7 +151,7 @@ td {border:1px solid #04AA6D;
 						<td><input type="text" name="join_date" id="join_date" value="${resultVO.join_date }"></td>
 					</tr>
 					<tr>
-						<td><input type="file" multiple name="emp_image" accept="image/*" value="이미지등록"></td>
+						<td><input type="file" class="form-control" name="file1" accept="image/*" ></td>
 						<th>휴직일</th>
 						<td><input type="text" name="absence_date" value="${resultVO.absence_date }"></td>			
 						<th>복직일</th>
@@ -188,6 +166,16 @@ td {border:1px solid #04AA6D;
 	</form>
 	<!-- 팝업창 처리 -->
 	<script>
+		// 주소 자동입력 api 메소드
+		function addr() {
+			new daum.Postcode({
+				    oncomplete : function(data) {
+					document.getElementById("emp_address").value = data.address; // 주소 넣기
+				}
+			}).open();
+		};
+		// 주소 자동입력 api 메소드	
+		
 		// 중복체크와 입력값 확인
 		$(document).ready(function () {
 		
@@ -307,27 +295,44 @@ td {border:1px solid #04AA6D;
 				}
 		
 				return false; // 폼 제출 막기
-			});
+			}); // submit function
 		
 			function sendForm() {
-				var formObject = $("form[role='form']").serialize();
-				$.ajax({
-					url: '/employee/modify', 
-					type: 'post', 
-					data : formObject, 
-					success: function(json) {
-						Swal.fire({
-				            icon: 'success',					
-				            title: '사원수정이 완료되었습니다.',	
-				            text: '확인을 누르면 창이 닫힙니다.',	
-				            confirmButtonText: '확인',
-				        });
-						window.opener.location.reload();
-						window.close();
-					}
-				});
-			}
-		});
+			    Swal.fire({
+			        title: '사원정보를 수정하시겠습니까?',
+			        text: '선택하라 인간',
+			        icon: 'warning',
+			        showCancelButton: true,
+			        confirmButtonColor: '#0ddbb9',
+			        cancelButtonColor: '#d33',
+			        confirmButtonText: '수정',
+			        cancelButtonText: '취소'
+			    }).then((result) => {
+			        if (result.isConfirmed) {
+			            $.ajax({
+			                url: '/employee/modify',
+			                type: 'POST',
+			                data: new FormData($("form[role='form']")[0]),
+			                enctype: 'multipart/form-data',
+			                processData: false,
+			                contentType: false,
+			                cache: false,
+			                success: function(json) {
+			                    Swal.fire({
+			                        title: '사원수정이 완료되었습니다.',
+			                        text: '확인을 누르면 창을 닫습니다.',
+			                        icon: 'success',
+			                        confirmButtonText: '확인'
+			                    }).then(() => {
+			                        window.opener.location.reload();
+			                        window.close();
+			                    });
+			                } // json
+			            }); // ajax
+			        } // isConfirmed
+			    }); // then(result)
+			} // sendForm
+		}); // document
 	</script>
 	<!-- 팝업창 처리 -->
 </body>

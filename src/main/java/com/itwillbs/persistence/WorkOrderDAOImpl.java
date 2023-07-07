@@ -64,9 +64,10 @@ public class WorkOrderDAOImpl implements WorkOrderDAO {
 //		if(result == 0) {
 //			sqlSession.insert(NAMESPACE + ".insertWorkOrder", vo);
 //		}
-		if(result != 0) {
+		if(result == 1) {
 		logger.debug(" 작업지시 등록 DB저장 완료 ");
 		}
+		
 	}
 	
 	// 작업지시 등록(자재수량 update)
@@ -115,6 +116,16 @@ public class WorkOrderDAOImpl implements WorkOrderDAO {
 		logger.debug(" detailWorkOrder() 호출 ");
 		
 		return sqlSession.selectOne(NAMESPACE+".workOrder", production_id);
+	}
+	
+	// 작업지시 등록 - 해당 수주번호에 작업지시번호 저장
+	@Override
+	public void contSetPrId(ProductionVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		int result = sqlSession.update(NAMESPACE + ".prIdContUpdate", vo);
+		if(result != 0) {
+			logger.debug(" 해당 수주번호에 작업지시번호 저장완료 ");
+			}
 	}
 
 //	@Override

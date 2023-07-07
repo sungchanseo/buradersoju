@@ -11,6 +11,10 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/base/vendor.bundle.base.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main/fullcalendar-5.11.4/lib/main.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert창 링크 -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
 </head>
 <body>
 	<h1>수주번호 : ${contractInfo.cont_id }</h1>
@@ -48,17 +52,34 @@
 	<script type="text/javascript">
 	
 	function deleteAction(cont_id){
-		if(confirm('삭제하시겠읍니까?')){
-			$.ajax({
-				url : '/contract/remove?cont_id='+cont_id, 
-				type : 'POST', 
-				success : function(){ 
-					alert("거래처가 삭제되었읍니다.");
-					window.opener.location.reload();
-					window.close();
-				}
-			});
-		}
+		Swal.fire({
+	        title: '삭제하시겠읍니까?',
+	        text: '예/아니오를 선택하세요.',
+	        icon: 'warning',
+	        showCancelButton: true,
+	        confirmButtonColor: '#0ddbb9',
+	        cancelButtonColor: '#d33',
+	        confirmButtonText: '삭제',
+	        cancelButtonText: '취소'
+	    }).then((result) => {
+			if(result.isConfirmed){
+				$.ajax({
+					url : '/contract/remove?cont_id='+cont_id, 
+					type : 'POST', 
+					success : function(){ 
+						Swal.fire({
+	                        title: '삭제가 완료되었습니다.',
+	                        text: '확인을 누르면 창을 닫습니다.',
+	                        icon: 'success',
+	                        confirmButtonText: '확인'
+	                    }).then(() => {
+	                        window.opener.location.reload();
+	                        window.close();
+	                    }); //then END
+					}//success END
+				});//ajax END
+			}// result.siConfirmed END
+	    }); //then(result) END
 	}// deleteAction() END
 </script>
 	

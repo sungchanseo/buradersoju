@@ -1,15 +1,16 @@
 package com.itwillbs.service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import com.itwillbs.domain.PagingVO;
 import com.itwillbs.domain.ProductionVO;
 
 public interface WorkOrderService {
 	
-	// 작업지시 등록
+	// 작업지시 목록
+	public List<ProductionVO> getWorkOrderList() throws Exception;
+	
+	// 작업지시 등록 페이지
 	public void insertWorkOrder(ProductionVO vo) throws Exception;
 	
 	// 작업지시 등록-수주번호 조회
@@ -21,16 +22,17 @@ public interface WorkOrderService {
 	// 작업지시 등록-자재재고 업데이트
 	public void maQtyUpdate(List<String> ma_nameList, List<String> ma_qtyList) throws Exception;
 	
-	// 작업지시 목록
-	public List<ProductionVO> getWorkOrderList() throws Exception;
+	// 작업지시 등록-해당 수주번호에 작업지시번호 저장
+	public void contSetPrId(ProductionVO vo) throws Exception;
 	
 	// 작업지시 상세
 	public ProductionVO detailWorkOrder(String production_id) throws Exception;
 	
-	//페이징처리 변수저장을 위한 serive생성
+	// 페이징처리 변수저장을 위한 serive생성
 	public PagingVO setPageInfoForWorkOrder(PagingVO pvo) throws Exception;
 
-//	public void maQtyUpdate(String[] ma_nameList, String[] ma_qtyList);
+	// 검수등록시 조회용 페이징처리 serive생성
+	public PagingVO setPageInfoForWorkOrder2(PagingVO pvo) throws Exception;
 
 	
 }

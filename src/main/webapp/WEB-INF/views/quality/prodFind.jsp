@@ -11,56 +11,60 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/base/vendor.bundle.base.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main/fullcalendar-5.11.4/lib/main.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
-<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert창 링크 -->
 </head>
 <body>
-<h1>직원검색</h1>
+<h1>작업지시검색</h1>
 	<!-- 검색창기능 -->
 	<form action="" method="get" style="display: inline;">
 		<select name="selector">
-			<option value="emp_name">이름</option>
-			<option value="emp_department">부서</option>
+			<option value="cont_id">수주번호</option>
+			<option value="product_id">상품코드</option>
+			<option value="product_name">상품명</option>
 		</select> <input type="text" style="display:inline;" name="search" placeholder="검색어를 입력해주세요">
 		<input type="submit"  class="btn btn-info" value="검색">
 	</form>
 	<!-- 검색창기능 -->
 
-	<!-- 사원목록 테이블 -->
+	<!-- 수주 테이블 -->
 	<div class="table-responsive">
 		<table class="table table-hover" style="text-align :center;">
 			<tr>
-				<th style="width: 60px">사번</th>
-				<th>이름</th>
-				<th>부서</th>
-				<th>직급</th>
-				<th>입사일</th>
-				<th>내선번호</th>
+				<th style="width: 60px">작업지시번호</th>
+				<th>수주번호</th>
+				<th>상품코드</th>
+				<th>상품명</th>
+				<th>생산라인</th>
+				<th>작업지시수량</th>
+				<th>생산수량</th>
+				<th>생산상태</th>
 			</tr>
 			
-			<c:forEach var="vo" items="${employeeList }">
-				<tr onclick="sendEmpInfoValue('${vo.emp_id}');">
-					<td>${vo.emp_id }</td>
-					<td>${vo.emp_name }</td>
-					<td>${vo.emp_department }</td>
-					<td>${vo.emp_position }</td>
-					<td>${vo.join_date }</td>
-					<td>${vo.emp_tel }</td>
+			<c:forEach var="vo" items="${workOrderList}">
+			<c:if test="${vo.production_status =='포장'}">
+				<tr onclick="sendProdInfoValue('${vo.production_id}');">
+					<td>${vo.production_id}</td>
+					<td>${vo.cont_id }</td>
+					<td>${vo.product_id }</td>
+					<td>${vo.product_name }</td>
+					<td>${vo.production_line }</td>
+					<td>${vo.plan_qty }</td>
+					<td>${vo.production_qty }</td>
+					<td>${vo.production_status}</td>
 				</tr>
+				</c:if>
 			</c:forEach>
 		</table>
 		<!--	페이징처리  -->
 		<c:if test="${pvo.startPage > pvo.pageBlock }">
-			<a href="/contract/empFind?pageNum=${pvo.startPage-pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">이전</a>
+			<a href="/quality/prodFind?pageNum=${pvo.startPage-pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">이전</a>
 		</c:if>
 		
 		<c:forEach var="i" begin="${pvo.startPage }" end="${pvo.endPage }" step="1">
-			<a href="/contract/empFind?pageNum=${i }&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">${i }</a>
+			<a href="/quality/prodFind?pageNum=${i }&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">${i }</a>
 		</c:forEach>
 		
 		<c:if test="${pvo.endPage<pvo.pageCount }">
-			<a href="/contract/empFind?pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">다음</a>
+			<a href="/quality/prodFind?pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">다음</a>
 		</c:if>
 		<!--	페이징처리  -->
 		
@@ -68,24 +72,26 @@
 	
 	<script>
 	
-	function selectRow(emp_id){
+	function selectRow(production_id){
 		
 	}
 	
 	//부모창으로 값 보내기 
-	function sendEmpInfoValue(id){
+	function sendProdInfoValue(id){
 		$.ajax({
-			url : '/contract/empInfo',
+			url : '/quality/prodInfo',
 			type : 'get',
 			data : {
-				emp_id : id
+				production_id : id
 			},
 			success : function(data){
-				window.opener.document.getElementById("cont_emp").value = data.emp_name;
+				window.opener.document.getElementById("production_id").value = data.production_id;
+				setTimeout(function() {
 				window.close();
+				}, 200);
 			}
 		});//ajax END
-	}//sendEmpInfoValue END
+	}//sendProdInfoValue END
 	
 	</script>
 </body>

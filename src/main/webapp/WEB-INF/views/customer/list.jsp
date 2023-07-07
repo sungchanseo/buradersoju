@@ -8,8 +8,10 @@
 <title>Insert title here</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script> <!-- 제이쿼리 -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> <!-- 우편api -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert창 링크 -->
 </head>
 <body>
+<div>
 	<div class="card-body">
 		<h1 class="card-title">
 			<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">거래처 리스트</font></font>
@@ -28,10 +30,12 @@
 		<!-- 검색창기능 -->
 		
 		<!-- 영업팀이 아닐때 버튼 감추기 -->
-		<c:if test="${emp_department.equals('영업') || emp_department.equals('영업팀') || emp_department.equals('Master')}">
-			<input type="button" value="거래처등록" class="btn btn-success" onclick="insertPop();"> 
-			<input type="button" value="거래처삭제"  class="btn btn-success" id="btnD" onclick="removeChecked();">
-		</c:if>
+		<div style="float:right; display:inline;">
+			<c:if test="${emp_department.equals('영업') || emp_department.equals('영업팀') || emp_department.equals('Master')}">
+				<input type="button" value="거래처등록" class="btn btn-success" onclick="insertPop();"> 
+				<input type="button" value="거래처삭제"  class="btn btn-success" id="btnD" onclick="removeChecked();">
+			</c:if>
+		</div>
 		<!-- 영업팀이 아닐때 버튼 감추기 -->
 
 		<!-- 거래처목록 테이블 -->
@@ -89,7 +93,7 @@
 		</div>
 	</div>
 	<!-- 	페이징 처리  -->
-	
+</div>
 	<script type="text/javascript">
 		// 거래처등록 새창열기
 		function insertPop(){

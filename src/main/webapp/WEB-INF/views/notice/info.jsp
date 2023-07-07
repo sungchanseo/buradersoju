@@ -38,8 +38,7 @@
 										<tr>
 											<td>내용</td>
 											<td>
-												<div>
-													${vo.notice_content}</div>
+												<div>${vo.notice_content}</div>
 											</td>
 										</tr>
 										<tr>

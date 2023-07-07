@@ -1,5 +1,10 @@
 package com.itwillbs.service;
 
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
+
 import com.itwillbs.domain.ContractVO;
 import com.itwillbs.domain.PagingVO;
 import com.itwillbs.domain.ProductionVO;
@@ -25,9 +30,12 @@ public interface ContractService {
 	public void contIdInsert(String cont_id) throws Exception;
 	
 	//수주번호 자동계산하기 
-//	public String contIdCount() throws Exception;
+	public String contIdCount() throws Exception;
 
 	//product_id로 상품정보 불러오기
 	public ProductionVO getProductInfo(String product_id) throws Exception;
+	
+	//엑셀화일 다운로드
+	public void downExcel(List<Object> contractList, HttpServletResponse response) throws IOException;
 }
 

@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert 링크 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
 
@@ -129,11 +130,24 @@ $(document).ready(function(){
 					alert("찐에러! opid.jsp line 130 수정ㄱㄱ");
 				},
 				error: function(){
-					alert(op_id + ", 출고처리가 완료되었습니다.");
-					location.href = "/purchasing/outProduct/list";
-				}
+					Swal.fire({
+						icon: 'success',
+						title: '출고번호 ' + op_id,
+						text: '출고처리가 완료되었습니다.',
+						confirmButtonColor: '#0ddbb9',
+						confirmButtonText: '확인',
+					}).then((result) => {
+						if(result.isConfirmed){
+							location.href="/purchasing/outProduct/list";
+						}
+					}); // then(result)
+					
+				} // error
+				
 		}); // ajax
 	
+		
+		
 }); // JQuery
 </script>
 </head>

@@ -18,13 +18,40 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert창 링크 -->
 </head>
 <body>
-	<h1>${customerVO.cust_name } 수정</h1>
-	<form action="" role="form" id="fr" method="post">
+	<script>
+		//우편번호 자동입력 api 메소드
+		function addr() {
+			new daum.Postcode({
+				    oncomplete : function(data) {
+					document.getElementById("zipcode").value = data.zonecode; // 우편 번호 넣기
+					document.getElementById("address").value = data.address; // 주소 넣기
+				}
+			}).open();
+		};//우편번호 자동입력 api 메소드
+		
+		//직원정보 검색 및 자동완성 기능 
+		function empPop(){
+			var empPop = window.open('/customer/empFindModify', '직원검색', 'width=700px,height=500px');
+			
+			if(empPop == null){
+				  Swal.fire({
+			            icon: 'warning',				// Alert 타입
+			            title: '팝업이 차단되었습니다.',	// Alert 제목
+			            text: '차단을 해제하세요.',		// Alert 내용
+			            confirmButtonText: '확인',		// Alert 버튼내용
+			        });
+			  }
+			empPop.moveBy(100,100);
+		}//empPop END
+	</script>
+
+	<h1>${customerVO.cust_name } 수정 </h1>
+	<form action="" role="form" id="fr" method="post" onsubmit="return false;">
 	<table border="1">
 	<tr>
 		<th>거래처유형</th>
 		<td><label>
-		<input type="hidden" name="cust_id" value="${customerVO.cust_id }">
+		<input type="hidden" id="cust_id" value="${customerVO.cust_id }">
 		<input type="radio" name="cust_type" id="cust_type" value="사업자(국내)"
 			<c:if test="${customerVO.cust_type =='사업자(국내)' }">
 				checked
@@ -43,7 +70,7 @@
 		</td>
 		<th>사업자등록번호</th>
 		<td>
-			<input type="text" name="reg_num" id="reg_num" value="${customerVO.reg_num }"><br>
+			<input type="text" name="reg_num" id="reg_num" value="${customerVO.reg_num }" readonly><br>
 			<span id="regCheckMsg"></span>
 		</td>
 	</tr>
@@ -51,19 +78,21 @@
 		<th>거래처이름</th>
 		<td><input type="text" name="cust_name" id="cust_name" value="${customerVO.cust_name }"></td>
 		<th>담당자이름</th>
-		<td><input type="text" name="emp_id" id="emp_id" value="${customerVO.emp_id }"></td>
+		<td><input type="text" name="emp_name" id="emp_name" value="${customerVO.emp_name }" onclick="empPop();"></td>
 	</tr>
 	<tr>
 		<th>대표자명</th>
 		<td><input type="text" name="owner_name" id="owner_name" value="${customerVO.owner_name }"></td>
 		<th>담당자전화번호</th>
-		<td><input type="text" name="emp_tel" id="emp_tel" value="${customerVO.emp_tel }"></td>
+		<td><input type="text" name="emp_tel" id="emp_tel" value="${customerVO.emp_tel }" readonly>
+		<input type="hidden" name="emp_id" id="emp_id">
+		</td>
 	</tr>
 	<tr>
 		<th>대표전화</th>
 		<td><input type="text" name="main_phone" id="main_phone" value="${customerVO.main_phone }"></td>
 		<th>담당자이메일</th>
-		<td><input type="text" name="emp_email" id="emp_email" value="${customerVO.emp_email }"></td>
+		<td><input type="text" name="emp_email" id="emp_email" value="${customerVO.emp_email }" readonly></td>
 	</tr>
 	<tr>
 		<th>업태</th>
@@ -93,7 +122,7 @@
 		</td>
 		<th>거래처구분</th>
 		<td>
-				<select name="cust_class">
+				<select name="cust_class" id="cust_class">
 						<option value="수주처" 
 							<c:if test="${customerVO.cust_class.equals('수주처') }">
 								selected
@@ -149,92 +178,135 @@
 		<th>홈페이지</th>
 		<td><input type="text" name="cust_hompage" id="cust_hompage" value="${customerVO.cust_homepage }"></td>
 	</table>
-		<button type="submit" class="btn btn-success" onclick="sendForm();">수정완료</button>
+		<button type="submit" class="btn btn-success">수정완료</button>
 		<button type="button" class="btn btn-success" onclick="history.back();">뒤로가기</button>
 		<button type="button" class="btn btn-light" onclick="window.close();">창닫기</button>
 	</form>
 	
 		<script type="text/javascript">
 		
-		//우편번호 자동입력 api 메소드
-		function addr() {
-			new daum.Postcode({
-				    oncomplete : function(data) {
-					document.getElementById("zipcode").value = data.zonecode; // 우편 번호 넣기
-					document.getElementById("address").value = data.address; // 주소 넣기
-				}
-			}).open();
-		};//우편번호 자동입력 api 메소드
-		
-		
 		$(document).ready(function(){
 			
-		 //빈칸이 있을때 submit 제어 
-		  $('#fr').submit(function() {
-				if($('#cust_name').val() == ""){
-					alert('거래처이름을 입력하세요.');
-					$('#cust_name').focus();
-					return false;
-				}//cust_name 제어 
-				if($('#owner_name').val() == ""){
-					alert('대표자명을 입력하세요.');
-					$('#owner_name').focus();
-					return false;
-				}//owner_name 제어 
-				if($('#main_phone').val() == ""){
-					alert('대표전화를 입력하세요.');
-					$('#main_phone').focus();
-					return false;
-				}//main_phone 제어 
-				if($('#reg_num').val() == ""){
-					alert('사업자등록번호를 입력하세요.');
-					$('#reg_num').focus();
-					return false;
-				}//reg_num 제어 
-				if($('#emp_name').val() == ""){
-					alert('담당자이름을 입력하세요.');
-					$('#emp_name').focus();
-					return false;
-				}//emp_name 제어 
-				if($('#emp_tel').val() == ""){
-					alert('담당자전화번호를 입력하세요.');
-					$('#emp_tel').focus();
-					return false;
-				}//emp_tel 제어 
-				if($('#emp_email').val() == ""){
-					alert('담당자이메일을 입력하세요.');
-					$('#emp_email').focus();
-					return false;
-				}//emp_email 제어 
-				if($('#address').val() == ""){
-					alert('주소를 입력하세요.');
-					$('#address').focus();
-					return false;
-				}//cust_address 제어 
+			 //빈칸이 있을때 submit 제어 
+			  $('#fr').submit(function() {
+				  
+					if($('#cust_name').val() == ""){
+						Swal.fire({
+				            icon: 'warning',				// Alert 타입
+				            title: '거래처이름을 입력하세요.',	// Alert 제목
+				            text: '필수입력란 입니다.',		// Alert 내용
+				            confirmButtonText: '확인',		// Alert 버튼내용
+				        });
+						$('#cust_name').focus();
+						return false;
+					}//cust_name 제어 
+					if($('#owner_name').val() == ""){
+						Swal.fire({
+				            icon: 'warning',				// Alert 타입
+				            title: '대표자명을 입력하세요.',	// Alert 제목
+				            text: '필수입력란 입니다.',		// Alert 내용
+				            confirmButtonText: '확인',		// Alert 버튼내용
+				        });
+						$('#owner_name').focus();
+						return false;
+					}//owner_name 제어 
+					if($('#main_phone').val() == ""){
+						Swal.fire({
+				            icon: 'warning',				// Alert 타입
+				            title: '대표전화를 입력하세요.',	// Alert 제목
+				            text: '필수입력란 입니다.',		// Alert 내용
+				            confirmButtonText: '확인',		// Alert 버튼내용
+				        });
+						$('#main_phone').focus();
+						return false;
+					}//main_phone 제어 
+					if($('#reg_num').val() == ""){
+						Swal.fire({
+				            icon: 'warning',				// Alert 타입
+				            title: '사업자등록번호를 입력하세요.',	// Alert 제목
+				            text: '필수입력란 입니다.',		// Alert 내용
+				            confirmButtonText: '확인',		// Alert 버튼내용
+				        });
+						$('#reg_num').focus();
+						return false;
+					}//reg_num 제어 
+					if($('#emp_name').val() == ""){
+						Swal.fire({
+				            icon: 'warning',				// Alert 타입
+				            title: '담당자이름을 입력하세요.',	// Alert 제목
+				            text: '필수입력란 입니다.',		// Alert 내용
+				            confirmButtonText: '확인',		// Alert 버튼내용
+				        });
+						$('#emp_name').focus();
+						return false;
+					}//emp_name 제어 
+					if($('#emp_tel').val() == ""){
+						Swal.fire({
+				            icon: 'warning',				// Alert 타입
+				            title: '담당자전화번호를 입력하세요.',	// Alert 제목
+				            text: '필수입력란 입니다.',		// Alert 내용
+				            confirmButtonText: '확인',		// Alert 버튼내용
+				        });
+						$('#emp_tel').focus();
+						return false;
+					}//emp_tel 제어 
+					if($('#emp_email').val() == ""){
+						Swal.fire({
+				            icon: 'warning',				// Alert 타입
+				            title: '담당자이메일을 입력하세요.',	// Alert 제목
+				            text: '필수입력란 입니다.',		// Alert 내용
+				            confirmButtonText: '확인',		// Alert 버튼내용
+				        });
+						$('#emp_email').focus();
+						return false;
+					}//emp_email 제어 
 
-				
-				//작성완료를 눌렀을 때 ajax 메소드
-// 				function sendForm() {
-				//상단의 폼태그를 변수에 저장한다. 
-				var formObject = $("form[role='form']").serializeArray();
-				
-				$.ajax({
-					url : '/customer/modify', 
-					type : 'POST', 
-					data : formObject, //form데이타의 객체형으로 값을 전달한다. 
-					success : function() {
-						alert("거래처수정이 완료되었습니다.");
-						window.opener.location.reload();
-						window.close();
-					}, //success
-					error : function(){
-						alert("거래처수정이 완료되었습니다.");
-						window.opener.location.reload();
-						window.close();
-					} //error
-				});// ajax
-			});//$().submit();
-	  });//document.ready end
+					var formObject ={
+							cust_id : $('#cust_id').val(),
+							cust_name : $('#cust_name').val(),
+							emp_name : $('#emp_name').val(),
+							reg_num : $('#reg_num').val(),
+							cust_type : $('#cust_type').val(),
+							emp_id : $('#emp_id').val(),
+							emp_tel : $('#emp_tel').val(),
+							owner_name : $('#owner_name').val(),
+							main_phone : $('#main_phone').val(),
+							emp_email : $('#emp_email').val(),
+							cust_business : $('#cust_business').val(),
+							cust_class : $('#cust_class').val(),
+							cust_event : $('#cust_event').val(),
+							address : $('#address').val(),
+							cust_address : $('#cust_address').val(),
+							cust_etc : $('#cust_etc').val(),
+							cust_homepage : $('#cust_homepage').val() 
+					}//formObject END
+					
+					console.log(formObject);
+					console.log(typeof formObject);
+					$.ajax({
+						url : '/customer/modify', 
+						type : 'POST', 
+						contentType : 'application/json; charset=utf-8',
+						data : JSON.stringify(formObject), 	
+						success : function() {
+							 Swal.fire({
+			                        title: '거래처수정이 완료되었습니다.',
+			                        text: '확인을 누르면 창을 닫습니다.',
+			                        icon: 'success',
+			                        confirmButtonText: '확인'
+			                    }).then(() => {
+			                        window.opener.location.reload();
+			                        window.close();
+			                    });
+						}, //success END
+						error : function(){
+							alert('실패!');
+						}
+					}); //ajax end
+					
+				});//정보 입력안하면 submit기능 제어 끝
+			  
+		});//dom 객체 끝 
 	</script>	
 	
 </body>

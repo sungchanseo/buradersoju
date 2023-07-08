@@ -41,46 +41,56 @@
 			<th>상품명</th>
 			<td>${contractInfo.product_name }</td>
 			<th>작업지시번호</th>
-			<td>${contractInfo.production_id }</td>
+			<td id="production_id" value="${contractInfo.production_id }">${contractInfo.production_id }</td>
 			<th>담당자</th>
 			<td>${contractInfo.cont_emp }</td>
 		</tr>
 	</table>
 	<input type="button" class="btn btn-success" value="수주수정" onclick="location.href='/contract/modify?cont_id=${contractInfo.cont_id }'">
-	<input type="button" class="btn btn-success" value="수주삭제" onclick="deleteAction('${contractInfo.cont_id}');">
+	<input type="button" class="btn btn-success" value="수주삭제" onclick="deleteAction('${contractInfo.cont_id}', '${contractInfo.production_id }');">
 	<input type="button" class="btn btn-light" value="창닫기" onclick="window.close();">
 	
 	<script type="text/javascript">
 	
-	function deleteAction(cont_id){
-		Swal.fire({
-	        title: '삭제하시겠읍니까?',
-	        text: '예/아니오를 선택하세요.',
-	        icon: 'warning',
-	        showCancelButton: true,
-	        confirmButtonColor: '#0ddbb9',
-	        cancelButtonColor: '#d33',
-	        confirmButtonText: '삭제',
-	        cancelButtonText: '취소'
-	    }).then((result) => {
-			if(result.isConfirmed){
-				$.ajax({
-					url : '/contract/remove?cont_id='+cont_id, 
-					type : 'POST', 
-					success : function(){ 
-						Swal.fire({
-	                        title: '삭제가 완료되었습니다.',
-	                        text: '확인을 누르면 창을 닫습니다.',
-	                        icon: 'success',
-	                        confirmButtonText: '확인'
-	                    }).then(() => {
-	                        window.opener.location.reload();
-	                        window.close();
-	                    }); //then END
-					}//success END
-				});//ajax END
-			}// result.siConfirmed END
-	    }); //then(result) END
+	function deleteAction(cont_id, production_id){
+		if(production_id == ""){
+			Swal.fire({
+		        title: '삭제하시겠읍니까?',
+		        text: '삭제/취소를 선택하세요.',
+		        icon: 'warning',
+		        showCancelButton: true,
+		        confirmButtonColor: '#0ddbb9',
+		        cancelButtonColor: '#d33',
+		        confirmButtonText: '삭제',
+		        cancelButtonText: '취소'
+		    }).then((result) => {
+				if(result.isConfirmed){
+					$.ajax({
+						url : '/contract/remove?cont_id='+cont_id, 
+						type : 'POST', 
+						success : function(){ 
+							Swal.fire({
+		                        title: '삭제가 완료되었습니다.',
+		                        text: '확인을 누르면 창을 닫습니다.',
+		                        icon: 'success',
+		                        confirmButtonText: '확인'
+		                    }).then(() => {
+		                        window.opener.location.reload();
+		                        window.close();
+		                    }); //then END
+						}//success END
+					});//ajax END
+				}// result.siConfirmed END
+		    }); //then(result) END
+		}else{
+			Swal.fire({
+                title: '삭제할 수 없읍니다.',
+                text: '작업지시번호가 있으면 삭제할 수 없읍니다.',
+                icon: 'warning',
+                confirmButtonText: '확인',
+               	confirmButtonColor: '#d33'
+            });
+		}//else END
 	}// deleteAction() END
 </script>
 	

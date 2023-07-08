@@ -20,7 +20,8 @@
 <div>
 <div class="card-body">
 		<h1 class="card-title">
-			<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">수주 리스트</font></font>
+			<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+			<span onclick="location.href='/contract/list'">수주 리스트</span></font></font>
 		</h1>
 
 		<!-- 검색창기능 -->

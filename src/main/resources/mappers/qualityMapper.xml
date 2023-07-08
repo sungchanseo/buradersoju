@@ -91,14 +91,15 @@
 	</select>
 	<insert id="btInsert">
 		insert into empty_bottle
-		(bt_date,bt_qty)
-		values (#{bt_date},#{bt_qty})
+		(bt_date,bt_qty,bt_emp,del_bottle,bt_status)
+		values (#{bt_date}, #{bt_qty}, #{bt_emp},'0','대기')
 	</insert>
 	<!-- 공병 수량 DB등록 -->
 	<!-- 공병 불량 DB등록 -->
 	<update id="btUpdate">
 		update empty_bottle
-		set bt_defQty = #{bt_defQty}
+		set bt_defQty = #{bt_defQty},
+			bt_status = '완료'
 		where bt_date = #{bt_date}
 	</update>
 <!-- 	<select id="todayDef" resultType="com.itwillbs.domain.ProductionVO"> -->

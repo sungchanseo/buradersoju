@@ -25,9 +25,11 @@
 			$("#btInsertBT").click(function() {
 // 				alert("제이쿼리 실행");
 				var bt_date = $("#bt_date").val();
-				alert(bt_date);
+// 				alert(bt_date);
 				var bt_qty = $("#be_bt_qty").val();
-				alert(bt_qty);
+// 				alert(bt_qty);
+				var bt_emp = $("#bt_emp").val();
+				alert(bt_emp);
 
 				const form = $('<form>', {
 					method : 'post',
@@ -47,6 +49,12 @@
 					type : 'hidden',
 					name : 'bt_qty',
 					value : bt_qty
+				}));
+				
+				form.append($('<input>', {
+					type : 'hidden',
+					name : 'bt_emp',
+					value : bt_emp
 				}));
 
 				// form태그 body에 추가 후 전송
@@ -170,10 +178,9 @@
 									
 									<div id="btInsert">
 										<c:set var="today" value="<%=new Date()%>" />
-										<fmt:formatDate var="today2" value="${today }" pattern="yyyy-MM-dd" />
-										<input type="hidden" id="bt_date" value="${today2 }"name="bt_date"> 
-										<input type="hidden"  id="qc_emp" name="qc_emp" value="${sessionScope.emp_id}"> 
-										
+										<fmt:formatDate var="today2" value="${today}" pattern="yyyy-MM-dd" />
+										<input type="hidden" id="bt_date" value="${today2}"name="bt_date"> 
+										<input type="hidden" id="bt_emp" name="bt_emp" value="${sessionScope.emp_id}"> 
 										입고 수량 <input type="text"id="be_bt_qty" name="bt_qty" class="form-control" style="width:250px; display:inline;" placeholder="공병 개수를 입력해주세요"> 
 										<input type="button" class="btn btn-info" id="btInsertBT" value="등록">
 									</div>
@@ -187,6 +194,7 @@
 													<th>공병등록일자</th>
 													<th>담당자</th>
 													<th>입고수량</th>
+													<th>검수상태</th>
 													<th>불량수량</th>
 													<th>실수량</th>
 													<th>등록</th>
@@ -201,16 +209,17 @@
 														</td>
 														<td>${vo.emp_name}</td>
 														<td><input type="hidden" class="bt_qty" value="${vo.bt_qty}">${vo.bt_qty}</td>
+														<td>${vo.bt_status}</td>
 														<td>
 														<c:choose>
-														<c:when test="${vo.bt_defQty eq 0 }"><input type="text" class="bt_defQty" value="${vo.bt_defQty}" style="width:100px;"></c:when>
+														<c:when test="${vo.bt_status == '대기' }"><input type="text" class="bt_defQty" value="${vo.bt_defQty}" style="width:100px;"></c:when>
 														<c:otherwise>${vo.bt_defQty}</c:otherwise>
 														</c:choose>
 														</td>
 														<td><input type="hidden" class="bt_defQty" value="${vo.bt_defQty}">
 														<!-- 이미 등록한 날짜의 불량수량은 다시 등록할 수 없게 버튼 제어 -->
 															${vo.bt_qty-vo.bt_defQty}</td>
-														<c:if test="${vo.bt_defQty == ''}">
+														<c:if test="${vo.bt_status == '대기'}">
 															<td><input type="button" class="btn btn-success" id="btDefBT" value="불량 등록" data-bt_date="${vo.bt_date}"></td>
 <%-- 															<td><input type="button" class="btDefBT" id="btDefBT" value="불량등록" data-bt_date="${vo.bt_date}"></td> --%>
 														</c:if>

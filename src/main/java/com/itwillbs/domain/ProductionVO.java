@@ -70,14 +70,33 @@ public class ProductionVO {
 	private String bt_date;
 	private int bt_qty;
 	private int bt_defQty;
+	private String del_bottle;
+	private int bt_emp;
+	private String bt_status;
 	
 	
 	// getter / setter
 	
-	
-	
 	public String getCont_id() {
 		return cont_id;
+	}
+	public String getBt_status() {
+		return bt_status;
+	}
+	public void setBt_status(String bt_status) {
+		this.bt_status = bt_status;
+	}
+	public String getDel_bottle() {
+		return del_bottle;
+	}
+	public int getBt_emp() {
+		return bt_emp;
+	}
+	public void setDel_bottle(String del_bottle) {
+		this.del_bottle = del_bottle;
+	}
+	public void setBt_emp(int bt_emp) {
+		this.bt_emp = bt_emp;
 	}
 	public int getTotal_defQty() {
 		return total_defQty;
@@ -328,8 +347,6 @@ public class ProductionVO {
 	public void setBt_defQty(int bt_defQty) {
 		this.bt_defQty = bt_defQty;
 	}
-	
-	
 	// toString()
 	@Override
 	public String toString() {
@@ -346,15 +363,10 @@ public class ProductionVO {
 				+ ", stage3_date=" + stage3_date + ", qc_num=" + qc_num + ", qc_emp=" + qc_emp + ", qc_date=" + qc_date
 				+ ", qc_qty=" + qc_qty + ", qc_status=" + qc_status + ", del_qcStatus=" + del_qcStatus
 				+ ", total_defQty=" + total_defQty + ", def_code=" + def_code + ", def_qty=" + def_qty + ", bt_date="
-				+ bt_date + ", bt_qty=" + bt_qty + ", bt_defQty=" + bt_defQty + "]";
+				+ bt_date + ", bt_qty=" + bt_qty + ", bt_defQty=" + bt_defQty + ", del_bottle=" + del_bottle
+				+ ", bt_emp=" + bt_emp + ", bt_status=" + bt_status + "]";
 	}
 
-	
-	
-	
-	
-	
-	
 	
 	
 }

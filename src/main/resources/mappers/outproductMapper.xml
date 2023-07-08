@@ -54,16 +54,21 @@
  <!-- DB 출고번호 최대 날짜 (maxDate) == 230620 -->
  
  
- <!-- 출고번호, 출고일자, 담당직원 등록 -->
- <!-- 주문량만큼 찐상품재고량 차감 -->
+ <!-- 출고번호, 출고일자, 담당직원 및 -->
+ <!-- 상품재고량 차감, view 페이지 출력용 재고량 등록 -->
  	<update id="registOpId">		
 		UPDATE contract c
 		LEFT JOIN out_product o
 		ON  c.cont_id = o.cont_id
-		SET o.op_id = #{op_id}, o.op_process = '출고완료', o.op_date = now(), o.op_emp = #{op_emp}
+		LEFT JOIN product p
+		ON c.product_id = p.product_id
+		SET o.op_id = #{op_id}, o.op_process = '출고완료', o.op_date = now(), o.op_emp = #{op_emp}, 
+		o.tmp_qty = p.product_qty, 
+		p.product_qty = p.product_qty - c.cont_qty
 		WHERE c.cont_id = #{cont_id}
  	</update>
- <!-- op_id 출고번호, 담당직원 등록 -->
+  <!-- 출고번호, 출고일자, 담당직원 및 -->
+  <!-- 상품재고량 차감, view 페이지 출력용 재고량 등록 -->
  
  
  <!-- 상품에 필요한 소요량과 현재고량 가져오기 -->

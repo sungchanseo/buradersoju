@@ -55,6 +55,7 @@
  
  
  <!-- 출고번호, 출고일자, 담당직원 등록 -->
+ <!-- 주문량만큼 찐상품재고량 차감 -->
  	<update id="registOpId">		
 		UPDATE contract c
 		LEFT JOIN out_product o

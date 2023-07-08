@@ -96,8 +96,18 @@ public class WorkOrderServiceImpl implements WorkOrderService {
 		String lastId = wdao.getLastGeneratedNumber();
 		logger.debug("@@@@@@WorkOrderService : {}", lastId);
 		
+		
+		String prefix;
 		//production_id 접두사
-		String prefix = "PR";
+		
+		// 접두사 구분할 경우
+//		String contId = vo.getCont_id();
+//		if(contId != "") {
+			prefix = "PR"; // 수주번호에서 가져온 주문
+//		}
+//		else {
+//			prefix = "PR"; // 변경한다면 일반 창고행 생산 접두사
+//		}
 		
 		// 현재 날짜를 계산한다. 
 		LocalDate currentDate = LocalDate.now();

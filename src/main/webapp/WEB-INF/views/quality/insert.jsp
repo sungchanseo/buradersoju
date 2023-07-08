@@ -5,7 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <!-- 제이쿼리 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11%22%3E"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
 
 <title>검수 등록</title>
 <style type="text/css">
@@ -76,7 +78,7 @@ border-color: #23dbf8;}
 	<tr>
         <th>작업지시번호</th>
         <td>
-        <input type="text" name="production_id" id="production_id">
+        <input type="text" name="production_id" id="production_id" style="border:none;">
 <!--         <input type="text" id="production_id" name="production_id" > -->
 <!--         <input id="btn_Search"  type="button" onclick="workSearch();" value="조회"></td> -->
         </tr>
@@ -123,7 +125,8 @@ border-color: #23dbf8;}
 						<option value="DE210">DE210</option>
 						<option value="DE220">DE220</option>
 						<option value="DE230">기타</option>
-					</select> </td>
+					</select> 
+				 </td>
 				 <td> <input type="text" class="def_qtyList" id="def_qty1" name="def_qty1" pattern="[0-9]*">
 				 <input type="button" id="plusBT1" value="추가"></td>
 				 </tr>

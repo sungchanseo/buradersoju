@@ -6,16 +6,15 @@
   
 <mapper namespace="com.itwillbs.mappers.qualityMapper">
 
+<!-- ////////////////////////// 품질 관리 //////////////////////////// -->
 <!-- 품질관리 목록 -->
 	<select id="qualityList" resultType="com.itwillbs.domain.ProductionVO" >
 	    select *
 		from production a,
 	     	 product b,
-	    	 qc q,
-	    	 defective d
+	    	 qc q
 		where a.product_id = b.product_id
 		and a.production_id = q.production_id
-		and q.qc_num = d.qc_num
 	</select>
 <!-- 품질관리 목록 -->
 
@@ -25,10 +24,10 @@
 		from production a,
 	     	 product b,
 	    	 qc q,
-	    	 defective d
+	    	 employee e
 		where a.product_id = b.product_id
 		and a.production_id = q.production_id
-		and q.qc_num = d.qc_num
+		and q.qc_emp = e.emp_id
 		and q.qc_num = #{qc_num}
 	</select>
 <!-- 검수 상세 -->
@@ -55,8 +54,8 @@
 	<!-- 검수 정보 DB등록 -->
 		<insert id="qInsertDB">
 			insert into qc
-			(qc_num, qc_emp, qc_date, qc_qty, qc_status, production_id, total_defQty)
-			values (#{qc_num}, #{qc_emp}, now(), #{qc_qty}, '완료', #{production_id}, #{total_defQty})
+			(qc_num, qc_emp, qc_date, qc_qty, qc_status, production_id, total_defQty, del_qcStatus)
+			values (#{qc_num}, #{qc_emp}, now(), #{qc_qty}, '완료', #{production_id}, #{total_defQty}, '0')
 		</insert>
 		<update id="prUpdate">
 			update product
@@ -75,15 +74,15 @@
 		</insert>
 	<!-- 검수 정보 DB등록 -->
 <!--    검수 등록    -->
+<!-- ////////////////////////// 품질 관리 //////////////////////////// -->
 
-<!-- 공병 관리 -->
+<!-- ////////////////////////// 공병 관리 //////////////////////////// -->
 	<!-- 공병 목록 가져오기 -->
-	
-	<!-- 공병 목록 가져오기 -->
-	<select id="bottleList" resultType="com.itwillbs.domain.ProductionVO">
+		<select id="bottleList" resultType="com.itwillbs.domain.ProductionVO">
 		select *
 		from empty_bottle
 	</select>
+	<!-- 공병 목록 가져오기 -->
 	<!-- 공병 수량 DB등록 -->
 	<select id="btISearch" resultType="com.itwillbs.domain.ProductionVO">
 		select *
@@ -114,7 +113,6 @@
 	</update>
 	<!-- 공병 불량 DB등록 -->
 	
-<!-- 공병 관리 -->
-
+<!-- ////////////////////////// 공병 관리 //////////////////////////// -->
 
 </mapper>

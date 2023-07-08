@@ -155,6 +155,28 @@ public class QualityServiceImpl implements QualityService {
 			qdao.btUpdate(vo);
 	}
 
+	@Override
+	public PagingVO setPageInfoForQuality2(PagingVO pvo) throws Exception {
+		logger.debug("@@@@@@QualityService : setPageInfoForQuality2호출!");
+		
+		//quality서비스에 필요한 변수를 저장. 
+		pvo.setTable("empty_bottle b, employee e");
+		pvo.setId("bt_date");
+		pvo.setPageSize(10);
+		pvo.setStartRow(1);
+		pvo.setStatus_name("b.bt_emp = e.emp_id and b.del_bottle");
+		pvo.setStatus_value("0");
+//		pvo.setSelector(selector);
+//		pvo.setSearch(search);
+		logger.debug("@@@@@@QualityService : {}",pvo);
+
+		//페이지 계산을 위해서 pageingSerivce의 메소드 호출 
+		pvo = pageService.pagingAction(pvo);
+		logger.debug("@@@@@@QualityService : {}",pvo);
+		return pvo;
+		
+	}
+
 
 
 	

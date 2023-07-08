@@ -43,23 +43,27 @@ public class QualityController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(QualityController.class);
 	
-		//http://localhost:8088/quality/qualityList
+	
 		//http://localhost:8088/quality/list
-		//http://localhost:8088/quality/qualityInsert
 		//http://localhost:8088/quality/insert
-		//http://localhost:8088/quality/qualityInfo
 		//http://localhost:8088/quality/info
 		//http://localhost:8088/quality/emptyBottle
 	
 		////// 품질관리 목록 보기 //////
 	@RequestMapping(value = "/list")
-	public void customerListGET(Model model, PagingVO pvo, 
+	public String qualityListGET(Model model, PagingVO pvo, 
 			HttpServletRequest request, HttpSession session) throws Exception {
 		logger.debug("@@@@@@@@@Controller : 품질관리 목록 보기");
 		logger.debug("@@@@@@@@@Controller : {}",pvo);
 		
-		List<Object> qualityList=null;
+//		로그인 세션이 없을 때 로그인 페이지로 이동한다. 
+				if(session.getAttribute("emp_id") == null) {
+					return "redirect:/main/login";
+				}
 		
+		List<Object> qualityList=null;
+		pvo.setSelector(request.getParameter("selector"));
+		pvo.setSearch(request.getParameter("search"));
 		//품질관리목록을 가져오는 quService 호출
 		pvo = quService.setPageInfoForQuality(pvo);
 		logger.debug("@@@@@@@@@Controller : {}",pvo);
@@ -78,12 +82,15 @@ public class QualityController {
 		//변수에 담아서 전달
 		model.addAttribute("qualityList", qualityList);
 		model.addAttribute("pvo",pvo);	
+		
+		return null;
 	}
 		////// 품질관리 목록 보기 //////
 		
+		//http://localhost:8088/quality/info
 		/////// 검수 상세보기 //////
 		@RequestMapping(value="/info", method=RequestMethod.GET)
-		public void customerInfoGET(String qc_num, Model model) {
+		public void qualityInfoGET(String qc_num, Model model) {
 			logger.debug("@@@@@@@@@@@@Controller : 검수 상세보기");
 			logger.debug("@@@@@@@ qc_num : "+qc_num);
 			
@@ -193,13 +200,40 @@ public class QualityController {
 		//http://localhost:8088/quality/emptyBottle
 		// 리스트 출력
 		@RequestMapping(value="/emptyBottle", method=RequestMethod.GET)
-		public void BottleListGET(Model model) throws Exception {
-			logger.debug("@@@@@@@@@@@@Controller : 공병관리 리스트 조회!");
+		public String BottleListGET(ProductionVO vo, Model model, HttpSession session, 
+									HttpServletRequest request, PagingVO pvo) throws Exception {
+			logger.debug("@@@@@@@@@@@@Controller : 공병관리 리스트 호출!");
+			
+			///		로그인 세션이 없을 때 로그인 페이지로 이동한다. 
+			if(session.getAttribute("emp_id") == null) {
+				return "redirect:/main/login";
+			}
 			
 			//servicer객체 호출
-			List<ProductionVO> bottleList = quService.getBottleList();
+			List<Object> bottleList = null;
+			pvo.setSelector(request.getParameter("selector"));
+			pvo.setSearch(request.getParameter("search"));
 			
+			//품질관리목록을 가져오는 quService 호출
+			pvo = quService.setPageInfoForQuality2(pvo);
+			logger.debug("@@@@@@@@@Controller : {}",pvo);
+			
+			//service객체를 호출
+			if(pvo.getSelector()!=null && pvo.getSelector()!="") {
+				//검색어가 있을 때 
+				logger.debug("@@@@@@@@@Controller : 검색어가 있을 때입니다");
+				bottleList = pageService.getListSearchObjectProductionVO(pvo);
+			}else {
+				//검색어가 없을 때
+				logger.debug("@@@@@@@@@Controller : 검색어가 없을 때입니다");
+				bottleList = pageService.getListPageSizeObjectProductionVO(pvo);
+			}
+			logger.debug("@@@@@@@@@Controller : qualityList={}",bottleList);
+			//변수에 담아서 전달
 			model.addAttribute("bottleList", bottleList);
+			model.addAttribute("pvo",pvo);	
+			
+			return null;
 			
 		}
 		

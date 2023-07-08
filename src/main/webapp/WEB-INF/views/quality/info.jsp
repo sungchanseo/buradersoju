@@ -93,8 +93,8 @@ border-color: #23dbf8;}
 				<td>${vo.qc_num }</td>
 				<th>상품명</th>
 				<td>${vo.product_name }</td>
-				<th>검수량</th>
-				<td>${vo.qc_qty }</td>
+				<th>수주량</th>
+				<td>${vo.plan_qty }</td>
 				<th>불량코드</th>
 				<td>${vo.def_code }</td>
 			</tr>
@@ -103,20 +103,20 @@ border-color: #23dbf8;}
 				<td>${vo.production_id }</td>
 				<th>상품코드</th>
 				<td>${vo.product_id }</td>
-				<th>검수자</th>
-				<td>${vo.qc_emp }</td>
-				<th>불량수량</th>
-				<td>${vo.def_qty }</td>
+				<th>검수량</th>
+				<td>${vo.production_qty }</td>
+				<th>전체불량수량</th>
+				<td>${vo.total_defQty }</td>
 			</tr>
 			<tr>
+				<th>검수완료일시</th>
+				<td><fmt:formatDate value="${vo.qc_date}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 				<th>생산라인</th>
 				<td>${vo.production_line }</td>
-				<th>생산량</th>
-				<td>${vo.production_qty }</td>
-				<th>검수완료일시</th>
-				<td>${vo.qc_date }</td>
+				<th>검수자</th>
+				<td>${vo.emp_name }</td>
 				<th>불량률</th>
-				<td><fmt:formatNumber value="${(vo.def_qty /vo.qc_qty*100) }" pattern="#.###"/></td>
+				<td><fmt:formatNumber value="${(vo.total_defQty /vo.plan_qty*100) }" pattern="#.###"/></td>
 			</tr>
 		
 	</tbody>

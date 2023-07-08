@@ -7,8 +7,9 @@
 <head>
 <meta charset="UTF-8">
 <!-- 제이쿼리 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-
+<script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11%22%3E"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
 
 <title>작업 지시 등록</title>
 <style type="text/css">
@@ -203,7 +204,6 @@ border-color: #23dbf8;}
 		              "<tr>" +
 		              "<td><input type='hidden' name='cont_id' value='"+cont_id+"'>" 
 		              + vo.product_id + "</td>" +
-	// 	              "<td>" + vo.cont_id + "</td>" +
 		              "<td>" + vo.product_name + "</td>" +
 		              "<td>" + vo.production_line + "</td>" +                           
 		              "</tr>"
@@ -224,78 +224,120 @@ border-color: #23dbf8;}
 		}); //(document).ready
 		/////////// 수주번호로 정보 조회(페이지 이동x) ///////////
 		/////////// 작업지시 등록(DB저장) ///////////
-		
-// 				ma_qtyList= $(".ma_qtyList").toArray();
-// 					$(".ma_nameList").toArray();
-// 				console.log("ma_nameList : " +JSON.stringify(ma_qtyList));
-				
-// 			        	ma_qtyList: ma_qtyList,
-// 			        	ma_nameList: ma_nameList
-// 			        	production_id: production_id,
-				// insert
-// 				$("#workOrderInsert").off('click');
-// 				var production_id = $("#production_id").val();
-// ma_qtyList: JSON.stringify(ma_qtyList),
-// 			        	ma_nameList: JSON.stringify(ma_nameList)
 			$(document).ready(function(){
 			$("#workOrderInsert").click(function(){
 				var cont_id = $("#cont_id").val();
-// 				console.log("cont_id : " +cont_id);
+				console.log("cont_id : " +cont_id);
 				var production_emp = $("#production_emp").val();
-// 				console.log("production_emp : " +production_emp);
+				console.log("production_emp : " +production_emp);
 				var production_line = $("#production_line").val();
-// 				console.log("production_line : " +production_line);
+				console.log("production_line : " +production_line);
 				var product_id = $("#product_id").val();
-// 				console.log("product_id : " +product_id);
+				console.log("product_id : " +product_id);
 				var plan_qty = $("#plan_qty").val();
-// 				console.log("plan_qty : " +plan_qty);
+				console.log("plan_qty : " +plan_qty);
 				var ma_qty = $("#ma_qty").val();
-// 				console.log("ma_qty : " +ma_qty);
+				console.log("ma_qty : " +ma_qty);
 				var ma_qtyList = [];
 				$(".ma_qtyList").each(function() {
 					ma_qtyList.push($(this).val());
 				});
-				JSON.stringify(ma_qtyList);
-				console.log("ma_qtyList : " +ma_qtyList);
+				console.log("ma_qtyList : " +JSON.stringify(ma_qtyList));
 				alert("ma_qtyList길이 :" + ma_qtyList.length);
 				var ma_nameList = [];
 				$(".ma_nameList").each(function() {
 					ma_nameList.push($(this).val());
 				});
-				console.log("ma_nameList : " +ma_nameList);
+				console.log("ma_nameList : " +JSON.stringify(ma_nameList));
 				console.log(Array.isArray(ma_qtyList));
 				console.log(Array.isArray(ma_nameList));
 				var ma_name = $("#ma_name").val();
 				console.log("ma_name : " +ma_name);
-				$.ajax({
-					url : 'workOrderInsert',
-					type : 'POST',
-					contentType : 'application/json',
-			        data : {
-			        	cont_id: cont_id,
-			        	production_emp: production_emp,
-			        	production_line: production_line,
-			        	product_id: product_id,
-			        	plan_qty: plan_qty,
-			        	ma_qty: ma_qty,
-			        	ma_qtyList: ma_qtyList,
-			        	ma_nameList: ma_nameList
-			        	},
-			        	success : function(data){
-			        		alert("성공");
-			        	},
-			        error : function(e){
-			        	console.log(e);
-			          } //complete
-				}); //ajax
-			}); // click
+				
+				
+				// form 동적 생성
+				var $form = $("<form>", {
+				    action: "",
+				    role: "form",
+				    id: "fr",
+				    method: "POST"
+				  });
+		  		
+				 $("<input>", {
+				    type: "hidden",
+				    name: "plan_qty",
+				    value: plan_qty
+				  }).appendTo($form);
+				
+				 $("<input>", {
+				    type: "hidden",
+				    name: "cont_id",
+				    value: cont_id
+				  }).appendTo($form);
+				 
+			      $("<input>", {
+				    type: "hidden",
+				    name: "production_emp",
+				    value: $("#production_emp").val()
+				  }).appendTo($form);
+				  
+				  $("<input>", {
+				    type: "hidden",
+				    name: "production_line",
+				    value: production_line
+				  }).appendTo($form);
+				  
+				  $("<input>", {
+				    type: "hidden",
+				    name: "product_id",
+				    value: $("#product_id").val()
+				  }).appendTo($form);
+				  
+				  $("<input>", {
+				    type: "hidden",
+				    name: "ma_qty",
+				    value: $("#ma_qty").val()
+				  }).appendTo($form);
+				  
+				  $("<input>", {
+				    type: "hidden",
+				    name: "ma_name",
+				    value: $("#ma_name").val()
+				  }).appendTo($form);
+
+				  $("<input>", {
+				    type: "hidden",
+				    name: "ma_nameList",
+				    value: ma_nameList.join(",")
+				  }).appendTo($form);
+
+				  $("<input>", {
+				    type: "hidden",
+				    name: "ma_qtyList",
+				    value: ma_qtyList.join(",")
+				  }).appendTo($form);
+				  
+				  $('body').append($form);
+				  
+				  sendForm();
+				  
+		}); //click; 
+		function sendForm() {
+			var formObject = $("form[role='form']").serialize();
+	
+			$.ajax({
+				url: 'workOrderInsert',
+				type: 'POST',
+				data: formObject,
+				success: function(json) {
+					alert("등록이 완료되었습니다.");
+					window.opener.location.reload();
+					window.close();
+				}
+			});
+		} //function
 		});  // $(document).ready
 		/////////// 작업지시 등록(DB저장) ///////////
-// 			        }, //error
-// 			        complete: function() {
-// 			            alert("insert 저장 완료");
-// 			            window.opener.location.reload();
-// 			            window.close();
 	</script>
 	<!-- 상품코드 조회/수주번호 조회/자재 재고 계산/작업지시 등록 -->
 	
@@ -303,10 +345,13 @@ border-color: #23dbf8;}
 	<h1>작업지시 등록</h1>
 	
 	<div>
+	<div>
 	  <table class="table table-color">
 		<tr>
 		<th colspan="1">수주번호</th>
-		 <td colspan="1"><input type="text" name="cont_id" id="cont_id"></td>
+		 <td colspan="1"><input type="text" name="cont_id" id="cont_id">
+<!-- 		 </td> -->
+        <input type="button" id="btn_contSearch" onclick="contSearch" value="조회"> </td>
 <!-- 		 <td ></td> -->
 <!-- 		 <th></th> -->
 		    <th>작업지시자</th>
@@ -316,7 +361,6 @@ border-color: #23dbf8;}
 		 </tr>
 <!--        <td>  -->
 <!--        <input type="text" id="cont_id" name="cont_id" value=""> -->
-<!--         <input type="button" id="btn_contSearch" onclick="contSearch();" value="조회"> </td> -->
 		
 	<tr>
 	 <th>상품코드</th>
@@ -374,6 +418,7 @@ border-color: #23dbf8;}
   </table>
 <!--     </table> -->
   </div>
+</div>
 </div>
 	
 <!--   </table> -->

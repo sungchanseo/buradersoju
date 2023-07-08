@@ -13,7 +13,6 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
-<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
 <link rel="stylesheet" href="${contextPath }/resources/css/table.css"/>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert창 링크 -->
 </head>

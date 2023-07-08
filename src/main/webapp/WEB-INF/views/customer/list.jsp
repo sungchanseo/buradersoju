@@ -33,7 +33,7 @@
 		<div style="float:right; display:inline;">
 			<c:if test="${emp_department.equals('영업') || emp_department.equals('영업팀') || emp_department.equals('Master')}">
 				<input type="button" value="거래처등록" class="btn btn-success" onclick="insertPop();"> 
-				<input type="button" value="거래처삭제"  class="btn btn-success" id="btnD" onclick="removeChecked();">
+				<input type="button" value="거래처삭제"  class="btn btn-success" id="btnD" >
 			</c:if>
 		</div>
 		<!-- 영업팀이 아닐때 버튼 감추기 -->
@@ -57,17 +57,17 @@
               </thead>
               <c:forEach var="vo" items="${customerList }">
                <tbody>
-                 <tr onclick="infoPop('${vo.cust_id}');">
+                 <tr >
                    <td><input type="checkbox" name="checkRow" class="checkRow" value="${vo.cust_id}"></td>
-                   <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.cust_id }</font></font></td>
-                   <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.reg_num }</font></font></td>
-                   <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.cust_name }</font></font></td>
-                   <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.cust_class }</font></font></td>
-                   <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.owner_name }</font></font></td>
-                   <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.main_phone }</font></font></td>
-                   <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.cust_business }</font></font></td>
-                   <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.cust_event }</font></font></td>
-                   <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.emp_email }</font></font></td>
+                   <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" onclick="infoPop('${vo.cust_id}');" id="${vo.cust_id }" value="${vo.cust_id }">${vo.cust_id }</font></font></td>
+                   <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" onclick="infoPop('${vo.cust_id}');">${vo.reg_num }</font></font></td>
+                   <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" onclick="infoPop('${vo.cust_id}');">${vo.cust_name }</font></font></td>
+                   <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" onclick="infoPop('${vo.cust_id}');">${vo.cust_class }</font></font></td>
+                   <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" onclick="infoPop('${vo.cust_id}');">${vo.owner_name }</font></font></td>
+                   <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" onclick="infoPop('${vo.cust_id}');">${vo.main_phone }</font></font></td>
+                   <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" onclick="infoPop('${vo.cust_id}');">${vo.cust_business }</font></font></td>
+                   <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" onclick="infoPop('${vo.cust_id}');">${vo.cust_event }</font></font></td>
+                   <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" onclick="infoPop('${vo.cust_id}');">${vo.emp_email }</font></font></td>
                  </tr>
                </tbody>
            	  </c:forEach>
@@ -125,9 +125,6 @@
 			}// else END
 		}// allCheckBox END
 		
-		//체크박스 선택한 것만 삭제하기 메소드
-// 		function removeChecked(){
-			
 		$(document).ready(function(){
 			$('#btnD').click(function(){
 		
@@ -137,36 +134,64 @@
 					checkRow = checkRow + $(this).val() + ",";
 				});
 				
-				checkRow = {
-						cust_id : checkRow
-				}
+// 				checkRow = {
+// 						cust_id : $('#cust_id').val()
+// 				}
 
-
-				
-// 				checkRow = checkRow.slice(0, -2); // 마지막에 추가된 ", " 제거
 				console.log("checkRow : "+checkRow);
 				console.log(checkRow);
 				console.log(typeof checkRow); 
-				//typeof : 변수의 데이타타입을 확인 => checkRow는 String 타입 
+				console.log(JSON.stringify(checkRow));
+				console.log(typeof JSON.stringify(checkRow));
 				
 				if(checkRow == ""){
-					alert("삭제할 목록이 없읍니다.");
+					Swal.fire({
+			            icon: 'warning',					
+			            title: '삭제할 목록이 없읍니다.',	
+			            text: '거래처를 선택하세요.',	
+			            confirmButtonText: '확인',
+			        });
 					return false;
 				}else{
-		 			if(confirm("정말로 삭제하시겠읍니까?")){
-		 				$.ajax({
-		 					url : '/customer/remove/',
-		 					type : 'post',
-		 					data : checkRow, 
-		 					success : function(){
-		 						alert('성공!');
-		 						window.location.reload();
-		 					},
-		 					error : function(){
-		 						alert('실패!');
-		 					}//error
-	 					});//ajax END
-		 			}// confirm END
+				    Swal.fire({
+				        title: '거래처를 삭제하시겠읍니까?',
+				        text: '삭제/취소를 선택하세요.',
+				        icon: 'warning',
+				        showCancelButton: true,
+				        confirmButtonColor: '#0ddbb9',
+				        cancelButtonColor: '#d33',
+				        confirmButtonText: '삭제',
+				        cancelButtonText: '취소'
+				    }).then((result) => {
+				        if (result.isConfirmed) {
+				            $.ajax({
+				                url: '${contextPath}/customer/remove/'+checkRow,
+				                type: 'get',
+				                data: checkRow,
+				                success: function(json) {
+				                    Swal.fire({
+				                        title: '삭제가 완료되었습니다.',
+				                        text: '확인을 누르면 창을 닫습니다.',
+				                        icon: 'success',
+				                        confirmButtonText: '확인'
+				                    }).then(() => {
+				                        window.location.reload();
+				                    });
+				                } // json
+				            }); // ajax
+				        } // isConfirmed
+				    }); // then(result)
+// 		 			if(confirm("정말로 삭제하시겠읍니까?")){
+// 		 				$.ajax({
+// 		 					url : '${contextPath}/customer/remove/'+checkRow,
+// 		 					type : 'get',
+// // 		 					data : checkRow,
+// 		 					success : function(){
+// 		 						alert('성공!');
+// 		 						window.location.reload();
+// 		 					}
+// 	 					});//ajax END
+// 		 			}// confirm END
 					
 				}// else END
 			

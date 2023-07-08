@@ -106,15 +106,16 @@ public class CustomerController {
 	}
 
 	// 거래처 등록 디비처리
+	@ResponseBody
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
-	public String insertCustomerPOST(CustomerVO vo, 
+	public void insertCustomerPOST(CustomerVO vo, 
 			@RequestParam("address") String address)  throws Exception {
 		logger.debug("@@@@@@@@@@@@Controller : 거래처 등록POST하기!!!!");
 		logger.debug("@@@@@@@입력된 정보 : " + vo);
 		vo.setCust_address(address+", "+vo.getCust_address());
 		custService.insertCustomer(vo);
 
-		return "redirect:/customer/list";
+//		return "redirect:/customer/list";
 	}
 	
 	//view페이지의 ajax에서 정보를 받아서 다시 되돌려줄려면 @ResponseBody 어노테이숀을 반듯이 적어야 한다. 
@@ -162,10 +163,9 @@ public class CustomerController {
 	}
     
 	// 거래처 삭제 디비처리
-	
 	@ResponseBody
-	@RequestMapping(value="/remove", method=RequestMethod.POST)
-	public String removeCustomerPOST(@RequestParam("cust_id") String cust_id) throws Exception {
+	@RequestMapping(value="/remove/{checkRow}", method=RequestMethod.GET)
+	public String removeCustomerPOST(@PathVariable("checkRow") String cust_id) throws Exception {
 		logger.debug("@@@@@@@@@@@Controller : 거래처 삭제POST하기 !!!!!");
 //		
 		String[] arrIdx = cust_id.split(",");
@@ -177,7 +177,7 @@ public class CustomerController {
 //		custService.removeCustomer(cust_id);
 
 //		return null;
-		return "redirect:/customer/list";
+		return "/customer/list";
 	}
 	
 	

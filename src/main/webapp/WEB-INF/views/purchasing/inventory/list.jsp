@@ -115,16 +115,17 @@ $(function() {
 
 
 								<!-- 제목 -->
+								     <div class="card-body">
 								<h1 class="card-title">
 										<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">재고 리스트</font></font>
-									</h1>
+							    </h1>
 									
 									
 								<!-- 검색창기능 -->
 								<form action="/purchasing/inventory/list" method="get" style="display: inline;">
 									<select name="selector">
-										<option value="ma_name">자재명</option>
 										<option value="ma_id">자재코드</option>
+										<option value="ma_name">자재명</option>
 									</select> <input type="text" class="form-control" style="width:10%; display:inline;" name="search" placeholder="검색어를 입력해주세요">
 									<input type="submit"  class="btn btn-info" value="검색">
 								</form>
@@ -198,20 +199,8 @@ $(function() {
 												<a href="/purchasing/inventory/list?pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">다음</a>
 											</c:if>
 										</div>
-										<!-- 		<div class="btn-group" role="group" aria-label="Basic example"> -->
-										<!-- 			<button type="button" class="btn btn-outline-secondary"> -->
-										<!-- 				<i class="mdi mdi-heart-outline"></i> -->
-										<!-- 			</button> -->
-										<!-- 			<button type="button" class="btn btn-outline-secondary"> -->
-										<!-- 				<i class="mdi mdi-calendar"></i> -->
-										<!-- 			</button> -->
-										<!-- 			<button type="button" class="btn btn-outline-secondary"> -->
-										<!-- 				<i class="mdi mdi-clock"></i> -->
-										<!-- 			</button> -->
-										<!-- 		</div> -->
 									</div>
 									<!-- 	페이징 처리  -->
-									
 									
 								 <script>
 								    /*실사량 수정 버튼 동작  */
@@ -251,6 +240,7 @@ $(function() {
 					</div>
 				</div>
 			</div>
+		  </div>
 		</div>
 	</div>
 </div>

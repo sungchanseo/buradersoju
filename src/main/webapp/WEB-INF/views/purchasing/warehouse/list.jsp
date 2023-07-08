@@ -97,7 +97,6 @@ $('.modify').click(function(){
 				    $.ajax({
 							url: "modify",
 							type: "post",
-							dataType : "json",
 							contentType : "application/json;charset=UTF-8",
 							data: JSON.stringify({ 
 								whs_id:whs_id,
@@ -107,7 +106,7 @@ $('.modify').click(function(){
 								whs_emp:whs_emp
 							}),
 							success: function() {
-								alert("창고코드 " + whs_id + ", 수정이 완료되었습니다. @success@" );
+								alert("창고코드 " + whs_id + ", 수정이 완료되었습니다. );
 								location.href="/purchasing/warehouse/list";
 								},
 							error: function() {
@@ -169,9 +168,10 @@ $('.modify').click(function(){
 </script>
 </head>
 <body>
-	<br>
+<br>
+
 	<div class="container-scroller">
-<!-- 		<div class="container-fluid page-body-wrapper full-page-wrapper"> -->
+		<div class="container-fluid page-body-wrapper full-page-wrapper"> 
 			<div class="main-panel">
 				<div class="content-wrapper d-flex align-items-center auth px-0"
 					style="min-height: 100vh;">
@@ -179,12 +179,13 @@ $('.modify').click(function(){
 						<div class="col-lg-12 mx-auto">
 							<div class="auth-form-light text-left py-5 px-4 px-sm-5"
 								style="height: 1000px;">
-<br><br>
- 
-	<h1 class="card-title">
-		<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">창고 리스트</font></font>
-	</h1>
-	
+ 	
+ 	<!-- 제목 -->
+ 	<div class="card-body">
+	     <h1 class="card-title">
+		    <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">창고 리스트</font></font>
+     	 </h1>
+	</div>
  	
      <c:if test="${emp_department.equals('구매팀') || emp_department.equals('Master')}">
 		<div style=float:right;>
@@ -196,18 +197,19 @@ $('.modify').click(function(){
 	</c:if>	
 	<div>
 	<ul class="nav nav-tabs tab-no-active-fill" role="tablist">
-	<li class="nav-item">
+	   <li class="nav-item">
 	<a class="nav-link ps-2 pe-2 active" id="stage1-tab" data-bs-toggle="tab" href="#stage1" role="tab" aria-controls="stage1" aria-selected="true">자재창고</a>
-	</li>
-	<li class="nav-item">
+	   </li>
+	   <li class="nav-item">
 	<a class="nav-link ps-2 pe-2" id="stage2-tab" data-bs-toggle="tab" href="#stage2" role="tab" aria-controls="stage2" aria-selected="false">상품창고</a>
-    </li>
+       </li>
 	</ul>								
-	<div class="tab-content tab-no-active-fill-tab-content">
+	  <div class="tab-content tab-no-active-fill-tab-content">
 	
-	<div class="tab-pane fade active show" id="stage1" role="tabpanel" aria-labelledby="stage1-tab">
-     
+	  <div class="tab-pane fade active show" id="stage1" role="tabpanel" aria-labelledby="stage1-tab">
+     <div>
 	<!-- 테이블 -->
+	
 	<table border="1" class="table table-hover table-bordered text-center">
 		<tr>
 			<th></th>
@@ -238,6 +240,7 @@ $('.modify').click(function(){
 			</tr>
 		</c:forEach>
 	</table>
+  </div>
 </div>
 <!-- 2번째 탭 내용들  -->
 <div class="tab-pane fade show" id="stage2" role="tabpanel" aria-labelledby="stage2-tab">
@@ -272,14 +275,16 @@ $('.modify').click(function(){
 			</tr>
 		</c:forEach>
 	</table>
-   </div>
+              </div>
+             </div>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+     </div>
   </div>
- </div>
- </div>
-  </div>
- </div>
- </div>
- </div>
- </div>
  
 <%@ include file="../../includes/footer.jsp" %>
+</body>
+</html>

@@ -103,11 +103,11 @@ public class WarehouseController {
 	// 창고정보 수정 디비처리
 	@RequestMapping(value = "modify", method = RequestMethod.POST , produces = "application/json;charset=UTF-8" )
     @ResponseBody
-	public String modifyWarehousePOST(@RequestBody WarehouseVO mvo) throws Exception {
+	public void modifyWarehousePOST(@RequestBody WarehouseVO mvo) throws Exception {
 		logger.debug("mdify 창고 수정 처리 가즈아~");
 	    
 		wService.modifyWarehouse(mvo);
-		return "redirect:/purchasing/warehouse/list";
+
 	}
 	// 창고정보 삭제하기
     @RequestMapping(value = "delete", method = RequestMethod.POST )

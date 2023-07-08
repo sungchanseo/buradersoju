@@ -12,6 +12,7 @@ public class OutProductVO {
     private String op_process;
     private Date op_date;
     private int op_emp;
+    private int tmp_qty;
     
     // product
     private String product_name;
@@ -81,8 +82,14 @@ public class OutProductVO {
 	public void setOp_emp(int op_emp) {
 		this.op_emp = op_emp;
 	}
+	public int getTmp_qty() {
+		return tmp_qty;
+	}
+	public void setTmp_qty(int tmp_qty) {
+		this.tmp_qty = tmp_qty;
+	}
 	
-
+	
 	// product
 	public String getProduct_qty() {
 		return product_qty;

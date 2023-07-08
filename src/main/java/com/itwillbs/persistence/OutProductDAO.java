@@ -27,6 +27,9 @@ public interface OutProductDAO {
 	
 	// 4. 상품에 필요한 소요량과 현재고량 가져오기
 	public List<OutProductVO> getInventory(String product_id) throws Exception;
+	
+	// 5. tmp_qty 생성
+	public void getTmpQty(String cont_id) throws Exception;
  	
 	
 	

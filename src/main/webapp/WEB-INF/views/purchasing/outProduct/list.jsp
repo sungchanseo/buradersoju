@@ -51,7 +51,6 @@
 									   <th>품명</th>
 									   <th>주문수량</th>
 									   <th>상품재고</th>
-								<!-- 	   <th>재고확인</th> -->
 									   <th>납기일자</th>
 									   <th>진행현황</th>
 									   <th>출고일자</th>
@@ -78,7 +77,7 @@
 										    		</c:when>
 										    		<c:when test="${op.op_process.equals('미출고') }"> 
 										    			<a href="info?cont_id=${op.cont_id }&product_id=${op.product_id}"
-										    			   onclick="window.open(this.href, '_blank', 'width=900, height=500, left=510, top=365'); return false;">
+										    			   onclick="window.open(this.href, '_blank', 'width=900, height=400, left=510, top=365'); return false;">
 										    			   <img class="viewDetail" src="${pageContext.request.contextPath}/resources/images/viewDetail.png" width="10px" height="10px" alt="image" />
 										    			</a>					
 											    	</c:when>
@@ -87,20 +86,16 @@
 										    <td>${op.cust_name }</td>
 										    <td>${op.product_name }</td>
 										    <td>${op.cont_qty }</td>
-										    <td>${op.product_qty }</td>
-								<!-- 		    <td> -->
-								<%-- 		    	<c:choose> --%>
-								<%-- 		    		<c:when test="${op.op_process.equals('출고완료') }">ㅡ</c:when> --%>
-								<%-- 		    		<c:when test="${op.op_process.equals('미출고') }">  --%>
-								<%-- 			    		<c:if test="${op.product_qty - op.cont_qty >= 0 }"> --%>
-								<!-- 			    			<span style="color:blue">출고가능</span> -->
-								<%-- 			    		</c:if> --%>
-								<%-- 			    		<c:if test="${op.product_qty - op.cont_qty < 0 }"> --%>
-								<!-- 			    			<span style="color:red">출고불가</span> -->
-								<%-- 			    		</c:if> --%>
-								<%-- 			    	</c:when> --%>
-								<%-- 		    	</c:choose> --%>
-								<!-- 		    </td> -->
+										    <td>
+										    	<c:choose>
+										    		<c:when test="${op.op_process.equals('출고완료') }">
+										    			${op.tmp_qty }
+										    		</c:when>
+										    		<c:otherwise>
+										    			${op.product_qty }
+										    		</c:otherwise>
+										    	</c:choose>
+										    </td>
 										    <td>${op.due_date }</td>
 										    <td>${op.op_process}</td>
 										    <td>${op.op_date}</td>
@@ -115,7 +110,7 @@
 													<c:when test="${emp_department.equals('구매팀') || emp_department.equals('Master')}">
 														<c:if test="${empty op.op_id or op.op_id == '0' }">
 															<input type="button" class="btn btn-success" value="출고처리"
-													       		   onclick="location.href='/purchasing/outProduct/opid?cont_id=${op.cont_id }';">
+													       		   onclick="location.href='/purchasing/outProduct/opid?cont_id=${op.cont_id }&product_qty=${op.product_qty }';">
 														</c:if>
 													</c:when>
 													<c:otherwise> </c:otherwise>

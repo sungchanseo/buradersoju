@@ -68,6 +68,11 @@ public class OutProductServiceImpl implements OutProductService{
 		return odao.getInventory(product_id);
 	}
 	
+	// 5. tmp_qty 생성
+	@Override
+	public void getTmpQty(String cont_id) throws Exception {
+		odao.getTmpQty(cont_id);
+	}
 	
 	
 	
@@ -76,6 +81,8 @@ public class OutProductServiceImpl implements OutProductService{
 	
 	
 	
+
+
 	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ페이징처리ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	// 0. 페이징처리 세부로직
 	@Override

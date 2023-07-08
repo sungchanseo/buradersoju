@@ -95,14 +95,18 @@ public class OutProductController {
 		model.addAttribute("maxDate", maxDate);
 	}
 	
-	// 2-2. 출고번호 & "재고량 감소" - DB 업데이트
+	// 2-2. 출고번호 & 재고량 감소 - DB 업데이트
 	@RequestMapping(value="/opid", method=RequestMethod.POST)
 	public void getOpIdPOST(Model model, @RequestBody OutProductVO vo) throws Exception{
 		logger.debug("@@@@@@@@@@ getOpIdPOST()_호출");
 		logger.debug("@@@@@@@@@@ vo = " + vo);
 		
-		// 입고번호, 발주번호 DB에 저장
+		// op_id & tmp_qty DB에 저장
 		oService.registOpId(vo);
+//		oService.getTmpQty(vo.getCont_id());
+		
+		// 상품재고량 감소
+		
 	}
 	
 	

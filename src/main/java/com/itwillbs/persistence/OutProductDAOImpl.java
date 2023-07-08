@@ -69,7 +69,6 @@ public class OutProductDAOImpl implements OutProductDAO {
 	public void registOpId(OutProductVO vo) throws Exception{
 		logger.debug("########## resgistOpId 호출");
 		logger.debug("########## " + vo.getOp_id());
-		logger.debug("########## " + vo.getProduction_id());
 		sqlSession.update(NAMESPACE + ".registOpId", vo);
 	}
 	
@@ -80,7 +79,12 @@ public class OutProductDAOImpl implements OutProductDAO {
 		return sqlSession.selectList(NAMESPACE+".getInventory", product_id);
 	}
 	
-	
+	// 5. tmp_qty 생성
+	@Override
+	public void getTmpQty(String cont_id) throws Exception {
+		logger.debug("########## getTmpQty 호출");
+		sqlSession.selectList(NAMESPACE+".getTmpQty", cont_id);
+	}
 	
 	
 	

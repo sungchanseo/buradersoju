@@ -104,7 +104,7 @@ margin-left: 75%;
 	
 
 
-	<!-- 테이블1 -->
+	<!-- 테이블1 --> <!-- 전체적인 출고 상세 정보 -->
 	<div>
 		<fmt:formatDate value=""/> 
 		<table style="width: 830px;">
@@ -116,7 +116,7 @@ margin-left: 75%;
 				<td>${info.production_id }</td>
 				
 				<th>수주량</th>
-				<td>${info.cont_qty }EA</td>
+				<td>${info.cont_qty }</td>
 				
 				<th>납기일</th>
 				<td>${info.due_date }</td>
@@ -183,9 +183,42 @@ margin-left: 75%;
 	
 	<br>
 	
-	
-	<!-- 테이블2 -->
+
+	<!-- 테이블2 --> <!-- 해당 상품 출고가능여부 -->
 	<c:if test="${info.op_process.equals('미출고') }">
+		<div>
+			<table style="width: 830px;">
+				<tr>
+					<th>상품코드</th>
+					<th>상품명</th>
+					<th>상품재고</th>
+					<th>출고가능여부</th>
+				</tr>
+				<tr>
+					<td>${info.product_id }</td>
+					<td>${info.product_name }</td>
+					<td>${info.product_qty }</td>
+					<td>
+						<c:choose>
+							<c:when test="${info.product_qty - info.cont_qty >= 0 }">
+								<span style="color:blue">출고가능</span>
+							</c:when>
+							<c:when test="${info.product_qty - info.cont_qty < 0 }">
+								<span style="color:red">출고불가</span>
+							</c:when>
+						</c:choose>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</c:if>
+	
+	
+	<br>
+	
+	
+	<!-- 테이블3 --> <!-- 자재 소요량 & 재고량 조회 -->
+	<c:if test="${info.op_process.equals('미출고') && info.product_qty - info.cont_qty < 0 }">
 		<div>
 			<table style="width: 830px;">
 				<tr>

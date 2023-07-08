@@ -8,6 +8,8 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.itwillbs.domain.CustomerVO;
 import com.itwillbs.domain.EmployeeVO;
@@ -27,6 +30,7 @@ import com.itwillbs.service.EmployeeService;
 import com.itwillbs.service.PagingService;
 
 @Controller
+//@RestController
 @RequestMapping(value = "/customer/*")
 public class CustomerController {
 
@@ -102,21 +106,27 @@ public class CustomerController {
 	@RequestMapping(value = "/insert", method = RequestMethod.GET)
 	public void insertCustomerGET(CustomerVO vo)  throws Exception {
 		logger.debug("@@@@@@@@@@@@Controller : 거래처 등록GET하기!!!!");
-	//	return "customer/insert";
+//		return "/customer/insert";
 	}
 
 	// 거래처 등록 디비처리
-	@ResponseBody
+//	@ResponseBody
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
-	public void insertCustomerPOST(CustomerVO vo, 
-			@RequestParam("address") String address)  throws Exception {
+	public ResponseEntity<String> insertCustomerPOST(@RequestBody CustomerVO vo, 
+			@RequestParam(value="address", required =false) String address)  throws Exception {
 		logger.debug("@@@@@@@@@@@@Controller : 거래처 등록POST하기!!!!");
 		logger.debug("@@@@@@@입력된 정보 : " + vo);
 		vo.setCust_address(address+", "+vo.getCust_address());
+		
 		custService.insertCustomer(vo);
-
-//		return "redirect:/customer/list";
+		
+		return new ResponseEntity<String>(HttpStatus.OK);
 	}
+	/*
+	 * form 태그를 <input type="submit"> 으로 보내지 않을 경우 
+	 * 다양한 onclick, $().click() 등이 중첩되어 페이지가 복수 실행되는 경우가 있다. 
+	 * 이럴 경우 form태그 속성에  onsubmit="return false;" 을 추가하면 해결된다. 
+	 */
 	
 	//view페이지의 ajax에서 정보를 받아서 다시 되돌려줄려면 @ResponseBody 어노테이숀을 반듯이 적어야 한다. 
 	//다만, 콘츄롤러 상단의 @Controller 대신 @RestController 어노테이숀을 추가하면 안 적어도 된다. 

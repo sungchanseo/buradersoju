@@ -82,8 +82,9 @@
 			},
 			success : function(data){
 				window.opener.document.getElementById("emp_name").value = data.emp_name;
-				window.opener.document.getElementById("emp_tel").value = data.emp_phone;
+				window.opener.document.getElementById("emp_tel").value = data.emp_tel;
 				window.opener.document.getElementById("emp_email").value = data.emp_email;
+				window.opener.document.getElementById("emp_id").value = data.emp_id;
 				window.close();
 			}
 		});//ajax END

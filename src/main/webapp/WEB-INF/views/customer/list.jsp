@@ -13,7 +13,7 @@
 <body>
 <div>
 	<div class="card-body">
-		<h1 class="card-title">
+		<h1 class="card-title" onclick="location.href='/customer/list'">
 			<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">거래처 리스트</font></font>
 		</h1>
 

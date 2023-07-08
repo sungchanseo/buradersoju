@@ -110,7 +110,6 @@ public class CustomerController {
 	}
 
 	// 거래처 등록 디비처리
-//	@ResponseBody
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
 	public ResponseEntity<String> insertCustomerPOST(@RequestBody CustomerVO vo, 
 			@RequestParam(value="address", required =false) String address)  throws Exception {
@@ -161,14 +160,17 @@ public class CustomerController {
 
 	// 거래처 수정 디비처리
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
-	public String modifyCustomerPOST(CustomerVO mvo,
-			@RequestParam("address") String address) throws Exception {
+	public ResponseEntity<String> modifyCustomerPOST(@RequestBody CustomerVO mvo,
+			@RequestParam(value="address", required=false) String address) throws Exception {
 		logger.debug("@@@@@@@@@@Contorller : 거래처 수정 POST하기 !!!");
-		logger.debug("@@@@@@@@@controller : 수정한 거래처정보 : " + mvo);
+		logger.debug("@@@@@@@@@controller : 가져온 정보 : " + mvo);
+		logger.debug("@@@@@@@@@controller : 가져온 거래처 id : " + mvo.getCust_id());
+
 		mvo.setCust_address(address+", "+mvo.getCust_address());
 		
-		custService.modifyCustomer(mvo);
-		return "redirect:/customer/list";
+		int result = custService.modifyCustomer(mvo);
+		logger.debug("@@@@@@@@@controller : 수정결과 확인 : " + result);
+		return new ResponseEntity<String>(HttpStatus.OK);
 
 	}
     
@@ -177,16 +179,11 @@ public class CustomerController {
 	@RequestMapping(value="/remove/{checkRow}", method=RequestMethod.GET)
 	public String removeCustomerPOST(@PathVariable("checkRow") String cust_id) throws Exception {
 		logger.debug("@@@@@@@@@@@Controller : 거래처 삭제POST하기 !!!!!");
-//		
 		String[] arrIdx = cust_id.split(",");
 		logger.debug("@@@@@@@@@@@Controller : arrIdx = {}",arrIdx);
 		for (int i=0; i<arrIdx.length; i++) {
 			custService.removeCustomer(arrIdx[i]);
 		}
-		
-//		custService.removeCustomer(cust_id);
-
-//		return null;
 		return "/customer/list";
 	}
 	
@@ -217,13 +214,37 @@ public class CustomerController {
 		// 변수에 담아서 전달
 		model.addAttribute("employeeList", employeeList);
 		model.addAttribute("pvo",pvo);
-		// 인사팀 일때 버튼 활성화
-		model.addAttribute("emp_department", session.getAttribute("emp_department"));
-		logger.debug("emp_department 호출", session.getAttribute("emp_department"));
-//		return null;
 	}
 	
-	//직원정보 검색 맵핑
+	//직원찾기 
+	@RequestMapping(value="/empFindModify", method = RequestMethod.GET)
+	public void findEmpModifyGET(PagingVO pvo, Model model, HttpSession session) throws Exception{
+		logger.debug("@@@@@@@@@@@Controller : 직원찾기 !!!!!");
+		
+		List<Object> employeeList = null;
+		
+		//사원 목록을 가져오는 employeeService 호출
+		pvo = empService.setPageInfoForEmployee(pvo);
+		logger.debug("@@@@@@@@@Controller : {}",pvo);
+		
+		//service객체를 호출
+		if(pvo.getSelector()!=null && pvo.getSelector()!="") {
+			//검색어가 있을 때 
+			logger.debug("@@@@@@@@@Controller : 검색어가 있을 때입니다");
+			employeeList = pageService.getListSearchObjectEmployeeVO(pvo);
+		}else {
+			//검색어가 없을 때
+			logger.debug("@@@@@@@@@Controller : 검색어가 없을 때입니다");
+			employeeList = pageService.getListPageSizeObjectEmployeeVO(pvo);
+		}
+		logger.debug("@@@@@@@@@Controller : employeeList={}",employeeList);
+	
+		// 변수에 담아서 전달
+		model.addAttribute("employeeList", employeeList);
+		model.addAttribute("pvo",pvo);
+	}
+	
+	//직원정보 검색 맵핑 - 거래처 등록
 	@ResponseBody
 	@RequestMapping(value="/empInfo", method = RequestMethod.GET)
 	public EmployeeVO getEmpInfo(@RequestParam("emp_id") String emp_id) throws Exception{
@@ -232,6 +253,19 @@ public class CustomerController {
 
 		EmployeeVO vo = empService.getEmployee(emp_id);
 		logger.debug("@@@@@@@@@@@Controller : {}", vo);
+
+		return vo;
+	}
+	
+	//직원정보 검색 맵핑 - 거래처 수정
+	@ResponseBody
+	@RequestMapping(value="/empInfoModify", method = RequestMethod.GET)
+	public EmployeeVO getEmpInfoModify(@RequestParam("emp_id") String emp_id) throws Exception{
+		logger.debug("@@@@@@@@@@@Controller : getEmpInfoModify호출! 직원정보 가져오기 !!!!!");
+		logger.debug("@@@@@@@@@@@Controller : {}", emp_id);
+
+		EmployeeVO vo = empService.getEmployee(emp_id);
+		logger.debug("@@@@@@@@@@@Controller : 가져온 회원 정보 : {}", vo);
 
 		return vo;
 	}

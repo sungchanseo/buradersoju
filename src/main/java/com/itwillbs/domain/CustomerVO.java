@@ -15,11 +15,18 @@ public class CustomerVO {
 	private String cust_homepage;
 	private String emp_email;
 	private String emp_id;
+	private String emp_name;
 	private String emp_tel;
 	private String cust_etc;
 	private Integer cust_status;
 	
 	
+	public String getEmp_name() {
+		return emp_name;
+	}
+	public void setEmp_name(String emp_name) {
+		this.emp_name = emp_name;
+	}
 	private PagingVO pagingVO;
 	
 	
@@ -137,9 +144,8 @@ public class CustomerVO {
 				+ cust_type + ", cust_class=" + cust_class + ", owner_name=" + owner_name + ", main_phone=" + main_phone
 				+ ", cust_address=" + cust_address + ", cust_business=" + cust_business + ", cust_event=" + cust_event
 				+ ", cust_fax=" + cust_fax + ", cust_homepage=" + cust_homepage + ", emp_email=" + emp_email
-				+ ", emp_id=" + emp_id + ", emp_tel=" + emp_tel + ", cust_etc=" + cust_etc + ", cust_status="
-				+ cust_status + ", pagingVO=" + pagingVO + "]";
+				+ ", emp_id=" + emp_id + ", emp_name=" + emp_name + ", emp_tel=" + emp_tel + ", cust_etc=" + cust_etc
+				+ ", cust_status=" + cust_status + ", pagingVO=" + pagingVO + "]";
 	}
-	
 	
 }

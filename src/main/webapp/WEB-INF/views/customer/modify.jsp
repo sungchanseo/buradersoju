@@ -28,15 +28,30 @@
 				}
 			}).open();
 		};//우편번호 자동입력 api 메소드
+		
+		//직원정보 검색 및 자동완성 기능 
+		function empPop(){
+			var empPop = window.open('/customer/empFindModify', '직원검색', 'width=700px,height=500px');
+			
+			if(empPop == null){
+				  Swal.fire({
+			            icon: 'warning',				// Alert 타입
+			            title: '팝업이 차단되었습니다.',	// Alert 제목
+			            text: '차단을 해제하세요.',		// Alert 내용
+			            confirmButtonText: '확인',		// Alert 버튼내용
+			        });
+			  }
+			empPop.moveBy(100,100);
+		}//empPop END
 	</script>
 
-	<h1>${customerVO.cust_name } 수정</h1>
-	<form action="" role="form" id="fr" method="post">
+	<h1>${customerVO.cust_name } 수정 </h1>
+	<form action="" role="form" id="fr" method="post" onsubmit="return false;">
 	<table border="1">
 	<tr>
 		<th>거래처유형</th>
 		<td><label>
-		<input type="hidden" name="cust_id" value="${customerVO.cust_id }">
+		<input type="hidden" id="cust_id" value="${customerVO.cust_id }">
 		<input type="radio" name="cust_type" id="cust_type" value="사업자(국내)"
 			<c:if test="${customerVO.cust_type =='사업자(국내)' }">
 				checked
@@ -55,7 +70,7 @@
 		</td>
 		<th>사업자등록번호</th>
 		<td>
-			<input type="text" name="reg_num" id="reg_num" value="${customerVO.reg_num }"><br>
+			<input type="text" name="reg_num" id="reg_num" value="${customerVO.reg_num }" readonly><br>
 			<span id="regCheckMsg"></span>
 		</td>
 	</tr>
@@ -63,13 +78,15 @@
 		<th>거래처이름</th>
 		<td><input type="text" name="cust_name" id="cust_name" value="${customerVO.cust_name }"></td>
 		<th>담당자이름</th>
-		<td><input type="text" name="emp_id" id="emp_id" value="${customerVO.emp_id }"></td>
+		<td><input type="text" name="emp_name" id="emp_name" value="${customerVO.emp_name }" onclick="empPop();"></td>
 	</tr>
 	<tr>
 		<th>대표자명</th>
 		<td><input type="text" name="owner_name" id="owner_name" value="${customerVO.owner_name }"></td>
 		<th>담당자전화번호</th>
-		<td><input type="text" name="emp_tel" id="emp_tel" value="${customerVO.emp_tel }" readonly></td>
+		<td><input type="text" name="emp_tel" id="emp_tel" value="${customerVO.emp_tel }" readonly>
+		<input type="hidden" name="emp_id" id="emp_id">
+		</td>
 	</tr>
 	<tr>
 		<th>대표전화</th>
@@ -168,35 +185,6 @@
 	
 		<script type="text/javascript">
 		
-		$(document).ready(function(){ 
-			//사업자번호 중복확인 ajax 메소드
-			  $('#reg_num').keyup(function(){
-				 $.ajax({
-					  url : "/customer/regCheck",
-					  data: {"reg_num": $('#reg_num').val()}, 
-					  dataType : "text", //String 타입 데이타를 전달하므로 text로 전달한다. 
-					  success:function(data){ //콘츄롤러에 갔다가 온 값을 data에 저장한다. 
-						  const result = $.trim(data);
-							  if(result=="yes" && !$('#reg_num').val() == ""){
-							
-							  $('#regCheckMsg').css('color','green');
-							  $('#regCheckMsg').text("사용가능한 사업자번호입니다.");
-//	 						  $('#submit').removeAttr('disabled');
-							  return;
-						  }else if ( result=="no" && !$('#reg_num').val() == ""){
-
-							  $('#regCheckMsg').css('color','red');
-							  $('#regCheckMsg').text("중복된 사업자번호입니다.");  
-//	 						  $('#submit').attr('disabled','disabled');
-							  return;
-						  }
-					  }//success 
-				  });// ajax
-			  }); //사업자 중복체크 ajax끝
-			  
-		});//dom 객체 끝 
-		
-		
 		$(document).ready(function(){
 			
 			 //빈칸이 있을때 submit 제어 
@@ -274,6 +262,7 @@
 					}//emp_email 제어 
 
 					var formObject ={
+							cust_id : $('#cust_id').val(),
 							cust_name : $('#cust_name').val(),
 							emp_name : $('#emp_name').val(),
 							reg_num : $('#reg_num').val(),
@@ -299,7 +288,6 @@
 						type : 'POST', 
 						contentType : 'application/json; charset=utf-8',
 						data : JSON.stringify(formObject), 	
-//	 					data : formObject,
 						success : function() {
 							 Swal.fire({
 			                        title: '거래처수정이 완료되었습니다.',

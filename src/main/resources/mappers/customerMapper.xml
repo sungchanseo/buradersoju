@@ -30,7 +30,7 @@
 		reg_num=#{reg_num}, cust_type=#{cust_type}, cust_class=#{cust_class},
 		owner_name=#{owner_name}, main_phone=#{main_phone},
 		cust_address=#{cust_address}, cust_business=#{cust_business},
-		cust_event=#{cust_event},
+		cust_event=#{cust_event}, emp_name=#{emp_name}, 
 		cust_homepage=#{cust_homepage}, emp_id=#{emp_id},
 		emp_email=#{emp_email}, emp_tel=#{emp_tel}, cust_etc=#{cust_etc}
 		where cust_id=#{cust_id}

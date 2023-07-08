@@ -231,8 +231,8 @@
 					return false;
 				}//emp_email 제어 
 
-// 				var formObject = $("form[role='form']").serializeArray();
 				var formObject ={
+						cust_id : $('#cust_id').val(),
 						cust_name : $('#cust_name').val(),
 						emp_name : $('#emp_name').val(),
 						reg_num : $('#reg_num').val(),
@@ -258,7 +258,6 @@
 					type : 'POST', 
 					contentType : 'application/json; charset=utf-8',
 					data : JSON.stringify(formObject), 	
-// 					data : formObject,
 					headers: {'Content-Type': 'application/json'},
 					success : function() {
 						 Swal.fire({
@@ -273,7 +272,7 @@
 					}, //success END
 					error : function(){
 						alert('실패!');
-					}
+					} // error END
 				}); //ajax end
 				
 			});//정보 입력안하면 submit기능 제어 끝

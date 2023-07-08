@@ -10,8 +10,9 @@ public interface QualityService {
 	// 품질관리 - 목록 가져오기
 	public List<ProductionVO> getQualityList() throws Exception;
 	
-	//페이징처리 변수저장을 위한 serive생성
+	// 품질관리 - 페이징처리 변수저장을 위한 serive생성
 	public PagingVO setPageInfoForQuality(PagingVO pvo) throws Exception;
+	
 	
 	// 품질관리 - 검수 상세보기
 	public ProductionVO getQualityInfo(String qc_num);
@@ -30,6 +31,9 @@ public interface QualityService {
 	
 	// 공병 관리
 	public List<ProductionVO> getBottleList() throws Exception;
+
+	// 공병관리 - 페이징처리 변수저장을 위한 serive생성
+	public PagingVO setPageInfoForQuality2(PagingVO pvo) throws Exception;
 	
 	// 공병관리 - 수량 등록
 	public void btInsert(ProductionVO vo) throws Exception;

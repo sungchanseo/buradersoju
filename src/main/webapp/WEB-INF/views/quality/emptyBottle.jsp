@@ -156,23 +156,37 @@
 								<div class="form-group">
 								
 									<h1>공병 관리</h1>
-
-									<!-- 	<form action="btInsert" method="POST"> -->
+									<div style="display: flex; justify-content: space-between;">
+									<form action="/quality/emptyBottle" method="get">
+										<select class="EBTsearch_select" name="selector">
+											<option value="bt_date">공병등록일자</option>
+<!-- 											<option value="a.production_id">작업지시번호</option> -->
+<!-- 											<option value="a.production_line">생산라인</option> -->
+											<option value="emp_name">검수자</option>
+										</select>
+										<input type="text" name="search" class="form-control" style="width:250px; display:inline;" placeholder="검색어를 입력해주세요">	
+										<button type="submit" class="btn btn-info">검색</button>
+									</form>
+									
 									<div id="btInsert">
 										<c:set var="today" value="<%=new Date()%>" />
 										<fmt:formatDate var="today2" value="${today }" pattern="yyyy-MM-dd" />
 										<input type="hidden" id="bt_date" value="${today2 }"name="bt_date"> 
-										당일 입고된 공병 수량 <input type="text"id="be_bt_qty" name="bt_qty"> 
-										<input type="button" id="btInsertBT" value="등록">
+										<input type="hidden"  id="qc_emp" name="qc_emp" value="${sessionScope.emp_id}"> 
+										
+										입고 수량 <input type="text"id="be_bt_qty" name="bt_qty" class="form-control" style="width:250px; display:inline;" placeholder="공병 개수를 입력해주세요"> 
+										<input type="button" class="btn btn-info" id="btInsertBT" value="등록">
+									</div>
 									</div>
 									<!-- 	</form> -->
 
 									<div class="bottleList">
-										<table class="table table-color">
+										<table border="1" class="table table-hover table-bordered text-center">
 											<thead>
 												<tr>
 													<th>공병등록일자</th>
-													<th>입고량</th>
+													<th>담당자</th>
+													<th>입고수량</th>
 													<th>불량수량</th>
 													<th>실수량</th>
 													<th>등록</th>
@@ -185,19 +199,43 @@
 														<input type="hidden" class="bt_datecal" value="${vo.bt_date}"> 
 															<%-- <fmt:formatDate value="${vo.bt_date}" pattern="yyyy-MM-dd"/> --%>
 														</td>
+														<td>${vo.emp_name}</td>
 														<td><input type="hidden" class="bt_qty" value="${vo.bt_qty}">${vo.bt_qty}</td>
-														<td><input type="text" class="bt_defQty" value="${vo.bt_defQty}"></td>
+														<td>
+														<c:choose>
+														<c:when test="${vo.bt_defQty eq 0 }"><input type="text" class="bt_defQty" value="${vo.bt_defQty}" style="width:100px;"></c:when>
+														<c:otherwise>${vo.bt_defQty}</c:otherwise>
+														</c:choose>
+														</td>
 														<td><input type="hidden" class="bt_defQty" value="${vo.bt_defQty}">
 														<!-- 이미 등록한 날짜의 불량수량은 다시 등록할 수 없게 버튼 제어 -->
 															${vo.bt_qty-vo.bt_defQty}</td>
 														<c:if test="${vo.bt_defQty == ''}">
-															<td><input type="button" class="btDefBT" id="btDefBT" value="불량등록" data-bt_date="${vo.bt_date}"></td>
+															<td><input type="button" class="btn btn-success" id="btDefBT" value="불량 등록" data-bt_date="${vo.bt_date}"></td>
+<%-- 															<td><input type="button" class="btDefBT" id="btDefBT" value="불량등록" data-bt_date="${vo.bt_date}"></td> --%>
 														</c:if>
 													</tr>
 												</c:forEach>
 											</tbody>
 										</table>
 									</div>
+									<!-- 	페이징 처리  -->
+	<div class="template-demo">
+		<div class="btn-group" role="group" aria-label="Basic example">
+			<c:if test="${pvo.startPage > pvo.pageBlock }">
+				<a href="/quality/emptyBottle?pageNum=${pvo.startPage-pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">이전</a>
+			</c:if>
+			
+			<c:forEach var="i" begin="${pvo.startPage }" end="${pvo.endPage }" step="1">
+				<a href="/quality/emptyBottle?pageNum=${i }&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">${i }</a>
+			</c:forEach>
+			
+			<c:if test="${pvo.endPage<pvo.pageCount }">
+				<a href="/quality/emptyBottle?pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">다음</a>
+			</c:if>
+		</div>
+	</div>
+	<!-- 	페이징 처리  -->
 								</div>
 							</div>
 						</div>

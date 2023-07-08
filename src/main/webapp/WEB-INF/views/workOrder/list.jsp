@@ -5,6 +5,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
 <%@ include file="../includes/header.jsp"%>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -79,25 +82,28 @@ function info_print() {
 								
 	
 <!-- 검색창 기능 -->
-  <form action="/workOrderSearch" method="get">   
+  <form action="/workOrder/list" method="get">
 <!--     <label>검색</label> -->
 <!--     <br> -->
-	  <select name="listSelector">
-	    <option value="production_id">작업지시번호</option>
-	    <option value="cont_id">수주번호</option>
+	  <select class="Wosearch_select" name="selector">
+	    <option value="a.production_id">작업지시번호</option>
+	    <option value="a.cont_id">수주번호</option>
+	    <option value="a.production_line">생산라인</option>
+	    <option value="emp_name">작업지시자</option>
 	    <option value="production_date">작업지시일시</option>
-	    <option value="production_line">생산라인</option>
 	  </select>
-	  <input type="text" name="search" placeholder="">
-	  <input type="submit" class="btn btn-success btn-fw" value="검색">
+	  <input type="text" name="search" class="form-control" style="width:250px; display:inline;" placeholder="검색어를 입력해주세요">
+	  <input type="submit" class="btn btn-info" value="검색">
   </form>
   
-	<input type="button" class="btn btn-success btn-fw" value="생산 등록" onclick="openPopup();">
 <!-- 	<br> -->
-	<button class="btn btn-success btn-fw" style='text-align: right; float: right;'>엑셀파일</button>
-	<button id="print-button" class="btn btn-success" onclick="info_print()" style='text-align: right; float: right;'>인쇄하기</button>
-	
-  <table class="table table-color">
+	<div style="float: right;">
+	<button type="button" class="btn btn-success" style="margin: 1px;" onclick="openPopup();">작업 등록</button>
+	<button class="btn btn-light" style='text-align: right; margin: 1px;'>엑셀파일</button>
+	<button id="print-button" class="btn btn-light" onclick="info_print()" style='text-align: right; margin: 1px;'>인쇄하기</button>
+	</div>
+  <table border="1" class="table table-hover table-bordered text-center">
+  <thead class="thead-light">
     <tr>
 	  <th>작업지시번호</th>
 	  <th>수주번호</th>
@@ -110,16 +116,20 @@ function info_print() {
 	  <th>작업상태</th>
 	  <th>작업지시일시</th>
 	</tr>
+	</thead>
+	<tbody class="table-group-divider">
 	<c:forEach var="workOrderList" items="${workOrderList }">
 	 <tr>  
 	  <td>
-		<a href="./info?production_id=${workOrderList.production_id}"
+	  <span style="color: black;">
+		<a href="./info?production_id=${workOrderList.production_id}" style="color: black; text-decoration: none;"
 		onclick="window.open(this.href, '_blank', 'width=800, height=500, left=2000'); return false;">
 		${workOrderList.production_id}
 		</a>
+		</span>
 	  </td>
 	  <td>
-	  	<a href="/contract/info?cont_id=${workOrderList.cont_id }"
+	  	<a href="/contract/info?cont_id=${workOrderList.cont_id }" style="color: black; text-decoration: none;"
 	  	onclick="window.open(this.href, '_blank', 'width=800, height=500, left=2000'); return false;">
 	  	${workOrderList.cont_id}
 	  	</a>
@@ -131,9 +141,10 @@ function info_print() {
 	  <td>${workOrderList.plan_qty}</td>
 	  <td>${workOrderList.production_qty}</td>
 	  <td>${workOrderList.workOrder_status}</td>
-	  <td><fmt:formatDate value="${workOrderList.production_date}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
+	  <td><fmt:formatDate value="${workOrderList.production_date}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 	 </tr>
 	</c:forEach>
+	</tbody>
   </table>
 	<!-- 	페이징 처리  -->
 	<div class="template-demo">

@@ -55,9 +55,9 @@
 	<!-- DB 등록 -->
 	<insert id="insertWorkOrder">
 		insert IGNORE into production(production_id,cont_id,production_emp,production_date,production_line,
-		product_id,plan_qty,workOrder_status) 
+		product_id,plan_qty,workOrder_status, del_woStatus) 
 		values(#{production_id},#{cont_id},#{production_emp},now(),#{production_line},
-		#{product_id},#{plan_qty},'대기')
+		#{product_id},#{plan_qty},'대기', '0')
 	</insert>
 	<!-- 해당 수주번호에 작업지시번호 저장 -->
 	<update id="prIdContUpdate">

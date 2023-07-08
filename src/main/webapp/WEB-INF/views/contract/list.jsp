@@ -64,8 +64,8 @@
                       </thead>
                       <c:forEach var="vo" items="${contractList }">
 	                      <tbody>
-	                        <tr>
- 								<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"  onclick="infoPop('${vo.cont_id}');">${vo.cont_id }</font></font></td>
+	                        <tr onclick="infoPop('${vo.cont_id}')">
+ 								<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.cont_id }</font></font></td>
 								<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" id="product_id"  value="${vo.product_id }" onclick="infoPop('${vo.cont_id}');">${vo.product_id }</font></font></td>
 								<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" id="product_name"  value="${vo.product_name }" onclick="infoPop('${vo.cont_id}');">${vo.product_name }</font></font></td>
 								<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" id="cust_name" value="${vo.cust_name }">${vo.cust_name }</font></font></td>

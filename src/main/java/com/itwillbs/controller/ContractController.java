@@ -135,12 +135,12 @@ public class ContractController {
 
 	// 수주 수정 디비처리
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
-	public String modifyCustomerPOST(ContractVO cvo) throws Exception {
+	public void modifyCustomerPOST( ContractVO cvo) throws Exception {
 		logger.debug("@@@@@@@@@@Contorller : 수주 수정 POST하기 !!!");
 		logger.debug("@@@@@@@@@controller : 수정한 수주정보 : " + cvo);
 
 		contService.modifyContract(cvo);
-		return "redirect:/contract/list";
+//		return "redirect:/contract/list";
 
 	}
 

@@ -56,6 +56,8 @@ public class EmployeeController {
 //	    return "/employee/insert";
 	}
 	
+	// http://15.165.34.161:8080/main
+	
 	// http://localhost:8088/employee/insert
 	// 회원가입
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)

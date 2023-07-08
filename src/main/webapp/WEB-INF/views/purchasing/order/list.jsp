@@ -144,9 +144,7 @@
 		var order_id = "OR" + today + endNumber;
 		//// 행추가 ////////////////////////////////////////////////////////////
 
-		$('.writeForm')
-				.click(
-						function() {
+		$('.writeForm').click(function() {
 
 							var emp_id = "${sessionScope.emp_id}";
 							var emp_name = "${sessionScope.emp_name}";
@@ -212,9 +210,7 @@
 								$(this).removeClass('true');
 
 							}
-							$("#key_id")
-									.keyup(
-											function() {
+							$("#key_id").keyup(function() {
 												var obj = {
 													in_ma_id : $("#ma_id").val(),
 													in_order_qty : $("#order_qty").val()
@@ -245,9 +241,7 @@
 
 											}); // keyup
 
-							$('.write')
-									.click(
-											function() {
+							$('.write').click(function() {
 												console.log("글쓰기 등록함");
 
 												var ma_id = $('#ma_id').val();
@@ -313,9 +307,7 @@
 						}); //writeForm click
 
 		// 2-1. '수정' 클릭
-		$('.modify')
-				.click(
-						function() {
+		$('.modify').click(function() {
 
 							if ($(this).hasClass('true')) {
 								$(this).removeClass('true'); // 한번 더 수정이 안된다면 얘가 문제임 ! remove해서!
@@ -335,8 +327,7 @@
 								}
 
 								// 체크된 체크박스 값 가져오기
-								checkbox
-										.each(function(i) {
+								checkbox.each(function(i) {
 
 											var tr = checkbox.parent().parent()
 													.eq(i); // checkbox의 부모는 <td>, <td>의 부모는 <tr>
@@ -349,8 +340,7 @@
 											// -> 배열 tdArr에 정보를 담음
 											var order_id = td.eq(1).text();
 											tdArr.push(order_id); // tdArr[0] == ma_id
-											$
-													.ajax({
+											$.ajax({
 														url : "modify",
 														type : "get",
 														data : {
@@ -361,10 +351,8 @@
 															// 여기서 order_id를 이용해서 if문걸어가지고 같은 값일때 아래처럼 나오게하면될듯?!
 															// orderVo에서 테이블 값 가져오기
 															var order_date = data.order_date;
-															console
-																	.log(order_date);
-															$(data)
-																	.each(
+															console.log(order_date);
+															$(data).each(
 																			function(
 																					idx,
 																					obj) {
@@ -433,7 +421,7 @@
 										$.ajax({
 											url : "modify",
 											type : "post",
-									    	dataType : "json",
+									    	/* dataType : "json", */
 											contentType : "application/json;charset=UTF-8",
 											data : JSON.stringify({
 													order_id : order_id,
@@ -545,7 +533,7 @@ table input[type :checkbox] {
 
 	<br>
 	<div class="container-scroller">
-<!-- 		<div class="container-fluid page-body-wrapper full-page-wrapper"> -->
+		<div class="container-fluid page-body-wrapper full-page-wrapper"> 
 			<div class="main-panel">
 				<div class="content-wrapper d-flex align-items-center auth px-0"
 					style="min-height: 100vh;">
@@ -553,27 +541,17 @@ table input[type :checkbox] {
 						<div class="col-lg-12 mx-auto">
 							<div class="auth-form-light text-left py-5 px-4 px-sm-5"
 								style="height: 1000px;">
+								
+								<!-- 제목 -->
+                                <div class="card-body">
 								<h1 class="card-title">
 									<font style="vertical-align: inherit;"><a
 										href="/purchasing/order/list"
 										style="text-decoration: none; color: #000;">발주 리스트</a></font>
 								</h1>
-<!-- 								<div> -->
-<!-- 									탭 메뉴 -->
-<!-- 									<ul class="nav nav-tabs tab-no-active-fill" role="tablist"> -->
-<!-- 										<li class="nav-item"><a class="nav-link ps-2 pe-2 active" -->
-<!-- 											id="stage1-tab" data-bs-toggle="tab" href="#stage1" -->
-<!-- 											role="tab" aria-controls="stage1" aria-selected="true">발주현황</a> -->
-<!-- 										</li> -->
-<!-- 										<li class="nav-item"><a class="nav-link ps-2 pe-2" -->
-<!-- 											id="stage2-tab" data-bs-toggle="tab" href="#stage2" -->
-<!-- 											role="tab" aria-controls="stage2" aria-selected="false">발주등록</a> -->
-<!-- 										</li> -->
-<!-- 									</ul> -->
-<!-- 									탭 내용 -->
-<!-- 									<div class="tab-content tab-no-active-fill-tab-content"> -->
-<!-- 										<div class="tab-pane fade active show" id="stage1" -->
-<!-- 											role="tabpanel" aria-labelledby="stage1-tab"> -->
+								</div>
+
+								
 											<!-- 검색 기능 -->
 											<form action="/purchasing/order/list" method="get"
 												style="display: inline;">
@@ -788,7 +766,7 @@ table input[type :checkbox] {
 					</div>
 				</div>
 			</div>
-<!-- 		</div> -->
+ 		</div> 
 <!-- 	</div> -->
 	<%@ include file="../../includes/footer.jsp"%>
 </body>

@@ -125,17 +125,17 @@ public class OrderController {
 //  발주 수정 (데이터처리)
 	@RequestMapping(value = "/modify", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String modifyMaterialPOST(@RequestBody OrderVO ovo) throws Exception {
+	public void modifyMaterialPOST(@RequestBody OrderVO ovo) throws Exception {
 		logger.debug("@@@@@@@@@@ modifyMaterialPOST_호출");
 
 		// 전달된 정보 저장
 		logger.debug("@@@@@@@@@@ 수정된 데이터 : " + ovo);
-
+		orserivce.modifyOrder(ovo);
 		// 서비스 객체 사용으로 데이터 처리
 		Integer result = orserivce.modifyOrder(ovo);
 		logger.debug("@@@@@@@@@@ 업데이트 된 행의 수  : " + result);
 
-		return "redirect:/purchasing/order/list";
+//		return "redirect:/purchasing/order/list";
 	}
 
 	// 발주 정보 삭제

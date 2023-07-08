@@ -78,7 +78,7 @@
 										    		</c:when>
 										    		<c:when test="${op.op_process.equals('미출고') }"> 
 										    			<a href="info?cont_id=${op.cont_id }&product_id=${op.product_id}"
-										    			   onclick="window.open(this.href, '_blank', 'width=900, height=500, left=510, top=365'); return false;">
+										    			   onclick="window.open(this.href, '_blank', 'width=900, height=400, left=510, top=365'); return false;">
 										    			   <img class="viewDetail" src="${pageContext.request.contextPath}/resources/images/viewDetail.png" width="10px" height="10px" alt="image" />
 										    			</a>					
 											    	</c:when>

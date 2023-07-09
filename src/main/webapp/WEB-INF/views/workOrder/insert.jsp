@@ -13,50 +13,81 @@
 
 <title>작업 지시 등록</title>
 <style type="text/css">
-table {margin-bottom: 1em;}
+table {margin-bottom: 1em;
+	   text-align: center;
+	   border-radius: 10px;
+/*     border-collapse: collapse; */
+    }
 
 table, th {border: none;}
 
 th {background-color: #04AA6D;
-color: #fff;
-text-align: center;
-padding: 10px 8px;}
+	color: #fff;
+	text-align: center;
+	padding: 10px 8px;}
 
 td {border:1px solid #04AA6D;
-padding: 10px 6px;}
+	padding: 10px 6px;
+/*  	color: #6C7293;  */
+/* 	color: gray; */
+	}
 
 #tb-btns {margin-left: 0.5em;}
 
 .btn{
-display: inline-block;
-font-weight: 600;
-line-height: 1;
-color: #6c7293;
-text-align: center;
-text-decoration: none;
-vertical-align: middle;
-cursor: pointer;
-user-select: none;
-background-color: transparent;
-border: 1px solid transparent;
-padding: 0.625rem 1.125rem;
-font-size: 0.875rem;
-border-radius: 0.25rem;
-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;}
+/* 	display: inline-block; */
+	font-weight: 600;
+	line-height: 1;
+	color: #6C7293;
+	text-align: center;
+	text-decoration: none;
+	vertical-align: middle;
+	cursor: pointer;
+	user-select: none;
+	background-color: transparent;
+	border: 1px solid transparent;
+	padding: 0.625rem 1.125rem;
+	font-size: 0.875rem;
+	border-radius: 0.25rem;
+	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;}
     
 .btn-success {
-color: #000;
-background-color: #0ddbb9;
-border-color: #0ddbb9;}
+	color: #000;
+	background-color: #0ddbb9;
+	border-color: #0ddbb9;}
+	
+.btn-success:disabled {
+	opacity: 0.6;
+  	cursor: not-allowed;
+}
 
 .btn-info {
-color: #000;
-background-color: #2fddf8;
-border-color: #23dbf8;}
-/* .btn {background-color: #048; */
-/* padding:8px 10px; */
-/* color: #fff;} */
+	color: #000;
+	background-color: #2fddf8;
+	border-color: #23dbf8;}
+	
+.btn_add{
+	color: #ffffff;
+	background-color: #04AA6D;
+	border-color: #0ddbb9;}
+	
+.container {
+	position: relative;}
 
+/* .btn_btn { */
+/* 	position: absolute; */
+/* 	top: 0; */
+/* 	right: 0;} */
+	
+.btn-light {
+  color: #000;
+  background-color: #d8d8d8;
+  border-color: #d8d8d8;
+}
+
+.btn_table table {
+	width: 100%;}
+/* 테이블 css */
 
 
 </style>
@@ -176,7 +207,7 @@ border-color: #23dbf8;}
 			//수주번호 검색 및 자동완성 기능 
 			$("#cont_id").click(function(){
 				
-				var contPop = window.open('/workOrder/contFind', '수주검색', 'width=900px,height=500px');
+				var contPop = window.open('/workOrder/contFind', '수주검색', 'width=700px,height=500px,left=2000');
 				
 				if(contPop == null){
 					  alert("팝업이 차단되었습니다. 차단을 해제하세요.");
@@ -342,16 +373,16 @@ border-color: #23dbf8;}
 	<!-- 상품코드 조회/수주번호 조회/자재 재고 계산/작업지시 등록 -->
 	
 	
-	<h1>작업지시 등록</h1>
+	<h1 style="display: flex; justify-content: center;">작업지시 등록</h1>
 	
-	<div>
+	<div style="display: flex; justify-content: center;">
 	<div>
 	  <table class="table table-color">
 		<tr>
 		<th colspan="1">수주번호</th>
-		 <td colspan="1"><input type="text" name="cont_id" id="cont_id">
+		 <td colspan="1"><input type="text" name="cont_id" id="cont_id" style="border:none; width:130px; cursor: pointer; text-align: center;" placeholder="수주번호선택" >
 <!-- 		 </td> -->
-        <input type="button" id="btn_contSearch" onclick="contSearch" value="조회"> </td>
+<!--         <input type="button" id="btn_contSearch" onclick="contSearch" value="조회"> </td> -->
 <!-- 		 <td ></td> -->
 <!-- 		 <th></th> -->
 		    <th>작업지시자</th>
@@ -365,7 +396,7 @@ border-color: #23dbf8;}
 	<tr>
 	 <th>상품코드</th>
 		 <td style="whidth : 30px;" >
-		  <select class=product_select id="product_id" name="product_id">
+		  <select class=product_select id="product_id" name="product_id" style="width:80px; text-align: center;">
 		  	<option value="상품코드">상품코드</option>
 		    <option value="PR136">PR136</option>
 		    <option value="PR216">PR216</option>
@@ -377,15 +408,17 @@ border-color: #23dbf8;}
 		  </select>
 		 </td>
 		  <th>작업지시수량</th>
-		 <td><input type="text" id="plan_qty" name="plan_qty" ></td>
+		 <td><input type="text" id="plan_qty" name="plan_qty" style="width:130px;"></td>
 <!-- 		 <td><input type="button" id="materialCal" value="계산"></td> -->
 		 </tr>
 		</table>
+		</div>
+		</div>
 <!--    	<hr> -->
 <!--    	<form id="woInsert"  method="post"> -->
 
-<div style="display: flex;">
-  <div style="flex: 1;">
+<div style="flex: 1; display: flex; justify-content: center;">
+<!--   <div style="flex: 1;"> -->
     <table id="woInsertTable" border="1">
       <!-- 첫 번째 테이블 내용 -->
 <!--         <table id="woInsertTable" border="1" > -->
@@ -400,9 +433,10 @@ border-color: #23dbf8;}
       <!-- 값 공간 -->
     </tbody>
     </table>
-  </div>
-  <div style="flex: 1.7;">
-    <table id="meInsertTable" class="table table-color">
+<!--   </div> -->
+<!--   <div style="flex: 1.1;"> -->
+<!--   <div style="display: flex; justify-content: center;"> -->
+    <table id="meInsertTable" class="table table-color" >
       <!-- 두 번째 테이블 내용 -->
 <!--       <table id="meInsertTable" class="table table-color"> -->
     <thead>
@@ -417,20 +451,14 @@ border-color: #23dbf8;}
     </tbody>
   </table>
 <!--     </table> -->
-  </div>
+<!--   </div> -->
+<!-- </div> -->
 </div>
-</div>
-	
-<!--   </table> -->
-<!--   <br> -->
-<!-- 		<table class="table table-color"> -->
-<!-- 		<tr> -->
-		
-<!-- 		</tr> -->
-<!-- 	  </table> -->
-  
+<!--   </div> -->
+  <div style="display: flex; justify-content: center;">
+	<button type="button" id="workOrderInsert" class="btn btn-success" style="margin: 0.8px;" >등록</button>
+	<button type="button" class="btn btn-light" onclick="window.close();"style="margin: 0.8px;" >취소</button>
   </div>
-	<button type="button" id="workOrderInsert" class="btn btn-success">등록</button>
 <!-- 	</form> -->
 	
 </body>

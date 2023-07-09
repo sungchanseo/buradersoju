@@ -62,11 +62,11 @@
 			set product_qty = #{product_qty}
 			where product_id = #{product_id}
 		</update>
-<!-- 		<update id="prUpdate"> -->
-<!-- 			update production -->
-<!-- 			set production_qty = #{production_qty} -->
-<!-- 			where production_id = #{production_id} -->
-<!-- 		</update> -->
+		<update id="prUpdate2">
+			update production
+			set qc_id = #{qc_num}
+			where production_id = #{production_id}
+		</update>
 		<insert id="qInsertDB2" >
 			insert into defective
 			(qc_num, def_code, def_qty,production_id)

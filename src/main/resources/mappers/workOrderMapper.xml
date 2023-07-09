@@ -16,10 +16,18 @@
 
 <!-- 작업지시 상세 -->
 	<select id="workOrder" resultType="com.itwillbs.domain.ProductionVO">
-		select * from production 
-		join product ON production.product_id = product.product_id 
-		where production.production_id = #{production_id};
+	SELECT *
+	FROM production a
+	JOIN product b ON a.product_id = b.product_id
+	JOIN employee e ON a.production_emp = e.emp_id
+	LEFT JOIN qc q ON a.qc_id = q.qc_num
+	WHERE a.production_id = #{production_id}
 	</select>
+<!-- 		select *  -->
+<!-- 		from production a, product b, employee e -->
+<!-- 		where a.product_id = b.product_id -->
+<!-- 		and a.production_emp = e.emp_id -->
+<!-- 		and a.production_id = #{production_id}; -->
 <!-- 작업지시 상세 -->
 
 <!-- 작업지시 등록 -->

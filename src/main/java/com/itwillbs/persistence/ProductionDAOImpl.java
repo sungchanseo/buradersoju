@@ -1,6 +1,7 @@
 package com.itwillbs.persistence;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -88,64 +89,106 @@ public class ProductionDAOImpl implements ProductionDAO {
 	}
 	
 	
+	
+	// 검색 기능과 관련된 메서드
+	// 아무 조건 없을 때 전체 목록 객체
+	@Override
+	public List<ProductionVO> getListObjectProductionVO() throws Exception {
+		logger.debug("getListObjectProductionVO() 호출");
+		return sqlSession.selectList(NAMESPACE + ".getListObjectProductionVO");
+	}
+	
+	// 검색어가 있을 때 목록 객체
+	@Override
+	public List<ProductionVO> getListSearchObjectProductionVO(Map<String, Object> paramMap) throws Exception {
+		logger.debug("getListSearchObjectProductionVO() 호출");
+		logger.debug("값을 한 번 보자 : " + paramMap);
+		return sqlSession.selectList(NAMESPACE + ".getListSearchObjectProductionVO", paramMap);
+	}
+	
+	// 혼합 수정
+	@Override
+	public Integer modifyStage1(ProductionVO vo) throws Exception {
+		logger.debug("############DAO : 혼합 수정");
+		return sqlSession.update(NAMESPACE+".modifyStage1", vo);
+	}
+	
+	// 주입 수정
+	@Override
+	public Integer modifyStage2(ProductionVO vo) throws Exception {
+		logger.debug("############DAO : 혼합 수정");
+		return sqlSession.update(NAMESPACE+".modifyStage2", vo);
+	}
+	
+	// 포장 수정
+	@Override
+	public Integer modifyStage3(ProductionVO vo) throws Exception {
+		logger.debug("############DAO : 혼합 수정");
+		return sqlSession.update(NAMESPACE+".modifyStage3", vo);
+	}
+	
+
+	
+	
+	
 	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ페이징처리ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-	// 1. 개수 가져오기
-	// 전체 목록 개수
-	@Override
-	public int getListAll(PagingVO pvo) throws Exception {
-		return sqlSession.selectOne(NAMESPACE+".getListAll", pvo);
-	}
-	
-	// 아무조건이 없을 때 전체 목록 개수
-	@Override
-	public int getListPageSizeAll(PagingVO pvo) throws Exception {
-		return sqlSession.selectOne(NAMESPACE+".getListPageSizeAll", pvo);
-	}
-	
-	// 검색어 있을 때 목록 개수 	
-	@Override
-	public int getListSearchAll(PagingVO pvo) throws Exception {
-		return sqlSession.selectOne(NAMESPACE+".getListSearchAll", pvo);
-	}
-	
-	// 필터있을때 전체 목록 개수	
-	@Override
-	public int getListFilterAll(PagingVO pvo) throws Exception {
-		return sqlSession.selectOne(NAMESPACE+".getListFilterAll", pvo);
-	}
-	
-	// 검색어와 필터 모두 있을 때 전체 목록 개수
-	@Override
-	public int getListSearchFilterAll(PagingVO pvo) throws Exception {
-		return sqlSession.selectOne(NAMESPACE+".getListFilterAll", pvo);
-	}
-	
-	
-	// 2. 객체 가져오기
-	// 아무조건이 없을 때 전체 목록 객체
-	@Override
-	public List<Object> getListPageSizeObjectProductionVO(PagingVO pvo) throws Exception {
-		return sqlSession.selectList(NAMESPACE+".getListPageSizeObjectProductionVO", pvo);
-	}
-	
-	// 검색어 있을 때 목록 객체	
-	@Override
-	public List<Object> getListSearchObjectProductionVO(PagingVO pvo) throws Exception {
-	logger.debug("****************PagingDAO : getListSearchObjectProductionVO()메소드 호출!");
-		return sqlSession.selectList(NAMESPACE+".getListSearchObjectProductionVO", pvo);
-	}
-	
-	// 필터있을 때 전체 목록 객체
-	@Override
-	public List<Object> getListFilterObjectProductionVO(PagingVO pvo) throws Exception {
-		return sqlSession.selectList(NAMESPACE+".getListFilterObjecProductionVO",pvo);
-	}
-	
-	// 검색어와 필터 모두 있을 때 전체 목록 개수
-	@Override
-	public List<Object> getListSearchFilterObjectProductionVO(PagingVO pvo) throws Exception {
-		return sqlSession.selectList(NAMESPACE+".getListSearchFilterObjectProductionVO", pvo);
-	}
+//	// 1. 개수 가져오기
+//	// 전체 목록 개수
+//	@Override
+//	public int getListAll(PagingVO pvo) throws Exception {
+//		return sqlSession.selectOne(NAMESPACE+".getListAll", pvo);
+//	}
+//	
+//	// 아무조건이 없을 때 전체 목록 개수
+//	@Override
+//	public int getListPageSizeAll(PagingVO pvo) throws Exception {
+//		return sqlSession.selectOne(NAMESPACE+".getListPageSizeAll", pvo);
+//	}
+//	
+//	// 검색어 있을 때 목록 개수 	
+//	@Override
+//	public int getListSearchAll(PagingVO pvo) throws Exception {
+//		return sqlSession.selectOne(NAMESPACE+".getListSearchAll", pvo);
+//	}
+//	
+//	// 필터있을때 전체 목록 개수	
+//	@Override
+//	public int getListFilterAll(PagingVO pvo) throws Exception {
+//		return sqlSession.selectOne(NAMESPACE+".getListFilterAll", pvo);
+//	}
+//	
+//	// 검색어와 필터 모두 있을 때 전체 목록 개수
+//	@Override
+//	public int getListSearchFilterAll(PagingVO pvo) throws Exception {
+//		return sqlSession.selectOne(NAMESPACE+".getListFilterAll", pvo);
+//	}
+//	
+//	
+//	// 2. 객체 가져오기
+//	// 아무조건이 없을 때 전체 목록 객체
+//	@Override
+//	public List<Object> getListPageSizeObjectProductionVO(PagingVO pvo) throws Exception {
+//		return sqlSession.selectList(NAMESPACE+".getListPageSizeObjectProductionVO", pvo);
+//	}
+//	
+//	// 검색어 있을 때 목록 객체	
+//	@Override
+//	public List<Object> getListSearchObjectProductionVO(PagingVO pvo) throws Exception {
+//	logger.debug("****************PagingDAO : getListSearchObjectProductionVO()메소드 호출!");
+//		return sqlSession.selectList(NAMESPACE+".getListSearchObjectProductionVO", pvo);
+//	}
+//	
+//	// 필터있을 때 전체 목록 객체
+//	@Override
+//	public List<Object> getListFilterObjectProductionVO(PagingVO pvo) throws Exception {
+//		return sqlSession.selectList(NAMESPACE+".getListFilterObjecProductionVO",pvo);
+//	}
+//	
+//	// 검색어와 필터 모두 있을 때 전체 목록 개수
+//	@Override
+//	public List<Object> getListSearchFilterObjectProductionVO(PagingVO pvo) throws Exception {
+//		return sqlSession.selectList(NAMESPACE+".getListSearchFilterObjectProductionVO", pvo);
+//	}
 	
 	
 	

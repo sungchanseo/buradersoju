@@ -17,7 +17,8 @@
 <style type="text/css">
 table {margin-bottom: 1em;
 table-layout: fixed;
-width: 95%; /* 테이블의 전체 너비 지정 */}
+width: 95%; /* 테이블의 전체 너비 지정 */
+font-size: 15px;}
 
 table, th {border: none;}
 

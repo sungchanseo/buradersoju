@@ -2,6 +2,7 @@ package com.itwillbs.controller;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -13,13 +14,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.itwillbs.domain.PagingVO;
+import com.itwillbs.domain.CustomerVO;
 import com.itwillbs.domain.ProductionVO;
-import com.itwillbs.service.PagingService;
 import com.itwillbs.service.ProductionService;
 
 @Controller
@@ -30,17 +31,13 @@ public class ProductionController {
 	@Inject
 	private ProductionService proService;
 	
-	@Inject
-	private PagingService pageService;
-	
 	private static final Logger logger = LoggerFactory.getLogger(ProductionController.class);
 	
 	
 	// http://localhost:8088/production/list
 	// 생산목록
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String productionListGET(Model model, PagingVO pvo, 
-    								HttpServletRequest request, HttpSession session) throws Exception {
+    public String productionListGET(Model model, HttpServletRequest request, HttpSession session) throws Exception {
 		logger.debug(" productionListGET()호출! ");
 		
 		// 로그인 세션 제어
@@ -48,24 +45,22 @@ public class ProductionController {
 			return "redirect:/main/login";
 		}
 		
-		
-		// 리스트 출력 (페이징 처리 O)
-		List<Object> productionList = null;
-		pvo = proService.pagingAction(pvo);
-		logger.debug("@@@@@@@@@@ pvo : {}", pvo);
-		
 		// 검색로직
-		if(pvo.getSelector()!=null && pvo.getSelector()!="") {
-			//검색어가 있을 때 
+		String selector = request.getParameter("selector");
+		List<ProductionVO> productionList = null;
+		
+		if(selector != null && !selector.isEmpty()) {
+			// 검색어가 있을 때
 			logger.debug("@@@@@@@@@@ 검색어가 있을 때");
-			productionList = proService.getListSearchObjectProductionVO(pvo);
-		}else {
+			Map<String, Object> paramMap = new HashMap<>();
+			paramMap.put("selector", selector);
+			productionList = proService.getListSearchObjectProductionVO(paramMap);
+		} else {
 			logger.debug("@@@@@@@@@@ 검색어가 없을 때");
-			productionList = proService.getListPageSizeObjectProductionVO(pvo);
+			productionList = proService.getProductionList();
 		}		
 		
 		// 변수에 담아서 전달
-		model.addAttribute("pvo",pvo);
 		model.addAttribute("productionList", productionList);
 		model.addAttribute("emp_department", session.getAttribute("emp_department"));
 		
@@ -197,6 +192,101 @@ public class ProductionController {
 			return "redirect:/production/list";
 		}
 		
+		
+		
+	///////////////////////////////////////////////////////////////////
+	// 혼합 수정
+	///////////////////////////////////////////////////////////////////
+	
+	// http://localhost:8088/production/modifyStage1
+	// 혼합 수정(GET)
+	@RequestMapping(value = "modifyStage1",method = RequestMethod.GET)
+	public void modifyStage1GET(Model model) throws Exception{
+		logger.debug(" modifyStage1GET() 호출! ");
+		logger.debug(" /production/modifyStage1.jsp 페이지 이동 ");
+		
+		// 테이블의 정보를 가져와서 모델에 추가
+		List<ProductionVO> productionList = proService.getProductionList();
+		model.addAttribute("productionList",productionList);
+	}
+	
+	// 혼합 수정(POST)
+	@RequestMapping(value = "modifyStage1", method = RequestMethod.POST)
+	public String modifyStage1POST(ProductionVO vo, RedirectAttributes rttr) throws Exception {
+		logger.debug(" modifyStage1POST() 호출 ");
+		logger.debug("vo : " + vo);
+		
+		proService.modifyStage1(vo);
+		
+		// 리스트로 정보 전달 (rttr)
+		rttr.addFlashAttribute("result", "OK");
+		
+		return "redirect:/production/list";
+
+	}
+	
+	///////////////////////////////////////////////////////////////////
+	// 주입 수정
+	///////////////////////////////////////////////////////////////////
+	
+	// http://localhost:8088/production/modifyStage2
+	// 주입 수정(GET)
+	@RequestMapping(value = "modifyStage2",method = RequestMethod.GET)
+	public void modifyStage2GET(Model model) throws Exception{
+		logger.debug(" modifyStage2GET() 호출! ");
+		logger.debug(" /production/modifyStage2.jsp 페이지 이동 ");
+		
+		// 테이블의 정보를 가져와서 모델에 추가
+		List<ProductionVO> productionList = proService.getProductionList();
+		model.addAttribute("productionList",productionList);
+	}
+	
+	// 주입 수정(POST)
+	@RequestMapping(value = "modifyStage2", method = RequestMethod.POST)
+	public String modifyStage2POST(ProductionVO vo, RedirectAttributes rttr) throws Exception {
+		logger.debug(" modifyStage2POST() 호출 ");
+		logger.debug("vo : " + vo);
+		
+		proService.modifyStage2(vo);
+		
+		// 리스트로 정보 전달 (rttr)
+		rttr.addFlashAttribute("result", "OK");
+		
+		return "redirect:/production/list";
+		
+	}
+	///////////////////////////////////////////////////////////////////
+	// 포장 수정
+	///////////////////////////////////////////////////////////////////
+	
+	// http://localhost:8088/production/modifyStage3
+	// 포장 수정(GET)
+	@RequestMapping(value = "modifyStage3",method = RequestMethod.GET)
+	public void modifyStage3GET(Model model) throws Exception{
+		logger.debug(" modifyStage3GET() 호출! ");
+		logger.debug(" /production/modifyStage3.jsp 페이지 이동 ");
+		
+		// 테이블의 정보를 가져와서 모델에 추가
+		List<ProductionVO> productionList = proService.getProductionList();
+		model.addAttribute("productionList",productionList);
+	}
+	
+	// 포장 수정(POST)
+	@RequestMapping(value = "modifyStage3", method = RequestMethod.POST)
+	public String modifyStage3POST(ProductionVO vo, RedirectAttributes rttr) throws Exception {
+		logger.debug(" modifyStage3POST() 호출 ");
+		logger.debug("vo : " + vo);
+		
+		proService.modifyStage3(vo);
+		
+		// 리스트로 정보 전달 (rttr)
+		rttr.addFlashAttribute("result", "OK");
+		
+		return "redirect:/production/list";
+		
+	}
+		
+			
 		
 	
 		

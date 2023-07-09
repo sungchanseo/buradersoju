@@ -64,7 +64,7 @@ public class WorkOrderController {
 			List<Object> contractList = null;
 			
 			//수주 목록을 가져오는 contService 호출
-			pvo = contService.setPageInfoForContract(pvo);
+			pvo = woService.setPageInfoForContract(pvo);
 			logger.debug("@@@@@@@@@Controller : {}",pvo);
 			
 			//service객체를 호출
@@ -174,6 +174,8 @@ public class WorkOrderController {
 			
 			pvo.setSelector(request.getParameter("selector"));
 			pvo.setSearch(request.getParameter("search"));
+			pvo.setColumn_name("a.workOrder_status");
+			pvo.setColumn_value(request.getParameter("column_value"));
 			
 			List<Object> workOrderList=null;
 			
@@ -182,15 +184,28 @@ public class WorkOrderController {
 			logger.debug("@@@@@@@@@Controller : {}",pvo);
 			
 			//service객체를 호출
+//			if(pvo.getColumn_value()!=null && pvo.getColumn_value()!="" && pvo.getSelector()!=null && pvo.getSelector()!="") {
+//				//필터처리 있을때
+//				logger.debug("@@@@@@@@@Controller : 필터처리+검색 있을 때입니다");
+//				workOrderList = pageService.getListSearchFilterObjectProductionVO(pvo);
+//			}
+//			else if(pvo.getColumn_value()!=null && pvo.getColumn_value()!="") {
+//				//필터처리 있을때
+//				logger.debug("@@@@@@@@@Controller : 필터처리가 있을 때입니다");
+//				workOrderList = pageService.getListFilterObjectProductionVO(pvo);
+//			}
+			
 			if(pvo.getSelector()!=null && pvo.getSelector()!="") {
 				//검색어가 있을 때 
 				logger.debug("@@@@@@@@@Controller : 검색어가 있을 때입니다");
 				workOrderList = pageService.getListSearchObjectProductionVO(pvo);
-			}else {
+			}
+			else {
 				//검색어가 없을 때
 				logger.debug("@@@@@@@@@Controller : 검색어가 없을 때입니다");
 				workOrderList = pageService.getListPageSizeObjectProductionVO(pvo);
 			}
+			
 			logger.debug("@@@@@@@@@Controller : workOrderList={}",workOrderList);
 			//변수에 담아서 전달
 			model.addAttribute("workOrderList", workOrderList);

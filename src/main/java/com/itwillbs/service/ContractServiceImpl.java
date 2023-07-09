@@ -2,8 +2,9 @@ package com.itwillbs.service;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.Iterator;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -72,53 +73,6 @@ public class ContractServiceImpl implements ContractService {
 		String lastId = cdao.getLastGeneratedNumber();
 		logger.debug("@@@@@@ContractService : getLastGeneratedNumber={}", lastId);
 		
-//		//cont_id 접두사
-//		String prefix = "CO";
-//		
-//		// 현재 날짜를 계산한다. 
-//		LocalDate currentDate = LocalDate.now();
-//		String datePart = currentDate.toString().replace("-", "").substring(2, 8); // 년월일 6글자
-//	
-//		// 1부터 시작하는 카운트를 생성한다. 
-//		String countPart = String.format("%03d", 1);// 001부터 시작
-//		logger.debug("@@@@@@ContractService : countPart={}", countPart);
-//
-//		String result = null;
-//		if(lastId == null) {
-//			//수주목록에 아무것도 없을 때
-//			logger.debug("@@@@@@ContractService : 수주목록이 없읍니다.");
-//
-//			//접두사+현재날짜+001을 그냥 더한다.
-//			result = prefix + datePart + countPart;
-//			logger.debug("@@@@@@ContractService : result={}", result);
-//
-//		}else {
-//			//수주목록이 있을 때 
-//			logger.debug("@@@@@@ContractService : 수주목록이 있읍니다..");
-//
-//			//가운데 날짜 8자리를 추출한다. 
-//			String datePartUp = lastId.substring(2,8);
-//			logger.debug("@@@@@@ContractService : datePartUp={}", datePartUp);
-//
-//			//데이타베이의 날짜부분과 오늘날짜 추출한 부분이 같으면 카운트에 1을 더한다. 
-//			if(datePart.equals(datePartUp)) {
-//				//카운트 부분을 추려낸다. 
-//				Integer countPartUp = Integer.parseInt(lastId.substring(9,11));
-//				logger.debug("@@@@@@ContractService : countPartUp={}", countPartUp);
-//
-//				//날짜부분이 같고 끝번호가 1이상일 때는 1을 더해서 카운트한다.  
-//				if(countPartUp >= 1) {
-//					countPartUp +=1;
-//					countPart = String.format("%03d", countPartUp);
-//					// 접두사+날짜+카운트를 조합한다.
-//					result = prefix + datePart + countPart;
-//					logger.debug("@@@@@@ContractService : result={}", result);
-//				}
-//			}
-//		}
-//		result = prefix + datePart + countPart;
-////		logger.debug("@@@@@@ContractService : 수주등록번호 자동생성합니다.");
-
 		String result = contIdCount();
 		logger.debug("@@@@@@ContractService : {}", result);
 
@@ -244,46 +198,37 @@ public class ContractServiceImpl implements ContractService {
         cell.setCellValue("작업지시번호");
         cell = row.createCell(cellNum++);
         cell.setCellValue("담당자");
+        
         //엑셀 몸통
-		for(Object vo : contractList) {
-//			ContractVO cvo = (ContractVO) vo;
-//			logger.debug("@@@@@@ContractService : cvo.getCont_id() : {}", cvo.getCont_id()); 
-//			logger.debug("@@@@@@ContractService : vo : {}", vo); 
-//			logger.debug("@@@@@@ContractService : vo.hashCode() : {}", vo.); 
+        for (int i = 0; i < contractList.size() ; i++) {
+//    		logger.debug("반복문 시작합니다. ");
+        	
 
-			
-		}
-//        for (int i = 0; i < contractList.size() ; i++) {
-////    		logger.debug("반복문 시작합니다. ");
-////    		contractList.get(i);
-////    		Object contract = contractList.get(i);
-////    		logger.debug("contract[i] : {}", contract);
-//    		
-//            cellNum = 0;
-//            row = sheet.createRow(rowNum++);
-//            cell = row.createCell(cellNum++);
-//            cell.setCellValue(1);
-//            cell = row.createCell(cellNum++);
-//            cell.setCellValue("학생" + i);
-//            cell = row.createCell(cellNum++);
-//            cell.setCellValue("학생" + i);
-//            cell = row.createCell(cellNum++);
-//            cell.setCellValue("학생" + i);
-//            cell = row.createCell(cellNum++);
-//            cell.setCellValue("학생" + i);
-//            cell = row.createCell(cellNum++);
-//            cell.setCellValue("학생" + i);
-//            cell = row.createCell(cellNum++);
-//            cell.setCellValue("학생" + i);
-//            cell = row.createCell(cellNum++);
-//            cell.setCellValue("학생" + i);
-//            cell = row.createCell(cellNum++);
-//            cell.setCellValue("학생" + i);
-//            cell = row.createCell(cellNum++);
-//            cell.setCellValue("학생" + i);
-////    		logger.debug("@@@@@@ContractService : 한번 끝");
-//
-//        }
+    		cellNum = 0;
+            row = sheet.createRow(rowNum++);
+            cell = row.createCell(cellNum++);
+            cell.setCellValue(1);
+            cell = row.createCell(cellNum++);
+            cell.setCellValue("학생" + i);
+            cell = row.createCell(cellNum++);
+            cell.setCellValue("학생" + i);
+            cell = row.createCell(cellNum++);
+            cell.setCellValue("학생" + i);
+            cell = row.createCell(cellNum++);
+            cell.setCellValue("학생" + i);
+            cell = row.createCell(cellNum++);
+            cell.setCellValue("학생" + i);
+            cell = row.createCell(cellNum++);
+            cell.setCellValue("학생" + i);
+            cell = row.createCell(cellNum++);
+            cell.setCellValue("학생" + i);
+            cell = row.createCell(cellNum++);
+            cell.setCellValue("학생" + i);
+            cell = row.createCell(cellNum++);
+            cell.setCellValue("학생" + i);
+//    		logger.debug("@@@@@@ContractService : 한번 끝");
+
+        }
  
         // Download
         response.setContentType("ms-vnd/excel");

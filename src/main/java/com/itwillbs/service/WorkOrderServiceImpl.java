@@ -39,6 +39,9 @@ public class WorkOrderServiceImpl implements WorkOrderService {
 		pvo.setStartRow(1);
 		pvo.setStatus_name("a.product_id = b.product_id and e.emp_id = a.production_emp and del_woStatus");
 		pvo.setStatus_value("0");
+//		pvo.setColumn_name("workOrder_status");
+//		pvo.setColumn_value(column_value);
+		
 		logger.debug("@@@@@@WorkOrderService : {}",pvo);
 
 		
@@ -57,8 +60,8 @@ public class WorkOrderServiceImpl implements WorkOrderService {
 		pvo.setId("a.production_id");
 		pvo.setPageSize(10);
 		pvo.setStartRow(1);
-		pvo.setStatus_name("a.product_id = b.product_id and e.emp_id = a.production_emp and a.production_id = c.production_id and del_woStatus");
-		pvo.setStatus_value("0");
+		pvo.setStatus_name("a.product_id = b.product_id and e.emp_id = a.production_emp and a.production_id = c.production_id and a.qc_id IS NULL and c.production_status");
+		pvo.setStatus_value("포장");
 		logger.debug("@@@@@@WorkOrderService : {}",pvo);
 
 		
@@ -178,7 +181,26 @@ public class WorkOrderServiceImpl implements WorkOrderService {
 		// TODO Auto-generated method stub
 		wdao.contSetPrId(vo);
 	}
-
+	
+	// 수주검색 페이징처리 변수저장을 위한 서비스 구현
+	@Override
+	public PagingVO setPageInfoForContract(PagingVO pvo) throws Exception {
+		logger.debug("@@@@@@ContractService : 수주목록 페이징처리를 위한 변수 초기화 실행합니다.");
+		
+		//contract서비스에 필요한 변수를 저장. 
+		pvo.setTable("contract");
+		pvo.setId("cont_id");
+		pvo.setPageSize(10);
+		pvo.setStartRow(1);
+		pvo.setStatus_name("production_id IS NULL and cont_status");
+		pvo.setStatus_value("0");
+		logger.debug("@@@@@@ContractrService : {}",pvo);
+		
+		//페이지 계산을 위해서 pageingSerivce의 메소드 호출 
+		pvo = pageService.pagingAction(pvo);
+		logger.debug("@@@@@@ContractService : {}",pvo);
+		return pvo;
+	}
 	
 
 	

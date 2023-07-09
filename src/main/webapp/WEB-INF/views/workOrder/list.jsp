@@ -6,8 +6,6 @@
 <html>
 <head>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
 <%@ include file="../includes/header.jsp"%>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -35,39 +33,16 @@
 <body>
 <script type="text/javascript">
 
+
 /* 등록 버튼 팝업 */
 function openPopup() {
-	window.open('./insert', 'workOrderPopup', 'width=800, height=500, left=2000');
+	window.open('./insert', 'workOrderPopup', 'width=700, height=580, left=2000');
 }
 /* 인쇄 버튼 기능 */
 function info_print() {
 	window.print();
 } 
 
-/* 인쇄 버튼 기능 */
-// function info_print() {
-//   let initBody = document.body;
-//   let hiddenBtn = document.querySelector('.print-button'); 
-//   let hiddenHeader = document.querySelector('#header');
-//   let hiddenNavbar = document.querySelector('.navbar-device');
-//   let hiddenClearfix = document.querySelector('.clearfix');
- 
-//   window.onbeforeprint = function () {
-//     hiddenBtn.style.display = "none";
-//     hiddenHeader.style.display = "none";
-//     hiddenNavbar.style.display = "none";
-//     hiddenClearfix.style.display = "none";
-//     document.body = document.querySelector('.main-container');
-//   }
-//   window.onafterprint = function () {
-//     hiddenBtn.style.display = "block";
-//     hiddenHeader.style.display = "block";
-//     hiddenNavbar.style.display = "block";
-//     hiddenClearfix.style.display = "block";
-//     document.body = initBody;
-//   }
-//   window.print();
-// } 
 </script>
 <div class="container-scroller">
 	<div class="container-fluid page-body-wrapper full-page-wrapper">
@@ -79,8 +54,6 @@ function info_print() {
 								<div class="form-group">
 								<!-- CSS 기본 틀 -->
 								<h1>작업지시 현황</h1>
-								
-	
 <!-- 검색창 기능 -->
   <form action="/workOrder/list" method="get">
 <!--     <label>검색</label> -->
@@ -123,14 +96,14 @@ function info_print() {
 	  <td>
 	  <span style="color: black;">
 		<a href="./info?production_id=${workOrderList.production_id}" style="color: black; text-decoration: none;"
-		onclick="window.open(this.href, '_blank', 'width=800, height=500, left=2000'); return false;">
+		onclick="window.open(this.href, '_blank', 'width=550, height=350'); return false;">
 		${workOrderList.production_id}
 		</a>
 		</span>
 	  </td>
 	  <td>
 	  	<a href="/contract/info?cont_id=${workOrderList.cont_id }" style="color: black; text-decoration: none;"
-	  	onclick="window.open(this.href, '_blank', 'width=800, height=500, left=2000'); return false;">
+	  	onclick="window.open(this.href, '_blank', 'width=700, height=320'); return false;">
 	  	${workOrderList.cont_id}
 	  	</a>
 	  </td>	  
@@ -163,7 +136,7 @@ function info_print() {
 		</div>
 	</div>
 	<!-- 	페이징 처리  -->
-	
+		
 									<!-- CSS 기본 틀 -->
 									</div>
 <!-- 								<button class="btn btn-success btn-fw" type="submit"> -->

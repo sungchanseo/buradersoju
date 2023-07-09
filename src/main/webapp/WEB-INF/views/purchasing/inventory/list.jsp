@@ -7,96 +7,10 @@
 <html >
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert 링크 -->
+<title>재고관리</title>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert창 링크 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-<script type="text/javascript">
 
-function getToday() {
-   var date = new Date();
-   
-   var year = date.getFullYear();
-   console.log(year);
-   var month = ("0" + (1 + date.getMonth())).slice(-2);
-   console.log(month);
-   var day = ("0" + date.getDate()).slice(-2);
-   console.log(day);
-   return year + "-" + month + "-" + day;
-}
-
-   
-$(function() {
-      
-      //// 글쓰기 ////////////////////////////////////////////////////////////
-      var tbl;
-      $('.writeForm').click(function() {
-    
-         console.log("글쓰기 등록함");
-         
-         let regdate = getToday();
-         console.log(regdate);
-         if($(this).hasClass('true')) {
-        
-            tbl = "<tr>";
-            tbl += " <td>";
-            tbl += "<input type='text' name='ma_name' id='ma_name'>";
-            tbl += "</td>";
-            tbl += " <td>";
-            tbl += "<input type='text' name='ma_qty' id='ma_qty'>";
-            tbl += "</td>";
-            tbl += "<td>";
-            tbl += "<input type='text' name='regdate' id='regdate' value="+regdate+">";
-            tbl += "</td>";
-            tbl += "</tr>";
-            
-            $('table').append(tbl);
-            
-            
-            $(this).removeClass('writeForm').addClass('write');
-            $(this).removeClass('true');
-            $(this).text("등록");
-         
-         }
-         
-         
-         
-         $('.write').click(function() {
-//             e.stopPropagation();
-            console.log("글쓰기 등록함");
-            
-            var ma_id = $('#ma_id').val();
-            var ma_name = $('#ma_name').val();
-            var ma_qty = $('#ma_qty').val();
-            var regdate = $('#regdate').val();
-            console.log(ma_id);
-            console.log(ma_name);
-            console.log(regdate);
-            console.log(ma_id==="" || ma_name==="");
-
-            if(ma_id==="" || ma_name==="") {
-            	alert("빈 칸을 입력하세요.");            	
-            } else {
-               $.ajax({
-                  url: "list",
-                  type: "post",
-                  data: {ma_id:ma_id, ma_name:ma_name,ma_qty:ma_qty,regdate:regdate},
-                 success: function() {
-                	location.href="/purchasing/inventory/list"
-                    alert("등록완료");
-                  },
-                  error: function() {
-                     alert("error");
-                  }
-               }); //ajax
-               
-            } //if-else
-            
-         }); //write click
-      
-      }); //writeForm click
-   
-}); //jQuery
-</script>
 </head>
 <body>
 <br>
@@ -230,7 +144,23 @@ $(function() {
 									
 									    // form태그 body에 추가 후 전송
 									    $('tbody').append(form);
-									    form.submit();
+									     if(ma_qty ===""){
+									    	Swal.fire({
+												icon: 'success',										// Alert 타입 (warning / success / error)
+												title: '오류',											// Alert 제목
+												text: '수정할 값을 입력해 주세여 ',	    // Alert 내용
+												confirmButtonColor: '#0ddbb9',							// Alert 버튼 색깔
+												confirmButtonText: '확인',								// Alert 버튼내용
+											}).then((result) => {
+												if(result.isConfirmed){									// '확인'누르면 이동
+													location.href="/purchasing/inventory/list";
+												}
+											}); // then(result)
+									    	
+									    }else{ 
+									    	   form.submit();
+									    } 
+									 
 									  });
 									});
 								 </script>

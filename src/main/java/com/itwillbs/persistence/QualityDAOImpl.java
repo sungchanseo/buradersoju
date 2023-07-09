@@ -79,8 +79,13 @@ public class QualityDAOImpl implements QualityDAO {
 			// 상품 재고 추가
 			sqlSession.update(NAMESPACE+".prUpdate", vo);
 			logger.debug("product 테이블에 불량수를 뺀 생산량 변경 완료");
-			logger.debug("@@@@@@@@@ update완료 후 vo : "+vo)
-			;
+			logger.debug("@@@@@@@@@ update완료 후 vo : "+vo);
+			
+			// production테이블에 검수번호 추가
+			sqlSession.update(NAMESPACE+".prUpdate2", vo);
+			logger.debug("production테이블에 검수번호 추가 완료");
+			logger.debug("@@@@@@@@@ update완료 후 vo : "+vo);
+			
 			//불량 코드 등록
 			for (int i = 0; i < def_codeList.size(); i++) {
 				vo.setDef_code(def_codeList.get(i));

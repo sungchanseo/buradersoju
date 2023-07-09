@@ -6,11 +6,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/mdi/css/materialdesignicons.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/base/vendor.bundle.base.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main/fullcalendar-5.11.4/lib/main.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
+<script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11%22%3E"></script>
+<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css"> --%>
+<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/mdi/css/materialdesignicons.min.css"> --%>
+<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/base/vendor.bundle.base.css"> --%>
+<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main/fullcalendar-5.11.4/lib/main.css"> --%>
+<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css"> --%>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
+
+
 </head>
 <body>
 <h1>작업지시검색</h1>
@@ -40,7 +45,7 @@
 			</tr>
 			
 			<c:forEach var="vo" items="${workOrderList}">
-			<c:if test="${vo.production_status =='포장'}">
+<%-- 			<c:if test="${vo.production_status =='포장'&& vo.production_status eq'포장'}"> --%>
 				<tr onclick="sendProdInfoValue('${vo.production_id}');">
 					<td>${vo.production_id}</td>
 					<td>${vo.cont_id }</td>
@@ -51,7 +56,7 @@
 					<td>${vo.production_qty }</td>
 					<td>${vo.production_status}</td>
 				</tr>
-				</c:if>
+<%-- 				</c:if> --%>
 			</c:forEach>
 		</table>
 		<!--	페이징처리  -->

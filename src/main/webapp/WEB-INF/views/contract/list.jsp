@@ -17,16 +17,14 @@
 
 </head>
 <body>
-<div>
 <div class="card-body">
 		<h1 class="card-title">
 			<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
 			<span onclick="location.href='/contract/list'">수주 리스트</span></font></font>
 		</h1>
-
 		<!-- 검색창기능 -->
-		<form action="/contract/list" method="get" style="display: inline;">
-			<select name="selector">
+		<form action="/contract/list" method="get" style="display:inline;">
+			<select name="selector" class="auth auth-form-light select">
 				<option value="cust_name">상품명</option>
 				<option value="cust_id">수주처</option>
 			</select> <input type="text" name="search" placeholder="검색어를 입력해주세요">
@@ -46,10 +44,10 @@
 				<button type="button" class="btn btn-light" id="print" onclick="printList();">출력하기</button>
 		</div>
 		<!-- 영업팀이 아닐때 버튼 감추기 -->
-
+		
 		<!-- 수주목록 테이블 -->
 		<div class="table-responsive">
-                    <table class="table table-hover">
+                    <table class="table table-hover" style="text-align:center;">
                       <thead>
                         <tr>
                           <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">수주번호</font></font></th>
@@ -102,7 +100,6 @@
 	</div>
 	<!-- 	페이징 처리  -->
 	
-</div>
 </body>
 	<!-- 수주등록 새창열기  -->
 	<script>

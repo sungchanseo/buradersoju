@@ -28,11 +28,14 @@ public interface WorkOrderService {
 	// 작업지시 상세
 	public ProductionVO detailWorkOrder(String production_id) throws Exception;
 	
-	// 페이징처리 변수저장을 위한 serive생성
+	// 페이징처리 변수저장을 위한 Service생성
 	public PagingVO setPageInfoForWorkOrder(PagingVO pvo) throws Exception;
 
-	// 검수등록시 조회용 페이징처리 serive생성
+	// 검수등록시 조회용 페이징처리 Service생성
 	public PagingVO setPageInfoForWorkOrder2(PagingVO pvo) throws Exception;
+
+	// 수주검색 페이징처리 변수저장을 Service생성
+	public PagingVO setPageInfoForContract(PagingVO pvo) throws Exception;
 
 	
 }

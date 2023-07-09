@@ -74,15 +74,6 @@
 <%-- 	${productionList } --%>
 	
 	<!-- 검색 -->
-<!-- 	<div class="Qusearch"> -->
-<!-- 	<form action="/purchasing/inMaterial/list" method="get" style="display: inline;"> -->
-<!-- 								<select name="selector"> -->
-<!-- 									<option value="ma_name">자재명</option> -->
-<!-- 									<option value="in_date">입고일자</option> -->
-<!-- 									<option value="in_emp">담당직원</option> -->
-<!-- 								</select> <input type="text" class="form-control" style="width:10%; display:inline;" name="search" placeholder="검색어를 입력해주세요"> -->
-<!-- 								<input type="submit"  class="btn btn-info" value="검색"> -->
-<!-- 							</form> -->
 	<form action="/quality/qualityList" method="get">
 	<select class="Qusearch_select" name="selector">
 		<option value="qc_num">검수번호</option>
@@ -100,7 +91,7 @@
 	
 	<div style="float: right;">
 	<input type="button" id="qualityInsertBT" class="btn btn-success" style="margin: 1px;" value="검수 등록"
-		onclick="window.open('/quality/insert', '_blank', 'width=600, height=500, left=2000');">
+		onclick="window.open('/quality/insert', '_blank', 'width=500, height=420, left=2000');">
 	<button class="btn btn-light" style='text-align: right; margin: 1px;'>엑셀파일</button>
 	<button id="print-button" class="btn btn-light" onclick="info_print()" style='text-align: right; margin: 1px;'>인쇄하기</button>
 	</div>
@@ -157,8 +148,8 @@
 				<input type="hidden" id="plan_qty" name="plan_qty" value=" ${vo.plan_qty}">
 				<input type="hidden" id="production_status" name="production_status" value=" ${vo.production_status}">
 			<tr class="qualityListResult">
-				<td><a href="/quality/info?qc_num=${vo.qc_num }" onclick="window.open(this.href, '_blank', 'width=800, height=500, left=2000'); return false;"  style="color: black; text-decoration: none;">${vo.qc_num}</a></td>
-				<td><a href="/production/workOrder/workOrder?production_id=${vo.production_id }" onclick="window.open(this.href, '_blank', 'width=800, height=500, left=2000'); return false;"  style="color: black; text-decoration: none;">${vo.production_id }</a></td>
+				<td><a href="/quality/info?qc_num=${vo.qc_num }" onclick="window.open(this.href, '_blank', 'width=800, height=500'); return false;"  style="color: black; text-decoration: none;">${vo.qc_num}</a></td>
+				<td><a href="/workOrder/info?production_id=${vo.production_id }" onclick="window.open(this.href, '_blank', 'width=600, height=450'); return false;"  style="color: black; text-decoration: none;">${vo.production_id }</a></td>
 				<td>${vo.production_line }</td>
 				<td>${vo.product_id }</td>
 				<td>${vo.product_name }</td>

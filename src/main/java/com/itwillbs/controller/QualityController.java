@@ -113,7 +113,7 @@ public class QualityController {
 			quService.insertQuality(vo);
 		}
 		
-		// 품질관리 등록 - 수주 정보 조회
+		// 품질관리 등록 - 작업지시번호 정보 조회
 			@RequestMapping(value="/prodFind", method = RequestMethod.GET)
 			public void findWorkGET(PagingVO pvo, Model model, HttpSession session) throws Exception{
 				logger.debug("@@@@@@@@@@@Controller : 작업지시번호 찾기");
@@ -142,7 +142,7 @@ public class QualityController {
 				
 //						return null;
 			}
-			// 수주번호 자동완성
+			// 작업지시번호 자동완성
 			@ResponseBody
 			@RequestMapping(value="/prodInfo", method = RequestMethod.GET)
 			public ProductionVO getProdInfo(@RequestParam("production_id") String production_id) throws Exception{

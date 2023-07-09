@@ -132,7 +132,18 @@
 		LEFT JOIN employee e
 		ON i.in_emp = e.emp_id
 		WHERE order_status = 1
-		AND ${selector} LIKE CONCAT('%', #{search}, '%')
+			<if test="in_id != ''">
+				AND i.in_id LIKE CONCAT('%', #{in_id}, '%')
+			</if>
+			<if test="ma_name != ''">
+				AND m.ma_name LIKE CONCAT('%', #{ma_name}, '%') 
+			</if>
+			<if test="in_empName != ''">
+				AND e.emp_name LIKE CONCAT('%', #{in_empName}, '%') 
+			</if>
+			<if test="startDate != '' and endDate != ''">
+				AND o.in_date BETWEEN #{startDate} AND #{endDate}
+			</if>
 		limit 0, 10
 	</select>
 <!-- 검색어 + 페이지갯수 제한 전체 목록 개수 -->
@@ -184,7 +195,18 @@
 		LEFT JOIN employee e
 		ON i.in_emp = e.emp_id
 		WHERE order_status = 1
-		AND ${selector} LIKE CONCAT('%', #{search}, '%')
+			<if test="in_id != ''">
+				AND i.in_id LIKE CONCAT('%', #{in_id}, '%')
+			</if>
+			<if test="ma_name != ''">
+				AND m.ma_name LIKE CONCAT('%', #{ma_name}, '%') 
+			</if>
+			<if test="in_empName != ''">
+				AND e.emp_name LIKE CONCAT('%', #{in_empName}, '%') 
+			</if>
+			<if test="startDate != '' and endDate != ''">
+				AND o.in_date BETWEEN #{startDate} AND #{endDate}
+			</if>
 		ORDER BY in_process ASC, in_id DESC, o.order_id DESC
 		LIMIT #{startRow}, #{pageSize}
 	</select>

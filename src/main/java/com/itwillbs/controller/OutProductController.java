@@ -76,7 +76,7 @@ public class OutProductController {
 		pvo.setEndDate(endDate);
 		pvo.setOp_id(op_id);
 		pvo.setProduct_name(product_name);
-		pvo.setOp_empName(op_empName);;
+		pvo.setOp_empName(op_empName);
 		
 		
 		// 검색로직

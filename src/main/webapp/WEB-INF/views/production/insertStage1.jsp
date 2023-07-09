@@ -18,7 +18,8 @@
 <style type="text/css">
 table {margin-bottom: 1em;
 table-layout: fixed;
-width: 95%; /* 테이블의 전체 너비 지정 */}
+width: 95%; /* 테이블의 전체 너비 지정 */
+font-size: 15px;}
 
 table, th {border: none;}
 
@@ -151,6 +152,7 @@ border-color: #23dbf8;}
           alert("등록이 완료되었습니다.");
           window.opener.location.reload();
           window.close();
+          
         }
       });
     }
@@ -208,8 +210,8 @@ border-color: #23dbf8;}
 <!-- 	  <input type="text" name="production_qty"> -->
 <!-- 	  불량코드 -->
 	  <input type="hidden" name="stage1_defCode" id="stage1_defCode" readonly>
-		  불량수량
-		  <input type="text" name="stage1_defQty">
+	  불량수량
+	  <input type="text" name="stage1_defQty">
 	<br>
 	<input type="submit" class="btn btn-success" id="btnInsert" value="등록" onclick="sendForm();">
 	</form>

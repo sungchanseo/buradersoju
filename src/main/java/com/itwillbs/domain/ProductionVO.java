@@ -71,6 +71,10 @@ public class ProductionVO {
 	private int bt_qty;
 	private int bt_defQty;
 	
+	//검색어처리를 위한 변수 선언
+	private String selector; //검색자 
+	private String search; //검색어
+	
 	
 	// getter / setter
 	
@@ -329,6 +333,22 @@ public class ProductionVO {
 		this.bt_defQty = bt_defQty;
 	}
 	
+	// 검색 처리
+	public String getSelector() {
+		return selector;
+	}
+	public String getSearch() {
+		return search;
+	}
+	public void setSelector(String selector) {
+		this.selector = selector;
+	}
+	public void setSearch(String search) {
+		this.search = search;
+	}
+
+	
+	
 	
 	// toString()
 	@Override
@@ -346,8 +366,12 @@ public class ProductionVO {
 				+ ", stage3_date=" + stage3_date + ", qc_num=" + qc_num + ", qc_emp=" + qc_emp + ", qc_date=" + qc_date
 				+ ", qc_qty=" + qc_qty + ", qc_status=" + qc_status + ", del_qcStatus=" + del_qcStatus
 				+ ", total_defQty=" + total_defQty + ", def_code=" + def_code + ", def_qty=" + def_qty + ", bt_date="
-				+ bt_date + ", bt_qty=" + bt_qty + ", bt_defQty=" + bt_defQty + "]";
+				+ bt_date + ", bt_qty=" + bt_qty + ", bt_defQty=" + bt_defQty + ", selector=" + selector + ", search="
+				+ search + "]";
 	}
+	
+	
+
 
 	
 	

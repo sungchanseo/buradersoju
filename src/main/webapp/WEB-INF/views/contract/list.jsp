@@ -47,10 +47,10 @@
 											<c:if test="${emp_department.equals('영업') || emp_department.equals('영업팀') || emp_department.equals('Master')}">
 												<button type="button" class="btn btn-success" onclick="openPop();">수주등록</button>
 											</c:if>
-												<form action="/contract/downExcel" id="excelForm" method="post" style="display:inline;">
-													<input type="hidden" name="contractList" value="${contractList }">
-													<button type="submit" class="btn btn-light" id="excel" form="excelForm">엑셀다운</button>
-												</form>
+<!-- 												<form action="/contract/downExcel" id="excelForm" method="post" style="display:inline;"> -->
+<%-- 													<input type="hidden" name="contractList" value="${contractList }"> --%>
+<!-- 													<button type="submit" class="btn btn-light" id="excel" form="excelForm">엑셀다운</button> -->
+<!-- 												</form> -->
 												<button type="button" class="btn btn-light" id="print" onclick="printList();">출력하기</button>
 										</div>
 										<!-- 영업팀이 아닐때 버튼 감추기 -->

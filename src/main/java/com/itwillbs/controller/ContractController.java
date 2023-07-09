@@ -261,39 +261,10 @@ public class ContractController {
 		return vo;
 	}
 	
-//	//작업지시번호 자동완성 팝업창
-//	@RequestMapping(value="/productionFind", method = RequestMethod.GET)
-//	public void findProductionGET(PagingVO pvo, Model model) throws Exception{
-//		logger.debug("@@@@@@@@@@@Controller : 팝업으로 작업지시번호 찾기 !!!!!");
-//		
-//		List<Object> productionList = null;
-//		
-//		// 생산목록을 가져오는 productionService 호출
-//		pvo = proService.getListSearchObjectProductionVO(pvo);
-//		logger.debug("@@@@@@@@@Controller : {}",pvo);
-//		
-//		//service객체를 호출
-//		if(pvo.getSelector()!=null && pvo.getSelector()!="") {
-//			//검색어가 있을 때 
-//			logger.debug("@@@@@@@@@Controller : 검색어가 있을 때입니다");
-//			productionList = pageService.getListSearchObjectProductionVO(pvo);
-//		}else {
-//			//검색어가 없을 때
-//			logger.debug("@@@@@@@@@Controller : 검색어가 없을 때입니다");
-//			productionList = pageService.getListPageSizeObjectProductionVO(pvo);
-//		}
-//		logger.debug("@@@@@@@@@Controller : productionList={}",productionList);
-//	
-//		// 변수에 담아서 전달
-//		model.addAttribute("productionList", productionList);
-//		model.addAttribute("pvo",pvo);
-//	}
-	
 	//엑셀다운로드 콘트롤러
 	@PostMapping(value="/downExcel", produces = "application/text; charset=utf8")
 	public void downloadExcelPOST(HttpServletResponse response, @RequestParam("contractList") List<Object> contractList) throws IOException{
 		logger.debug("@@@@@@@@@@@Controller : 엑셀다운로드 콘트롤러 호출!!!!!");
-		logger.debug("@@@@@@@@@@@Controller : response={}", response);
 		logger.debug("@@@@@@@@@@@Controller : 받아온 리스트객체 : {}", contractList);
 
 		contService.downExcel(contractList, response);

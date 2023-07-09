@@ -29,7 +29,7 @@
 								</div>
 								<button class="btn btn-success btn-fw" onclick="location.href='/notice/list'">공지 목록</button>
 								<div style="text-align: right; margin-right: 580px;">
-								<button type="reset" class="btn btn-light btn-fw">초기화</button>
+								<button type="reset" class="btn btn-light btn-fw" id="reset-button">초기화</button>
 								<button class="btn btn-success btn-fw" type="submit">공지 등록</button>
 								</div>
 							</form>
@@ -70,6 +70,13 @@
 			  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
 			  lang: "ko-KR",					// 한글 설정
 			  placeholder: '공지 내용을 작성하세요 :)',
+			  toolbar: [
+				    ['style', ['style']], 
+			        ['style', ['bold', 'italic', 'underline']],
+			        ['fontsize', ['fontsize']],
+			        ['para', ['ul', 'ol']],
+			        ['color', ['forecolor', 'backcolor']] // 색상 버튼 활성화
+			    ],
 			  callbacks : { 
 		            	onImageUpload : function(files, editor,
 		                        welEditable) {
@@ -81,6 +88,7 @@
 		                        }
 		});
 		$('#summernote').summernote(setting);
+		
 	});
 
   $(document).ready(function(){
@@ -94,9 +102,4 @@
 	  }); // btnAdd-click
   });
 
-//초기화 버튼 클릭 이벤트 처리
-  var resetButton = document.querySelector('button[type="reset"]');
-  resetButton.addEventListener('click', function() {
-    document.getElementById('myForm').reset(); // form 요소 초기화
-  });
-</script>	
+</script>

@@ -24,7 +24,7 @@
 							<br>
 							<!-- 검색창기능 -->
 							<br>
-							<table class="table table-color">
+							<table class="table table-hover">
 								<tbody style="text-align: center;">
 									<tr>
 										<th style="width: 60px">번호</th>
@@ -36,7 +36,7 @@
 									<c:forEach var="vo" items="${noticeList }">
 										<tr>
 											<td>${vo.notice_id }</td>
-											<td><a href="/notice/info?notice_id=${vo.notice_id }">${vo.notice_title }</a></td>
+											<td><a href="/notice/info?notice_id=${vo.notice_id }" style="color: inherit; text-decoration: none;">${vo.notice_title }</a></td>
 											<td>${vo.notice_writer }</td>
 											<td>${vo.notice_regdate }</td>
 											<td>${vo.notice_count }</td>

@@ -120,7 +120,7 @@ public class OrderController {
 
 		return orderVo;
 	}
-
+// 수정 자동완성
 //   http://localhost:8088/purchasing/order/list
 //  발주 수정 (데이터처리)
 	@RequestMapping(value = "/modify", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")

@@ -176,6 +176,20 @@ public class QualityServiceImpl implements QualityService {
 		return pvo;
 		
 	}
+	
+	// 품질관리 - 검수 상세보기(불량 데이터 가져오기)
+	@Override
+	public List<ProductionVO> getDefInfo(String qc_num) throws Exception {
+		// TODO Auto-generated method stub
+		return qdao.getDefInfo(qc_num);
+	}
+	
+	// 검수 삭제
+	@Override
+	public void removeQuality(ProductionVO vo) throws Exception {
+		qdao.removeQuality(vo);
+		
+	}
 
 
 

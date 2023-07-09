@@ -127,12 +127,38 @@ public class WorkOrderDAOImpl implements WorkOrderDAO {
 			logger.debug(" 해당 수주번호에 작업지시번호 저장완료 ");
 			}
 	}
-
-//	@Override
-//	public ProductionVO contSearch(String production_id) {
-//		logger.debug(" getWoInsertSearch() 호출 ");
-//		return sqlSession.selectOne(NAMESPACE+".woInsertSearch", cont_id);
-//	}
+	
+	// 작업지시 삭제 - 자재db
+	@Override
+	public void maQtyUpdate2(List<String> ma_nameList, List<Float> ma_qtyList) throws Exception {
+		logger.debug(" maQtyUpdate2()-DAO 호출 ");
+		ProductionVO vo = new ProductionVO();
+		int result = 0;
+		for (int i = 0; i < ma_qtyList.size(); i++) {
+//			float ma_qty = Float.parseFloat(ma_qtyList.get(i));
+			vo.setMa_qty(ma_qtyList.get(i));
+			vo.setMa_name(ma_nameList.get(i));
+			
+			result = sqlSession.update(NAMESPACE + ".maQtyUpdate", vo);
+		}
+		if(result != 0) {
+			logger.debug(" 작업지시 등록 DB저장 자재까지 완료 ");
+		}
+		
+	}
+	// 작업지시 삭제 - 수주번호, 작업지시 삭제여부
+	@Override
+	public void delWoCont(ProductionVO vo) throws Exception {
+		// TODO Auto-generated method stub
+				int result = 0;
+				result += sqlSession.update(NAMESPACE + ".delWorkOrder", vo);
+				logger.debug(" 삭제여부 변경완료 ");
+				result += sqlSession.update(NAMESPACE + ".delWoCont", vo);
+				logger.debug(" 수주정보에 삭제완료 ");
+				if(result == 2) {
+					logger.debug(" 삭제완료 ");
+					}
+	}
 
 	
 	

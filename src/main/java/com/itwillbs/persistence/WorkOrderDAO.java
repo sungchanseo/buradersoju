@@ -37,6 +37,12 @@ public interface WorkOrderDAO {
 	// 작업지시 상세
 	public ProductionVO detailWorkOrder(String production_id) throws Exception;
 	
+	// 작업지시 삭제 - 자재db
+	public void maQtyUpdate2(List<String> ma_nameList, List<Float> ma_qtyList) throws Exception;
+	
+	// 작업지시 삭제 - 수주번호, 작업지시 삭제여부
+	public void delWoCont(ProductionVO vo) throws Exception;
+	
 	//
 	
 	

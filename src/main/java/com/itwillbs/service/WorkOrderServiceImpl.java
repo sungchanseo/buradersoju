@@ -168,6 +168,12 @@ public class WorkOrderServiceImpl implements WorkOrderService {
 		logger.debug(" maQtyUpdate()-service 호출 ");
 		wdao.maQtyUpdate(ma_nameList, ma_qtyList);
 	}
+	// 작업지시 삭제(자재 db)
+	@Override
+	public void maQtyUpdate2(List<String> ma_nameList, List<Float> ma_qtyList) throws Exception {
+		logger.debug(" maQtyUpdate()-service 호출 ");
+		wdao.maQtyUpdate2(ma_nameList, ma_qtyList);
+	}
 	
 	// 작업지시 상세
 	@Override
@@ -200,6 +206,13 @@ public class WorkOrderServiceImpl implements WorkOrderService {
 		pvo = pageService.pagingAction(pvo);
 		logger.debug("@@@@@@ContractService : {}",pvo);
 		return pvo;
+	}
+	
+	// 작업지시 삭제 - 수주번호, 작업지시 삭제여부
+	@Override
+	public void delWoCont(ProductionVO vo) throws Exception {
+		wdao.delWoCont(vo);
+		
 	}
 	
 

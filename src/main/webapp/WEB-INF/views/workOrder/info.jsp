@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11%22%3E"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
 <title>작업 지시 상세</title>
 <style type="text/css">
@@ -111,6 +111,8 @@ td {border:1px solid #04AA6D;
 </head>
 <body>
 	<h1>작업지시번호 : ${workOrder.production_id}</h1>
+	<input type="hidden" id="production_id" value="${workOrder.production_id}">
+	<input type="hidden" id="product_id" value="${workOrder.product_id}">
 	
 <%-- 	<h2>작업지시번호 : ${workOrder.production_id} </h2>  --%>
 	
@@ -171,10 +173,48 @@ td {border:1px solid #04AA6D;
   </table>
 <!--   </div> -->
 <!--   <div style="display: flex; justify-content: center;"> -->
-  <button type="button" onclick="location.href='/production/workOrderModify';" class="btn btn-success" style="margin: 0.5px;">삭제</button>
+  <button type="button" id="delWoBT" class="btn btn-success" style="margin: 0.5px;" >삭제</button>
+<%--   <button type="button" onclick="location.href='/workOrder/remove?product_id=${workOrder.product_id}&production_id=${workOrder.production_id}';" class="btn btn-success" style="margin: 0.5px;" >삭제</button> --%>
   <button type="button" class="btn btn-light" onclick="window.close();"style="margin: 0.5px;" >닫기</button>
 <!--   </div> -->
  <script type="text/javascript">
+ $(document).ready(function(){
+	 $("#delWoBT").click(function(){ 
+		 var product_id = $("#product_id").val();
+		 var production_id = $("#production_id").val();
+		 Swal.fire({
+			   title: '삭제하시겠습니까?',
+			   icon: 'warning',
+			   showCancelButton: true,
+			   confirmButtonColor: '#3085d6', 
+			   cancelButtonColor: '#d33', 
+			   confirmButtonText: '승인', 
+			   cancelButtonText: '취소'
+			}).then(result => {
+			   if (result.isConfirmed) {
+				   $.ajax({
+						url: '/workOrder/remove',
+						type: 'POST',
+						data : { product_id : product_id,
+							production_id : production_id },
+				   		success: function(data){
+				   			Swal.fire({
+								icon: 'success',
+								title: '삭제 완료',
+								text: '확인을 누르면 창을 닫습니다.',
+								confirmButtonColor: '#0ddbb9',
+								confirmButtonText: '확인'
+							}).then(() => {
+								window.opener.location.reload();
+								window.close();
+								}); // Swal2
+				   			} // success
+				   		}); //ajax
+			   } // if
+			}); //result
+	 }); //Click
+ }); //document
+ 
  /* 인쇄 버튼 기능 */
  function info_print() {
  	window.print();
@@ -203,7 +243,7 @@ td {border:1px solid #04AA6D;
 //   }
 //   window.print();
 // } 
-</script>
+	</script>
 	
 </body>
 </html>

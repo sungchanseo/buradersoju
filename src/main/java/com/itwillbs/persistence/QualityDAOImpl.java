@@ -42,6 +42,12 @@ public class QualityDAOImpl implements QualityDAO {
 			logger.info("@@@@검수 상세 보기@@@@");
 			return sqlSession.selectOne(NAMESPACE+".qualityInfo", qc_num);
 		}
+		
+		@Override
+		public List<ProductionVO> getDefInfo(String qc_num) throws Exception {
+			logger.info("@@@@불량 데이터 가져오기@@@@");
+			return sqlSession.selectList(NAMESPACE+".defInfo", qc_num);
+		}
 
 		@Override
 		public void insertQuality(ProductionVO pvo) {
@@ -123,6 +129,16 @@ public class QualityDAOImpl implements QualityDAO {
 			logger.debug("@@@@@공병 불량 등록 완료");
 			sqlSession.update(NAMESPACE+".btMaUpdate", vo);
 			logger.debug("@@@@@자재 창고 공병수 업데이트 완료");
+		}
+		
+		// 검수 삭제
+		@Override
+		public void removeQuality(ProductionVO vo) throws Exception {
+			sqlSession.update(NAMESPACE+".delQcStatus", vo);
+			sqlSession.update(NAMESPACE+".delQcProduct", vo);
+			sqlSession.update(NAMESPACE+".delQcProNull", vo);
+			sqlSession.delete(NAMESPACE+".delDefective", vo);
+			logger.debug("@@@@@검수 삭제 완료");
 		}
 
 //		@Override

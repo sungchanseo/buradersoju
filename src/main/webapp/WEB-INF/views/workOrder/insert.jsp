@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <!-- 제이쿼리 -->
 <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11%22%3E"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
 
 <title>작업 지시 등록</title>
@@ -97,7 +97,7 @@ td {border:1px solid #04AA6D;
 	<script>
 		$(document).ready(function() {
 		/////////// 상품 코드 선택시 정보 자동 조회 ///////////
-			// db처리 해도 되겠지만... 굳이 싶어서...
+			// db처리 해도 되겠지만... 시간이 없으니 시간날때 db로 변경예정
 			$(".product_select").change(function(){
 				var product_id = $(this).val();
 				var product_name = "";
@@ -143,7 +143,12 @@ td {border:1px solid #04AA6D;
 		/////////// 상품 코드 선택시 정보 자동 조회 ///////////
 		/////////// 자재 재고 계산 ///////////
 			$(document).ready(function() {
-			$("#plan_qty").keyup(function(){            
+				function onlyNumber(){
+					const reg = /\D/g;
+					$("#plan_qty").val($("#plan_qty").val().replace(reg, ""));
+				}
+			$("#plan_qty").keyup(function(){     
+				onlyNumber();
 // 			function maCal() {
 				var plan_qty = $("#plan_qty").val();
 				var product_id = $("#product_id").val();
@@ -274,7 +279,7 @@ td {border:1px solid #04AA6D;
 					ma_qtyList.push($(this).val());
 				});
 				console.log("ma_qtyList : " +JSON.stringify(ma_qtyList));
-				alert("ma_qtyList길이 :" + ma_qtyList.length);
+// 				alert("ma_qtyList길이 :" + ma_qtyList.length);
 				var ma_nameList = [];
 				$(".ma_nameList").each(function() {
 					ma_nameList.push($(this).val());
@@ -361,9 +366,16 @@ td {border:1px solid #04AA6D;
 				type: 'POST',
 				data: formObject,
 				success: function(json) {
-					alert("등록이 완료되었습니다.");
-					window.opener.location.reload();
-					window.close();
+					Swal.fire({
+						icon: 'success',
+						title: '작업지시 등록 완료',
+						text: '확인을 누르면 창을 닫습니다.',
+						confirmButtonColor: '#0ddbb9',
+						confirmButtonText: '확인',
+					}).then(() => {
+						window.opener.location.reload();
+						window.close();
+						});
 				}
 			});
 		} //function
@@ -408,7 +420,7 @@ td {border:1px solid #04AA6D;
 		  </select>
 		 </td>
 		  <th>작업지시수량</th>
-		 <td><input type="text" id="plan_qty" name="plan_qty" style="width:130px;"></td>
+		 <td><input type="text" id="plan_qty" name="plan_qty" style="width:130px;" placeholder="수량을 입력해주세요" maxlength="13"></td>
 <!-- 		 <td><input type="button" id="materialCal" value="계산"></td> -->
 		 </tr>
 		</table>
@@ -456,7 +468,7 @@ td {border:1px solid #04AA6D;
 </div>
 <!--   </div> -->
   <div style="display: flex; justify-content: center;">
-	<button type="button" id="workOrderInsert" class="btn btn-success" style="margin: 0.8px;" >등록</button>
+	<button type="button" id="workOrderInsert" class="btn btn-success" style="margin: 0.8px;">등록</button>
 	<button type="button" class="btn btn-light" onclick="window.close();"style="margin: 0.8px;" >취소</button>
   </div>
 <!-- 	</form> -->

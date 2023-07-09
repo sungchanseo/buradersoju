@@ -68,13 +68,18 @@ public class PagingVO {
 	// Join문을 위한 [in_material] 테이블 변수 선언 
 	private String ma_name;
 	private Date in_date;
+	private String in_id;
 	private int in_emp;
+	private String in_empName;
 
 	// Join문을 위한 [out_product] 테이블 변수 선언 
 	private String op_id;
 	private Date op_date;
 	private String product_name;
 	private int op_emp;
+	private String op_empName;
+	private String startDate;
+	private String endDate;
 
 	
 	
@@ -262,8 +267,20 @@ public class PagingVO {
 	public void setIn_emp(int in_emp) {
 		this.in_emp = in_emp;
 	}
+	public String getIn_empName() {
+		return in_empName;
+	}
+	public void setIn_empName(String in_empName) {
+		this.in_empName = in_empName;
+	}
+	public String getIn_id() {
+		return in_id;
+	}
+	public void setIn_id(String in_id) {
+		this.in_id = in_id;
+	}
 	
-	
+
 	// Join문을 위한 out_product get & set
 	public String getOp_id() {
 		return op_id;
@@ -289,8 +306,27 @@ public class PagingVO {
 	public void setOp_emp(int op_emp) {
 		this.op_emp = op_emp;
 	}
+	public String getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+	public String getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+	public String getOp_empName() {
+		return op_empName;
+	}
+	public void setOp_empName(String op_empName) {
+		this.op_empName = op_empName;
+	}
 	
 	
+	// toString
 	@Override
 	public String toString() {
 		return "PagingVO [table=" + table + ", status_name=" + status_name + ", status_value=" + status_value
@@ -301,8 +337,10 @@ public class PagingVO {
 				+ ContractVO + ", CustomerVO=" + CustomerVO + ", EmployeeVO=" + EmployeeVO + ", LoginVO=" + LoginVO
 				+ ", MaterialVO=" + MaterialVO + ", InMaterialVO=" + InMaterialVO + ", OrderVO=" + OrderVO
 				+ ", ProductionVO=" + ProductionVO + ", OutProductVO=" + OutProductVO + ", NoticeVO=" + NoticeVO
-				+ ", ma_name=" + ma_name + ", in_date=" + in_date + ", in_emp=" + in_emp + ", op_id=" + op_id
-				+ ", op_date=" + op_date + ", product_name=" + product_name + ", op_emp=" + op_emp + "]";
+				+ ", ma_name=" + ma_name + ", in_date=" + in_date + ", in_id=" + in_id + ", in_emp=" + in_emp
+				+ ", in_empName=" + in_empName + ", op_id=" + op_id + ", op_date=" + op_date + ", product_name="
+				+ product_name + ", op_emp=" + op_emp + ", op_empName=" + op_empName + ", startDate=" + startDate
+				+ ", endDate=" + endDate + "]";
 	}
 
 }

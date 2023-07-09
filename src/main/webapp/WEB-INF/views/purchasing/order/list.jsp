@@ -3,12 +3,22 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ include file="../../includes/header.jsp"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Order</title>
 
+<style type="text/css">
+table {width: 100%;
+/* table-layout:fixed;  */}
+
+/* table tr>th:nth-of-type(1) {width:50px !important;
+}
+  */
+table tr>td:nth-of-type(1) {width:50px !important;
+}
+
+table input {width:7em;}
+table input[type:checkbox] {width:1em;}
+
+</style>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert창 링크 -->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script type="text/javascript">
@@ -144,9 +154,7 @@
 		var order_id = "OR" + today + endNumber;
 		//// 행추가 ////////////////////////////////////////////////////////////
 
-		$('.writeForm')
-				.click(
-						function() {
+		$('.writeForm').click(function() {
 
 							var emp_id = "${sessionScope.emp_id}";
 							var emp_name = "${sessionScope.emp_name}";
@@ -212,9 +220,7 @@
 								$(this).removeClass('true');
 
 							}
-							$("#key_id")
-									.keyup(
-											function() {
+							$("#key_id").keyup(function() {
 												var obj = {
 													in_ma_id : $("#ma_id").val(),
 													in_order_qty : $("#order_qty").val()
@@ -245,9 +251,7 @@
 
 											}); // keyup
 
-							$('.write')
-									.click(
-											function() {
+							$('.write').click(function() {
 												console.log("글쓰기 등록함");
 
 												var ma_id = $('#ma_id').val();
@@ -275,12 +279,10 @@
 												console.log(due_date);
 												console.log(in_date);
 												console.log(emp_id);
-												if (ma_id === ""
-														|| ma_name === "") {
+												if (ma_id === ""|| ma_name === "") {
 													alert("빈칸을 입력하세요");
 												} else {
-													$
-															.ajax({
+													$.ajax({
 																url : "list",
 																type : "post",
 																data : {
@@ -294,15 +296,22 @@
 																	order_qty : order_qty,
 																	order_sum : order_sum,
 																	order_vat : order_vat,
-																	order_emp : emp_id,
-
+																	order_emp : emp_id
 																},
 																success : function() {
-																	alert("등록완료");
-																	location.href = "/purchasing/order/list"
-																},
-																error : function(
-																		err) {
+																	Swal.fire({
+																		icon: 'success',										// Alert 타입 (warning / success / error)
+																		title: '완료',											// Alert 제목
+																		text: '발주코드 ' + order_id + ' 등록이 완료되었습니다.',	    // Alert 내용
+																		confirmButtonColor: '#0ddbb9',							// Alert 버튼 색깔
+																		confirmButtonText: '확인',								// Alert 버튼내용
+																	}).then((result) => {
+																		if(result.isConfirmed){									// '확인'누르면 이동
+																			location.href="/purchasing/order/list";
+																		}
+																	}); // then(result)
+																}, //success
+																error : function(err) {
 																	alert("error");
 																}
 															}); //ajax
@@ -313,9 +322,7 @@
 						}); //writeForm click
 
 		// 2-1. '수정' 클릭
-		$('.modify')
-				.click(
-						function() {
+		$('.modify').click(function() {
 
 							if ($(this).hasClass('true')) {
 								$(this).removeClass('true'); // 한번 더 수정이 안된다면 얘가 문제임 ! remove해서!
@@ -327,16 +334,35 @@
 
 								// 체크박스 항목 개수 제어
 								if (checkbox.length > 1) {
-									alert("하나의 항목만 수정이 가능합니다.");
-									location.reload();
+									Swal.fire({
+										icon: 'success',										// Alert 타입 (warning / success / error)
+										title: '오류',											// Alert 제목
+										text: '수정할 항목을 1개만 선택해주세요',	    // Alert 내용
+										confirmButtonColor: '#0ddbb9',							// Alert 버튼 색깔
+										confirmButtonText: '확인',								// Alert 버튼내용
+									}).then((result) => {
+										if(result.isConfirmed){									// '확인'누르면 이동
+											location.reload();
+										}
+									});  // then
+									
 									return false;
 								} else if ($('input:checkbox[name="check"]:checked').length == 0) {
-									alert("수정할 항목을 선택해주세요.");
+									Swal.fire({
+										icon: 'success',										// Alert 타입 (warning / success / error)
+										title: '오류',											// Alert 제목
+										text: '수정할 항목을 선택해주세요',	    // Alert 내용
+										confirmButtonColor: '#0ddbb9',							// Alert 버튼 색깔
+										confirmButtonText: '확인',								// Alert 버튼내용
+									}).then((result) => {
+										if(result.isConfirmed){									// '확인'누르면 이동
+											location.reload();
+										}
+									}); 
 								}
 
 								// 체크된 체크박스 값 가져오기
-								checkbox
-										.each(function(i) {
+								checkbox.each(function(i) {
 
 											var tr = checkbox.parent().parent()
 													.eq(i); // checkbox의 부모는 <td>, <td>의 부모는 <tr>
@@ -349,8 +375,7 @@
 											// -> 배열 tdArr에 정보를 담음
 											var order_id = td.eq(1).text();
 											tdArr.push(order_id); // tdArr[0] == ma_id
-											$
-													.ajax({
+											$.ajax({
 														url : "modify",
 														type : "get",
 														data : {
@@ -361,13 +386,8 @@
 															// 여기서 order_id를 이용해서 if문걸어가지고 같은 값일때 아래처럼 나오게하면될듯?!
 															// orderVo에서 테이블 값 가져오기
 															var order_date = data.order_date;
-															console
-																	.log(order_date);
-															$(data)
-																	.each(
-																			function(
-																					idx,
-																					obj) {
+															console.log(order_date);
+															$(data).each(function(idx,obj) {
 																				var str = "";
 																				str += "<tr>";
 																				str += "<td><input type='checkbox' name='check'></td>";
@@ -427,13 +447,19 @@
 									var emp_id = "${sessionScope.emp_id }";
 									var emp_name = $('#emp_name').val();
                                              console.log(order_qty);
-										if (order_id === ""|| order_vat === "") {
-										alert("모든 order_qty 입력해주세요.");
+										if (order_id === ""|| order_vat === "" || order_qty ==="" || order_sum ==="") {
+											Swal.fire({
+												icon: 'success',										// Alert 타입 (warning / success / error)
+												title: '오류',											// Alert 제목
+												text: '빈칸을 모두 입력해주세여',	    // Alert 내용
+												confirmButtonColor: '#0ddbb9',							// Alert 버튼 색깔
+												confirmButtonText: '확인',								// Alert 버튼내용
+											})
 										} else {
 										$.ajax({
 											url : "modify",
 											type : "post",
-									    	dataType : "json",
+									    	/* dataType : "json", */
 											contentType : "application/json;charset=UTF-8",
 											data : JSON.stringify({
 													order_id : order_id,
@@ -447,13 +473,18 @@
 													emp_id : emp_id
 													}),
 													success : function() {
-																	//			 						alert("자재코드 " + ma_id + ", 수정이 완료되었습니다.");
-																	//			 						location.href="/purchasing/material/list";
-																	alert("발주코드 "
-																			+ order_id
-																			+ ", 수정이 완료되었습니다. @success@");
-																	location.href = "/purchasing/order/list";
-																},
+														Swal.fire({
+															icon: 'success',										// Alert 타입 (warning / success / error)
+															title: '완료',											// Alert 제목
+															text: '발주코드 ' + order_id + ' 등록이 완료되었습니다.',	    // Alert 내용
+															confirmButtonColor: '#0ddbb9',							// Alert 버튼 색깔
+															confirmButtonText: '확인',								// Alert 버튼내용
+														}).then((result) => {
+															if(result.isConfirmed){									// '확인'누르면 이동
+																location.href="/purchasing/order/list";
+															}
+														}); // then(result)
+													}, //success
 																error : function() {
 																	alert("발주코드 "
 																			+ order_id
@@ -503,16 +534,42 @@
 							order_id : order_id
 						},
 						success : function() {
-							var result = confirm("품목코드 " + order_id
-									+ "를 정말 삭제하시겠습니까?");
-							if (result) {
-								alert("삭제가 완료되었습니다.");
-								location.href = "/purchasing/order/list";
-							}
+							Swal.fire({
+								text: '발주코드 ' +order_id + '를 정말 삭제하시겠습니까?',
+								icon: 'warning',
+								showCancelButton: true,
+								confirmButtonColor: '#0ddbb9',
+								cancelButtonColor: '#d33',
+								confirmButtonText: '확인',
+								cancelButtonText: '취소'
+							}).then((result) => {
+								if (result.isConfirmed) {
+									Swal.fire({
+										icon: 'success',
+										title: '완료',
+										text:'발주코드 ' + order_id + ', 삭제가 완료되었습니다.',
+										confirmButtonColor: '#0ddbb9',
+										confirmButtonText: '확인',
+									}).then((result) => {
+										if(result.isConfirmed){
+											location.href="/purchasing/order/list";
+										}
+									}); // then(result) 삭제하시겠습니까?
+								}
+							}); // then(result) 삭제가 완료되었습니다
 						},
 						error : function() {
-							alert("삭제할 항목을 선택해주세요.");
-						}
+							Swal.fire({
+								icon: 'warning',
+								text: '삭제할 항목을 선택해주세요.',
+								confirmButtonColor: '#0ddbb9',
+								confirmButtonText: '확인',
+							}).then((result) => {
+								if(result.isConfirmed){
+									return false;
+								}
+							}); // then(result)
+						} //error
 					}); //ajax		
 
 				}); // deleteForm.click
@@ -545,7 +602,7 @@ table input[type :checkbox] {
 
 	<br>
 	<div class="container-scroller">
-<!-- 		<div class="container-fluid page-body-wrapper full-page-wrapper"> -->
+		<div class="container-fluid page-body-wrapper full-page-wrapper"> 
 			<div class="main-panel">
 				<div class="content-wrapper d-flex align-items-center auth px-0"
 					style="min-height: 100vh;">
@@ -553,27 +610,17 @@ table input[type :checkbox] {
 						<div class="col-lg-12 mx-auto">
 							<div class="auth-form-light text-left py-5 px-4 px-sm-5"
 								style="height: 1000px;">
+								
+								<!-- 제목 -->
+                                <div class="card-body">
 								<h1 class="card-title">
 									<font style="vertical-align: inherit;"><a
-										href="http://localhost:8088/purchasing/order/list"
-										style="text-decoration: none;">발주 리스트</a></font>
+										href="/purchasing/order/list"
+										style="text-decoration: none; color: #000;">발주 리스트</a></font>
 								</h1>
-<!-- 								<div> -->
-<!-- 									탭 메뉴 -->
-<!-- 									<ul class="nav nav-tabs tab-no-active-fill" role="tablist"> -->
-<!-- 										<li class="nav-item"><a class="nav-link ps-2 pe-2 active" -->
-<!-- 											id="stage1-tab" data-bs-toggle="tab" href="#stage1" -->
-<!-- 											role="tab" aria-controls="stage1" aria-selected="true">발주현황</a> -->
-<!-- 										</li> -->
-<!-- 										<li class="nav-item"><a class="nav-link ps-2 pe-2" -->
-<!-- 											id="stage2-tab" data-bs-toggle="tab" href="#stage2" -->
-<!-- 											role="tab" aria-controls="stage2" aria-selected="false">발주등록</a> -->
-<!-- 										</li> -->
-<!-- 									</ul> -->
-<!-- 									탭 내용 -->
-<!-- 									<div class="tab-content tab-no-active-fill-tab-content"> -->
-<!-- 										<div class="tab-pane fade active show" id="stage1" -->
-<!-- 											role="tabpanel" aria-labelledby="stage1-tab"> -->
+								</div>
+
+								
 											<!-- 검색 기능 -->
 											<form action="/purchasing/order/list" method="get"
 												style="display: inline;">
@@ -674,121 +721,13 @@ table input[type :checkbox] {
 											</div>
 											<!-- 	페이징 처리  -->
 										</div>
-										<!-- 탭기능  -->
-
-										<!-- 탭기능 2번쨰  -->
-<!-- 										<div class="tab-pane fade show" id="stage2" role="tabpanel" -->
-<!-- 											aria-labelledby="stage2-tab"> -->
-											<!-- 검색 기능 -->
-											<form action="/purchasing/order/list" method="get"
-												style="display: inline;">
-												<select name="selector">
-													<option value="ma_name">자재명</option>
-													<option value="order_date">발주일자</option>
-													<option value="in_date">입고일자</option>
-												</select> <input type="text" class="form-control"
-													style="width: 10%; display: inline;" name="search"
-													placeholder="검색어를 입력해주세요"> <input type="submit"
-													class="btn btn-info" value="검색">
-											</form>
-											<!-- 검색 기능 -->
-
-											<!-- 버튼 -->
-											<c:if
-												test="${emp_department.equals('구매팀') || emp_department.equals('Master')}">
-												<div style="float: right;">
-													<button class="btn btn-info writeForm true">등록</button>
-													<button class="btn btn-info modify true">수정</button>
-													<button class="btn btn-info" id="delete">삭제</button>
-													<button class="btn btn-success insert update write">저장</button>
-												</div>
-											</c:if>
-
-											<fmt:formatDate value="" />
-											<div class="row">
-												<!-- class row  -->
-												<table border="1" id="example-table-3"
-													class="table table-bordered table-hover text-center tbl"
-													style="width: 100%;">
-													<thead>
-														<tr>
-															<th></th>
-															<th>발주번호</th>
-															<th>자재코드</th>
-															<th>자재명</th>
-															<th>단가</th>
-															<th>자재수량</th>
-															<th>주문수량</th>
-															<th>총액</th>
-															<th>부가세</th>
-															<th>발주일자</th>
-															<th>납기일자</th>
-															<th>입고일자</th>
-															<th>입고창고</th>
-															<th>담당직원</th>
-														</tr>
-													</thead>
-													<tbody id="tbody">
-														<c:forEach var="order" items="${OrderLists}">
-															<tr>
-																<td><input type="checkbox" name="check"></td>
-																<td>${order.order_id}</td>
-																<td>${order.ma_id}</td>
-																<td>${order.ma_name}</td>
-																<td>${order.unit_cost}</td>
-																<td>${order.add_order}</td>
-																<td>${order.order_qty}</td>
-																<td>${order.order_sum}</td>
-																<td>${order.order_vat}</td>
-																<td>${order.order_date}</td>
-																<td>${order.due_date}</td>
-																<td>${order.in_date}</td>
-																<td>${order.whs_id}</td>
-																<td>${order.emp_name}</td>
-															</tr>
-														</c:forEach>
-													</tbody>
-												</table>
-
-											</div>
-											<!-- class row  -->
-
-											<!-- 	페이징 처리  -->
-											<div class="template-demo">
-												<div class="btn-group" role="group"
-													aria-label="Basic example">
-													<c:if test="${pvo.startPage > pvo.pageBlock }">
-														<a
-															href="/purchasing/order/list?tab=stage2&pageNum=${pvo.startPage-pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}"
-															class="btn btn-outline-secondary">이전</a>
-													</c:if>
-
-													<c:forEach var="i" begin="${pvo.startPage }"
-														end="${pvo.endPage }" step="1">
-														<a
-															href="/purchasing/order/list?tab=stage2&pageNum=${i }&selector=${pvo.selector}&search=${pvo.search}"
-															class="btn btn-outline-secondary">${i }</a>
-													</c:forEach>
-
-													<c:if test="${pvo.endPage<pvo.pageCount }">
-														<a
-															href="/purchasing/order/list?tab=stage2&pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}"
-															class="btn btn-outline-secondary">다음</a>
-													</c:if>
-												</div>
-											</div>
-											<!-- 	페이징 처리  -->
-<!-- 										</div> -->
-										<!-- 탭  -->
-
-<!-- 									</div> -->
-<!-- 								</div> -->
+										
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-<!-- 		</div> -->
+ 		</div> 
 <!-- 	</div> -->
 	<%@ include file="../../includes/footer.jsp"%>
 </body>

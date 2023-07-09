@@ -69,7 +69,6 @@ public class OutProductDAOImpl implements OutProductDAO {
 	public void registOpId(OutProductVO vo) throws Exception{
 		logger.debug("########## resgistOpId 호출");
 		logger.debug("########## " + vo.getOp_id());
-		logger.debug("########## " + vo.getProduction_id());
 		sqlSession.update(NAMESPACE + ".registOpId", vo);
 	}
 	
@@ -80,7 +79,12 @@ public class OutProductDAOImpl implements OutProductDAO {
 		return sqlSession.selectList(NAMESPACE+".getInventory", product_id);
 	}
 	
-	
+	// 5. tmp_qty 생성
+	@Override
+	public void getTmpQty(String cont_id) throws Exception {
+		logger.debug("########## getTmpQty 호출");
+		sqlSession.selectList(NAMESPACE+".getTmpQty", cont_id);
+	}
 	
 	
 	
@@ -91,19 +95,25 @@ public class OutProductDAOImpl implements OutProductDAO {
 	// 전체 목록 개수
 	@Override
 	public int getListAll(PagingVO pvo) throws Exception {
-		return sqlSession.selectOne(NAMESPACE+".getListAll", pvo);
+		int result = sqlSession.selectOne(NAMESPACE+".getListAll", pvo);
+		logger.debug("########## getListAll 전체 목록 개수 : " + result);
+		return result;
 	}
 	
 	// 아무조건이 없을 때 전체 목록 개수
 	@Override
 	public int getListPageSizeAll(PagingVO pvo) throws Exception {
-		return sqlSession.selectOne(NAMESPACE+".getListPageSizeAll", pvo);
+		int result = sqlSession.selectOne(NAMESPACE+".getListPageSizeAll", pvo);
+		logger.debug("########## getListPageSizeAll 아무 조건 없을 때 목록 개수 : " + result);
+		return result;
 	}
 	
 	// 검색어 있을 때 목록 개수 	
 	@Override
 	public int getListSearchAll(PagingVO pvo) throws Exception {
-		return sqlSession.selectOne(NAMESPACE+".getListSearchAll", pvo);
+		int result = sqlSession.selectOne(NAMESPACE+".getListSearchAll", pvo);
+		logger.debug("########## getListSearchAll 검색어 있을 때 목록 개수 : " + result);
+		return result;
 	}
 	
 	// 필터있을때 전체 목록 개수	
@@ -120,26 +130,27 @@ public class OutProductDAOImpl implements OutProductDAO {
 	
 	
 	// 2. 객체 가져오기
-	// 아무조건이 없을 때 전체 목록 객체
+	// 아무조건이 없을 때 전체 목록
 	@Override
 	public List<Object> getListPageSizeObjectOutProductVO(PagingVO pvo) throws Exception {
+		logger.debug("########## 아무 조건이 없을 때 전체 목록");
 		return sqlSession.selectList(NAMESPACE+".getListPageSizeObjectOutProductVO", pvo);
 	}
 	
-	// 검색어 있을 때 목록 객체	
+	// 검색어 있을 때 목록
 	@Override
 	public List<Object> getListSearchObjectOutProductVO(PagingVO pvo) throws Exception {
-	logger.debug("****************PagingDAO : getListSearchObject()메소드 호출!");
+		logger.debug("########## 검색어 있을 때 목록");
 		return sqlSession.selectList(NAMESPACE+".getListSearchObjectOutProductVO", pvo);
 	}
 	
-	// 필터있을 때 전체 목록 객체
+	// 필터있을 때 전체 목록
 	@Override
 	public List<Object> getListFilterObjectOutProductVO(PagingVO pvo) throws Exception {
 		return sqlSession.selectList(NAMESPACE+".getListFilterObjecOutProductVO",pvo);
 	}
 	
-	// 검색어와 필터 모두 있을 때 전체 목록 개수
+	// 검색어와 필터 모두 있을 때 전체 목록
 	@Override
 	public List<Object> getListSearchFilterObjectOutProductVO(PagingVO pvo) throws Exception {
 		return sqlSession.selectList(NAMESPACE+".getListSearchFilterObjectOutProductVO", pvo);

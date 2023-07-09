@@ -5,6 +5,47 @@
 
 <%@ include file="../../includes/header.jsp" %>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script>
+
+window.onload = function() {
+	// 오늘 날짜 정보
+	today = new Date();
+	console.log("today.toISOString() >>>" + today.toISOString());
+	today = today.toISOString().slice(0, 10);
+	console.log("today >>>> " + today);
+	bir = document.getElementById("getToday");
+	bir.value = today;
+	
+	// 일주일 전 날짜 정보
+	thisDate = new Date();
+	day = thisDate.getDay();
+	calcDate = thisDate.getDate() - 7;
+	beforeDate = new Date(thisDate.setDate(calcDate)).toISOString().substring(0, 10);
+	console.log('beforeDate >>>>>>>>>> ' + beforeDate);
+	bir2 = document.getElementById("beforeDay");
+	bir2.value = beforeDate;
+}
+
+
+// JQuery
+$(document).ready(function(){
+	
+	startDate = "${startDate}";
+	endDate = "${endDate}";
+	op_id = "${op_id}";
+	product_name = "${product_name}";
+	op_empName = "${op_empName}";
+	
+	$('#sd').val(startDate);
+	$('#ed').val(endDate);
+	$('#op_id').val(op_id);
+	$('#product_name').val(product_name);
+	$('#op_empName').val(op_empName);
+	
+	
+});
+
+</script>
 </head>
 <body>
 <br>
@@ -30,17 +71,24 @@
 										
 										
 								<!-- 검색 기능 -->
-								<form action="/purchasing/outProduct/list" method="get" style="display: inline;">
-									<select name="selector">
-										<option value="op_id">출고번호</option>
-										<option value="op_date">출고일자</option>
-										<option value="product_name">품명</option>
-										<option value="op_emp">담당직원</option>
-									</select> <input type="text" class="form-control" style="width:10%; display:inline;" name="search" placeholder="검색어를 입력해주세요">
-									<input type="submit"  class="btn btn-info" value="검색">
+								<div style="text-align: center; background-color: #f2f2f2;">
+								<br>
+								<form action="/purchasing/outProduct/list" method="get" style="display: inline;">							
+									출고번호 <input type="text" id="op_id" name="op_id" value="" style="width:7%;">
+									&nbsp;&nbsp;&nbsp; 출고일자 
+									<input type="date" name="startDate" id="sd" value="" min="2023-01-01">
+									~ 
+									<input type="date" name="endDate" id="ed" value="" min="2023-01-01">
+									&nbsp;&nbsp;&nbsp; 상품명 <input type="text" id="product_name" name="product_name" value="" style="width:7%;">
+									&nbsp;&nbsp;&nbsp; 담당직원 <input type="text" id="op_empName" name="op_empName" value="" style="width:7%;">
+									
+									&nbsp;&nbsp; <input type="submit" class="btn btn-info" value="검색">
 								</form>
+								<br><br>
+								</div>
+								<br>
 								
-								
+											
 								<!-- 테이블 -->
 								<table border="1" class="table table-hover table-bordered text-center">
 									<tr>
@@ -51,7 +99,6 @@
 									   <th>품명</th>
 									   <th>주문수량</th>
 									   <th>상품재고</th>
-								<!-- 	   <th>재고확인</th> -->
 									   <th>납기일자</th>
 									   <th>진행현황</th>
 									   <th>출고일자</th>
@@ -78,7 +125,7 @@
 										    		</c:when>
 										    		<c:when test="${op.op_process.equals('미출고') }"> 
 										    			<a href="info?cont_id=${op.cont_id }&product_id=${op.product_id}"
-										    			   onclick="window.open(this.href, '_blank', 'width=900, height=500, left=510, top=365'); return false;">
+										    			   onclick="window.open(this.href, '_blank', 'width=900, height=400, left=510, top=365'); return false;">
 										    			   <img class="viewDetail" src="${pageContext.request.contextPath}/resources/images/viewDetail.png" width="10px" height="10px" alt="image" />
 										    			</a>					
 											    	</c:when>
@@ -87,20 +134,16 @@
 										    <td>${op.cust_name }</td>
 										    <td>${op.product_name }</td>
 										    <td>${op.cont_qty }</td>
-										    <td>${op.product_qty }</td>
-								<!-- 		    <td> -->
-								<%-- 		    	<c:choose> --%>
-								<%-- 		    		<c:when test="${op.op_process.equals('출고완료') }">ㅡ</c:when> --%>
-								<%-- 		    		<c:when test="${op.op_process.equals('미출고') }">  --%>
-								<%-- 			    		<c:if test="${op.product_qty - op.cont_qty >= 0 }"> --%>
-								<!-- 			    			<span style="color:blue">출고가능</span> -->
-								<%-- 			    		</c:if> --%>
-								<%-- 			    		<c:if test="${op.product_qty - op.cont_qty < 0 }"> --%>
-								<!-- 			    			<span style="color:red">출고불가</span> -->
-								<%-- 			    		</c:if> --%>
-								<%-- 			    	</c:when> --%>
-								<%-- 		    	</c:choose> --%>
-								<!-- 		    </td> -->
+										    <td>
+										    	<c:choose>
+										    		<c:when test="${op.op_process.equals('출고완료') }">
+										    			${op.tmp_qty }
+										    		</c:when>
+										    		<c:otherwise>
+										    			${op.product_qty }
+										    		</c:otherwise>
+										    	</c:choose>
+										    </td>
 										    <td>${op.due_date }</td>
 										    <td>${op.op_process}</td>
 										    <td>${op.op_date}</td>
@@ -115,7 +158,7 @@
 													<c:when test="${emp_department.equals('구매팀') || emp_department.equals('Master')}">
 														<c:if test="${empty op.op_id or op.op_id == '0' }">
 															<input type="button" class="btn btn-success" value="출고처리"
-													       		   onclick="location.href='/purchasing/outProduct/opid?cont_id=${op.cont_id }';">
+													       		   onclick="location.href='/purchasing/outProduct/opid?cont_id=${op.cont_id }&product_qty=${op.product_qty }';">
 														</c:if>
 													</c:when>
 													<c:otherwise> </c:otherwise>
@@ -131,15 +174,15 @@
 							<div class="template-demo">
 								<div class="btn-group" role="group" aria-label="Basic example">
 									<c:if test="${pvo.startPage > pvo.pageBlock }">
-										<a href="/purchasing/outProduct/list?pageNum=${pvo.startPage-pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">이전</a>
+										<a href="/purchasing/outProduct/list?pageNum=${pvo.startPage-pvo.pageBlock}&op_id=${pvo.op_id}&product_name=${pvo.product_name}&startDate=${pvo.startDate}&endDate=${pvo.endDate}&op_empName=${pvo.op_empName}" class="btn btn-outline-secondary">이전</a>
 									</c:if>
 									
 									<c:forEach var="i" begin="${pvo.startPage }" end="${pvo.endPage }" step="1">
-										<a href="/purchasing/outProduct/list?pageNum=${i }&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">${i }</a>
+										<a href="/purchasing/outProduct/list?pageNum=${i }&op_id=${pvo.op_id}&product_name=${pvo.product_name}&startDate=${pvo.startDate}&endDate=${pvo.endDate}&op_empName=${pvo.op_empName}" class="btn btn-outline-secondary">${i }</a>
 									</c:forEach>
 									
 									<c:if test="${pvo.endPage<pvo.pageCount }">
-										<a href="/purchasing/outProduct/list?pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">다음</a>
+										<a href="/purchasing/outProduct/list?pageNum=${pvo.startPage+pvo.pageBlock}&op_id=${pvo.op_id}&product_name=${pvo.product_name}&startDate=${pvo.startDate}&endDate=${pvo.endDate}&op_empName=${pvo.op_empName}" class="btn btn-outline-secondary">다음</a>
 									</c:if>
 								</div>
 							</div>

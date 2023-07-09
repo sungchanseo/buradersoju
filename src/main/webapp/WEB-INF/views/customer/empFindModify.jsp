@@ -71,17 +71,21 @@
 	//부모창으로 값 보내기 
 	function sendEmpInfoValue(id){
 		$.ajax({
-			url : '/customer/empInfo',
+			url : '/customer/empInfoModify',
 			type : 'get',
 			data : {
 				emp_id : id
 			},
 			success : function(data){
+				console.log(data);
 				window.opener.document.getElementById("emp_name").value = data.emp_name;
 				window.opener.document.getElementById("emp_tel").value = data.emp_tel;
 				window.opener.document.getElementById("emp_email").value = data.emp_email;
 				window.opener.document.getElementById("emp_id").value = data.emp_id;
 				window.close();
+			},
+			error : function(){
+				alert('실패');
 			}
 		});//ajax END
 	}//sendEmpInfoValue END

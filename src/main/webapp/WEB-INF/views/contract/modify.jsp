@@ -13,16 +13,59 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
-<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
 <link rel="stylesheet" href="${contextPath }/resources/css/table.css"/>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert창 링크 -->
 </head>
 <body>
+<script>
+	//수주처 검색 및 자동완성 기능 
+	function custPop(){
+		var custPop = window.open('/contract/custFind', '수주처검색', 'width=700px,height=650px');
+		
+		if(custPop == null){
+			 Swal.fire({
+		            icon: 'warning',				// Alert 타입
+		            title: '팝업이 차단되었습니다.',	// Alert 제목
+		            text: '차단을 해제하세요.',		// Alert 내용
+		            confirmButtonText: '확인',		// Alert 버튼내용
+	 		});
+		  }
+	}//custPop END
+	
+	//상품명 검색 및 자동완성 기능 
+	function productPop(){
+		var productPop = window.open('/contract/productFind', '상품검색', 'width=700px,height=500px');
+		
+		if(productPop == null){
+			  Swal.fire({
+		            icon: 'warning',				// Alert 타입
+		            title: '팝업이 차단되었습니다.',	// Alert 제목
+		            text: '차단을 해제하세요.',		// Alert 내용
+		            confirmButtonText: '확인',		// Alert 버튼내용
+	    		});
+		  }
+	}//productPop END
+	
+	//직원정보 검색 및 자동완성 기능 
+	function empPop(){
+		var empPop = window.open('/contract/empFind', '직원검색', 'width=700px,height=500px');
+		
+		if(empPop == null){
+			Swal.fire({
+	            icon: 'warning',				// Alert 타입
+	            title: '팝업이 차단되었습니다.',	// Alert 제목
+	            text: '차단을 해제하세요.',		// Alert 내용
+	            confirmButtonText: '확인',		// Alert 버튼내용
+			});
+		  }
+	}//empPop END
+</script>
 	<h1>수주번호 : ${contractInfo.cont_id }</h1>
-	<form action="" role="form" id="fr" method="post">
+	<form action="" role="form" id="fr" method="post" onsubmit="return false;">
 		<table border="1">
 			<tr>
-				<th>수주처이름</th>
+			
+				<th>수주처이름	<input type="hidden" id="cont_id" value="${contractInfo.cont_id }"></th>
 				<td><input type="text" name="cust_name" id="cust_name" value="${contractInfo.cust_name }" onclick="custPop();"></td>
 				<th>상품명</th>
 				<td><input type="text" name="product_name" id="product_name" value="${contractInfo.product_name }" onclick="productPop();"></td>
@@ -131,66 +174,39 @@
 				}//due_date 제어 
 		
 			//폼태그를 변수에 저장한다. 
-			var formObject = $("form[role='form']").serializeArray();
-				
+// 			var formObject = $("form[role='form']").serializeArray();
+			var formObject ={
+						cont_id : $('#cont_id').val(),
+						cust_name : $('#cust_name').val(),
+						product_name : $('#product_name').val(),
+						cont_emp : $('#cont_emp').val(),
+						cust_id : $('#cust_id').val(),
+						product_id : $('#product_id').val(),
+						cont_date : $('#cont_date').val(),
+						cont_qty : $('#cont_qty').val(),
+						production_id : $('#production_id').val(),
+						due_date : $('#due_date').val()
+			}// formObject END
 			
 			$.ajax({
 				url : '${contextPath}/contract/modify', 
 				type : 'POST', 
-				data : formObject, 
+				contentType : 'application/json; charset=utf-8',
+				data : JSON.stringify(formObject),
 				success : function() {
-                        window.opener.location.reload();
-                        window.close();
+					 Swal.fire({
+	                        title: '수주수정이 완료되었습니다.',
+	                        text: '확인을 누르면 창을 닫습니다.',
+	                        icon: 'success',
+	                        confirmButtonText: '확인'
+	                    }).then(() => {
+	                        window.opener.location.reload();
+	                        window.close();
+	                    });
 				}//success
 			});// ajax END
 		  });//submit END	
 	});// document.ready END
-		
-	
-	//수주처 검색 및 자동완성 기능 
-	function custPop(){
-		var custPop = window.open('/contract/custFind', '수주처검색', 'width=700px,height=650px');
-		
-		if(custPop == null){
-			 Swal.fire({
-		            icon: 'warning',				// Alert 타입
-		            title: '팝업이 차단되었습니다.',	// Alert 제목
-		            text: '차단을 해제하세요.',		// Alert 내용
-		            confirmButtonText: '확인',		// Alert 버튼내용
-     		});
-		  }
-// 		custPop.moveBy(100,100);
-	}//custPop END
-	
-	//상품명 검색 및 자동완성 기능 
-	function productPop(){
-		var productPop = window.open('/contract/productFind', '상품검색', 'width=700px,height=500px');
-		
-		if(productPop == null){
-			  Swal.fire({
-		            icon: 'warning',				// Alert 타입
-		            title: '팝업이 차단되었습니다.',	// Alert 제목
-		            text: '차단을 해제하세요.',		// Alert 내용
-		            confirmButtonText: '확인',		// Alert 버튼내용
-        		});
-		  }
-// 		productPop.moveBy(100,100);
-	}//productPop END
-	
-	//직원정보 검색 및 자동완성 기능 
-	function empPop(){
-		var empPop = window.open('/contract/empFind', '직원검색', 'width=700px,height=500px');
-		
-		if(empPop == null){
-			Swal.fire({
-	            icon: 'warning',				// Alert 타입
-	            title: '팝업이 차단되었습니다.',	// Alert 제목
-	            text: '차단을 해제하세요.',		// Alert 내용
-	            confirmButtonText: '확인',		// Alert 버튼내용
-    		});
-		  }
-// 		empPop.moveBy(100,100);
-	}//empPop END
 	</script>
 </body>
 </html>

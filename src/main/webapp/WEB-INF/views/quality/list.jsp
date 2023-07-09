@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <!-- 제이쿼리 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
 	
 	<style type="text/css">
 	/* 인쇄하기 가로 기본출력 지정 */
@@ -74,25 +74,27 @@
 <%-- 	${productionList } --%>
 	
 	<!-- 검색 -->
-	<div class="Qusearch">
-	<form name="QuCategory" action="/quality/qualityList" method="get">
+	<form action="/quality/qualityList" method="get">
 	<select class="Qusearch_select" name="selector">
-		<option value="검수번호">검수번호</option>
-		<option value="작업지시번호">작업지시번호</option>
-		<option value="생산라인">생산라인</option>
-		<option value="검수자">검수자</option>
-		<option value="검수완료일">검수완료일</option>
+		<option value="qc_num">검수번호</option>
+		<option value="a.production_id">작업지시번호</option>
+		<option value="a.production_line">생산라인</option>
+		<option value="emp_name">검수자</option>
 	</select>
-	<input type="text" class="Qusearch_input" name="searchName">	
-	<button type="submit">검색</button>
+	<input type="text" name="search" class="form-control" style="width:250px; display:inline;" placeholder="검색어를 입력해주세요">	
+	<button type="submit" class="btn btn-info">검색</button>
 	</form>
-	</div>
+<!-- 	<input type="text" class="Qusearch_input" name="searchName">	 -->
+<!-- 		<option value="검수완료일">검수완료일</option> -->
+<!-- 	</div> -->
 	
-	<!-- 관리자에게만 보이는 검수등록 버튼 -->
-	<input type="button" id="qualityInsertBT" class="btn btn-success" value="검수 등록"
-		onclick="window.open('/quality/insert', '_blank', 'width=600, height=500, left=2000');">
-	<button class="btn btn-success btn-fw" style='text-align: right; float: right;'>엑셀파일</button>
-	<button id="print-button" class="btn btn-success" onclick="info_print()" style='text-align: right; float: right;'>인쇄하기</button>
+	
+	<div style="float: right;">
+	<input type="button" id="qualityInsertBT" class="btn btn-success" style="margin: 1px;" value="검수 등록"
+		onclick="window.open('/quality/insert', '_blank', 'width=500, height=420, left=2000');">
+	<button class="btn btn-light" style='text-align: right; margin: 1px;'>엑셀파일</button>
+	<button id="print-button" class="btn btn-light" onclick="info_print()" style='text-align: right; margin: 1px;'>인쇄하기</button>
+	</div>
 		<script>
 			/* 인쇄하기 버튼 */
 			function info_print() {
@@ -122,7 +124,7 @@
 	<!-- 품질관리현황표 출력 -->
 	<div class="qualityList">
 <%-- 	${productionList } --%>
-	<table class="table table-color">
+	<table border="1" class="table table-hover table-bordered text-center">
 	
 		<thead>
 			<tr>
@@ -131,7 +133,7 @@
 				<th>생산라인</th>
 				<th>상품코드</th>
 				<th>상품명</th>
-				<th>생산량</th>
+				<th>작업지시수량</th>
 				<th>검수량</th>
 				<th>불량수량</th>
 				<th>불량률</th>
@@ -141,41 +143,28 @@
 			</tr>
 		</thead>
 		<tbody>	            
-			<c:forEach var="vo" items="${qualityList }">
-				<!-- 나중에 불필요한거 정리할 예정 -->
+			<c:forEach var="vo" items="${qualityList}">
 				<input type="hidden" id="production_qty" name="production_qty" value=" ${vo.production_qty}">
 				<input type="hidden" id="plan_qty" name="plan_qty" value=" ${vo.plan_qty}">
 				<input type="hidden" id="production_status" name="production_status" value=" ${vo.production_status}">
 			<tr class="qualityListResult">
-				<td><a href="/quality/info?qc_num=${vo.qc_num }" onclick="window.open(this.href, '_blank', 'width=800, height=500, left=2000'); return false;">${vo.qc_num}</a></td>
-				<td><a href="/production/workOrder/workOrder?production_id=${vo.production_id }" onclick="window.open(this.href, '_blank', 'width=800, height=500, left=2000'); return false;">${vo.production_id }</a></td>
+				<td><a href="/quality/info?qc_num=${vo.qc_num }" onclick="window.open(this.href, '_blank', 'width=800, height=500'); return false;"  style="color: black; text-decoration: none;">${vo.qc_num}</a></td>
+				<td><a href="/workOrder/info?production_id=${vo.production_id }" onclick="window.open(this.href, '_blank', 'width=600, height=450'); return false;"  style="color: black; text-decoration: none;">${vo.production_id }</a></td>
 				<td>${vo.production_line }</td>
 				<td>${vo.product_id }</td>
 				<td>${vo.product_name }</td>
-				<td>${vo.production_qty }</td>
+				<td>${vo.plan_qty }</td>
 				<td>${vo.qc_qty }</td>
 				<td>${vo.total_defQty }</td>
-				<td><fmt:formatNumber value="${(vo.def_qty /vo.qc_qty*100) }" pattern="#.###"/></td>
+				<td><fmt:formatNumber value="${(vo.total_defQty /vo.qc_qty*100) }" pattern="#.###"/>%</td>
 				<td>${vo.emp_name }</td>
-				<td><fmt:formatDate value="${vo.qc_date }" pattern="yyyy-MM-dd hh:mm:ss"/> </td>
+				<td><fmt:formatDate value="${vo.qc_date }" pattern="yyyy-MM-dd HH:mm:ss"/> </td>
 <%-- 				<td>${vo.qc_status }</td> --%>
 			</tr>
 			</c:forEach>
 	</tbody>
 	</table>
 	</div>
-	<!-- 	페이징 처리  -->
-<%-- 	<c:if test="${pvo.startPage > pvo.pageBlock }"> --%>
-<%-- 		<a href="/quality/list?pageNum=${pvo.startPage-pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}">이전</a> --%>
-<%-- 	</c:if> --%>
-
-<%-- 	<c:forEach var="i" begin="${pvo.startPage }" end="${pvo.endPage }" step="1"> --%>
-<%-- 		<a href="/quality/list?pageNum=${i }&selector=${pvo.selector}&search=${pvo.search}">${i }</a> --%>
-<%-- 	</c:forEach> --%>
-
-<%-- 	<c:if test="${pvo.endPage<pvo.pageCount }"> --%>
-<%-- 		<a href="/quality/list?pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}">다음</a> --%>
-<%-- 	</c:if> --%>
 	<!-- 	페이징 처리  -->
 	<div class="template-demo">
 		<div class="btn-group" role="group" aria-label="Basic example">

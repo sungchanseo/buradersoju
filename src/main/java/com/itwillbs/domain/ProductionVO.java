@@ -33,6 +33,7 @@ public class ProductionVO {
 	private int production_qty;
 	private String workOrder_status;
 	private String del_woStatus;
+	private String qc_id;
 //	private String product_id;
 	
 	// product
@@ -70,10 +71,10 @@ public class ProductionVO {
 	private String bt_date;
 	private int bt_qty;
 	private int bt_defQty;
+	private String del_bottle;
+	private int bt_emp;
+	private String bt_status;
 	
-	//검색어처리를 위한 변수 선언
-	private String selector; //검색자 
-	private String search; //검색어
 	
 	
 	// getter / setter
@@ -82,6 +83,30 @@ public class ProductionVO {
 	
 	public String getCont_id() {
 		return cont_id;
+	}
+	public String getQc_id() {
+		return qc_id;
+	}
+	public void setQc_id(String qc_id) {
+		this.qc_id = qc_id;
+	}
+	public String getBt_status() {
+		return bt_status;
+	}
+	public void setBt_status(String bt_status) {
+		this.bt_status = bt_status;
+	}
+	public String getDel_bottle() {
+		return del_bottle;
+	}
+	public int getBt_emp() {
+		return bt_emp;
+	}
+	public void setDel_bottle(String del_bottle) {
+		this.del_bottle = del_bottle;
+	}
+	public void setBt_emp(int bt_emp) {
+		this.bt_emp = bt_emp;
 	}
 	public int getTotal_defQty() {
 		return total_defQty;
@@ -332,24 +357,7 @@ public class ProductionVO {
 	public void setBt_defQty(int bt_defQty) {
 		this.bt_defQty = bt_defQty;
 	}
-	
-	// 검색 처리
-	public String getSelector() {
-		return selector;
-	}
-	public String getSearch() {
-		return search;
-	}
-	public void setSelector(String selector) {
-		this.selector = selector;
-	}
-	public void setSearch(String search) {
-		this.search = search;
-	}
 
-	
-	
-	
 	// toString()
 	@Override
 	public String toString() {
@@ -358,27 +366,20 @@ public class ProductionVO {
 				+ ", production_id=" + production_id + ", production_emp=" + production_emp + ", production_date="
 				+ production_date + ", op_id=" + op_id + ", production_line=" + production_line + ", plan_qty="
 				+ plan_qty + ", production_qty=" + production_qty + ", workOrder_status=" + workOrder_status
-				+ ", del_woStatus=" + del_woStatus + ", product_id=" + product_id + ", product_name=" + product_name
-				+ ", product_qty=" + product_qty + ", production_status=" + production_status + ", stage1_defCode="
-				+ stage1_defCode + ", stage1_defQty=" + stage1_defQty + ", stage1_date=" + stage1_date
-				+ ", stage2_defCode=" + stage2_defCode + ", stage2_defQty=" + stage2_defQty + ", stage2_date="
-				+ stage2_date + ", stage3_defCode=" + stage3_defCode + ", stage3_defQty=" + stage3_defQty
-				+ ", stage3_date=" + stage3_date + ", qc_num=" + qc_num + ", qc_emp=" + qc_emp + ", qc_date=" + qc_date
-				+ ", qc_qty=" + qc_qty + ", qc_status=" + qc_status + ", del_qcStatus=" + del_qcStatus
-				+ ", total_defQty=" + total_defQty + ", def_code=" + def_code + ", def_qty=" + def_qty + ", bt_date="
-				+ bt_date + ", bt_qty=" + bt_qty + ", bt_defQty=" + bt_defQty + ", selector=" + selector + ", search="
-				+ search + "]";
+				+ ", del_woStatus=" + del_woStatus + ", qc_id=" + qc_id + ", product_id=" + product_id
+				+ ", product_name=" + product_name + ", product_qty=" + product_qty + ", production_status="
+				+ production_status + ", stage1_defCode=" + stage1_defCode + ", stage1_defQty=" + stage1_defQty
+				+ ", stage1_date=" + stage1_date + ", stage2_defCode=" + stage2_defCode + ", stage2_defQty="
+				+ stage2_defQty + ", stage2_date=" + stage2_date + ", stage3_defCode=" + stage3_defCode
+				+ ", stage3_defQty=" + stage3_defQty + ", stage3_date=" + stage3_date + ", qc_num=" + qc_num
+				+ ", qc_emp=" + qc_emp + ", qc_date=" + qc_date + ", qc_qty=" + qc_qty + ", qc_status=" + qc_status
+				+ ", del_qcStatus=" + del_qcStatus + ", total_defQty=" + total_defQty + ", def_code=" + def_code
+				+ ", def_qty=" + def_qty + ", bt_date=" + bt_date + ", bt_qty=" + bt_qty + ", bt_defQty=" + bt_defQty
+				+ ", del_bottle=" + del_bottle + ", bt_emp=" + bt_emp + ", bt_status=" + bt_status + "]";
 	}
-	
-	
-
 
 	
-	
-	
-	
-	
-	
+
 	
 	
 }

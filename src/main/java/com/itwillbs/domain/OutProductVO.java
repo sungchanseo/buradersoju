@@ -12,6 +12,7 @@ public class OutProductVO {
     private String op_process;
     private Date op_date;
     private int op_emp;
+    private int tmp_qty;
     
     // product
     private String product_name;
@@ -33,6 +34,10 @@ public class OutProductVO {
     private String ma_id;
     private String ma_name;
     private int ma_qty;
+    
+    // 기간 조회 변수
+    private String startDate;
+    private String endDate;
     
     
     // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ getter & setter ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
@@ -81,8 +86,14 @@ public class OutProductVO {
 	public void setOp_emp(int op_emp) {
 		this.op_emp = op_emp;
 	}
+	public int getTmp_qty() {
+		return tmp_qty;
+	}
+	public void setTmp_qty(int tmp_qty) {
+		this.tmp_qty = tmp_qty;
+	}
 	
-
+	
 	// product
 	public String getProduct_qty() {
 		return product_qty;
@@ -158,14 +169,30 @@ public class OutProductVO {
 	}
 	
 	
+	// 기간 조회 변수
+	public String getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+	public String getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+	
+	
 	// toString
 	@Override
 	public String toString() {
 		return "OutProductVO [op_id=" + op_id + ", product_id=" + product_id + ", cont_id=" + cont_id + ", op_process="
-				+ op_process + ", op_date=" + op_date + ", op_emp=" + op_emp + ", product_name=" + product_name
-				+ ", product_qty=" + product_qty + ", due_date=" + due_date + ", cont_qty=" + cont_qty + ", cust_name="
-				+ cust_name + ", production_id=" + production_id + ", emp_name=" + emp_name + ", use_qty=" + use_qty
-				+ ", ma_id=" + ma_id + ", ma_name=" + ma_name + ", ma_qty=" + ma_qty + "]";
+				+ op_process + ", op_date=" + op_date + ", op_emp=" + op_emp + ", tmp_qty=" + tmp_qty
+				+ ", product_name=" + product_name + ", product_qty=" + product_qty + ", due_date=" + due_date
+				+ ", cont_qty=" + cont_qty + ", cust_name=" + cust_name + ", production_id=" + production_id
+				+ ", emp_name=" + emp_name + ", use_qty=" + use_qty + ", ma_id=" + ma_id + ", ma_name=" + ma_name
+				+ ", ma_qty=" + ma_qty + ", startDate=" + startDate + ", endDate=" + endDate + "]";
 	}
-
+	
 }

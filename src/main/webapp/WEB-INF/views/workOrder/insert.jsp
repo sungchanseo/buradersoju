@@ -7,55 +7,87 @@
 <head>
 <meta charset="UTF-8">
 <!-- 제이쿼리 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-
+<script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11%22%3E"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
 
 <title>작업 지시 등록</title>
 <style type="text/css">
-table {margin-bottom: 1em;}
+table {margin-bottom: 1em;
+	   text-align: center;
+	   border-radius: 10px;
+/*     border-collapse: collapse; */
+    }
 
 table, th {border: none;}
 
 th {background-color: #04AA6D;
-color: #fff;
-text-align: center;
-padding: 10px 8px;}
+	color: #fff;
+	text-align: center;
+	padding: 10px 8px;}
 
 td {border:1px solid #04AA6D;
-padding: 10px 6px;}
+	padding: 10px 6px;
+/*  	color: #6C7293;  */
+/* 	color: gray; */
+	}
 
 #tb-btns {margin-left: 0.5em;}
 
 .btn{
-display: inline-block;
-font-weight: 600;
-line-height: 1;
-color: #6c7293;
-text-align: center;
-text-decoration: none;
-vertical-align: middle;
-cursor: pointer;
-user-select: none;
-background-color: transparent;
-border: 1px solid transparent;
-padding: 0.625rem 1.125rem;
-font-size: 0.875rem;
-border-radius: 0.25rem;
-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;}
+/* 	display: inline-block; */
+	font-weight: 600;
+	line-height: 1;
+	color: #6C7293;
+	text-align: center;
+	text-decoration: none;
+	vertical-align: middle;
+	cursor: pointer;
+	user-select: none;
+	background-color: transparent;
+	border: 1px solid transparent;
+	padding: 0.625rem 1.125rem;
+	font-size: 0.875rem;
+	border-radius: 0.25rem;
+	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;}
     
 .btn-success {
-color: #000;
-background-color: #0ddbb9;
-border-color: #0ddbb9;}
+	color: #000;
+	background-color: #0ddbb9;
+	border-color: #0ddbb9;}
+	
+.btn-success:disabled {
+	opacity: 0.6;
+  	cursor: not-allowed;
+}
 
 .btn-info {
-color: #000;
-background-color: #2fddf8;
-border-color: #23dbf8;}
-/* .btn {background-color: #048; */
-/* padding:8px 10px; */
-/* color: #fff;} */
+	color: #000;
+	background-color: #2fddf8;
+	border-color: #23dbf8;}
+	
+.btn_add{
+	color: #ffffff;
+	background-color: #04AA6D;
+	border-color: #0ddbb9;}
+	
+.container {
+	position: relative;}
 
+/* .btn_btn { */
+/* 	position: absolute; */
+/* 	top: 0; */
+/* 	right: 0;} */
+	
+.btn-light {
+  color: #000;
+  background-color: #d8d8d8;
+  border-color: #d8d8d8;
+}
+
+.btn_table table {
+	width: 100%;}
+/* 테이블 css */
 
 
 </style>
@@ -175,7 +207,7 @@ border-color: #23dbf8;}
 			//수주번호 검색 및 자동완성 기능 
 			$("#cont_id").click(function(){
 				
-				var contPop = window.open('/workOrder/contFind', '수주검색', 'width=900px,height=500px');
+				var contPop = window.open('/workOrder/contFind', '수주검색', 'width=700px,height=500px,left=2000');
 				
 				if(contPop == null){
 					  alert("팝업이 차단되었습니다. 차단을 해제하세요.");
@@ -203,7 +235,6 @@ border-color: #23dbf8;}
 		              "<tr>" +
 		              "<td><input type='hidden' name='cont_id' value='"+cont_id+"'>" 
 		              + vo.product_id + "</td>" +
-	// 	              "<td>" + vo.cont_id + "</td>" +
 		              "<td>" + vo.product_name + "</td>" +
 		              "<td>" + vo.production_line + "</td>" +                           
 		              "</tr>"
@@ -224,89 +255,134 @@ border-color: #23dbf8;}
 		}); //(document).ready
 		/////////// 수주번호로 정보 조회(페이지 이동x) ///////////
 		/////////// 작업지시 등록(DB저장) ///////////
-		
-// 				ma_qtyList= $(".ma_qtyList").toArray();
-// 					$(".ma_nameList").toArray();
-// 				console.log("ma_nameList : " +JSON.stringify(ma_qtyList));
-				
-// 			        	ma_qtyList: ma_qtyList,
-// 			        	ma_nameList: ma_nameList
-// 			        	production_id: production_id,
-				// insert
-// 				$("#workOrderInsert").off('click');
-// 				var production_id = $("#production_id").val();
-// ma_qtyList: JSON.stringify(ma_qtyList),
-// 			        	ma_nameList: JSON.stringify(ma_nameList)
 			$(document).ready(function(){
 			$("#workOrderInsert").click(function(){
 				var cont_id = $("#cont_id").val();
-// 				console.log("cont_id : " +cont_id);
+				console.log("cont_id : " +cont_id);
 				var production_emp = $("#production_emp").val();
-// 				console.log("production_emp : " +production_emp);
+				console.log("production_emp : " +production_emp);
 				var production_line = $("#production_line").val();
-// 				console.log("production_line : " +production_line);
+				console.log("production_line : " +production_line);
 				var product_id = $("#product_id").val();
-// 				console.log("product_id : " +product_id);
+				console.log("product_id : " +product_id);
 				var plan_qty = $("#plan_qty").val();
-// 				console.log("plan_qty : " +plan_qty);
+				console.log("plan_qty : " +plan_qty);
 				var ma_qty = $("#ma_qty").val();
-// 				console.log("ma_qty : " +ma_qty);
+				console.log("ma_qty : " +ma_qty);
 				var ma_qtyList = [];
 				$(".ma_qtyList").each(function() {
 					ma_qtyList.push($(this).val());
 				});
-				JSON.stringify(ma_qtyList);
-				console.log("ma_qtyList : " +ma_qtyList);
+				console.log("ma_qtyList : " +JSON.stringify(ma_qtyList));
 				alert("ma_qtyList길이 :" + ma_qtyList.length);
 				var ma_nameList = [];
 				$(".ma_nameList").each(function() {
 					ma_nameList.push($(this).val());
 				});
-				console.log("ma_nameList : " +ma_nameList);
+				console.log("ma_nameList : " +JSON.stringify(ma_nameList));
 				console.log(Array.isArray(ma_qtyList));
 				console.log(Array.isArray(ma_nameList));
 				var ma_name = $("#ma_name").val();
 				console.log("ma_name : " +ma_name);
-				$.ajax({
-					url : 'workOrderInsert',
-					type : 'POST',
-					contentType : 'application/json',
-			        data : {
-			        	cont_id: cont_id,
-			        	production_emp: production_emp,
-			        	production_line: production_line,
-			        	product_id: product_id,
-			        	plan_qty: plan_qty,
-			        	ma_qty: ma_qty,
-			        	ma_qtyList: ma_qtyList,
-			        	ma_nameList: ma_nameList
-			        	},
-			        	success : function(data){
-			        		alert("성공");
-			        	},
-			        error : function(e){
-			        	console.log(e);
-			          } //complete
-				}); //ajax
-			}); // click
+				
+				
+				// form 동적 생성
+				var $form = $("<form>", {
+				    action: "",
+				    role: "form",
+				    id: "fr",
+				    method: "POST"
+				  });
+		  		
+				 $("<input>", {
+				    type: "hidden",
+				    name: "plan_qty",
+				    value: plan_qty
+				  }).appendTo($form);
+				
+				 $("<input>", {
+				    type: "hidden",
+				    name: "cont_id",
+				    value: cont_id
+				  }).appendTo($form);
+				 
+			      $("<input>", {
+				    type: "hidden",
+				    name: "production_emp",
+				    value: $("#production_emp").val()
+				  }).appendTo($form);
+				  
+				  $("<input>", {
+				    type: "hidden",
+				    name: "production_line",
+				    value: production_line
+				  }).appendTo($form);
+				  
+				  $("<input>", {
+				    type: "hidden",
+				    name: "product_id",
+				    value: $("#product_id").val()
+				  }).appendTo($form);
+				  
+				  $("<input>", {
+				    type: "hidden",
+				    name: "ma_qty",
+				    value: $("#ma_qty").val()
+				  }).appendTo($form);
+				  
+				  $("<input>", {
+				    type: "hidden",
+				    name: "ma_name",
+				    value: $("#ma_name").val()
+				  }).appendTo($form);
+
+				  $("<input>", {
+				    type: "hidden",
+				    name: "ma_nameList",
+				    value: ma_nameList.join(",")
+				  }).appendTo($form);
+
+				  $("<input>", {
+				    type: "hidden",
+				    name: "ma_qtyList",
+				    value: ma_qtyList.join(",")
+				  }).appendTo($form);
+				  
+				  $('body').append($form);
+				  
+				  sendForm();
+				  
+		}); //click; 
+		function sendForm() {
+			var formObject = $("form[role='form']").serialize();
+	
+			$.ajax({
+				url: 'workOrderInsert',
+				type: 'POST',
+				data: formObject,
+				success: function(json) {
+					alert("등록이 완료되었습니다.");
+					window.opener.location.reload();
+					window.close();
+				}
+			});
+		} //function
 		});  // $(document).ready
 		/////////// 작업지시 등록(DB저장) ///////////
-// 			        }, //error
-// 			        complete: function() {
-// 			            alert("insert 저장 완료");
-// 			            window.opener.location.reload();
-// 			            window.close();
 	</script>
 	<!-- 상품코드 조회/수주번호 조회/자재 재고 계산/작업지시 등록 -->
 	
 	
-	<h1>작업지시 등록</h1>
+	<h1 style="display: flex; justify-content: center;">작업지시 등록</h1>
 	
+	<div style="display: flex; justify-content: center;">
 	<div>
 	  <table class="table table-color">
 		<tr>
 		<th colspan="1">수주번호</th>
-		 <td colspan="1"><input type="text" name="cont_id" id="cont_id"></td>
+		 <td colspan="1"><input type="text" name="cont_id" id="cont_id" style="border:none; width:130px; cursor: pointer; text-align: center;" placeholder="수주번호선택" >
+<!-- 		 </td> -->
+<!--         <input type="button" id="btn_contSearch" onclick="contSearch" value="조회"> </td> -->
 <!-- 		 <td ></td> -->
 <!-- 		 <th></th> -->
 		    <th>작업지시자</th>
@@ -316,12 +392,11 @@ border-color: #23dbf8;}
 		 </tr>
 <!--        <td>  -->
 <!--        <input type="text" id="cont_id" name="cont_id" value=""> -->
-<!--         <input type="button" id="btn_contSearch" onclick="contSearch();" value="조회"> </td> -->
 		
 	<tr>
 	 <th>상품코드</th>
 		 <td style="whidth : 30px;" >
-		  <select class=product_select id="product_id" name="product_id">
+		  <select class=product_select id="product_id" name="product_id" style="width:80px; text-align: center;">
 		  	<option value="상품코드">상품코드</option>
 		    <option value="PR136">PR136</option>
 		    <option value="PR216">PR216</option>
@@ -333,15 +408,17 @@ border-color: #23dbf8;}
 		  </select>
 		 </td>
 		  <th>작업지시수량</th>
-		 <td><input type="text" id="plan_qty" name="plan_qty" ></td>
+		 <td><input type="text" id="plan_qty" name="plan_qty" style="width:130px;"></td>
 <!-- 		 <td><input type="button" id="materialCal" value="계산"></td> -->
 		 </tr>
 		</table>
+		</div>
+		</div>
 <!--    	<hr> -->
 <!--    	<form id="woInsert"  method="post"> -->
 
-<div style="display: flex;">
-  <div style="flex: 1;">
+<div style="flex: 1; display: flex; justify-content: center;">
+<!--   <div style="flex: 1;"> -->
     <table id="woInsertTable" border="1">
       <!-- 첫 번째 테이블 내용 -->
 <!--         <table id="woInsertTable" border="1" > -->
@@ -356,9 +433,10 @@ border-color: #23dbf8;}
       <!-- 값 공간 -->
     </tbody>
     </table>
-  </div>
-  <div style="flex: 1.7;">
-    <table id="meInsertTable" class="table table-color">
+<!--   </div> -->
+<!--   <div style="flex: 1.1;"> -->
+<!--   <div style="display: flex; justify-content: center;"> -->
+    <table id="meInsertTable" class="table table-color" >
       <!-- 두 번째 테이블 내용 -->
 <!--       <table id="meInsertTable" class="table table-color"> -->
     <thead>
@@ -373,19 +451,14 @@ border-color: #23dbf8;}
     </tbody>
   </table>
 <!--     </table> -->
-  </div>
+<!--   </div> -->
+<!-- </div> -->
 </div>
-	
-<!--   </table> -->
-<!--   <br> -->
-<!-- 		<table class="table table-color"> -->
-<!-- 		<tr> -->
-		
-<!-- 		</tr> -->
-<!-- 	  </table> -->
-  
+<!--   </div> -->
+  <div style="display: flex; justify-content: center;">
+	<button type="button" id="workOrderInsert" class="btn btn-success" style="margin: 0.8px;" >등록</button>
+	<button type="button" class="btn btn-light" onclick="window.close();"style="margin: 0.8px;" >취소</button>
   </div>
-	<button type="button" id="workOrderInsert" class="btn btn-success">등록</button>
 <!-- 	</form> -->
 	
 </body>

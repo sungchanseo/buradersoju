@@ -18,7 +18,7 @@
 <body>
      <h1 class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${customerInfo.cust_name } </font></font></h1>
 
-	<table border="1">
+	<table border="1" style="table-layout:fixed;">
 		<tr>
 			<th>거래처유형</th>
 			<td>${customerInfo.cust_type }</td>

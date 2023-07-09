@@ -2,13 +2,15 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../../includes/header.jsp" %>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert창 링크 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script type="text/javascript">
 
-	  
+//팝업창 열기	  
 function openPopup() {
 	window.open('./insert', 'warehousePopup', 'width=800, height=500, left=2000');
 }
+
 //체크박스 선택된 개수 출력
 function getCheckedCnt()  {
 	  // 선택된 목록 가져오기
@@ -97,7 +99,6 @@ $('.modify').click(function(){
 				    $.ajax({
 							url: "modify",
 							type: "post",
-							dataType : "json",
 							contentType : "application/json;charset=UTF-8",
 							data: JSON.stringify({ 
 								whs_id:whs_id,
@@ -107,7 +108,7 @@ $('.modify').click(function(){
 								whs_emp:whs_emp
 							}),
 							success: function() {
-								alert("창고코드 " + whs_id + ", 수정이 완료되었습니다. @success@" );
+								alert("창고코드 " + whs_id + ", 수정이 완료되었습니다. ");
 								location.href="/purchasing/warehouse/list";
 								},
 							error: function() {
@@ -152,15 +153,42 @@ $('.modify').click(function(){
 			type: "post",
 			data: { whs_id:whs_id },
 			success: function() {
-				var result = confirm("창고코드 " + whs_id + "를 정말 삭제하시겠습니까?");
-				if(result){
-					alert("삭제가 완료되었습니다.");
-					location.href="/purchasing/warehouse/list";
-				}
+				Swal.fire({
+					text: '창고번호 ' + whs_id + '를 정말 삭제하시겠습니까?',
+					icon: 'warning',
+					showCancelButton: true,
+					confirmButtonColor: '#0ddbb9',
+					cancelButtonColor: '#d33',
+					confirmButtonText: '확인',
+					cancelButtonText: '취소'
+				}).then((result) => {
+					if (result.isConfirmed) {
+						Swal.fire({
+							icon: 'success',
+							title: '완료',
+							text: '창고번호 ' + whs_id + ', 삭제가 완료되었습니다.',
+							confirmButtonColor: '#0ddbb9',
+							confirmButtonText: '확인',
+						}).then((result) => {
+							if(result.isConfirmed){
+								location.href="/purchasing/warehouse/list";
+							}
+						}); // then(result) 삭제하시겠습니까?
+					}
+				}); // then(result) 삭제가 완료되었습니다
 			},
 			error: function() {
-				alert("삭제할 항목을 선택해주세요.");
-			}
+				Swal.fire({
+					icon: 'warning',
+					text: '삭제할 항목을 선택해주세요.',
+					confirmButtonColor: '#0ddbb9',
+					confirmButtonText: '확인',
+				}).then((result) => {
+					if(result.isConfirmed){
+						return false;
+					}
+				}); // then(result)
+			} //error
 	    }); //ajax		
 	
 	}); // deleteForm.click
@@ -169,9 +197,10 @@ $('.modify').click(function(){
 </script>
 </head>
 <body>
-	<br>
+<br>
+
 	<div class="container-scroller">
-<!-- 		<div class="container-fluid page-body-wrapper full-page-wrapper"> -->
+		<div class="container-fluid page-body-wrapper full-page-wrapper"> 
 			<div class="main-panel">
 				<div class="content-wrapper d-flex align-items-center auth px-0"
 					style="min-height: 100vh;">
@@ -179,35 +208,37 @@ $('.modify').click(function(){
 						<div class="col-lg-12 mx-auto">
 							<div class="auth-form-light text-left py-5 px-4 px-sm-5"
 								style="height: 1000px;">
-<br><br>
- 
-	<h1 class="card-title">
-		<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">창고 리스트</font></font>
-	</h1>
-	
+ 	
+ 	<!-- 제목 -->
+ 	<div class="card-body">
+	     <h1 class="card-title">
+		    <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">창고 리스트</font></font>
+     	 </h1>
+	</div>
  	
      <c:if test="${emp_department.equals('구매팀') || emp_department.equals('Master')}">
 		<div style=float:right;>
-			<button class="btn btn-success add-button" type="button" onclick="openPopup();">창고등록</button>
-			<button class="btn btn-success modify true">창고수정</button>
-			<button class="btn btn-success" id="delete">창고삭제</button>
+			<button class="btn btn-success add-button" type="button" onclick="openPopup();">등록</button>
+			<!-- <button class="btn btn-success modify true">수정</button> -->
+			<button class="btn btn-success" id="delete">삭제</button>
 			<button class="btn btn-info insert update">저장</button>
 		</div>
 	</c:if>	
 	<div>
 	<ul class="nav nav-tabs tab-no-active-fill" role="tablist">
-	<li class="nav-item">
+	   <li class="nav-item">
 	<a class="nav-link ps-2 pe-2 active" id="stage1-tab" data-bs-toggle="tab" href="#stage1" role="tab" aria-controls="stage1" aria-selected="true">자재창고</a>
-	</li>
-	<li class="nav-item">
+	   </li>
+	   <li class="nav-item">
 	<a class="nav-link ps-2 pe-2" id="stage2-tab" data-bs-toggle="tab" href="#stage2" role="tab" aria-controls="stage2" aria-selected="false">상품창고</a>
-    </li>
+       </li>
 	</ul>								
-	<div class="tab-content tab-no-active-fill-tab-content">
+	  <div class="tab-content tab-no-active-fill-tab-content">
 	
-	<div class="tab-pane fade active show" id="stage1" role="tabpanel" aria-labelledby="stage1-tab">
-     
+	  <div class="tab-pane fade active show" id="stage1" role="tabpanel" aria-labelledby="stage1-tab">
+     <div>
 	<!-- 테이블 -->
+	
 	<table border="1" class="table table-hover table-bordered text-center">
 		<tr>
 			<th></th>
@@ -238,6 +269,7 @@ $('.modify').click(function(){
 			</tr>
 		</c:forEach>
 	</table>
+  </div>
 </div>
 <!-- 2번째 탭 내용들  -->
 <div class="tab-pane fade show" id="stage2" role="tabpanel" aria-labelledby="stage2-tab">
@@ -272,14 +304,17 @@ $('.modify').click(function(){
 			</tr>
 		</c:forEach>
 	</table>
-   </div>
+              </div>
+             </div>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+     </div>
+    </div>
   </div>
- </div>
- </div>
-  </div>
- </div>
- </div>
- </div>
- </div>
  
 <%@ include file="../../includes/footer.jsp" %>
+</body>
+</html>

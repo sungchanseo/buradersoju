@@ -54,26 +54,52 @@ public class OutProductController {
 	    // 리스트 출력 (페이징처리 X)
 //		List<OutProductVO> outproductList = oService.getOutProductList();
 		
-		
 		// 리스트 출력 (페이징처리 O)
 		List<Object> outproductList = null;
 		pvo = oService.pagingAction(pvo);
 		logger.debug("@@@@@@@@@@ pvo : {}", pvo);
 		
+		
+		// form 태그 정보 저장
+		String startDate = request.getParameter("startDate");
+		String endDate = request.getParameter("endDate");
+		String op_id = request.getParameter("op_id");
+		String product_name = request.getParameter("product_name");
+		String op_empName = request.getParameter("op_empName");
+		
+		if(startDate == null && endDate == null) {
+			startDate = "2023-07-01";
+			endDate = "2023-07-31";
+		}
+		
+		pvo.setStartDate(startDate);
+		pvo.setEndDate(endDate);
+		pvo.setOp_id(op_id);
+		pvo.setProduct_name(product_name);
+		pvo.setOp_empName(op_empName);
+		
+		
 		// 검색로직
-		if(pvo.getSelector()!=null && pvo.getSelector()!="") {
+		if(pvo.getOp_id() != null || pvo.getProduct_name() != null || pvo.getOp_empName() != null) {
 			//검색어가 있을 때 
 			logger.debug("@@@@@@@@@@ 검색어가 있을 때");
 			outproductList = oService.getListSearchObjectOutProductVO(pvo);
+			logger.debug("@@@@@@@@@@ pvo >>>>>>>>>>>>" + pvo);
 		}else {
 			//검색어가 없을 때
 			logger.debug("@@@@@@@@@@ 검색어가 없을 때");
 			outproductList = oService.getListPageSizeObjectOutProductVO(pvo);
+			logger.debug("@@@@@@@@@@ pvo >>>>>>>>>>>>" + pvo);
 		}
 		
 		
 		// View 페이지 전달
 		model.addAttribute("pvo", pvo);
+		model.addAttribute("startDate", startDate);
+		model.addAttribute("endDate", endDate);
+		model.addAttribute("op_id", op_id);
+		model.addAttribute("product_name", product_name);
+		model.addAttribute("op_empName", op_empName);
 		model.addAttribute("outproductList", outproductList);
 		model.addAttribute("emp_department", session.getAttribute("emp_department"));
 		
@@ -95,14 +121,18 @@ public class OutProductController {
 		model.addAttribute("maxDate", maxDate);
 	}
 	
-	// 2-2. 출고번호 & "재고량 감소" - DB 업데이트
+	// 2-2. 출고번호 & 재고량 감소 - DB 업데이트
 	@RequestMapping(value="/opid", method=RequestMethod.POST)
 	public void getOpIdPOST(Model model, @RequestBody OutProductVO vo) throws Exception{
 		logger.debug("@@@@@@@@@@ getOpIdPOST()_호출");
 		logger.debug("@@@@@@@@@@ vo = " + vo);
 		
-		// 입고번호, 발주번호 DB에 저장
+		// op_id & tmp_qty DB에 저장
 		oService.registOpId(vo);
+//		oService.getTmpQty(vo.getCont_id());
+		
+		// 상품재고량 감소
+		
 	}
 	
 	

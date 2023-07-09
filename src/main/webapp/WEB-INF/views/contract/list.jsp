@@ -17,90 +17,104 @@
 
 </head>
 <body>
-<div>
-<div class="card-body">
-		<h1 class="card-title">
-			<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">수주 리스트</font></font>
-		</h1>
+<div class="container-scroller">
+		<div class="container-fluid page-body-wrapper full-page-wrapper">
+			<div class="main-panel">
+				<div class="content-wrapper d-flex align-items-center auth px-0"
+					style="min-height: 100vh;">
+					<div class="row w-100 mx-0">
+						<div class="col-lg-12 mx-auto">
+							<div class="auth-form-light text-left py-5 px-4 px-sm-5"
+								style="height: 1000px;">
 
-		<!-- 검색창기능 -->
-		<form action="/contract/list" method="get" style="display: inline;">
-			<select name="selector">
-				<option value="cust_name">상품명</option>
-				<option value="cust_id">수주처</option>
-			</select> <input type="text" name="search" placeholder="검색어를 입력해주세요">
-			<input type="submit" class="btn btn-info" value="검색">
-		</form>
-		<!-- 검색창기능 -->
-		
-		<!-- 영업팀이 아닐때 버튼 감추기 -->
-		<div style="float:right; display:inline;">
-			<c:if test="${emp_department.equals('영업') || emp_department.equals('영업팀') || emp_department.equals('Master')}">
-				<button type="button" class="btn btn-success" onclick="openPop();">수주등록</button>
-			</c:if>
-				<form action="/contract/downExcel" id="excelForm" method="post" style="display:inline;">
-					<input type="hidden" name="contractList" value="${contractList }">
-					<button type="submit" class="btn btn-light" id="excel" form="excelForm">엑셀다운</button>
-				</form>
-				<button type="button" class="btn btn-light" id="print" onclick="printList();">출력하기</button>
-		</div>
-		<!-- 영업팀이 아닐때 버튼 감추기 -->
-
-		<!-- 수주목록 테이블 -->
-		<div class="table-responsive">
-                    <table class="table table-hover">
-                      <thead>
-                        <tr>
-                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">수주번호</font></font></th>
-                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">상품코드</font></font></th>
-                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">상품명</font></font></th>
-                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">수주처</font></font></th>
-                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">수주일</font></font></th>
-                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">수주량</font></font></th>
-                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">납기일</font></font></th>
-                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">작업지시번호</font></font></th>
-                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">담당자</font></font></th>
-                        </tr>
-                      </thead>
-                      <c:forEach var="vo" items="${contractList }">
-	                      <tbody>
-	                        <tr onclick="infoPop('${vo.cont_id}')">
- 								<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.cont_id }</font></font></td>
-								<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" id="product_id"  value="${vo.product_id }" onclick="infoPop('${vo.cont_id}');">${vo.product_id }</font></font></td>
-								<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" id="product_name"  value="${vo.product_name }" onclick="infoPop('${vo.cont_id}');">${vo.product_name }</font></font></td>
-								<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" id="cust_name" value="${vo.cust_name }">${vo.cust_name }</font></font></td>
-								<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" id="cont_date" value="${vo.cont_date }">${vo.cont_date }</font></font></td>								
-								<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" id="cont_qty" value="${vo.cont_qty }">${vo.cont_qty }</font></font></td>
-								<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" id="due_date" value="${vo.due_date }">${vo.due_date }</font></font></td>
-								<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" id="production_id" value="${vo.production_id }">${vo.production_id }</font></font></td>
-								<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" id="cont_emp" value="${vo.cont_emp }">${vo.cont_emp }</font></font></td>
-	                        </tr>
-	                      </tbody>
-                       
-                      	</c:forEach>
-                    </table>
-                  </div>
-                </div>
-		<!-- 수주목록 테이블 -->
-		
-	<!-- 	페이징 처리  -->
-	<div class="template-demo">
-		<div class="btn-group" role="group" aria-label="Basic example">
-			<c:if test="${pvo.startPage > pvo.pageBlock }">
-				<a href="/contract/list?pageNum=${pvo.startPage-pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">이전</a>
-			</c:if>
-			
-			<c:forEach var="i" begin="${pvo.startPage }" end="${pvo.endPage }" step="1">
-				<a href="/contract/list?pageNum=${i }&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">${i }</a>
-			</c:forEach>
-			
-			<c:if test="${pvo.endPage<pvo.pageCount }">
-				<a href="/contract/list?pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">다음</a>
-			</c:if>
+								<div class="card-body">
+										<h1 class="card-title">
+											<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+											<span onclick="location.href='/contract/list'">수주 리스트</span></font></font>
+										</h1>
+										<!-- 검색창기능 -->
+										<form action="/contract/list" method="get" style="display:inline;">
+											<select name="selector" class="auth auth-form-light select">
+												<option value="cust_name">상품명</option>
+												<option value="cust_id">수주처</option>
+											</select> <input type="text" name="search" placeholder="검색어를 입력해주세요">
+											<input type="submit" class="btn btn-info" value="검색">
+										</form>
+										<!-- 검색창기능 -->
+										
+										<!-- 영업팀이 아닐때 버튼 감추기 -->
+										<div style="float:right; display:inline;">
+											<c:if test="${emp_department.equals('영업') || emp_department.equals('영업팀') || emp_department.equals('Master')}">
+												<button type="button" class="btn btn-success" onclick="openPop();">수주등록</button>
+											</c:if>
+<!-- 												<form action="/contract/downExcel" id="excelForm" method="post" style="display:inline;"> -->
+<%-- 													<input type="hidden" name="contractList" value="${contractList }"> --%>
+<!-- 													<button type="submit" class="btn btn-light" id="excel" form="excelForm">엑셀다운</button> -->
+<!-- 												</form> -->
+												<button type="button" class="btn btn-light" id="print" onclick="printList();">출력하기</button>
+										</div>
+										<!-- 영업팀이 아닐때 버튼 감추기 -->
+										
+										<!-- 수주목록 테이블 -->
+										<div class="table-responsive">
+								                    <table class="table table-hover" style="text-align:center;">
+								                      <thead>
+								                        <tr>
+								                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">수주번호</font></font></th>
+								                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">상품코드</font></font></th>
+								                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">상품명</font></font></th>
+								                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">수주처</font></font></th>
+								                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">수주일</font></font></th>
+								                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">수주량</font></font></th>
+								                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">납기일</font></font></th>
+								                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">작업지시번호</font></font></th>
+								                          <th><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">담당자</font></font></th>
+								                        </tr>
+								                      </thead>
+								                      <c:forEach var="vo" items="${contractList }">
+									                      <tbody>
+									                        <tr onclick="infoPop('${vo.cont_id}')">
+								 								<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${vo.cont_id }</font></font></td>
+																<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" id="product_id"  value="${vo.product_id }" onclick="infoPop('${vo.cont_id}');">${vo.product_id }</font></font></td>
+																<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" id="product_name"  value="${vo.product_name }" onclick="infoPop('${vo.cont_id}');">${vo.product_name }</font></font></td>
+																<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" id="cust_name" value="${vo.cust_name }">${vo.cust_name }</font></font></td>
+																<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" id="cont_date" value="${vo.cont_date }">${vo.cont_date }</font></font></td>								
+																<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" id="cont_qty" value="${vo.cont_qty }">${vo.cont_qty }</font></font></td>
+																<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" id="due_date" value="${vo.due_date }">${vo.due_date }</font></font></td>
+																<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" id="production_id" value="${vo.production_id }">${vo.production_id }</font></font></td>
+																<td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" id="cont_emp" value="${vo.cont_emp }">${vo.cont_emp }</font></font></td>
+									                        </tr>
+									                      </tbody>
+								                       
+								                      	</c:forEach>
+								                    </table>
+								                  </div>
+								                </div>
+										<!-- 수주목록 테이블 -->
+										
+									<!-- 	페이징 처리  -->
+									<div class="template-demo">
+										<div class="btn-group" role="group" aria-label="Basic example">
+											<c:if test="${pvo.startPage > pvo.pageBlock }">
+												<a href="/contract/list?pageNum=${pvo.startPage-pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">이전</a>
+											</c:if>
+											
+											<c:forEach var="i" begin="${pvo.startPage }" end="${pvo.endPage }" step="1">
+												<a href="/contract/list?pageNum=${i }&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">${i }</a>
+											</c:forEach>
+											
+											<c:if test="${pvo.endPage<pvo.pageCount }">
+												<a href="/contract/list?pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">다음</a>
+											</c:if>
+										</div>
+									</div>
+									<!-- 	페이징 처리  -->
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
-	<!-- 	페이징 처리  -->
-	
 </div>
 </body>
 	<!-- 수주등록 새창열기  -->

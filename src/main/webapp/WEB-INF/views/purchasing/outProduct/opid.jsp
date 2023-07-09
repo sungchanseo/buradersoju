@@ -68,9 +68,11 @@ $(document).ready(function(){
 		var yesterday = getYesterday();
 		
 		
-		// cont_id 정보 저장       
+		// cont_id & product_qty 정보 저장       
 		var cont_id = "${param.cont_id }";
+		var product_qty = "${param.product_qty }";
 		console.log("************ cont_id = " + cont_id);
+		console.log("************ product_qty = " + product_qty);
 
 
 		// maxDate 정보 저장
@@ -121,6 +123,7 @@ $(document).ready(function(){
 				data: JSON.stringify({
 					op_id:op_id,
 					cont_id:cont_id,
+					product_qty:product_qty,
 					op_emp:op_emp,
 					op_date:today
 				}),

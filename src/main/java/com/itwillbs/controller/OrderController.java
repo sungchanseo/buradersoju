@@ -71,12 +71,10 @@ public class OrderController {
 					
 					//검색어가 있을 때 
 					logger.debug("@@@@@@@@@@ 검색어가 있을 때");
-//					OrderLists = orserivce.getListSearchObjectInMaterialVO(pvo);
 					OrderLists = orserivce.getListSearchObjectOrderVO(pvo);
 					}else {
 					//검색어가 없을 때
 					logger.debug("@@@@@@@@@@ 검색어가 없을 때");
-//					OrderLists = orserivce.getListPageSizeObjectInMaterialVO(pvo);
 					OrderLists = orserivce.getListPageSizeObjectOrderVO(pvo);
 				}
 
@@ -109,23 +107,6 @@ public class OrderController {
 		logger.debug("######################## order_id 1번째 = " + order_id + "#### order_id 2번째 : " +vo.getOrder_id());
 		return "redirect:/purchasing/order/list";
 	}
-
-//// http://localhost:8088/purchasing/order/list
-//	@RequestMapping(value = "/lists", method = RequestMethod.GET)
-//	@ResponseBody
-//	public List<OrderVO> modifyOrderGET2(Model model, String ma_id) throws Exception {
-//
-//		logger.debug("ma_id" + ma_id);
-//
-//		// 테이블의 정보를 가져와서 모델에 추가
-//		List<OrderVO> orderLists = orserivce.getMaterialList(ma_id);
-//
-//		model.addAttribute("orderLists", orderLists);
-//		logger.debug("orderLISTssssssssss가져와지나???");
-//
-//		return orderLists;
-//	}
-
 	// 발주 수정 (조회)
 	// http://localhost:8088/purchasing/order/list
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)
@@ -139,22 +120,22 @@ public class OrderController {
 
 		return orderVo;
 	}
-
+// 수정 자동완성
 //   http://localhost:8088/purchasing/order/list
 //  발주 수정 (데이터처리)
 	@RequestMapping(value = "/modify", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String modifyMaterialPOST(@RequestBody OrderVO ovo) throws Exception {
+	public void modifyMaterialPOST(@RequestBody OrderVO ovo) throws Exception {
 		logger.debug("@@@@@@@@@@ modifyMaterialPOST_호출");
 
 		// 전달된 정보 저장
 		logger.debug("@@@@@@@@@@ 수정된 데이터 : " + ovo);
-
+		orserivce.modifyOrder(ovo);
 		// 서비스 객체 사용으로 데이터 처리
 		Integer result = orserivce.modifyOrder(ovo);
 		logger.debug("@@@@@@@@@@ 업데이트 된 행의 수  : " + result);
 
-		return "redirect:/purchasing/order/list";
+//		return "redirect:/purchasing/order/list";
 	}
 
 	// 발주 정보 삭제

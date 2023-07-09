@@ -107,6 +107,7 @@ public class OutProductDAOImpl implements OutProductDAO {
 	// 검색어 있을 때 목록 개수 	
 	@Override
 	public int getListSearchAll(PagingVO pvo) throws Exception {
+		logger.debug("################# startDate & endDate" + pvo.getStartDate() + pvo.getEndDate());
 		return sqlSession.selectOne(NAMESPACE+".getListSearchAll", pvo);
 	}
 	
@@ -124,26 +125,26 @@ public class OutProductDAOImpl implements OutProductDAO {
 	
 	
 	// 2. 객체 가져오기
-	// 아무조건이 없을 때 전체 목록 객체
+	// 아무조건이 없을 때 전체 목록
 	@Override
 	public List<Object> getListPageSizeObjectOutProductVO(PagingVO pvo) throws Exception {
 		return sqlSession.selectList(NAMESPACE+".getListPageSizeObjectOutProductVO", pvo);
 	}
 	
-	// 검색어 있을 때 목록 객체	
+	// 검색어 있을 때 목록
 	@Override
 	public List<Object> getListSearchObjectOutProductVO(PagingVO pvo) throws Exception {
-	logger.debug("****************PagingDAO : getListSearchObject()메소드 호출!");
+		logger.debug("################# startDate & endDate" + pvo.getStartDate() + pvo.getEndDate());
 		return sqlSession.selectList(NAMESPACE+".getListSearchObjectOutProductVO", pvo);
 	}
 	
-	// 필터있을 때 전체 목록 객체
+	// 필터있을 때 전체 목록
 	@Override
 	public List<Object> getListFilterObjectOutProductVO(PagingVO pvo) throws Exception {
 		return sqlSession.selectList(NAMESPACE+".getListFilterObjecOutProductVO",pvo);
 	}
 	
-	// 검색어와 필터 모두 있을 때 전체 목록 개수
+	// 검색어와 필터 모두 있을 때 전체 목록
 	@Override
 	public List<Object> getListSearchFilterObjectOutProductVO(PagingVO pvo) throws Exception {
 		return sqlSession.selectList(NAMESPACE+".getListSearchFilterObjectOutProductVO", pvo);

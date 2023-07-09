@@ -54,26 +54,50 @@ public class OutProductController {
 	    // 리스트 출력 (페이징처리 X)
 //		List<OutProductVO> outproductList = oService.getOutProductList();
 		
-		
 		// 리스트 출력 (페이징처리 O)
 		List<Object> outproductList = null;
 		pvo = oService.pagingAction(pvo);
 		logger.debug("@@@@@@@@@@ pvo : {}", pvo);
 		
+		
+		// 날짜 정보 받아오기
+		String startDate = request.getParameter("startDate");
+		String endDate = request.getParameter("endDate");
+		
+		if(startDate == null && endDate == null) {
+			startDate = "2023-07-01";
+			endDate = "2023-07-31";
+		}
+		
+		pvo.setStartDate(startDate);
+		pvo.setEndDate(endDate);
+		
+		
 		// 검색로직
-		if(pvo.getSelector()!=null && pvo.getSelector()!="") {
+		if(pvo.getSelector() != null && pvo.getSelector() != "") {
 			//검색어가 있을 때 
 			logger.debug("@@@@@@@@@@ 검색어가 있을 때");
 			outproductList = oService.getListSearchObjectOutProductVO(pvo);
+			logger.debug("@@@@@@@@@@ pvo >>>>>>>>>>>>" + pvo);
 		}else {
 			//검색어가 없을 때
 			logger.debug("@@@@@@@@@@ 검색어가 없을 때");
 			outproductList = oService.getListPageSizeObjectOutProductVO(pvo);
+			logger.debug("@@@@@@@@@@ pvo >>>>>>>>>>>>" + pvo);
+		}
+		
+		
+		if(pvo.getSelector() == null) {
+			pvo.setSelector("op_id");
 		}
 		
 		
 		// View 페이지 전달
 		model.addAttribute("pvo", pvo);
+		model.addAttribute("startDate", startDate);
+		model.addAttribute("endDate", endDate);
+		model.addAttribute("selector", pvo.getSelector());
+		model.addAttribute("search", pvo.getSearch());
 		model.addAttribute("outproductList", outproductList);
 		model.addAttribute("emp_department", session.getAttribute("emp_department"));
 		

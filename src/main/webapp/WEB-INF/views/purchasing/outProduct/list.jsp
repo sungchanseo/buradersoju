@@ -5,6 +5,46 @@
 
 <%@ include file="../../includes/header.jsp" %>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script>
+
+window.onload = function() {
+	// 오늘 날짜 정보
+	today = new Date();
+	console.log("today.toISOString() >>>" + today.toISOString());
+	today = today.toISOString().slice(0, 10);
+	console.log("today >>>> " + today);
+	bir = document.getElementById("getToday");
+	bir.value = today;
+	
+	// 일주일 전 날짜 정보
+	thisDate = new Date();
+	day = thisDate.getDay();
+	calcDate = thisDate.getDate() - 7;
+	beforeDate = new Date(thisDate.setDate(calcDate)).toISOString().substring(0, 10);
+	console.log('beforeDate >>>>>>>>>> ' + beforeDate);
+	bir2 = document.getElementById("beforeDay");
+	bir2.value = beforeDate;
+}
+
+
+// JQuery
+$(document).ready(function(){
+	
+	startDate = "${startDate}";
+	endDate = "${endDate}";
+	
+	$('#sd').val(startDate);
+	$('#ed').val(endDate);
+	
+	search = "${search}";
+	$('#search').val(search);
+	
+	selector = "${selector}"; 	// product_name
+	$('#s').val(selector).prop("selected", true);	
+	
+});
+
+</script>
 </head>
 <body>
 <br>
@@ -31,16 +71,22 @@
 										
 								<!-- 검색 기능 -->
 								<form action="/purchasing/outProduct/list" method="get" style="display: inline;">
-									<select name="selector">
+									<select id="s" name="selector">
 										<option value="op_id">출고번호</option>
-										<option value="op_date">출고일자</option>
 										<option value="product_name">품명</option>
 										<option value="op_emp">담당직원</option>
-									</select> <input type="text" class="form-control" style="width:10%; display:inline;" name="search" placeholder="검색어를 입력해주세요">
+									</select>
+									
+									<input type="text" class="form-control" style="width:18%; display:inline;" id="search" name="search" placeholder="검색어를 입력해주세요">
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 출고일자 
+									<input type="date" name="startDate" id="sd" value="" min="2023-01-01">
+									~ 
+									<input type="date" name="endDate" id="ed" value="" min="2023-01-01">
+									
 									<input type="submit"  class="btn btn-info" value="검색">
 								</form>
 								
-								
+											
 								<!-- 테이블 -->
 								<table border="1" class="table table-hover table-bordered text-center">
 									<tr>

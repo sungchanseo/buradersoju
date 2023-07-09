@@ -75,6 +75,8 @@ public class PagingVO {
 	private Date op_date;
 	private String product_name;
 	private int op_emp;
+	private String startDate;
+	private String endDate;
 
 	
 	
@@ -289,6 +291,19 @@ public class PagingVO {
 	public void setOp_emp(int op_emp) {
 		this.op_emp = op_emp;
 	}
+
+	public String getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+	public String getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
 	
 	
 	@Override
@@ -302,7 +317,12 @@ public class PagingVO {
 				+ ", MaterialVO=" + MaterialVO + ", InMaterialVO=" + InMaterialVO + ", OrderVO=" + OrderVO
 				+ ", ProductionVO=" + ProductionVO + ", OutProductVO=" + OutProductVO + ", NoticeVO=" + NoticeVO
 				+ ", ma_name=" + ma_name + ", in_date=" + in_date + ", in_emp=" + in_emp + ", op_id=" + op_id
-				+ ", op_date=" + op_date + ", product_name=" + product_name + ", op_emp=" + op_emp + "]";
+				+ ", op_date=" + op_date + ", product_name=" + product_name + ", op_emp=" + op_emp + ", startDate="
+				+ startDate + ", endDate=" + endDate + "]";
 	}
+
+	
+	
+	
 
 }

@@ -136,14 +136,14 @@
 			<if test="selector == 'op_id'">
 				AND o.op_id LIKE CONCAT('%', #{search}, '%')
 			</if>
-			<if test="selector == 'op_date'">
-				AND o.op_date LIKE CONCAT('%', #{search}, '%')
-			</if>
 			<if test="selector == 'product_name'">
 				AND c.product_name LIKE CONCAT('%', #{search}, '%') 
 			</if>
 			<if test="selector == 'op_emp'">
 				AND e.emp_name LIKE CONCAT('%', #{search}, '%')
+			</if>
+			<if test="startDate != '' and endDate != ''">
+				AND o.op_date BETWEEN #{startDate} AND #{endDate}
 			</if>
 		</where>
 		AND c.cont_status = 0
@@ -204,14 +204,14 @@
 			<if test="selector == 'op_id'">
 				AND ${selector} LIKE CONCAT('%', #{search}, '%')
 			</if>
-			<if test="selector == 'op_date'">
-				AND o.op_date LIKE CONCAT('%', #{search}, '%')
-			</if>
 			<if test="selector == 'product_name'">
 				AND c.product_name LIKE CONCAT('%', #{search}, '%') 
 			</if>
 			<if test="selector == 'op_emp'">
 				AND e.emp_name LIKE CONCAT('%', #{search}, '%')
+			</if>
+			<if test="startDate != '' and endDate != ''">
+				AND o.op_date BETWEEN #{startDate} AND #{endDate}
 			</if>
 		</where>
 		AND c.cont_status = 0

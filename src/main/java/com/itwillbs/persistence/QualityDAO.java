@@ -17,6 +17,9 @@ public interface QualityDAO {
 	// 품질관리 - 검수 상세보기
 	public ProductionVO getQualityInfo(String qc_num);
 	
+	// 품질관리 - 검수 상세보기(불량 데이터 가져오기)
+	public List<ProductionVO> getDefInfo(String qc_num) throws Exception;
+	
 	// 품질관리 - 검수 등록
 	public void insertQuality(ProductionVO vo);
 	
@@ -41,7 +44,7 @@ public interface QualityDAO {
 	// 공병관리 - 불량 등록
 	public void btUpdate(ProductionVO vo) throws Exception;
 	
-//	// 공병관리 - 등록했었는지 체크
-//	public int btUpCheck(ProductionVO vo);
+	// 검수 삭제
+	public void removeQuality(ProductionVO vo) throws Exception;
 	
 }

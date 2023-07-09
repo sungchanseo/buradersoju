@@ -83,6 +83,19 @@
 	</update>
 
 	<!-- DB 등록 -->
+	<!-- 작업지시 삭제 -->
+	<update id="delWorkOrder">
+		update production
+		set del_woStatus = '1'
+		where production_id = #{production_id}
+	</update>
+	<update id="delWoCont">
+		update contract
+		set production_id = NULL
+		where production_id = #{production_id}
+	</update>	
+	
+	<!-- 작업지시 삭제 -->
 <!-- 작업지시 등록 -->
 
 

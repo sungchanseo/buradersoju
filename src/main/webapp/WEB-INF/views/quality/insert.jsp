@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <!-- 제이쿼리 -->
 <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11%22%3E"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
 
 <title>검수 등록</title>
@@ -139,7 +139,7 @@ text-align: left;
 						<option value="DE230">기타</option>
 					</select> 
 				 </td>
-				 <td> <input type="text" class="def_qtyList" id="def_qty1" name="def_qty1" pattern="[0-9]*">
+				 <td> <input type="text" class="def_qtyList" id="def_qty1" name="def_qty1" placeholder="불량수를 입력해주세요" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="15">
 				 <input type="button" id="plusBT1" value="추가"></td>
 				 </tr>
 		</table>
@@ -226,7 +226,7 @@ text-align: left;
 	                         "<option value='DE230'>기타</option>" +
 	                         "</select>" +
 	                         "</td>" +
-	                         "<td><input type='text' class='def_qtyList' id='def_qty"+ (1+currentRows) +"' name='def_qty" + (1+currentRows) +"'></td>" +
+	                         "<td><input type='text' class='def_qtyList' id='def_qty"+ (1+currentRows) +"' name='def_qty" + (1+currentRows) +"'placeholder='불량수를 입력해주세요'></td>" +
 	                         "</tr>";
 
 	            $("#defInsert").append(newRow);
@@ -238,15 +238,57 @@ text-align: left;
 		  
 		 ////// 불량 검수 등록+각 불량 코드에 대한 불량 개수 DB등록+불량 개수를 뺀 생산량 DB등록//////
 	$(document).ready(function(){
+// 		const arr = ['a', 'b', 'c', 'b'];
+// 		const set = new Set(arr);
+
+// 		document.writeln(arr.length); // 4
+// 		document.writeln(set.size); // 3
+
+		// duplicate
+		
 		$("#insertBT").click(function(){
+				// 작업지시번호 선택 -> 불량코드 중복체크 -> 불량수 입력 확인
 				var def_codeList = [];
-				var def_qtyList = [];
 				$(".def_codeList").each(function() {
 					  def_codeList.push($(this).val());
 				});
+				var set = new Set(def_codeList);
+				var def_qtyList = [];
+				var check = 0;
 				$(".def_qtyList").each(function() {
 					def_qtyList.push($(this).val());
 				});
+				for(i=0; i<def_qtyList.length; i++){
+					if(def_qtyList[i] == ""||def_qtyList[i] == null){
+						console.log(def_qtyList[i]);
+						check += 1;
+					}
+				}
+				if (!$('#production_id').val()) {
+					Swal.fire({
+						icon: 'error',
+						title: '작업지시번호를 선택해주세요!',
+						confirmButtonColor: '#0ddbb9',
+						confirmButtonText: '확인'
+					});
+		        }
+				else if(check != 0) {
+					Swal.fire({
+						icon: 'error',
+						title: '불량 수를 입력해주세요!',
+						confirmButtonColor: '#0ddbb9',
+						confirmButtonText: '확인'
+					});
+		        }
+				else if(def_codeList.length != set.size) {
+					Swal.fire({
+						icon: 'error',
+						title: '불량 코드를 확인해주세요!',
+						confirmButtonColor: '#0ddbb9',
+						confirmButtonText: '확인'
+					});
+				}
+				else{
 				console.log(def_codeList);
 				console.log(def_qtyList);
 				var product_qty = 0;
@@ -301,7 +343,7 @@ text-align: left;
 				  $("<input>", {
 				    type: "hidden",
 				    name: "qc_qty",
-				    value: $("#production_qty").val()
+				    value: be_qty
 				  }).appendTo($form);
 
 				  $("<input>", {
@@ -319,7 +361,7 @@ text-align: left;
 				  $('body').append($form);
 				  
 				  sendForm();
-				  
+				} //else
 		}); //click; 
 		function sendForm() {
 			var formObject = $("form[role='form']").serialize();
@@ -329,9 +371,16 @@ text-align: left;
 				type: 'POST',
 				data: formObject,
 				success: function(json) {
-					alert("등록이 완료되었습니다.");
-					window.opener.location.reload();
-					window.close();
+					Swal.fire({
+						icon: 'success',
+						title: '검수 등록 완료',
+						text: '확인을 누르면 창을 닫습니다.',
+						confirmButtonColor: '#0ddbb9',
+						confirmButtonText: '확인',
+					}).then(() => {
+						window.opener.location.reload();
+						window.close();
+						});
 				}
 			});
 		} //function

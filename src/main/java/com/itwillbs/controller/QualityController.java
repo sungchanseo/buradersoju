@@ -87,20 +87,37 @@ public class QualityController {
 	}
 		////// 품질관리 목록 보기 //////
 		
+	
 		//http://localhost:8088/quality/info
+	
 		/////// 검수 상세보기 //////
 		@RequestMapping(value="/info", method=RequestMethod.GET)
-		public void qualityInfoGET(String qc_num, Model model) {
+		public void qualityInfoGET(String qc_num, Model model) throws Exception {
 			logger.debug("@@@@@@@@@@@@Controller : 검수 상세보기");
 			logger.debug("@@@@@@@ qc_num : "+qc_num);
 			
 			//servicer객체 호출
 			ProductionVO qualityInfo = quService.getQualityInfo(qc_num);
-			
+			List<ProductionVO> defInfo = quService.getDefInfo(qc_num);
 			//변수에 넣어 뷰페이지로 보내기 
 			model.addAttribute("vo", qualityInfo);
+			model.addAttribute("qvo", defInfo);
 		}
-		/////// 검수 상세보기 //////
+		/////// 검수 상세보기 ////// 
+		
+		/////// 검수 삭제 ////// 
+		@RequestMapping(value = "/remove", method = RequestMethod.POST)
+		public String removeQuality(String qc_num) throws Exception {
+			logger.debug("@@@@@@@@@@@Controller : 수주 삭제POST하기 !!!!!");
+			
+			ProductionVO vo = quService.getQualityInfo(qc_num);
+			quService.removeQuality(vo);
+
+			return "redirect:/quality/list";
+		}
+		
+		/////// 검수 삭제 ////// 
+		
 		
 		/////// 검수 등록 ///////
 		// 페이지 호출
@@ -251,7 +268,7 @@ public class QualityController {
 			
 			return "redirect:/quality/emptyBottle";
 		}
-		// 공병 불량 등록(수정)
+		// 공병 불량 등록(개수업데이트)
 		@RequestMapping(value = "/btUpdate", method=RequestMethod.POST)
 		public String BottleUpdate(ProductionVO vo) throws Exception {
 			logger.debug("@@@@@@@@@@@@Controller : 공병 불량 등록(수정)");

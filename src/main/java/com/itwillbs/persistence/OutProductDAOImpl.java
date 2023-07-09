@@ -95,20 +95,25 @@ public class OutProductDAOImpl implements OutProductDAO {
 	// 전체 목록 개수
 	@Override
 	public int getListAll(PagingVO pvo) throws Exception {
-		return sqlSession.selectOne(NAMESPACE+".getListAll", pvo);
+		int result = sqlSession.selectOne(NAMESPACE+".getListAll", pvo);
+		logger.debug("########## getListAll 전체 목록 개수 : " + result);
+		return result;
 	}
 	
 	// 아무조건이 없을 때 전체 목록 개수
 	@Override
 	public int getListPageSizeAll(PagingVO pvo) throws Exception {
-		return sqlSession.selectOne(NAMESPACE+".getListPageSizeAll", pvo);
+		int result = sqlSession.selectOne(NAMESPACE+".getListPageSizeAll", pvo);
+		logger.debug("########## getListPageSizeAll 아무 조건 없을 때 목록 개수 : " + result);
+		return result;
 	}
 	
 	// 검색어 있을 때 목록 개수 	
 	@Override
 	public int getListSearchAll(PagingVO pvo) throws Exception {
-		logger.debug("################# startDate & endDate" + pvo.getStartDate() + pvo.getEndDate());
-		return sqlSession.selectOne(NAMESPACE+".getListSearchAll", pvo);
+		int result = sqlSession.selectOne(NAMESPACE+".getListSearchAll", pvo);
+		logger.debug("########## getListSearchAll 검색어 있을 때 목록 개수 : " + result);
+		return result;
 	}
 	
 	// 필터있을때 전체 목록 개수	
@@ -128,13 +133,14 @@ public class OutProductDAOImpl implements OutProductDAO {
 	// 아무조건이 없을 때 전체 목록
 	@Override
 	public List<Object> getListPageSizeObjectOutProductVO(PagingVO pvo) throws Exception {
+		logger.debug("########## 아무 조건이 없을 때 전체 목록");
 		return sqlSession.selectList(NAMESPACE+".getListPageSizeObjectOutProductVO", pvo);
 	}
 	
 	// 검색어 있을 때 목록
 	@Override
 	public List<Object> getListSearchObjectOutProductVO(PagingVO pvo) throws Exception {
-		logger.debug("################# startDate & endDate" + pvo.getStartDate() + pvo.getEndDate());
+		logger.debug("########## 검색어 있을 때 목록");
 		return sqlSession.selectList(NAMESPACE+".getListSearchObjectOutProductVO", pvo);
 	}
 	

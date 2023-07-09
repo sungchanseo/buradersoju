@@ -60,9 +60,12 @@ public class OutProductController {
 		logger.debug("@@@@@@@@@@ pvo : {}", pvo);
 		
 		
-		// 날짜 정보 받아오기
+		// form 태그 정보 저장
 		String startDate = request.getParameter("startDate");
 		String endDate = request.getParameter("endDate");
+		String op_id = request.getParameter("op_id");
+		String product_name = request.getParameter("product_name");
+		String op_empName = request.getParameter("op_empName");
 		
 		if(startDate == null && endDate == null) {
 			startDate = "2023-07-01";
@@ -71,10 +74,13 @@ public class OutProductController {
 		
 		pvo.setStartDate(startDate);
 		pvo.setEndDate(endDate);
+		pvo.setOp_id(op_id);
+		pvo.setProduct_name(product_name);
+		pvo.setOp_empName(op_empName);;
 		
 		
 		// 검색로직
-		if(pvo.getSelector() != null && pvo.getSelector() != "") {
+		if(pvo.getOp_id() != null || pvo.getProduct_name() != null || pvo.getOp_empName() != null) {
 			//검색어가 있을 때 
 			logger.debug("@@@@@@@@@@ 검색어가 있을 때");
 			outproductList = oService.getListSearchObjectOutProductVO(pvo);
@@ -87,17 +93,13 @@ public class OutProductController {
 		}
 		
 		
-		if(pvo.getSelector() == null) {
-			pvo.setSelector("op_id");
-		}
-		
-		
 		// View 페이지 전달
 		model.addAttribute("pvo", pvo);
 		model.addAttribute("startDate", startDate);
 		model.addAttribute("endDate", endDate);
-		model.addAttribute("selector", pvo.getSelector());
-		model.addAttribute("search", pvo.getSearch());
+		model.addAttribute("op_id", op_id);
+		model.addAttribute("product_name", product_name);
+		model.addAttribute("op_empName", op_empName);
 		model.addAttribute("outproductList", outproductList);
 		model.addAttribute("emp_department", session.getAttribute("emp_department"));
 		

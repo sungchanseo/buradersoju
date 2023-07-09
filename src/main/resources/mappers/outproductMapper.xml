@@ -132,21 +132,19 @@
 		ON  c.cont_id = o.cont_id
 		LEFT JOIN employee e
 		ON o.op_emp = e.emp_id
-		<where>	
-			<if test="selector == 'op_id'">
-				AND o.op_id LIKE CONCAT('%', #{search}, '%')
+		WHERE c.cont_status = 0
+			<if test="op_id != ''">
+				AND o.op_id LIKE CONCAT('%', #{op_id}, '%')
 			</if>
-			<if test="selector == 'product_name'">
-				AND c.product_name LIKE CONCAT('%', #{search}, '%') 
+			<if test="product_name != ''">
+				AND c.product_name LIKE CONCAT('%', #{product_name}, '%') 
 			</if>
-			<if test="selector == 'op_emp'">
-				AND e.emp_name LIKE CONCAT('%', #{search}, '%')
+			<if test="op_empName != ''">
+				AND e.emp_name LIKE CONCAT('%', #{op_empName}, '%') 
 			</if>
 			<if test="startDate != '' and endDate != ''">
 				AND o.op_date BETWEEN #{startDate} AND #{endDate}
 			</if>
-		</where>
-		AND c.cont_status = 0
 		LIMIT 0, 10
 	</select>
 <!-- 검색어 + 페이지갯수 제한 전체 목록 개수 -->
@@ -200,21 +198,19 @@
 		ON  c.cont_id = o.cont_id
 		LEFT JOIN employee e
 		ON o.op_emp = e.emp_id
-		<where>	
-			<if test="selector == 'op_id'">
-				AND ${selector} LIKE CONCAT('%', #{search}, '%')
+		WHERE c.cont_status = 0
+			<if test="op_id != ''">
+				AND o.op_id LIKE CONCAT('%', #{op_id}, '%')
 			</if>
-			<if test="selector == 'product_name'">
-				AND c.product_name LIKE CONCAT('%', #{search}, '%') 
+			<if test="product_name != ''">
+				AND c.product_name LIKE CONCAT('%', #{product_name}, '%') 
 			</if>
-			<if test="selector == 'op_emp'">
-				AND e.emp_name LIKE CONCAT('%', #{search}, '%')
+			<if test="op_empName != ''">
+				AND e.emp_name LIKE CONCAT('%', #{op_empName}, '%') 
 			</if>
 			<if test="startDate != '' and endDate != ''">
 				AND o.op_date BETWEEN #{startDate} AND #{endDate}
 			</if>
-		</where>
-		AND c.cont_status = 0
 		ORDER BY op_process, op_id DESC, c.cont_id DESC
 		LIMIT #{startRow}, #{pageSize}
 	</select>

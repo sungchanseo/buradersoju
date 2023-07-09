@@ -32,15 +32,16 @@ $(document).ready(function(){
 	
 	startDate = "${startDate}";
 	endDate = "${endDate}";
+	op_id = "${op_id}";
+	product_name = "${product_name}";
+	op_empName = "${op_empName}";
 	
 	$('#sd').val(startDate);
 	$('#ed').val(endDate);
+	$('#op_id').val(op_id);
+	$('#product_name').val(product_name);
+	$('#op_empName').val(op_empName);
 	
-	search = "${search}";
-	$('#search').val(search);
-	
-	selector = "${selector}"; 	// product_name
-	$('#s').val(selector).prop("selected", true);	
 	
 });
 
@@ -70,21 +71,22 @@ $(document).ready(function(){
 										
 										
 								<!-- 검색 기능 -->
-								<form action="/purchasing/outProduct/list" method="get" style="display: inline;">
-									<select id="s" name="selector">
-										<option value="op_id">출고번호</option>
-										<option value="product_name">품명</option>
-										<option value="op_emp">담당직원</option>
-									</select>
-									
-									<input type="text" class="form-control" style="width:18%; display:inline;" id="search" name="search" placeholder="검색어를 입력해주세요">
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 출고일자 
+								<div style="text-align: center; background-color: #f2f2f2;">
+								<br>
+								<form action="/purchasing/outProduct/list" method="get" style="display: inline;">							
+									출고번호 <input type="text" id="op_id" name="op_id" value="" style="width:7%;">
+									&nbsp;&nbsp;&nbsp; 출고일자 
 									<input type="date" name="startDate" id="sd" value="" min="2023-01-01">
 									~ 
 									<input type="date" name="endDate" id="ed" value="" min="2023-01-01">
+									&nbsp;&nbsp;&nbsp; 상품명 <input type="text" id="product_name" name="product_name" value="" style="width:7%;">
+									&nbsp;&nbsp;&nbsp; 담당직원 <input type="text" id="op_empName" name="op_empName" value="" style="width:7%;">
 									
-									<input type="submit"  class="btn btn-info" value="검색">
+									&nbsp;&nbsp; <input type="submit" class="btn btn-info" value="검색">
 								</form>
+								<br><br>
+								</div>
+								<br>
 								
 											
 								<!-- 테이블 -->
@@ -172,15 +174,15 @@ $(document).ready(function(){
 							<div class="template-demo">
 								<div class="btn-group" role="group" aria-label="Basic example">
 									<c:if test="${pvo.startPage > pvo.pageBlock }">
-										<a href="/purchasing/outProduct/list?pageNum=${pvo.startPage-pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">이전</a>
+										<a href="/purchasing/outProduct/list?pageNum=${pvo.startPage-pvo.pageBlock}&op_id=${pvo.op_id}&product_name=${pvo.product_name}&startDate=${pvo.startDate}&endDate=${pvo.endDate}&op_empName=${pvo.op_empName}" class="btn btn-outline-secondary">이전</a>
 									</c:if>
 									
 									<c:forEach var="i" begin="${pvo.startPage }" end="${pvo.endPage }" step="1">
-										<a href="/purchasing/outProduct/list?pageNum=${i }&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">${i }</a>
+										<a href="/purchasing/outProduct/list?pageNum=${i }&op_id=${pvo.op_id}&product_name=${pvo.product_name}&startDate=${pvo.startDate}&endDate=${pvo.endDate}&op_empName=${pvo.op_empName}" class="btn btn-outline-secondary">${i }</a>
 									</c:forEach>
 									
 									<c:if test="${pvo.endPage<pvo.pageCount }">
-										<a href="/purchasing/outProduct/list?pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">다음</a>
+										<a href="/purchasing/outProduct/list?pageNum=${pvo.startPage+pvo.pageBlock}&op_id=${pvo.op_id}&product_name=${pvo.product_name}&startDate=${pvo.startDate}&endDate=${pvo.endDate}&op_empName=${pvo.op_empName}" class="btn btn-outline-secondary">다음</a>
 									</c:if>
 								</div>
 							</div>

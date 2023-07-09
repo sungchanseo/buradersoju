@@ -5,6 +5,84 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+
+/* 테이블 css */
+table {margin-bottom: 1em;}
+
+table, th {border: none;}
+
+th {background-color: #04AA6D;
+	color: #fff;
+	text-align: center;
+	padding: 10px 8px;}
+
+td {border:1px solid #04AA6D;
+	padding: 10px 6px;}
+
+.btn{
+	display: inline-block;
+	font-weight: 600;
+	line-height: 1;
+	color: #6C7293;
+	text-align: center;
+	text-decoration: none;
+	vertical-align: middle;
+	cursor: pointer;
+	user-select: none;
+	background-color: transparent;
+	border: 1px solid transparent;
+	padding: 0.625rem 1.125rem;
+	font-size: 0.875rem;
+	border-radius: 0.25rem;
+	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;}
+    
+.btn-success {
+	color: #000;
+	background-color: #0ddbb9;
+	border-color: #0ddbb9;}
+button{
+	color: #000;
+	background-color: #0ddbb9;
+	border-color: #0ddbb9;
+	display: inline-block;
+	font-weight: 600;
+	line-height: 1;
+	text-align: center;
+	text-decoration: none;
+	vertical-align: middle;
+	cursor: pointer;
+	user-select: none;
+	border: 1px solid transparent;
+	padding: 0.625rem 1.125rem;
+	font-size: 0.875rem;
+	border-radius: 0.25rem;
+	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}	
+	
+.btn-info {
+	color: #000;
+	background-color: #2fddf8;
+	border-color: #23dbf8;}
+	
+.btn_add{
+	color: #ffffff;
+	background-color: #04AA6D;
+	border-color: #0ddbb9;}
+	
+.container {
+	position: relative;}
+
+.btn_btn {
+	position: absolute;
+	top: 0;
+	right: 0;}
+
+.btn_table table {
+	width: 100%;}		
+
+/* 테이블 css */
+</style>
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert 링크 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
@@ -136,18 +214,38 @@ $(document).ready(function(){
 </head>
 
 <body>
-
-
-  
-   <div>
-   <form action="" method="post" name="ware">
-			 창고타입 : <select name="whs_type" id="whs_type"><option value="자재">자재창고</option>
+<form action="" method="post" name="ware">
+		<div class="container">
+			<h1 style="display: inline;">창고등록</h1>
+   <div class="btn_table">
+   <table border="1">
+    <tr>
+    <th>창고타입 :</th>
+    <td><select name="whs_type" id="whs_type"><option value="자재">자재창고</option>
+    <option value="상품">상품창고</option></select></td>
+    </tr>
+     <tr>
+    <th>전화번호 :</th>
+     <td><input type="text" name="whs_tel" id="whs_tel"></td>
+    </tr>
+     <tr>
+    <th>사용여부 :</th>
+     <td>사용 <input type="radio" name="whs_status" value="1" id="whs_status"> 미사용 <input type="radio" name="whs_status" value="2" id="whs_status"> </td>
+    </tr>
+   </table>
+  <!--  <form action="" method="post" name="ware">
+			<span> 창고타입 :</span> <select name="whs_type" id="whs_type"><option value="자재">자재창고</option>
     <option value="상품">상품창고</option></select><br>
-			 전화번호 : <input type="text" name="whs_tel" id="whs_tel"><br>
-			 사용여부 : 사용<input type="radio" name="whs_status" value="1" id="whs_status">미사용<input type="radio" name="whs_status" value="2" id="whs_status"><br>
-			</form>
-   </div>			
-			<button type="submit"  id="warehouseInsert">등록</button>
+			 <span>전화번호 :</span> <input type="text" name="whs_tel" id="whs_tel"><br> 
+			 <span>사용여부 :</span> <span>사용</span><input type="radio" name="whs_status" value="1" id="whs_status"><span>미사용</span><input type="radio" name="whs_status" value="2" id="whs_status"> <br>
+			</form> -->
+        </div>	
+      </div>
+    </form>		
+			      <div class="btn_btn">
+			   <button type="submit"  id="warehouseInsert">등록</button>
+			   <input type="button" class="btn btn-success" value="창닫기" onclick="window.close();"> 
+			</div>
 	
  <!-- <table border="1" id="example-table-3" class="table table-bordered table-hover text-center tbl" style="width: 100%;">
    <thead>

@@ -108,7 +108,7 @@ public class OutProductServiceImpl implements OutProductService{
 		// 페이징처리2
 		// 페이지 번호 계산
 		int count;
-		if(pvo.getSelector()!=null && pvo.getSelector()!="") {
+		if(pvo.getOp_id() != null || pvo.getProduct_name() != null || pvo.getOp_empName() != null) {
 			// 검색어가 있을 때 
 			count = getListSearchAll(pvo);
 		}else {

@@ -62,8 +62,27 @@ public class InMaterialController {
 		logger.debug("@@@@@@@@@@ pvo : {}", pvo);
 		
 		
+		// form 태그 정보 저장
+		String startDate = request.getParameter("startDate");
+		String endDate = request.getParameter("endDate");
+		String in_id = request.getParameter("in_id");
+		String ma_name = request.getParameter("ma_name");
+		String in_empName = request.getParameter("in_empName");
+		
+		if(startDate == null && endDate == null) {
+			startDate = "2023-07-01";
+			endDate = "2023-07-31";
+		}
+		
+		pvo.setStartDate(startDate);
+		pvo.setEndDate(endDate);
+		pvo.setIn_id(in_id);
+		pvo.setMa_name(ma_name);
+		pvo.setIn_empName(in_empName);
+		
+		
 		// 검색로직
-		if(pvo.getSelector()!=null && pvo.getSelector()!="") {
+		if(pvo.getIn_id() != null || pvo.getMa_name() != null || pvo.getIn_empName() != null) {
 			//검색어가 있을 때 
 			logger.debug("@@@@@@@@@@ 검색어가 있을 때");
 			inMaterialList = iService.getListSearchObjectInMaterialVO(pvo);
@@ -77,6 +96,11 @@ public class InMaterialController {
 		// View 페이지 전달
 		model.addAttribute("inMaterialList", inMaterialList);
 		model.addAttribute("pvo", pvo);
+		model.addAttribute("startDate", startDate);
+		model.addAttribute("endDate", endDate);
+		model.addAttribute("in_id", in_id);
+		model.addAttribute("ma_name", ma_name);
+		model.addAttribute("in_empName", in_empName);
 		model.addAttribute("emp_department", session.getAttribute("emp_department"));
 		
 		return null;

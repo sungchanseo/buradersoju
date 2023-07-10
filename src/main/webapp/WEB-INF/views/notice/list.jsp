@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../includes/header.jsp" %>
-
 <div class="container-scroller">
 	<div class="container-fluid page-body-wrapper full-page-wrapper">
 		<div class="main-panel">
@@ -10,16 +9,19 @@
 					<div class="col-lg-12 mx-auto" style="height: 100%;">
 						<div class="auth-form-light text-left py-5 px-4 px-sm-5"
 							style="height: 100%;">
-							<h2>공지 사항</h2>
+							<h1>공지 사항</h1>
 							<hr>
 							<br>
 							<!-- 검색창기능 -->
 							<form action="/notice/list" method="get" style="display: inline;">
-								<select name="selector">
+								<div class="btn_line1">
+								<select name="selector" class="auth auth-form-light select">
 									<option value="notice_title">공지 제목</option>
 									<option value="notice_writer">작성자</option>
-								</select> <input type="text" name="search" placeholder="검색어를 입력해주세요">
+								</select> 
+								<input type="text" name="search" placeholder="검색어를 입력해주세요">
 								<input type="submit" class="btn btn-info" value="검색" style="margin-left: 10px;">
+								</div>
 							</form>
 							<br>
 							<!-- 검색창기능 -->
@@ -92,3 +94,16 @@
 </div>
 
 <%@ include file="../includes/footer.jsp" %>
+
+<style>
+.auth .auth-form-light select {
+    color: #6C7293;
+    border-radius: 10px;
+    padding: 6px 6px;
+    text-align: center;
+    display: inline;}
+input {
+	border-radius: 10px;
+    padding: 6px 6px;}
+    
+</style>

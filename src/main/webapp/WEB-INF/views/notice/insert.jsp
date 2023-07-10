@@ -8,7 +8,7 @@
 				<div class="row w-100 mx-0">
 					<div class="col-lg-12 mx-auto">
 						<div class="auth-form-light text-left py-5 px-4 px-sm-5" style="height: 100%;">
-							<h2>공지 작성</h2>
+							<h1>공지 작성</h1>
 							<hr>
 							<form action="" method="post" enctype="multipart/form-data">
 								<div class="form-group" >

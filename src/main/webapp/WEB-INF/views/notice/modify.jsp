@@ -11,8 +11,8 @@
 					<div class="col-lg-12 mx-auto">
 						<div class="auth-form-light text-left py-5 px-4 px-sm-5"
 							style="height: 100%;">
-							<h2>공지 수정</h2>
-							<hr width="800px">
+							<h1>공지 수정</h1>
+							<hr style="width: 100%;">
 							<br>
 							<form action="" method="post" enctype="multipart/form-data">
 								<div class="form-group">

@@ -16,7 +16,7 @@
 						<div class="auth-form-light text-left py-5 px-4 px-sm-5"
 							style="height: 100%;">
 							<div class="box-body">
-								<h2>공지 사항</h2>
+								<h1>공지 사항</h1>
 								<hr>
 								<br>
 								<table class="table" style="width: 100%;">

@@ -15,6 +15,11 @@
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" >	
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
 <link rel="stylesheet" href="${contextPath }/resources/css/table.css" >
+<style>
+/* 	table{table-layout:fixed;} */
+	table th {width:12%;}
+	table input{width:100%;}
+</style>
 </head>
 <body>
 <script>
@@ -43,14 +48,21 @@
 		empPop.moveBy(100,100);
 	}//empPop END
 </script>
-	<h1 >거래처 등록</h1>
-	<form role="form" id="fr" method="post" onsubmit="return false;">
+	<h1 style="display:inline;">거래처 등록</h1>
+	<form role="form" id="fr" method="post" onsubmit="return false;" style="display:inline;">
+		<div style="float:right;">
+			<button type="submit" class="btn btn-success" >작성완료</button>
+			<button type="reset" class="btn btn-success" >초기화</button>
+			<button type="button" class="btn btn-light" onclick="window.close();">창닫기</button>
+		</div>
 		<table border="1">
 			<tr>
 				<th>거래처유형</th>
-				<td><label><input type="radio" name="cust_type" value="사업자(국내)" checked>사업자(국내)</label>
+				<td>
+					<label><input type="radio" name="cust_type" value="사업자(국내)" checked>사업자(국내)</label>
 					<label><input type="radio" name="cust_type" value="사업자(해외)">사업자(해외)</label>
-					<label><input type="radio" name="cust_type" value="개인">개인</label></td>
+					<label><input type="radio" name="cust_type" value="개인">개인</label>
+				</td>
 				<th>사업자등록번호</th>
 				<td><input type="text" name="reg_num" id="reg_num" placeholder="000-00-0000">
 				<span id="regCheckMsg"></span>
@@ -119,9 +131,7 @@
 				<td><input type="text" name="cust_homepage"id="cust_homepage" placeholder="홈페이지를 입력하세요(선택)."></td>
 			</tr>
 		</table>
-		<button type="submit" class="btn btn-success" >작성완료</button>
-		<button type="reset" class="btn btn-success" >초기화</button>
-		<button type="button" class="btn btn-light" onclick="window.close();">창닫기</button>
+		
 	</form>
 <!-- 	http://localhost:8088/customer/list -->
 <!-- 	제이쿼리 -->

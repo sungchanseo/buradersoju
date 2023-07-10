@@ -181,7 +181,7 @@ public class EmployeeController {
 		logger.debug(" fileName : " + fileName);
 		
 		// 업로드 폴더에서 다운로드 파일의 정보를 가져오기
-		File downFile = new File("15.165.34.161:8080\\BURADER\\upload" + "\\" + fileName);
+		File downFile = new File("C:\\upload\\employee" + "\\" + fileName);
 		
 		// 응답정보를 통한 출력스트림 객체 준비
 		OutputStream out = response.getOutputStream();

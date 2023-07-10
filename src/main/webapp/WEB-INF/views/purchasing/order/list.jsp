@@ -386,10 +386,10 @@ table input[type:checkbox] {width:1em;}
 															// 여기서 order_id를 이용해서 if문걸어가지고 같은 값일때 아래처럼 나오게하면될듯?!
 															// orderVo에서 테이블 값 가져오기
 															var order_date = data.order_date;
-															console.log(order_date);
+															console.log(data);
 															$(data).each(function(idx,obj) {
 																				var str = "";
-																				str += "<tr>";
+																				str += "<tr id='key_id'>";
 																				str += "<td><input type='checkbox' name='check'></td>";
 																				str += "<td>"
 																						+ obj.order_id
@@ -426,6 +426,15 @@ table input[type:checkbox] {width:1em;}
 																				str += "</tr>";
 																				$('table').prepend(str);
 																			});
+															     console.log(data);
+															$("#key_id").keyup(function() {
+																var obj = {
+																	in_order_qty : $("#order_qty").val()
+																};
+																console.log("oredr_qty: " ,obj.in_order_qty);
+															$("#order_sum").val(obj.in_order_qty*data.unit_cost);
+															$("#order_vat").val(obj.in_order_qty*data.unit_cost/100);
+															});
 														},
 														error : function() {
 															alert("error");

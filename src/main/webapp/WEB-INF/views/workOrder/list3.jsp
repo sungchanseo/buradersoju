@@ -64,15 +64,14 @@ function info_print() {
 	<a  href="http://localhost:8088/workOrder/list2" class="nav-link ps-2 pe-2" id="stage2-tab" >대기</a>
 	</li>
 	<li class="nav-item">
-	<a class="nav-link ps-2 pe-2" id="stage3-tab"  href="http://localhost:8088/workOrder/list3" >진행중</a>
+	<a class="nav-link ps-2 pe-2 active" id="stage3-tab"  href="http://localhost:8088/workOrder/list3" >진행중</a>
 	</li>
 	<li class="nav-item">
 	<a class="nav-link ps-2 pe-2" id="stage4-tab"  href="http://localhost:8088/workOrder/list4" >완료</a>
 	</li>
 	</ul>
 <!-- 검색창 기능 -->
-
-  <form action="/workOrder/list" method="get">
+  <form action="/workOrder/list3" method="get">
 	  <select class="Wosearch_select" name="selector">
 <!-- 	    <option value="a.workOrder_status">작업상태</option> -->
 	    <option value="a.production_id">작업지시번호</option>
@@ -85,7 +84,7 @@ function info_print() {
 	  <input type="submit" class="btn btn-info" value="검색">
   </form>
   
-	<div style="float: right; " >
+	<div style="float: right;">
 	<button type="button" class="btn btn-success" style="margin: 1px;" onclick="openPopup();">작업 등록</button>
 <!-- 	<button class="btn btn-light" style='text-align: right; margin: 1px;'>엑셀파일</button> -->
 	<button id="print-button" class="btn btn-light" onclick="info_print()" style='text-align: right; margin: 1px;'>인쇄하기</button>
@@ -138,15 +137,15 @@ function info_print() {
 	<div class="template-demo">
 		<div class="btn-group" role="group" aria-label="Basic example">
 			<c:if test="${pvo.startPage > pvo.pageBlock }">
-				<a href="/workOrder/list?pageNum=${pvo.startPage-pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">이전</a>
+				<a href="/workOrder/list3?pageNum=${pvo.startPage-pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">이전</a>
 			</c:if>
 			
 			<c:forEach var="i" begin="${pvo.startPage }" end="${pvo.endPage }" step="1">
-				<a href="/workOrder/list?pageNum=${i }&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">${i }</a>
+				<a href="/workOrder/list3?pageNum=${i }&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">${i }</a>
 			</c:forEach>
 			
 			<c:if test="${pvo.endPage<pvo.pageCount }">
-				<a href="/workOrder/list?pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">다음</a>
+				<a href="/workOrder/list3?pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">다음</a>
 			</c:if>
 		</div>
 	</div>

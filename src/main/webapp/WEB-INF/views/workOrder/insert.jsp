@@ -262,6 +262,31 @@ td {border:1px solid #04AA6D;
 		/////////// 작업지시 등록(DB저장) ///////////
 			$(document).ready(function(){
 			$("#workOrderInsert").click(function(){
+				
+// 				if (!$('#cont_id').val()) {
+// 					Swal.fire({
+// 						icon: 'error',
+// 						title: '수주번호를 선택해주세요!',
+// 						confirmButtonColor: '#0ddbb9',
+// 						confirmButtonText: '확인'
+// 					});
+// 		        }else 
+		        	if($("#product_id").val() == "상품코드") {
+					Swal.fire({
+						icon: 'error',
+						title: '상품 코드를 선택해주세요!',
+						confirmButtonColor: '#0ddbb9',
+						confirmButtonText: '확인'
+					});
+				}else if(!$("#plan_qty").val()) {
+					Swal.fire({
+						icon: 'error',
+						title: '수량을 입력해주세요!',
+						confirmButtonColor: '#0ddbb9',
+						confirmButtonText: '확인'
+					});
+				}
+				
 				var cont_id = $("#cont_id").val();
 				console.log("cont_id : " +cont_id);
 				var production_emp = $("#production_emp").val();

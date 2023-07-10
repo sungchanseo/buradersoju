@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> <!-- 우편api -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert창 링크 -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/mdi/css/materialdesignicons.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/base/vendor.bundle.base.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main/fullcalendar-5.11.4/lib/main.css">
@@ -15,7 +16,9 @@
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
 <link rel="stylesheet" href="${contextPaht }/resources/css/table.css"/>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert창 링크 -->
+<style>
+th{width:12%;}
+</style>
 </head>
 <body>
 	<script>
@@ -45,143 +48,149 @@
 		}//empPop END
 	</script>
 
-	<h1>${customerVO.cust_name } 수정 </h1>
-	<form action="" role="form" id="fr" method="post" onsubmit="return false;">
-	<table border="1">
-	<tr>
-		<th>거래처유형</th>
-		<td><label>
-		<input type="hidden" id="cust_id" value="${customerVO.cust_id }">
-		<input type="radio" name="cust_type" id="cust_type" value="사업자(국내)"
-			<c:if test="${customerVO.cust_type =='사업자(국내)' }">
-				checked
-			</c:if>
-			>사업자(국내)</label>
-			<label><input type="radio" name="cust_type" id="cust_type" value="사업자(국내)"
-			<c:if test="${customerVO.cust_type =='사업자(해외)' }">
-				checked
-			</c:if>
-			>사업자(해외)</label>
-			<label><input type="radio" name="cust_type" id="cust_type" value="개인"
-			<c:if test="${customerVO.cust_type =='개인' }">
-				checked
-			</c:if>
-			>개인</label>
-		</td>
-		<th>사업자등록번호</th>
-		<td>
-			<input type="text" name="reg_num" id="reg_num" value="${customerVO.reg_num }" readonly><br>
-			<span id="regCheckMsg"></span>
-		</td>
-	</tr>
-	<tr>
-		<th>거래처이름</th>
-		<td><input type="text" name="cust_name" id="cust_name" value="${customerVO.cust_name }"></td>
-		<th>담당자이름</th>
-		<td><input type="text" name="emp_name" id="emp_name" value="${customerVO.emp_name }" onclick="empPop();"></td>
-	</tr>
-	<tr>
-		<th>대표자명</th>
-		<td><input type="text" name="owner_name" id="owner_name" value="${customerVO.owner_name }"></td>
-		<th>담당자전화번호</th>
-		<td><input type="text" name="emp_tel" id="emp_tel" value="${customerVO.emp_tel }" readonly>
-		<input type="hidden" name="emp_id" id="emp_id">
-		</td>
-	</tr>
-	<tr>
-		<th>대표전화</th>
-		<td><input type="text" name="main_phone" id="main_phone" value="${customerVO.main_phone }"></td>
-		<th>담당자이메일</th>
-		<td><input type="text" name="emp_email" id="emp_email" value="${customerVO.emp_email }" readonly></td>
-	</tr>
-	<tr>
-		<th>업태</th>
-		<td>
-			<select name="cust_business" id="cust_business">
-				<option value="도매업"
-					<c:if test="${customerVO.equals('도매업') }">
-						selected
-					</c:if>
-				>도매업</option>
-				<option value="소매업"
-					<c:if test="${customerVO.equals('소매업') }">
-						selected
-					</c:if>
-				>소매업</option>
-				<option value="서비스업"
-					<c:if test="${customerVO.equals('서비스업') }">
-						selected
-					</c:if>
-				>서비스업</option>
-				<option value="제조업"
-					<c:if test="${customerVO.equals('제조업') }">
-						selected
-					</c:if>
-				>제조업</option>
-			</select>
-		</td>
-		<th>거래처구분</th>
-		<td>
-				<select name="cust_class" id="cust_class">
-						<option value="수주처" 
-							<c:if test="${customerVO.cust_class.equals('수주처') }">
-								selected
-							</c:if>
-						>수주처</option>
-						<option value="발주처"
-							<c:if test="${customerVO.cust_class.equals('발주처') }">
-								selected
-							</c:if>
-						>발주처</option>
-						<option value="납품처"
-							<c:if test="${customerVO.cust_class.equals('납품처') }">
-								selected
-							</c:if>
-						>납품처</option>
-				</select>
-				</td>
-	</tr>
-	<tr>
-		<th>종목</th>
-		<td>
-			<select name="cust_event" id="cust_event">
-				<option value="종목1"
-					<c:if test="${customerVO.cust_event.equals('종목1') }">
-						selected
-					</c:if>
-				>종목1</option>
-				<option value="종목2"
-					<c:if test="${customerVO.cust_event.equals('종목2') }">
-						selected
-					</c:if>
-				>종목2</option>
-				<option value="종목3"
-					<c:if test="${customerVO.cust_event.equals('종목3') }">
-						selected
-					</c:if>
-				>종목3</option>
-			</select>
-		</td>
-		<th>주소</th>
-		<td>
-			<input type="text" id="zipcode" onclick="addr();" maxlength="200" size="15">
-			<input type="button" value="우편번호찾기" onclick="addr();"><br>
-			<input type="text" name="address" id="address" size="45" onclick="addr();"><br>
-			<input type="text" name="cust_address" size="45" placeholder="상세주소를 입력해주세요."maxlength="45">
-		</td>
-	</tr>
-	<tr>
-		<th>기타</th>
-		<td rowspan="2">
-		<textarea name="cust_etc" id="cust_etc">${customerVO.cust_etc }</textarea>
-		</td>
-		<th>홈페이지</th>
-		<td><input type="text" name="cust_hompage" id="cust_hompage" value="${customerVO.cust_homepage }"></td>
-	</table>
-		<button type="submit" class="btn btn-success">수정완료</button>
-		<button type="button" class="btn btn-success" onclick="history.back();">뒤로가기</button>
-		<button type="button" class="btn btn-light" onclick="window.close();">창닫기</button>
+	<h1 style="display:inline;">${customerVO.cust_name } 수정 </h1>
+	
+	<form action="" role="form" id="fr" method="post" onsubmit="return false;" style="display:inline;">
+		<div style="float:right; display:inline;">
+			<button type="submit" class="btn btn-success">수정완료</button>
+			<button type="button" class="btn btn-success" onclick="history.back();">뒤로가기</button>
+			<button type="button" class="btn btn-light" onclick="window.close();">창닫기</button>
+		</div>
+			<div class="btn_table">
+				<table border="1">
+				<tr>
+					<th>거래처유형</th>
+					<td><label>
+					<input type="hidden" id="cust_id" value="${customerVO.cust_id }">
+					<input type="radio" name="cust_type" id="cust_type" value="사업자(국내)"
+						<c:if test="${customerVO.cust_type =='사업자(국내)' }">
+							checked
+						</c:if>
+						>사업자(국내)</label>
+						<label><input type="radio" name="cust_type" id="cust_type" value="사업자(국내)"
+						<c:if test="${customerVO.cust_type =='사업자(해외)' }">
+							checked
+						</c:if>
+						>사업자(해외)</label>
+						<label><input type="radio" name="cust_type" id="cust_type" value="개인"
+						<c:if test="${customerVO.cust_type =='개인' }">
+							checked
+						</c:if>
+						>개인</label>
+					</td>
+					<th>사업자등록번호</th>
+					<td>
+						<input type="text" name="reg_num" id="reg_num" value="${customerVO.reg_num }" readonly><br>
+						<span id="regCheckMsg"></span>
+					</td>
+				</tr>
+				<tr>
+					<th>거래처이름</th>
+					<td><input type="text" name="cust_name" id="cust_name" value="${customerVO.cust_name }"></td>
+					<th>담당자이름</th>
+					<td><input type="text" name="emp_name" id="emp_name" value="${customerVO.emp_name }" onclick="empPop();"></td>
+				</tr>
+				<tr>
+					<th>대표자명</th>
+					<td><input type="text" name="owner_name" id="owner_name" value="${customerVO.owner_name }"></td>
+					<th>담당자전화번호</th>
+					<td><input type="text" name="emp_tel" id="emp_tel" value="${customerVO.emp_tel }" readonly>
+					<input type="hidden" name="emp_id" id="emp_id">
+					</td>
+				</tr>
+				<tr>
+					<th>대표전화</th>
+					<td><input type="text" name="main_phone" id="main_phone" value="${customerVO.main_phone }"></td>
+					<th>담당자이메일</th>
+					<td><input type="text" name="emp_email" id="emp_email" value="${customerVO.emp_email }" readonly></td>
+				</tr>
+				<tr>
+					<th>업태</th>
+					<td>
+						<select name="cust_business" id="cust_business">
+							<option value="도매업"
+								<c:if test="${customerVO.equals('도매업') }">
+									selected
+								</c:if>
+							>도매업</option>
+							<option value="소매업"
+								<c:if test="${customerVO.equals('소매업') }">
+									selected
+								</c:if>
+							>소매업</option>
+							<option value="서비스업"
+								<c:if test="${customerVO.equals('서비스업') }">
+									selected
+								</c:if>
+							>서비스업</option>
+							<option value="제조업"
+								<c:if test="${customerVO.equals('제조업') }">
+									selected
+								</c:if>
+							>제조업</option>
+						</select>
+					</td>
+					<th>거래처구분</th>
+					<td>
+							<select name="cust_class" id="cust_class">
+									<option value="수주처" 
+										<c:if test="${customerVO.cust_class.equals('수주처') }">
+											selected
+										</c:if>
+									>수주처</option>
+									<option value="발주처"
+										<c:if test="${customerVO.cust_class.equals('발주처') }">
+											selected
+										</c:if>
+									>발주처</option>
+									<option value="납품처"
+										<c:if test="${customerVO.cust_class.equals('납품처') }">
+											selected
+										</c:if>
+									>납품처</option>
+							</select>
+							</td>
+				</tr>
+				<tr>
+					<th>종목</th>
+					<td>
+						<select name="cust_event" id="cust_event">
+							<option value="종목1"
+								<c:if test="${customerVO.cust_event.equals('종목1') }">
+									selected
+								</c:if>
+							>종목1</option>
+							<option value="종목2"
+								<c:if test="${customerVO.cust_event.equals('종목2') }">
+									selected
+								</c:if>
+							>종목2</option>
+							<option value="종목3"
+								<c:if test="${customerVO.cust_event.equals('종목3') }">
+									selected
+								</c:if>
+							>종목3</option>
+						</select>
+					</td>
+					<th>주소</th>
+					<td>
+						<input type="text" id="zipcode" onclick="addr();" maxlength="200" size="15">
+						<input type="button" value="우편번호찾기" onclick="addr();"><br>
+						<input type="text" style="width:100%;" name="address" id="address" size="45" onclick="addr();"><br>
+						<input type="text" style="width:100%;" name="cust_address" size="45" placeholder="상세주소를 입력해주세요."maxlength="45">
+					</td>
+				</tr>
+				<tr>
+					<th>기타</th>
+					<td rowspan="2">
+					<textarea name="cust_etc" id="cust_etc">${customerVO.cust_etc }</textarea>
+					</td>
+					<th>홈페이지</th>
+					<td><input type="text" name="cust_hompage" id="cust_hompage" value="${customerVO.cust_homepage }"></td>
+				</table>
+			</div>
 	</form>
+	
 	
 		<script type="text/javascript">
 		

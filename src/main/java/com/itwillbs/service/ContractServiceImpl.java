@@ -198,16 +198,16 @@ public class ContractServiceImpl implements ContractService {
         cell.setCellValue("작업지시번호");
         cell = row.createCell(cellNum++);
         cell.setCellValue("담당자");
-        
+        logger.debug("contractList : {}",contractList);
         //엑셀 몸통
         for (int i = 0; i < contractList.size() ; i++) {
 //    		logger.debug("반복문 시작합니다. ");
-        	
+//        	contractList.get(0).get;
 
     		cellNum = 0;
             row = sheet.createRow(rowNum++);
             cell = row.createCell(cellNum++);
-            cell.setCellValue(1);
+            cell.setCellValue(0);
             cell = row.createCell(cellNum++);
             cell.setCellValue("학생" + i);
             cell = row.createCell(cellNum++);

@@ -7,18 +7,25 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script> <!-- 제이쿼리 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert창 링크 -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/mdi/css/materialdesignicons.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/base/vendor.bundle.base.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main/fullcalendar-5.11.4/lib/main.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert창 링크 -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/table.css"/>
 </head>
 <body>
-	<h1>수주번호 : ${contractInfo.cont_id }</h1>
+<div>
+	<h1 style="display:inline;">${contractInfo.cont_id }</h1>
+	<div style="float:right; display:inline;">
+		<input type="button" class="btn btn-success" value="수주수정" onclick="location.href='/contract/modify?cont_id=${contractInfo.cont_id }'">
+		<input type="button" class="btn btn-success" value="수주삭제" onclick="deleteAction('${contractInfo.cont_id}', '${contractInfo.production_id }');">
+		<input type="button" class="btn btn-light" value="창닫기" onclick="window.close();">
+	</div>
+	<div class="btn_table">
 	<table border="1">
 		<tr>
 			<th>수주번호</th>
@@ -46,9 +53,8 @@
 			<td>${contractInfo.cont_emp }</td>
 		</tr>
 	</table>
-	<input type="button" class="btn btn-success" value="수주수정" onclick="location.href='/contract/modify?cont_id=${contractInfo.cont_id }'">
-	<input type="button" class="btn btn-success" value="수주삭제" onclick="deleteAction('${contractInfo.cont_id}', '${contractInfo.production_id }');">
-	<input type="button" class="btn btn-light" value="창닫기" onclick="window.close();">
+	</div>
+</div>	
 	
 	<script type="text/javascript">
 	

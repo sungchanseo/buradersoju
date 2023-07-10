@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert창 링크 -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/mdi/css/materialdesignicons.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/base/vendor.bundle.base.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main/fullcalendar-5.11.4/lib/main.css">
@@ -14,8 +15,12 @@
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
 <link rel="stylesheet" href="${contextPath }/resources/css/table.css"/>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert창 링크 -->
 </head>
+<style>
+	input{
+		width:100%;
+	}
+</style>
 <body>
 <script>
 	//수주처 검색 및 자동완성 기능 
@@ -60,11 +65,17 @@
 		  }
 	}//empPop END
 </script>
-	<h1>수주번호 : ${contractInfo.cont_id }</h1>
-	<form action="" role="form" id="fr" method="post" onsubmit="return false;">
-		<table border="1">
+
+	<h1 style="display:inline;" >${contractInfo.cont_id }</h1>
+	<form action="" role="form" id="fr" method="post" onsubmit="return false;" style="display:inline;">
+	<div style="float:right; display:inline;">
+		<button type="submit" class="btn btn-success">수정완료</button>
+		<button type="button" class="btn btn-success" onclick="history.back();">뒤로가기</button>
+		<button type="button" class="btn btn-light" onclick="window.close();">창닫기</button>
+	</div>
+	<div class="btn_table" id="form" >
+		<table border="1" style="table-layout: fixed;">
 			<tr>
-			
 				<th>수주처이름	<input type="hidden" id="cont_id" value="${contractInfo.cont_id }"></th>
 				<td><input type="text" name="cust_name" id="cust_name" value="${contractInfo.cust_name }" onclick="custPop();"></td>
 				<th>상품명</th>
@@ -89,11 +100,8 @@
 				<td><input type="date" name="due_date" id="due_date" value="${contractInfo.due_date }"></td>
 			</tr>
 		</table>
-		<button type="submit" class="btn btn-success">수정완료</button>
-		<button type="button" class="btn btn-success" onclick="history.back();">뒤로가기</button>
-		<button type="button" class="btn btn-light" onclick="window.close();">창닫기</button>
+		</div>
 	</form>
-	
 	<script type="text/javascript">
 
 	$(document).ready(function(){

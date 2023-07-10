@@ -13,7 +13,7 @@
 		JOIN product p ON pd.product_id = p.product_id
 		JOIN employee e ON pd.production_emp = e.emp_id
 		LEFT JOIN pr_complete pc ON pd.production_id = pc.production_id
-		WHERE del_woStatus = 0
+		WHERE pd.del_woStatus = 0 AND pd.qc_id IS NULL
 		ORDER BY stage3_date desc, stage2_date desc, stage1_date desc
 	</select>
 <!-- 생산 목록 -->
@@ -22,7 +22,7 @@
 	<!-- 작업지시번호 조회 -->
 	  <select id="insertSearch" resultType="com.itwillbs.domain.ProductionVO">
 		SELECT pd.production_id, pd.production_date, pd.production_line, pd.product_id, 
-		p.product_name, pd.plan_qty, e.emp_name, pc.production_status
+		p.product_name, pd.plan_qty, e.emp_name, pc.production_status, pd.qc_id
 		FROM production pd
 		JOIN product p ON pd.product_id = p.product_id
 		JOIN employee e ON pd.production_emp = e.emp_id
@@ -79,7 +79,7 @@
     JOIN product p ON pd.product_id = p.product_id
     JOIN employee e ON pd.production_emp = e.emp_id
     LEFT JOIN pr_complete pc ON pd.production_id = pc.production_id
-    WHERE del_woStatus = 0
+    WHERE del_woStatus = 0  AND pd.qc_id IS NULL
     ORDER BY stage3_date DESC, stage2_date DESC, stage1_date DESC
 </select>
 
@@ -102,7 +102,7 @@
             pd.production_emp LIKE CONCAT('%', #{search}, '%')
         </when>
     </choose>
-    AND del_woStatus = 0
+    AND del_woStatus = 0 AND pd.qc_id IS NULL
     ORDER BY stage3_date DESC, stage2_date DESC, stage1_date DESC
 </select>
 <!-- 검색 기능 -->

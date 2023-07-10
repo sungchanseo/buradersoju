@@ -3,10 +3,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert창 링크 -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
+
 <head>
 
 <%@ include file="../includes/header.jsp" %>
-
+	
 	<style type="text/css">
 	/* 인쇄하기 가로 기본출력 지정 */
 		@page { size: A4 landscape; margin:0; }
@@ -47,6 +52,7 @@
 }
 
 	</style>
+
 
 </head>
 
@@ -141,12 +147,17 @@
 											          <td>${productionList.production_qty}</td>
 											          <td>
 											          <c:set var="production_defQty" value="${productionList.stage1_defQty + productionList.stage2_defQty + productionList.stage3_defQty}" />
-											          ${production_defQty}</td>
+											          ${production_defQty}
+											          </td>
 											          <td>
 											           <c:set var="defectRate" value="${(production_defQty * 100) / productionList.plan_qty}" />
 											           <c:choose>
+											            <c:when test="${defectRate > 2}">
+											             <span style="color: red;">
+														  <fmt:formatNumber value="${defectRate}" pattern="###0.###" />%
+														 </span>
+											            </c:when>
 											            <c:when test="${defectRate > 0}">
-											             <%-- 불량률 계산 --%>
 														 <fmt:formatNumber value="${defectRate}" pattern="###0.###" />%
 											            </c:when>
 											            <c:otherwise>
@@ -261,9 +272,20 @@
 											          <td>${productionList.plan_qty}</td>
 											          <td>${productionList.stage1_defQty}</td>
 											          <td>
-											            <%-- 불량률 계산 --%>
-											            <c:set var="defectRate" value="${(productionList.stage1_defQty * 100) / productionList.plan_qty}" />
-											            <fmt:formatNumber value="${defectRate}" pattern="###0.000" />%
+											           <c:set var="defectRate" value="${(productionList.stage1_defQty * 100) / productionList.plan_qty}" />
+     												   <c:choose>
+											            <c:when test="${defectRate > 2}">
+											             <span style="color: red;">
+														  <fmt:formatNumber value="${defectRate}" pattern="###0.###" />%
+														 </span>
+											            </c:when>     												   
+											            <c:when test="${defectRate >= 0}">
+														 <fmt:formatNumber value="${defectRate}" pattern="###0.###" />%
+											            </c:when>
+											            <c:otherwise>
+											             <!-- 값이 없을 경우 비워둠 -->
+											            </c:otherwise>
+											           </c:choose>
 											          </td>
 											          <td>${productionList.emp_name}</td>
 											          <td>${productionList.production_status}</td>
@@ -340,9 +362,21 @@
 											          <td>${productionList.plan_qty}</td>
 											          <td>${productionList.stage2_defQty}</td>
 											          <td>
-											            <%-- 불량률 계산 --%>
-											            <c:set var="defectRate" value="${(productionList.stage2_defQty * 100) / productionList.plan_qty}" />
-											            <fmt:formatNumber value="${defectRate}" pattern="###0.000" />%
+											           <c:set var="defectRate" value="${(productionList.stage2_defQty * 100) / productionList.plan_qty}" />
+      												   <c:choose>
+											            <c:when test="${defectRate > 2}">
+											             <span style="color: red;">
+														  <fmt:formatNumber value="${defectRate}" pattern="###0.###" />%
+														 </span>
+											            </c:when> 											            
+											            <c:when test="${defectRate >= 0}">
+											             <%-- 불량률 계산 --%>
+														 <fmt:formatNumber value="${defectRate}" pattern="###0.###" />%
+											            </c:when>
+											            <c:otherwise>
+											             <!-- 값이 없을 경우 비워둠 -->
+											            </c:otherwise>
+											           </c:choose>
 											          </td>
 											          <td>${productionList.emp_name}</td>
 											          <td>${productionList.production_status}</td>
@@ -383,7 +417,7 @@
   											  <!-- 등록 버튼 -->
 											  <div style="float:right; display:inline;">
 											  <c:if test="${emp_department.equals('생산') || emp_department.equals('생산팀') || emp_department.equals('Master')}">
-<!-- 											  <button type="button" onclick="openPopup('modifyStage3');" class="btn btn-info">수정</button> -->
+											  <button type="button" onclick="openPopup('modifyStage3');" class="btn btn-info">수정</button>
 											  <button type="button" onclick="openPopup('insertStage3');" class="btn btn-success">포장 등록</button>
 											  </c:if>
 											  </div>											  
@@ -419,9 +453,21 @@
 											          <td>${productionList.plan_qty}</td>
 											          <td>${productionList.stage3_defQty}</td>
 											          <td>
-											            <%-- 불량률 계산 --%>
-											            <c:set var="defectRate" value="${(productionList.stage3_defQty * 100) / productionList.plan_qty}" />
-											            <fmt:formatNumber value="${defectRate}" pattern="###0.000" />%
+											           <c:set var="defectRate" value="${(productionList.stage3_defQty * 100) / productionList.plan_qty}" />
+      												   <c:choose>
+											            <c:when test="${defectRate > 2}">
+											             <span style="color: red;">
+														  <fmt:formatNumber value="${defectRate}" pattern="###0.###" />%
+														 </span>
+											            </c:when>       												   
+											            <c:when test="${defectRate >= 0}">
+											             <%-- 불량률 계산 --%>
+														 <fmt:formatNumber value="${defectRate}" pattern="###0.###" />%
+											            </c:when>
+											            <c:otherwise>
+											             <!-- 값이 없을 경우 비워둠 -->
+											            </c:otherwise>
+											           </c:choose>
 											          </td>
 											          <td>${productionList.emp_name}</td>
 											          <td>${productionList.production_status}</td>
@@ -458,8 +504,6 @@
 							function info_print() {
 								window.print();
 							}
-							
-
 							
 							
 							</script>

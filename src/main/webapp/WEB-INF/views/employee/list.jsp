@@ -18,8 +18,8 @@
     text-align: center;
     display: inline;}
 .btn_line1 {
-margin-bottom: 1em;;}
-input {
+	margin-bottom: 1em;}
+.input_css {
 	border-radius: 10px;
     padding: 6px 6px;}
     
@@ -64,7 +64,7 @@ input {
 											<option value="emp_department">부서</option>
 											<option value="emp_status">재직구분</option>
 										</select>
-										<input type="text" name="search" placeholder="검색어를 입력해주세요">
+										<input type="text" name="search" class="input_css" placeholder="검색어를 입력해주세요">
 										<input type="submit" class="btn btn-info" value="검색">
 										<!-- 검색창기능 -->
 																	

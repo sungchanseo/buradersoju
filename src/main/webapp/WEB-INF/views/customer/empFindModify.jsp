@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
 </head>
-<body>
+<body style="padding: 2%;">
 <h1>직원검색</h1>
 	<!-- 검색창기능 -->
 	<form action="" method="get" style="display: inline;">

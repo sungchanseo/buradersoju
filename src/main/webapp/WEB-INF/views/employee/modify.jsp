@@ -77,7 +77,7 @@ td {border:1px solid #04AA6D;
 <body>
 	<form action="" role="form" id="fr" method="post" enctype="multipart/form-data">
 		<div class="container">
-			<h1 style="display: inline; font-family: 'NanumSquareRoundBold'; ">사원 수정</h1>
+			<h1 style="margin-top: 0px; margin-bottom: 0px;">사원 수정</h1>
 			
 			<div class="btn_btn">
 				<input type="submit" class="btn btn-info" value="사원수정" onclick="sendForm();">

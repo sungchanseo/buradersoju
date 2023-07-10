@@ -10,10 +10,22 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script> <!-- 제이쿼리 -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> <!-- 우편api -->
 
-	<style type="text/css">
-		/* 인쇄하기 가로 기본출력 지정 */
-		@page { size: A4 landscape; margin:0; }
-	</style>
+<style type="text/css">
+/* 인쇄하기 가로 기본출력 지정 */
+@page { size: A4 landscape; margin:0; }
+		
+.auth .auth-form-light select {
+    color: #6C7293;
+    border-radius: 10px;
+    padding: 6px 6px;
+    text-align: center;
+    display: inline;}
+.btn_line1 {
+	margin-bottom: 1em;;}
+input {
+	border-radius: 10px;
+    padding: 6px 6px;}
+</style>
 
 </head>
 <body>
@@ -27,7 +39,7 @@
 							<div class="auth-form-light text-left py-5 px-4 px-sm-5"
 								style="height: 1000px;">
 
-								<div class="card-body">
+								<div class="card-body" style="padding: 0;">
 										<h1 class="card-title">
 											<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
 											<span onclick="location.href='/contract/list'">수주 리스트</span></font></font>
@@ -160,7 +172,7 @@
 	function infoPop(contId){
 		console.log("들어온값 = "+contId);
 		var url = '/contract/info?cont_id='+contId;
-		var infoPop = window.open(url, '수주상세보기', 'width=1000px,height=400px');
+		var infoPop = window.open(url, '수주상세보기', 'width=1000px,height=220px');
 	  
 	  if(infoPop == null){
 		  Swal.fire({
@@ -175,7 +187,7 @@
 	
 	//수주등록 새창열기
 	function openPop(){
-	  var insertPop = window.open('/contract/insert', '수주등록', 'width=1000px,height=400px');
+	  var insertPop = window.open('/contract/insert', '수주등록', 'width=1000px,height=220px');
 	  
 	  if(insertPop == null){
 		  Swal.fire({

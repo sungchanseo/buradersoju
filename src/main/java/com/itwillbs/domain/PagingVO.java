@@ -65,7 +65,7 @@ public class PagingVO {
 	private OutProductVO OutProductVO;
 	private NoticeVO NoticeVO;
 	
-	// Join문을 위한 [in_material] 테이블 변수 선언 
+	// [in_material] 테이블 변수 선언 
 	private String ma_name;
 	private Date in_date;
 	private String in_id;
@@ -73,7 +73,7 @@ public class PagingVO {
 	private String in_empName;
 	private String in_process;
 
-	// Join문을 위한 [out_product] 테이블 변수 선언 
+	// [out_product] 테이블 변수 선언 
 	private String op_id;
 	private Date op_date;
 	private String product_name;
@@ -83,9 +83,9 @@ public class PagingVO {
 	private String endDate;
 	private String op_process;
 
-	// Join문을 위한 [orders] 테이블 변수 선언
-  private String order_id;
-  private String order_empName;
+	// [orders] 테이블 변수 선언
+	private String order_id;
+	private String order_empName;
     
     
   // get & set
@@ -253,7 +253,7 @@ public class PagingVO {
 	}
 	
 	
-	// Join문을 위한 in_material get & set
+	// [in_material] get & set
 	public String getMa_name() {
 		return ma_name;
 	}
@@ -292,7 +292,7 @@ public class PagingVO {
 	}
 
 	
-	// Join문을 위한 out_product get & set
+	// [out_product] get & set
 	public String getOp_id() {
 		return op_id;
 	}
@@ -343,7 +343,22 @@ public class PagingVO {
 	}
 
 	
-  // toString
+	// [orders] get & set
+	public String getOrder_id() {
+		return order_id;
+	}
+	public void setOrder_id(String order_id) {
+		this.order_id = order_id;
+	}
+	public String getOrder_empName() {
+		return order_empName;
+	}
+	public void setOrder_empName(String order_empName) {
+		this.order_empName = order_empName;
+	}
+	
+	
+	// toString
 	@Override
 	public String toString() {
 		return "PagingVO [table=" + table + ", status_name=" + status_name + ", status_value=" + status_value
@@ -357,7 +372,8 @@ public class PagingVO {
 				+ ", ma_name=" + ma_name + ", in_date=" + in_date + ", in_id=" + in_id + ", in_emp=" + in_emp
 				+ ", in_empName=" + in_empName + ", in_process=" + in_process + ", op_id=" + op_id + ", op_date="
 				+ op_date + ", product_name=" + product_name + ", op_emp=" + op_emp + ", op_empName=" + op_empName
-				+ ", startDate=" + startDate + ", endDate=" + endDate + ", op_process=" + op_process + "]";
+				+ ", startDate=" + startDate + ", endDate=" + endDate + ", op_process=" + op_process + ", order_id="
+				+ order_id + ", order_empName=" + order_empName + "]";
 	}
 
 }

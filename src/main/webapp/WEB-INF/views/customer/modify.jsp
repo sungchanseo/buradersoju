@@ -12,15 +12,14 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/mdi/css/materialdesignicons.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/base/vendor.bundle.base.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main/fullcalendar-5.11.4/lib/main.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
 <link rel="stylesheet" href="${contextPaht }/resources/css/table.css"/>
 <style>
-th{width:12%;}
+/* th{width:12%;} */
 </style>
 </head>
-<body>
+<body style="padding: 2%;">
 	<script>
 		//우편번호 자동입력 api 메소드
 		function addr() {
@@ -34,7 +33,7 @@ th{width:12%;}
 		
 		//직원정보 검색 및 자동완성 기능 
 		function empPop(){
-			var empPop = window.open('/customer/empFindModify', '직원검색', 'width=700px,height=500px');
+			var empPop = window.open('/customer/empFindModify', '직원검색', 'width=700px,height=520px');
 			
 			if(empPop == null){
 				  Swal.fire({

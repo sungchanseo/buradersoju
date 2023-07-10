@@ -10,17 +10,14 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/mdi/css/materialdesignicons.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/base/vendor.bundle.base.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main/fullcalendar-5.11.4/lib/main.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
 <link rel="stylesheet" href="${contextPath }/resources/css/table.css"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
 <style>
 /* 	table{table-layout:fixed;} */
-	table th {width:12%;}
-	table input{width:100%;}
 </style>
 </head>
-<body>
+<body style="padding: 2%;">
 	<h1 style="display:inline;">수주 등록</h1>
 	<form action="" role="form" id="fr" method="post" style="display:inline;">
 		<div style="float:right;">
@@ -63,7 +60,7 @@
 	
 	//수주처 검색 및 자동완성 기능 
 	function custPop(){
-		var custPop = window.open('/contract/custFind', '수주처검색', 'width=700px,height=650px');
+		var custPop = window.open('/contract/custFind', '수주처검색', 'width=700px,height=520px');
 		
 		if(custPop == null){
 			 Swal.fire({
@@ -78,7 +75,7 @@
 	
 	//상품명 검색 및 자동완성 기능 
 	function productPop(){
-		var productPop = window.open('/contract/productFind', '상품검색', 'width=700px,height=500px');
+		var productPop = window.open('/contract/productFind', '상품검색', 'width=300px,height=500px');
 		
 		if(productPop == null){
 			  Swal.fire({
@@ -93,7 +90,7 @@
 	
 	//직원정보 검색 및 자동완성 기능 
 	function empPop(){
-		var empPop = window.open('/contract/empFind', '직원검색', 'width=700px,height=500px');
+		var empPop = window.open('/contract/empFind', '직원검색', 'width=700px,height=450px');
 		
 		if(empPop == null){
 			Swal.fire({

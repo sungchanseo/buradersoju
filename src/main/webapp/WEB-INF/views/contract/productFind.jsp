@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
 </head>
-<body>
+<body style="padding: 2%;">
 <h1>상품 검색</h1>
 <!-- 표 들어가는 자리  -->
 <table class="table table-color">

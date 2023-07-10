@@ -92,7 +92,7 @@ td {
 					<td>${resultVO.emp_name }</td>
 				</tr>
 				<tr>
-					<td rowspan="5" style="width: 250px; height: 300px"><img src="/employee/imgDown?fileName=${resultVO.emp_image }"></td>
+					<td rowspan="5" style="width: 250px; height: 290px"><img src="/employee/imgDown?fileName=${resultVO.emp_image }"></td>
 					<th>생년월일</th>
 					<td>${resultVO.emp_birth }</td>
 					<th>휴대전화</th>

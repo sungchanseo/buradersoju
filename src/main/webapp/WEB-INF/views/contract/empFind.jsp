@@ -15,14 +15,22 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
 </head>
+<style>
+.table-responsive {
+	margin-bottom: 1em;}
+.input_css {
+	border-radius: 10px;
+    padding: 6px 6px;}
+</style>
 <body>
+<div style="padding: 2%;">
 <h1>직원검색</h1>
 	<!-- 검색창기능 -->
 	<form action="" method="get" style="display: inline;">
-		<select name="selector">
+		<select name="selector" style="padding: 6px 6px; color: #6C7293; border-radius: 10px; text-align: center;">
 			<option value="emp_name">이름</option>
 			<option value="emp_department">부서</option>
-		</select> <input type="text" style="display:inline;" name="search" placeholder="검색어를 입력해주세요">
+		</select> <input type="text" style="display:inline;" name="search" class="input_css" placeholder="검색어를 입력해주세요">
 		<input type="submit"  class="btn btn-info" value="검색">
 	</form>
 	<!-- 검색창기능 -->
@@ -65,7 +73,7 @@
 		<!--	페이징처리  -->
 		
 	</div>
-	
+</div>	
 	<script>
 	
 	function selectRow(emp_id){

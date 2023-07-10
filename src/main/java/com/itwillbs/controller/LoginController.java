@@ -50,6 +50,7 @@ public class LoginController {
 			session.setAttribute("emp_id", returnVO.getEmp_id());
 			session.setAttribute("emp_name", returnVO.getEmp_name());
 			session.setAttribute("emp_department", returnVO.getEmp_department());
+			session.setAttribute("emp_image", returnVO.getEmp_image());
 			rttr.addFlashAttribute("mvo", returnVO);
 			//l.info("C: 모델값 : "+model);
 			logger.info("로그인 성공!");

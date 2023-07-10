@@ -6,11 +6,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -254,7 +249,7 @@ public class ContractController {
 	public ProductionVO getProductInfo(@RequestParam("product_id") String product_id) throws Exception{
 		logger.debug("@@@@@@@@@@@Controller : 거래처정보 가져오기 !!!!!");
 		logger.debug("@@@@@@@@@@@Controller : {}", product_id);
-
+		
 		ProductionVO vo = contService.getProductInfo(product_id);
 		logger.debug("@@@@@@@@@@@Controller : {}", vo);
 

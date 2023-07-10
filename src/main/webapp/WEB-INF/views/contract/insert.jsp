@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert창 링크 -->
 <title>Insert title here</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/mdi/css/materialdesignicons.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/base/vendor.bundle.base.css">
@@ -13,41 +14,49 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
 <link rel="stylesheet" href="${contextPath }/resources/css/table.css"/>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert창 링크 -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
+<style>
+/* 	table{table-layout:fixed;} */
+	table th {width:12%;}
+	table input{width:100%;}
+</style>
 </head>
 <body>
-	<h1>수주 등록</h1>
-	<form action="" role="form" id="fr" method="post">
-		<table border="1">
-			<tr>
-				<th>수주처이름</th>
-				<td><input type="text" name="cust_name" id="cust_name" onclick="custPop();"></td>
-				<th>상품명</th>
-				<td><input type="text" name="product_name" id="product_name" onclick="productPop();"></td>
-				<th>담당자</th>
-				<td><input type="text" name="cont_emp" id="cont_emp" onclick="empPop();"></td>
-			</tr>
-			<tr>
-				<th>수주처코드</th>
-				<td><input type="text" name="cust_id" id="cust_id" placeholder="상호로 검색하세요." readonly></td>
-				<th>상품코드</th>
-				<td><input type="text" name="product_id" id="product_id" placeholder="상품명으로 검색하세요." readonly></td>
-				<th>수주일자</th>
-				<td><input type="date" name="cont_date" id="cont_date"></td>
-			</tr>
-			<tr>
-				<th>수주량</th>
-				<td><input type="text" name="cont_qty" id="cont_qty"></td>
-				<th>작업지시번호</th>
-				<td><input type="text" name="production_id" value="수정하기에서 입력하세요." readonly></td>
-				<th>납품일자</th>
-				<td><input type="date" name="due_date" onchange="limitDate();" id="due_date"></td>
-			</tr>
-		</table>
-		<input type="submit" class="btn btn-success" value="작성완료" >
-		<input type="reset" class="btn btn-success" value="초기화">
-		<input type="button" class="btn btn-light" value="창닫기" onclick="window.close();">
+	<h1 style="display:inline;">수주 등록</h1>
+	<form action="" role="form" id="fr" method="post" style="display:inline;">
+		<div style="float:right;">
+			<input type="submit" class="btn btn-success" value="작성완료" >
+			<input type="reset" class="btn btn-success" value="초기화">
+			<input type="button" class="btn btn-light" value="창닫기" onclick="window.close();">
+		</div>
+		<div class="btn_table">
+			<table border="1">
+				<tr>
+					<th>수주처이름</th>
+					<td><input type="text" name="cust_name" id="cust_name" onclick="custPop();"></td>
+					<th>상품명</th>
+					<td><input type="text" name="product_name" id="product_name" onclick="productPop();"></td>
+					<th>담당자</th>
+					<td><input type="text" name="cont_emp" id="cont_emp" onclick="empPop();"></td>
+				</tr>
+				<tr>
+					<th>수주처코드</th>
+					<td><input type="text" name="cust_id" id="cust_id" placeholder="상호로 검색하세요." readonly></td>
+					<th>상품코드</th>
+					<td><input type="text" name="product_id" id="product_id" placeholder="상품명으로 검색하세요." readonly></td>
+					<th>수주일자</th>
+					<td><input type="date" name="cont_date" id="cont_date"></td>
+				</tr>
+				<tr>
+					<th>수주량</th>
+					<td><input type="text" name="cont_qty" id="cont_qty"></td>
+					<th>작업지시번호</th>
+					<td><input type="text" name="production_id" value="자동으로 입력됩니다." readonly></td>
+					<th>납품일자</th>
+					<td><input type="date" name="due_date" onchange="limitDate();" id="due_date"></td>
+				</tr>
+			</table>
+		</div>
 	</form>
 <!-- 	http://localhost:8088/contract/list -->
 <!-- 	제이쿼리 -->

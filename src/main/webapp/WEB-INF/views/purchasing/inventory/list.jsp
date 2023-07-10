@@ -41,7 +41,7 @@
 									<select name="selector">
 										<option value="ma_id">자재코드</option>
 										<option value="ma_name">자재명</option>
-									</select> <input type="text" class="form-control" style="width:10%; display:inline;" name="search" placeholder="검색어를 입력해주세요">
+									</select>  <input type="text" name="search" placeholder="검색어를 입력해주세요">
 									<input type="submit"  class="btn btn-info" value="검색">
 								</form>
 								<!-- 검색창기능 -->

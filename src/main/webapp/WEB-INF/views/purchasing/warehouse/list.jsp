@@ -64,7 +64,7 @@ $('.modify').click(function(){
 				      console.log(data);
 				$(data).each(function(idx, obj){
 						var str = "";
-						str += "<tr>";
+						str += "<tr id='key_id'>";
 						str += "<td><input type='checkbox' name='check'></td>";
 						str += "<td>"+ obj.whs_id +"</td>";
 						str += "<td><input type='text' id='whs_type' name='whs_type' value="+ obj.whs_type +" readonly></td>";
@@ -220,7 +220,7 @@ $('.modify').click(function(){
      <c:if test="${emp_department.equals('구매팀') || emp_department.equals('Master')}">
 		<div style=float:right;>
 			<button class="btn btn-success add-button" type="button" onclick="openPopup();">등록</button>
-			<!-- <button class="btn btn-success modify true">수정</button> -->
+		    <button class="btn btn-success modify true">수정</button>
 			<button class="btn btn-success" id="delete">삭제</button>
 			<button class="btn btn-info insert update">저장</button>
 		</div>
@@ -241,6 +241,7 @@ $('.modify').click(function(){
 	<!-- 테이블 -->
 	
 	<table border="1" class="table table-hover table-bordered text-center">
+		<thead>
 		<tr>
 			<th></th>
 			<th>창고번호</th>
@@ -249,26 +250,28 @@ $('.modify').click(function(){
 			<th>사용여부</th>
 			<th>창고관리자</th>
 		</tr>
-		
+		</thead>
+		<tbody id="tbody">
 		<c:forEach var="wh" items="${warehouseList}">
-			<tr>
+			  <tr>
 			<c:choose>
 			   <c:when test="${wh.whs_type.equals('자재')}">
 			   <td><input type="checkbox" name="check"></td>
 		       <td>${wh.whs_id}</td>
 		       <td>${wh.whs_type}</td>
 		       <td>${wh.whs_tel}</td>
-		       <td>
-		       	 <c:choose>
-		       		<c:when test="${wh.whs_status == 1}">사용중</c:when>
-		       		<c:when test="${wh.whs_status == 2}">미사용</c:when>
-		       	 </c:choose>
-		       </td>
+		         <td>
+		       	   <c:choose>
+		       		 <c:when test="${wh.whs_status == 1}">사용중</c:when>
+		       		 <c:when test="${wh.whs_status == 2}">미사용</c:when>
+		       	   </c:choose>
+		         </td>
 		       <td>${wh.emp_name}</td>
-		       </c:when>
+		          </c:when>
 		       </c:choose>
-			</tr>
-		</c:forEach>
+			 </tr>
+	   	  </c:forEach>
+		</tbody>
 	</table>
   </div>
 </div>
@@ -276,15 +279,17 @@ $('.modify').click(function(){
 <div class="tab-pane fade show" id="stage2" role="tabpanel" aria-labelledby="stage2-tab">
 	<!-- 테이블 -->
 	<table border="1" class="table table-hover table-bordered text-center">
-		<tr>
+		<thead>
+		  <tr>
 			<th></th>
 			<th>창고번호</th>
 			<th>창고타입</th>
 			<th>전화번호</th>
 			<th>사용여부</th>
 			<th>창고관리자</th>
-		</tr>
-		
+		  </tr>
+		</thead>
+      <tbody id="tbody">		
 		<c:forEach var="wh" items="${warehouseList}">
 			<tr>
 			<c:choose>
@@ -300,10 +305,11 @@ $('.modify').click(function(){
 		       	 </c:choose>
 		       </td>
 		       <td>${wh.emp_name}</td>
-		       </c:when>
+		         </c:when>
 		       </c:choose>
 			</tr>
-		</c:forEach>
+	 	 </c:forEach>
+	   </tbody>
 	</table>
               </div>
              </div>

@@ -58,16 +58,16 @@ function info_print() {
 								<!-- 탭 메뉴 -->
 	<ul class="nav nav-tabs tab-no-active-fill" >
 	<li class="nav-item">
-	<a class="nav-link ps-2 pe-2 active" id="stage1-tab" href="http://localhost:8088/workOrder/list" >전체</a>
+	<a class="nav-link ps-2 pe-2 active" id="stage1-tab" href="/workOrder/list" >전체</a>
 	</li>
 	<li class="nav-item">
-	<a  href="http://localhost:8088/workOrder/list2" class="nav-link ps-2 pe-2" id="stage2-tab" >대기</a>
+	<a  href="/workOrder/list2" class="nav-link ps-2 pe-2" id="stage2-tab" >대기</a>
 	</li>
 	<li class="nav-item">
-	<a class="nav-link ps-2 pe-2 active" id="stage3-tab"  href="http://localhost:8088/workOrder/list3" >진행중</a>
+	<a class="nav-link ps-2 pe-2 active" id="stage3-tab"  href="/workOrder/list3" >진행중</a>
 	</li>
 	<li class="nav-item">
-	<a class="nav-link ps-2 pe-2" id="stage4-tab"  href="http://localhost:8088/workOrder/list4" >완료</a>
+	<a class="nav-link ps-2 pe-2" id="stage4-tab"  href="/workOrder/list4" >완료</a>
 	</li>
 	</ul>
 <!-- 검색창 기능 -->

@@ -59,7 +59,8 @@ td {
 	border-color: #23dbf8;}
 	
 .container {
-	position: relative;}
+	position: relative;
+	margin: 2%;}
 
 .btn_btn {
 	position: absolute;
@@ -67,13 +68,13 @@ td {
 	right: 0;}
 
 .btn_table table {
-	width: 100%;}	
+	width: 100%;}
 
 </style>
 </head>
 <body>
 	<div class="container">
-		<h1 style="display: inline;">사원 정보</h1>
+		<h1 class="head_h1" style="display: inline;">사원 정보</h1>
 		
 		<div class="btn_btn">
 			<c:if test="${emp_department.equals('인사팀') || emp_department.equals('Master') }">

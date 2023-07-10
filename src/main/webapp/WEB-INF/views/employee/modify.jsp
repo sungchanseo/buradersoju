@@ -60,7 +60,8 @@ td {border:1px solid #04AA6D;
 	border-color: #0ddbb9;}
 	
 .container {
-	position: relative;}
+	position: relative;
+	margin: 2%;}
 
 .btn_btn {
 	position: absolute;

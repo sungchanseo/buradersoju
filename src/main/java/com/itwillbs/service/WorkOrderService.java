@@ -33,6 +33,15 @@ public interface WorkOrderService {
 	
 	// 페이징처리 변수저장을 위한 Service생성
 	public PagingVO setPageInfoForWorkOrder(PagingVO pvo) throws Exception;
+	
+	// 페이징처리 변수저장을 위한 Service생성
+	public PagingVO setPageInfoForWorkOrderP2(PagingVO pvo) throws Exception;
+	
+	// 페이징처리 변수저장을 위한 Service생성
+	public PagingVO setPageInfoForWorkOrderP3(PagingVO pvo) throws Exception;
+		
+		// 페이징처리 변수저장을 위한 Service생성
+	public PagingVO setPageInfoForWorkOrderP4(PagingVO pvo) throws Exception;
 
 	// 검수등록시 조회용 페이징처리 Service생성
 	public PagingVO setPageInfoForWorkOrder2(PagingVO pvo) throws Exception;

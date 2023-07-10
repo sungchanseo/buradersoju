@@ -51,6 +51,75 @@ public class WorkOrderServiceImpl implements WorkOrderService {
 		return pvo;
 	}
 	
+	// 작업지시 목록(페이징)
+		@Override
+		public PagingVO setPageInfoForWorkOrderP2(PagingVO pvo) throws Exception{
+			logger.debug("@@@@@@CustomerService : setPageInfoForCustomer호출!");
+			
+			//WorkOrder서비스에 필요한 변수를 저장. 
+			pvo.setTable("production a, product b, employee e");
+			pvo.setId("production_id");
+			pvo.setPageSize(10);
+			pvo.setStartRow(1);
+			pvo.setStatus_name("a.product_id = b.product_id and e.emp_id = a.production_emp and del_woStatus = '0' and workOrder_status");
+			pvo.setStatus_value("대기");
+//			pvo.setColumn_name("workOrder_status");
+//			pvo.setColumn_value(column_value);
+			
+			logger.debug("@@@@@@WorkOrderService : {}",pvo);
+
+			
+			//페이지 계산을 위해서 pageingSerivce의 메소드 호출 
+			pvo = pageService.pagingAction(pvo);
+			logger.debug("@@@@@@WorkOrderService : {}",pvo);
+			return pvo;
+		}
+		
+	// 작업지시 목록(페이징)
+		@Override
+		public PagingVO setPageInfoForWorkOrderP3(PagingVO pvo) throws Exception{
+			logger.debug("@@@@@@CustomerService : setPageInfoForCustomer호출!");
+			
+			//WorkOrder서비스에 필요한 변수를 저장. 
+			pvo.setTable("production a, product b, employee e");
+			pvo.setId("production_id");
+			pvo.setPageSize(10);
+			pvo.setStartRow(1);
+			pvo.setStatus_name("a.product_id = b.product_id and e.emp_id = a.production_emp and del_woStatus = '0' and workOrder_status");
+			pvo.setStatus_value("진행중");
+
+			
+			logger.debug("@@@@@@WorkOrderService : {}",pvo);
+
+			
+			//페이지 계산을 위해서 pageingSerivce의 메소드 호출 
+			pvo = pageService.pagingAction(pvo);
+			logger.debug("@@@@@@WorkOrderService : {}",pvo);
+			return pvo;
+		}
+				
+		// 작업지시 목록(페이징)
+		@Override
+		public PagingVO setPageInfoForWorkOrderP4(PagingVO pvo) throws Exception{
+			logger.debug("@@@@@@CustomerService : setPageInfoForCustomer호출!");
+			
+			//WorkOrder서비스에 필요한 변수를 저장. 
+			pvo.setTable("production a, product b, employee e");
+			pvo.setId("production_id");
+			pvo.setPageSize(10);
+			pvo.setStartRow(1);
+			pvo.setStatus_name("a.product_id = b.product_id and e.emp_id = a.production_emp and del_woStatus = '0' and workOrder_status");
+			pvo.setStatus_value("완료");
+			
+			logger.debug("@@@@@@WorkOrderService : {}",pvo);
+
+			
+			//페이지 계산을 위해서 pageingSerivce의 메소드 호출 
+			pvo = pageService.pagingAction(pvo);
+			logger.debug("@@@@@@WorkOrderService : {}",pvo);
+			return pvo;
+		}
+	
 	@Override
 	public PagingVO setPageInfoForWorkOrder2(PagingVO pvo) throws Exception{
 		logger.debug("@@@@@@CustomerService : setPageInfoForCustomer호출!");

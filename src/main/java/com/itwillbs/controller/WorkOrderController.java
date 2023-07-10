@@ -161,10 +161,60 @@ public class WorkOrderController {
 			}
 		////// 작업지시 등록 //////
 		
-		////// 작업지시 목록 //////
+
+		////// 작업지시 상세보기 //////
+		// http://localhost:8088/workOrder/info?production_id=PR230615001
+		// 작업지시 상세보기 페이지
+		@RequestMapping(value = "/info",method = RequestMethod.GET)
+		public void workOrderGET(Model model, HttpSession session,
+								 @RequestParam("production_id") String production_id) throws Exception{
+			logger.debug(" workOrderGET()호출! ");
+			
+			logger.debug(" production_id : "+production_id);
+			
+			model.addAttribute("workOrder", woService.detailWorkOrder(production_id));
+			
+		}
+		////// 작업지시 상세보기 //////
+		////// 작업지시 삭제 //////
+		@RequestMapping(value = "/remove", method = RequestMethod.POST)
+		public String removeWorkOrder(HttpServletRequest request, String product_id, String production_id) throws Exception{
+			
+		ProductionVO vo = woService.detailWorkOrder(production_id);	
+		
+		logger.debug(" materialSearch(Model model, String product_id) 호출! ");
+//		logger.debug("product_id : "+product_id);
+		
+		woService.delWoCont(vo);
+		logger.debug("@@@@@@@@ 수주테이블, 작업지시상태 업데이트 완료");
+		// 테이블의 정보를 가져와서 모델에 추가
+		List<ProductionVO> maList = woService.getMaterialList(vo.getProduct_id());
+		List<Float> ma_qtyList = new ArrayList<>();;
+		List<String> ma_nameList = new ArrayList<>();
+	  	  for (var i = 0; i < maList.size(); i++) {
+	  		  		ProductionVO mvo = maList.get(i);
+	  		   float be_ma_qty = mvo.getMa_qty(); // 재고량
+	  		    float cal_qty = (mvo.getUse_qty()*vo.getPlan_qty()); // 사용수량
+	  		    float ma_qty =(be_ma_qty + cal_qty);
+	  		    ma_qtyList.add(ma_qty);
+				ma_nameList.add(mvo.getMa_name());
+	  	  }
+	  	  logger.debug("@@@@@@@ma_nameList : " +ma_nameList+"");
+		logger.debug("@@@@@@@ma_qtyList : " +ma_qtyList+"");
+		logger.debug("@@@@@@@자재 업데이트");
+		//servicer객체 호출
+		woService.maQtyUpdate2(ma_nameList, ma_qtyList);
+		logger.debug("@@@@@@@자재 돌려놓기 완료");
+		
+//		model.addAttribute("materialList",materialList);	
+		return "redirect:/workOrder/list";
+		}
+		////// 작업지시 삭제 //////
+		
+		////// 작업지시 목록1 //////
 		// http://localhost:8088/workOrder/list
 		@RequestMapping(value = "/list")
-		public String customerListGET(Model model, PagingVO pvo, 
+		public String workOrderListGET(Model model, PagingVO pvo, 
 				HttpServletRequest request, HttpSession session) throws Exception {
 			logger.debug("@@@@@@@@@Controller : 작업지시 목록 보기");
 			logger.debug("@@@@@@@@@Controller : {}",pvo);
@@ -215,56 +265,143 @@ public class WorkOrderController {
 			
 			return null;
 		}
-		////// 작업지시 목록 //////
+		////// 작업지시 목록1 //////
 		
-		////// 작업지시 상세보기 //////
-		// http://localhost:8088/workOrder/info?production_id=PR230615001
-		// 작업지시 상세보기 페이지
-		@RequestMapping(value = "/info",method = RequestMethod.GET)
-		public void workOrderGET(Model model, HttpSession session,
-								 @RequestParam("production_id") String production_id) throws Exception{
-			logger.debug(" workOrderGET()호출! ");
+	////// 작업지시 목록2 //////
+		// http://localhost:8088/workOrder/list2
+		@RequestMapping(value = "/list2")
+		public String workOrderList2GET(Model model, PagingVO pvo, 
+				HttpServletRequest request, HttpSession session) throws Exception {
+			logger.debug("@@@@@@@@@Controller : 작업지시 목록 보기");
+			logger.debug("@@@@@@@@@Controller : {}",pvo);
 			
-			logger.debug(" production_id : "+production_id);
+			//로그인 세션이 없을 때 로그인 페이지로 이동한다. 
+			if(session.getAttribute("emp_id") == null) {
+				return "redirect:/main/login";
+			}
 			
-			model.addAttribute("workOrder", woService.detailWorkOrder(production_id));
+			pvo.setSelector(request.getParameter("selector"));
+			pvo.setSearch(request.getParameter("search"));
+			pvo.setColumn_name("a.workOrder_status");
+			pvo.setColumn_value(request.getParameter("column_value"));
 			
+			List<Object> workOrderList=null;
+			
+			//작업지시목록을 가져오는 woService 호출
+			pvo = woService.setPageInfoForWorkOrderP2(pvo);
+			logger.debug("@@@@@@@@@Controller : {}",pvo);
+			
+			//service객체를 호출
+			if(pvo.getSelector()!=null && pvo.getSelector()!="") {
+				//검색어가 있을 때 
+				logger.debug("@@@@@@@@@Controller : 검색어가 있을 때입니다");
+				workOrderList = pageService.getListSearchObjectProductionVO(pvo);
+			}
+			else {
+				//검색어가 없을 때
+				logger.debug("@@@@@@@@@Controller : 검색어가 없을 때입니다");
+				workOrderList = pageService.getListPageSizeObjectProductionVO(pvo);
+			}
+			
+			logger.debug("@@@@@@@@@Controller : workOrderList={}",workOrderList);
+			//변수에 담아서 전달
+			model.addAttribute("workOrderList", workOrderList);
+			model.addAttribute("pvo",pvo);	
+			
+			return null;
 		}
-		////// 작업지시 상세보기 //////
-		////// 작업지시 삭제 //////
-		@RequestMapping(value = "/remove", method = RequestMethod.POST)
-		public String removeWorkOrder(HttpServletRequest request, String product_id, String production_id) throws Exception{
+		////// 작업지시 목록2 //////
+		
+		////// 작업지시 목록3 //////
+		// http://localhost:8088/workOrder/list3
+		@RequestMapping(value = "/list3")
+		public String workOrderList3GET(Model model, PagingVO pvo, 
+				HttpServletRequest request, HttpSession session) throws Exception {
+			logger.debug("@@@@@@@@@Controller : 작업지시 목록 보기");
+			logger.debug("@@@@@@@@@Controller : {}",pvo);
 			
-		ProductionVO vo = woService.detailWorkOrder(production_id);	
-		
-		logger.debug(" materialSearch(Model model, String product_id) 호출! ");
-//		logger.debug("product_id : "+product_id);
-		
-		woService.delWoCont(vo);
-		logger.debug("@@@@@@@@ 수주테이블, 작업지시상태 업데이트 완료");
-		// 테이블의 정보를 가져와서 모델에 추가
-		List<ProductionVO> maList = woService.getMaterialList(vo.getProduct_id());
-		List<Float> ma_qtyList = new ArrayList<>();;
-		List<String> ma_nameList = new ArrayList<>();
-	  	  for (var i = 0; i < maList.size(); i++) {
-	  		  		ProductionVO mvo = maList.get(i);
-	  		   float be_ma_qty = mvo.getMa_qty(); // 재고량
-	  		    float cal_qty = (mvo.getUse_qty()*vo.getPlan_qty()); // 사용수량
-	  		    float ma_qty =(be_ma_qty + cal_qty);
-	  		    ma_qtyList.add(ma_qty);
-				ma_nameList.add(mvo.getMa_name());
-	  	  }
-	  	  logger.debug("@@@@@@@ma_nameList : " +ma_nameList+"");
-		logger.debug("@@@@@@@ma_qtyList : " +ma_qtyList+"");
-		logger.debug("@@@@@@@자재 업데이트");
-		//servicer객체 호출
-		woService.maQtyUpdate2(ma_nameList, ma_qtyList);
-		logger.debug("@@@@@@@자재 돌려놓기 완료");
-		
-//		model.addAttribute("materialList",materialList);	
-		return "redirect:/workOrder/list";
+			//로그인 세션이 없을 때 로그인 페이지로 이동한다. 
+			if(session.getAttribute("emp_id") == null) {
+				return "redirect:/main/login";
+			}
+			
+			pvo.setSelector(request.getParameter("selector"));
+			pvo.setSearch(request.getParameter("search"));
+			pvo.setColumn_name("a.workOrder_status");
+			pvo.setColumn_value(request.getParameter("column_value"));
+			
+			List<Object> workOrderList=null;
+			
+			//작업지시목록을 가져오는 woService 호출
+			pvo = woService.setPageInfoForWorkOrderP3(pvo);
+			logger.debug("@@@@@@@@@Controller : {}",pvo);
+			
+			//service객체를 호출
+			if(pvo.getSelector()!=null && pvo.getSelector()!="") {
+				//검색어가 있을 때 
+				logger.debug("@@@@@@@@@Controller : 검색어가 있을 때입니다");
+				workOrderList = pageService.getListSearchObjectProductionVO(pvo);
+			}
+			else {
+				//검색어가 없을 때
+				logger.debug("@@@@@@@@@Controller : 검색어가 없을 때입니다");
+				workOrderList = pageService.getListPageSizeObjectProductionVO(pvo);
+			}
+			
+			logger.debug("@@@@@@@@@Controller : workOrderList={}",workOrderList);
+			//변수에 담아서 전달
+			model.addAttribute("workOrderList", workOrderList);
+			model.addAttribute("pvo",pvo);	
+			
+			return null;
 		}
-		////// 작업지시 삭제 //////
+		////// 작업지시 목록3 //////
+		
+		////// 작업지시 목록4 //////
+		// http://localhost:8088/workOrder/list4
+		@RequestMapping(value = "/list4")
+		public String workOrderList4GET(Model model, PagingVO pvo, 
+				HttpServletRequest request, HttpSession session) throws Exception {
+			logger.debug("@@@@@@@@@Controller : 작업지시 목록 보기");
+			logger.debug("@@@@@@@@@Controller : {}",pvo);
+			
+			//로그인 세션이 없을 때 로그인 페이지로 이동한다. 
+			if(session.getAttribute("emp_id") == null) {
+				return "redirect:/main/login";
+			}
+			
+			pvo.setSelector(request.getParameter("selector"));
+			pvo.setSearch(request.getParameter("search"));
+			pvo.setColumn_name("a.workOrder_status");
+			pvo.setColumn_value(request.getParameter("column_value"));
+			
+			List<Object> workOrderList=null;
+			
+			//작업지시목록을 가져오는 woService 호출
+			pvo = woService.setPageInfoForWorkOrderP4(pvo);
+			logger.debug("@@@@@@@@@Controller : {}",pvo);
+			
+			//service객체를 호출
+			if(pvo.getSelector()!=null && pvo.getSelector()!="") {
+				//검색어가 있을 때 
+				logger.debug("@@@@@@@@@Controller : 검색어가 있을 때입니다");
+				workOrderList = pageService.getListSearchObjectProductionVO(pvo);
+			}
+			else {
+				//검색어가 없을 때
+				logger.debug("@@@@@@@@@Controller : 검색어가 없을 때입니다");
+				workOrderList = pageService.getListPageSizeObjectProductionVO(pvo);
+			}
+			
+			logger.debug("@@@@@@@@@Controller : workOrderList={}",workOrderList);
+			//변수에 담아서 전달
+			model.addAttribute("workOrderList", workOrderList);
+			model.addAttribute("pvo",pvo);	
+			
+			return null;
+		}
+		////// 작업지시 목록4 //////
+		
 	
 		
 }

@@ -11,9 +11,10 @@
 <title>혼합 등록</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11%22%3E"></script> <!-- alert창 링크 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert창 링크 -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
+
 
 <style type="text/css">
 table {margin-bottom: 1em;
@@ -69,7 +70,7 @@ border-color: #23dbf8;}
 
 <script>
 
-  /* 수주번호 조회(페이지 이동x) */
+  /* 작업지시번호 조회(페이지 이동x) */
   $(document).ready(function() {
     $("#btn_idSearch").click(function() {
   	  var production_id = $("#production_id").val();
@@ -82,8 +83,11 @@ border-color: #23dbf8;}
         dataType: 'json',
         success: function(response) {
       	  console.log(response);
-            var vo = response.vo;
+          var vo = response.vo;
             
+          if (vo) {
+        	  
+            // 결과가 있을 때 
             $("#insertTable tbody").html(
               "<tr>" +
               "<td><input type='hidden' name='production_id' value='"+vo.production_id+"'>" 
@@ -125,7 +129,14 @@ border-color: #23dbf8;}
               } else {
                 $("#btnInsert").hide(); // 등록 버튼 숨기기
               }
-            
+          } else {
+       	    // 결과가 없을 때
+            Swal.fire({
+              title: '조회 결과 없음',
+              icon: 'warning',
+              confirmButtonText: '확인'  
+          	});
+          } // else
         },
         error : function(error) {
         console.log(error);
@@ -140,22 +151,41 @@ border-color: #23dbf8;}
 	    sendForm();
     });
     
-    // sendForm 함수 정의
-    function sendForm() {
-      var formObject = $("form[role='form']").serialize();
-
-      $.ajax({
-        url: '/production/insertStage1',
-        type: 'POST',
-        data: formObject,
-        success: function(json) {
-          alert("등록이 완료되었습니다.");
-          window.opener.location.reload();
-          window.close();
-          
-        }
-      });
-    }
+    
+	function sendForm() {
+	    Swal.fire({
+	        title: '등록하시겠습니까?',
+	        icon: 'warning',
+	        showCancelButton: true,
+	        confirmButtonColor: '#0ddbb9',
+	        cancelButtonColor: '#d33',
+	        confirmButtonText: '등록',
+	        cancelButtonText: '취소'
+	    }).then((result) => {
+	        if (result.isConfirmed) {
+	            $.ajax({
+	                url: '/production/insertStage1',
+	                type: 'POST',
+	                data: new FormData($("form[role='form']")[0]),
+	                enctype: 'multipart/form-data',
+	                processData: false,
+	                contentType: false,
+	                cache: false,
+	                success: function(json) {
+	                    Swal.fire({
+	                        title: '등록이 완료되었습니다.',
+	                        icon: 'success',
+	                        confirmButtonText: '확인'
+	                    }).then(() => {
+	                        window.opener.location.reload();
+	                        window.close();
+	                    });
+	                } // json
+	            }); // ajax
+	        } // isConfirmed
+	    }); // then(result)
+	} // sendForm
+    
     
   });	
   
@@ -174,10 +204,10 @@ border-color: #23dbf8;}
 <body>
 	<h1>혼합 등록</h1>
 	
-	<form id="btn_idSearch" method="get">
+	<form id="form_idSearch" method="get">
         <label for="production_id">작업지시번호</label>
         <input type="text" id="production_id" name="production_id" value="PR" maxlength="11">
-        <input type="button" class="btn btn-info" value="조회">
+        <input type="button" id="btn_idSearch" class="btn btn-info" value="조회">
     </form>
      <%
         // 작업지시번호 저장

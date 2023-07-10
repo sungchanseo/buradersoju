@@ -103,7 +103,6 @@
         LEFT JOIN material m
 		on m.ma_id = o.ma_id 
         where o.order_status = 1
-		ORDER BY o.order_id DESC
 	</select>
 <!-- 	전체 리스트 갯수 조회  -->
 
@@ -131,8 +130,18 @@
         LEFT JOIN material m
 		on m.ma_id = o.ma_id 
         where o.order_status = 1
-		AND ${selector} LIKE CONCAT('%', #{search}, '%')
-		ORDER BY o.order_id DESC
+		<if test="order_id != ''">
+				AND o.order_id LIKE CONCAT('%', #{order_id}, '%')
+			</if>
+			<if test="ma_name != ''">
+				AND m.ma_name LIKE CONCAT('%', #{ma_name}, '%') 
+			</if>
+			<if test="order_empName != ''">
+				AND e.emp_name LIKE CONCAT('%', #{order_empName}, '%') 
+			</if>
+			<if test="startDate != '' and endDate != ''">
+				AND o.in_date BETWEEN #{startDate} AND #{endDate}
+			</if>
 		limit 0, 10
 	</select>
 <!-- 검색어 + 페이지갯수 제한 전체 목록 개수 -->
@@ -182,7 +191,18 @@
         LEFT JOIN material m
 		on m.ma_id = o.ma_id 
         where o.order_status = 1
-		AND ${selector} LIKE CONCAT('%', #{search}, '%')
+        <if test="order_id != ''">
+				AND o.order_id LIKE CONCAT('%', #{order_id}, '%')
+			</if>
+			<if test="ma_name != ''">
+				AND m.ma_name LIKE CONCAT('%', #{ma_name}, '%') 
+			</if>
+			<if test="order_empName != ''">
+				AND e.emp_name LIKE CONCAT('%', #{order_empName}, '%') 
+			</if>
+			<if test="startDate != '' and endDate != ''">
+				AND o.order_date BETWEEN #{startDate} AND #{endDate}
+			</if>
 		ORDER BY o.order_id DESC
 		LIMIT #{startRow}, #{pageSize}
 	</select>

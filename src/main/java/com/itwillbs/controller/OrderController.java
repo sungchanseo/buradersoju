@@ -57,9 +57,24 @@ public class OrderController {
 					return "redirect:/main/login";
 					
 					}
-				
-		String maxNumber = orserivce.getMaxNumber();
-		String maxDate = orserivce.getMaxDate();
+		
+		
+		// form 태그 정보 저장
+		String startDate = request.getParameter("startDate");
+		String endDate = request.getParameter("endDate");
+		String order_in_id = request.getParameter("order_in_id");
+		String ma_in_name = request.getParameter("ma_in_name");
+		String order_empName = request.getParameter("order_empName");
+		
+		 if(startDate == null && endDate == null) {
+			startDate = "2023-07-01";
+			endDate = "2023-07-31";
+		}
+		 pvo.setStartDate(startDate);
+		 pvo.setEndDate(endDate);
+		 pvo.setOrder_id(order_in_id);
+		 pvo.setMa_name(ma_in_name);
+		 pvo.setOrder_empName(order_empName);
 		
 		// 리스트 출력 (페이징처리)
 				List<Object>OrderLists = null;
@@ -67,7 +82,7 @@ public class OrderController {
 				logger.debug("@@@@@@@@@@ pvo : {}", pvo);
 				
 				// 검색로직
-				if(pvo.getSelector()!=null && pvo.getSelector()!="") {
+				if(pvo.getOrder_empName() != null || pvo.getOrder_empName() != null || pvo.getMa_name() != null || pvo.getOrder_id() != null) {
 					
 					//검색어가 있을 때 
 					logger.debug("@@@@@@@@@@ 검색어가 있을 때");
@@ -78,7 +93,9 @@ public class OrderController {
 					OrderLists = orserivce.getListPageSizeObjectOrderVO(pvo);
 				}
 
-		
+				String maxNumber = orserivce.getMaxNumber();
+				String maxDate = orserivce.getMaxDate();
+
 		
 		// View페이지 정보 전달
 		logger.debug("@@@@@@@@@@@@@@ maxNumber = " + maxNumber);
@@ -90,6 +107,11 @@ public class OrderController {
 		model.addAttribute("maxNumber", maxNumber);
 		model.addAttribute("maxDate", maxDate);
 		model.addAttribute("emp_department", session.getAttribute("emp_department"));
+		model.addAttribute("order_in_id",order_in_id);
+		model.addAttribute("startDate", startDate);
+		model.addAttribute("endDate", endDate);
+		model.addAttribute("ma_in_name", ma_in_name);
+		model.addAttribute("order_empName", order_empName);
 		
 		return null;
 	}

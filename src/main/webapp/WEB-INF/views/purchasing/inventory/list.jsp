@@ -30,9 +30,11 @@
 
 
 								<!-- 제목 -->
-								     <div class="card-body">
+								  <div class="card-body">
 								<h1 class="card-title">
-										<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">재고 리스트</font></font>
+									<font style="vertical-align: inherit;">
+									<a href="/purchasing/inventory/list"
+									style="text-decoration: none; color: #000;">재고 리스트</a></font>
 							    </h1>
 									
 									

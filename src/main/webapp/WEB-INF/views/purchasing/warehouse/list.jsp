@@ -213,7 +213,9 @@ $('.modify').click(function(){
  	<!-- 제목 -->
  	<div class="card-body">
 	     <h1 class="card-title">
-		    <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">창고 리스트</font></font>
+		    <font style="vertical-align: inherit;">
+		    <a href="/purchasing/warehouse/list"
+   		       style="text-decoration: none; color: #000;">창고 리스트</a></font>
      	 </h1>
 	</div>
  	

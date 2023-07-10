@@ -633,8 +633,10 @@ table input[type :checkbox] {
 								</div>
 											<!-- 검색 기능 -->
 											<div style="text-align: center; background-color: #f2f2f2;">
+											<br>
 											<form action="/purchasing/order/list" method="get" style="display: inline;">
 											    발주번호 <input type="text" id="order_in_id" name="order_in_id" value="" style="width:7%">
+											    &nbsp;&nbsp;&nbsp; 발주일자 
 											    <input type="date" name="startDate" id="sd" value="" min="2023-01-01">
 									             ~ 
 									            <input type="date" name="endDate" id="ed" value="" min="2023-01-01">
@@ -661,8 +663,7 @@ table input[type :checkbox] {
 											<fmt:formatDate value="" />
 											<div class="row">
 												<!-- class row  -->
-												<table border="1" id="example-table-3"
-													class="table table-bordered table-hover text-center tbl"
+												<table border="1" id="example-table-3" class="table table-bordered table-hover text-center tbl"
 													style="width: 100%;">
 													<thead>
 														<tr>

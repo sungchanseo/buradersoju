@@ -441,7 +441,8 @@ $(document).ready(function() {
 							<!-- 제목 -->
 							<div class="card-body">
 								<h1 class="card-title">
-									<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">자재 리스트</font></font>
+									<font style="vertical-align: inherit;"><a href="/purchasing/material/list"
+									style="text-decoration: none; color: #000;">자재 리스트</a></font>
 								</h1>
 							
 							
@@ -450,7 +451,7 @@ $(document).ready(function() {
 								<select name="selector">
 									<option value="ma_id">자재코드</option>
 									<option value="ma_name">자재명</option>
-								</select> <input type="text" class="form-control" style="width:10%; display:inline;" name="search" placeholder="검색어를 입력해주세요">
+								</select> <input type="text" name="search" placeholder="검색어를 입력해주세요">
 								<input type="submit"  class="btn btn-info" value="검색">
 							</form>
 						

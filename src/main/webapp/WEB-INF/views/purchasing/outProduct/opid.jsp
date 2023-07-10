@@ -7,6 +7,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert 링크 -->
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
 
@@ -73,8 +75,8 @@ $(document).ready(function(){
 		var product_qty = "${param.product_qty }";
 		console.log("************ cont_id = " + cont_id);
 		console.log("************ product_qty = " + product_qty);
-
-
+		
+		
 		// maxDate 정보 저장
 		// maxDate가 없을 때 -> 입고번호 첫 등록
 		var maxDate = "${maxDate }";

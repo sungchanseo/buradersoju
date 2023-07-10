@@ -107,7 +107,7 @@ margin-left: 75%;
 	<!-- 테이블1 --> <!-- 전체적인 출고 상세 정보 -->
 	<div>
 		<fmt:formatDate value=""/> 
-		<table style="width: 830px;">
+		<table style="width: 850px;">
 			<tr>
 				<th>수주관리번호</th>
 				<td>${param.cont_id }</td>
@@ -187,7 +187,7 @@ margin-left: 75%;
 	<!-- 테이블2 --> <!-- 해당 상품 출고가능여부 -->
 	<c:if test="${info.op_process.equals('미출고') }">
 		<div>
-			<table style="width: 830px;">
+			<table style="width: 850px;">
 				<tr>
 					<th>상품코드</th>
 					<th>상품명</th>
@@ -220,7 +220,7 @@ margin-left: 75%;
 	<!-- 테이블3 --> <!-- 자재 소요량 & 재고량 조회 -->
 	<c:if test="${info.op_process.equals('미출고') && info.product_qty - info.cont_qty < 0 }">
 		<div>
-			<table style="width: 830px;">
+			<table style="width: 850px;">
 				<tr>
 					<th>자재코드</th>
 					<th>자재명</th>

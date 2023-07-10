@@ -76,6 +76,7 @@ public class ProductionVO {
 	private String bt_status;
 	
 	
+	
 	// getter / setter
 	
 	
@@ -356,6 +357,7 @@ public class ProductionVO {
 	public void setBt_defQty(int bt_defQty) {
 		this.bt_defQty = bt_defQty;
 	}
+
 	// toString()
 	@Override
 	public String toString() {
@@ -375,7 +377,7 @@ public class ProductionVO {
 				+ ", def_qty=" + def_qty + ", bt_date=" + bt_date + ", bt_qty=" + bt_qty + ", bt_defQty=" + bt_defQty
 				+ ", del_bottle=" + del_bottle + ", bt_emp=" + bt_emp + ", bt_status=" + bt_status + "]";
 	}
-	
+
 	
 
 	

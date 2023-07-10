@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <!-- 제이쿼리 -->
 <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11%22%3E"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
 
 <title>검수 상세 보기</title>
@@ -93,15 +94,41 @@ td {border:1px solid #04AA6D;
 </style>
 </head>
 <body>
-	<h1>검수 상세 보기</h1>
-<%-- 	${vo } --%>
-<!-- 	<div class="qualityInfo"> -->
-	<div>
-	<div style="margin-left: 532px;">
-	<button type="button" class="btn btn-light" onclick="" style="margin: 0.5px;">엑셀파일</button>
-	<button type="button" class="btn btn-light" onclick="info_print()" style="margin: 0.5px;">인쇄하기</button>
-	</div>
 		<script>
+		$(document).ready(function(){
+			 $("#delQCBT").click(function(){ 
+				 var qc_num = $("#qc_num").val();
+				 Swal.fire({
+					   title: '삭제하시겠습니까?',
+					   icon: 'warning',
+					   showCancelButton: true,
+					   confirmButtonColor: '#3085d6', 
+					   cancelButtonColor: '#d33', 
+					   confirmButtonText: '승인', 
+					   cancelButtonText: '취소'
+					}).then(result => {
+					   if (result.isConfirmed) {
+						   $.ajax({
+								url: '/quality/remove',
+								type: 'POST',
+								data : { qc_num : qc_num },
+						   		success: function(data){
+						   			Swal.fire({
+										icon: 'success',
+										title: '삭제 완료',
+										text: '확인을 누르면 창을 닫습니다.',
+										confirmButtonColor: '#0ddbb9',
+										confirmButtonText: '확인'
+									}).then(() => {
+										window.opener.location.reload();
+										window.close();
+										}); // Swal2
+						   			} // success
+						   		}); //ajax
+					   } // if
+					}); //result
+			 }); //Click
+		 }); //document
 			/* 인쇄하기 버튼 */
 			function info_print() {
 			  let initBody = document.body;
@@ -127,6 +154,16 @@ td {border:1px solid #04AA6D;
 			  window.print();
 			} 
 		</script>
+	<h1 style="display: flex; justify-content: center;">검수 상세 보기</h1>
+	<input type="hidden" id="qc_num" value="${vo.qc_num }">
+<%-- 	${vo } --%>
+<!-- 	<div class="qualityInfo"> -->
+<!-- 	<div> -->
+	<div style="margin-left: 460px;">
+	<button type="button" class="btn btn-light" onclick="" style="margin: 0.5px;">엑셀파일</button>
+	<button type="button" class="btn btn-light" onclick="info_print()" style="margin: 0.5px;">인쇄하기</button>
+	</div>
+		<div style="display: flex; justify-content: center;">
 	<table border="1">
 		<tbody>
 			<tr>
@@ -136,8 +173,8 @@ td {border:1px solid #04AA6D;
 				<td>${vo.product_name }</td>
 				<th>수주량</th>
 				<td>${vo.plan_qty }</td>
-				<th>불량코드</th>
-				<td>${vo.def_code }</td>
+<!-- 				<th>불량코드</th> -->
+<%-- 				<td>${vo.def_code }</td> --%>
 			</tr>
 			<tr>
 				<th>작업지시번호</th>
@@ -146,24 +183,61 @@ td {border:1px solid #04AA6D;
 				<td>${vo.product_id }</td>
 				<th>검수량</th>
 				<td>${vo.production_qty }</td>
-				<th>전체불량수량</th>
-				<td>${vo.total_defQty }</td>
+				
 			</tr>
 			<tr>
 				<th>검수완료일시</th>
 				<td><fmt:formatDate value="${vo.qc_date}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 				<th>생산라인</th>
 				<td>${vo.production_line }</td>
+				<th>총 생산량</th>
+				<td>${vo.qc_qty }</td>
+				
+			</tr>
+			<tr>
 				<th>검수자</th>
 				<td>${vo.emp_name }</td>
-				<th>불량률</th>
-				<td><fmt:formatNumber value="${(vo.total_defQty /vo.plan_qty*100) }" pattern="#.###"/></td>
-			</tr>
-		
+			 <th>전체불량수량</th>
+		  <td>${vo.total_defQty }</td>
+		  <th>불량률</th>
+			<td><fmt:formatNumber value="${(vo.total_defQty /vo.plan_qty*100) }" pattern="#.###"/>%</td>
+		  
+				</tr>
 	</tbody>
 	</table>
-	<button type="button" onclick="location.href='/production/workOrderModify';" class="btn btn-success" style="margin: 0.5px;">삭제</button>
+	</div>
+	<div style="display: flex; justify-content: center;">
+	<table>
+	<thead>
+	 	<tr>
+		  <th>불량코드</th>
+		<c:forEach var="qvo" items="${qvo }">
+		  <td>${qvo.def_code }</td>
+		</c:forEach>
+		</tr>
+		<tr>
+		  <th>수량</th>
+		  <c:forEach var="qvo" items="${qvo }">
+		  <td>${qvo.def_qty}</td>
+		 </c:forEach>
+		</tr>		
+<!-- 		  <th></th> -->
+<!-- 		  <th>작업지시일시</th> -->
+<!-- 		</tr> -->
+		</thead>
+		<tbody>
+	    <tr>
+<%-- 		  <td>${workOrder.plan_qty}</td> --%>
+<%-- 		  <td>${workOrder.production_date}</td> --%>
+		</tr>	
+		</tbody>
+	</table>
+	</div>
+	<div style="display: flex; justify-content: center;">
+	<button type="button" id="delQCBT" class="btn btn-success" style="margin: 0.5px;">삭제</button>
+<%-- 	<button type="button" id="delQCBT" onclick="location.href='/quality/remove?qc_num=${vo.qc_num}';" class="btn btn-success" style="margin: 0.5px;">삭제</button> --%>
   	<button type="button" class="btn btn-light" onclick="window.close();"style="margin: 0.5px;" >닫기</button>
 	</div>
+<!-- 	</div> -->
 </body>
 </html>

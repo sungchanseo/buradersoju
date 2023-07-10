@@ -83,10 +83,13 @@ public class PagingVO {
 	private String endDate;
 	private String op_process;
 
-	
-	
-	
-	public OutProductVO getOutProductVO() {
+	// Join문을 위한 [orders] 테이블 변수 선언
+  private String order_id;
+  private String order_empName;
+    
+    
+  // get & set
+  public OutProductVO getOutProductVO() {
 		return OutProductVO;
 	}
 	public void setOutProductVO(OutProductVO outProductVO) {
@@ -338,9 +341,9 @@ public class PagingVO {
 	public void setOp_process(String op_process) {
 		this.op_process = op_process;
 	}
+
 	
-	
-	// toString
+  // toString
 	@Override
 	public String toString() {
 		return "PagingVO [table=" + table + ", status_name=" + status_name + ", status_value=" + status_value
@@ -356,6 +359,5 @@ public class PagingVO {
 				+ op_date + ", product_name=" + product_name + ", op_emp=" + op_emp + ", op_empName=" + op_empName
 				+ ", startDate=" + startDate + ", endDate=" + endDate + ", op_process=" + op_process + "]";
 	}
-	
 
 }

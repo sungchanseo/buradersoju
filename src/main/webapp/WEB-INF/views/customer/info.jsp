@@ -4,30 +4,35 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>거래처 정보</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script> <!-- 제이쿼리 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert창 링크 -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/mdi/css/materialdesignicons.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/base/vendor.bundle.base.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main/fullcalendar-5.11.4/lib/main.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
 <link rel="stylesheet" href="${contextPath }/resources/css/table.css" />
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert창 링크 -->
 </head>
-<body>
-     <h1 class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${customerInfo.cust_name } </font></font></h1>
-
-	<table border="1" style="table-layout:fixed;">
+<body style="padding: 2%;">
+     <h1 class="card-title" style="display:inline;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">${customerInfo.cust_name } </font></font></h1>
+    <div style="float:right; display:inline-block;"> 
+		<input type="button" class="btn btn-success" value="거래처수정" onclick="location.href='/customer/modify?cust_id=${customerInfo.cust_id }'">
+		<input type="button" class="btn btn-success" value="거래처삭제" onclick="deleteAction('${customerInfo.cust_id}');">
+<!-- 		<input type="button" class="btn btn-light" value="QR코드생성" onclick=""> -->
+		<input type="button" class="btn btn-light" value="창닫기" onclick="window.close();">
+	</div>
+	<div class="btn_table" style="table-layout: fixed;">
+	<table border="1">
 		<tr>
 			<th>거래처유형</th>
 			<td>${customerInfo.cust_type }</td>
 			<th>대표자명</th>
 			<td>${customerInfo.owner_name }</td>
 			<th>담당자이름</th>
-			<td>${customerInfo.emp_id }</td>
-			<th rowspan="3">주소</th>
-			<td rowspan="3">${customerInfo.cust_address }</td>
+			<td>${customerInfo.emp_name }</td>
+			<th rowspan="3">기타</th>
+			<td rowspan="3" style="width:10%;">${customerInfo.cust_etc }</td>
 		</tr>
 		<tr>
 			<th>거래처구분</th>
@@ -56,14 +61,11 @@
 			<td>${customerInfo.cust_homepage }</td>
 		</tr>
 		<tr>
-			<th>기타</th>
-			<td colspan="7">${customerInfo.cust_etc }</td>
+			<th>주소</th>
+			<td colspan="7">${customerInfo.cust_address }</td>
 		</tr>
 	</table>
-	<input type="button" class="btn btn-success" value="거래처수정" onclick="location.href='/customer/modify?cust_id=${customerInfo.cust_id }'">
-	<input type="button" class="btn btn-success" value="거래처삭제" onclick="deleteAction('${customerInfo.cust_id}');">
-	<input type="button" class="btn btn-light" value="QR코드생성" onclick="">
-	<input type="button" class="btn btn-light" value="창닫기" onclick="window.close();">
+	</div>
 
 <script type="text/javascript">
 	function deleteAction(cust_id){

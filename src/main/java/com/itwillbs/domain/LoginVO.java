@@ -10,6 +10,7 @@ public class LoginVO {
 	private String emp_department;
 	private Timestamp regdate;
 	private Timestamp updatedate;
+	private String emp_image;
 
 	public String getEmp_id() {
 		return emp_id;
@@ -54,13 +55,19 @@ public class LoginVO {
 		this.emp_department = emp_department;
 	}
 	
-
+	public String getEmp_image() {
+		return emp_image;
+	}
+	public void setEmp_image(String emp_image) {
+		this.emp_image = emp_image;
+	}
 	@Override
 	public String toString() {
 		return "LoginVO [emp_id=" + emp_id + ", emp_pw=" + emp_pw + ", emp_name=" + emp_name + ", emp_email="
-				+ emp_email + ", regdate=" + regdate + ", updatedate=" + updatedate + ", emp_department="
-				+ emp_department + "]";
+				+ emp_email + ", emp_department=" + emp_department + ", regdate=" + regdate + ", updatedate="
+				+ updatedate + ", emp_image=" + emp_image + "]";
 	}
+	
 		
 	
 	

@@ -22,6 +22,9 @@ public interface WorkOrderService {
 	// 작업지시 등록-자재재고 업데이트
 	public void maQtyUpdate(List<String> ma_nameList, List<String> ma_qtyList) throws Exception;
 	
+	// 작업지시 삭제-자재재고 업데이트
+	public void maQtyUpdate2(List<String> ma_nameList, List<Float> ma_qtyList) throws Exception;
+	
 	// 작업지시 등록-해당 수주번호에 작업지시번호 저장
 	public void contSetPrId(ProductionVO vo) throws Exception;
 	
@@ -36,6 +39,9 @@ public interface WorkOrderService {
 
 	// 수주검색 페이징처리 변수저장을 Service생성
 	public PagingVO setPageInfoForContract(PagingVO pvo) throws Exception;
+	
+	// 작업지시 삭제 - 수주번호, 작업지시 삭제여부
+	public void delWoCont(ProductionVO vo) throws Exception;
 
 	
 }

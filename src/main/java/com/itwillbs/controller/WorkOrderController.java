@@ -1,6 +1,7 @@
 package com.itwillbs.controller;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -24,6 +25,7 @@ import com.itwillbs.domain.ProductionVO;
 import com.itwillbs.service.ContractService;
 import com.itwillbs.service.PagingService;
 import com.itwillbs.service.WorkOrderService;
+
 
 @Controller
 @RequestMapping(value = "/workOrder/*")
@@ -229,6 +231,40 @@ public class WorkOrderController {
 			
 		}
 		////// 작업지시 상세보기 //////
+		////// 작업지시 삭제 //////
+		@RequestMapping(value = "/remove", method = RequestMethod.POST)
+		public String removeWorkOrder(HttpServletRequest request, String product_id, String production_id) throws Exception{
+			
+		ProductionVO vo = woService.detailWorkOrder(production_id);	
+		
+		logger.debug(" materialSearch(Model model, String product_id) 호출! ");
+//		logger.debug("product_id : "+product_id);
+		
+		woService.delWoCont(vo);
+		logger.debug("@@@@@@@@ 수주테이블, 작업지시상태 업데이트 완료");
+		// 테이블의 정보를 가져와서 모델에 추가
+		List<ProductionVO> maList = woService.getMaterialList(vo.getProduct_id());
+		List<Float> ma_qtyList = new ArrayList<>();;
+		List<String> ma_nameList = new ArrayList<>();
+	  	  for (var i = 0; i < maList.size(); i++) {
+	  		  		ProductionVO mvo = maList.get(i);
+	  		   float be_ma_qty = mvo.getMa_qty(); // 재고량
+	  		    float cal_qty = (mvo.getUse_qty()*vo.getPlan_qty()); // 사용수량
+	  		    float ma_qty =(be_ma_qty + cal_qty);
+	  		    ma_qtyList.add(ma_qty);
+				ma_nameList.add(mvo.getMa_name());
+	  	  }
+	  	  logger.debug("@@@@@@@ma_nameList : " +ma_nameList+"");
+		logger.debug("@@@@@@@ma_qtyList : " +ma_qtyList+"");
+		logger.debug("@@@@@@@자재 업데이트");
+		//servicer객체 호출
+		woService.maQtyUpdate2(ma_nameList, ma_qtyList);
+		logger.debug("@@@@@@@자재 돌려놓기 완료");
+		
+//		model.addAttribute("materialList",materialList);	
+		return "redirect:/workOrder/list";
+		}
+		////// 작업지시 삭제 //////
 	
 		
 }

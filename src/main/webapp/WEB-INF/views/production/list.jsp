@@ -3,10 +3,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert창 링크 -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
+
 <head>
 
 <%@ include file="../includes/header.jsp" %>
-
+	
 	<style type="text/css">
 	/* 인쇄하기 가로 기본출력 지정 */
 		@page { size: A4 landscape; margin:0; }
@@ -25,9 +30,29 @@
 	  flex: 1; /* 버튼들을 동일한 너비로 설정 */
 	}
 	
+	.element {
+	  overflow-x: hidden;
+	  overflow-y: auto;
+	}
 	
+	/* 작업지시번호 css 적용 */
+	a {
+	  text-decoration: none; /* 밑줄 제거 */
+	  color: inherit; /* 기본 글씨색으로 설정 */
+	}
+	a:hover {
+	  color: #0ddbb9; /* 호버 시 글씨색 변경 */
+	}
+	
+	/* 스크롤 시 테이블 헤더 고정 */
+	#ttt th {
+    position: sticky;
+    top: 0px;
+    background-color: white !important;
+}
 
 	</style>
+
 
 </head>
 
@@ -82,24 +107,17 @@
 												<!-- 검색 기능 -->
 											 
 											  <!-- 등록 버튼 -->
-											  <div>
+											  <div style="float:right; display:inline;">
+											  <c:if test="${emp_department.equals('생산') || emp_department.equals('생산팀') || emp_department.equals('Master')}">
 											  <button type="button" onclick="openPopup('insertStage1');" class="btn btn-success">혼합 등록</button>
 											  <button type="button" onclick="openPopup('insertStage2');" class="btn btn-success">주입 등록</button>
 											  <button type="button" onclick="openPopup('insertStage3');" class="btn btn-success">포장 등록</button>
-											  </div>
+											  </c:if>
+											  </div>											  
 											</div>
 											<!-- 본문 -->
-											  <div class="button-group">
-											  <button id="excel" 
-											  		  class="btn btn-Light" style="padding-left: 1px; padding-right: 1px;">
-											  엑셀파일
-											  </button>
-											  <button id="print-button" onclick="info_print()"
-											  		  class="btn btn-Light" style="padding-left: 1px; padding-right: 1px;">
-											  인쇄하기
-											  </button>
-											  </div>
-											  <table class="table table-color">
+											  <div style="overflow:auto; overflow-x:hidden; height:380px;">
+											  <table class="table table-color" id="ttt">
 											  <tbody>
 											    <tr>
 											      <th>작업지시번호</th>
@@ -115,7 +133,7 @@
 											      <th>작업완료일시</th>
 											    </tr>
 											    <c:forEach var="productionList" items="${productionList}">
-											        <tr>  
+											        <tr>
 											          <td>
 											            <a href="/workOrder/info?production_id=${productionList.production_id}"
 											            onclick="window.open(this.href, '_blank', 'width=800, height=500, left=2000'); return false;">
@@ -129,11 +147,23 @@
 											          <td>${productionList.production_qty}</td>
 											          <td>
 											          <c:set var="production_defQty" value="${productionList.stage1_defQty + productionList.stage2_defQty + productionList.stage3_defQty}" />
-											          ${production_defQty}</td>
+											          ${production_defQty}
+											          </td>
 											          <td>
-											            <%-- 불량률 계산 --%>
-											            <c:set var="defectRate" value="${(production_defQty * 100) / productionList.plan_qty}" />
-														<fmt:formatNumber value="${defectRate}" pattern="###0.###" />%
+											           <c:set var="defectRate" value="${(production_defQty * 100) / productionList.plan_qty}" />
+											           <c:choose>
+											            <c:when test="${defectRate > 2}">
+											             <span style="color: red;">
+														  <fmt:formatNumber value="${defectRate}" pattern="###0.###" />%
+														 </span>
+											            </c:when>
+											            <c:when test="${defectRate > 0}">
+														 <fmt:formatNumber value="${defectRate}" pattern="###0.###" />%
+											            </c:when>
+											            <c:otherwise>
+											             <!-- 값이 없을 경우 비워둠 -->
+											            </c:otherwise>
+											           </c:choose>
 											          </td>
 											          <td>${productionList.emp_name}</td>
 											          <td>${productionList.production_status}</td>
@@ -158,23 +188,34 @@
 											    </c:forEach>
 											  </tbody>
 											</table>
-										<!--  페이징 처리  -->
-										<div class="template-demo">
-											<div class="btn-group" role="group" aria-label="Basic example">
-												<c:if test="${pvo.startPage > pvo.pageBlock }">
-													<a href="/production/list?tab=total&pageNum=${pvo.startPage-pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">이전</a>
-												</c:if>
-												
-												<c:forEach var="i" begin="${pvo.startPage }" end="${pvo.endPage }" step="1">
-													<a href="/production/list?tab=total&pageNum=${i }&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">${i }</a>
-												</c:forEach>
-												
-												<c:if test="${pvo.endPage<pvo.pageCount }">
-													<a href="/production/list?tab=total&pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">다음</a>
-												</c:if>
 											</div>
-										</div>										
 										<!--  페이징 처리  -->
+<!-- 										<div class="template-demo"> -->
+<!-- 											<div class="btn-group" role="group" aria-label="Basic example"> -->
+<%-- 												<c:if test="${pvo.startPage > pvo.pageBlock }"> --%>
+<%-- 													<a href="/production/list?tab=total&pageNum=${pvo.startPage-pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">이전</a> --%>
+<%-- 												</c:if> --%>
+												
+<%-- 												<c:forEach var="i" begin="${pvo.startPage }" end="${pvo.endPage }" step="1"> --%>
+<%-- 													<a href="/production/list?tab=total&pageNum=${i }&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">${i }</a> --%>
+<%-- 												</c:forEach> --%>
+												
+<%-- 												<c:if test="${pvo.endPage<pvo.pageCount }"> --%>
+<%-- 													<a href="/production/list?tab=total&pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">다음</a> --%>
+<%-- 												</c:if> --%>
+<!-- 											</div> -->
+<!-- 										</div>										 -->
+										<!--  페이징 처리  -->
+										<div class="button-group">
+										  <button id="excel" 
+										  		  class="btn btn-Light" style="padding-left: 1px; padding-right: 1px;">
+										  엑셀파일
+										  </button>
+										  <button id="print-button" onclick="info_print()"
+										  		  class="btn btn-Light" style="padding-left: 1px; padding-right: 1px;">
+										  인쇄하기
+										  </button>
+										  </div>
 										</div> <!-- 기본탭(전체) -->
 										
 										<!-- 탭1(혼합) -->
@@ -192,22 +233,16 @@
 													<input type="submit"  class="btn btn-info" value="검색">
 												</form>												
 												<!-- 검색 기능 -->	
-											  <!-- 등록 버튼 -->
-											  <div>
+  											  <!-- 등록 버튼 -->
+											  <div style="float:right; display:inline;">
+											  <c:if test="${emp_department.equals('생산') || emp_department.equals('생산팀') || emp_department.equals('Master')}">
+											  <button type="button" onclick="openPopup('modifyStage1');" class="btn btn-info">수정</button>
 											  <button type="button" onclick="openPopup('insertStage1');" class="btn btn-success">혼합 등록</button>
+											  </c:if>
 											  </div>																					  
 										  </div>
 										  <!-- 본문 -->
-										  	<div class="button-group">
-											  <button id="excel" 
-											  		  class="btn btn-Light" style="padding-left: 1px; padding-right: 1px;">
-											  엑셀파일
-											  </button>
-											  <button id="print-button" onclick="info_print()"
-											  		  class="btn btn-Light" style="padding-left: 1px; padding-right: 1px;">
-											  인쇄하기
-											  </button>
-											</div>
+											<div style="overflow:auto; overflow-x:hidden; height:380px;">										  
 										    <table class="table table-color">
 											  <tbody>
 											    <tr>
@@ -237,9 +272,20 @@
 											          <td>${productionList.plan_qty}</td>
 											          <td>${productionList.stage1_defQty}</td>
 											          <td>
-											            <%-- 불량률 계산 --%>
-											            <c:set var="defectRate" value="${(productionList.stage1_defQty * 100) / productionList.plan_qty}" />
-											            <fmt:formatNumber value="${defectRate}" pattern="###0.000" />%
+											           <c:set var="defectRate" value="${(productionList.stage1_defQty * 100) / productionList.plan_qty}" />
+     												   <c:choose>
+											            <c:when test="${defectRate > 2}">
+											             <span style="color: red;">
+														  <fmt:formatNumber value="${defectRate}" pattern="###0.###" />%
+														 </span>
+											            </c:when>     												   
+											            <c:when test="${defectRate >= 0}">
+														 <fmt:formatNumber value="${defectRate}" pattern="###0.###" />%
+											            </c:when>
+											            <c:otherwise>
+											             <!-- 값이 없을 경우 비워둠 -->
+											            </c:otherwise>
+											           </c:choose>
 											          </td>
 											          <td>${productionList.emp_name}</td>
 											          <td>${productionList.production_status}</td>
@@ -249,6 +295,17 @@
 											    </c:forEach>
 											  </tbody>
 											</table>
+											</div>
+										  	<div class="button-group">
+											  <button id="excel" 
+											  		  class="btn btn-Light" style="padding-left: 1px; padding-right: 1px;">
+											  엑셀파일
+											  </button>
+											  <button id="print-button" onclick="info_print()"
+											  		  class="btn btn-Light" style="padding-left: 1px; padding-right: 1px;">
+											  인쇄하기
+											  </button>
+											</div>											
 										</div> <!-- 탭1(혼합) -->
 										
 										<!-- 탭2(주입) -->
@@ -266,22 +323,16 @@
 													<input type="submit"  class="btn btn-info" value="검색">
 												</form>												
 												<!-- 검색 기능 -->
-											  <!-- 등록 버튼 -->
-											  <div>
+  											  <!-- 등록 버튼 -->
+											  <div style="float:right; display:inline;">
+											  <c:if test="${emp_department.equals('생산') || emp_department.equals('생산팀') || emp_department.equals('Master')}">
+											  <button type="button" onclick="openPopup('modifyStage2');" class="btn btn-info">수정</button>
 											  <button type="button" onclick="openPopup('insertStage2');" class="btn btn-success">주입 등록</button>
-											  </div>											
+											  </c:if>
+											  </div>											  											
 											</div>
 											<!-- 본문 -->
-											<div class="button-group">
-											  <button id="excel" 
-											  		  class="btn btn-Light" style="padding-left: 1px; padding-right: 1px;">
-											  엑셀파일
-											  </button>
-											  <button id="print-button" onclick="info_print()"
-											  		  class="btn btn-Light" style="padding-left: 1px; padding-right: 1px;">
-											  인쇄하기
-											  </button>
-											</div>
+											<div style="overflow:auto; overflow-x:hidden; height:380px;">											
 											<table class="table table-color">
 											  <tbody>
 											    <tr>
@@ -311,9 +362,21 @@
 											          <td>${productionList.plan_qty}</td>
 											          <td>${productionList.stage2_defQty}</td>
 											          <td>
-											            <%-- 불량률 계산 --%>
-											            <c:set var="defectRate" value="${(productionList.stage2_defQty * 100) / productionList.plan_qty}" />
-											            <fmt:formatNumber value="${defectRate}" pattern="###0.000" />%
+											           <c:set var="defectRate" value="${(productionList.stage2_defQty * 100) / productionList.plan_qty}" />
+      												   <c:choose>
+											            <c:when test="${defectRate > 2}">
+											             <span style="color: red;">
+														  <fmt:formatNumber value="${defectRate}" pattern="###0.###" />%
+														 </span>
+											            </c:when> 											            
+											            <c:when test="${defectRate >= 0}">
+											             <%-- 불량률 계산 --%>
+														 <fmt:formatNumber value="${defectRate}" pattern="###0.###" />%
+											            </c:when>
+											            <c:otherwise>
+											             <!-- 값이 없을 경우 비워둠 -->
+											            </c:otherwise>
+											           </c:choose>
 											          </td>
 											          <td>${productionList.emp_name}</td>
 											          <td>${productionList.production_status}</td>
@@ -323,6 +386,17 @@
 											    </c:forEach>
 											  </tbody>
 											</table>
+											</div>
+											<div class="button-group">
+											  <button id="excel" 
+											  		  class="btn btn-Light" style="padding-left: 1px; padding-right: 1px;">
+											  엑셀파일
+											  </button>
+											  <button id="print-button" onclick="info_print()"
+											  		  class="btn btn-Light" style="padding-left: 1px; padding-right: 1px;">
+											  인쇄하기
+											  </button>
+											</div>											
 										</div> <!-- 탭2(주입) -->
 										
 										<!-- 탭3(포장) -->
@@ -340,22 +414,16 @@
 													<input type="submit"  class="btn btn-info" value="검색" onsubmit="search()">
 												</form>												
 												<!-- 검색 기능 -->
-											  <!-- 등록 버튼 -->
-											  <div>
+  											  <!-- 등록 버튼 -->
+											  <div style="float:right; display:inline;">
+											  <c:if test="${emp_department.equals('생산') || emp_department.equals('생산팀') || emp_department.equals('Master')}">
+											  <button type="button" onclick="openPopup('modifyStage3');" class="btn btn-info">수정</button>
 											  <button type="button" onclick="openPopup('insertStage3');" class="btn btn-success">포장 등록</button>
-											  </div>
+											  </c:if>
+											  </div>											  
 											</div>
 											<!-- 본문 -->
-											<div class="button-group">
-											  <button id="excel" 
-											  		  class="btn btn-Light" style="padding-left: 1px; padding-right: 1px;">
-											  엑셀파일
-											  </button>
-											  <button id="print-button" onclick="info_print()"
-											  		  class="btn btn-Light" style="padding-left: 1px; padding-right: 1px;">
-											  인쇄하기
-											  </button>
-											</div>
+											<div style="overflow:auto; overflow-x:hidden; height:380px;">
 											<table class="table table-color">
 											  <tbody>
 											    <tr>
@@ -385,9 +453,21 @@
 											          <td>${productionList.plan_qty}</td>
 											          <td>${productionList.stage3_defQty}</td>
 											          <td>
-											            <%-- 불량률 계산 --%>
-											            <c:set var="defectRate" value="${(productionList.stage3_defQty * 100) / productionList.plan_qty}" />
-											            <fmt:formatNumber value="${defectRate}" pattern="###0.000" />%
+											           <c:set var="defectRate" value="${(productionList.stage3_defQty * 100) / productionList.plan_qty}" />
+      												   <c:choose>
+											            <c:when test="${defectRate > 2}">
+											             <span style="color: red;">
+														  <fmt:formatNumber value="${defectRate}" pattern="###0.###" />%
+														 </span>
+											            </c:when>       												   
+											            <c:when test="${defectRate >= 0}">
+											             <%-- 불량률 계산 --%>
+														 <fmt:formatNumber value="${defectRate}" pattern="###0.###" />%
+											            </c:when>
+											            <c:otherwise>
+											             <!-- 값이 없을 경우 비워둠 -->
+											            </c:otherwise>
+											           </c:choose>
 											          </td>
 											          <td>${productionList.emp_name}</td>
 											          <td>${productionList.production_status}</td>
@@ -397,6 +477,17 @@
 											    </c:forEach>
 											  </tbody>
 											</table>
+											</div>
+											<div class="button-group">
+											  <button id="excel" 
+											  		  class="btn btn-Light" style="padding-left: 1px; padding-right: 1px;">
+											  엑셀파일
+											  </button>
+											  <button id="print-button" onclick="info_print()"
+											  		  class="btn btn-Light" style="padding-left: 1px; padding-right: 1px;">
+											  인쇄하기
+											  </button>
+											</div>											
 										</div> <!-- 탭3(포장) -->
 									</div>  <!-- 탭 내용 -->	
 								</div> <!-- 탭 영역 끝 -->								

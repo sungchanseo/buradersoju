@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../../includes/header.jsp" %>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert창 링크 -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script type="text/javascript">
 
@@ -63,7 +64,7 @@ $('.modify').click(function(){
 				      console.log(data);
 				$(data).each(function(idx, obj){
 						var str = "";
-						str += "<tr>";
+						str += "<tr id='key_id'>";
 						str += "<td><input type='checkbox' name='check'></td>";
 						str += "<td>"+ obj.whs_id +"</td>";
 						str += "<td><input type='text' id='whs_type' name='whs_type' value="+ obj.whs_type +" readonly></td>";
@@ -212,14 +213,16 @@ $('.modify').click(function(){
  	<!-- 제목 -->
  	<div class="card-body">
 	     <h1 class="card-title">
-		    <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">창고 리스트</font></font>
+		    <font style="vertical-align: inherit;">
+		    <a href="/purchasing/warehouse/list"
+   		       style="text-decoration: none; color: #000;">창고 리스트</a></font>
      	 </h1>
 	</div>
  	
      <c:if test="${emp_department.equals('구매팀') || emp_department.equals('Master')}">
 		<div style=float:right;>
 			<button class="btn btn-success add-button" type="button" onclick="openPopup();">등록</button>
-			<!-- <button class="btn btn-success modify true">수정</button> -->
+		    <button class="btn btn-success modify true">수정</button>
 			<button class="btn btn-success" id="delete">삭제</button>
 			<button class="btn btn-info insert update">저장</button>
 		</div>
@@ -240,6 +243,7 @@ $('.modify').click(function(){
 	<!-- 테이블 -->
 	
 	<table border="1" class="table table-hover table-bordered text-center">
+		<thead>
 		<tr>
 			<th></th>
 			<th>창고번호</th>
@@ -248,26 +252,28 @@ $('.modify').click(function(){
 			<th>사용여부</th>
 			<th>창고관리자</th>
 		</tr>
-		
+		</thead>
+		<tbody id="tbody">
 		<c:forEach var="wh" items="${warehouseList}">
-			<tr>
+			  <tr>
 			<c:choose>
 			   <c:when test="${wh.whs_type.equals('자재')}">
 			   <td><input type="checkbox" name="check"></td>
 		       <td>${wh.whs_id}</td>
 		       <td>${wh.whs_type}</td>
 		       <td>${wh.whs_tel}</td>
-		       <td>
-		       	 <c:choose>
-		       		<c:when test="${wh.whs_status == 1}">사용중</c:when>
-		       		<c:when test="${wh.whs_status == 2}">미사용</c:when>
-		       	 </c:choose>
-		       </td>
+		         <td>
+		       	   <c:choose>
+		       		 <c:when test="${wh.whs_status == 1}">사용중</c:when>
+		       		 <c:when test="${wh.whs_status == 2}">미사용</c:when>
+		       	   </c:choose>
+		         </td>
 		       <td>${wh.emp_name}</td>
-		       </c:when>
+		          </c:when>
 		       </c:choose>
-			</tr>
-		</c:forEach>
+			 </tr>
+	   	  </c:forEach>
+		</tbody>
 	</table>
   </div>
 </div>
@@ -275,15 +281,17 @@ $('.modify').click(function(){
 <div class="tab-pane fade show" id="stage2" role="tabpanel" aria-labelledby="stage2-tab">
 	<!-- 테이블 -->
 	<table border="1" class="table table-hover table-bordered text-center">
-		<tr>
+		<thead>
+		  <tr>
 			<th></th>
 			<th>창고번호</th>
 			<th>창고타입</th>
 			<th>전화번호</th>
 			<th>사용여부</th>
 			<th>창고관리자</th>
-		</tr>
-		
+		  </tr>
+		</thead>
+      <tbody id="tbody">		
 		<c:forEach var="wh" items="${warehouseList}">
 			<tr>
 			<c:choose>
@@ -299,10 +307,11 @@ $('.modify').click(function(){
 		       	 </c:choose>
 		       </td>
 		       <td>${wh.emp_name}</td>
-		       </c:when>
+		         </c:when>
 		       </c:choose>
 			</tr>
-		</c:forEach>
+	 	 </c:forEach>
+	   </tbody>
 	</table>
               </div>
              </div>

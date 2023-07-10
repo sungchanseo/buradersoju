@@ -56,9 +56,8 @@ function info_print() {
 								<h1>작업지시 현황</h1>
 <!-- 검색창 기능 -->
   <form action="/workOrder/list" method="get">
-<!--     <label>검색</label> -->
-<!--     <br> -->
 	  <select class="Wosearch_select" name="selector">
+	    <option value="a.workOrder_status">작업상태</option>
 	    <option value="a.production_id">작업지시번호</option>
 	    <option value="a.cont_id">수주번호</option>
 	    <option value="a.production_line">생산라인</option>
@@ -69,7 +68,6 @@ function info_print() {
 	  <input type="submit" class="btn btn-info" value="검색">
   </form>
   
-<!-- 	<br> -->
 	<div style="float: right;">
 	<button type="button" class="btn btn-success" style="margin: 1px;" onclick="openPopup();">작업 등록</button>
 	<button class="btn btn-light" style='text-align: right; margin: 1px;'>엑셀파일</button>

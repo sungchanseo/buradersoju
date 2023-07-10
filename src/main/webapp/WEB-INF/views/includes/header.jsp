@@ -39,7 +39,7 @@
             <ul class="navbar-nav navbar-nav-right">
                 <li class="nav-item dropdown d-lg-flex d-none">
                   
-                  <a class="btn btn-outline-danger btn-fw" id="nreportDropdown" href="/main/logout">
+                  <a class="btn btn-secondary btn-fw" id="nreportDropdown" href="/main/logout">
                   	로그아웃
                   </a>
                 </li>
@@ -47,7 +47,7 @@
                   <a class="nav-link dropdown-toggle" href="" data-bs-toggle="dropdown" id="profileDropdown">
                     <span class="nav-profile-name">	${sessionScope.emp_department}  ${sessionScope.emp_name}님</span>
                     <span class="online-status"></span>
-                    <img src="${pageContext.request.contextPath}/resources/images/faces/face28.png" alt="profile"/>
+                    <img src="${pageContext.request.contextPath}/resources/upload/employee/${sessionScope.emp_image}" alt="profile"/>
                   </a>
                   <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="nreportDropdown">
                       <p class="mb-0 font-weight-medium float-left dropdown-header">${sessionScope.emp_name}님 환영합니다</p>
@@ -115,7 +115,7 @@
                   <div class="submenu">
                     <ul>
                           <li class="nav-item"><a class="nav-link" href="/workOrder/list">작업 지시</a></li>
-                          <li class="nav-item"><a class="nav-link" href="/production/list">생산</a></li>
+                          <li class="nav-item"><a class="nav-link" href="/production/list">생산 현황</a></li>
                           <li class="nav-item"><a class="nav-link" href="/quality/list">품질 관리</a></li>
                           <li class="nav-item"><a class="nav-link" href="/quality/emptyBottle">공병 관리</a></li>
                       </ul>

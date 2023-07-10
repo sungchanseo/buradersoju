@@ -19,8 +19,8 @@ table input[type:checkbox] {width:1em;}
 
 </style>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert창 링크 -->
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script type="text/javascript">
 
 	function getToday() {
@@ -167,7 +167,7 @@ table input[type:checkbox] {width:1em;}
 							let orderTodays = orderToday();
 
 							if ($(this).hasClass('true')) {
-
+                                   // 입력되는 값을 보기위한 table에 id값 주기
 								let tbl = "<tr id='key_id'>";
 								tbl += " <td>";
 								tbl += "<input size='15' type='checkbox' name='check'>";
@@ -227,24 +227,23 @@ table input[type:checkbox] {width:1em;}
 												};
 												console.log(obj.in_ma_id);
 												$.ajax({
-															url : "/purchasing/order/"+ obj.in_ma_id,
-															type : "get",
-															success : function(data) {
-																console.log(obj.in_order_qty);
-																console.log(data);
-																$("#ma_qty").val(data.ma_qty)
-																$("#unit_cost").val(data.unit_cost)
-																$("#ma_name").val(data.ma_name)
-																$("#order_sum").val(data.unit_cost* obj.in_order_qty)
-																$("#order_vat").val(data.unit_cost* obj.in_order_qty/ 100)
-																$("#whs_id").val(data.whs_id)
-																// $("#ma_name").val(data.ma_name)
+													url : "/purchasing/order/"+ obj.in_ma_id,
+													type : "get",
+													success : function(data) {
+															console.log(obj.in_order_qty);
+															console.log(data);
+                                                            $("#ma_name").val(data.ma_name)
+															$("#ma_qty").val(data.ma_qty)
+															$("#unit_cost").val(data.unit_cost)
+															$("#order_sum").val(data.unit_cost* obj.in_order_qty)
+															$("#order_vat").val(data.unit_cost* obj.in_order_qty/100)
+															$("#whs_id").val(data.whs_id)
+						           								// $("#ma_name").val(data.ma_name)
 
 																// 등록버튼을 누르면 기존의 데이터가 초기화
 
 															}, //success
-															error : function(
-																	error) {
+															error : function(error) {
 
 															} //error
 														}); //ajax
@@ -376,63 +375,57 @@ table input[type:checkbox] {width:1em;}
 											var order_id = td.eq(1).text();
 											tdArr.push(order_id); // tdArr[0] == ma_id
 											$.ajax({
-														url : "modify",
-														type : "get",
-														data : {
-															order_id : order_id
-														},
-														success : function(data) { // 기존데이터정보(orderVo) 받아옴 
+												url : "modify",
+												type : "get",
+												data : {
+													order_id : order_id
+												},
+													success : function(data) { // 기존데이터정보(orderVo) 받아옴 
 
 															// 여기서 order_id를 이용해서 if문걸어가지고 같은 값일때 아래처럼 나오게하면될듯?!
 															// orderVo에서 테이블 값 가져오기
-															var order_date = data.order_date;
-															console.log(order_date);
-															$(data).each(function(idx,obj) {
-																				var str = "";
-																				str += "<tr>";
-																				str += "<td><input type='checkbox' name='check'></td>";
-																				str += "<td>"
-																						+ obj.order_id
-																						+ "</td>";
-																				str += "<td>"
-																						+ obj.ma_id
-																						+ "</td>";
-																				str += "<td>"
-																						+ obj.ma_name
-																						+ "</td>";
-																				str += "<td>"
-																						+ obj.unit_cost
-																						+ "</td>";
-																				str += "<td>"
-																						+ obj.ma_qty
-																						+ "</td>";
-																				str += "<td><input type='text' id='order_qty' name='order_qty' value="+ obj.order_qty +"></td>";
-																				str += "<td><input type='text' id='order_sum' name='order_sum' value="+ obj.order_sum +"></td>";
-																				str += "<td><input type='text' id='order_vat' name='order_vat' value="+ obj.order_vat +"></td>";
-																				str += "<td>"
-																						+ getToday()
-																						+ "</td>";
-																				str += "<td>"
-																						+ orderToday()
-																						+ "</td>";
-																				str += "<td>"
-																						+ inToday()
-																						+ "</td>";
-																				str += "<td>"
-																						+ obj.whs_id
-																						+ "</td>";
-																				str += "<td><input type='text' id='emp_name' name='emp_name' value="+ obj.emp_name +"></td>";
-																				// 담당직원 세션에 저장된 아이디 들고오기
-																				str += "</tr>";
-																				$('table').prepend(str);
-																			});
-														},
-														error : function() {
-															alert("error");
-														}
-														}); //ajax	
+										var order_date = data.order_date;
+										console.log(data);
+										$(data).each(function(idx,obj) {
+										var str = "";
+										str += "<tr id='key_id'>";
+										str += "<td><input type='checkbox' name='check'></td>";
+										str += "<td>"+ obj.order_id+ "</td>";
+										str += "<td>"+ obj.ma_id+ "</td>";
+										str += "<td>"+ obj.ma_name+ "</td>";
+										str += "<td>"+ obj.unit_cost+ "</td>";
+										str += "<td>"+ obj.ma_qty+ "</td>";
+										str += "<td><input type='text' id='order_qty' name='order_qty' value="+ obj.order_qty +"></td>";
+										str += "<td><input type='text' id='order_sum' name='order_sum' value="+ obj.order_sum +"></td>";
+									    str += "<td><input type='text' id='order_vat' name='order_vat' value="+ obj.order_vat +"></td>";
+										str += "<td>"+ getToday()+ "</td>";
+										str += "<td>"+ orderToday()+ "</td>";
+										str += "<td>"+ inToday()+ "</td>";
+										str += "<td>"+ obj.whs_id+ "</td>";
+										str += "<td><input type='text' id='emp_name' name='emp_name' value="+ obj.emp_name +"></td>";
+										// 담당직원 세션에 저장된 아이디 들고오기
+										str += "</tr>";
+                                        
+										$('table').prepend(str);
+										});
+										console.log(data);
+															
+										$("#key_id").keyup(function() {
+															
+											var obj = {
+													in_order_qty : $("#order_qty").val()
+											};
+											console.log("oredr_qty: " ,obj.in_order_qty);
+											$("#order_sum").val(obj.in_order_qty*data.unit_cost);
+											$("#order_vat").val(obj.in_order_qty*data.unit_cost/100);
+									  	});
+							       	},
+									   		error : function() {
+										         alert("error");
+												}
+											}); //ajax	
 
-										}); // function(i)
+								}); // function(i)
 							}
 							// 2-2. '저장' 클릭 
 							$('.update').click(function()
@@ -576,6 +569,25 @@ table input[type:checkbox] {width:1em;}
 
 	}); // jQuery
 </script>
+<script>
+$(function(){
+
+  	// 검색 조건 저장
+  	startDate = "${startDate}";
+	endDate = "${endDate}";
+	order_in_id = "${order_in_id}";
+	ma_in_name = "${ma_in_name}";
+	order_empName = "${order_empName}";
+	
+	$('#sd').val(startDate);
+	$('#ed').val(endDate);
+	$('#order_in_id').val(order_in_id);
+	$('#ma_in_name').val(ma_in_name);
+	$('#order_empName').val(order_empName);
+  
+	  
+});
+</script> 
 <style type="text/css">
 table {
 	width: 100%;
@@ -619,22 +631,24 @@ table input[type :checkbox] {
 										style="text-decoration: none; color: #000;">발주 리스트</a></font>
 								</h1>
 								</div>
-
-								
 											<!-- 검색 기능 -->
-											<form action="/purchasing/order/list" method="get"
-												style="display: inline;">
-												<select name="selector">
-													<option value="ma_name">자재명</option>
-													<option value="order_date">발주일자</option>
-													<option value="in_date">입고일자</option>
-												</select> <input type="text" class="form-control"
-													style="width: 10%; display: inline;" name="search"
-													placeholder="검색어를 입력해주세요"> <input type="submit"
-													class="btn btn-info" value="검색">
+											<div style="text-align: center; background-color: #f2f2f2;">
+											<br>
+											<form action="/purchasing/order/list" method="get" style="display: inline;">
+											    발주번호 <input type="text" id="order_in_id" name="order_in_id" value="" style="width:7%">
+											    &nbsp;&nbsp;&nbsp; 발주일자 
+											    <input type="date" name="startDate" id="sd" value="" min="2023-01-01">
+									             ~ 
+									            <input type="date" name="endDate" id="ed" value="" min="2023-01-01">
+									            &nbsp;&nbsp;&nbsp; 자재명 <input type="text" id="ma_in_name" name="ma_in_name" value="" style="width:7%;">
+								               	&nbsp;&nbsp;&nbsp; 담당직원 <input type="text" id="order_empName" name="order_empName" value="" style="width:7%;">
+									            
+										        &nbsp;&nbsp; <input type="submit" class="btn btn-info" value="검색">
 											</form>
+											<br><br>
+							               </div>
+							                   	<br>
 											<!-- 검색 기능 -->
-
 											<!-- 버튼 -->
 											<c:if
 												test="${emp_department.equals('구매팀') || emp_department.equals('Master')}">
@@ -645,12 +659,11 @@ table input[type :checkbox] {
 													<button class="btn btn-success insert update write">저장</button>
 												</div>
 											</c:if>
-
+											<br><br><br>
 											<fmt:formatDate value="" />
 											<div class="row">
 												<!-- class row  -->
-												<table border="1" id="example-table-3"
-													class="table table-bordered table-hover text-center tbl"
+												<table border="1" id="example-table-3" class="table table-bordered table-hover text-center tbl"
 													style="width: 100%;">
 													<thead>
 														<tr>
@@ -697,24 +710,19 @@ table input[type :checkbox] {
 
 											<!-- 	페이징 처리  -->
 											<div class="template-demo">
-												<div class="btn-group" role="group"
-													aria-label="Basic example">
+												<div class="btn-group" role="group" aria-label="Basic example">
 													<c:if test="${pvo.startPage > pvo.pageBlock }">
-														<a
-															href="/purchasing/order/list?pageNum=${pvo.startPage-pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}"
+														<a href="/purchasing/order/list?pageNum=${pvo.startPage-pvo.pageBlock}&order_in_id=${pvo.order_id}&ma_in_name=${pvo.ma_name}&startDate=${pvo.startDate}&endDate=${pvo.endDate}&order_empName=${pvo.order_empName}"
 															class="btn btn-outline-secondary">이전</a>
 													</c:if>
 
-													<c:forEach var="i" begin="${pvo.startPage }"
-														end="${pvo.endPage }" step="1">
-														<a
-															href="/purchasing/order/list?pageNum=${i }&selector=${pvo.selector}&search=${pvo.search}"
+													<c:forEach var="i" begin="${pvo.startPage }" end="${pvo.endPage }" step="1">
+														<a href="/purchasing/order/list?pageNum=${i }&order_in_id=${pvo.order_id}&ma_in_name=${pvo.ma_name}&startDate=${pvo.startDate}&endDate=${pvo.endDate}&order_empName=${pvo.order_empName}"
 															class="btn btn-outline-secondary">${i }</a>
 													</c:forEach>
 
 													<c:if test="${pvo.endPage<pvo.pageCount }">
-														<a
-															href="/purchasing/order/list?pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}"
+														<a href="/purchasing/order/list?pageNum=${pvo.startPage+pvo.pageBlock}&order_in_id=${pvo.order_id}&ma_in_name=${pvo.ma_name}&startDate=${pvo.startDate}&endDate=${pvo.endDate}&order_empName=${pvo.order_empName}"
 															class="btn btn-outline-secondary">다음</a>
 													</c:if>
 												</div>

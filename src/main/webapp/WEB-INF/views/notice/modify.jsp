@@ -11,8 +11,8 @@
 					<div class="col-lg-12 mx-auto">
 						<div class="auth-form-light text-left py-5 px-4 px-sm-5"
 							style="height: 100%;">
-							<h2>공지 수정</h2>
-							<hr width="800px">
+							<h1>공지 수정</h1>
+							<hr style="width: 100%;">
 							<br>
 							<form action="" method="post" enctype="multipart/form-data">
 								<div class="form-group">
@@ -61,29 +61,36 @@
 	    }
 	    return true;
 	  }
-
-  $(document).ready(function() {
-		//여기 아래 부분
-		$('#summernote').summernote({
-			  height: 400,                 // 에디터 높이
-			  width: 1200,
-			  minHeight: null,             // 최소 높이
-			  maxHeight: null,             // 최대 높이
-			  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
-			  lang: "ko-KR",					// 한글 설정
-			  placeholder: '공지 내용을 작성하세요 :)',
-			  callbacks : { 
-		            	onImageUpload : function(files, editor,
-		                        welEditable) {
-		                        for (var i = files.length - 1; i >= 0; i--) {
-		                        uploadSummernoteImageFile(files[i],
-		                        this);
-		                        		}
-		                        	}
-		                        }
+	  $(document).ready(function() {
+			//여기 아래 부분
+			$('#summernote').summernote({
+				  height: 400,                 // 에디터 높이
+				  width: 1200,
+				  minHeight: null,             // 최소 높이
+				  maxHeight: null,             // 최대 높이
+				  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+				  lang: "ko-KR",					// 한글 설정
+				  placeholder: '공지 내용을 작성하세요 :)',
+				  toolbar: [
+					    ['style', ['style']], 
+				        ['style', ['bold', 'italic', 'underline']],
+				        ['fontsize', ['fontsize']],
+				        ['para', ['ul', 'ol']],
+				        ['color', ['forecolor', 'backcolor']] // 색상 버튼 활성화
+				    ],
+				  callbacks : { 
+			            	onImageUpload : function(files, editor,
+			                        welEditable) {
+			                        for (var i = files.length - 1; i >= 0; i--) {
+			                        uploadSummernoteImageFile(files[i],
+			                        this);
+			                        		}
+			                        	}
+			                        }
+			});
+			$('#summernote').summernote(setting);
+			
 		});
-		$('#summernote').summernote(setting);
-	});
 
   $(document).ready(function(){
 	  var cnt = 0;

@@ -5,11 +5,25 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>거래처 리스트</title>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert창 링크 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script> <!-- 제이쿼리 -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> <!-- 우편api -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert창 링크 -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
 </head>
+<style>
+.auth .auth-form-light select {
+    color: #6C7293;
+    border-radius: 10px;
+    padding: 6px 6px;
+    text-align: center;
+    display: inline;}
+.btn_line1 {
+	margin-bottom: 1em;}
+.input_css {
+	border-radius: 10px;
+    padding: 6px 6px;}
+</style>
 <body>
 <div class="container-scroller">
 		<div class="container-fluid page-body-wrapper full-page-wrapper">
@@ -22,7 +36,7 @@
 								style="height: 1000px;">
 
 									<div>
-										<div class="card-body">
+										<div class="card-body" style="padding: 0;">
 											<h1 class="card-title">
 												<font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><span onclick="location.href='/customer/list'">거래처 리스트</span></font></font>
 											</h1>
@@ -33,7 +47,7 @@
 												<select name="selector">
 													<option value="cust_name">상호</option>
 													<option value="cust_id">거래처코드</option>
-												</select> <input type="text" style="display:inline;" name="search" placeholder="검색어를 입력해주세요">
+												</select> <input type="text" style="display:inline;" name="search" class="input_css" placeholder="검색어를 입력해주세요">
 												<input type="submit"  class="btn btn-info" value="검색">
 											</form>
 											
@@ -114,7 +128,7 @@
 	<script type="text/javascript">
 		// 거래처등록 새창열기
 		function insertPop(){
-		  var insertPop = window.open('/customer/insert', '거래처등록', 'width=1000px,height=550px');
+		  var insertPop = window.open('/customer/insert', '거래처등록', 'width=1000px,height=460px');
 		  
 		  if(insertPop == null){
 			  alert("팝업이 차단되었습니다. 차단을 해제하세요.");
@@ -126,7 +140,7 @@
 		// 거래처 상세보기 새창열기 
 		function infoPop(cust_id){
 			var url = "/customer/info?cust_id="+cust_id;
-			var infoPop = window.open(url, '거래처 상세보기', 'width=1000px,height=400px');
+			var infoPop = window.open(url, '거래처 상세보기', 'width=1000px,height=460px');
 		  
 			if(infoPop == null){
 			  alert("팝업이 차단되었습니다. 차단을 해제하세요.");

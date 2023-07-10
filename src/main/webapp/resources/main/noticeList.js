@@ -16,10 +16,11 @@ $(document).ready(function() {
             var notice = noticeList[i]; // NoticeVO 객체
             var row = $("<tr>");
             row.append($("<td>").text(notice.notice_id));
-            row.append($("<td>").html("<a href='/notice/info?notice_id=" + notice.notice_id + "'>" + notice.notice_title + "</a>"));
+          
+            row.append($("<td>").html("<a style='color: inherit; text-decoration: none;' href='/notice/info?notice_id=" + notice.notice_id + "'>" + notice.notice_title + "</a>"));
             row.append($("<td>").text(formatTimestamp(notice.notice_regdate))); // Timestamp 값을 변환하여 추가
             row.append($("<td>").text(notice.notice_count));
-            $("table.table-color").append(row);
+            $("table.table-hover").append(row);
           }
       } else {
         console.log("메인 공지 AJAX 에러");

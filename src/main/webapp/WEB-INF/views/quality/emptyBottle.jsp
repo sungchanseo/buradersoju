@@ -9,10 +9,17 @@
 <%@ include file="../includes/header.jsp"%>
 <meta charset="UTF-8">
 <!-- 제이쿼리 -->
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <title>공병 관리</title>
+<style type="text/css">
+
+.btn-success:disabled {
+	opacity: 0.6;
+  	cursor: not-allowed;
+}
+</style>
 
 </head>
 <body>
@@ -29,57 +36,48 @@
 				var bt_qty = $("#be_bt_qty").val();
 // 				alert(bt_qty);
 				var bt_emp = $("#bt_emp").val();
-				alert(bt_emp);
-
-				const form = $('<form>', {
-					method : 'post',
-					action : 'btInsert',
-					id : 'fr',
-					'accept-charset' : 'utf-8'
-				});
-
-				// 파라미터 전달용 hidden 추가
-				form.append($('<input>', {
-					type : 'hidden',
-					name : 'bt_date',
-					value : bt_date
-				}));
-
-				form.append($('<input>', {
-					type : 'hidden',
-					name : 'bt_qty',
-					value : bt_qty
-				}));
-				
-				form.append($('<input>', {
-					type : 'hidden',
-					name : 'bt_emp',
-					value : bt_emp
-				}));
-
-				// form태그 body에 추가 후 전송
-				$('body').append(form);
-				form.submit();
-
-// 					        $.ajax({
-// 					          url : 'btInsert',
-// 					          type : 'POST',
-// 					          contentType: 'text',
-// 					          data : {  
-// 					        	  bt_date : $("#bt_date").val(),
-// 					        	  bt_qty : $("#be_bt_qty").val()
-// 					        		},
-// 					          dataType: 'text',
-// 					          success: function(response) {
-// 					    	  alert("에이젝스 성공");
-// 					        	  console.log(response);
-// 					              var vo = response.vo;
-// 						          },
-// 						          error : function(e){
-// 				    	     	  alert("에이젝스 실패");
-// 					        	  console.log(e);
-// 						          }
-// 							}); //ajax
+// 				alert(bt_emp);
+				if (!$('#be_bt_qty').val()) {
+					Swal.fire({
+						icon: 'error',
+						title: '공병 개수를 입력해 주세요!',
+						confirmButtonColor: '#0ddbb9',
+						confirmButtonText: '확인'
+					});
+				}else{
+				Swal.fire({
+					   title: '등록하시겠습니까?',
+					   text: '등록수량 : '+bt_qty+'개',
+					   icon: 'warning',
+					   showCancelButton: true,
+					   confirmButtonColor: '#3085d6', 
+					   cancelButtonColor: '#d33', 
+					   confirmButtonText: '승인', 
+					   cancelButtonText: '취소'
+					}).then(result => {
+						if (result.isConfirmed) {
+					        $.ajax({
+					          url : '/quality/btInsert',
+					          type : 'POST',
+					          data : {  
+					        	  bt_date : bt_date,
+					        	  bt_qty : bt_qty,
+					        	  bt_emp : bt_emp },
+					          success: function(response) {
+					        	  Swal.fire({
+										icon: 'success',
+										title: '등록 완료',
+										text: '확인을 누르면 창을 닫습니다.',
+										confirmButtonColor: '#0ddbb9',
+										confirmButtonText: '확인'
+									}).then(() => {
+										window.location.reload();
+										}); // Swal2
+						   			} // success
+							}); //ajax
+						  } // if
+					}); //result
+				}
 			}); //click
 		}); //document.ready
 		////// 오늘의 공병 수량 insert //////
@@ -92,38 +90,47 @@
 // 				alert(bt_date);
 				var bt_defQty = $(this).closest("tr").find(".bt_defQty").val();
 				var bt_qty = $(this).closest("tr").find(".bt_qty").val();
-// 				alert(bt_defQty);
-				// form 태그 동적 생성
-				const form = $('<form>', {
-					method : 'post',
-					action : 'btUpdate',
-					'accept-charset' : 'utf-8'
-				});
-
-				// 파라미터 전달용 hidden 추가
-				form.append($('<input>', {
-					type : 'hidden',
-					name : 'bt_date',
-					value : bt_date
-				}));
-
-				form.append($('<input>', {
-					type : 'hidden',
-					name : 'bt_defQty',
-					value : bt_defQty
-				}));
-				
-				form.append($('<input>', {
-					type : 'hidden',
-					name : 'bt_qty',
-					value : bt_qty
-				}));
-
-				// form태그 body에 추가 후 전송
-				$('body').append(form);
-				form.submit();
-
-				alert("불량 등록 완료");
+				if (!$(this).closest("tr").find(".bt_defQty").val()) {
+					Swal.fire({
+						icon: 'error',
+						title: '불량 개수를 입력해 주세요!',
+						confirmButtonColor: '#0ddbb9',
+						confirmButtonText: '확인'
+					});
+				}else{
+				Swal.fire({
+					   title: '등록하시겠습니까?',
+					   text: '등록수량 : '+bt_defQty+'개',
+					   icon: 'warning',
+					   showCancelButton: true,
+					   confirmButtonColor: '#3085d6', 
+					   cancelButtonColor: '#d33', 
+					   confirmButtonText: '승인', 
+					   cancelButtonText: '취소'
+					}).then(result => {
+						if (result.isConfirmed) {
+					        $.ajax({
+					          url : '/quality/btUpdate',
+					          type : 'POST',
+					          data : {  
+					        	  bt_date : bt_date,
+					        	  bt_defQty : bt_defQty,
+					        	  bt_qty : bt_qty },
+					          success: function(response) {
+					        	  Swal.fire({
+										icon: 'success',
+										title: '등록 완료',
+										text: '확인을 누르면 창을 닫습니다.',
+										confirmButtonColor: '#0ddbb9',
+										confirmButtonText: '확인'
+									}).then(() => {
+										window.location.reload();
+										}); // Swal2
+						   			} // success
+							}); //ajax
+						  } // if
+					}); //result
+				}
 			});
 		});
 		////// 현재 날짜에 이미 등록된 경우 등록 관련 btInsert div가 감춰짐 //////
@@ -172,7 +179,7 @@
 <!-- 											<option value="a.production_line">생산라인</option> -->
 											<option value="emp_name">검수자</option>
 										</select>
-										<input type="text" name="search" class="form-control" style="width:250px; display:inline;" placeholder="검색어를 입력해주세요">	
+										<input type="text" name="search" class="form-control" style="width:250px; display:inline;" placeholder="검색어를 입력해주세요" maxlength="15">	
 										<button type="submit" class="btn btn-info">검색</button>
 									</form>
 									
@@ -181,7 +188,7 @@
 										<fmt:formatDate var="today2" value="${today}" pattern="yyyy-MM-dd" />
 										<input type="hidden" id="bt_date" value="${today2}"name="bt_date"> 
 										<input type="hidden" id="bt_emp" name="bt_emp" value="${sessionScope.emp_id}"> 
-										입고 수량 <input type="text"id="be_bt_qty" name="bt_qty" class="form-control" style="width:250px; display:inline;" placeholder="공병 개수를 입력해주세요"> 
+										입고 수량 <input type="text"id="be_bt_qty" name="bt_qty" class="form-control" style="width:250px; display:inline;" placeholder="공병 개수를 입력해주세요" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="15"> 
 										<input type="button" class="btn btn-info" id="btInsertBT" value="등록">
 									</div>
 									</div>
@@ -212,17 +219,26 @@
 														<td>${vo.bt_status}</td>
 														<td>
 														<c:choose>
-														<c:when test="${vo.bt_status == '대기' }"><input type="text" class="bt_defQty" value="${vo.bt_defQty}" style="width:100px;"></c:when>
+														<c:when test="${vo.bt_status == '대기' }"><input type="text" class="bt_defQty" value="${vo.bt_defQty}" style="width:100px;" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="15"></c:when>
 														<c:otherwise>${vo.bt_defQty}</c:otherwise>
 														</c:choose>
 														</td>
 														<td><input type="hidden" class="bt_defQty" value="${vo.bt_defQty}">
 														<!-- 이미 등록한 날짜의 불량수량은 다시 등록할 수 없게 버튼 제어 -->
 															${vo.bt_qty-vo.bt_defQty}</td>
-														<c:if test="${vo.bt_status == '대기'}">
-															<td><input type="button" class="btn btn-success" id="btDefBT" value="불량 등록" data-bt_date="${vo.bt_date}"></td>
+<%-- 														<c:if test="${vo.bt_status == '대기'}"> --%>
 <%-- 															<td><input type="button" class="btDefBT" id="btDefBT" value="불량등록" data-bt_date="${vo.bt_date}"></td> --%>
-														</c:if>
+<%-- 														</c:if> --%>
+														<td>
+														<c:choose>
+														<c:when test="${vo.bt_status == '대기'}">
+															<input type="button" class="btn btn-success" id="btDefBT" value="불량 등록" data-bt_date="${vo.bt_date}">
+														</c:when>
+														<c:otherwise>
+<%-- 															<input type="button" class="btn btn-success" id="btDefBT" value="불량 등록" data-bt_date="${vo.bt_date}" disabled="true"  style="opacity: 0.6; cursor: not-allowed;"> --%>
+														</c:otherwise>
+														</c:choose>
+														</td>
 													</tr>
 												</c:forEach>
 											</tbody>

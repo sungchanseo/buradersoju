@@ -9,6 +9,7 @@
 <meta charset="UTF-8">
 <title>재고관리</title>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert창 링크 -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
 </head>
@@ -29,9 +30,11 @@
 
 
 								<!-- 제목 -->
-								     <div class="card-body">
+								  <div class="card-body">
 								<h1 class="card-title">
-										<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">재고 리스트</font></font>
+									<font style="vertical-align: inherit;">
+									<a href="/purchasing/inventory/list"
+									style="text-decoration: none; color: #000;">재고 리스트</a></font>
 							    </h1>
 									
 									
@@ -40,7 +43,7 @@
 									<select name="selector">
 										<option value="ma_id">자재코드</option>
 										<option value="ma_name">자재명</option>
-									</select> <input type="text" class="form-control" style="width:10%; display:inline;" name="search" placeholder="검색어를 입력해주세요">
+									</select>  <input type="text" name="search" placeholder="검색어를 입력해주세요">
 									<input type="submit"  class="btn btn-info" value="검색">
 								</form>
 								<!-- 검색창기능 -->

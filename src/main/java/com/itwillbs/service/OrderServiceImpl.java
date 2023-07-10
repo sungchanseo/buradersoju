@@ -124,8 +124,8 @@ public class OrderServiceImpl implements OrderService {
 		// 페이징처리2
 		// 페이지 번호 계산
 		int count;
-		if(pvo.getSelector()!=null && pvo.getSelector()!="") {
-			// 검색어가 있을 때 
+		if(pvo.getOrder_id()!=null || pvo.getOrder_empName() != null || pvo.getMa_name() !=null) {
+			// 검색어가 있을 때
 			count = getListSearchAll(pvo);
 		}else {
 			// 검색어가 없을 때

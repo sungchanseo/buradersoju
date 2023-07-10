@@ -1,8 +1,6 @@
 @charset "UTF-8";
 
 /* 테이블 css */
-table {margin-bottom: 1em;}
-
 table, th {border: none;}
 
 th {background-color: #04AA6D;

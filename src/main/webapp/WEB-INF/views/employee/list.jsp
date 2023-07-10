@@ -18,8 +18,8 @@
     text-align: center;
     display: inline;}
 .btn_line1 {
-margin-bottom: 1em;;}
-input {
+	margin-bottom: 1em;}
+.input_css {
 	border-radius: 10px;
     padding: 6px 6px;}
     
@@ -56,7 +56,7 @@ input {
 							<div class="auth-form-light text-left py-5 px-4 px-sm-5" style="height: 1000px;">
 								<form action="/employee/list" method="get" style="display:inline;" role="form">
 									<div class="form-group">								
-									<h1>사원리스트</h1>
+									<h1><span onclick="location.href='/employee/list'" style="cursor: pointer;">사원리스트</span></h1>
 									<div class="btn_line1">
 										<!-- 검색창기능 -->
 										<select name="selector" class="auth auth-form-light select">
@@ -64,7 +64,7 @@ input {
 											<option value="emp_department">부서</option>
 											<option value="emp_status">재직구분</option>
 										</select>
-										<input type="text" name="search" placeholder="검색어를 입력해주세요">
+										<input type="text" name="search" class="input_css" placeholder="검색어를 입력해주세요">
 										<input type="submit" class="btn btn-info" value="검색">
 										<!-- 검색창기능 -->
 																	

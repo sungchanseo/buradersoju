@@ -2,12 +2,13 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 
-<title>포장 등록</title>
+<title>혼합 불량수량 수정</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert창 링크 -->
@@ -84,8 +85,8 @@ border-color: #23dbf8;}
           var vo = response.vo;
           
           if (vo) {
-            
-        	// 결과가 있을 때
+        	  
+            // 결과가 있을 때
             $("#insertTable tbody").html(
               "<tr>" +
               "<td><input type='hidden' name='production_id' value='"+vo.production_id+"'>" 
@@ -100,29 +101,19 @@ border-color: #23dbf8;}
             );
             
             // 생산단계 값 설정
-			  if (!vo.production_status) {
+			  if (vo.production_status === '혼합') {
 	            $("#production_status").val('혼합');
-	          } else if (vo.production_status === '혼합') {
-	            $("#production_status").val('주입');
 	          } else if (vo.production_status === '주입') {
+	            $("#production_status").val('주입');
+	          } else if (vo.production_status === '포장') {
 	            $("#production_status").val('포장');
 	          } else {
 	            $("#production_status").val(vo.production_status);
 	          }
-            
-            // 불량코드 값 설정
-              if (!vo.production_status) {
-	            $("#stage3_defCode").val('DE110');
-	          } else if (vo.production_status === '혼합') {
-	            $("#stage3_defCode").val('DE120');
-	          } else if (vo.production_status === '주입') {
-	            $("#stage3_defCode").val('DE130');
-	          }
-            
-           // 등록 버튼 표시 여부 설정
-           // 포장등록 페이지 (productionInsertStage2.jsp)
-           // => 생산단계가 '주입'일 때만 표시
-              if (vo.production_status === '주입') {
+
+           // 수정 버튼 표시 여부 설정
+           // => 생산단계가 '혼합'일 때만 버튼 보이기
+              if (vo.production_status === '혼합') {
                 $("#btnInsert").show(); // 등록 버튼 보이기
               } else {
                 $("#btnInsert").hide(); // 등록 버튼 숨기기
@@ -141,8 +132,9 @@ border-color: #23dbf8;}
         }
       });
     });
+   
     
- 	// 등록 버튼 클릭 시 sendForm 함수 호출
+    // 등록 버튼 클릭 시 sendForm 함수 호출
     $("#btnInsert").click(function(event) {
 	    event.preventDefault(); // 폼의 서버 전송 방지
 	    sendForm();
@@ -151,17 +143,17 @@ border-color: #23dbf8;}
 	// sendForm 함수 정의
 	function sendForm() {
 	    Swal.fire({
-	        title: '등록하시겠습니까?',
+	        title: '수정하시겠습니까?',
 	        icon: 'warning',
 	        showCancelButton: true,
 	        confirmButtonColor: '#0ddbb9',
 	        cancelButtonColor: '#d33',
-	        confirmButtonText: '등록',
+	        confirmButtonText: '수정',
 	        cancelButtonText: '취소'
 	    }).then((result) => {
 	        if (result.isConfirmed) {
 	            $.ajax({
-	                url: '/production/insertStage3',
+	                url: '/production/modifyStage1',
 	                type: 'POST',
 	                data: new FormData($("form[role='form']")[0]),
 	                enctype: 'multipart/form-data',
@@ -170,7 +162,7 @@ border-color: #23dbf8;}
 	                cache: false,
 	                success: function(json) {
 	                    Swal.fire({
-	                        title: '등록이 완료되었습니다.',
+	                        title: '수정이 완료되었습니다.',
 	                        icon: 'success',
 	                        confirmButtonText: '확인'
 	                    }).then(() => {
@@ -187,7 +179,7 @@ border-color: #23dbf8;}
   
   /* 불량수량 입력값에 숫자가 아닌 문자 제거 */
   $(document).ready(function() {
-    $("input[name='stage3_defQty']").on("input", function() {
+    $("input[name='stage1_defQty']").on("input", function() {
       $(this).val($(this).val().replace(/[^0-9]/g, ""));
     });
   });
@@ -198,7 +190,7 @@ border-color: #23dbf8;}
 
 </head>
 <body>
-	<h1>포장 등록</h1>
+	<h1>혼합 불량수량 수정</h1>
 	
 	<form id="form_idSearch" method="get">
         <label for="production_id">작업지시번호</label>
@@ -227,7 +219,7 @@ border-color: #23dbf8;}
 	    <tbody>
 	    
 		</tbody>
-	  </table>
+	  </table>	
 	<br>
 	  생산단계
 	  <input type="text" name="production_status" id="production_status" style="background-color: #e6e6e6;" readonly>
@@ -235,11 +227,11 @@ border-color: #23dbf8;}
 <!-- 	  생산수량 -->
 <!-- 	  <input type="text" name="production_qty"> -->
 <!-- 	  불량코드 -->
-	  <input type="hidden" name="stage3_defCode" id="stage3_defCode" readonly >
-		  불량수량
-		  <input type="text" name="stage3_defQty">
+<!-- 	  <input type="hidden" name="stage1_defCode" id="stage1_defCode" readonly> -->
+	  불량수량
+	  <input type="text" name="stage1_defQty">
 	<br>
-	<input type="submit" class="btn btn-success" id="btnInsert" value="등록" onclick="sendForm();">
+	<input type="submit" class="btn btn-success" id="btnInsert" value="수정" onclick="sendForm();">
 	</form>
 	
 </body>

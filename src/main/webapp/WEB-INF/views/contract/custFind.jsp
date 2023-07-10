@@ -5,24 +5,32 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>거래처 검색</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert창 링크 -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/mdi/css/materialdesignicons.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/base/vendor.bundle.base.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main/fullcalendar-5.11.4/lib/main.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert창 링크 -->
 </head>
+<style>
+.table-responsive {
+	margin-bottom: 1em;}
+.input_css {
+	border-radius: 10px;
+    padding: 6px 6px;}
+</style>
 <body>
+<div style="padding: 2%;">
 <h1>거래처 검색</h1>
 	<!-- 검색창기능 -->
 	<form action="" method="get" style="display: inline;">
-		<select name="selector">
+		<select name="selector" style="padding: 6px 6px; color: #6C7293; border-radius: 10px; text-align: center;">
 			<option value="cust_name">상호</option>
 			<option value="cust_id">거래처코드</option>
-		</select> <input type="text" style="display:inline;" name="search" placeholder="검색어를 입력해주세요">
+		</select> <input type="text" style="display:inline;" class="input_css" name="search" placeholder="검색어를 입력해주세요">
 		<input type="submit"  class="btn btn-info" value="검색">
 	</form>
 	<!-- 검색창기능 -->
@@ -66,6 +74,7 @@
 			<a href="/contract/custFind?pageNum=${pvo.startPage+pvo.pageBlock}&selector=${pvo.selector}&search=${pvo.search}" class="btn btn-outline-secondary">다음</a>
 		</c:if>
 		<!--	페이징처리  -->
+</div>
 	<script>
 	
 	//부모창으로 값 보내기 

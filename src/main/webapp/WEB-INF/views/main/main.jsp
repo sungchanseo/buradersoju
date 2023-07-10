@@ -132,7 +132,7 @@
 														<p class="card-title">공지사항</p>
 														<div id="resultContainer"></div>
 														<div id="table_content">
-															<table class="table table-color" style="text-align: center;">
+															<table class="table table-hover" style="text-align: center;">
 																<tr>
 																	<th>번호</th>
 																	<th>제목</th>

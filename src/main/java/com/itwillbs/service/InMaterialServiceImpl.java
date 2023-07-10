@@ -108,7 +108,7 @@ public class InMaterialServiceImpl implements InMaterialService {
 		// 페이징처리2
 		// 페이지 번호 계산
 		int count;
-		if(pvo.getIn_id() != null || pvo.getMa_name() != null || pvo.getIn_empName() != null) {
+		if(pvo.getIn_id() != null || pvo.getMa_name() != null || pvo.getIn_empName() != null || pvo.getIn_process() != null) {
 			// 검색어가 있을 때 
 			count = getListSearchAll(pvo);
 		}else {

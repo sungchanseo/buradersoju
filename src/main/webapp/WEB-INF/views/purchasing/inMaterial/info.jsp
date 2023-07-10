@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>입고 상세 보기</title>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
@@ -105,7 +105,7 @@ margin-left: 75%;
 </div>
 
 <fmt:formatDate value=""/> 
-<table style="width: 900px;">
+<table style="width: 950px;">
 		<tr>
 			<th>발주관리번호</th>
 			<td>${param.order_id }</td>

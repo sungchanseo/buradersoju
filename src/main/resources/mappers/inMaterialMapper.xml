@@ -141,6 +141,9 @@
 			<if test="in_empName != ''">
 				AND e.emp_name LIKE CONCAT('%', #{in_empName}, '%') 
 			</if>
+			<if test="in_process != ''">
+				AND i.in_process = #{in_process}
+			</if>
 			<if test="startDate != '' and endDate != ''">
 				AND o.in_date BETWEEN #{startDate} AND #{endDate}
 			</if>
@@ -203,6 +206,9 @@
 			</if>
 			<if test="in_empName != ''">
 				AND e.emp_name LIKE CONCAT('%', #{in_empName}, '%') 
+			</if>
+			<if test="in_process != ''">
+				AND i.in_process = #{in_process}
 			</if>
 			<if test="startDate != '' and endDate != ''">
 				AND o.in_date BETWEEN #{startDate} AND #{endDate}

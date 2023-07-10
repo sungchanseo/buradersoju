@@ -66,21 +66,23 @@ public class OutProductController {
 		String op_id = request.getParameter("op_id");
 		String product_name = request.getParameter("product_name");
 		String op_empName = request.getParameter("op_empName");
+		String op_process = request.getParameter("op_process");
 		
-		if(startDate == null && endDate == null) {
-			startDate = "2023-07-01";
-			endDate = "2023-07-31";
-		}
+//		if(startDate == null && endDate == null) {
+//			startDate = "2023-07-01";
+//			endDate = "2023-07-31";
+//		}
 		
 		pvo.setStartDate(startDate);
 		pvo.setEndDate(endDate);
 		pvo.setOp_id(op_id);
 		pvo.setProduct_name(product_name);
 		pvo.setOp_empName(op_empName);
+		pvo.setOp_process(op_process);
 		
 		
 		// 검색로직
-		if(pvo.getOp_id() != null || pvo.getProduct_name() != null || pvo.getOp_empName() != null) {
+		if(pvo.getOp_id() != null || pvo.getProduct_name() != null || pvo.getOp_empName() != null || pvo.getOp_process() != null) {
 			//검색어가 있을 때 
 			logger.debug("@@@@@@@@@@ 검색어가 있을 때");
 			outproductList = oService.getListSearchObjectOutProductVO(pvo);

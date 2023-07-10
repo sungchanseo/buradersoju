@@ -71,6 +71,7 @@ public class PagingVO {
 	private String in_id;
 	private int in_emp;
 	private String in_empName;
+	private String in_process;
 
 	// Join문을 위한 [out_product] 테이블 변수 선언 
 	private String op_id;
@@ -80,6 +81,7 @@ public class PagingVO {
 	private String op_empName;
 	private String startDate;
 	private String endDate;
+	private String op_process;
 
 	
 	
@@ -279,8 +281,14 @@ public class PagingVO {
 	public void setIn_id(String in_id) {
 		this.in_id = in_id;
 	}
-	
+	public String getIn_process() {
+		return in_process;
+	}
+	public void setIn_process(String in_process) {
+		this.in_process = in_process;
+	}
 
+	
 	// Join문을 위한 out_product get & set
 	public String getOp_id() {
 		return op_id;
@@ -324,6 +332,12 @@ public class PagingVO {
 	public void setOp_empName(String op_empName) {
 		this.op_empName = op_empName;
 	}
+	public String getOp_process() {
+		return op_process;
+	}
+	public void setOp_process(String op_process) {
+		this.op_process = op_process;
+	}
 	
 	
 	// toString
@@ -338,9 +352,10 @@ public class PagingVO {
 				+ ", MaterialVO=" + MaterialVO + ", InMaterialVO=" + InMaterialVO + ", OrderVO=" + OrderVO
 				+ ", ProductionVO=" + ProductionVO + ", OutProductVO=" + OutProductVO + ", NoticeVO=" + NoticeVO
 				+ ", ma_name=" + ma_name + ", in_date=" + in_date + ", in_id=" + in_id + ", in_emp=" + in_emp
-				+ ", in_empName=" + in_empName + ", op_id=" + op_id + ", op_date=" + op_date + ", product_name="
-				+ product_name + ", op_emp=" + op_emp + ", op_empName=" + op_empName + ", startDate=" + startDate
-				+ ", endDate=" + endDate + "]";
+				+ ", in_empName=" + in_empName + ", in_process=" + in_process + ", op_id=" + op_id + ", op_date="
+				+ op_date + ", product_name=" + product_name + ", op_emp=" + op_emp + ", op_empName=" + op_empName
+				+ ", startDate=" + startDate + ", endDate=" + endDate + ", op_process=" + op_process + "]";
 	}
+	
 
 }

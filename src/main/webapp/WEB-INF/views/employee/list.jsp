@@ -56,7 +56,7 @@ input {
 							<div class="auth-form-light text-left py-5 px-4 px-sm-5" style="height: 1000px;">
 								<form action="/employee/list" method="get" style="display:inline;" role="form">
 									<div class="form-group">								
-									<h1>사원리스트</h1>
+									<h1><span onclick="location.href='/employee/list'" style="cursor: pointer;">사원리스트</span></h1>
 									<div class="btn_line1">
 										<!-- 검색창기능 -->
 										<select name="selector" class="auth auth-form-light select">

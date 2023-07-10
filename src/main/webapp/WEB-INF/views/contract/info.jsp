@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>수주 정보</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script> <!-- 제이쿼리 -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert창 링크 -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/mdi/css/materialdesignicons.min.css">
@@ -61,7 +61,7 @@
 	function deleteAction(cont_id, production_id){
 		if(production_id == ""){
 			Swal.fire({
-		        title: '삭제하시겠읍니까?',
+		        title: '삭제하시겠습니까?',
 		        text: '삭제/취소를 선택하세요.',
 		        icon: 'warning',
 		        showCancelButton: true,
@@ -90,8 +90,8 @@
 		    }); //then(result) END
 		}else{
 			Swal.fire({
-                title: '삭제할 수 없읍니다.',
-                text: '작업지시번호가 있으면 삭제할 수 없읍니다.',
+                title: '삭제할 수 없습니다.',
+                text: '작업지시번호가 있으면 삭제할 수 없습니다.',
                 icon: 'warning',
                 confirmButtonText: '확인',
                	confirmButtonColor: '#d33'

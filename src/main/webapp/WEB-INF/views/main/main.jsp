@@ -71,7 +71,8 @@
 													<div class="add-items d-flex mb-0 mt-2">
 														<input type="text" placeholder="할 일을 입력하고 엔터를 누르세요"
 															class="form-control todo-list-input"
-															style="background-color: #ebf1ff; width: 700px; padding-left: 10px;">
+															style="background-color: #ebf1ff; width: 700px; padding-left: 10px;"
+															maxlength="30">
 														<div style="margin-right: 20px;"></div>
 														<!-- 띄워줄 공백 요소 -->
 														<button id="submitBtn"

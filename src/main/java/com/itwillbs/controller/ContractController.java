@@ -104,9 +104,8 @@ public class ContractController {
 	}
 
 	// 수주 등록 디비처리
-	@ResponseBody
 	@RequestMapping(value = "/insert", method = RequestMethod.POST) 
-	public void registContractPOST(@RequestBody ContractVO cvo) throws Exception {
+	public void registContractPOST( ContractVO cvo) throws Exception {
 		logger.debug("@@@@@@@@@@@@Controller : 수주 등록POST하기!!!!");
 		logger.debug("@@@@@@@입력된 정보 : " + cvo);
 		logger.debug("@@@@@@@@@@@@Controller : registContract()호출합니다!");

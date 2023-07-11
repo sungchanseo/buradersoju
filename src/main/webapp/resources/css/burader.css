@@ -16,6 +16,11 @@ body {
 
 h1 {
 	color: black;}
+
+.btn-success:disabled {
+	opacity: 0.6;
+  	cursor: not-allowed;
+}
 	
 /* alert창 css */
 div:where(.swal2-container) div:where(.swal2-popup) {

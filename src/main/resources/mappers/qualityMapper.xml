@@ -66,12 +66,12 @@
 		</insert>
 		<update id="prUpdate">
 			update product
-			set product_qty = #{product_qty}
+			set product_qty = #{qc_qty}
 			where product_id = #{product_id}
 		</update>
 		<update id="prUpdate2">
 			update production
-			set qc_id = #{qc_num}
+			set qc_id = #{qc_num}, workOrder_status = '완료'
 			where production_id = #{production_id}
 		</update>
 		<insert id="qInsertDB2" >

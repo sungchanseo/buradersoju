@@ -285,8 +285,7 @@ td {border:1px solid #04AA6D;
 						confirmButtonColor: '#0ddbb9',
 						confirmButtonText: '확인'
 					});
-				}
-				
+				}else{
 				var cont_id = $("#cont_id").val();
 				console.log("cont_id : " +cont_id);
 				var production_emp = $("#production_emp").val();
@@ -315,7 +314,17 @@ td {border:1px solid #04AA6D;
 				var ma_name = $("#ma_name").val();
 				console.log("ma_name : " +ma_name);
 				
-				
+				Swal.fire({
+					   title: '등록하시겠습니까?',
+					   text: '상품코드 : '+product_id+', 수주량 : '+plan_qty+'개',
+					   icon: 'warning',
+					   showCancelButton: true,
+					   confirmButtonColor: '#3085d6', 
+					   cancelButtonColor: '#d33', 
+					   confirmButtonText: '승인', 
+					   cancelButtonText: '취소'
+					}).then(result => {
+						if (result.isConfirmed) {
 				// form 동적 생성
 				var $form = $("<form>", {
 				    action: "",
@@ -381,7 +390,9 @@ td {border:1px solid #04AA6D;
 				  $('body').append($form);
 				  
 				  sendForm();
-				  
+					} //if
+					}); //팝업
+				} //else
 		}); //click; 
 		function sendForm() {
 			var formObject = $("form[role='form']").serialize();

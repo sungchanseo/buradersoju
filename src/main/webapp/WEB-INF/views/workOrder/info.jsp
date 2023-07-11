@@ -117,7 +117,7 @@ td {border:1px solid #04AA6D;
 <%-- 	<h2>작업지시번호 : ${workOrder.production_id} </h2>  --%>
 	
 <!-- 	<div style="display: flex; justify-content: center;"> -->
-	<button type="button" class="btn btn-light" onclick="" style="margin: 0.5px;">엑셀파일</button>
+<!-- 	<button type="button" class="btn btn-light" onclick="" style="margin: 0.5px;">엑셀파일</button> -->
 	<button type="button" class="btn btn-light" onclick="info_print()" style="margin: 0.5px;">인쇄하기</button>
 <!-- 	</div> -->
 <!-- 	<div style="display: flex; justify-content: center;"> -->
@@ -173,7 +173,9 @@ td {border:1px solid #04AA6D;
   </table>
 <!--   </div> -->
 <!--   <div style="display: flex; justify-content: center;"> -->
+<c:if test="${emp_department.equals('Master')}">
   <button type="button" id="delWoBT" class="btn btn-success" style="margin: 0.5px;" >삭제</button>
+  </c:if>
 <%--   <button type="button" onclick="location.href='/workOrder/remove?product_id=${workOrder.product_id}&production_id=${workOrder.production_id}';" class="btn btn-success" style="margin: 0.5px;" >삭제</button> --%>
   <button type="button" class="btn btn-light" onclick="window.close();"style="margin: 0.5px;" >닫기</button>
 <!--   </div> -->

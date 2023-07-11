@@ -95,14 +95,14 @@
 											<!-- 본문 상단 -->
 											<div class="d-flex justify-content-between">
 												<!-- 검색 기능 -->
-												<form action="/production/list" method="get" style="display: inline;">
+												<form id="searchForm" action="/production/list" method="get" style="display: inline;">
 													<select name="selector">
 														<option value="production_id">작업지시번호</option>
 														<option value="production_line">생산라인</option>
 														<option value="production_emp">생산담당자</option>
 													</select> 
-													<input type="text" class="form-control" style="width:250px; display:inline;" name="search" placeholder="검색어를 입력해주세요">
-													<input type="submit"  class="btn btn-info" value="검색">
+													<input id="searchInput" type="text" class="form-control" style="width:250px; display:inline;" name="search" placeholder="검색어를 입력해주세요">
+													<input id="searchButton" type="submit"  class="btn btn-info" value="검색">
 												</form>												
 												<!-- 검색 기능 -->
 											 
@@ -171,13 +171,16 @@
 												         <!-- 출력할 작업완료일시 컬럼 선택 -->
 												          <c:choose>
 												            <c:when test="${not empty productionList.stage3_date}">
-												              ${productionList.stage3_date}
+<%-- 												              ${productionList.stage3_date} --%>
+												          	  <fmt:formatDate value="${productionList.stage3_date}" pattern="yyyy-MM-dd HH:mm:ss"/>
 												            </c:when>
 												            <c:when test="${not empty productionList.stage2_date}">
-												              ${productionList.stage2_date}
+<%-- 												              ${productionList.stage2_date} --%>
+												              <fmt:formatDate value="${productionList.stage2_date}" pattern="yyyy-MM-dd HH:mm:ss"/>
 												            </c:when>
 												            <c:when test="${not empty productionList.stage1_date}">
-												              ${productionList.stage1_date}
+<%-- 												              ${productionList.stage1_date} --%>
+															  <fmt:formatDate value="${productionList.stage1_date}" pattern="yyyy-MM-dd HH:mm:ss"/>
 												            </c:when>
 												            <c:otherwise>
 												              <!-- 작업완료일시가 없을 경우 비워둠 -->
@@ -289,7 +292,7 @@
 											          </td>
 											          <td>${productionList.emp_name}</td>
 											          <td>${productionList.production_status}</td>
-											          <td>${productionList.stage1_date}</td>
+											          <td><fmt:formatDate value="${productionList.stage1_date}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 											        </tr>	
 											      </c:if>								 
 											    </c:forEach>
@@ -380,7 +383,7 @@
 											          </td>
 											          <td>${productionList.emp_name}</td>
 											          <td>${productionList.production_status}</td>
-											          <td>${productionList.stage2_date}</td>
+											          <td><fmt:formatDate value="${productionList.stage2_date}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 											        </tr>	
 											      </c:if>								 
 											    </c:forEach>
@@ -471,7 +474,7 @@
 											          </td>
 											          <td>${productionList.emp_name}</td>
 											          <td>${productionList.production_status}</td>
-											          <td>${productionList.stage3_date}</td>
+											          <td><fmt:formatDate value="${productionList.stage3_date}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 											        </tr>	
 											      </c:if>								 
 											    </c:forEach>
@@ -494,6 +497,18 @@
 							
 							
 							<script type="text/javascript">
+							
+							 // 검색 버튼 클릭 이벤트 처리
+						     document.getElementById("searchButton").addEventListener("click", function() {
+						    	 console.log("폼 제출");
+						        var form = document.getElementById("searchForm");
+						        var input = document.getElementById("searchInput");
+						        
+						        // 검색어가 비어있지 않은 경우에만 폼 전송
+						        if (input.value.trim() === "") {
+						            return false; // 폼 전송 중단
+						        }
+						    });
 
 							/* 등록 버튼 팝업 */
 							function openPopup(pageName) {

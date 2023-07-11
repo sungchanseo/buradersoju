@@ -51,7 +51,7 @@
                   </a>
                   <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="nreportDropdown">
                       <p class="mb-0 font-weight-medium float-left dropdown-header">${sessionScope.emp_name}님 환영합니다</p>
-                      <a class="dropdown-item">
+                      <a class="dropdown-item" onclick="infoPop(${sessionScope.emp_id})">
                         <i class="mdi mdi-account text-primary"></i>
                          	접속 ID : ${sessionScope.emp_id}
                       </a>
@@ -139,3 +139,14 @@
         </div>
       </nav>
     </div>
+    
+    <script type="text/javascript">
+    function infoPop(empId){
+		var insertPop = window.open('/employee/info?emp_id=' + empId, '사원정보', 'width=1110px,height=425px');
+		
+		if(insertPop == null){
+		 alert("팝업이 차단되었습니다. 차단을 해제하세요.");
+		}
+		openPop.moveBy(100,100);
+	}
+    </script>

@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../../includes/header.jsp" %>
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert창 링크 -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
@@ -9,7 +10,7 @@
 
 //팝업창 열기	  
 function openPopup() {
-	window.open('./insert', 'warehousePopup', 'width=800, height=500, left=2000');
+	window.open('./insert', 'warehousePopup', 'width=800, height=300, left=2000');
 }
 
 //체크박스 선택된 개수 출력
@@ -109,8 +110,18 @@ $('.modify').click(function(){
 								whs_emp:whs_emp
 							}),
 							success: function() {
-								alert("창고코드 " + whs_id + ", 수정이 완료되었습니다. ");
-								location.href="/purchasing/warehouse/list";
+								Swal.fire({
+									icon: 'success',										// Alert 타입 (warning / success / error)
+									title: '완료',											// Alert 제목
+									text: '창고번호 ' + whs_id + ' 수정 완료되었습니다.',	    // Alert 내용
+									confirmButtonColor: '#0ddbb9',							// Alert 버튼 색깔
+									confirmButtonText: '확인',								// Alert 버튼내용
+								}).then((result) => {
+									if(result.isConfirmed){									// '확인'누르면 이동
+										location.href="/purchasing/warehouse/list";
+									}
+								}); // then(result)
+							
 								},
 							error: function() {
 								alert("창고코드 " + whs_id + ", 수정이 완료되었습니다. @er@ ");

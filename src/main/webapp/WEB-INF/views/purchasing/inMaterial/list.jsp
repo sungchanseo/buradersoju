@@ -13,6 +13,7 @@ $(function(){
 	in_id = "${in_id}";
 	ma_name = "${ma_name}";
 	in_empName = "${in_empName}";
+	in_process = $('input[name=in_process]:checked').val();
 	
 	$('#sd').val(startDate);
 	$('#ed').val(endDate);
@@ -86,7 +87,7 @@ $(function(){
 									<th>입고번호</th>
 									<th>발주번호</th>
 									<th>상세</th>
-									<th>품명</th>		
+									<th>자재명</th>		
 									<th>입고량</th>
 									<th>재고량</th>
 									<th>진행현황</th>

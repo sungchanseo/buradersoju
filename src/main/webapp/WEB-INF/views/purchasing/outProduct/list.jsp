@@ -113,7 +113,7 @@ $(document).ready(function(){
 									   <th>수주관리번호</th>
 									   <th>상세</th>
 									   <th>납품처명</th>
-									   <th>품명</th>
+									   <th>상품명</th>
 									   <th>주문수량</th>
 									   <th>상품재고</th>
 									   <th>납기일자</th>

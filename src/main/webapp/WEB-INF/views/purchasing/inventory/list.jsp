@@ -93,7 +93,11 @@
 								            <td>${in.unit}</td>	
 								            <td><fmt:formatDate value="${in.ma_regdate}" pattern="yyyy-MM-dd"/></td>
 								            <td><input type="text" class="ma_qty" ></td>
-								            <td><input type="button" class="update btn-success" value="수정" data-ma_id="${in.ma_id}"></td>
+								            <td>
+								            <c:if test="${emp_department.equals('구매팀') || emp_department.equals('Master')}">
+								            <input type="button" class="update btn-success" value="수정" data-ma_id="${in.ma_id}">
+								            </c:if>
+								            </td>
 								         <!-- 날짜 포맷팅 표현식 OOOO년-OO월-OO일  -->	
 								         </tr>
 								      </c:forEach>

@@ -111,13 +111,13 @@ td {border:1px solid #04AA6D;
 
 </head>
 <body>
-	<h1>작업지시번호 : ${workOrder.production_id}</h1>
+	<h1 style="display: flex; justify-content: center;">작업지시번호 : ${workOrder.production_id}</h1>
 	<input type="hidden" id="production_id" value="${workOrder.production_id}">
 	<input type="hidden" id="product_id" value="${workOrder.product_id}">
 	
 <%-- 	<h2>작업지시번호 : ${workOrder.production_id} </h2>  --%>
 <!-- 		<div > -->
-		<div style="margin-left: 430px;">
+		<div style="margin-left: 445px;">
 <!-- 	<div style="display: flex; justify-content: center;"> -->
 <!-- 	<button type="button" class="btn btn-light" onclick="" style="margin: 0.5px;">엑셀파일</button> -->
 	<button type="button" class="btn btn-light" onclick="info_print()" style="margin: 0.5px;">인쇄하기</button>

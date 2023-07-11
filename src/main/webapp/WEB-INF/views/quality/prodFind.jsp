@@ -7,17 +7,18 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11%22%3E"></script>
-<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css"> --%>
-<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/mdi/css/materialdesignicons.min.css"> --%>
-<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/base/vendor.bundle.base.css"> --%>
-<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main/fullcalendar-5.11.4/lib/main.css"> --%>
-<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css"> --%>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/mdi/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendors/base/vendor.bundle.base.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main/fullcalendar-5.11.4/lib/main.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
 
 
 </head>
-<body>
+<body style="padding: 2%;">
 <h1>작업지시검색</h1>
 	<!-- 검색창기능 -->
 	<form action="" method="get" style="display: inline;">

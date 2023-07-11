@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -115,12 +116,14 @@ td {border:1px solid #04AA6D;
 	<input type="hidden" id="product_id" value="${workOrder.product_id}">
 	
 <%-- 	<h2>작업지시번호 : ${workOrder.production_id} </h2>  --%>
-	
+<!-- 		<div > -->
+		<div style="margin-left: 430px;">
 <!-- 	<div style="display: flex; justify-content: center;"> -->
 <!-- 	<button type="button" class="btn btn-light" onclick="" style="margin: 0.5px;">엑셀파일</button> -->
 	<button type="button" class="btn btn-light" onclick="info_print()" style="margin: 0.5px;">인쇄하기</button>
+		</div>
 <!-- 	</div> -->
-<!-- 	<div style="display: flex; justify-content: center;"> -->
+	<div style="display: flex; justify-content: center;">
   <table border="1">
     <tr>
 	  <th>수주번호</th>
@@ -129,10 +132,19 @@ td {border:1px solid #04AA6D;
 	  <th>작업지시일시</th>
 	</tr>
     <tr>
-	  <td>${workOrder.cont_id}</td>
+	  <td>
+	  <c:choose>
+	  	<c:when test=" ${workOrder.cont_id} != null">
+	 	 ${workOrder.cont_id}
+	  	</c:when>
+	  	<c:otherwise>
+	  	<span style="color: #6C7293">( 일반 생산건 )</span>
+	  	</c:otherwise>	 	 
+	  </c:choose>
+	  </td>
 	  <td>${workOrder.emp_name}</td>
 	  <td>${workOrder.plan_qty}</td>
-	  <td>${workOrder.production_date}</td>
+	  <td><fmt:formatDate value="${workOrder.production_date }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 	</tr>
 	<tr>
 	  <th>생산라인</th>
@@ -166,19 +178,20 @@ td {border:1px solid #04AA6D;
 <%-- 		  <c:if test="${workOrder.qc_num != null && workOrder.qc_num != ''}"> --%>
 		  ${workOrder.plan_qty-workOrder.total_defQty}
 		  </td>
-		  <td>${workOrder.qc_date}</td>
+		  <td><fmt:formatDate value="${workOrder.qc_date }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 	  </tr>
 		  </c:if>
 	 
   </table>
+		</div>
 <!--   </div> -->
-<!--   <div style="display: flex; justify-content: center;"> -->
+  <div style="display: flex; justify-content: center;">
 <c:if test="${emp_department.equals('Master')}">
   <button type="button" id="delWoBT" class="btn btn-success" style="margin: 0.5px;" >삭제</button>
   </c:if>
 <%--   <button type="button" onclick="location.href='/workOrder/remove?product_id=${workOrder.product_id}&production_id=${workOrder.production_id}';" class="btn btn-success" style="margin: 0.5px;" >삭제</button> --%>
   <button type="button" class="btn btn-light" onclick="window.close();"style="margin: 0.5px;" >닫기</button>
-<!--   </div> -->
+  </div>
  <script type="text/javascript">
  $(document).ready(function(){
 	 $("#delWoBT").click(function(){ 

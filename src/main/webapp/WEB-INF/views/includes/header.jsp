@@ -47,7 +47,7 @@
                   <a class="nav-link dropdown-toggle" href="" data-bs-toggle="dropdown" id="profileDropdown">
                     <span class="nav-profile-name">	${sessionScope.emp_department}  ${sessionScope.emp_name}님</span>
                     <span class="online-status"></span>
-                    <img src="/employee/imgDown?fileName=${sessionScope.emp_image }"alt="profile"/>
+                    <img src="/employee/imgDown?fileName=${sessionScope.emp_image }" onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/resources/upload/employee/emp_1.png';">
                   </a>
                   <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="nreportDropdown">
                       <p class="mb-0 font-weight-medium float-left dropdown-header">${sessionScope.emp_name}님 환영합니다</p>

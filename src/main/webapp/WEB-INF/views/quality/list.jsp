@@ -155,7 +155,7 @@
 				<td>${vo.product_id }</td>
 				<td>${vo.product_name }</td>
 				<td>${vo.plan_qty }</td>
-				<td>${vo.qc_qty }</td>
+				<td>${vo.production_qty }</td>
 				<td>${vo.total_defQty }</td>
 				
 				<td>

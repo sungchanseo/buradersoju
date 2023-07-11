@@ -63,7 +63,7 @@ border-color: #23dbf8;}
 /* color: #fff;} */
 
 #buttons {
-margin-left: 75%;
+margin-left: 86%;
 }
 
 
@@ -74,8 +74,8 @@ margin-left: 75%;
 <h1 style="text-align: center;">입고 상세 보기</h1>
 
 <div id="buttons">
-	<button class="btn btn-success">엑셀파일</button>
 	<button class="btn btn-success print-button" onclick="info_print()">인쇄하기</button>
+<!-- 	<button class="btn btn-success">엑셀파일</button> -->
 		<script>
 			/// 인쇄하기 버튼
 			function info_print() {

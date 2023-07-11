@@ -83,7 +83,7 @@ $(document).ready(function(){
 								<div style="text-align: center; background-color: #f2f2f2;">
 									<br>
 								<form action="/purchasing/outProduct/list" method="get" style="display: inline;">
-									<input type="radio" id="all" name="op_process" value=""> 전체 &nbsp;	
+									<input type="radio" id="all" name="op_process" value="" checked> 전체 &nbsp;	
 									<input type="radio" id="yet" name="op_process" value="미출고"> 미출고 &nbsp;	
 									<input type="radio" id="done" name="op_process" value="출고완료"> 출고완료	&nbsp;
 												

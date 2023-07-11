@@ -71,19 +71,20 @@
 	<update id="prIdContUpdate">
 		update contract
 		set production_id = #{production_id}
-		where cont_id = #{cont_id}
-	<!-- 해당 수주번호에 작업지시번호 저장 -->
-		
+		where cont_id = #{cont_id}		
 	</update>
-	<!-- 자재 update -->
+	<!-- 해당 수주번호에 작업지시번호 저장 -->
+	<!-- 자재 update(저장, 삭제 둘 다 사용) -->
 	<update id="maQtyUpdate" >
 		 UPDATE material
 	     SET ma_qty = #{ma_qty}
 	     WHERE ma_name = #{ma_name}
 	</update>
+	<!-- 자재 update(저장, 삭제 둘 다 사용) -->
+<!-- 작업지시 등록 -->
 
+<!-- 작업지시 삭제 -->
 	<!-- DB 등록 -->
-	<!-- 작업지시 삭제 -->
 	<update id="delWorkOrder">
 		update production
 		set del_woStatus = '1'
@@ -93,10 +94,8 @@
 		update contract
 		set production_id = NULL
 		where production_id = #{production_id}
-	</update>	
-	
-	<!-- 작업지시 삭제 -->
-<!-- 작업지시 등록 -->
+	</update>		
+<!-- 작업지시 삭제 -->
 
 
 </mapper>

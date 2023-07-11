@@ -135,7 +135,7 @@
 				<th>상품코드</th>
 				<th>상품명</th>
 				<th>작업지시수량</th>
-				<th>검수량</th>
+				<th>생산량</th>
 				<th>불량수량</th>
 				<th>불량률</th>
 				<th>검수자</th>
@@ -155,9 +155,21 @@
 				<td>${vo.product_id }</td>
 				<td>${vo.product_name }</td>
 				<td>${vo.plan_qty }</td>
-				<td>${vo.production_qty }</td>
+				<td>${vo.qc_qty }</td>
 				<td>${vo.total_defQty }</td>
-				<td><fmt:formatNumber value="${(vo.total_defQty /vo.qc_qty*100) }" pattern="#.###"/>%</td>
+				
+				<td>
+				<c:choose>
+					<c:when test="${(vo.total_defQty /vo.plan_qty*100) > 3 }">
+						<span style="color: red;">
+							<fmt:formatNumber value="${(vo.total_defQty /vo.plan_qty*100) }" pattern="#.###"/>%
+						</span>
+					</c:when>
+					<c:otherwise>
+						<fmt:formatNumber value="${(vo.total_defQty /vo.plan_qty*100) }" pattern="#.###"/>%
+					</c:otherwise>
+				</c:choose>
+				</td>
 				<td>${vo.emp_name }</td>
 				<td><fmt:formatDate value="${vo.qc_date }" pattern="yyyy-MM-dd HH:mm:ss"/> </td>
 <%-- 				<td>${vo.qc_status }</td> --%>

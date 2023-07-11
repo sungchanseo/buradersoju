@@ -159,7 +159,7 @@ td {border:1px solid #04AA6D;
 <%-- 	${vo } --%>
 <!-- 	<div class="qualityInfo"> -->
 <!-- 	<div> -->
-	<div style="margin-left: 460px;">
+	<div style="margin-left: 562px;">
 <!-- 	<button type="button" class="btn btn-light" onclick="" style="margin: 0.5px;">엑셀파일</button> -->
 	<button type="button" class="btn btn-light" onclick="info_print()" style="margin: 0.5px;">인쇄하기</button>
 	</div>
@@ -182,7 +182,7 @@ td {border:1px solid #04AA6D;
 				<th>상품코드</th>
 				<td>${vo.product_id }</td>
 				<th>검수량</th>
-				<td>${vo.production_qty }</td>
+				<td>${vo.qc_qty }</td>
 				
 			</tr>
 			<tr>
@@ -191,16 +191,27 @@ td {border:1px solid #04AA6D;
 				<th>생산라인</th>
 				<td>${vo.production_line }</td>
 				<th>총 생산량</th>
-				<td>${vo.qc_qty }</td>
+				<td>${vo.production_qty }</td>
 				
 			</tr>
 			<tr>
-				<th>검수자</th>
-				<td>${vo.emp_name }</td>
+			 <th>검수자</th>
+			 <td>${vo.emp_name }</td>
 			 <th>전체불량수량</th>
-		  <td>${vo.total_defQty }</td>
-		  <th>불량률</th>
-			<td><fmt:formatNumber value="${(vo.total_defQty /vo.plan_qty*100) }" pattern="#.###"/>%</td>
+		 	 <td>${vo.total_defQty }</td>
+			 <th>불량률</th>
+			<td>
+				<c:choose>
+					<c:when test="${(vo.total_defQty /vo.plan_qty*100) > 3 }">
+						<span style="color: red;">
+							<fmt:formatNumber value="${(vo.total_defQty /vo.plan_qty*100) }" pattern="#.###"/>%
+						</span>
+					</c:when>
+					<c:otherwise>
+						<fmt:formatNumber value="${(vo.total_defQty /vo.plan_qty*100) }" pattern="#.###"/>%
+					</c:otherwise>
+				</c:choose>
+			</td>
 		  
 				</tr>
 	</tbody>

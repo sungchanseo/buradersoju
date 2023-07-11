@@ -11,6 +11,7 @@
 <!-- 제이쿼리 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
 
 <title>공병 관리</title>
 <style type="text/css">
@@ -152,7 +153,10 @@
 			}
 			console.log("count : " + count);
 			if (count == 1) {
-				$("#btInsert").hide();
+// 				$("#be_bt_qty").hide();
+// 				$("#btInsertBT").hide();
+				$("#hideInsert").hide();
+
 			}
 		});
 		////// 현재 날짜에 이미 등록된 경우 등록 관련 btInsert div가 감춰짐 //////
@@ -175,21 +179,31 @@
 									<form action="/quality/emptyBottle" method="get">
 										<select class="EBTsearch_select" name="selector">
 											<option value="bt_date">공병등록일자</option>
-<!-- 											<option value="a.production_id">작업지시번호</option> -->
-<!-- 											<option value="a.production_line">생산라인</option> -->
+											<option value="bt_status">검수상태</option>
 											<option value="emp_name">검수자</option>
 										</select>
 										<input type="text" name="search" class="form-control" style="width:250px; display:inline;" placeholder="검색어를 입력해주세요" maxlength="15">	
 										<button type="submit" class="btn btn-info">검색</button>
 									</form>
 									
-									<div id="btInsert">
+
+										<div id="btInsert">
 										<c:set var="today" value="<%=new Date()%>" />
 										<fmt:formatDate var="today2" value="${today}" pattern="yyyy-MM-dd" />
 										<input type="hidden" id="bt_date" value="${today2}"name="bt_date"> 
 										<input type="hidden" id="bt_emp" name="bt_emp" value="${sessionScope.emp_id}"> 
+										
+										<c:forEach items="${bottleList}" var="vo" varStatus="index">
+											<c:if test="${vo.bt_date eq today2}">
+											입고 수량 <input type="text"id="be_bt_qty" name="bt_qty" class="form-control" style="width:250px; display:inline;" placeholder="오늘건 등록 완료되었습니다" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="15"> 
+											<span style="opacity: 0.6; cursor: not-allowed;"><input type="button" class="btn btn-info" id="btInsertBT2" disabled="disabled" value="등록"></span>
+											</c:if>
+										</c:forEach>
+										
+										<div id="hideInsert">
 										입고 수량 <input type="text"id="be_bt_qty" name="bt_qty" class="form-control" style="width:250px; display:inline;" placeholder="공병 개수를 입력해주세요" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="15"> 
 										<input type="button" class="btn btn-info" id="btInsertBT" value="등록">
+										</div>
 									</div>
 									</div>
 									<!-- 	</form> -->
@@ -204,6 +218,7 @@
 													<th>검수상태</th>
 													<th>불량수량</th>
 													<th>실수량</th>
+													<th>불량률</th>
 													<th>등록</th>
 												</tr>
 											</thead>
@@ -219,23 +234,51 @@
 														<td>${vo.bt_status}</td>
 														<td>
 														<c:choose>
-														<c:when test="${vo.bt_status == '대기' }"><input type="text" class="bt_defQty" value="${vo.bt_defQty}" style="width:100px;" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="15"></c:when>
+														<c:when test="${vo.bt_status == '대기'}"><input type="text" class="bt_defQty" value="${vo.bt_defQty}" style="width:100px;" placeholder="불량 개수를 입력해주세요" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="15">
+														</c:when>
 														<c:otherwise>${vo.bt_defQty}</c:otherwise>
 														</c:choose>
 														</td>
 														<td><input type="hidden" class="bt_defQty" value="${vo.bt_defQty}">
+														<c:choose>
+															<c:when test="${vo.bt_status == '대기'}">
+															미등록
+															</c:when>
+															<c:otherwise>
+															${vo.bt_qty-vo.bt_defQty}
+															</c:otherwise>
+														</c:choose>
+														</td>
 														<!-- 이미 등록한 날짜의 불량수량은 다시 등록할 수 없게 버튼 제어 -->
-															${vo.bt_qty-vo.bt_defQty}</td>
 <%-- 														<c:if test="${vo.bt_status == '대기'}"> --%>
 <%-- 															<td><input type="button" class="btDefBT" id="btDefBT" value="불량등록" data-bt_date="${vo.bt_date}"></td> --%>
 <%-- 														</c:if> --%>
+														<td>
+														<c:choose>
+															<c:when test="${(vo.bt_defQty/vo.bt_qty)*100 > 2 }">
+																<span style="color: red;">
+																	<fmt:formatNumber value="${(vo.bt_defQty/vo.bt_qty)*100}" pattern="#.###"/>%
+																</span>
+															</c:when>
+															<c:when test="${vo.bt_status == '대기'}">
+															미등록
+															</c:when>
+															<c:otherwise>
+																<fmt:formatNumber value="${(vo.bt_defQty/vo.bt_qty)*100}" pattern="#.###"/>%
+															</c:otherwise>
+														</c:choose>
+<%-- 														${(vo.bt_defQty/vo.bt_qty)*100} --%>
 														<td>
 														<c:choose>
 														<c:when test="${vo.bt_status == '대기'}">
 															<input type="button" class="btn btn-success" id="btDefBT" value="불량 등록" data-bt_date="${vo.bt_date}">
 														</c:when>
 														<c:otherwise>
-<%-- 															<input type="button" class="btn btn-success" id="btDefBT" value="불량 등록" data-bt_date="${vo.bt_date}" disabled="true"  style="opacity: 0.6; cursor: not-allowed;"> --%>
+<!-- 															<span style="color: #6C7293;">등록 완료</span> -->
+														
+															<span style="opacity: 0.6; cursor: not-allowed;">
+															<input type="button" class="btn btn-success" id="btDefBT" value="등록 완료" data-bt_date="${vo.bt_date}" disabled="true"  >
+															</span>
 														</c:otherwise>
 														</c:choose>
 														</td>

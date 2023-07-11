@@ -94,6 +94,7 @@ text-align: left;
 		
 		
 	<h1 style="display: flex; justify-content: center;">검수 등록</h1>
+<%-- 	<input type="text" id="plan_qty" value="${vo.plan_qty}"> --%>
 	
 	<div style="display: flex; justify-content: center;">
 	<form>
@@ -187,6 +188,7 @@ text-align: left;
 //                 "<td>" 
                 + vo.production_line + "</td>" +
                 "<td><input type='hidden' id='product_id' name='product_id' value='"+vo.product_id+"'>"
+                +"<input type='hidden' id='plan_qty' name='plan_qty' value='"+vo.plan_qty+"'>"
                 + vo.product_id + "</td>" +
                 "<td>" + vo.product_name + "</td>" +
                 "<td><input type='hidden' class='def_codeList' id='stage1_defCode' name='stage1_defCode' value='"+vo.stage1_defCode+"'>"
@@ -199,7 +201,7 @@ text-align: left;
                 + vo.production_qty + "</td>" +
                 "</tr>"
               );
-          
+          console.log(vo.plan_qty);
           },
           error : function(error) {
           console.log(error);
@@ -248,6 +250,9 @@ text-align: left;
 		
 		$("#insertBT").click(function(){
 				// 작업지시번호 선택 -> 불량코드 중복체크 -> 불량수 입력 확인
+				
+				var plan_qty = $("#plan_qty").val();
+// 				alert("plan_qty: "+plan_qty);
 				var def_codeList = [];
 				$(".def_codeList").each(function() {
 					  def_codeList.push($(this).val());
@@ -297,11 +302,11 @@ text-align: left;
 				console.log(def_codeList);
 				console.log(def_qtyList);
 				var product_qty = 0;
-				var be_qty = $("#production_qty").val();
+				var be_qty = $("#production_qty").val(); // 포장단계까지의 생산량
 				var total_defQty = 0; // 생산의 총 불량수
 				var production_id = $('#production_id').val();
 				for(i = 0; i<def_qtyList.length; i++){
-					be_qty -= parseInt(def_qtyList[i]);
+// 					be_qty -= parseInt(def_qtyList[i]);
 					total_defQty += parseInt(def_qtyList[i]);
 				}
 // 				var de_qt = Number($('#def_qty1').val());
@@ -315,6 +320,13 @@ text-align: left;
 // 				}else if(def_qtyList.length == 6){
 // 					de_qtyAll = de_qt+de_qt2+de_qt3;
 // 				}
+// 				be_qty -= parsInt($('#def_qty1').val());
+// 				be_qty -= parsInt($('#def_qty2').val());
+// 				be_qty -= parsInt($('#def_qty3').val());
+				plan_qty -= total_defQty;
+				product_qty = plan_qty;
+// 				alert("be_qty"+be_qty);
+// 				alert("plan_qty2"+plan_qty);
 				Swal.fire({
 					   title: '등록하시겠습니까?',
 					   text: '선택한 작업지시번호 : '+production_id,
@@ -327,7 +339,7 @@ text-align: left;
 					}).then(result => {
 						if (result.isConfirmed) {
 				// 불량 개수가 모두 빠진 총 생산량
-				product_qty = be_qty;
+				
 				
 		  		// form 동적 생성
 				var $form = $("<form>", {
@@ -336,6 +348,12 @@ text-align: left;
 				    id: "fr",
 				    method: "POST"
 				  });
+		  		
+// 				$("<input>", {
+// 				    type: "hidden",
+// 				    name: "production_qty",
+// 				    value: product_qty
+// 				  }).appendTo($form);
 		  		
 				 $("<input>", {
 				    type: "hidden",

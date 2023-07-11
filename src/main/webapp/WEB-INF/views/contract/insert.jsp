@@ -19,7 +19,7 @@
 </head>
 <body style="padding: 2%;">
 	<h1 style="display:inline;">수주 등록</h1>
-	<form action="" role="form" id="fr" method="post" style="display:inline;">
+	<form action="" role="form" id="fr" method="post" style="display:inline;" onsubmit="return false;">
 		<div style="float:right;">
 			<input type="submit" class="btn btn-success" value="작성완료" >
 			<input type="reset" class="btn btn-success" value="초기화">
@@ -180,35 +180,38 @@
 					return false;
 				}//due_date 제어 
 			
-				var formObject ={
-						cust_name:$('#cust_name').val(),
-						product_name:$('#product_name').val(),
-						cont_emp:$('#cont_emp').val(),
-						cust_id:$('#cust_id').val(),
-						product_id:$('#product_id').val(),
-						cont_date:$('#cont_date').val(),
-						cont_qty:$('#cont_qty').val(),
-						due_date:$('#due_date').val()
-				}//formObject END
+// 				var formObject ={
+// 						cust_name:$('#cust_name').val(),
+// 						product_name:$('#product_name').val(),
+// 						cont_emp:$('#cont_emp').val(),
+// 						cust_id:$('#cust_id').val(),
+// 						product_id:$('#product_id').val(),
+// 						cont_date:$('#cont_date').val(),
+// 						cont_qty:$('#cont_qty').val(),
+// 						due_date:$('#due_date').val()
+// 				}//formObject END
+				var formObject = $("#fr").serialize();
 				
 				console.log(formObject);
 				//작성완료 버튼을 눌렀을 때 ajax를 실행하도록 한다.
 				$.ajax({
 					url : '${contextPath}/contract/insert',
 					type : 'POST',
-					contentType : 'application/json; charset=utf-8',
-					headers : {'Content-Type': 'application/json'},
-					data : JSON.stringify(formObject), 	
+// 					contentType : 'application/json; charset=utf-8',
+// 					headers : {'Content-Type': 'application/json'},
+// 					data : JSON.stringify(formObject), 	
+					data : formObject,
 					success : function() {
 						Swal.fire({
 				            icon: 'warning',				// Alert 타입
 				            title: '수주등록이 완료되었습니다.',	// Alert 제목
-				            confirmButtonText: '확인'		// Alert 버튼내용
-		        		});
-						window.opener.location.reload();
-						window.close();
-					}// success END
-				});// ajax END
+				            confirmButtonText: '확인'	,	// Alert 버튼내용
+		        		}).then(() => {
+	                        window.opener.location.reload();
+	                        window.close();
+	                    });
+					}
+				}); // ajax END
 		  });// fr.sumbit() END
 	}); // document.ready END
 	

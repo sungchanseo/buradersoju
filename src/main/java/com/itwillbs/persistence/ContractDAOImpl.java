@@ -1,5 +1,7 @@
 package com.itwillbs.persistence;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -73,5 +75,13 @@ public class ContractDAOImpl implements ContractDAO {
 		return sqlSession.selectOne(NAMESPACE+".getProductInfo", product_id);
 	}
 
+	//상품목록 가져오기
+	@Override
+	public List<ProductionVO> getProductList() throws Exception {
+		logger.debug("##########ContractDAO : getProductList 메소드 호출!");
+		return sqlSession.selectList(NAMESPACE+".getProductList");
+	}
+
+	
 
 }

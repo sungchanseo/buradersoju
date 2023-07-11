@@ -37,5 +37,8 @@ public interface ContractService {
 	
 	//엑셀화일 다운로드
 	public void downExcel(List<Object> contractList, HttpServletResponse response) throws IOException;
+
+	//상품목록 가져오기
+	public List<ProductionVO> getProductList () throws Exception;
 }
 

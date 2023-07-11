@@ -47,9 +47,9 @@
 					<th>수주량</th>
 					<td><input type="text" name="cont_qty" id="cont_qty"></td>
 					<th>작업지시번호</th>
-					<td><input type="text" name="production_id" value="자동으로 입력됩니다." readonly></td>
+					<td><input type="text" value="자동으로 입력됩니다." readonly></td>
 					<th>납품일자</th>
-					<td><input type="date" name="due_date" onchange="limitDate();" id="due_date"></td>
+					<td><input type="date" name="due_date" id="due_date" onchange="limitDate();"></td>
 				</tr>
 			</table>
 		</div>
@@ -188,7 +188,6 @@
 						product_id:$('#product_id').val(),
 						cont_date:$('#cont_date').val(),
 						cont_qty:$('#cont_qty').val(),
-						production_id:$('#production_id').val(),
 						due_date:$('#due_date').val()
 				}//formObject END
 				
@@ -197,23 +196,17 @@
 				$.ajax({
 					url : '${contextPath}/contract/insert',
 					type : 'POST',
-					data : JSON.stringify(formObject),
-					headers : {
-						"Content-Type" : "application/json; charset=utf-8"
-					},
-// 					dataType: 'json',
-					contentType: "application/json; charset=utf-8",
-// 					headers : {
-// 						contentType: "application/json"
-// 					},
+					contentType : 'application/json; charset=utf-8',
+					headers : {'Content-Type': 'application/json'},
+					data : JSON.stringify(formObject), 	
 					success : function() {
 						Swal.fire({
 				            icon: 'warning',				// Alert 타입
 				            title: '수주등록이 완료되었습니다.',	// Alert 제목
-				            confirmButtonText: '확인',		// Alert 버튼내용
+				            confirmButtonText: '확인'		// Alert 버튼내용
 		        		});
-// 						window.opener.location.reload();
-// 						window.close();
+						window.opener.location.reload();
+						window.close();
 					}// success END
 				});// ajax END
 		  });// fr.sumbit() END

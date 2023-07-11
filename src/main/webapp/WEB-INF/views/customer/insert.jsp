@@ -64,7 +64,7 @@
 					<label><input type="radio" name="cust_type" value="개인">개인</label>
 				</td>
 				<th>사업자등록번호</th>
-				<td><input type="text" name="reg_num" id="reg_num" placeholder="000-00-0000">
+				<td><input type="text" name="reg_num" id="reg_num" placeholder="숫자만 기입하세요.">
 				<span id="regCheckMsg"></span>
 				</td>
 			</tr>

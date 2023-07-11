@@ -109,8 +109,8 @@ public class ContractController {
 		logger.debug("@@@@@@@@@@@@Controller : 수주 등록POST하기!!!!");
 		logger.debug("@@@@@@@입력된 정보 : " + cvo);
 		logger.debug("@@@@@@@@@@@@Controller : registContract()호출합니다!");
-		contService.contIdInsert(cvo.getCont_id());
 		contService.registContract(cvo);
+		contService.contIdInsert(cvo.getCont_id());
 	}
 
 	// 수주 수정 입력하기

@@ -124,25 +124,34 @@ $(function(){
 										<td>
 											<c:choose>
 												<c:when test="${empty iml.in_id || iml.in_id == '0' || iml.in_id == null }">
-													<c:if test="${iml.ma_qty <= 100 }">
+													<c:if test="${iml.ma_qty <= 1000 }">
 														<span style="color:red">${iml.ma_qty }</span>
 													</c:if>
-													<c:if test="${iml.ma_qty > 100 }">
+													<c:if test="${iml.ma_qty > 1000 }">
 														${iml.ma_qty }
 													</c:if>
 												</c:when>
 												
 												<c:when test="${!empty iml.in_id }">
-													<c:if test="${iml.add_ma - iml.order_qty <= 100}">
+													<c:if test="${iml.add_ma - iml.order_qty <= 1000}">
 														<span style="color:red">${iml.add_ma - iml.order_qty }</span>
 													</c:if>
-													<c:if test="${iml.add_ma - iml.order_qty > 100}">
+													<c:if test="${iml.add_ma - iml.order_qty > 1000}">
 														${iml.add_ma - iml.order_qty }
 													</c:if>
 												</c:when>
 											</c:choose>
 										</td>
-										<td>${iml.in_process }</td>			
+										<td>
+											<c:choose>
+												<c:when test="${iml.in_process eq '미입고' }">
+													<span style="color:red">${iml.in_process }</span>
+												</c:when>
+												<c:when test="${iml.in_process eq '입고완료'}">
+													<span style="color:blue">${iml.in_process }</span>
+												</c:when>
+											</c:choose>
+										</td>			
 										<td>${iml.whs_id }</td>
 										<td>${iml.shelt_position }</td>
 										<td><fmt:formatDate value="${iml.in_date}" pattern="yyyy-MM-dd"/></td>

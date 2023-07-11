@@ -185,7 +185,16 @@ $(document).ready(function(){
 										    	</c:choose>
 										    </td>
 										    <td>${op.due_date }</td>
-										    <td>${op.op_process}</td>
+										    <td>
+											    <c:choose>
+													<c:when test="${op.op_process eq '미출고' }">
+														<span style="color:red">${op.op_process }</span>
+													</c:when>
+													<c:when test="${op.op_process eq '출고완료'}">
+														<span style="color:blue">${op.op_process }</span>
+													</c:when>
+												</c:choose>
+										    </td>
 										    <td>${op.op_date}</td>
 										    <td>
 										    	<c:choose>

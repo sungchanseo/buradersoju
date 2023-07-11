@@ -74,7 +74,7 @@ public class ContractServiceImpl implements ContractService {
 		logger.debug("@@@@@@ContractService : getLastGeneratedNumber={}", lastId);
 		
 		String result = contIdCount();
-		logger.debug("@@@@@@ContractService : {}", result);
+		logger.debug("@@@@@@ContractService : contIdCount = {}", result);
 
 		cvo.setCont_id(result);
 		///////////cont_id 조합하기 끝!///////////
@@ -86,6 +86,7 @@ public class ContractServiceImpl implements ContractService {
 	public String contIdCount() throws Exception{
 		///////////cont_id 조합하기 시작!///////////
 		//먼저 디비 데이터의 가장 최신 자료를 불러온다. 
+		logger.debug("@@@@@@ContractService : 수주번호 자동계산을 호출합니다.");
 		String lastId = cdao.getLastGeneratedNumber();
 		logger.debug("@@@@@@ContractService : {}", lastId);
 		
@@ -238,6 +239,14 @@ public class ContractServiceImpl implements ContractService {
         } finally {
             wb.close();
         }
-    }		
+    }
+
+	
+	//상품목록 가져오기
+	@Override
+	public List<ProductionVO> getProductList() throws Exception {
+		return cdao.getProductList();
+	}		
+	
 	
 }

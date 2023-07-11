@@ -60,5 +60,10 @@
 	</select>
 <!-- 상품 상세정보 조회 -->
 
+<!-- 상품목록 가져오기 -->
+	<select id="getProductList" resultType="ProductionVO">
+		select * from product
+	</select>
+<!-- 상품목록 가져오기 -->
 	
 </mapper>

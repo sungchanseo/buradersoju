@@ -1,5 +1,7 @@
 package com.itwillbs.persistence;
 
+import java.util.List;
+
 import com.itwillbs.domain.ContractVO;
 import com.itwillbs.domain.ProductionVO;
 
@@ -25,4 +27,7 @@ public interface ContractDAO {
 	
 	//product_id로 상품정보 조회하기 
 	public ProductionVO readProductInfo(String product_id) throws Exception;
+	
+	//상품목록 가져오기 
+	public List<ProductionVO> getProductList() throws Exception;
 }

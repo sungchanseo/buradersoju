@@ -46,8 +46,6 @@ public class ContractController {
 	private EmployeeService empService;
 	@Autowired
 	private CustomerService custService;
-	@Autowired
-	private ProductionService proService;
 	// http://localhost:8088/contract/list
 
 	// 수주 목록 불러오기
@@ -106,17 +104,14 @@ public class ContractController {
 	}
 
 	// 수주 등록 디비처리
-//	@PostMapping(value = "/insert")
-	@RequestMapping(value = "/insert", method = RequestMethod.POST, produces = "application/json; charset=UTF-8") 
 	@ResponseBody
-	public void registContractPOST(@RequestBody ContractVO cvo, HttpServletResponse response) throws Exception {
+	@RequestMapping(value = "/insert", method = RequestMethod.POST) 
+	public void registContractPOST(@RequestBody ContractVO cvo) throws Exception {
 		logger.debug("@@@@@@@@@@@@Controller : 수주 등록POST하기!!!!");
 		logger.debug("@@@@@@@입력된 정보 : " + cvo);
-		response.setContentType("application/json; charset=UTF-8");
 		logger.debug("@@@@@@@@@@@@Controller : registContract()호출합니다!");
-		contService.registContract(cvo);
 		contService.contIdInsert(cvo.getCont_id());
-//		return "redirect:/contract/list";
+		contService.registContract(cvo);
 	}
 
 	// 수주 수정 입력하기
@@ -239,7 +234,7 @@ public class ContractController {
 	public void findProductGET(PagingVO pvo, Model model) throws Exception{
 		logger.debug("@@@@@@@@@@@Controller : 팝업으로 상품명찾기 !!!!!");
 
-		List<ProductionVO> productionList = proService.getProductionList();
+		List<ProductionVO> productionList = contService.getProductList();
         model.addAttribute("productionList", productionList);
 	}
 	

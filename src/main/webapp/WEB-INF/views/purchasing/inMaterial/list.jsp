@@ -13,26 +13,19 @@ $(function(){
 	in_id = "${in_id}";
 	ma_name = "${ma_name}";
 	in_empName = "${in_empName}";
-// 	in_process = $('input[name=in_process]:checked').val();
-	
+	in_process = "${param.in_process}";
 
-	// '미입고' 체크
-	if($('input:radio[id=yet]').is(':checked')){
-		$('#all').prop('checked', false);
-		$('#yet').prop('checked', true);
-		
-	}else if($('input:radio[id=done]').is(':checked')){
-		$('#all').prop('checked', false);
-		$('#done').prop('checked', true);
-	}
-	
-	
 	$('#sd').val(startDate);
 	$('#ed').val(endDate);
 	$('#in_id').val(in_id);
 	$('#ma_name').val(ma_name);
 	$('#in_empName').val(in_empName);
-	  
+	
+	if(in_process == '미입고'){
+		$(":radio[id='yet'][value='미입고']").attr('checked', true);
+	}else if(in_process == '입고완료'){
+		$(":radio[id='done'][value='입고완료']").attr('checked', true);
+	}
 	
 });
 </script>

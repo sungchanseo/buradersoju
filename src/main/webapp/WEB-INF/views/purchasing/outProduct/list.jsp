@@ -39,13 +39,19 @@ $(document).ready(function(){
 	op_id = "${op_id}";
 	product_name = "${product_name}";
 	op_empName = "${op_empName}";
-	op_process = $('input[name=op_process]:checked').val();
+	op_process = "${param.op_process}";
 	
 	$('#sd').val(startDate);
 	$('#ed').val(endDate);
 	$('#op_id').val(op_id);
 	$('#product_name').val(product_name);
 	$('#op_empName').val(op_empName);
+	
+	if(op_process == '미출고'){
+		$(":radio[id='yet'][value='미출고']").attr('checked', true);
+	}else if(op_process == '출고완료'){
+		$(":radio[id='done'][value='출고완료']").attr('checked', true);
+	}
 	
 	
 	// 수주량 > 재고량 출고처리 버튼 제어

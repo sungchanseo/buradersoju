@@ -5,8 +5,8 @@
 
 <%@ include file="../../includes/header.jsp" %>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert 링크 -->
-<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
 
@@ -46,9 +46,26 @@ $(document).ready(function(){
 	$('#op_id').val(op_id);
 	$('#product_name').val(product_name);
 	$('#op_empName').val(op_empName);
+	
+	
+	// 수주량 > 재고량 출고처리 버튼 제어
+	$('.opid').click(function(){
+		Swal.fire({
+		icon: 'error',
+		title: '출고 불가',
+		text: '상품 재고량이 부족합니다.',
+		confirmButtonColor: '#0ddbb9',
+		confirmButtonText: '확인',
+		}).then((result) => {
+			if(result.isConfirmed){
+				return false;
+			}
+		}); // then(result)
+		
+	}); // opid.click
 
-});
-
+	
+}); // JQuery
 </script>
 </head>
 <body>
@@ -173,9 +190,12 @@ $(document).ready(function(){
 										    <td>
 										    	<c:choose>
 													<c:when test="${emp_department.equals('구매팀') || emp_department.equals('Master')}">
-														<c:if test="${op.op_process eq '미출고' }">
-															<input type="button" id="opid" class="btn btn-success" value="출고처리"
+														<c:if test="${op.op_process eq '미출고' && op.cont_qty <= op.product_qty}">
+															<input type="button" class="btn btn-success" value="출고처리"
 													       		   onclick="location.href='/purchasing/outProduct/opid?cont_id=${op.cont_id }&product_qty=${op.product_qty }';">
+														</c:if>
+														<c:if test="${op.op_process eq '미출고' && op.cont_qty > op.product_qty}">
+															<input type="button" id="opid" class="btn btn-success opid" value="출고처리">
 														</c:if>
 													</c:when>
 													<c:otherwise> </c:otherwise>

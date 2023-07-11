@@ -114,7 +114,7 @@ function info_print() {
 	  <td>
 	  <span style="color: black;">
 		<a href="./info?production_id=${workOrderList.production_id}" style="color: black; text-decoration: none;"
-		onclick="window.open(this.href, '_blank', 'width=550, height=350'); return false;">
+		onclick="window.open(this.href, '_blank', 'width=600, height=450'); return false;">
 		${workOrderList.production_id}
 		</a>
 		</span>

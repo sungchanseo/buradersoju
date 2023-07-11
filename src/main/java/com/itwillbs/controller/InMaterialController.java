@@ -98,11 +98,11 @@ public class InMaterialController {
 		// View 페이지 전달
 		model.addAttribute("inMaterialList", inMaterialList);
 		model.addAttribute("pvo", pvo);
-//		model.addAttribute("startDate", startDate);
-//		model.addAttribute("endDate", endDate);
-//		model.addAttribute("in_id", in_id);
-//		model.addAttribute("ma_name", ma_name);
-//		model.addAttribute("in_empName", in_empName);
+		model.addAttribute("startDate", startDate);
+		model.addAttribute("endDate", endDate);
+		model.addAttribute("in_id", in_id);
+		model.addAttribute("ma_name", ma_name);
+		model.addAttribute("in_empName", in_empName);
 		model.addAttribute("emp_department", session.getAttribute("emp_department"));
 		
 		return null;

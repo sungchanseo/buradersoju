@@ -13,7 +13,19 @@ $(function(){
 	in_id = "${in_id}";
 	ma_name = "${ma_name}";
 	in_empName = "${in_empName}";
-	in_process = $('input[name=in_process]:checked').val();
+// 	in_process = $('input[name=in_process]:checked').val();
+	
+
+	// '미입고' 체크
+	if($('input:radio[id=yet]').is(':checked')){
+		$('#all').prop('checked', false);
+		$('#yet').prop('checked', true);
+		
+	}else if($('input:radio[id=done]').is(':checked')){
+		$('#all').prop('checked', false);
+		$('#done').prop('checked', true);
+	}
+	
 	
 	$('#sd').val(startDate);
 	$('#ed').val(endDate);
@@ -21,6 +33,7 @@ $(function(){
 	$('#ma_name').val(ma_name);
 	$('#in_empName').val(in_empName);
 	  
+	
 });
 </script>
 </head>
@@ -56,7 +69,7 @@ $(function(){
 							<div style="text-align: center; background-color: #f2f2f2;">
 								<br>
 								<form action="/purchasing/inMaterial/list" method="get" style="display: inline;">
-									<input type="radio" id="all" name="in_process" value=""> 전체 &nbsp;	
+									<input type="radio" id="all" name="in_process" value="" checked> 전체 &nbsp;	
 									<input type="radio" id="yet" name="in_process" value="미입고"> 미입고 &nbsp;	
 									<input type="radio" id="done" name="in_process" value="입고완료"> 입고완료	&nbsp;
 									

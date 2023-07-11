@@ -52,13 +52,15 @@ function info_print() {
 				<div class="row w-100 mx-0">
 					<div class="col-lg-12 mx-auto">
 						<div class="auth-form-light text-left py-5 px-4 px-sm-5" style="height: 1000px;">
+							<form role="form" method="post">
 								<div class="form-group">
 								<!-- CSS 기본 틀 -->
 								<h1>작업지시 현황</h1>
+								<br>
 								<!-- 탭 메뉴 -->
 	<ul class="nav nav-tabs tab-no-active-fill" >
 	<li class="nav-item">
-	<a class="nav-link ps-2 pe-2 active" id="stage1-tab" href="/workOrder/list" >전체</a>
+	<a class="nav-link ps-2 pe-2" id="stage1-tab" href="/workOrder/list" >전체</a>
 	</li>
 	<li class="nav-item">
 	<a  href="/workOrder/list2" class="nav-link ps-2 pe-2" id="stage2-tab" >대기</a>
@@ -84,10 +86,12 @@ function info_print() {
 	  <input type="submit" class="btn btn-info" value="검색">
   </form>
   
-	<div style="float: right;">
+	<div style="float:right; display:inline;">
+	<c:if test="${emp_department.equals('생산') || emp_department.equals('생산팀') || emp_department.equals('Master')}">
 	<button type="button" class="btn btn-success" style="margin: 1px;" onclick="openPopup();">작업 등록</button>
 <!-- 	<button class="btn btn-light" style='text-align: right; margin: 1px;'>엑셀파일</button> -->
 	<button id="print-button" class="btn btn-light" onclick="info_print()" style='text-align: right; margin: 1px;'>인쇄하기</button>
+	</c:if>
 	</div>
   <table border="1" class="table table-hover table-bordered text-center">
   <thead class="thead-light">
@@ -153,8 +157,7 @@ function info_print() {
 		
 									<!-- CSS 기본 틀 -->
 									</div>
-<!-- 								<button class="btn btn-success btn-fw" type="submit"> -->
-<!-- 									등록</button> -->
+								</form>
 						</div>
 					</div>
 				</div>

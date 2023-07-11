@@ -87,12 +87,14 @@
 <!-- 	<input type="text" class="Qusearch_input" name="searchName">	 -->
 <!-- 		<option value="검수완료일">검수완료일</option> -->
 <!-- 	</div> -->
-	
-	<div style="float: right;">
+												
+	<div style="float:right; display:inline;">
+	<c:if test="${emp_department.equals('생산') || emp_department.equals('생산팀') || emp_department.equals('Master')}">
 	<button type="button" id="qualityInsertBT" class="btn btn-success" style="margin: 1px;" 
 		onclick="window.open('/quality/insert', '_blank', 'width=500, height=420, left=2000');">검수 등록</button>
-	<button class="btn btn-light" style='text-align: right; margin: 1px;'>엑셀파일</button>
+<!-- 	<button class="btn btn-light" style='text-align: right; margin: 1px;'>엑셀파일</button> -->
 	<button id="print-button" class="btn btn-light" onclick="info_print()" style='text-align: right; margin: 1px;'>인쇄하기</button>
+	</c:if>
 	</div>
 		<script>
 			/* 인쇄하기 버튼 */
@@ -153,7 +155,7 @@
 				<td>${vo.product_id }</td>
 				<td>${vo.product_name }</td>
 				<td>${vo.plan_qty }</td>
-				<td>${vo.qc_qty }</td>
+				<td>${vo.production_qty }</td>
 				<td>${vo.total_defQty }</td>
 				<td><fmt:formatNumber value="${(vo.total_defQty /vo.qc_qty*100) }" pattern="#.###"/>%</td>
 				<td>${vo.emp_name }</td>

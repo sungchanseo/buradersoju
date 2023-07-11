@@ -52,9 +52,11 @@ function info_print() {
 				<div class="row w-100 mx-0">
 					<div class="col-lg-12 mx-auto">
 						<div class="auth-form-light text-left py-5 px-4 px-sm-5" style="height: 1000px;">
+							<form role="form" method="post">
 								<div class="form-group">
 								<!-- CSS 기본 틀 -->
 								<h1>작업지시 현황</h1>
+								<br>
 								<!-- 탭 메뉴 -->
 	<ul class="nav nav-tabs tab-no-active-fill" >
 	<li class="nav-item">
@@ -71,7 +73,6 @@ function info_print() {
 	</li>
 	</ul>
 <!-- 검색창 기능 -->
-
   <form action="/workOrder/list" method="get">
 	  <select class="Wosearch_select" name="selector">
 <!-- 	    <option value="a.workOrder_status">작업상태</option> -->
@@ -85,10 +86,13 @@ function info_print() {
 	  <input type="submit" class="btn btn-info" value="검색">
   </form>
   
-	<div style="float: right; " >
+	
+	<div style="float:right; display:inline;">
+	<c:if test="${emp_department.equals('생산') || emp_department.equals('생산팀') || emp_department.equals('Master')}">
 	<button type="button" class="btn btn-success" style="margin: 1px;" onclick="openPopup();">작업 등록</button>
 <!-- 	<button class="btn btn-light" style='text-align: right; margin: 1px;'>엑셀파일</button> -->
 	<button id="print-button" class="btn btn-light" onclick="info_print()" style='text-align: right; margin: 1px;'>인쇄하기</button>
+	</c:if>
 	</div>
   <table border="1" class="table table-hover table-bordered text-center">
   <thead class="thead-light">
@@ -153,9 +157,9 @@ function info_print() {
 	<!-- 	페이징 처리  -->
 		
 									<!-- CSS 기본 틀 -->
-									</div>
-<!-- 								<button class="btn btn-success btn-fw" type="submit"> -->
-<!-- 									등록</button> -->
+									
+								</div>
+							</form>
 						</div>
 					</div>
 				</div>

@@ -255,6 +255,9 @@ text-align: left;
 				var set = new Set(def_codeList);
 				var def_qtyList = [];
 				var check = 0;
+				var dec1 = $('#def_code1').val();
+				var dec2 = $('#def_code2').val();
+				var dec3 = $('#def_code3').val();
 				$(".def_qtyList").each(function() {
 					def_qtyList.push($(this).val());
 				});
@@ -280,25 +283,49 @@ text-align: left;
 						confirmButtonText: '확인'
 					});
 		        }
-				else if(def_codeList.length != set.size) {
+				else if(def_codeList.length != set.size){
+						
 					Swal.fire({
 						icon: 'error',
 						title: '불량 코드를 확인해주세요!',
 						confirmButtonColor: '#0ddbb9',
 						confirmButtonText: '확인'
 					});
-				}
-				else{
+					} // else if
+				
+				else {
 				console.log(def_codeList);
 				console.log(def_qtyList);
 				var product_qty = 0;
 				var be_qty = $("#production_qty").val();
 				var total_defQty = 0; // 생산의 총 불량수
-				
+				var production_id = $('#production_id').val();
 				for(i = 0; i<def_qtyList.length; i++){
 					be_qty -= parseInt(def_qtyList[i]);
 					total_defQty += parseInt(def_qtyList[i]);
 				}
+// 				var de_qt = Number($('#def_qty1').val());
+// 				var de_qt2 = Number($('#def_qty2').val());
+// 				var de_qt3 = Number($('#def_qty3').val());
+// 				var de_qtyAll = 0;
+// 				if(def_qtyList.length == 4){
+// 					de_qtyAll = de_qt;
+// 				}else if(def_qtyList.length == 5){
+// 				    de_qtyAll = de_qt+de_qt2;
+// 				}else if(def_qtyList.length == 6){
+// 					de_qtyAll = de_qt+de_qt2+de_qt3;
+// 				}
+				Swal.fire({
+					   title: '등록하시겠습니까?',
+					   text: '선택한 작업지시번호 : '+production_id,
+					   icon: 'warning',
+					   showCancelButton: true,
+					   confirmButtonColor: '#3085d6', 
+					   cancelButtonColor: '#d33', 
+					   confirmButtonText: '승인', 
+					   cancelButtonText: '취소'
+					}).then(result => {
+						if (result.isConfirmed) {
 				// 불량 개수가 모두 빠진 총 생산량
 				product_qty = be_qty;
 				
@@ -361,6 +388,9 @@ text-align: left;
 				  $('body').append($form);
 				  
 				  sendForm();
+// 						});
+						}//if
+					}); //팝업
 				} //else
 		}); //click; 
 		function sendForm() {

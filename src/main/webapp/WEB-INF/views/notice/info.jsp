@@ -63,7 +63,7 @@
 							<!-- 수정, 목록, 삭제 버튼 -->
 							<button class="btn btn-success btn-fw"
 										onclick="location.href='/notice/list'">공지 목록</button>
-							<c:if test="${sessionScope.emp_department == '인사팀'|| sessionScope.emp_department == '전산팀'}">
+							<c:if test="${sessionScope.emp_department == '인사팀'|| sessionScope.emp_department == '전산팀'|| sessionScope.emp_department == 'Master'}">
 								<div class="button-container d-flex justify-content-end">
 									<button class="btn btn-success btn-fw"
 										onclick="location.href='/notice/modify?notice_id=${vo.notice_id}'" style="margin-right: 10px;">수정</button>

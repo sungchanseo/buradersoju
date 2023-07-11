@@ -26,11 +26,11 @@
 							<br>
 							<!-- 검색창기능 -->
 							<br>
-							<table class="table table-hover">
+							<table class="table table-hover" style="height: 800px;">
 								<tbody style="text-align: center;">
 									<tr>
 										<th style="width: 60px">번호</th>
-										<th>제목</th>
+										<th >제목</th>
 										<th>작성자</th>
 										<th>작성일</th>
 										<th>조회수</th>
@@ -75,7 +75,7 @@
 									</ul>
 									<!-- 공지 작성 버튼 -->
 									<div>
-										<c:if test="${sessionScope.emp_department == '인사팀'|| sessionScope.emp_department == '전산팀'}">
+										<c:if test="${sessionScope.emp_department == '인사팀'|| sessionScope.emp_department == '전산팀' || sessionScope.emp_department == 'Master'}">
 											<button class="btn btn-success btn-fw"
 												onclick="location.href='/notice/insert'">공지 작성</button>
 										</c:if>
@@ -104,6 +104,5 @@
     display: inline;}
 input {
 	border-radius: 10px;
-    padding: 6px 6px;}
-    
+    padding: 6px 6px;} 
 </style>

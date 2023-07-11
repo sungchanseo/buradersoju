@@ -31,7 +31,8 @@
 								</div>
 							  <button class="btn btn-success btn-fw" onclick="location.href='/notice/list'">공지 목록</button>
 								<div style="text-align: right; margin-right: 580px;">
-									<button class="btn btn-light btn-fw" type="reset">초기화</button>
+<!-- 									<button class="btn btn-light btn-fw" type="reset">초기화</button> -->
+									<button type="reset" class="btn btn-light btn-fw" id="reset-button" onclick="location.href=''">초기화</button>
 									<button class="btn btn-success btn-fw" type="submit">수정 완료</button>
 								</div>
 							</form>

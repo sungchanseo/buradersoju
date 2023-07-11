@@ -60,7 +60,7 @@
 				<tr>
 					<th>거래처유형</th>
 					<td><label>
-					<input type="hidden" id="cust_id" value="${customerVO.cust_id }">
+					<input type="hidden" name="cust_id" id="cust_id" value="${customerVO.cust_id }">
 					<input type="radio" name="cust_type" id="cust_type" value="사업자(국내)"
 						<c:if test="${customerVO.cust_type =='사업자(국내)' }">
 							checked
@@ -108,25 +108,20 @@
 					<td>
 						<select name="cust_business" id="cust_business">
 							<option value="도매업"
-								<c:if test="${customerVO.equals('도매업') }">
+								<c:if test="${customerVO.cust_business.equals('도매업') }">
 									selected
 								</c:if>
 							>도매업</option>
 							<option value="소매업"
-								<c:if test="${customerVO.equals('소매업') }">
+								<c:if test="${customerVO.cust_business.equals('소매업') }">
 									selected
 								</c:if>
 							>소매업</option>
 							<option value="서비스업"
-								<c:if test="${customerVO.equals('서비스업') }">
+								<c:if test="${customerVO.cust_business.equals('서비스업') }">
 									selected
 								</c:if>
 							>서비스업</option>
-							<option value="제조업"
-								<c:if test="${customerVO.equals('제조업') }">
-									selected
-								</c:if>
-							>제조업</option>
 						</select>
 					</td>
 					<th>거래처구분</th>
@@ -154,21 +149,21 @@
 					<th>종목</th>
 					<td>
 						<select name="cust_event" id="cust_event">
-							<option value="종목1"
-								<c:if test="${customerVO.cust_event.equals('종목1') }">
+							<option value="음식점"
+								<c:if test="${customerVO.cust_event.equals('음식점') }">
 									selected
 								</c:if>
-							>종목1</option>
-							<option value="종목2"
-								<c:if test="${customerVO.cust_event.equals('종목2') }">
+							>음식점</option>
+							<option value="숙박업"
+								<c:if test="${customerVO.cust_event.equals('숙박업') }">
 									selected
 								</c:if>
-							>종목2</option>
-							<option value="종목3"
-								<c:if test="${customerVO.cust_event.equals('종목3') }">
+							>숙박업</option>
+							<option value="제조업"
+								<c:if test="${customerVO.cust_event.equals('제조업') }">
 									selected
 								</c:if>
-							>종목3</option>
+							>제조업</option>
 						</select>
 					</td>
 					<th>주소</th>
@@ -176,7 +171,7 @@
 						<input type="text" id="zipcode" onclick="addr();" maxlength="200" size="15">
 						<input type="button" value="우편번호찾기" onclick="addr();"><br>
 						<input type="text" style="width:100%;" name="address" id="address" size="45" onclick="addr();"><br>
-						<input type="text" style="width:100%;" name="cust_address" size="45" placeholder="상세주소를 입력해주세요."maxlength="45">
+						<input type="text" style="width:100%;" name="cust_address" id="cust_address" size="45" placeholder="상세주소를 입력해주세요." maxlength="45">
 					</td>
 				</tr>
 				<tr>
@@ -185,7 +180,7 @@
 					<textarea name="cust_etc" id="cust_etc">${customerVO.cust_etc }</textarea>
 					</td>
 					<th>홈페이지</th>
-					<td><input type="text" name="cust_hompage" id="cust_hompage" value="${customerVO.cust_homepage }"></td>
+					<td><input type="text" name="cust_homepage" id="cust_homepage" value="${customerVO.cust_homepage }"></td>
 				</table>
 			</div>
 	</form>
@@ -269,33 +264,35 @@
 						return false;
 					}//emp_email 제어 
 
-					var formObject ={
-							cust_id : $('#cust_id').val(),
-							cust_name : $('#cust_name').val(),
-							emp_name : $('#emp_name').val(),
-							reg_num : $('#reg_num').val(),
-							cust_type : $('#cust_type').val(),
-							emp_id : $('#emp_id').val(),
-							emp_tel : $('#emp_tel').val(),
-							owner_name : $('#owner_name').val(),
-							main_phone : $('#main_phone').val(),
-							emp_email : $('#emp_email').val(),
-							cust_business : $('#cust_business').val(),
-							cust_class : $('#cust_class').val(),
-							cust_event : $('#cust_event').val(),
-							address : $('#address').val(),
-							cust_address : $('#cust_address').val(),
-							cust_etc : $('#cust_etc').val(),
-							cust_homepage : $('#cust_homepage').val() 
-					}//formObject END
-					
+// 					var formObject ={
+// 							cust_id : $('#cust_id').val(),
+// 							cust_name : $('#cust_name').val(),
+// 							emp_name : $('#emp_name').val(),
+// 							reg_num : $('#reg_num').val(),
+// 							cust_type : $('#cust_type').val(),
+// 							emp_id : $('#emp_id').val(),
+// 							emp_tel : $('#emp_tel').val(),
+// 							owner_name : $('#owner_name').val(),
+// 							main_phone : $('#main_phone').val(),
+// 							emp_email : $('#emp_email').val(),
+// 							cust_business : $('#cust_business').val(),
+// 							cust_class : $('#cust_class').val(),
+// 							cust_event : $('#cust_event').val(),
+// 							address : $('#address').val(),
+// 							cust_address : $('#cust_address').val(),
+// 							cust_etc : $('#cust_etc').val(),
+// 							cust_homepage : $('#cust_homepage').val() 
+// 					}//formObject END
+					var formObject = $('#fr').serialize();
+
 					console.log(formObject);
 					console.log(typeof formObject);
 					$.ajax({
 						url : '/customer/modify', 
 						type : 'POST', 
-						contentType : 'application/json; charset=utf-8',
-						data : JSON.stringify(formObject), 	
+						data : formObject,
+// 						contentType : 'application/json; charset=utf-8',
+// 						data : JSON.stringify(formObject), 	
 						success : function() {
 							 Swal.fire({
 			                        title: '거래처수정이 완료되었습니다.',

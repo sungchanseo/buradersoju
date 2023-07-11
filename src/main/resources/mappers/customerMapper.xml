@@ -16,11 +16,11 @@
 	<insert id="insertCustomer">
 		insert into customer (cust_id, cust_name, reg_num, 
 		cust_type, cust_class, owner_name, main_phone, cust_address, 
-		cust_business, cust_event, cust_homepage, emp_id, emp_email, emp_tel, 
+		cust_business, cust_event, cust_homepage, emp_id, emp_name, emp_email, emp_tel, 
 		cust_etc, cust_status) 
 		values(#{cust_id}, #{cust_name}, #{reg_num}, #{cust_type}, #{cust_class}, #{owner_name}, 
 		#{main_phone}, #{cust_address}, #{cust_business}, #{cust_event}, 
-		#{cust_homepage}, #{emp_id}, #{emp_email}, #{emp_tel}, #{cust_etc}, 0)
+		#{cust_homepage}, #{emp_id}, #{emp_name}, #{emp_email}, #{emp_tel}, #{cust_etc}, 0)
 	</insert>
 	<!-- customer 등록하기 -->
 

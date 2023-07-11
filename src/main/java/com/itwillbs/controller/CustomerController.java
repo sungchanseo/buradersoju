@@ -111,7 +111,7 @@ public class CustomerController {
 
 	// 거래처 등록 디비처리
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
-	public ResponseEntity<String> insertCustomerPOST(@RequestBody CustomerVO vo, 
+	public ResponseEntity<String> insertCustomerPOST(/*@RequestBody*/ CustomerVO vo, 
 			@RequestParam(value="address", required =false) String address)  throws Exception {
 		logger.debug("@@@@@@@@@@@@Controller : 거래처 등록POST하기!!!!");
 		logger.debug("@@@@@@@입력된 정보 : " + vo);
@@ -160,7 +160,7 @@ public class CustomerController {
 
 	// 거래처 수정 디비처리
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
-	public ResponseEntity<String> modifyCustomerPOST(@RequestBody CustomerVO mvo,
+	public ResponseEntity<String> modifyCustomerPOST(/*@RequestBody*/ CustomerVO mvo,
 			@RequestParam(value="address", required=false) String address) throws Exception {
 		logger.debug("@@@@@@@@@@Contorller : 거래처 수정 POST하기 !!!");
 		logger.debug("@@@@@@@@@controller : 가져온 정보 : " + mvo);

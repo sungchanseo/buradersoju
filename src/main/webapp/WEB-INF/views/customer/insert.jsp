@@ -59,12 +59,12 @@
 			<tr>
 				<th>거래처유형</th>
 				<td>
-					<label><input type="radio" name="cust_type" value="사업자(국내)" checked>사업자(국내)</label>
-					<label><input type="radio" name="cust_type" value="사업자(해외)">사업자(해외)</label>
-					<label><input type="radio" name="cust_type" value="개인">개인</label>
+					<label><input type="radio" name="cust_type" id="cust_type" value="사업자(국내)" checked>사업자(국내)</label>
+					<label><input type="radio" name="cust_type" id="cust_type" value="사업자(해외)">사업자(해외)</label>
+					<label><input type="radio" name="cust_type" id="cust_type" value="개인">개인</label>
 				</td>
 				<th>사업자등록번호</th>
-				<td><input type="text" name="reg_num" id="reg_num" placeholder="숫자만 기입하세요.">
+				<td><input type="text" name="reg_num" id="reg_num" placeholder="숫자만 기입하세요." maxlength="10">
 				<span id="regCheckMsg"></span>
 				</td>
 			</tr>
@@ -95,7 +95,6 @@
 						<option value="도매업" selected>도매업</option>
 						<option value="소매업">소매업</option>
 						<option value="서비스업">서비스업</option>
-						<option value="제조업">제조업</option>
 				</select>
 				</td>
 				<th>거래처구분</th>
@@ -111,9 +110,9 @@
 				<th>종목</th>
 				<td>
 					<select name="cust_event" id="cust_event">
-						<option value="종목1" selected>종목1</option>
-						<option value="종목2">종목2</option>
-						<option value="종목3">종목3</option>
+						<option value="음식점" selected>음식점</option>
+						<option value="숙박업">숙박업</option>
+						<option value="제조업">제조업</option>
 					</select>
 				</td>
 				<th>주소</th>
@@ -242,34 +241,36 @@
 					return false;
 				}//emp_email 제어 
 
-				var formObject ={
-						cust_id : $('#cust_id').val(),
-						cust_name : $('#cust_name').val(),
-						emp_name : $('#emp_name').val(),
-						reg_num : $('#reg_num').val(),
-						cust_type : $('#cust_type').val(),
-						emp_id : $('#emp_id').val(),
-						emp_tel : $('#emp_tel').val(),
-						owner_name : $('#owner_name').val(),
-						main_phone : $('#main_phone').val(),
-						emp_email : $('#emp_email').val(),
-						cust_business : $('#cust_business').val(),
-						cust_class : $('#cust_class').val(),
-						cust_event : $('#cust_event').val(),
-						address : $('#address').val(),
-						cust_address : $('#cust_address').val(),
-						cust_etc : $('#cust_etc').val(),
-						cust_homepage : $('#cust_homepage').val() 
-				}//formObject END
+// 				var formObject ={
+// 						cust_id : $('#cust_id').val(),
+// 						cust_name : $('#cust_name').val(),
+// 						emp_name : $('#emp_name').val(),
+// 						reg_num : $('#reg_num').val(),
+// 						cust_type : $('#cust_type').val(),
+// 						emp_id : $('#emp_id').val(),
+// 						emp_tel : $('#emp_tel').val(),
+// 						owner_name : $('#owner_name').val(),
+// 						main_phone : $('#main_phone').val(),
+// 						emp_email : $('#emp_email').val(),
+// 						cust_business : $('#cust_business').val(),
+// 						cust_class : $('#cust_class').val(),
+// 						cust_event : $('#cust_event').val(),
+// 						address : $('#address').val(),
+// 						cust_address : $('#cust_address').val(),
+// 						cust_etc : $('#cust_etc').val(),
+// 						cust_homepage : $('#cust_homepage').val() 
+// 				}//formObject END
+				var formObject = $('#fr').serialize();
 				
 				console.log(formObject);
 				console.log(typeof formObject);
 				$.ajax({
 					url : '/customer/insert', 
 					type : 'POST', 
-					contentType : 'application/json; charset=utf-8',
-					data : JSON.stringify(formObject), 	
-					headers: {'Content-Type': 'application/json'},
+					data : formObject,
+// 					contentType : 'application/json; charset=utf-8',
+// 					data : JSON.stringify(formObject), 	
+// 					headers: {'Content-Type': 'application/json'},
 					success : function() {
 						 Swal.fire({
 		                        title: '거래처등록이 완료되었습니다.',

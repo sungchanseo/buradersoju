@@ -55,10 +55,8 @@
 			<td>${customerInfo.reg_num }</td>
 			<th>종목</th>
 			<td>${customerInfo.cust_event }</td>
-			<th>FAX번호</th>
-			<td>${customerInfo.cust_fax }</td>
 			<th>홈페이지</th>
-			<td>${customerInfo.cust_homepage }</td>
+			<td colspan="3">${customerInfo.cust_homepage }</td>
 		</tr>
 		<tr>
 			<th>주소</th>

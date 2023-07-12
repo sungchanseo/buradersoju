@@ -80,6 +80,7 @@
 		<option value="a.production_id">작업지시번호</option>
 		<option value="a.production_line">생산라인</option>
 		<option value="emp_name">검수자</option>
+		<option value="qc_date">검수완료일</option>
 	</select>
 	<input type="text" name="search" class="form-control" style="width:250px; display:inline;" placeholder="검색어를 입력해주세요" maxlength="18">	
 	<button type="submit" class="btn btn-info">검색</button>
@@ -135,7 +136,7 @@
 				<th>상품코드</th>
 				<th>상품명</th>
 				<th>작업지시수량</th>
-				<th>검수량</th>
+				<th>생산량</th>
 				<th>불량수량</th>
 				<th>불량률</th>
 				<th>검수자</th>
@@ -157,7 +158,19 @@
 				<td>${vo.plan_qty }</td>
 				<td>${vo.production_qty }</td>
 				<td>${vo.total_defQty }</td>
-				<td><fmt:formatNumber value="${(vo.total_defQty /vo.qc_qty*100) }" pattern="#.###"/>%</td>
+				
+				<td>
+				<c:choose>
+					<c:when test="${(vo.total_defQty /vo.plan_qty*100) > 3 }">
+						<span style="color: red;">
+							<fmt:formatNumber value="${(vo.total_defQty /vo.plan_qty*100) }" pattern="#.###"/>%
+						</span>
+					</c:when>
+					<c:otherwise>
+						<fmt:formatNumber value="${(vo.total_defQty /vo.plan_qty*100) }" pattern="#.###"/>%
+					</c:otherwise>
+				</c:choose>
+				</td>
 				<td>${vo.emp_name }</td>
 				<td><fmt:formatDate value="${vo.qc_date }" pattern="yyyy-MM-dd HH:mm:ss"/> </td>
 <%-- 				<td>${vo.qc_status }</td> --%>

@@ -193,7 +193,7 @@
 		
 <!-- 검색어 + 페이지갯수 제한 전체 목록 배열 -->
 	<select id="getListSearchObjectOutProductVO" resultType="OutProductVO">
-		SELECT o.op_id, c.cont_id, c.production_id, c.cust_name, c.product_name, c.cont_qty, p.product_qty, c.due_date, o.op_process, o.op_date, e.emp_name
+		SELECT *
 		FROM contract c
 		LEFT JOIN product p
 		ON c.product_name = p.product_name

@@ -227,11 +227,13 @@
 			var contDate = new Date(contDateInput.value);
 			var dueDate = new Date(dueDateInput.value);
 
-			if (dueDate > contDate) {
+			if (dueDate < contDate) {
 				dueDateInput.value = contDateInput.value;
-			}else {
-			    contDateInput.value = dueDateInput.value;
-			}//else
+			}
+// 			else {
+// 			    contDateInput.value = dueDateInput.value;
+// 			    dueDateInput.value= contDateInput.value;
+// 			}//else
 		}//limitDate(); 메소드 끝
 		
 		

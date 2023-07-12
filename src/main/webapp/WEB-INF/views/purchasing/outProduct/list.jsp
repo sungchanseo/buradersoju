@@ -5,8 +5,8 @@
 
 <%@ include file="../../includes/header.jsp" %>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert 링크 -->
-<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
 
@@ -39,17 +39,39 @@ $(document).ready(function(){
 	op_id = "${op_id}";
 	product_name = "${product_name}";
 	op_empName = "${op_empName}";
-	op_process = $('input[name=op_process]:checked').val();
-	console.log(op_process);
+	op_process = "${param.op_process}";
 	
 	$('#sd').val(startDate);
 	$('#ed').val(endDate);
 	$('#op_id').val(op_id);
 	$('#product_name').val(product_name);
 	$('#op_empName').val(op_empName);
+	
+	if(op_process == '미출고'){
+		$(":radio[id='yet'][value='미출고']").attr('checked', true);
+	}else if(op_process == '출고완료'){
+		$(":radio[id='done'][value='출고완료']").attr('checked', true);
+	}
+	
+	
+	// 수주량 > 재고량 출고처리 버튼 제어
+	$('.opid').click(function(){
+		Swal.fire({
+		icon: 'error',
+		title: '출고 불가',
+		text: '상품 재고량이 부족합니다.',
+		confirmButtonColor: '#0ddbb9',
+		confirmButtonText: '확인',
+		}).then((result) => {
+			if(result.isConfirmed){
+				return false;
+			}
+		}); // then(result)
+		
+	}); // opid.click
 
-});
-
+	
+}); // JQuery
 </script>
 </head>
 <body>
@@ -143,7 +165,7 @@ $(document).ready(function(){
 										    		</c:when>
 										    		<c:when test="${op.op_process.equals('미출고') }"> 
 										    			<a href="info?cont_id=${op.cont_id }&product_id=${op.product_id}"
-										    			   onclick="window.open(this.href, '_blank', 'width=900, height=400, left=510, top=365'); return false;">
+										    			   onclick="window.open(this.href, '_blank', 'width=900, height=440, left=510, top=365'); return false;">
 										    			   <img class="viewDetail" src="${pageContext.request.contextPath}/resources/images/viewDetail.png" width="10px" height="10px" alt="image" />
 										    			</a>					
 											    	</c:when>
@@ -154,7 +176,7 @@ $(document).ready(function(){
 										    <td>${op.cont_qty }</td>
 										    <td>
 										    	<c:choose>
-										    		<c:when test="${op.op_process.equals('출고완료') }">
+										    		<c:when test="${op.op_process eq '출고완료' }">
 										    			${op.tmp_qty }
 										    		</c:when>
 										    		<c:otherwise>
@@ -163,7 +185,16 @@ $(document).ready(function(){
 										    	</c:choose>
 										    </td>
 										    <td>${op.due_date }</td>
-										    <td>${op.op_process}</td>
+										    <td>
+											    <c:choose>
+													<c:when test="${op.op_process eq '미출고' }">
+														<span style="color:red">${op.op_process }</span>
+													</c:when>
+													<c:when test="${op.op_process eq '출고완료'}">
+														<span style="color:blue">${op.op_process }</span>
+													</c:when>
+												</c:choose>
+										    </td>
 										    <td>${op.op_date}</td>
 										    <td>
 										    	<c:choose>
@@ -174,9 +205,12 @@ $(document).ready(function(){
 										    <td>
 										    	<c:choose>
 													<c:when test="${emp_department.equals('구매팀') || emp_department.equals('Master')}">
-														<c:if test="${op.op_process eq '미출고' }">
-															<input type="button" id="opid" class="btn btn-success" value="출고처리"
+														<c:if test="${op.op_process eq '미출고' && op.cont_qty <= op.product_qty}">
+															<input type="button" class="btn btn-success" value="출고처리"
 													       		   onclick="location.href='/purchasing/outProduct/opid?cont_id=${op.cont_id }&product_qty=${op.product_qty }';">
+														</c:if>
+														<c:if test="${op.op_process eq '미출고' && op.cont_qty > op.product_qty}">
+															<input type="button" id="opid" class="btn btn-success opid" value="출고처리">
 														</c:if>
 													</c:when>
 													<c:otherwise> </c:otherwise>

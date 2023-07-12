@@ -5,8 +5,8 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- alert창 링크 -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
 
 <head>
 
@@ -232,7 +232,7 @@
 											  <div style="float:right; display:inline;">
 												  <c:if test="${emp_department.equals('생산') || emp_department.equals('생산팀') || emp_department.equals('Master')}">
 												  <button type="button" onclick="openPopup('modifyStage1');" class="btn btn-info">수정</button>
-												  <button type="button" onclick="openPopup('insertStage1');" class="btn btn-success">혼합 등록</button>
+												  <button type="button" onclick="openPopup('insertStage2');" class="btn btn-success">주입 등록</button>
 												  </c:if>
 <!-- 										  <button id="excel" class="btn btn-Light">엑셀파일</button> -->
 											  <button id="print-button" onclick="info_print()" class="btn btn-Light">인쇄하기</button>												  
@@ -314,7 +314,7 @@
 											  <div style="float:right; display:inline;">
 												  <c:if test="${emp_department.equals('생산') || emp_department.equals('생산팀') || emp_department.equals('Master')}">
 												  <button type="button" onclick="openPopup('modifyStage2');" class="btn btn-info">수정</button>
-												  <button type="button" onclick="openPopup('insertStage2');" class="btn btn-success">주입 등록</button>
+												  <button type="button" onclick="openPopup('insertStage3');" class="btn btn-success">포장 등록</button>
 												  </c:if>
 <!-- 										  <button id="excel" class="btn btn-Light">엑셀파일</button> -->
 											  <button id="print-button" onclick="info_print()" class="btn btn-Light">인쇄하기</button>	
@@ -397,7 +397,7 @@
 											  <div style="float:right; display:inline;">
 												  <c:if test="${emp_department.equals('생산') || emp_department.equals('생산팀') || emp_department.equals('Master')}">
 												  <button type="button" onclick="openPopup('modifyStage3');" class="btn btn-info">수정</button>
-												  <button type="button" onclick="openPopup('insertStage3');" class="btn btn-success">포장 등록</button>
+<!-- 											  <button type="button" onclick="openPopup('insertStage3');" class="btn btn-success">포장 등록</button> -->
 												  </c:if>
 <!-- 										  <button id="excel" class="btn btn-Light">엑셀파일</button> -->
 											  <button id="print-button" onclick="info_print()" class="btn btn-Light">인쇄하기</button>												  

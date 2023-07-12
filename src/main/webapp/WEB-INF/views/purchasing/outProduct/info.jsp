@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>출고 상세 보기</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burader.css">
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/images/favicon.png" />
@@ -61,7 +61,7 @@ border-color: #23dbf8;}
 /* color: #fff;} */
 
 #buttons {
-margin-left: 75%;
+margin-left: 83%;
 }
 
 
@@ -72,8 +72,8 @@ margin-left: 75%;
 <h1 style="text-align: center;">출고 상세보기</h1>
 	
 <div id="buttons">
-		<button class="btn btn-success">엑셀파일</button>
 		<button class="btn btn-success print-button" onclick="info_print()">인쇄하기</button>
+<!-- 		<button class="btn btn-success">엑셀파일</button> -->
 			<script>
 				/// 인쇄하기 버튼
 				function info_print() {
@@ -192,12 +192,23 @@ margin-left: 75%;
 					<th>상품코드</th>
 					<th>상품명</th>
 					<th>상품재고</th>
+					<th>필요수량</th>
 					<th>출고가능여부</th>
 				</tr>
 				<tr>
 					<td>${info.product_id }</td>
 					<td>${info.product_name }</td>
 					<td>${info.product_qty }</td>
+					<td>
+						<c:choose>
+							<c:when test="${info.cont_qty - info.product_qty >= 0}">
+								${info.cont_qty - info.product_qty}
+							</c:when>
+							<c:when test="${info.cont_qty - info.product_qty < 0}">
+								-
+							</c:when>
+						</c:choose>
+					</td>
 					<td>
 						<c:choose>
 							<c:when test="${info.product_qty - info.cont_qty >= 0 }">
@@ -224,7 +235,8 @@ margin-left: 75%;
 				<tr>
 					<th>자재코드</th>
 					<th>자재명</th>
-					<th>필요수량</th>
+					<th>필요수량(개)</th>
+					<th>필요수량(총)</th>
 					<th>재고수량</th>
 					<th>재고상태</th>
 				</tr>
@@ -234,10 +246,11 @@ margin-left: 75%;
 						<td>${il.ma_id }</td>
 						<td>${il.ma_name }</td>
 						<td>${il.use_qty }</td>
+						<td>${il.use_qty * (info.cont_qty - info.product_qty) }</td>
 						<td>${il.ma_qty }</td>
 						<td>
 							<c:choose>
-								<c:when test="${il.ma_qty - il.use_qty >= 0 }">
+								<c:when test="${il.ma_qty - (il.use_qty * (info.cont_qty - info.product_qty)) >= 0 }">
 									<span style="color:blue">생산가능</span>
 								</c:when>
 								<c:otherwise>

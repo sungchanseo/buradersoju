@@ -13,26 +13,19 @@ $(function(){
 	in_id = "${in_id}";
 	ma_name = "${ma_name}";
 	in_empName = "${in_empName}";
-// 	in_process = $('input[name=in_process]:checked').val();
-	
+	in_process = "${param.in_process}";
 
-	// '미입고' 체크
-	if($('input:radio[id=yet]').is(':checked')){
-		$('#all').prop('checked', false);
-		$('#yet').prop('checked', true);
-		
-	}else if($('input:radio[id=done]').is(':checked')){
-		$('#all').prop('checked', false);
-		$('#done').prop('checked', true);
-	}
-	
-	
 	$('#sd').val(startDate);
 	$('#ed').val(endDate);
 	$('#in_id').val(in_id);
 	$('#ma_name').val(ma_name);
 	$('#in_empName').val(in_empName);
-	  
+	
+	if(in_process == '미입고'){
+		$(":radio[id='yet'][value='미입고']").attr('checked', true);
+	}else if(in_process == '입고완료'){
+		$(":radio[id='done'][value='입고완료']").attr('checked', true);
+	}
 	
 });
 </script>
@@ -122,7 +115,7 @@ $(function(){
 										<td>${iml.order_id }</td>		
 										<td>
 											<a href="info?order_id=${iml.order_id }"
-											   onclick="window.open(this.href, '_blank', 'width=950, height=300, left=510, top=365'); return false;">
+											   onclick="window.open(this.href, '_blank', 'width=1000, height=300, left=510, top=365'); return false;">
 													<img class="viewDetail" src="${pageContext.request.contextPath}/resources/images/viewDetail.png" width="10px" height="10px" alt="image" />
 											</a>
 										</td>
@@ -131,25 +124,34 @@ $(function(){
 										<td>
 											<c:choose>
 												<c:when test="${empty iml.in_id || iml.in_id == '0' || iml.in_id == null }">
-													<c:if test="${iml.ma_qty <= 100 }">
+													<c:if test="${iml.ma_qty <= 1000 }">
 														<span style="color:red">${iml.ma_qty }</span>
 													</c:if>
-													<c:if test="${iml.ma_qty > 100 }">
+													<c:if test="${iml.ma_qty > 1000 }">
 														${iml.ma_qty }
 													</c:if>
 												</c:when>
 												
 												<c:when test="${!empty iml.in_id }">
-													<c:if test="${iml.add_ma - iml.order_qty <= 100}">
+													<c:if test="${iml.add_ma - iml.order_qty <= 1000}">
 														<span style="color:red">${iml.add_ma - iml.order_qty }</span>
 													</c:if>
-													<c:if test="${iml.add_ma - iml.order_qty > 100}">
+													<c:if test="${iml.add_ma - iml.order_qty > 1000}">
 														${iml.add_ma - iml.order_qty }
 													</c:if>
 												</c:when>
 											</c:choose>
 										</td>
-										<td>${iml.in_process }</td>			
+										<td>
+											<c:choose>
+												<c:when test="${iml.in_process eq '미입고' }">
+													<span style="color:red">${iml.in_process }</span>
+												</c:when>
+												<c:when test="${iml.in_process eq '입고완료'}">
+													<span style="color:blue">${iml.in_process }</span>
+												</c:when>
+											</c:choose>
+										</td>			
 										<td>${iml.whs_id }</td>
 										<td>${iml.shelt_position }</td>
 										<td><fmt:formatDate value="${iml.in_date}" pattern="yyyy-MM-dd"/></td>

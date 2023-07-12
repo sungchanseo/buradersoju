@@ -31,19 +31,19 @@
 						<th>사번</th>
 						<td><input type="text" name="emp_id" readonly value="사번자동생성"><input type="hidden" name="emp_hidden" value="1"></td>
 						<th>비밀번호</th>
-						<td><input type="password" name="emp_pw" id="emp_pw" placeholder="비밀번호를 입력하세요."></td>
+						<td><input type="password" name="emp_pw" id="emp_pw" maxlength="30" placeholder="비밀번호를 입력하세요."></td>
 						<th>이름</th>
-						<td><input type="text" name="emp_name" id="emp_name" placeholder="이름을 입력하세요."></td>
+						<td><input type="text" name="emp_name" id="emp_name" maxlength="25" placeholder="이름을 입력하세요."></td>
 					</tr>
 					<tr>
 						<td rowspan="5" ><input type="file" class="form-control" name="file1" accept="image/*" ></td>
 						<th>생년월일</th>
-						<td><input type="text" name="emp_birth" id="emp_birth" placeholder="생년월일을 입력하세요."></td>
+						<td><input type="text" name="emp_birth" id="emp_birth" maxlength="10" placeholder="생년월일을 입력하세요."></td>
 						<th>연락처</th>
-						<td><input type="text" name="emp_phone" id="emp_phone" placeholder="연락처를 입력하세요."></td>
+						<td><input type="text" name="emp_phone" id="emp_phone" maxlength="11" placeholder="연락처를 입력하세요."></td>
 						<th>이메일</th>
 						<td>
-							<input type="text" name="emp_email" id="emp_email" placeholder="이메일을 입력하세요.">
+							<input type="text" name="emp_email" id="emp_email" maxlength="30" placeholder="이메일을 입력하세요.">
 							<span id="emsg"></span>
 						</td>
 					</tr>
@@ -82,7 +82,7 @@
 					</tr>
 					<tr>
 						<th>내선번호</th>
-						<td><input type="text" name="emp_tel" id="emp_tel" placeholder="내선번호를 입력하세요."></td>			
+						<td><input type="text" name="emp_tel" id="emp_tel" maxlength="12" placeholder="내선번호를 입력하세요."></td>			
 						<th>재직구분</th>
 						<td><select name="emp_status">
 								<option value="재직">재직</option>
@@ -90,15 +90,15 @@
 								<option value="퇴직">퇴직</option>
 						</select></td>
 						<th>입사일</th>
-						<td><input type="text" name="join_date" id="join_date" placeholder="입사일을 입력하세요."></td>
+						<td><input type="text" name="join_date" id="join_date" maxlength="10" placeholder="입사일을 입력하세요."></td>
 					</tr>
 					<tr>
 						<th>휴직일</th>
-						<td><input type="text" name="absence_date" placeholder="휴직시 휴직일을 입력하세요."></td>			
+						<td><input type="text" name="absence_date" maxlength="10" placeholder="휴직시 휴직일을 입력하세요."></td>			
 						<th>복직일</th>
-						<td><input type="text" name="rehabi_date" placeholder="복직시 복직일을 입력하세요."></td>
+						<td><input type="text" name="rehabi_date" maxlength="10" placeholder="복직시 복직일을 입력하세요."></td>
 						<th>퇴사일</th>
-						<td><input type="text" name="resign_date" placeholder="퇴사시 퇴사일을 입력하세요."></td>
+						<td><input type="text" name="resign_date" maxlength="10" placeholder="퇴사시 퇴사일을 입력하세요."></td>
 					</tr>
 				</table>
 			</div>

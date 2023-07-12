@@ -29,18 +29,18 @@
 						<th>사번</th>
 						<td><input type="text" name="emp_id" value="${resultVO.emp_id }" readonly></td>
 						<th>비밀번호</th>
-						<td><input type="password" name="emp_pw" id="emp_pw" placeholder="비밀번호를 입력하세요"></td>				
+						<td><input type="password" name="emp_pw" id="emp_pw" maxlength="30" placeholder="비밀번호를 입력하세요"></td>				
 						<th>이름</th>
-						<td><input type="text" name="emp_name" id="emp_name" value="${resultVO.emp_name }"></td>
+						<td><input type="text" name="emp_name" id="emp_name" maxlength="25" value="${resultVO.emp_name }"></td>
 					</tr>
 					<tr>
 						<td rowspan="4"><img src="/employee/imgDown?fileName=${resultVO.emp_image }"></td>
 						<th>생년월일</th>
-						<td><input type="text" name="emp_birth" id="emp_birth" value="${resultVO.emp_birth }"></td>
+						<td><input type="text" name="emp_birth" id="emp_birth" maxlength="10" value="${resultVO.emp_birth }"></td>
 						<th>휴대전화</th>
-						<td><input type="text" name="emp_phone" id="emp_phone" value="${resultVO.emp_phone }"></td>
+						<td><input type="text" name="emp_phone" id="emp_phone" maxlength="11" value="${resultVO.emp_phone }"></td>
 						<th>이메일</th>
-						<td><input type="text" name="emp_email" id="emp_email" value="${resultVO.emp_email }"></td>
+						<td><input type="text" name="emp_email" id="emp_email" maxlength="30" value="${resultVO.emp_email }"></td>
 					</tr>
 					<tr>
 						<th>주소</th>
@@ -77,7 +77,7 @@
 					</tr>
 					<tr>
 						<th>내선번호</th>
-						<td><input type="text" name="emp_tel" id="emp_tel" value="${resultVO.emp_tel }"></td>			
+						<td><input type="text" name="emp_tel" id="emp_tel" maxlength="12" value="${resultVO.emp_tel }"></td>			
 						<th>재직구분</th>
 						<td><select name="emp_status">
 								<option value="재직" ${resultVO.emp_status == '재직' ? 'selected' : ''}>재직</option>
@@ -86,16 +86,16 @@
 								<option value="퇴직" ${resultVO.emp_status == '퇴직' ? 'selected' : ''}>퇴직</option>
 						</select></td>
 						<th>입사일</th>
-						<td><input type="text" name="join_date" id="join_date" value="${resultVO.join_date }"></td>
+						<td><input type="text" name="join_date" id="join_date" maxlength="10" value="${resultVO.join_date }"></td>
 					</tr>
 					<tr>
 						<td><input type="file" class="form-control" name="file1" accept="image/*" ></td>
 						<th>휴직일</th>
-						<td><input type="text" name="absence_date" value="${resultVO.absence_date }"></td>			
+						<td><input type="text" name="absence_date" maxlength="10" value="${resultVO.absence_date }"></td>			
 						<th>복직일</th>
-						<td><input type="text" name="rehabi_date" value="${resultVO.rehabi_date }"></td>
+						<td><input type="text" name="rehabi_date" maxlength="10" value="${resultVO.rehabi_date }"></td>
 						<th>퇴사일</th>
-						<td><input type="text" name="resign_date" value="${resultVO.resign_date }"></td>
+						<td><input type="text" name="resign_date" maxlength="10" value="${resultVO.resign_date }"></td>
 					</tr>
 					
 				</table>

@@ -40,6 +40,7 @@ $(document).ready(function(){
 	product_name = "${product_name}";
 	op_empName = "${op_empName}";
 	op_process = $('input[name=op_process]:checked').val();
+	console.log(op_process);
 	
 	$('#sd').val(startDate);
 	$('#ed').val(endDate);
@@ -52,7 +53,7 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-<br>
+
 
 
 <!-- 리스트 형식 -->

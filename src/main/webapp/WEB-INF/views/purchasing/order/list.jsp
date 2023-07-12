@@ -236,7 +236,7 @@ table input[type:checkbox] {width:1em;}
 															$("#ma_qty").val(data.ma_qty)
 															$("#unit_cost").val(data.unit_cost)
 															$("#order_sum").val(data.unit_cost* obj.in_order_qty)
-															$("#order_vat").val(data.unit_cost* obj.in_order_qty/100)
+															$("#order_vat").val(data.unit_cost* obj.in_order_qty/10)
 															$("#whs_id").val(data.whs_id)
 						           								// $("#ma_name").val(data.ma_name)
 

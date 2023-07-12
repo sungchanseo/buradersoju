@@ -165,7 +165,7 @@ $(document).ready(function(){
 										    		</c:when>
 										    		<c:when test="${op.op_process.equals('미출고') }"> 
 										    			<a href="info?cont_id=${op.cont_id }&product_id=${op.product_id}"
-										    			   onclick="window.open(this.href, '_blank', 'width=900, height=400, left=510, top=365'); return false;">
+										    			   onclick="window.open(this.href, '_blank', 'width=900, height=440, left=510, top=365'); return false;">
 										    			   <img class="viewDetail" src="${pageContext.request.contextPath}/resources/images/viewDetail.png" width="10px" height="10px" alt="image" />
 										    			</a>					
 											    	</c:when>
@@ -176,7 +176,7 @@ $(document).ready(function(){
 										    <td>${op.cont_qty }</td>
 										    <td>
 										    	<c:choose>
-										    		<c:when test="${op.op_process.equals('출고완료') }">
+										    		<c:when test="${op.op_process eq '출고완료' }">
 										    			${op.tmp_qty }
 										    		</c:when>
 										    		<c:otherwise>
@@ -185,7 +185,16 @@ $(document).ready(function(){
 										    	</c:choose>
 										    </td>
 										    <td>${op.due_date }</td>
-										    <td>${op.op_process}</td>
+										    <td>
+											    <c:choose>
+													<c:when test="${op.op_process eq '미출고' }">
+														<span style="color:red">${op.op_process }</span>
+													</c:when>
+													<c:when test="${op.op_process eq '출고완료'}">
+														<span style="color:blue">${op.op_process }</span>
+													</c:when>
+												</c:choose>
+										    </td>
 										    <td>${op.op_date}</td>
 										    <td>
 										    	<c:choose>

@@ -111,6 +111,7 @@ public class ContractServiceImpl implements ContractService {
 			logger.debug("@@@@@@ContractService : result={}", result);
 
 		}else {
+			
 			//수주목록이 있을 때 
 			logger.debug("@@@@@@ContractService : 수주목록이 있읍니다..");
 
@@ -118,13 +119,13 @@ public class ContractServiceImpl implements ContractService {
 			String datePartUp = lastId.substring(2,8);
 			logger.debug("@@@@@@ContractService : datePartUp={}", datePartUp);
 
-			//데이타베이의 날짜부분과 오늘날짜 추출한 부분이 같으면 카운트에 1을 더한다. 
+			//디비와 오늘 날짜가 같을 경우 
 			if(datePart.equals(datePartUp)) {
 				//카운트 부분을 추려낸다. 
 				Integer countPartUp = Integer.parseInt(lastId.substring(9,11));
 				logger.debug("@@@@@@ContractService : countPartUp={}", countPartUp);
 
-				//날짜부분이 같고 끝번호가 1이상일 때는 1을 더해서 카운트한다.  
+				//끝 3자리에 1을 더한다. 
 				if(countPartUp >= 0) {
 					countPartUp +=1;
 					countPart = String.format("%03d", countPartUp);
@@ -132,6 +133,9 @@ public class ContractServiceImpl implements ContractService {
 					result = prefix + datePart + countPart;
 					logger.debug("@@@@@@ContractService : result={}", result);
 				}
+			}else {
+				//디비 날짜와 오늘 날짜가 다를 경우 그냥 더한다. 
+				result = prefix + datePart + countPart;
 			}
 		}
 		return result;

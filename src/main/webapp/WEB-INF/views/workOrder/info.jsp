@@ -134,11 +134,11 @@ td {border:1px solid #04AA6D;
     <tr>
 	  <td>
 	  <c:choose>
-	  	<c:when test=" ${workOrder.cont_id} != null">
-	 	 ${workOrder.cont_id}
+	  	<c:when test="${empty workOrder.cont_id}">
+	  	<span style="color: #6C7293">( 일반 생산건 )</span>
 	  	</c:when>
 	  	<c:otherwise>
-	  	<span style="color: #6C7293">( 일반 생산건 )</span>
+	 	 ${workOrder.cont_id}
 	  	</c:otherwise>	 	 
 	  </c:choose>
 	  </td>

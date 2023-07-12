@@ -87,7 +87,6 @@ td {border:1px solid #04AA6D;
 	width: 100%;}
 /* 테이블 css */
 
-
 </style>
 
 	<style type="text/css">
@@ -114,15 +113,12 @@ td {border:1px solid #04AA6D;
 	<h1 style="display: flex; justify-content: center;">작업지시번호 : ${workOrder.production_id}</h1>
 	<input type="hidden" id="production_id" value="${workOrder.production_id}">
 	<input type="hidden" id="product_id" value="${workOrder.product_id}">
-	
-<%-- 	<h2>작업지시번호 : ${workOrder.production_id} </h2>  --%>
 <!-- 		<div > -->
-		<div style="margin-left: 445px;">
+		<div style="margin-left: 453px;">
 <!-- 	<div style="display: flex; justify-content: center;"> -->
 <!-- 	<button type="button" class="btn btn-light" onclick="" style="margin: 0.5px;">엑셀파일</button> -->
 	<button type="button" class="btn btn-light" onclick="info_print()" style="margin: 0.5px;">인쇄하기</button>
 		</div>
-<!-- 	</div> -->
 	<div style="display: flex; justify-content: center;">
   <table border="1">
     <tr>
@@ -172,10 +168,8 @@ td {border:1px solid #04AA6D;
 		  <td>${workOrder.qc_num}</td>
 		  <td>
 		   ${workOrder.total_defQty}
-<%-- 		   </c:if> --%>
 		  </td>
 		  <td>
-<%-- 		  <c:if test="${workOrder.qc_num != null && workOrder.qc_num != ''}"> --%>
 		  ${workOrder.plan_qty-workOrder.total_defQty}
 		  </td>
 		  <td><fmt:formatDate value="${workOrder.qc_date }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
@@ -183,8 +177,7 @@ td {border:1px solid #04AA6D;
 		  </c:if>
 	 
   </table>
-		</div>
-<!--   </div> -->
+  </div>
   <div style="display: flex; justify-content: center;">
 <c:if test="${emp_department.equals('Master')}">
   <button type="button" id="delWoBT" class="btn btn-success" style="margin: 0.5px;" >삭제</button>

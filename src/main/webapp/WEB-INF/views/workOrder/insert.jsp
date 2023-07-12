@@ -463,13 +463,9 @@ td {border:1px solid #04AA6D;
 		</div>
 		</div>
 <!--    	<hr> -->
-<!--    	<form id="woInsert"  method="post"> -->
-
 <div style="flex: 1; display: flex; justify-content: center;">
-<!--   <div style="flex: 1;"> -->
     <table id="woInsertTable" border="1">
       <!-- 첫 번째 테이블 내용 -->
-<!--         <table id="woInsertTable" border="1" > -->
     <thead>
       <tr>
         <th>상품코드</th>
@@ -481,12 +477,8 @@ td {border:1px solid #04AA6D;
       <!-- 값 공간 -->
     </tbody>
     </table>
-<!--   </div> -->
-<!--   <div style="flex: 1.1;"> -->
-<!--   <div style="display: flex; justify-content: center;"> -->
     <table id="meInsertTable" class="table table-color" >
       <!-- 두 번째 테이블 내용 -->
-<!--       <table id="meInsertTable" class="table table-color"> -->
     <thead>
       <tr>
         <th>품목명</th>
@@ -499,10 +491,7 @@ td {border:1px solid #04AA6D;
     </tbody>
   </table>
 <!--     </table> -->
-<!--   </div> -->
-<!-- </div> -->
 </div>
-<!--   </div> -->
   <div style="display: flex; justify-content: center;">
 	<button type="button" id="workOrderInsert" class="btn btn-success" style="margin: 0.8px;">등록</button>
 	<button type="button" class="btn btn-light" onclick="window.close();"style="margin: 0.8px;" >취소</button>

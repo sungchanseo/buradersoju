@@ -28,7 +28,6 @@
 	<script>
 		
 		$(document).ready(function() {
-
 			////// 오늘의 공병 수량 insert //////
 			$("#btInsertBT").click(function() {
 // 				alert("제이쿼리 실행");
@@ -86,12 +85,12 @@
 	<!-- 불량 등록 버튼 동작 -->
 	<script>
 		$(document).ready(function() {
-			$("#btDefBT").click(function() {
+			$(".btDefBT").click(function() {
 				var bt_date = $(this).data("bt_date");
 // 				alert(bt_date);
 				var bt_defQty = $(this).closest("tr").find(".bt_defQty").val();
 				var bt_qty = $(this).closest("tr").find(".bt_qty").val();
-				if (!$(this).closest("tr").find(".bt_defQty").val()) {
+				if (!bt_defQty) {
 					Swal.fire({
 						icon: 'error',
 						title: '불량 개수를 입력해 주세요!',
@@ -174,7 +173,14 @@
 								style="height: 1000px;">
 								<div class="form-group">
 								
-									<h1>공병 관리</h1>
+<!-- 									<h1>공병 관리</h1> -->
+									<h1 class="card-title">
+<!-- 									<font style="vertical-align: inherit;"> -->
+										<a href="/quality/emptyBottle" style="text-decoration: none; color: #000;">
+											공병 관리
+										</a>
+<!-- 									</font> -->
+								</h1>
 									<div style="display: flex; justify-content: space-between;">
 									<form action="/quality/emptyBottle" method="get">
 										<select class="EBTsearch_select" name="selector">
@@ -234,7 +240,7 @@
 														<td>${vo.bt_status}</td>
 														<td>
 														<c:choose>
-														<c:when test="${vo.bt_status == '대기'}"><input type="text" class="bt_defQty" value="${vo.bt_defQty}" style="width:100px;" placeholder="불량 개수를 입력해주세요" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="15">
+														<c:when test="${vo.bt_status == '대기'}"><input type="text" class="bt_defQty" value="" style="width:80px;" placeholder="불량 수량" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="15">
 														</c:when>
 														<c:otherwise>${vo.bt_defQty}</c:otherwise>
 														</c:choose>
@@ -255,7 +261,7 @@
 <%-- 														</c:if> --%>
 														<td>
 														<c:choose>
-															<c:when test="${(vo.bt_defQty/vo.bt_qty)*100 > 2 }">
+															<c:when test="${(vo.bt_defQty/vo.bt_qty)*100 > 2.9999 }">
 																<span style="color: red;">
 																	<fmt:formatNumber value="${(vo.bt_defQty/vo.bt_qty)*100}" pattern="#.###"/>%
 																</span>
@@ -267,15 +273,12 @@
 																<fmt:formatNumber value="${(vo.bt_defQty/vo.bt_qty)*100}" pattern="#.###"/>%
 															</c:otherwise>
 														</c:choose>
-<%-- 														${(vo.bt_defQty/vo.bt_qty)*100} --%>
 														<td>
 														<c:choose>
 														<c:when test="${vo.bt_status == '대기'}">
-															<input type="button" class="btn btn-success" id="btDefBT" value="불량 등록" data-bt_date="${vo.bt_date}">
+															<input type="button" class="btn btn-success btDefBT" id="btDefBT" value="불량 등록" data-bt_date="${vo.bt_date}">
 														</c:when>
 														<c:otherwise>
-<!-- 															<span style="color: #6C7293;">등록 완료</span> -->
-														
 															<span style="opacity: 0.6; cursor: not-allowed;">
 															<input type="button" class="btn btn-success" id="btDefBT" value="등록 완료" data-bt_date="${vo.bt_date}" disabled="true"  >
 															</span>

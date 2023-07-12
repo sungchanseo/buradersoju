@@ -55,7 +55,12 @@ function info_print() {
 							<form role="form" method="post">
 								<div class="form-group">
 								<!-- CSS 기본 틀 -->
-								<h1>작업지시 현황</h1>
+								
+								<h1 class="card-title">
+									<a href="/workOrder/list" style="text-decoration: none; color: #000;">
+										작업지시 현황
+									</a>
+								</h1>
 								<br>
 								<!-- 탭 메뉴 -->
 	<ul class="nav nav-tabs tab-no-active-fill" >
@@ -82,7 +87,7 @@ function info_print() {
 	    <option value="emp_name">작업지시자</option>
 	    <option value="production_date">작업지시일시</option>
 	  </select>
-	  <input type="text" name="search" class="form-control" style="width:250px; display:inline;" placeholder="검색어를 입력해주세요">
+	  <input type="text" name="search" class="form-control" style="width:250px; display:inline;" placeholder="검색어를 입력해주세요" maxlength="18">
 	  <input type="submit" class="btn btn-info" value="검색">
   </form>
   

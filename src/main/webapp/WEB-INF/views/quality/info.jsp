@@ -157,9 +157,7 @@ td {border:1px solid #04AA6D;
 	<h1 style="display: flex; justify-content: center;">검수 상세 보기</h1>
 	<input type="hidden" id="qc_num" value="${vo.qc_num }">
 <%-- 	${vo } --%>
-<!-- 	<div class="qualityInfo"> -->
-<!-- 	<div> -->
-	<div style="margin-left: 562px;">
+	<div style="margin-left: 560px;">
 <!-- 	<button type="button" class="btn btn-light" onclick="" style="margin: 0.5px;">엑셀파일</button> -->
 	<button type="button" class="btn btn-light" onclick="info_print()" style="margin: 0.5px;">인쇄하기</button>
 	</div>
@@ -202,7 +200,7 @@ td {border:1px solid #04AA6D;
 			 <th>불량률</th>
 			<td>
 				<c:choose>
-					<c:when test="${(vo.total_defQty /vo.plan_qty*100) > 3 }">
+					<c:when test="${(vo.total_defQty /vo.plan_qty*100) > 2.9999 }">
 						<span style="color: red;">
 							<fmt:formatNumber value="${(vo.total_defQty /vo.plan_qty*100) }" pattern="#.###"/>%
 						</span>

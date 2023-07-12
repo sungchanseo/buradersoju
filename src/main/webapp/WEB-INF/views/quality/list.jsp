@@ -80,6 +80,7 @@
 		<option value="a.production_id">작업지시번호</option>
 		<option value="a.production_line">생산라인</option>
 		<option value="emp_name">검수자</option>
+		<option value="qc_date">검수완료일</option>
 	</select>
 	<input type="text" name="search" class="form-control" style="width:250px; display:inline;" placeholder="검색어를 입력해주세요" maxlength="18">	
 	<button type="submit" class="btn btn-info">검색</button>

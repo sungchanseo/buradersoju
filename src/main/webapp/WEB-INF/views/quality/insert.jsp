@@ -94,7 +94,6 @@ text-align: left;
 		
 		
 	<h1 style="display: flex; justify-content: center;">검수 등록</h1>
-<%-- 	<input type="text" id="plan_qty" value="${vo.plan_qty}"> --%>
 	
 	<div style="display: flex; justify-content: center;">
 	<form>
@@ -105,8 +104,6 @@ text-align: left;
         <th>작업지시번호</th>
         <td>
         <input type="text" name="production_id" id="production_id" style="border:none; width:120px; cursor: pointer; text-align: center;" placeholder="작업지시번호선택">
-<!--         <input type="text" id="production_id" name="production_id" > -->
-<!--         <input id="btn_Search"  type="button" onclick="workSearch();" value="조회"></td> -->
  		<th>검수자</th>
 			 <td>
 			 <input type="hidden" id="qc_emp" name="qc_emp" value="${sessionScope.emp_id}">
@@ -238,19 +235,10 @@ text-align: left;
 	  }); //(document).ready
 	  ////// 불량 입력 행 추가 //////
 		  
-		 ////// 불량 검수 등록+각 불량 코드에 대한 불량 개수 DB등록+불량 개수를 뺀 생산량 DB등록//////
+	 ////// 불량 검수 등록+각 불량 코드에 대한 불량 개수 DB등록+불량 개수를 뺀 생산량 DB등록//////
 	$(document).ready(function(){
-// 		const arr = ['a', 'b', 'c', 'b'];
-// 		const set = new Set(arr);
-
-// 		document.writeln(arr.length); // 4
-// 		document.writeln(set.size); // 3
-
-		// duplicate
-		
 		$("#insertBT").click(function(){
 				// 작업지시번호 선택 -> 불량코드 중복체크 -> 불량수 입력 확인
-				
 				var plan_qty = $("#plan_qty").val();
 // 				alert("plan_qty: "+plan_qty);
 				var def_codeList = [];

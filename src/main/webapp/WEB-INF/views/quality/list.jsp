@@ -27,32 +27,6 @@
 	  flex: 1; /* 버튼들을 동일한 너비로 설정 */
 	}
 	</style>
-	<!-- (수정중) 생산 목록 중 ‘생산량 >= 수주량’ => 작업상태가 완료인 작업지시만 나타남 -->
-	<!-- 페이징 처리에서 완료됨 -->
-	<script>
-// 	$(function(){
-// 		var production_status = $('#production_status').val();
-// 		var state0 = "대기";
-// 		var state1 = "진행중";
-// 		console.log(production_status);
-		
-// 		if( production_status == state0 || production_status == state1){
-// 			$(".qualityListResult").hide();
-// 		}
-// 		});
-	</script>
-	
-	<!-- 등록 버튼 보이기 제어 -->
-	<script>
-// 		$(function(){
-// 			var emp_id = $('#emp_id').val();
-// 			console.log(emp_id);
-			
-// 			if(emp_id != "2023001"){
-// 				$("#qualityInsertBT").hide();
-// 			}
-// 			});
-	</script>
 	
 	
 <title>품질 관리 목록</title>
@@ -68,13 +42,17 @@
 						<div class="auth-form-light text-left py-5 px-4 px-sm-5" style="height: 1000px;">
 							<form role="form" method="post">
 								<div class="form-group">
-	<h1>품질 관리 현황</h1>
+								
+								<h1 class="card-title">
+									<a href="/quality/list" style="text-decoration: none; color: #000;">
+										품질 관리 현황
+									</a>
+								</h1>
+<!-- 	<h1>품질 관리 현황</h1> -->
 	<input type="hidden" id="emp_id" name="emp_id" value=" ${sessionScope.emp_id}">
 	
-<%-- 	${productionList } --%>
-	
 	<!-- 검색 -->
-	<form action="/quality/qualityList" method="get">
+	<form action="/quality/list" method="get">
 	<select class="Qusearch_select" name="selector">
 		<option value="qc_num">검수번호</option>
 		<option value="a.production_id">작업지시번호</option>
@@ -85,9 +63,7 @@
 	<input type="text" name="search" class="form-control" style="width:250px; display:inline;" placeholder="검색어를 입력해주세요" maxlength="18">	
 	<button type="submit" class="btn btn-info">검색</button>
 	</form>
-<!-- 	<input type="text" class="Qusearch_input" name="searchName">	 -->
-<!-- 		<option value="검수완료일">검수완료일</option> -->
-<!-- 	</div> -->
+	<!-- 검색 -->
 												
 	<div style="float:right; display:inline;">
 	<c:if test="${emp_department.equals('생산') || emp_department.equals('생산팀') || emp_department.equals('Master')}">
@@ -141,7 +117,6 @@
 				<th>불량률</th>
 				<th>검수자</th>
 				<th>검수완료일시</th>
-<!-- 				<th>검수상태</th> -->
 			</tr>
 		</thead>
 		<tbody>	            
@@ -161,7 +136,7 @@
 				
 				<td>
 				<c:choose>
-					<c:when test="${(vo.total_defQty /vo.plan_qty*100) > 3 }">
+					<c:when test="${(vo.total_defQty /vo.plan_qty*100) > 2.9999 }">
 						<span style="color: red;">
 							<fmt:formatNumber value="${(vo.total_defQty /vo.plan_qty*100) }" pattern="#.###"/>%
 						</span>
@@ -173,7 +148,6 @@
 				</td>
 				<td>${vo.emp_name }</td>
 				<td><fmt:formatDate value="${vo.qc_date }" pattern="yyyy-MM-dd HH:mm:ss"/> </td>
-<%-- 				<td>${vo.qc_status }</td> --%>
 			</tr>
 			</c:forEach>
 	</tbody>
@@ -196,9 +170,7 @@
 		</div>
 	</div>
 	<!-- 	페이징 처리  -->
-	</div>
-<!-- 								<button class="btn btn-success btn-fw" type="submit"> -->
-<!-- 									등록</button> -->
+								</div>
 							</form>
 						</div>
 					</div>

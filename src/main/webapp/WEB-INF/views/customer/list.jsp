@@ -64,7 +64,7 @@
 									
 											<!-- 거래처목록 테이블 -->
 											<div class="table-responsive">
-									            <table class="table table-hover" style="text-align :center;">
+									            <table class="table table-hover" style="text-align :center; table-layout:fixed;" >
 									              <thead>
 									                <tr>
 									                  <th><input type="checkbox" id="checkAll" onclick="allCheckBox();"></th>
@@ -128,7 +128,10 @@
 	<script type="text/javascript">
 		// 거래처등록 새창열기
 		function insertPop(){
-		  var insertPop = window.open('/customer/insert', '거래처등록', 'width=1000px,height=460px');
+			var width = screen.width/1.5;
+    	    var height = screen.height/2;
+			
+		  var insertPop = window.open('/customer/insert', '거래처등록', 'width='+width+',height='+height);
 		  
 		  if(insertPop == null){
 			  alert("팝업이 차단되었습니다. 차단을 해제하세요.");

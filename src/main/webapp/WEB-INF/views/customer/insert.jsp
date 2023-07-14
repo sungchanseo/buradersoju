@@ -22,7 +22,22 @@
 </head>
 <body style="padding: 2%;">
 <script>
-//우편번호 자동입력 api 메소드
+
+	//사업자등록번호 하이픈 정규식
+	const hypenReg = (target) => {
+			target.value = target.value
+	   .replace(/[^0-9]/g, '')
+	   .replace(/^(\d{3})(\d{2})(\d{5})$/, `$1-$2-$3`);
+	}
+	
+	//전화번호 하이픈 정규식
+	const hypenTel = (target) => {
+			target.value = target.value
+	   .replace(/[^0-9]/g, '')
+	   .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
+	}
+	
+	//우편번호 자동입력 api 메소드
 	function addr() {
 		new daum.Postcode({
 			    oncomplete : function(data) {
@@ -64,28 +79,28 @@
 					<label><input type="radio" name="cust_type" id="cust_type" value="개인">개인</label>
 				</td>
 				<th>사업자등록번호</th>
-				<td><input type="text" name="reg_num" id="reg_num" placeholder="숫자만 기입하세요." maxlength="10">
+				<td><input type="text" name="reg_num" id="reg_num" placeholder="숫자만 기입하세요." maxlength="12" oninput="hypenReg(this)">
 				<span id="regCheckMsg"></span>
 				</td>
 			</tr>
 			<tr>
 				<th>거래처이름</th>
 				<td><input type="text" name="cust_name" id="cust_name" placeholder="상호를 입력하세요."></td>
-				<th>담당자이름</th>
+				<th>사내담당자이름</th>
 				<td><input type="text" name="emp_name" id="emp_name" placeholder="담당자이름을 입력하세요." onclick="empPop();">
 				<input type="hidden" name="emp_id" id="emp_id">
 				</td>
 			</tr>
 			<tr>
-				<th>대표자명</th>
+				<th>거래처담당자</th>
 				<td><input type="text" name="owner_name" id="owner_name" placeholder="대표자명을 입력하세요."></td>
-				<th>담당자전화번호</th>
+				<th>사내담당자연락처</th>
 				<td><input type="tel" name="emp_tel" id="emp_tel" placeholder="직원검색으로 입력됩니다." readonly></td>
 			</tr>
 			<tr>
-				<th>대표전화</th>
-				<td><input type="tel" name="main_phone" id="main_phone" placeholder="대표번호를 입력하세요."></td>
-				<th>담당자이메일</th>
+				<th>거래처연락처</th>
+				<td><input type="tel" name="main_phone" id="main_phone" placeholder="전화번호를 입력하세요." oninput="hypenTel(this)" maxlength="13"></td>
+				<th>사내담당자이메일</th>
 				<td><input type="email" name="emp_email" id="emp_email" placeholder="직원검색으로 입력됩니다." readonly></td>
 			</tr>
 			<tr>

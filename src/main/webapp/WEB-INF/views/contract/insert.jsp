@@ -17,6 +17,52 @@
 /* 	table{table-layout:fixed;} */
 </style>
 </head>
+<script type="text/javascript">
+	//수주처 검색 및 자동완성 기능 
+	function custPop(){
+		var custPop = window.open('/contract/custFind', '수주처검색', 'width=700px,height=520px');
+		
+		if(custPop == null){
+			 Swal.fire({
+		            icon: 'warning',				// Alert 타입
+		            title: '팝업이 차단되었습니다.',	// Alert 제목
+		            text: '차단을 해제하세요.',		// Alert 내용
+		            confirmButtonText: '확인',		// Alert 버튼내용
+	 		});
+		  }
+	//		custPop.moveBy(100,100);
+	}//custPop END
+	
+	//상품명 검색 및 자동완성 기능 
+	function productPop(){
+		var productPop = window.open('/contract/productFind', '상품검색', 'width=300px,height=500px');
+		
+		if(productPop == null){
+			  Swal.fire({
+		            icon: 'warning',				// Alert 타입
+		            title: '팝업이 차단되었습니다.',	// Alert 제목
+		            text: '차단을 해제하세요.',		// Alert 내용
+		            confirmButtonText: '확인',		// Alert 버튼내용
+	    		});
+		  }
+	//		productPop.moveBy(100,100);
+	}//productPop END
+	
+	//직원정보 검색 및 자동완성 기능 
+	function empPop(){
+		var empPop = window.open('/contract/empFind', '직원검색', 'width=700px,height=450px');
+		
+		if(empPop == null){
+			Swal.fire({
+	            icon: 'warning',				// Alert 타입
+	            title: '팝업이 차단되었습니다.',	// Alert 제목
+	            text: '차단을 해제하세요.',		// Alert 내용
+	            confirmButtonText: '확인',		// Alert 버튼내용
+			});
+		  }
+	//		empPop.moveBy(100,100);
+	}//empPop END
+</script>
 <body style="padding: 2%;">
 	<h1 style="display:inline;">수주 등록</h1>
 	<form action="" role="form" id="fr" method="post" style="display:inline;" onsubmit="return false;">
@@ -57,51 +103,6 @@
 <!-- 	http://localhost:8088/contract/list -->
 <!-- 	제이쿼리 -->
 	<script>
-	
-	//수주처 검색 및 자동완성 기능 
-	function custPop(){
-		var custPop = window.open('/contract/custFind', '수주처검색', 'width=700px,height=520px');
-		
-		if(custPop == null){
-			 Swal.fire({
-		            icon: 'warning',				// Alert 타입
-		            title: '팝업이 차단되었습니다.',	// Alert 제목
-		            text: '차단을 해제하세요.',		// Alert 내용
-		            confirmButtonText: '확인',		// Alert 버튼내용
-     		});
-		  }
-// 		custPop.moveBy(100,100);
-	}//custPop END
-	
-	//상품명 검색 및 자동완성 기능 
-	function productPop(){
-		var productPop = window.open('/contract/productFind', '상품검색', 'width=300px,height=500px');
-		
-		if(productPop == null){
-			  Swal.fire({
-		            icon: 'warning',				// Alert 타입
-		            title: '팝업이 차단되었습니다.',	// Alert 제목
-		            text: '차단을 해제하세요.',		// Alert 내용
-		            confirmButtonText: '확인',		// Alert 버튼내용
-        		});
-		  }
-// 		productPop.moveBy(100,100);
-	}//productPop END
-	
-	//직원정보 검색 및 자동완성 기능 
-	function empPop(){
-		var empPop = window.open('/contract/empFind', '직원검색', 'width=700px,height=450px');
-		
-		if(empPop == null){
-			Swal.fire({
-	            icon: 'warning',				// Alert 타입
-	            title: '팝업이 차단되었습니다.',	// Alert 제목
-	            text: '차단을 해제하세요.',		// Alert 내용
-	            confirmButtonText: '확인',		// Alert 버튼내용
-    		});
-		  }
-// 		empPop.moveBy(100,100);
-	}//empPop END
 	
 	$(document).ready(function(){
 		

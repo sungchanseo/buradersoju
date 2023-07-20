@@ -65,11 +65,7 @@ public class OrderController {
 		String order_in_id = request.getParameter("order_in_id");
 		String ma_in_name = request.getParameter("ma_in_name");
 		String order_empName = request.getParameter("order_empName");
-		
-//		 if(startDate == null && endDate == null) {
-//			startDate = "2023-07-01";
-//			endDate = "2023-07-31";
-//		}
+
 		 pvo.setStartDate(startDate);
 		 pvo.setEndDate(endDate);
 		 pvo.setOrder_id(order_in_id);

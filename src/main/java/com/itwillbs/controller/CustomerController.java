@@ -30,7 +30,6 @@ import com.itwillbs.service.EmployeeService;
 import com.itwillbs.service.PagingService;
 
 @Controller
-//@RestController
 @RequestMapping(value = "/customer/*")
 public class CustomerController {
 
@@ -44,9 +43,6 @@ public class CustomerController {
 	private PagingService pageService;
 	@Inject
 	private EmployeeService empService;
-
-	// http://localhost:8088/test/customer/list
-	// http://localhost:8088/customer/list
 
 	// 거래처목록 보기
 	@RequestMapping(value = "/list", method = RequestMethod.GET)

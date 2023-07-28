@@ -13,7 +13,6 @@ import com.itwillbs.service.CustomerService;
  * REST방식을 처리하는 콘트롤러 
  * 다양한 ajax를 전달받아 처리한다. 
  * @author YURAN
- *
  */
 @RestController
 @RequestMapping(value="/rests")

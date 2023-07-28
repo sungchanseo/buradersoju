@@ -23,15 +23,15 @@ public class ContractDAOTest {
 	 @Autowired
 	 private ContractService cservice;
 	 
-//	 @Test
+	 @Test
 	 public void insertContract() throws Exception{
 		 logger.debug("^^^^^^^^^^^^^^^^ContractDAOTest : 테스트 시작합니다!");
 		 
 		 ContractVO cvo = new ContractVO();
 		 cvo.setCont_id("CO20230101008");
 		 cvo.setCont_qty(100);
-		 cvo.setProduct_name("가가멜");
-		 cvo.setCont_emp("고길동");
+		 cvo.setProduct_name("홍길동");
+		 cvo.setCont_emp("김철수");
 		 cdao.insertContract(cvo);
 	 }
 	 

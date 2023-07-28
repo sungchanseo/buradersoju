@@ -20,7 +20,7 @@ public class CustomerServiceImpl implements CustomerService {
 	private CustomerDAO cdao;
 	@Inject
 	private PagingService pageService;
-	
+
 	@Override
 	public PagingVO setPageInfoForCustomer(PagingVO pvo) throws Exception{
 		logger.debug("@@@@@@CustomerService : setPageInfoForCustomer호출!");
@@ -81,7 +81,7 @@ public class CustomerServiceImpl implements CustomerService {
 			result = prefix + countPart;
 		}
 		logger.debug("@@@@@@ContractService : result={}", result);
-		
+
 		vo.setCust_id(result);
 		
 		cdao.insertCustomer(vo);

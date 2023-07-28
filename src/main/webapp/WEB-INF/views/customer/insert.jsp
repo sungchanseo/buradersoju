@@ -156,9 +156,11 @@
 		//사업자번호 중복확인 ajax 메소드
 		  $('#reg_num').keyup(function(){
 			 $.ajax({
-				  url : "/customer/regCheck",
-				  data: {"reg_num": $('#reg_num').val()}, 
-				  dataType : "text", //String 타입 데이타를 전달하므로 text로 전달한다. 
+// 				  url : "/customer/regCheck",
+				  url : "/rests/"+$('#reg_num').val(),
+				  type : "get",
+// 				  data: {"reg_num": $('#reg_num').val()}, 
+// 				  dataType : "text", //String 타입 데이타를 전달하므로 text로 전달한다. 
 				  success:function(data){ //콘츄롤러에 갔다가 온 값을 data에 저장한다. 
 					  const result = $.trim(data);
 						  if(result=="yes" && !$('#reg_num').val() == ""){

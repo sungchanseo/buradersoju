@@ -15,11 +15,6 @@
 	<!-- DataSource : 디비연결정보 객체 -->
 	<bean id="dataSource"
 	      class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-<!-- 	    <property name="driverClassName"  -->
-<!-- 	              value="com.mysql.cj.jdbc.Driver"/> -->
-<!-- 	    <property name="url"  -->
-<!-- 	              value="jdbc:mysql://localhost:3306/springdb" /> -->
-	              
    	    <property name="driverClassName" 
 	              value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
 	    <property name="url" 
@@ -54,7 +49,6 @@
 	<!-- 외부 객체 등록 -->
 	<context:component-scan base-package="com.itwillbs.persistence"/>
 	<context:component-scan base-package="com.itwillbs.service"/>
-<!-- 	<bean id="mdao" 
-           class="com.itwillbs.persistence.MemberDAOImpl"></bean> -->
+	<context:component-scan base-package="com.itwillbs.security"/>
 
 </beans>

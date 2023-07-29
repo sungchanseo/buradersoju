@@ -46,6 +46,7 @@
                   </div>
                   <div class="my-2 d-flex justify-content-between align-items-center">
                   </div>
+                 <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
                 </form>
             </div>
           </div>

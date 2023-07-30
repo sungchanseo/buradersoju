@@ -11,24 +11,33 @@
 	<bean id="customAccessDenied" class="com.itwillbs.security.CustomAccessDeniedHandler"/>
 	<bean id="customLoginSuccess" class="com.itwillbs.security.CustomLoginSuccessHandler"/>
 	<!-- 암호화 없이 사용하는 임시비밀번호 객체 -->
-	<bean id="customNoPassword" class="com.itwillbs.security.CustomNoPasswordEncoder"/> 
+<!-- 	<bean id="customNoPassword" class="com.itwillbs.security.CustomNoPasswordEncoder"/>  -->
 	<!-- 비밀번호 인코딩 빈객체 생성 -->
-<!-- 	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/> 	 -->
+	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/> 	
 	
 	<security:http>
 		
-		<security:intercept-url pattern="/loginForm" access="permitAll" />
+		<security:intercept-url pattern="/main/login" access="permitAll"/>
 		<security:intercept-url pattern="/main" access="hasRole('ROLE_MEMBER')" />
-<!-- 		<security:intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')" /> -->
+		<security:intercept-url pattern="/customer/*" access="hasRole('ROLE_MEMBER')"/> 
+		<security:intercept-url pattern="/employee/*" access="hasRole('ROLE_MEMBER')"/> 
+		<security:intercept-url pattern="/contract/*" access="hasRole('ROLE_MEMBER')"/> 
+		<security:intercept-url pattern="/purchasing/*" access="hasRole('ROLE_MEMBER')"/> 
+		<security:intercept-url pattern="/notice/*" access="hasRole('ROLE_MEMBER')"/> 
+		<security:intercept-url pattern="/production/*" access="hasRole('ROLE_MEMBER')"/> 
+		<security:intercept-url pattern="/quality/*" access="hasRole('ROLE_MEMBER')"/> 
+		<security:intercept-url pattern="/workOrder/*" access="hasRole('ROLE_MEMBER')"/> 
 		
 		<!-- 시큐리티 로그인페이지(기본값) -->
-		<security:form-login login-page="/myLogin" authentication-success-handler-ref="customLoginSuccess"/>
-		
-		<!-- 로그아웃 -->
-		<security:logout logout-url="/myLogout" invalidate-session="true"/>
+		<security:form-login login-page="/main/login" authentication-success-handler-ref="customLoginSuccess"/>
 		
 		<!-- 에러발생(접근권한) 처리 페이지 -->
+<!-- 		<security:access-denied-handler error-page="/main/accessError"/> -->
 		<security:access-denied-handler ref="customAccessDenied"/>
+
+		<!-- 로그아웃 -->
+		<security:logout logout-url="/" invalidate-session="true"/>
+		
 		
 	</security:http>
 
@@ -39,12 +48,13 @@
     	
     		<security:jdbc-user-service data-source-ref="dataSource" 
     		users-by-username-query="select emp_id, emp_pw, enabled from employee where emp_id=?" 
-    		authorities-by-username-query="select emp_id, auth from employee_auth where emp_id=?"/>
+    		authorities-by-username-query="select emp_id, auth from employee_auth where emp_id=?"
+    		/>
     		
     		<!-- 비밀번호 없이 인코딩할 때 -->
-    		<security:password-encoder ref="customNoPassword"/>  
+<!--     		<security:password-encoder ref="customNoPassword"/>   -->
     		<!-- 비밀번호 인코딩할 때 -->
-<!--     		<security:password-encoder ref="bcryptPasswordEncoder"/>  -->
+    		<security:password-encoder ref="bcryptPasswordEncoder"/> 
     		
     	</security:authentication-provider>
     	

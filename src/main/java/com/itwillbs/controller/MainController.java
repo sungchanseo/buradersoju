@@ -21,17 +21,18 @@ public class MainController {
 		
 		logger.info("C: 메인페이지 GET");
 		
-		// 세션에서 사용자 ID 값 확인
-		HttpSession session = request.getSession();
-		String emp_id = (String) session.getAttribute("emp_id");
+//		// 세션에서 사용자 ID 값 확인
+//		HttpSession session = request.getSession();
+//		String emp_id = (String) session.getAttribute("emp_id");
 		
-		// 사용자 ID가 없으면 로그인 페이지로 리다이렉트
-		if (emp_id == null) {
-			return "redirect:/main/login";
-		}
-		
-		// 세션에 저장된 사용자 ID가 있는 경우, 해당 정보를 모델에 추가하고 main 페이지로 이동
-		model.addAttribute("emp_id", emp_id);
-		return "main/main"; // main 폴더 안에 있는 main 페이지의 경로를 수정해줍니다.
+//		// 사용자 ID가 없으면 로그인 페이지로 리다이렉트
+//		if (emp_id == null) {
+//			return "redirect:/main/login";
+//		}
+//		
+//		// 세션에 저장된 사용자 ID가 있는 경우, 해당 정보를 모델에 추가하고 main 페이지로 이동
+//		model.addAttribute("emp_id", emp_id);
+//		return "main/main"; // main 폴더 안에 있는 main 페이지의 경로를 수정해줍니다.
+		return "/main/main";
 	}
 }

@@ -53,9 +53,9 @@ public class CustomerController {
 
 		
 		//로그인 세션이 없을 때 로그인 페이지로 이동한다. 
-		if(session.getAttribute("emp_id") == null) {
-			return "redirect:/main/login";
-		}
+//		if(session.getAttribute("emp_id") == null) {
+//			return "redirect:/main/login";
+//		}
 		
 		List<Object> customerList=null;
 		

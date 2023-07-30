@@ -28,25 +28,26 @@
           <div class="col-lg-4 mx-auto">
             <div class="auth-form-transparent text-left p-5 text-center" style="text-align: center;">
                <img src="${pageContext.request.contextPath}/resources/images/logo.png" alt="로고" style="width: 100%;">
-              <form class="pt-5" action="" method="post" onsubmit="saveId()">
-                  <div class="form-group">
-                    <input type="text" class="form-control form-control-lg" name="emp_id" id="emp_id" placeholder="사번을 입력하세요 :)" value="${cookie.emp_id}" style="color: #D8D8D8;">
-                  </div>
-                  <div class="form-group">
-                    <input type="password" class="form-control form-control-lg" name="emp_pw" id="emp_pw" placeholder="비밀번호를 입력하세요 :)">
-                  </div>
-                   <div class="form-check-label">
-                      <label class="form-check-label text-muted">
-                        <input type="checkbox" class="form-check-input" id="rememberId" onclick="toggleRememberId()">
-                        	아이디 기억하기
-                      </label>
-                    </div>
-                  <div class="mt-3" style="text-align: center;">
-                    <button class="btn btn-block btn-success btn-lg font-weight-medium auth-form-btn" type="submit">로그인</button>
-                  </div>
-                  <div class="my-2 d-flex justify-content-between align-items-center">
-                  </div>
-                 <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
+              <form class="pt-5" action="/login" method="post">
+			                  <div class="form-group">
+			                    <input type="text" class="form-control form-control-lg" name="username" id="emp_id" placeholder="사번을 입력하세요 :)" value="${cookie.emp_id}" style="color: #D8D8D8;">
+			                  </div>
+			                  <div class="form-group">
+			                    <input type="password" class="form-control form-control-lg" name="password" id="emp_pw" placeholder="비밀번호를 입력하세요 :)">
+			                  </div>
+			                   <div class="form-check-label">
+			                      <label class="form-check-label text-muted">
+			                        <input type="checkbox" class="form-check-input" id="rememberId" onclick="toggleRememberId()">
+			                        	아이디 기억하기
+			                      </label>
+			                    </div>
+			                	<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }"/>
+			                  <div class="mt-3" style="text-align: center;">
+			                    <button class="btn btn-block btn-success btn-lg font-weight-medium auth-form-btn" type="submit">로그인</button>
+			                  </div>
+			                  <div class="my-2 d-flex justify-content-between align-items-center">
+			                  </div>
+			                 
                 </form>
             </div>
           </div>

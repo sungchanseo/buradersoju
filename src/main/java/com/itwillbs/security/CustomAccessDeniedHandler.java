@@ -1,5 +1,7 @@
 package com.itwillbs.security;
-
+/**
+ * 로그인에 실패했을 때 처리하는 로직에 관한 클래스 
+ */
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -22,6 +24,6 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler{
 		logger.debug(" 잘못된 접근 (접근권한 없음!!) ");
 		logger.debug(" 에러페이지 출력!!! ");
 		
-		response.sendRedirect("/accessErr");
+		response.sendRedirect("/main/accessError");
 	}
 }

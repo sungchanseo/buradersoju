@@ -3,7 +3,11 @@ package com.itwillbs.security;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
+/**
+ * 비밀번호 인코딩을 하지 않을 때에 관한 클래스 -> 실제 사용하지 않고 테스트 용도로 사용 
+ * @author YURAN
+ *
+ */
 public class CustomNoPasswordEncoder implements PasswordEncoder {
 
 	private static final Logger logger = LoggerFactory.getLogger(CustomNoPasswordEncoder.class);	

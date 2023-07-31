@@ -28,7 +28,9 @@
           <div class="col-lg-4 mx-auto">
             <div class="auth-form-transparent text-left p-5 text-center" style="text-align: center;">
                <img src="${pageContext.request.contextPath}/resources/images/logo.png" alt="로고" style="width: 100%;">
-              <form class="pt-5" action="/login" method="post">
+             
+             
+             	 <form class="pt-5" action="/login" method="post">
 			                  <div class="form-group">
 			                    <input type="text" class="form-control form-control-lg" name="username" id="emp_id" placeholder="사번을 입력하세요 :)" value="${cookie.emp_id}" style="color: #D8D8D8;">
 			                  </div>
@@ -47,8 +49,9 @@
 			                  </div>
 			                  <div class="my-2 d-flex justify-content-between align-items-center">
 			                  </div>
-			                 
                 </form>
+                
+                
             </div>
           </div>
         </div>

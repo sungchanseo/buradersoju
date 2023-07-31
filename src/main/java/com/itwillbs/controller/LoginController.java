@@ -23,6 +23,17 @@ public class LoginController {
 //	@Inject
 //	private LoginDAO logdao; 
 	
+	// 접근 권한이 없을 때 
+	@RequestMapping(value = "/accessError",method = RequestMethod.GET)
+	public void accessErrorGET(Authentication auth, Model model) throws Exception {
+		logger.debug("accessErrorGET() 호출!");
+		logger.debug("accessDenied : ", auth);
+		
+		model.addAttribute("auth", auth);
+		
+	}
+	
+	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginGET(String error, String logout, Model model) throws Exception {
 		logger.debug("LoginController : loginGET 호출!");
@@ -51,14 +62,6 @@ public class LoginController {
 		return "redirect:/main/login";
 	}
 
-	// 접근 권한이 없을 때 
-	@RequestMapping(value = "/accessError",method = RequestMethod.GET)
-	public String accessErrorGET(Authentication auth) {
-		logger.debug("accessErrorGET() 호출!");
-		logger.debug("accessDenied : ", auth);
-		
-		return "redirect:/main/login";
-	}
 
 //	//로그인
 //	@RequestMapping(value = "/login", method = RequestMethod.GET)

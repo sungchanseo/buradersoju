@@ -52,8 +52,9 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 				response.sendRedirect("/main");
 				return;
 			}// if END
-			
-			response.sendRedirect("/main/login");
+				
+			logger.debug("인증에 실패했습니다!");
+			response.sendRedirect("/main/accessError");
 			
 		}// method END
 

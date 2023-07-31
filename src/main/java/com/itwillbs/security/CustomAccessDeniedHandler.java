@@ -1,7 +1,5 @@
 package com.itwillbs.security;
-/**
- * 로그인에 실패했을 때 처리하는 로직에 관한 클래스 
- */
+
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -12,7 +10,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
-
+/**
+ * 로그인에 실패했을 때 처리하는 로직에 관한 클래스 
+ */
 public class CustomAccessDeniedHandler implements AccessDeniedHandler{
 
 	private static final Logger logger = LoggerFactory.getLogger(CustomAccessDeniedHandler.class);

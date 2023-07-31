@@ -1,27 +1,18 @@
 package com.itwillbs.controller;
 
 
-import java.security.Principal;
-
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.itwillbs.domain.LoginVO;
 import com.itwillbs.persistence.LoginDAO;
-import com.itwillbs.service.LoginService;
 
 @Controller
 @RequestMapping(value = "/main/*")
@@ -29,9 +20,46 @@ public class LoginController {
 
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
-	@Inject
-	private LoginDAO logdao; 
+//	@Inject
+//	private LoginDAO logdao; 
 	
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String loginGET(String error, String logout, Model model) throws Exception {
+		logger.debug("LoginController : loginGET 호출!");
+		logger.debug("Error : "+error);
+		logger.debug("Logout : "+logout);
+		
+		if(error != null) {
+			model.addAttribute("error", "Login Error Check Your Account");
+		}
+		if(logout !=null) {
+			model.addAttribute("logout", "LOGOUT!");
+		}
+		
+		return "/main/loginForm";
+	}
+	
+	
+	//로그아웃
+	@RequestMapping(value = "/logout",method = RequestMethod.GET)
+	public String logoutGET(HttpSession session) {
+		logger.debug("logoutGET() 호출!");
+		
+		// 세션정보 초기화
+		session.invalidate();
+		
+		return "redirect:/main/login";
+	}
+
+	// 접근 권한이 없을 때 
+	@RequestMapping(value = "/accessError",method = RequestMethod.GET)
+	public String accessErrorGET(Authentication auth) {
+		logger.debug("accessErrorGET() 호출!");
+		logger.debug("accessDenied : ", auth);
+		
+		return "redirect:/main/login";
+	}
+
 //	//로그인
 //	@RequestMapping(value = "/login", method = RequestMethod.GET)
 //	public String loginGET() throws Exception{
@@ -62,54 +90,4 @@ public class LoginController {
 //		    return "main/loginError";
 //		}
 //	}
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String loginGET(String error, String logout, Model model) throws Exception {
-		logger.debug("LoginController : loginGET 호출!");
-		logger.debug("Error : "+error);
-		logger.debug("Logout : "+logout);
-		
-		if(error != null) {
-			model.addAttribute("error", "Login Error Check Your Account");
-		}
-		if(logout !=null) {
-			model.addAttribute("logout", "LOGOUT!");
-		}
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		UserDetails userDetails = (UserDetails)principal;
-
-		String username = ((UserDetails) principal).getUsername();
-		
-		logger.debug("접속한 아이디 : {}", username);
-//		String emp_id = principal.getName();
-//		LoginVO lvo = logdao.readMember(emp_id);
-//		model.addAttribute("emp_id", lvo.getEmp_id());
-//		model.addAttribute("emp_name", lvo.getEmp_name());
-//		model.addAttribute("emp_department", lvo.getEmp_department());
-//		model.addAttribute("emp_image", lvo.getEmp_image());
-		
-		
-		return "/main/loginForm";
-	}
-	
-	
-	//로그아웃
-	@RequestMapping(value = "/logout",method = RequestMethod.GET)
-	public String logoutGET(HttpSession session) {
-		logger.debug("logoutGET() 호출!");
-		
-		// 세션정보 초기화
-		session.invalidate();
-		
-		return "redirect:/main/login";
-	}
-
-	// 접근 권한이 없을 때 
-	@RequestMapping(value = "/accessError",method = RequestMethod.GET)
-	public String accessErrorGET(Authentication auth) {
-		logger.debug("accessErrorGET() 호출!");
-		logger.debug("accessDenied : ", auth);
-		
-		return "redirect:/main/login";
-	}
-
 }

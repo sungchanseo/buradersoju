@@ -10,10 +10,11 @@
 	<!-- 시큐리티에 필요한 객체 생성  -->
 	<bean id="customAccessDenied" class="com.itwillbs.security.CustomAccessDeniedHandler"/>
 	<bean id="customLoginSuccess" class="com.itwillbs.security.CustomLoginSuccessHandler"/>
+	<bean id="customLoginFailure" class="com.itwillbs.security.CustomAuthenticationFailureHandler"/>	
 	<!-- 암호화 없이 사용하는 임시비밀번호 객체 -->
 <!-- 	<bean id="customNoPassword" class="com.itwillbs.security.CustomNoPasswordEncoder"/>  -->
 	<!-- 비밀번호 인코딩 빈객체 생성 -->
-	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/> 	
+	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/> 
 	
 	<security:http>
 		
@@ -29,12 +30,13 @@
 		<security:intercept-url pattern="/workOrder/*" access="hasRole('ROLE_MEMBER')"/> 
 		
 		<!-- 시큐리티 로그인페이지(기본값) -->
-		<security:form-login login-page="/main/login" authentication-success-handler-ref="customLoginSuccess"/>
+		<security:form-login login-page="/main/login" 
+			authentication-success-handler-ref="customLoginSuccess"
+			authentication-failure-handler-ref="customLoginFailure"/>
 		
 		<!-- 에러발생(접근권한) 처리 페이지 -->
-<!-- 		<security:access-denied-handler error-page="/main/accessError"/> -->
 		<security:access-denied-handler ref="customAccessDenied"/>
-
+		
 		<!-- 로그아웃 -->
 		<security:logout logout-url="/" invalidate-session="true"/>
 		

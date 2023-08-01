@@ -33,6 +33,14 @@ public class LoginController {
 		
 	}
 	
+	//로그인 실패
+	@RequestMapping(value = "/loginError", method = RequestMethod.GET)
+	public String loginFailGET() {
+		logger.debug("loginFailGET() 호출!");
+		
+		return "/main/loginError";
+	}
+	
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginGET(String error, String logout, Model model) throws Exception {

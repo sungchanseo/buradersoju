@@ -31,7 +31,7 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 		public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 				Authentication authentication) throws IOException, ServletException {
 			//인증성공 했을 때 처리하는 동작들
-			logger.debug("onAuthenticationSuccess() 호출 완료!");
+			logger.debug("CustomLoginSuccessHandler : onAuthenticationSuccess() 호출 완료!");
 			
 			//로그인 유저의 권한에 따른 페이지 이동
 			//기존의 권한정보 확인 

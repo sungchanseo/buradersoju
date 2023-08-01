@@ -20,7 +20,8 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler{
 	@Override
 	public void handle(HttpServletRequest request, HttpServletResponse response,
 			AccessDeniedException accessDeniedException) throws IOException, ServletException {
-		
+		logger.debug(" CustomAccessDeniedHandler 호출!!!! ");
+
 		logger.debug(" 잘못된 접근 (접근권한 없음!!) ");
 		logger.debug(" 에러페이지 출력!!! ");
 		

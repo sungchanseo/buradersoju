@@ -13,10 +13,14 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.ui.Model;
 
+import com.itwillbs.domain.EmployeeVO;
 import com.itwillbs.domain.LoginVO;
+import com.itwillbs.service.EmployeeService;
 import com.itwillbs.service.LoginService;
 /**
  * 스프링 로그인 성공에 관한 클래스 
@@ -27,6 +31,9 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 
 		//로거출력을 위한 로거객체 생성 
 		private static final Logger logger = LoggerFactory.getLogger(CustomLoginSuccessHandler.class);		
+		
+		@Inject
+		private EmployeeService empService;
 		
 		public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 				Authentication authentication) throws IOException, ServletException {
@@ -49,6 +56,18 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 			if(roleNames.contains("ROLE_MEMBER")) {
 				logger.debug("ROLE_MEMBER 권한 있음!");
 					
+			    Object principal = authentication.getPrincipal();
+			    UserDetails userDetails = (UserDetails) principal;
+	            String username = userDetails.getUsername();
+	            
+	            EmployeeVO vo = empService.getEmployee(username);
+	            
+	            HttpSession session = request.getSession();
+	            session.setAttribute("emp_id", vo.getEmp_id());
+				session.setAttribute("emp_name", vo.getEmp_name());
+				session.setAttribute("emp_department", vo.getEmp_department());
+				session.setAttribute("emp_image", vo.getEmp_image());
+				
 				response.sendRedirect("/main");
 				return;
 			}// if END

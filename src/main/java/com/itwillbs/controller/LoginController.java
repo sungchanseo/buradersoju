@@ -12,7 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.itwillbs.domain.LoginVO;
 import com.itwillbs.persistence.LoginDAO;
+import com.itwillbs.service.LoginService;
 
 @Controller
 @RequestMapping(value = "/main/*")
@@ -20,8 +22,8 @@ public class LoginController {
 
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
-//	@Inject
-//	private LoginDAO logdao; 
+	@Inject
+	private LoginService service; 
 	
 	// 접근 권한이 없을 때 
 	@RequestMapping(value = "/accessError",method = RequestMethod.GET)
@@ -30,7 +32,6 @@ public class LoginController {
 		logger.debug("accessDenied : ", auth);
 		
 		model.addAttribute("auth", auth);
-		
 	}
 	
 	//로그인 실패
@@ -41,7 +42,7 @@ public class LoginController {
 		return "/main/loginError";
 	}
 	
-	
+	//로그인페이지 호출
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginGET(String error, String logout, Model model) throws Exception {
 		logger.debug("LoginController : loginGET 호출!");

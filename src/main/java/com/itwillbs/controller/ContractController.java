@@ -53,11 +53,11 @@ public class ContractController {
 	public String contractListGET(PagingVO pvo, Model model, HttpSession session) throws Exception {
 		logger.debug("%%%%%%%%%%ContractController : 수주 리스트 조회!");
 
-		//로그인 세션이 없을 때 로그인 페이지로 이동한다. 
-		if(session.getAttribute("emp_id") == null) {
-			return "redirect:/main/login";
-		}
-		
+//		//로그인 세션이 없을 때 로그인 페이지로 이동한다. 
+//		if(session.getAttribute("emp_id") == null) {
+//			return "redirect:/main/login";
+//		}
+//		
 		List<Object> contractList = null;
 
 		// 수주 목록을 가져오는 contService 호출

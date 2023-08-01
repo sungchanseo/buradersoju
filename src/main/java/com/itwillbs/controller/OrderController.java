@@ -47,16 +47,16 @@ public class OrderController {
 		logger.debug("@@@@@@@@@@ getOrderIdGET() 호출");
 
 		// 로그인 세션 제어
-				if(session.getAttribute("emp_id") == null) {
-					
-				return "redirect:/main/login";
-				
-				}
-				if(session.getAttribute("emp_name") == null) {
-					
-					return "redirect:/main/login";
-					
-					}
+//				if(session.getAttribute("emp_id") == null) {
+//					
+//				return "redirect:/main/login";
+//				
+//				}
+//				if(session.getAttribute("emp_name") == null) {
+//					
+//					return "redirect:/main/login";
+//					
+//					}
 		
 		
 		// form 태그 정보 저장

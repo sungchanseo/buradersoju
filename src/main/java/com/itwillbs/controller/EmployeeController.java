@@ -238,10 +238,10 @@ public class EmployeeController {
 //		model.addAttribute("employeeList", employeeList);
 		
 		// 로그인 세션
-		if(session.getAttribute("emp_id") == null) {
-			return "redirect:/main/login";
-		}
-		
+//		if(session.getAttribute("emp_id") == null) {
+//			return "redirect:/main/login";
+//		}
+//		
 		List<Object> employeeList = null;
 		
 		//사원 목록을 가져오는 employeeService 호출

@@ -56,6 +56,9 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 			if(roleNames.contains("ROLE_MEMBER")) {
 				logger.debug("ROLE_MEMBER 권한 있음!");
 					
+				
+				//시큐리티에 저장된 username정보를 이용해서 디비에서 세션에 저장할 정보를 불러온다. 
+				//불러온 정보는 세숀에 저장한다. 
 			    Object principal = authentication.getPrincipal();
 			    UserDetails userDetails = (UserDetails) principal;
 	            String username = userDetails.getUsername();

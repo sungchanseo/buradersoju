@@ -14,6 +14,11 @@
 		VALUES (#{emp_id}, #{emp_pw}, #{emp_name}, #{emp_email}, #{emp_birth}, #{emp_gender}, #{emp_phone}, #{emp_tel}, #{emp_address}, #{emp_address_detail}, #{emp_image}, #{emp_department}, #{emp_position}, '재직', #{join_date}, #{absence_date}, #{rehabi_date}, #{resign_date}, '1')
 	</insert>
 	
+	<insert id="insertEmployeeAuth" parameterType="com.itwillbs.domain.EmployeeVO">
+		INSERT INTO employee_auth (emp_id, auth) 
+		VALUES (#{emp_id}, #{auth})
+	</insert>
+    
     <select id="getNextNumber" resultType="java.lang.Integer">
         SELECT COALESCE(MAX(CAST(SUBSTRING(emp_id, 5) AS UNSIGNED)), 0) + 1 FROM employee
     </select>

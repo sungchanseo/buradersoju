@@ -25,7 +25,7 @@ public class EmpInputTEST {
 	@Inject
 	private PasswordEncoder pwencoder;
 	
-	@Test
+//	@Test
 	public void 비밀번호인코딩수정하기() {
 		
 		EmployeeVO emp = new EmployeeVO();

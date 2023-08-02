@@ -42,6 +42,10 @@
 			                        <input type="checkbox" class="form-check-input" id="rememberId" onclick="toggleRememberId()">
 			                        	아이디 기억하기
 			                      </label>
+			                      <label class="form-check-label text-muted">	
+			                      <input type="checkbox" name="remember-me" class="form-check-input">
+			                        	자동 로그인 
+		                          </label>
 			                    </div>
 			                	<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }"/>
 			                  <div class="mt-3" style="text-align: center;">

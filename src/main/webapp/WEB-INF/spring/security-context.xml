@@ -38,8 +38,10 @@
 		<security:access-denied-handler ref="customAccessDenied"/>
 		
 		<!-- 로그아웃 -->
-		<security:logout logout-url="/" invalidate-session="true"/>
+		<security:logout logout-url="/" invalidate-session="true" delete-cookies="remember-me,JSESSION_ID"/>
 		
+		<!-- 자동로그인 설정  -->
+		<security:remember-me data-source-ref="dataSource" token-validity-seconds="604800"/>
 		
 	</security:http>
 

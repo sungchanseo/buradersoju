@@ -10,6 +10,9 @@ public interface EmployeeService {
 	// 사원 등록
 	public void insertEmployee(EmployeeVO vo);
 	
+	//사원 인증 등록
+	public void insertEmployeeAuth(EmployeeVO vo);
+	
 	// 사원 번호 자동 부여
 	public int getNextNumber() throws Exception;
 	

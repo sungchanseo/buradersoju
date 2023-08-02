@@ -15,6 +15,9 @@ public interface EmployeeDAO {
 	//C: 사원 등록
 	public void insertEmployee(EmployeeVO vo);
 	
+	//사원권한 등록 
+	public void insertEmployeeAuth(EmployeeVO vo);
+	
 	// 사원 번호 자동 부여
 	public int getNextNumber();
 	

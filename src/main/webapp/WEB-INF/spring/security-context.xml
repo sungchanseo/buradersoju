@@ -38,11 +38,11 @@
 		<!-- 에러발생(접근권한) 처리 페이지 -->
 		<security:access-denied-handler ref="customAccessDenied"/>
 		
-		<!-- 로그아웃 -->
-		<security:logout logout-url="/" invalidate-session="true" delete-cookies="remember-me,JSESSION_ID"/>
-		
 		<!-- 자동로그인 설정  -->
 		<security:remember-me data-source-ref="dataSource" token-validity-seconds="604800"/>
+		
+		<!-- 로그아웃 -->
+		<security:logout logout-url="/main/logout" invalidate-session="true" delete-cookies="remember-me,JESSION_ID"/>
 		
 	</security:http>
 

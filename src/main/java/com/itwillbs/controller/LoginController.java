@@ -2,18 +2,19 @@ package com.itwillbs.controller;
 
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.itwillbs.domain.LoginVO;
-import com.itwillbs.persistence.LoginDAO;
 import com.itwillbs.service.LoginService;
 
 @Controller
@@ -60,17 +61,40 @@ public class LoginController {
 	}
 	
 	
-	//로그아웃
-	@RequestMapping(value = "/logout",method = RequestMethod.GET)
-	public String logoutGET(HttpSession session) {
-		logger.debug("logoutGET() 호출!");
-		
-		// 세션정보 초기화
-		session.invalidate();
-		
-		return "redirect:/main/login";
-	}
+//	//로그아웃
+//	@RequestMapping(value = "/logout",method = RequestMethod.GET)
+//	public String logoutGET(HttpSession session, HttpServletRequest request) {
+//		logger.debug("logoutGET() 호출!");
+//		
+//		
+//		// 세션정보 초기화
+//		session.invalidate();
+//		
+//		return "redirect:/main/login";
+//	}
 
+	//로그아웃
+	@RequestMapping(value = "/logout")
+	public void logoutGET() {
+		logger.debug("logoutGET() 호출!");
+//		return "/main/loginForm";
+	}
+	
+//	@RequestMapping(value = "/logout",method = RequestMethod.GET)
+//	public String logout(HttpSession session, HttpServletRequest request) {
+//		// CSRF 토큰 가져오기
+//	    CsrfToken csrfToken = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
+//	    if (csrfToken != null) {
+//	        // CSRF 토큰 제거
+//	        String csrfTokenName = csrfToken.getParameterName();
+//	        session.removeAttribute(csrfTokenName);
+//	    }
+//
+//	    // 세션정보 초기화
+//	    session.invalidate();
+//	    
+//        return "/main/loginForm"; 
+//    }
 
 //	//로그인
 //	@RequestMapping(value = "/login", method = RequestMethod.GET)

@@ -16,7 +16,7 @@ import com.itwillbs.domain.LoginVO;
 import com.itwillbs.service.LoginService;
 
 @Controller
-@RequestMapping(value = "/main/*")
+//@RequestMapping(value = "/main/*")
 public class LoginController {
 	@Inject
 	private LoginService service;

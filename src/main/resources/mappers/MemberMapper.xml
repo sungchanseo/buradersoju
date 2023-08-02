@@ -1,1 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.itwillbs.mappers.MemberMapper">
+
+	<resultMap type="com.itwillbs.domain.EmployeeVO" id="memberMap">
+
+		<id property="emp_id" column="emp_id"/>
+
+		<result property="emp_pw" column="emp_pw"/>	
+		<result property="emp_name" column="emp_name"/>	
+		<result property="emp_email" column="emp_email"/>	
+		<result property="emp_birth" column="emp_birth"/>	
+		<result property="emp_gender" column="emp_gender"/>	
+		<result property="emp_phone" column="emp_phone"/>	
+		<result property="emp_tel" column="emp_tel"/>	
+		<result property="emp_address" column="emp_address"/>	
+		<result property="emp_address_detail" column="emp_address_detail"/>	
+		<result property="emp_image" column="emp_image"/>	
+		<result property="emp_department" column="emp_department"/>	
+		<result property="emp_position" column="emp_position"/>	
+		<result property="emp_status" column="emp_status"/>	
+		<result property="join_date" column="join_date"/>	
+		<result property="absence_date" column="absence_date"/>	
+		<result property="rehabi_date" column="rehabi_date"/>	
+		<result property="resign_date" column="resign_date"/>	
+		<result property="emp_hidden" column="emp_hidden"/>	
+		<result property="auth" column="auth"/>	
+	
+		<collection property="authList" resultMap="authMap"></collection>
+	
+	</resultMap>
+	
+	<resultMap type="com.itwillbs.domain.AuthVO" id="authMap">
+		<result property="emp_id" column="emp_id"/>
+		<result property="auth" column="auth"/>
+	</resultMap>
+	
+	<select id="read" resultMap="memberMap">
+		SELECT emp.emp_id, emp_name, emp_department, emp_img, auth.auth 
+		FROM employee emp LEFT JOIN employee_auth auth 
+		ON emp.emp_id = auth.emp_id 
+		WHERE emp.emp_id = #{emp_id}
+	</select>
+
+
+</mapper>

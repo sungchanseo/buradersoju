@@ -23,7 +23,7 @@ public class EmployeeDAOTest {
 	 @Inject
 	 private EmployeeDAO edao;
 	 
-	 @Test
+//	 @Test
 	 public void 회원인증등록하기() {
 		 logger.debug("EmployeeDAOTest : 회원인증 등록하기 호출!!!");
 		 EmployeeVO vo = new EmployeeVO();

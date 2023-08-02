@@ -18,6 +18,9 @@ public interface EmployeeDAO {
 	//사원권한 등록 
 	public void insertEmployeeAuth(EmployeeVO vo);
 	
+	// 맵퍼 read 
+	public EmployeeVO read(String emp_id);
+	
 	// 사원 번호 자동 부여
 	public int getNextNumber();
 	

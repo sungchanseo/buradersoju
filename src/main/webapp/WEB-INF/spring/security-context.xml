@@ -15,6 +15,7 @@
 <!-- 	<bean id="customNoPassword" class="com.itwillbs.security.CustomNoPasswordEncoder"/>  -->
 	<!-- 비밀번호 인코딩 빈객체 생성 -->
 	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/> 
+	<bean id="customUserDetailsService" class="com.itwillbs.security.CustomUserDetailsService"></bean>
 	
 	<security:http>
 		
@@ -48,12 +49,12 @@
     <!-- 인증 매니저 -->
     <security:authentication-manager>
     
-    	<security:authentication-provider>
+    	<security:authentication-provider user-service-ref="customUserDetailsService">
     	
-    		<security:jdbc-user-service data-source-ref="dataSource" 
-    		users-by-username-query="select emp_id, emp_pw, enabled from employee where emp_id=?" 
-    		authorities-by-username-query="select emp_id, auth from employee_auth where emp_id=?"
-    		/>
+<!--     		<security:jdbc-user-service data-source-ref="dataSource"  -->
+<!--     		users-by-username-query="select emp_id, emp_pw, enabled from employee where emp_id=?"  -->
+<!--     		authorities-by-username-query="select emp_id, auth from employee_auth where emp_id=?" -->
+<!--     		/> -->
     		
     		<!-- 비밀번호 없이 인코딩할 때 -->
 <!--     		<security:password-encoder ref="customNoPassword"/>   -->

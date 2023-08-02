@@ -84,4 +84,11 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		return empResult;
 	}
 
+	//맵퍼 read
+	@Override
+	public EmployeeVO read(String emp_id) {
+		logger.debug(" ResultMap read 호출");
+		logger.debug(" @@@@@emp_id " + emp_id);
+		return sqlSession.selectOne(NAMESPACE + ".read", emp_id);
+	}
 }

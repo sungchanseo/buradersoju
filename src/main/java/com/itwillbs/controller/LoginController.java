@@ -74,10 +74,10 @@ public class LoginController {
 //	}
 
 	//로그아웃
-	@RequestMapping(value = "/logout")
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public void logoutGET() {
 		logger.debug("logoutGET() 호출!");
-//		return "/main/loginForm";
+//		return "/main/logout";
 	}
 	
 //	@RequestMapping(value = "/logout",method = RequestMethod.GET)

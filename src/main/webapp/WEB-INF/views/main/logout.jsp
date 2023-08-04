@@ -5,8 +5,7 @@
 <body>
     <script>
         alert("로그아웃 되었습니다!");
-        window.history.replaceState({}, "", "/main/login");
-        history.back();
+        location.href="/main/login";
     </script>
 </body>
 </html>

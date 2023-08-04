@@ -38,10 +38,12 @@
             </div>
             <ul class="navbar-nav navbar-nav-right">
                 <li class="nav-item dropdown d-lg-flex d-none">
-                  
-                  <a class="btn btn-secondary btn-fw" id="nreportDropdown" href="/main/logout">
-                  	로그아웃
-                  </a>
+                 
+                  <form action="/main/logout" method="post">
+                  	<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
+                  	<button type="submit" class="btn btn-secondary btn-fw" id="nreportDropdown">로그아웃</button>
+                  </form>
+                
                 </li>
                 <li class="nav-item nav-profile dropdown">
                   <a class="nav-link dropdown-toggle" href="" data-bs-toggle="dropdown" id="profileDropdown">

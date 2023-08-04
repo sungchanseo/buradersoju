@@ -20,7 +20,7 @@
 	<security:http>
 		
 		<security:intercept-url pattern="/main/login" access="permitAll"/>
-		<security:intercept-url pattern="/main" access="hasRole('ROLE_MEMBER')" />
+		<security:intercept-url pattern="/" access="hasRole('ROLE_MEMBER')" />
 		<security:intercept-url pattern="/customer/*" access="hasRole('ROLE_MEMBER')"/> 
 		<security:intercept-url pattern="/employee/*" access="hasRole('ROLE_MEMBER')"/> 
 		<security:intercept-url pattern="/contract/*" access="hasRole('ROLE_MEMBER')"/> 
@@ -42,7 +42,8 @@
 		<security:remember-me data-source-ref="dataSource" token-validity-seconds="604800"/>
 		
 		<!-- 로그아웃 -->
-		<security:logout logout-url="/main/logout" invalidate-session="true" delete-cookies="remember-me,JESSION_ID"/>
+		<security:logout logout-url="/main/logout" logout-success-url="/main/logout" 
+		invalidate-session="true" delete-cookies="remember-me, JSESSION_ID"/>
 		
 	</security:http>
 

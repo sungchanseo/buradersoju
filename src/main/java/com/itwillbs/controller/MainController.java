@@ -19,11 +19,10 @@ public class MainController {
 	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 	
 	// http://localhost:8088/main
-	@RequestMapping(value = "/main", method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String main(HttpServletRequest request, Model model) {
 		
 		logger.info("C: 메인페이지 GET");
-		
 //		// 세션에서 사용자 ID 값 확인
 //		HttpSession session = request.getSession();
 //		String emp_id = (String) session.getAttribute("emp_id");
@@ -51,9 +50,7 @@ public class MainController {
                 System.out.println("Authorities: " + userDetails.getAuthorities());
 	        }
 	    }
-		
-		
-		
 		return "/main/main";
 	}
+	
 }

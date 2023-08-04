@@ -16,7 +16,7 @@ public class MainController {
 	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 	
 	// http://localhost:8088/main
-	@RequestMapping(value = "/main", method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String main(HttpServletRequest request, Model model) {
 		
 		logger.info("C: 메인페이지 GET");

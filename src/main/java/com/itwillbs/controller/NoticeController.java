@@ -150,9 +150,9 @@ public class NoticeController {
 		List<Object> noticeList = null;
 		
 		//로그인 세션이 없을 때 로그인 페이지로 이동한다. 
-		if(session.getAttribute("emp_id") == null) {
-			return "redirect:/main/login";
-		}
+//		if(session.getAttribute("emp_id") == null) {
+//			return "redirect:/main/login";
+//		}
 		
 		// 공지 목록을 가져오는 contService 호출
 		pvo = service.setPageInfoForNotice(pvo);

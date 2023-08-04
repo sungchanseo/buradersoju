@@ -14,6 +14,11 @@
 		VALUES (#{emp_id}, #{emp_pw}, #{emp_name}, #{emp_email}, #{emp_birth}, #{emp_gender}, #{emp_phone}, #{emp_tel}, #{emp_address}, #{emp_address_detail}, #{emp_image}, #{emp_department}, #{emp_position}, '재직', #{join_date}, #{absence_date}, #{rehabi_date}, #{resign_date}, '1')
 	</insert>
 	
+	<insert id="insertEmployeeAuth" parameterType="com.itwillbs.domain.EmployeeVO">
+		INSERT INTO employee_auth (emp_id, auth) 
+		VALUES (#{emp_id}, #{auth})
+	</insert>
+    
     <select id="getNextNumber" resultType="java.lang.Integer">
         SELECT COALESCE(MAX(CAST(SUBSTRING(emp_id, 5) AS UNSIGNED)), 0) + 1 FROM employee
     </select>
@@ -40,7 +45,7 @@
 	<!-- 회원정보 수정 -->
 	<update id="modifyEmployee">
 		update employee set emp_pw=#{emp_pw}, emp_name=#{emp_name}, emp_email=#{emp_email}, emp_birth=#{emp_birth}, emp_gender=#{emp_gender}, emp_phone=#{emp_phone}, emp_tel=#{emp_tel}, emp_address=#{emp_address}, emp_address_detail=#{emp_address_detail}, emp_image=#{emp_image}, emp_department=#{emp_department}, emp_position=#{emp_position}, emp_status=#{emp_status}, join_date=#{join_date}, absence_date=#{absence_date}, rehabi_date=#{rehabi_date}, resign_date=#{resign_date}  
-		where emp_id=#{emp_id} and emp_pw=#{emp_pw}
+		where emp_id=#{emp_id}
 	</update>
 	<!-- 회원정보 수정 -->	
 	
@@ -119,5 +124,45 @@
 	<!-- 검색어+필터처리+페이지갯수 제한 전체 목록 가져오기  -->	
 
 <!-- /////////////////////// 리스트 /////////////////////// -->	
+	
+	<resultMap type="com.itwillbs.domain.EmployeeVO" id="memberMap">
+
+		<id property="emp_id" column="emp_id"/>
+
+		<result property="emp_pw" column="emp_pw"/>	
+		<result property="emp_name" column="emp_name"/>	
+		<result property="emp_email" column="emp_email"/>	
+		<result property="emp_birth" column="emp_birth"/>	
+		<result property="emp_gender" column="emp_gender"/>	
+		<result property="emp_phone" column="emp_phone"/>	
+		<result property="emp_tel" column="emp_tel"/>	
+		<result property="emp_address" column="emp_address"/>	
+		<result property="emp_address_detail" column="emp_address_detail"/>	
+		<result property="emp_image" column="emp_image"/>	
+		<result property="emp_department" column="emp_department"/>	
+		<result property="emp_position" column="emp_position"/>	
+		<result property="emp_status" column="emp_status"/>	
+		<result property="join_date" column="join_date"/>	
+		<result property="absence_date" column="absence_date"/>	
+		<result property="rehabi_date" column="rehabi_date"/>	
+		<result property="resign_date" column="resign_date"/>	
+		<result property="emp_hidden" column="emp_hidden"/>	
+		<result property="auth" column="auth"/>	
+	
+		<collection property="authList" resultMap="authMap"></collection>
+	
+	</resultMap>
+	
+	<resultMap type="com.itwillbs.domain.AuthVO" id="authMap">
+		<result property="emp_id" column="emp_id"/>
+		<result property="auth" column="auth"/>
+	</resultMap>
+	
+	<select id="read" resultMap="memberMap">
+		SELECT emp.emp_id, emp_pw, emp_name, emp_department, enabled, emp_image, auth 
+		FROM employee emp LEFT JOIN employee_auth auth 
+		ON emp.emp_id = auth.emp_id 
+		WHERE emp.emp_id = #{emp_id}
+	</select>
 	
 </mapper> 

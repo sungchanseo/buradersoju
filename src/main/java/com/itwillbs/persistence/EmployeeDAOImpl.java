@@ -35,6 +35,13 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		sqlSession.insert(NAMESPACE + ".insertEmployee", vo); //괄호안은 (쿼리구문, 매개변수)순으로 입력하기
 	}
 	
+	//사원권한 등록
+	@Override
+	public void insertEmployeeAuth(EmployeeVO vo) {
+		System.out.println("EmployeeDAO : insertEmployeeAuth 호출!!!!");
+		sqlSession.insert(NAMESPACE+".insertEmployeeAuth", vo);
+	}
+	
 	// 사원 번호 자동 부여
     @Override
     public int getNextNumber() {
@@ -77,5 +84,11 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		return empResult;
 	}
 
-
+	//맵퍼 read
+	@Override
+	public EmployeeVO read(String emp_id) {
+		logger.debug(" ResultMap read 호출");
+		logger.debug(" @@@@@emp_id " + emp_id);
+		return sqlSession.selectOne(NAMESPACE + ".read", emp_id);
+	}
 }

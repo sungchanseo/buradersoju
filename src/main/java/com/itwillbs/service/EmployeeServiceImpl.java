@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.itwillbs.domain.EmployeeVO;
@@ -13,6 +15,8 @@ import com.itwillbs.persistence.EmployeeDAO;
 @Service
 public class EmployeeServiceImpl implements EmployeeService{
 
+	 private static final Logger logger = LoggerFactory.getLogger(EmployeeServiceImpl.class);
+	 
 	//DB와 연결 (의존주입)
 	@Inject
 	private EmployeeDAO edao;
@@ -47,6 +51,14 @@ public class EmployeeServiceImpl implements EmployeeService{
 		}
 		edao.insertEmployee(vo);
 	}
+	
+	//사원 인증 등록
+	@Override
+	public void insertEmployeeAuth(EmployeeVO vo) {
+		logger.debug("EmployeeService : 사원인증 등록합니다!!!!");
+		edao.insertEmployeeAuth(vo);
+	}
+	
 	
 	// 사원 번호 자동 부여
 	@Override
@@ -90,8 +102,5 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public Integer modifiyEmployee(EmployeeVO uvo) {
 		return edao.modifiyEmployee(uvo);
 	}
-	
-	
 
-	
 }

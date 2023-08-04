@@ -45,10 +45,10 @@ public class MaterialController {
 		logger.debug("@@@@@@@@@@ materialListGET_호출");
 
 		// 로그인 세션 제어
-		if(session.getAttribute("emp_id") == null) {
-			return "redirect:/main/login";
-		}
-		
+//		if(session.getAttribute("emp_id") == null) {
+//			return "redirect:/main/login";
+//		}
+//		
 		// 페이징 처리 service 호출
 		pvo = mService.setPageInfoForMaterial(pvo);
 		

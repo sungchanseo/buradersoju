@@ -38,10 +38,12 @@
             </div>
             <ul class="navbar-nav navbar-nav-right">
                 <li class="nav-item dropdown d-lg-flex d-none">
-                  
-                  <a class="btn btn-secondary btn-fw" id="nreportDropdown" href="/main/logout">
-                  	로그아웃
-                  </a>
+                 
+                  <form action="/main/logout" method="post">
+                  	<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
+                  	<button type="submit" class="btn btn-secondary btn-fw" id="nreportDropdown">로그아웃</button>
+                  </form>
+                
                 </li>
                 <li class="nav-item nav-profile dropdown">
                   <a class="nav-link dropdown-toggle" href="" data-bs-toggle="dropdown" id="profileDropdown">
@@ -59,10 +61,14 @@
                         <i class="mdi mdi-account-card-details text-primary"></i>
                          	부서 : ${sessionScope.emp_department}
                       </a>
-                       <a href="/main/logout" class="dropdown-item">
-                        <i class="mdi mdi-logout text-primary"></i>
-                        	로그아웃
-                      </a>
+<!--                        <a href="/main/logout" class="dropdown-item"> -->
+<!--                         <i class="mdi mdi-logout text-primary"></i> -->
+<!--                         	로그아웃 -->
+<!--                       </a> -->
+                      <form action="/main/logout" method = "post" class="dropdown-item">
+                      	<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
+                      	<button class="mdi mdi-logout text-primary">로그아웃</button>
+                      </form>
                   </div>
                 </li>
             </ul>

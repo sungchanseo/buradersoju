@@ -4,10 +4,8 @@
 <html>
 <body>
     <script>
-        alert("로그인에 실패했습니다!");
-        window.history.replaceState({}, "", "/main/login");
-        history.back();
+        alert("로그아웃 되었습니다!");
+        location.href="/main/login";
     </script>
-    
 </body>
 </html>

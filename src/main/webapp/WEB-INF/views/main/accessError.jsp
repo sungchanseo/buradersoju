@@ -4,10 +4,9 @@
 <html>
 <body>
     <script>
-        alert("로그인에 실패했습니다!");
+        alert("접근 권한이 없습니다!");
         window.history.replaceState({}, "", "/main/login");
         history.back();
     </script>
-    
 </body>
 </html>

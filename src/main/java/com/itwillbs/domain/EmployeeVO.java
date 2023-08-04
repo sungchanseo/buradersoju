@@ -1,5 +1,10 @@
 package com.itwillbs.domain;
 
+import java.util.List;
+
+import lombok.Data;
+
+@Data
 public class EmployeeVO {
 	private String emp_id;
 	private String emp_pw;
@@ -20,9 +25,41 @@ public class EmployeeVO {
 	private String rehabi_date;
 	private String resign_date;
 	private String emp_hidden;
+	private String auth;
+	private List<AuthVO> authList;
 
 	public EmployeeVO() {
+		
+	}
 
+
+	public EmployeeVO(String emp_id, String emp_pw, String emp_name, String emp_email, String emp_birth,
+			String emp_gender, String emp_phone, String emp_tel, String emp_address, String emp_address_detail,
+			String emp_image, String emp_department, String emp_position, String emp_status, String join_date,
+			String absence_date, String rehabi_date, String resign_date, String emp_hidden, String auth,
+			List<AuthVO> authList) {
+		super();
+		this.emp_id = emp_id;
+		this.emp_pw = emp_pw;
+		this.emp_name = emp_name;
+		this.emp_email = emp_email;
+		this.emp_birth = emp_birth;
+		this.emp_gender = emp_gender;
+		this.emp_phone = emp_phone;
+		this.emp_tel = emp_tel;
+		this.emp_address = emp_address;
+		this.emp_address_detail = emp_address_detail;
+		this.emp_image = emp_image;
+		this.emp_department = emp_department;
+		this.emp_position = emp_position;
+		this.emp_status = emp_status;
+		this.join_date = join_date;
+		this.absence_date = absence_date;
+		this.rehabi_date = rehabi_date;
+		this.resign_date = resign_date;
+		this.emp_hidden = emp_hidden;
+		this.auth = auth;
+		this.authList = authList;
 	}
 
 	public String getEmp_id() {
@@ -177,30 +214,21 @@ public class EmployeeVO {
 		this.emp_hidden = emp_hidden;
 	}
 
-	public EmployeeVO(String emp_id, String emp_pw, String emp_name, String emp_email, String emp_birth,
-			String emp_gender, String emp_phone, String emp_tel, String emp_address, String emp_address_detail,
-			String emp_image, String emp_department, String emp_position, String emp_status, String join_date,
-			String absence_date, String rehabi_date, String resign_date, String emp_hidden) {
-		super();
-		this.emp_id = emp_id;
-		this.emp_pw = emp_pw;
-		this.emp_name = emp_name;
-		this.emp_email = emp_email;
-		this.emp_birth = emp_birth;
-		this.emp_gender = emp_gender;
-		this.emp_phone = emp_phone;
-		this.emp_tel = emp_tel;
-		this.emp_address = emp_address;
-		this.emp_address_detail = emp_address_detail;
-		this.emp_image = emp_image;
-		this.emp_department = emp_department;
-		this.emp_position = emp_position;
-		this.emp_status = emp_status;
-		this.join_date = join_date;
-		this.absence_date = absence_date;
-		this.rehabi_date = rehabi_date;
-		this.resign_date = resign_date;
-		this.emp_hidden = emp_hidden;
+	public String getAuth() {
+		return auth;
+	}
+
+	public void setAuth(String auth) {
+		this.auth = auth;
+	}
+	
+
+	public List<AuthVO> getAuthList() {
+		return authList;
+	}
+
+	public void setAuthList(List<AuthVO> authList) {
+		this.authList = authList;
 	}
 
 	@Override
@@ -210,7 +238,9 @@ public class EmployeeVO {
 				+ ", emp_tel=" + emp_tel + ", emp_address=" + emp_address + ", emp_address_detail=" + emp_address_detail
 				+ ", emp_image=" + emp_image + ", emp_department=" + emp_department + ", emp_position=" + emp_position
 				+ ", emp_status=" + emp_status + ", join_date=" + join_date + ", absence_date=" + absence_date
-				+ ", rehabi_date=" + rehabi_date + ", resign_date=" + resign_date + ", emp_hidden=" + emp_hidden + "]";
+				+ ", rehabi_date=" + rehabi_date + ", resign_date=" + resign_date + ", emp_hidden=" + emp_hidden
+				+ ", auth=" + auth + ", authList=" + authList + "]";
 	}
-
+	
+	
 }

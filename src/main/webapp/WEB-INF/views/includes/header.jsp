@@ -32,8 +32,8 @@
               </li>	
             </ul>
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                <a class="navbar-brand brand-logo" href="/main"><img src="${pageContext.request.contextPath}/resources/images/logo.png" alt="logo" style="width: 400px; height: auto;"/></a>
-                <a class="navbar-brand brand-logo-mini" href="/main">
+                <a class="navbar-brand brand-logo" href="/"><img src="${pageContext.request.contextPath}/resources/images/logo.png" alt="logo" style="width: 400px; height: auto;"/></a>
+                <a class="navbar-brand brand-logo-mini" href="/">
 				</a>
             </div>
             <ul class="navbar-nav navbar-nav-right">

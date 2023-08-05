@@ -20,7 +20,7 @@
 	<security:http>
 		
 		<security:intercept-url pattern="/main/login" access="permitAll"/>
-		<security:intercept-url pattern="/" access="hasRole('ROLE_MEMBER')" />
+		<security:intercept-url pattern="/main" access="hasRole('ROLE_MEMBER')" />
 		<security:intercept-url pattern="/customer/*" access="hasRole('ROLE_MEMBER')"/> 
 		<security:intercept-url pattern="/employee/*" access="hasRole('ROLE_MEMBER')"/> 
 		<security:intercept-url pattern="/contract/*" access="hasRole('ROLE_MEMBER')"/> 

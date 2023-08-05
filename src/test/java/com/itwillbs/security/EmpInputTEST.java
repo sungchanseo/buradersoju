@@ -25,12 +25,12 @@ public class EmpInputTEST {
 	@Inject
 	private PasswordEncoder pwencoder;
 	
-//	@Test
+	@Test
 	public void 비밀번호인코딩수정하기() {
 		
 		EmployeeVO emp = new EmployeeVO();
 		
-		emp.setEmp_id("2023001");
+		emp.setEmp_id("2000001");
 		emp.setEmp_pw(pwencoder.encode("1234"));
 		
 		edao.modifiyEmployee(emp);

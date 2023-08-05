@@ -71,7 +71,7 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 				session.setAttribute("emp_department", vo.getEmp_department());
 				session.setAttribute("emp_image", vo.getEmp_image());
 				
-				response.sendRedirect("/");
+				response.sendRedirect("/main");
 				return;
 			}// if END
 				

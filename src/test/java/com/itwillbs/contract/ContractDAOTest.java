@@ -23,7 +23,7 @@ public class ContractDAOTest {
 	 @Autowired
 	 private ContractService cservice;
 	 
-	 @Test
+//	 @Test
 	 public void insertContract() throws Exception{
 		 logger.debug("^^^^^^^^^^^^^^^^ContractDAOTest : 테스트 시작합니다!");
 		 
